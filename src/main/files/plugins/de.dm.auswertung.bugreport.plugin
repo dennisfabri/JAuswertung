@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="BugreportPlugin" description="" id="de.df.jauswertung.bugreport" classname="de.df.jauswertung.gui.plugins.bugreport.BugreportPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

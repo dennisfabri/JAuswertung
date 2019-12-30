@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Zulassungplugin" description="Zulassung" id="de.df.jauswertung.zulassung" classname="de.df.jauswertung.gui.plugins.zulassung.MZulassungPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

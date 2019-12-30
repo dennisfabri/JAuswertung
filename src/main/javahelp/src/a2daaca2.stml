@@ -1,0 +1,13 @@
+:title Punktetabellen
+:label punktetabellen
+
+Die Punktetabellen ermöglichen eine schnelle Einordnung einer Zeit in einen Punktebereich. Diese ist mit dem Regelwerk von 2007 aus zwei Gründen komplizierter geworden:
+
+- Die gleiche Zeit in der gleichen Disziplin kann in zwei unterschiedlichen Altersklassen zu unterschiedlichen Punkten führen. Dies gilt insbesondere für die Altersklassen 12 bis Offen.
+- Die Rec-Werte werden nun jedes Jahr angepasst, so dass die Ergebnisse des letzten Jahres nicht mehr als Anhaltspunkt genutzt werden können.
+
+Es existiert jeweils eine Datei für die Einzel- und eine für die Mannschaftsdisziplinen. Die Dateien sind tabellarisch aufgebaut, wobei die Spalten zu einer bestimmten Altersklasse und Disziplin gehören. In den Zeilen sind die Zeiten angegeben, die man erreichen muss um mindestens die in der linken Spalte angegebene Punktzahl zu erreichen.
+
+**Anmerkung:** Wenn es nicht möglich ist, die links angegebene Punktzahl genau zu treffen, so ist jeweils die Zeit angegeben, die als erste zu einer höheren Punktzahl führt.
+
+**Hinweis:** Die Punktetabellen dürfen auch ohne JAuswertung weitergegeben werden. Bei einer Veränderung der Datei müssen Hinweise auf alle Autoren sichtbar sein.

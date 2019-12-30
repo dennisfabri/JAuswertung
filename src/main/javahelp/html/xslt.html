@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" href="style.css" type="text/css"></link>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+<meta name="author" content="Dennis Fabri" />
+<meta name="date" content="20161012224319" />
+<!-- created with HelpSetMaker, ID=2927723a -->
+<title>HTML-Vorlagen</title>
+</head>
+<body class="doc">
+<h1 class="title">HTML-Vorlagen</h1>
+
+<p>Der Export von HTML-Dateien sowie die Ausgabe des HTTP-Servers wird durch so genannte XSL-Templates festgelegt. Sie k&ouml;nnen auf diese Weise die Ausgabe beliebig anpassen. Der interne Ablauf der Erstellung von HTML-Dateien verl&auml;uft dabei wie folgt:
+<ol><li>
+<p>JAuswertung erstellt aus dem aktuellen Wettkampf ein XML-Datei, die alle n&ouml;tigen Daten enth&auml;lt.</p>
+</li><li>
+<p>&Uuml;ber einen sogenannten Transformer wird die XML-Datei mit einer XSLT-Datei verkn&uuml;pft und so die HTML-Datei erstellt.</p>
+</li></ol>
+</p>
+
+<p>Der Aufbau der XML-Dateien entspricht dabei dem der Dateien, die von JAuswertung exportiert werden k&ouml;nnen. Wenn Sie also die Ausgabe anpassen wollen, m&uuml;ssen Sie nur die entsprechenden Dateien im Unterverzeichnis "xsl" im Installationsordner von JAuswertung entsprechend anpassen.</p>
+
+<p><b>Anmerkung 1:</b> Auf eine genaue Beschreibung zum Umgang mit XSLT wird hier verzichtet, da entsprechende Beschreibungen im Internet in ausreichender Menge und Qualit&auml;t vorhanden sind.</p>
+
+<p><b>Anmerkung 2:</b> Ein Fehler in der XSLT-Datei f&uuml;hrt dazu, dass die Transformation nicht durchgef&uuml;hrt werden kann. JAuswertung meldet daraufhin, dass die Datei nicht gespeichert werden konnte.</p>
+</body>
+</html>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Guess reported points" description="" id="de.df.jauswertung.guesspoints" classname="de.df.jauswertung.gui.plugins.MPointGuessingPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

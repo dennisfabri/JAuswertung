@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="LauflistenpluginOW" description="" id="de.df.jauswertung.lauflisteow" classname="de.df.jauswertung.gui.plugins.heatsow.JOWHeatsPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

@@ -1,0 +1,60 @@
+:title Programme
+:label paket
+
+Das Programmpaket JAuswertung bietet die gesamte Funktionalität, die zur Auswertung von Wettkämpfen nach DLRG-Regelwerk benötigt wird. Dabei stehen innerhalb der Programme einige Funktionen nur dann zur Verfügung, wenn Sie sinnvoll sind. Z.B. können Startkarten nur dann gedruckt werden, wenn auch die Laufliste mit JAuswertung verwaltet wird.
+
+:h2 JAuswertung aktualisieren
+
+Um JAuswertung zu aktualisieren, deinstallieren Sie die alte Version. Anschließend können Sie die neue Version installieren. Sie sollten nicht versuchen, eine neue Version über eine ältere zu installieren, da dies zu fehlerhaftem Verhalten führen kann. Darüber hinaus ist eine saubere Deinstallation dann nicht mehr möglich.
+
+:h2 Installation
+
+Zur Installation laden Sie sich bitte das ihrem Betriebssystem entsprechende Installationsprogramm herunter (siehe Kapitel <<download|Download>>). Starten Sie das Installationsprogramm und folgen Sie den Anweisungen. Sollten Sie während der Installation eine Fehlermeldung erhalten, dass Sie kein Java installiert haben oder dass die von ihnen installierte Java-Version zu alt ist, laden Sie sich unter [[http://www.java.com]] die aktuelle Java-Version für Windows herunter und installieren diese; bei Linux-Distributionen nutzen Sei dazu den Paketmanager Ihrer Distribution. Anschließend können Sie JAuswertung installieren.
+
+Wenn Sie das Installationsprogramm JAuswertung-???.jar (??? steht für die aktuelle Versionnummer) benutzen, kann es passieren, dass 
+beim Starten dieser Datei nichts passiert oder dass sich ein Packprogramm (WinZip, WinRar, Arc o.ä.) öffnet. In diesem Fall öffnen Sie eine Eingabeaufforderung (Windows) oder Shell (Linux u.a.) und wechseln dort in das Verzeichnis, in dem die Installationsdatei liegt. Hier geben Sie dann den Befehl "java -jar JAuswertung-???.jar" (??? müssen Sie durch die entsprechende Versionsnummer erstetzen) ein. Das Installationsprogramm sollte jetzt nach kurzer Zeit starten. Wenn Sie jetzt eine Meldung erhalten, dass der Befehl java nicht gefunden wurde, ist Java nicht korrekt auf ihrem System installiert.
+
+Unter Windows und Linux werden bei der Installation von JAuswertung Verknüpfungen in ihrem Programmmenü und auf ihrem Desktop angelegt, über die Sie die entsprechenden Programme direkt starten können. Unter Windows werden darüber hinaus Dateiverknüpfungen mit Wettkampf- und Altersklassendateien erstellt.
+
+:h2 Deinstallation
+
+Vor der Deinstallation sollten Sie sich vergewissern, dass alle Programme von JAuswertung geschlossen sind, da ansonsten bei der Deinstallation nicht alle Dateien entfernen werden können. Sie können JAuswertung über die Verknüpfung "JAuswertung deinstallieren" in ihrem Programmmenü wieder entfernen. Dabei werden alle installierten Dateien sowie alle von JAuswertung erzeugten Einträge entfernt.
+
+Wurden bei der Installation mit "JAuswertung-???.jar" keine Verknüpfungen angelegt, können Sie JAuswertung wie folgt deinstallieren. Öffnen Sie eine Eingabeaufforderung oder Shell. Wechseln Sie in das Verzeichnis, in das Sie JAuswertung installiert haben und wechseln dort in das Unterverzeichnis "Uninstaller". Dort geben Sie den Befehl "java -jar uninstaller.jar" ein. Wenn das Installationsverzeichnis nicht automatisch mit entfernt wurde, können Sie es anschließend löschen.
+
+:h2 Programmstart
+
+:h3 Windows und Linux
+
+Sie können JAuswertung unter Windows und Linux wie von anderen Programmen gewohnt über ihr Programmmenü starten. Die einzelnen Verknüpfungen finden Sie im Verzeichnis JAuswertung. Unter Windows können Sie gespeicherte Wettkampf-Dateien und Altersklassendefinitionen direkt per Doppelklick öffnen.
+
+:h3 Andere Betriebssysteme
+
+Wenn Sie ein anderes Betriebssystem als Windows oder Linux benutzen, können Sie JAuswertung nur per Eingabeaufforderung (oder auch Shell) aus dem Installationsverzeichnis heraus starten. Der Befehl dazu lautet "java -jar jauswertung.jar" (ohne Anführungszeichen). Der Regelwerkseditor kann analog mit "java -jar regelwerkseditor.jar" gestartet werden.
+
+**Anmerkung:** Unter einigen Unix-Varianten ist es möglich, dass Verknüpfungen angelegt werden. Auf Grund der vielen unterschiedlichen Varianten kann hier aber keine generelle Aussage getroffen werden.
+
+:h2 Bedienung
+
+Bei JAuswertung wurde der Schwerpunkt auf eine leichte und komfortable Bedienung gelegt. Das bedeutet, dass nur Aktionen möglich sind, die allgemein sinnvoll sind. So ist z.B. die Eingabemaske für HLW-Punkte nur dann benutzbar, wenn mindestens ein Schwimmer die HLW absolvieren muss. Nicht benutzbare Funktionen werden daher grundsätzlich deaktiviert. Des weiteren können einzelne Funktionen deaktiviert werden, wenn Eingaben falsch oder unvollständig sind. So kann z.B. das Hinzufügen einer neuen Mannschaft nur dann abgeschlossen werden, wenn das Feld "Name" nicht leer ist und im Feld "Startnummer" kein Buchstabe steht. Felder, die nicht leer sein dürfen, verfärben sich automatisch gelb, wenn Sie leer sind. Fehlerhafte Eingaben (z.B. ein Buchstabe anstatt einer Zahl) führen dazu, dass sich der Hintergrund des Feldes rot verfärbt. So haben Sie jederzeit eine Rückmeldung zu ihrer aktuellen Eingabe.
+
+Die Eingabe von Zeiten ist für eine hohe Eingabegeschwindigkeit optimiert. Wenn Sie in JAuswertung Zeiten eingeben sollen, erscheint immer ein Textfeld und direkt daneben bzw. darunter ein Feld in dem die Zeit dargestellt wird. In dem Textfeld müssen Sie nur die Ziffern der Zeit eintragen und in den Feld daneben erscheint die dazugehörige Zeit. So wird z.B. aus der Eingabe 3280 die Zeit 0:32,80 und aus der Eingabe 10300 die Zeit 1:03,00.
+
+**Hinweis:** Eingegebene Zeiten werden vom Programm sofort übernommen und müssen nicht einzeln gespeichert werden.
+
+Bei der Eingabe von Zeiten und HLW-Punkten können Sie mit den Pfeiltasten zwischen den Zeilen wechseln.
+
+Bei der Eingabe von Zeiten sind darüber hinaus noch folgende Tastaturkürzel verfügbar:
+- "c" öffnet den Dialog, um eine Strafe nach Fehlercode zu vergeben. Diese Strafe wird zu bestehenden Strafen hinzugefügt.
+- "d" fügt dem Teilnehmer/der Mannschaft eine "Disqualifikation" hinzu
+- "n" setzt den Teilnehmer/die Mannschaft auf "Nicht angetreten" (allerdings nur wenn keine Zeit eingegeben wurde)
+- "p" öffnet ein Fenster zur Eingabe von Strafpunkten. Diese werden zu bestehenden Strafpunkten addiert.
+- "#" entfernt eingegebene Strafen
+
+Bei der Laufzeiteneingabe können Sie mit "Enter" nach der Eingabe jeder Zeit zur nächsten Bahn wechseln. Wenn Sie die letzte Bahn eingegeben haben und "Enter" drücken, wird Ihnen der Zieleinlauf angezeigt, so wie er sich aus den eingegebenen Zeiten ergibt. Mit den Tasten "z" und "," kann der Zieleinlauf des aktuellen Laufs angezeigt werden. Wie gewohnt können Sie auch hier mit den Cursortasten zwischen den einzelnen Bahnen wechseln. Wenn Sie in der ersten Bahn, die Pfeiltaste oben drücken, wechseln Sie zum vorherigen Lauf. Das Gleiche gilt umgekehrt auch für die letzte Bahn und die Pfeiltaste unten. Damit gelangen Sie zum jeweils nächsten Lauf.
+
+**Tipp:** Grundsätzlich werden Tabellen so dargestellt, dass möglichst alle Spalten vollständig angezeigt werden können. Durch einen Doppelklick auf die Grenze zwischen zwei Spaltenüberschriften, kann die linke Spalte manuell auf ihre optimale Größe angepasst werden.
+
+**Hinweis:** Die Oberfläche wurde unter Berücksichtigung aktueller Standards erstellt und ist intuitiv nutzbar. Sollten Sie einmal ein anderes Verhalten erwarten, als JAuswertung zeigt, schreiben Sie mir eine Email an [[bugs@dennisfabri.de|bugs @ dennisfabri.de]].
+
+**Anmerkung:** Beachten Sie bitte, dass Sie temporäre Dateien nicht löschen sollten, solange die zugehörige Anwendung geöffnet ist. Dies gilt auch für JAuswertung. Um den Speicherverbrauch zu reduzieren, werden Daten während der Druckvorschau auf ihre Festplatte geschrieben und beim Schließen der Druckvorschau wieder gelöscht. Werden diese Dateien während der Druckvorschau gelöscht, kann dies u.a. zu fehlerhaften Darstellungen führen.

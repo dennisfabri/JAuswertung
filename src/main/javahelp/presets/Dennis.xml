@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<HelpSetMaker>
+<Engine>
+<Value Key="expensivelabelcheck">false</Value>
+<Value Key="ilsplit.lastlocation">30</Value>
+<Value Key="ilsplit.location">567</Value>
+<Value Key="showanchors">false</Value>
+<Value Key="showlabels">false</Value>
+<Value Key="split.location">569</Value>
+<Value Key="stmleditor.autoupdate">true</Value>
+<Value Key="stmleditor.showhtml">true</Value>
+<Value Key="vsplit.lastlocation">737</Value>
+<Value Key="vsplit.location">737</Value>
+</Engine>
+<ImageLibrary>
+<Image Name="Zielrichterentscheid-korrektur.png">
+<Foundry>images</Foundry>
+<Timestamp>1196501388000</Timestamp>
+<Width>458</Width>
+<Height>289</Height>
+</Image>
+<Image Name="about.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>483</Width>
+<Height>369</Height>
+</Image>
+<Image Name="aks-bearbeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>127</Width>
+<Height>69</Height>
+</Image>
+<Image Name="aks-datei.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>163</Width>
+<Height>197</Height>
+</Image>
+<Image Name="aks-eigenschaften-1.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>701</Width>
+<Height>695</Height>
+</Image>
+<Image Name="aks-eigenschaften-2.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>701</Width>
+<Height>695</Height>
+</Image>
+<Image Name="aks-einzel.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>832</Width>
+<Height>700</Height>
+</Image>
+<Image Name="aks-mannschaft.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>832</Width>
+<Height>700</Height>
+</Image>
+<Image Name="aks-neu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>445</Width>
+<Height>267</Height>
+</Image>
+<Image Name="ausgabefilter.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>400</Width>
+<Height>291</Height>
+</Image>
+<Image Name="daten-pruefen-anmeldung.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>359</Width>
+<Height>223</Height>
+</Image>
+<Image Name="daten-pruefen-hlw.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>647</Width>
+<Height>201</Height>
+</Image>
+<Image Name="daten-pruefen-mannschaftsmitglieder.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>647</Width>
+<Height>171</Height>
+</Image>
+<Image Name="daten-pruefen-zeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>647</Width>
+<Height>231</Height>
+</Image>
+<Image Name="daten-pruefen.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>265</Width>
+<Height>698</Height>
+</Image>
+<Image Name="eigenschaften-informationen.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>500</Width>
+<Height>390</Height>
+</Image>
+<Image Name="eigenschaften-infoseite.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>500</Width>
+<Height>390</Height>
+</Image>
+<Image Name="eigenschaften-logo.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>500</Width>
+<Height>390</Height>
+</Image>
+<Image Name="eigenschaften-veranstaltungsort.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>500</Width>
+<Height>536</Height>
+</Image>
+<Image Name="eigenschaften-wettkampf.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>500</Width>
+<Height>400</Height>
+</Image>
+<Image Name="elektronische-zeitnahme.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>609</Width>
+<Height>431</Height>
+</Image>
+<Image Name="exportieren-dateiname.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>396</Width>
+<Height>153</Height>
+</Image>
+<Image Name="exportieren-daten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>396</Width>
+<Height>431</Height>
+</Image>
+<Image Name="exportieren-ende.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>396</Width>
+<Height>184</Height>
+</Image>
+<Image Name="exportieren-format.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>396</Width>
+<Height>271</Height>
+</Image>
+<Image Name="hlw-liste-bearbeiten-popup.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>194</Width>
+<Height>193</Height>
+</Image>
+<Image Name="hlw-liste-bearbeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>657</Width>
+<Height>496</Height>
+</Image>
+<Image Name="hlw-liste-neu-1.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>409</Width>
+<Height>167</Height>
+</Image>
+<Image Name="hlw-liste-neu-2.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>409</Width>
+<Height>172</Height>
+</Image>
+<Image Name="hlw-liste-neu-3.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>409</Width>
+<Height>252</Height>
+</Image>
+<Image Name="hlw-liste-neu-4.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>409</Width>
+<Height>242</Height>
+</Image>
+<Image Name="hlw-liste-neu-5.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>477</Width>
+<Height>268</Height>
+</Image>
+<Image Name="hlw-liste-neu-6.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>409</Width>
+<Height>184</Height>
+</Image>
+<Image Name="hlw-liste-neu-7.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>409</Width>
+<Height>315</Height>
+</Image>
+<Image Name="hlw-liste-neu-8.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>477</Width>
+<Height>235</Height>
+</Image>
+<Image Name="importieren-dateiname.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>394</Width>
+<Height>154</Height>
+</Image>
+<Image Name="importieren-daten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>394</Width>
+<Height>314</Height>
+</Image>
+<Image Name="importieren-format.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>394</Width>
+<Height>195</Height>
+</Image>
+<Image Name="importieren-fortschritt.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>394</Width>
+<Height>314</Height>
+</Image>
+<Image Name="importieren-info.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>394</Width>
+<Height>314</Height>
+</Image>
+<Image Name="jauswertung.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>699</Width>
+<Height>652</Height>
+<Width.INTERN>400</Width.INTERN>
+<Height.INTERN>373</Height.INTERN>
+</Image>
+<Image Name="kampfrichter-menu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>118</Width>
+<Height>111</Height>
+</Image>
+<Image Name="kampfrichter-neu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194942979000</Timestamp>
+<Width>530</Width>
+<Height>168</Height>
+</Image>
+<Image Name="kampfrichter.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>588</Width>
+<Height>687</Height>
+</Image>
+<Image Name="knopfleiste.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>810</Width>
+<Height>29</Height>
+</Image>
+<Image Name="laufliste-bearbeiten-menu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>221</Width>
+<Height>88</Height>
+</Image>
+<Image Name="laufliste-bearbeiten-popup.png">
+<Foundry>images</Foundry>
+<Timestamp>1197917362000</Timestamp>
+<Width>187</Width>
+<Height>105</Height>
+</Image>
+<Image Name="laufliste-bearbeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>898</Width>
+<Height>426</Height>
+</Image>
+<Image Name="laufliste-neu-1.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>392</Width>
+<Height>182</Height>
+</Image>
+<Image Name="laufliste-neu-2.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>392</Width>
+<Height>168</Height>
+</Image>
+<Image Name="laufliste-neu-3.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>398</Width>
+<Height>548</Height>
+</Image>
+<Image Name="laufliste-neu-4.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>398</Width>
+<Height>475</Height>
+</Image>
+<Image Name="laufliste-neu-5.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>398</Width>
+<Height>275</Height>
+</Image>
+<Image Name="laufliste-neu-6.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>398</Width>
+<Height>251</Height>
+</Image>
+<Image Name="meldepunkte-schaetzen.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940280000</Timestamp>
+<Width>158</Width>
+<Height>331</Height>
+</Image>
+<Image Name="meldezeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>856</Width>
+<Height>467</Height>
+</Image>
+<Image Name="menu-bearbeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>211</Width>
+<Height>385</Height>
+</Image>
+<Image Name="menu-datei.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>395</Width>
+<Height>254</Height>
+</Image>
+<Image Name="menu-extras.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>135</Width>
+<Height>66</Height>
+</Image>
+<Image Name="menu-info.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>89</Width>
+<Height>86</Height>
+</Image>
+<Image Name="menu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>163</Width>
+<Height>18</Height>
+</Image>
+<Image Name="neuer-wettkampf.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>528</Width>
+<Height>267</Height>
+</Image>
+<Image Name="optionen-allgemein.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>503</Height>
+</Image>
+<Image Name="optionen-anzeige.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>453</Height>
+</Image>
+<Image Name="optionen-csv.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>406</Width>
+<Height>346</Height>
+</Image>
+<Image Name="optionen-drucken.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>453</Height>
+</Image>
+<Image Name="optionen-druckschrift.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>503</Height>
+</Image>
+<Image Name="optionen-elektronische-zeitnahme.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>453</Height>
+</Image>
+<Image Name="optionen-http-server.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>453</Height>
+</Image>
+<Image Name="optionen-sicherung.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>503</Height>
+</Image>
+<Image Name="optionen-werbung.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>525</Width>
+<Height>453</Height>
+</Image>
+<Image Name="panel-anmeldung.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>400</Width>
+<Height>513</Height>
+</Image>
+<Image Name="panel-drucken-ergebnisse.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>861</Width>
+<Height>465</Height>
+</Image>
+<Image Name="panel-drucken-hlw-liste.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>893</Width>
+<Height>190</Height>
+</Image>
+<Image Name="panel-drucken-laufliste.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>893</Width>
+<Height>300</Height>
+</Image>
+<Image Name="panel-drucken-protokoll.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>775</Width>
+<Height>190</Height>
+</Image>
+<Image Name="panel-drucken-vordrucke.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>893</Width>
+<Height>190</Height>
+</Image>
+<Image Name="panel-drucken-wettkampf.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>775</Width>
+<Height>245</Height>
+</Image>
+<Image Name="panel-drucken.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>517</Width>
+<Height>248</Height>
+</Image>
+<Image Name="panel-ergebnisse-popup.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>154</Width>
+<Height>101</Height>
+</Image>
+<Image Name="panel-ergebnisse.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>799</Width>
+<Height>354</Height>
+</Image>
+<Image Name="panel-hlw-barcodes.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>576</Width>
+<Height>425</Height>
+</Image>
+<Image Name="panel-hlw-eingabe.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>576</Width>
+<Height>442</Height>
+</Image>
+<Image Name="panel-laufzeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1196501388000</Timestamp>
+<Width>729</Width>
+<Height>425</Height>
+</Image>
+<Image Name="panel-mannschaftsmitglieder.png">
+<Foundry>images</Foundry>
+<Timestamp>1406468681780</Timestamp>
+<Width>773</Width>
+<Height>510</Height>
+</Image>
+<Image Name="panel-meldungen-laufanzeigen.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>202</Width>
+<Height>231</Height>
+</Image>
+<Image Name="panel-meldungen-popup.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>213</Width>
+<Height>155</Height>
+</Image>
+<Image Name="panel-meldungen.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>734</Width>
+<Height>333</Height>
+</Image>
+<Image Name="panel-zeiteneingabe.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>683</Width>
+<Height>379</Height>
+</Image>
+<Image Name="schwimmer-bearbeiten.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>347</Width>
+<Height>740</Height>
+</Image>
+<Image Name="startunterlagen-assistent.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>396</Width>
+<Height>231</Height>
+</Image>
+<Image Name="startunterlagen-menu.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>118</Width>
+<Height>71</Height>
+</Image>
+<Image Name="startunterlagen.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>440</Width>
+<Height>390</Height>
+</Image>
+<Image Name="strafencode.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940276000</Timestamp>
+<Width>236</Width>
+<Height>300</Height>
+</Image>
+<Image Name="strafeneditor-disziplin-nicht-gewaehlt.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>446</Width>
+<Height>338</Height>
+</Image>
+<Image Name="strafeneditor.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>446</Width>
+<Height>332</Height>
+</Image>
+<Image Name="strafenkatalog.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>779</Width>
+<Height>390</Height>
+</Image>
+<Image Name="strafenliste.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>400</Width>
+<Height>478</Height>
+</Image>
+<Image Name="strafenwizard-code.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>394</Width>
+<Height>168</Height>
+</Image>
+<Image Name="strafenwizard-details.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940278000</Timestamp>
+<Width>394</Width>
+<Height>346</Height>
+</Image>
+<Image Name="strafpunkte.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>236</Width>
+<Height>300</Height>
+</Image>
+<Image Name="tipps.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940277000</Timestamp>
+<Width>448</Width>
+<Height>262</Height>
+</Image>
+<Image Name="urkundeneditor.png">
+<Foundry>images</Foundry>
+<Timestamp>1194940279000</Timestamp>
+<Width>668</Width>
+<Height>366</Height>
+</Image>
+<Image Name="veranstaltungswertung-ausgabe.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>556</Width>
+<Height>525</Height>
+</Image>
+<Image Name="veranstaltungswertung-gesamtwertung.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>556</Width>
+<Height>525</Height>
+</Image>
+<Image Name="veranstaltungswertung-schriftart.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>556</Width>
+<Height>525</Height>
+</Image>
+<Image Name="veranstaltungswertung-wettkaempfe.png">
+<Foundry>images</Foundry>
+<Timestamp>1273260279000</Timestamp>
+<Width>556</Width>
+<Height>525</Height>
+</Image>
+<Image Name="zielirchterentscheid-add.png">
+<Foundry>images</Foundry>
+<Timestamp>1196501388000</Timestamp>
+<Width>220</Width>
+<Height>197</Height>
+</Image>
+<Image Name="zielrichterentscheid.png">
+<Foundry>images</Foundry>
+<Timestamp>1196623112000</Timestamp>
+<Width>610</Width>
+<Height>374</Height>
+</Image>
+<ThumbName Image="Zielrichterentscheid-korrektur.png">7370e43c</ThumbName>
+<ThumbName Image="about.png">c5471888</ThumbName>
+<ThumbName Image="aks-bearbeiten.png">bfe8c626</ThumbName>
+<ThumbName Image="aks-datei.png">32fbe969</ThumbName>
+<ThumbName Image="aks-eigenschaften-1.png">0b349e1c</ThumbName>
+<ThumbName Image="aks-eigenschaften-2.png">ec53eccc</ThumbName>
+<ThumbName Image="aks-einzel.png">d1f78b7f</ThumbName>
+<ThumbName Image="aks-mannschaft.png">9d2bc4d2</ThumbName>
+<ThumbName Image="aks-neu.png">7f4d6e69</ThumbName>
+<ThumbName Image="ausgabefilter.png">ad40ee73</ThumbName>
+<ThumbName Image="daten-pruefen-anmeldung.png">9f063a1d</ThumbName>
+<ThumbName Image="daten-pruefen-hlw.png">53e69242</ThumbName>
+<ThumbName Image="daten-pruefen-mannschaftsmitglieder.png">1fe6c06d</ThumbName>
+<ThumbName Image="daten-pruefen-zeiten.png">84a2b94a</ThumbName>
+<ThumbName Image="daten-pruefen.png">2b8a2b79</ThumbName>
+<ThumbName Image="eigenschaften-informationen.png">d5e5b3d1</ThumbName>
+<ThumbName Image="eigenschaften-infoseite.png">995a73f2</ThumbName>
+<ThumbName Image="eigenschaften-logo.png">bc52e90d</ThumbName>
+<ThumbName Image="eigenschaften-veranstaltungsort.png">48337243</ThumbName>
+<ThumbName Image="eigenschaften-wettkampf.png">20a6f207</ThumbName>
+<ThumbName Image="elektronische-zeitnahme.png">a96c9351</ThumbName>
+<ThumbName Image="exportieren-dateiname.png">bcf19f40</ThumbName>
+<ThumbName Image="exportieren-daten.png">dbbf4da8</ThumbName>
+<ThumbName Image="exportieren-ende.png">6d46a7d6</ThumbName>
+<ThumbName Image="exportieren-format.png">a89d4258</ThumbName>
+<ThumbName Image="hlw-liste-bearbeiten-popup.png">1499123e</ThumbName>
+<ThumbName Image="hlw-liste-bearbeiten.png">4e680cd2</ThumbName>
+<ThumbName Image="hlw-liste-neu-1.png">ab3c39ca</ThumbName>
+<ThumbName Image="hlw-liste-neu-2.png">1b703774</ThumbName>
+<ThumbName Image="hlw-liste-neu-3.png">6e527991</ThumbName>
+<ThumbName Image="hlw-liste-neu-4.png">a87126b4</ThumbName>
+<ThumbName Image="hlw-liste-neu-5.png">400a4c7e</ThumbName>
+<ThumbName Image="hlw-liste-neu-6.png">6c50230c</ThumbName>
+<ThumbName Image="hlw-liste-neu-7.png">0efceb84</ThumbName>
+<ThumbName Image="hlw-liste-neu-8.png">c7f68a07</ThumbName>
+<ThumbName Image="importieren-dateiname.png">6e176e51</ThumbName>
+<ThumbName Image="importieren-daten.png">e836a92a</ThumbName>
+<ThumbName Image="importieren-format.png">ae4bfff7</ThumbName>
+<ThumbName Image="importieren-fortschritt.png">7f12698f</ThumbName>
+<ThumbName Image="importieren-info.png">66fb285a</ThumbName>
+<ThumbName Image="jauswertung.png">ffa7d160</ThumbName>
+<ThumbName Image="kampfrichter-menu.png">e68d4c71</ThumbName>
+<ThumbName Image="kampfrichter-neu.png">52dd08a2</ThumbName>
+<ThumbName Image="kampfrichter.png">71d6aa98</ThumbName>
+<ThumbName Image="knopfleiste.png">1d1a10e9</ThumbName>
+<ThumbName Image="laufliste-bearbeiten-menu.png">89410d7b</ThumbName>
+<ThumbName Image="laufliste-bearbeiten-popup.png">99fe4bea</ThumbName>
+<ThumbName Image="laufliste-bearbeiten.png">240f876e</ThumbName>
+<ThumbName Image="laufliste-neu-1.png">f7d2530d</ThumbName>
+<ThumbName Image="laufliste-neu-2.png">0a83912b</ThumbName>
+<ThumbName Image="laufliste-neu-3.png">86c11269</ThumbName>
+<ThumbName Image="laufliste-neu-4.png">9536324d</ThumbName>
+<ThumbName Image="laufliste-neu-5.png">a8cda3ca</ThumbName>
+<ThumbName Image="laufliste-neu-6.png">df0a36fe</ThumbName>
+<ThumbName Image="meldepunkte-schaetzen.png">29149abd</ThumbName>
+<ThumbName Image="meldezeiten.png">cd4935b2</ThumbName>
+<ThumbName Image="menu-bearbeiten.png">54c860b0</ThumbName>
+<ThumbName Image="menu-datei.png">215018eb</ThumbName>
+<ThumbName Image="menu-extras.png">18e878a5</ThumbName>
+<ThumbName Image="menu-info.png">ba215453</ThumbName>
+<ThumbName Image="menu.png">850d140c</ThumbName>
+<ThumbName Image="neuer-wettkampf.png">77bbb1b4</ThumbName>
+<ThumbName Image="optionen-allgemein.png">7513dec3</ThumbName>
+<ThumbName Image="optionen-anzeige.png">7ce20994</ThumbName>
+<ThumbName Image="optionen-csv.png">36b35e48</ThumbName>
+<ThumbName Image="optionen-drucken.png">f848147e</ThumbName>
+<ThumbName Image="optionen-druckschrift.png">6ec140a3</ThumbName>
+<ThumbName Image="optionen-elektronische-zeitnahme.png">4e0d1d40</ThumbName>
+<ThumbName Image="optionen-http-server.png">cf999191</ThumbName>
+<ThumbName Image="optionen-sicherung.png">6bd189a4</ThumbName>
+<ThumbName Image="optionen-werbung.png">316390fb</ThumbName>
+<ThumbName Image="panel-anmeldung.png">f58f3e74</ThumbName>
+<ThumbName Image="panel-drucken-ergebnisse.png">ffe9e3ba</ThumbName>
+<ThumbName Image="panel-drucken-hlw-liste.png">b4cea4c7</ThumbName>
+<ThumbName Image="panel-drucken-laufliste.png">9bcaa034</ThumbName>
+<ThumbName Image="panel-drucken-protokoll.png">7f06d9de</ThumbName>
+<ThumbName Image="panel-drucken-vordrucke.png">b8a65a60</ThumbName>
+<ThumbName Image="panel-drucken-wettkampf.png">683c2829</ThumbName>
+<ThumbName Image="panel-drucken.png">b4405f28</ThumbName>
+<ThumbName Image="panel-ergebnisse-popup.png">78e59f27</ThumbName>
+<ThumbName Image="panel-ergebnisse.png">c9c4d54d</ThumbName>
+<ThumbName Image="panel-hlw-barcodes.png">9d13493b</ThumbName>
+<ThumbName Image="panel-hlw-eingabe.png">cff10a2d</ThumbName>
+<ThumbName Image="panel-laufzeiten.png">722069ad</ThumbName>
+<ThumbName Image="panel-mannschaftsmitglieder.png">93c58fcd</ThumbName>
+<ThumbName Image="panel-meldungen-laufanzeigen.png">0f16db21</ThumbName>
+<ThumbName Image="panel-meldungen-popup.png">2c072a74</ThumbName>
+<ThumbName Image="panel-meldungen.png">197c8052</ThumbName>
+<ThumbName Image="panel-zeiteneingabe.png">45288075</ThumbName>
+<ThumbName Image="schwimmer-bearbeiten.png">d8cf0c2f</ThumbName>
+<ThumbName Image="startunterlagen-assistent.png">b7bf9e63</ThumbName>
+<ThumbName Image="startunterlagen-menu.png">0baf4ae8</ThumbName>
+<ThumbName Image="startunterlagen.png">fb246160</ThumbName>
+<ThumbName Image="strafencode.png">1d305fa4</ThumbName>
+<ThumbName Image="strafeneditor-disziplin-nicht-gewaehlt.png">da948807</ThumbName>
+<ThumbName Image="strafeneditor.png">e8461943</ThumbName>
+<ThumbName Image="strafenkatalog.png">0f0d8b9b</ThumbName>
+<ThumbName Image="strafenliste.png">0b118eee</ThumbName>
+<ThumbName Image="strafenwizard-code.png">532e6c5e</ThumbName>
+<ThumbName Image="strafenwizard-details.png">8786b4c2</ThumbName>
+<ThumbName Image="strafpunkte.png">a8bbfd5c</ThumbName>
+<ThumbName Image="tipps.png">7aa1535a</ThumbName>
+<ThumbName Image="urkundeneditor.png">62a6093b</ThumbName>
+<ThumbName Image="veranstaltungswertung-ausgabe.png">b0a5b10b</ThumbName>
+<ThumbName Image="veranstaltungswertung-gesamtwertung.png">133f58ca</ThumbName>
+<ThumbName Image="veranstaltungswertung-schriftart.png">117e59ff</ThumbName>
+<ThumbName Image="veranstaltungswertung-wettkaempfe.png">3e06055c</ThumbName>
+<ThumbName Image="zielirchterentscheid-add.png">9ca05c9b</ThumbName>
+<ThumbName Image="zielrichterentscheid.png">730011da</ThumbName>
+<ThumbnailSize>100</ThumbnailSize>
+</ImageLibrary>
+<EditorData Filename="doc0">1708,0</EditorData>
+<EditorData Filename="doc24">0,0</EditorData>
+<EditorData Filename="doc4">0,0</EditorData>
+<EditorData Filename="doc22">0,0</EditorData>
+<EditorData Filename="7316219d">654,11180</EditorData>
+<EditorData Filename="8bdb9f44">0,0</EditorData>
+<EditorData Filename="30c8ebe1">10160,3117</EditorData>
+<EditorData Filename="doc18">737,0</EditorData>
+<EditorData Filename="b142a6ed">0,0</EditorData>
+<EditorData Filename="9f48e33b">27,0</EditorData>
+<EditorData Filename="870bb785">0,0</EditorData>
+<EditorData Filename="d15de6b6">40,0</EditorData>
+<EditorData Filename="a2daaca2">821,0</EditorData>
+<EditorData Filename="0f948607">408,0</EditorData>
+<EditorData Filename="6e20855b">0,0</EditorData>
+<EditorData Filename="d02f991f">0,0</EditorData>
+<EditorData Filename="doc13">0,0</EditorData>
+<EditorData Filename="doc9">748,0</EditorData>
+<EditorData Filename="doc25">0,0</EditorData>
+<EditorData Filename="e51f7c12">0,0</EditorData>
+<EditorData Filename="2927723a">0,0</EditorData>
+<EditorData Filename="doc8">0,0</EditorData>
+<EditorData Filename="doc7">0,0</EditorData>
+</HelpSetMaker>

@@ -1,0 +1,25 @@
+:title Lizenzbedingungen
+
+JAuswertung ist unter der GNU Lesser General Public License (LGPL) veröffentlicht, dabei werden Bibliotheken benutzt, die unter folgenden Lizenzen veröffentlich werden:
+
+- Apache Commons Logging: Apache Software License (ASL)
+- Apache Commons HTTP-Client: ASL
+- Apache POI: ASL
+- Datatips: BSD License
+- itext: LGPL
+- JGoodies Forms: BSD License
+- JGoodies Looks: BSD License
+- JDIC: LGPL
+- JLauncher: LGPL
+- JavaHelp: Binary Code License by Sun Microsystems
+- JUtils: LGPL
+- JUnit: GPL
+- L2FProd Commons: ASL
+- RenderPack: BSD License
+- SwingFX: BSD License
+- SwingWorker: LGPL
+- uistate: BSD License
+- XStream: BSD License
+- xpp3: ASL
+
+Die Texte der Lizenzen finden Sie im Verzeichnis "legal" Ihrer Installation.

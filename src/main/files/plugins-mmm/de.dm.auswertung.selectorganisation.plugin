@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="SelectOrganisation" id="de.df.jauswertung.selectorganisation" description="" classname="de.df.jauswertung.gui.plugins.teammembersinput.SelectOrganisationPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

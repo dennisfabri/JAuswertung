@@ -1,0 +1,652 @@
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 12 weiblich      
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Kombiniertes Schwimmen            
+     Wettkampf 3     50 m Flossenschwimmen                  
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Krüger          Juliane          MV       89  2439.64     0    0:31:9  822        0:35:7  778        0:24:4  839    
+     2  Mahn            Antje            MV       89  2224.96   215    0:33:8  761        0:39:0  688        0:25:9  776    
+     3  Wittig          Franziska        TH       89  2182.06   258    0:34:3  746        0:37:7  722        0:27:5  714    
+     4  Walter          Laura            WÜ       90  2143.46   296    0:36:5  682        0:39:6  672        0:25:6  789    
+     5  Antosik         Claudia          NR       89  2101.30   338    0:34:2  749        0:42:0  616        0:26:9  737    
+
+     6  Stolz           Leonie           HE       89  2097.09   343    0:36:4  685        0:42:4  607        0:25:2  805    
+     7  Harnack         Astrid           WE       89  2062.32   377    0:35:7  705        0:40:8  643        0:27:5  714    
+     8  Erbach          Maja             HE       89  2052.95   387    0:34:3  746        0:42:2  611        0:28:0  696    
+     9  Nguyen          Julia            RP       89  2003.39   436    0:37:0  669        0:41:8  620        0:27:5  714    
+    10  Kröhler         Alena            RP           1956.95   483    0:39:8  599        0:41:6  625        0:27:0  733    
+
+    11  Hubert          Daniela          ND       89  1956.55   483    0:36:2  691        0:43:3  587        0:28:5  678    
+    12  Hesper          Julia            WE       89  1922.86   517    0:36:7  677        0:42:8  598        0:29:4  648    
+    13  Braun           Sabine           BY       89  1914.87   525    0:38:1  640        0:42:1  613        0:29:0  661    
+    14  Wünsche         Susanne          SN       89  1897.44   542    0:38:1  640        0:41:7  622        0:29:8  635    
+    15  Henning         Sophie           TH       89  1869.11   571    0:36:7  677        0:44:8  557        0:29:8  635    
+
+    16  Bialas          Theresa          TH       90  1868.31   571    0:36:5  682        0:44:0  573        0:30:5  613    
+    17  Kahl            Ines             BE       89  1865.50   574    0:39:3  611        0:42:1  613        0:29:6  641    
+    18  Lauenroth       Kim              SH       89  1855.77   584    0:36:7  677        0:43:9  575        0:30:8  604    
+    19  Degen           Anna             SR       89  1798.23   641    0:40:1  592        0:48:4  495        0:27:6  711    
+    20  Andrae          Franziska        SA       89  1717.02   723    0:41:4  564        0:46:4  528        0:30:1  625    
+
+    21  Ernicke         Laura            BB       90  1641.94   798    0:41:4  564        0:49:0  486        0:31:2  592    
+    22  Rohschürmann    Daniela          BS       89  1534.73   905    0:47:7  456        0:51:8  450        0:30:0  628    
+        Heinz           Regina           BA       89                    n. a.              n. a.              n. a.         
+        Rieck-Gerding   Hanne            WÜ       90                    n. a.              n. a.              n. a.         
+
+—————————————————— CHAOS-SOFTWARE V9.07—S67—————————————————— 12:51:41 Uhr —————————————————— 27.10.2001 ———————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 12 männlich      
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Kombiniertes Schwimmen            
+     Wettkampf 3     50 m Flossenschwimmen                  
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Keppler         Benjamin         WÜ       89  1905.16     0    0:33:9  639        0:38:7  590        0:24:5  676    
+     2  Hassemeier      Marcel           WE       90  1876.70    28    0:32:5  681        0:40:6  548        0:25:2  648    
+     3  Kolleth         Marcel           BA       89  1819.30    86    0:34:1  634        0:41:3  534        0:25:1  652    
+     4  Möhr            Paul             MV       89  1781.20   124    0:34:5  623        0:41:9  522        0:25:5  636    
+     5  Opitz           Georg            SN       89  1711.82   193    0:36:7  566        0:40:9  542        0:26:4  604    
+
+     6  Hainke          Stefan           WE       89  1707.58   198    0:36:0  583        0:41:8  524        0:26:5  600    
+     7  Gottschalk      Tobias           BY       89  1698.67   206    0:35:7  591        0:41:6  528        0:27:1  580    
+     8  Brenning        Klaus            TH       90  1685.63   220    0:36:3  576        0:40:4  552        0:27:8  558    
+     9  Lipphardt       Markus           WE       89  1679.76   225    0:36:6  569        0:42:5  511        0:26:5  600    
+    10  Frenzel         Marco            SN       90  1653.72   251    0:36:0  583        0:41:9  522        0:28:1  548    
+
+    11  Oelschlägel     Marcus           MV       89  1643.07   262    0:35:3  601        0:47:4  438        0:26:4  604    
+    12  Sauer           Lars             BA       89  1636.94   268    0:37:0  559        0:42:5  511        0:27:5  567    
+    13  Strohm          Christian        NR       89  1634.13   271    0:37:2  554        0:42:4  513        0:27:5  567    
+    14  Zims            Raphael          SR       90  1631.22   274    0:36:7  566        0:44:0  485        0:27:1  580    
+    15  Taube           Jannis           WE       89  1608.65   297    0:36:8  564        0:48:1  430        0:26:1  614    
+
+    16  Ende            Nils             ND       91  1602.58   303    0:38:3  530        0:40:5  550        0:29:0  522    
+    17  Preller         Paul             TH       90  1579.01   326    0:37:0  559        0:45:5  462        0:27:8  558    
+    18  Brand           Matthias         WÜ       89  1578.50   327    0:36:1  581        0:44:1  484        0:29:3  514    
+    19  Klein           Andreas          RP           1554.82   350    0:35:7  591        0:47:1  442        0:29:0  522    
+    20  Hohn            Sebastian        BB       90  1534.62   371    0:39:4  508        0:43:5  493        0:28:6  534    
+
+    21  Möllers         Johannes         WE       89  1526.48   379    0:39:0  516        0:43:0  502        0:29:5  509    
+    22  Eilermann       Martin           ND       89  1504.74   400    0:39:0  516        0:47:7  435        0:27:9  554    
+    23  Klatt           Thorsten         NR       89  1483.50   422    0:41:0  479        0:45:7  460        0:28:2  545    
+    24  Bartsch         Stefan           BE       90  1471.44   434    0:39:3  510        0:46:4  450        0:29:4  512    
+    25  Knödler         Philipp          WÜ       89  1431.89   473    0:38:8  520        0:44:3  430  50    0:30:6  482    
+
+    26  Kraft           Sören            HE       89  1420.95   484    0:41:2  475        0:45:4  464        0:30:6  482    
+    27  Graw            Jannes           HH       89  1410.97   494    0:39:5  506        0:47:0  443        0:31:5  462    
+    28  Garz            Richard          SA       89  1396.63   509    0:41:2  475        0:46:9  444        0:30:8  477    
+    29  Döring          Janning          SH       90  1396.54   509    0:41:4  472        0:45:1  468        0:31:8  456    
+    30  Kelpen          Kevin            BS       89  1256.25   649    0:45:6  418        0:50:7  408        0:33:3  430    
+
+    31  Stahlwitz       Jörg             BY       89  1087.59   818    0:36:4  573        0:42:5      VaP    0:29:3  514    
+        Berner          Clemens          SN       90                    n. a.              n. a.              n. a.         
+
+—————————————————— CHAOS-SOFTWARE V9.07—S67—————————————————— 12:51:32 Uhr —————————————————— 27.10.2001 ———————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 13/14 weiblich   
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3     50 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Wischnewski     Kirsten          HE       87  2623.08     0    0:33:7  764        0:44:3  883        0:33:3  776         200
+     2  Müller          Claudia          BB       87  2592.91    30    0:35:1  722        0:44:6  875        0:32:7  796         200
+     3  Schöwe          Anne             ND       87  2532.15    91    0:35:4  713        0:46:0  842        0:33:3  776         200
+     4  Randecker       Jasmin           WÜ       87  2514.09   109    0:33:9  758        0:47:4  811        0:34:3  746         200
+     5  Hainke          Melanie          WE       87  2514.03   109    0:33:0  786        0:49:4  767        0:33:8  761         200
+
+     6  Schärf          Leonie           WE       87  2489.13   134    0:35:5  710        0:48:8  780        0:32:6  799         200
+     7  Romaker         Natalie          NR       87  2463.33   160    0:34:7  734        0:47:4  811        0:35:2  719         200
+     8  Maslek          Stefanie         NR       87  2460.13   163    0:34:0  755        0:49:9  757        0:34:2  749         200
+     9  Uellner         Ann-Kathrin      NR       87  2431.97   191    0:36:6  680        0:48:7  782        0:33:5  770         200
+    10  Schubert        Karin            BY       87  2414.93   208    0:33:3  776        0:50:6  742        0:36:0  696         200
+
+    11  Gaens           Stephanie        NR       87  2407.72   215    0:34:7  734        0:51:9  716        0:33:9  758         200
+    12  Dräger          Jenny            MV       87  2403.20   220    0:36:4  685        0:46:9  822        0:36:0  696         200
+    13  Höning          Linda            WE       87  2393.36   230    0:37:7  650        0:47:2  815        0:34:9  728         200
+    14  Marquis         Verena           NR       88  2390.08   233    0:36:2  691        0:51:4  726        0:33:4  773         200
+    15  Zimmermann      Rebecca          SH       87  2356.88   266    0:35:6  708        0:52:7  701        0:34:2  749         200
+
+    16  Kreinest        Dorothe          RP           2348.80   274    0:35:6  708        0:50:6  742        0:35:9  699         200
+    17  Hekter          Franziska        ND       88  2346.13   277    0:35:0  725        0:50:9  736        0:36:4  685         200
+    18  Nier            Antje            BB       87  2339.60   283    0:37:5  656        0:49:1  774        0:35:5  710         200
+    19  Hejpeter        Jana             SA       87  2339.08   284    0:36:1  693        0:49:2  771        0:36:8  674         200
+    20  Köckeritz       Lydia            SN       87  2325.57   298    0:37:5  656        0:51:8  718        0:34:1  752         200
+
+    21  Eidhoff         Anne-Theresa     WE       87  2322.68   300    0:37:0  669        0:56:7  629        0:31:8  825         200
+    22  Oertel          Dyan             TH       87  2313.50   310    0:36:7  677        0:53:7  682        0:34:0  755         200
+    23  Mey             Simona           SH       87  2310.93   312    0:35:5  710        0:50:6  742        0:37:4  658         200
+    24  Maximini        Julie            SR       87  2306.53   317    0:35:1  722        0:53:2  691        0:36:1  693         200
+    25  Huesmann        Lisa             WE       87  2303.43   320    0:38:0  643        0:49:8  759        0:35:8  702         200
+
+    26  Raddatz         Nicole           SH       87  2265.87   357    0:35:5  710        0:53:3  689        0:37:1  666         200
+    27  Heinz           Elvira           BA       87  2250.94   372    0:35:5  710        0:50:0  755        0:33:0  786           0
+    28  Zdralek         Nora             BS       87  2194.90   428    0:37:7  650        0:49:9  757        0:40:3  588         200
+    29  Riethig         Jasmin           NR       88  2141.16   482    0:34:5  740        0:55:3  453 200    0:34:2  749         200
+    30  Junker          Sina             WE       87  2046.96   576    0:38:8  623        0:50:1  753        0:36:9  672           0
+
+    31  Schäfer         Cornelia         BE       88  2035.36   588    0:36:9  672        0:49:3  769        0:40:0  395 200     200
+        Gosau           Darinka          HH       87                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:19:55 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 13/14 männlich   
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3     50 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Große-Cossmann  Christopher      WE       87  2500.36     0    0:30:7  739        0:40:6  785        0:29:6  776         200
+     2  Pankrath        Enrico           BB       87  2473.65    27    0:30:9  732        0:42:4  740        0:28:9  802         200
+     3  Worschech       Peter            MV       87  2419.80    81    0:30:9  732        0:41:1  773        0:31:4  715         200
+     4  Gelleschus      Axel             SA       87  2348.46   152    0:30:3  752        0:44:8  684        0:31:5  712         200
+     5  Meßner          Christian        BY       87  2261.97   238    0:31:7  706        0:41:9  752        0:35:2  604         200
+
+     6  Nitsche         Alexander        WE       87  2255.64   245    0:31:2  722        0:44:1  700        0:34:1  634         200
+     7  Daniel          Dennis           NR       87  2226.85   274    0:31:9  699        0:46:1  656        0:32:8  672         200
+     8  Osterholt       Oliver           WE       87  2222.16   278    0:31:8  703        0:45:5  669        0:33:5  651         200
+     9  Luster          Christoph        SA       87  2221.79   279    0:31:7  706        0:45:8  662        0:33:4  654         200
+    10  Taubmann        Paul             TH       87  2190.21   310    0:31:6  709        0:48:7  604        0:32:6  678         200
+
+    11  Pempe           Björn            BB       87  2181.65   319    0:34:2  631        0:45:3  673        0:32:6  678         200
+    12  Schirdewahn     Frederik         SH       87  2174.31   326    0:33:2  660        0:46:0  658        0:33:3  657         200
+    13  Walter          Robert           BB       88  2149.22   351    0:34:3  628        0:45:7  664        0:33:3  657         200
+    14  Eckert          Michael          WE       87  2135.04   365    0:34:4  625        0:47:1  635        0:32:7  675         200
+    15  Drüke           Marcus           WE       87  2119.84   381    0:34:8  614        0:46:3  652        0:33:4  654         200
+
+    16  Schmied         Melvin           NR       87  2095.61   405    0:34:7  617        0:46:1  656        0:34:5  623         200
+    17  Landsbeck       Toni             HE       88  2088.18   412    0:30:4  749        0:44:6  689        0:33:5  451 200     200
+    18  Niemeyer        Sascha           ND       88  2067.18   433    0:33:9  639        0:45:5  669        0:37:0  559         200
+    19  Schütte         Nils             SH       87  2065.00   435    0:34:2  631        0:47:6  625        0:35:0  609         200
+    20  Mildner         Martin           RP           2048.99   451    0:34:0  636        0:47:9  619        0:35:6  593         200
+
+    21  Heinrich        Friedemann       TH       87  2046.92   453    0:36:6  569        0:46:5  648        0:34:2  631         200
+    22  Kelker          Stefan           WE       87  2035.30   465    0:34:6  620        0:46:3  652        0:36:8  564         200
+    23  Beyl            Dominik          WÜ       87  2034.31   466    0:32:9  669        0:49:3  592        0:36:4  573         200
+    24  Schildknecht    Konstantin       BE       88  1999.99   500    0:35:0  609        0:49:3  592        0:35:4  599         200
+    25  Berner          Tobias           SN       87  1987.05   513    0:34:6  620        0:49:9  581        0:35:9  586         200
+
+    26  Vogel           Andreas          BA       87  1933.32   567    0:34:8  614        0:51:0  562        0:37:1  557         200
+    27  Gottschalk      Stefan           BY       87  1901.35   599    0:31:8  703        0:45:7  664        0:38:1  534           0
+    28  Lehmann         Niclas           BS       87  1841.70   659    0:36:1  581        0:54:1  513        0:37:5  548         200
+    29  Geib            Johannes         SR       87  1604.27   896    0:41:8  466        0:51:1  560        0:36:2  578           0
+    30  Albers          Christian        HH       88  1481.90  1018    0:41:1  477        1:02:7  421        0:50:8  384         200
+
+        Mosch           Daniel           HE       87                    n. a.              n. a.              n. a.            n. a.
+        Held            André            WE       88                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:19:57 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 15/16 weiblich   
+
+     Wettkampf 1    100 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Kittel          Christine        ND       85  2810.24     0    1:08:3  861        0:46:4  833        1:06:0  916         200
+     2  Gottschalk      Corinna          BY       86  2786.78    23    1:06:8  885        0:44:7  873        1:11:6  829         200
+     3  Ternes          Patricia         NR       85  2778.37    32    1:08:4  860        0:44:0  890        1:11:6  829         200
+     4  Bagdahn         Christina        SN       86  2695.22   115    1:11:6  811        0:45:7  849        1:11:2  835         200
+     5  Schubert        Linda            WE       85  2671.67   139    1:14:9  764        0:44:2  885        1:12:0  823         200
+
+     6  Kochmann        Stefanie         BY       85  2669.18   141    1:11:5  813        0:44:6  875        1:14:9  781         200
+     7  Altmann         Katrin           SN       86  2662.12   148    1:08:9  852        0:46:1  840        1:15:7  770         200
+     8  Kornek          Susanne          WE       85  2646.71   164    1:10:8  823        0:46:8  824        1:13:6  800         200
+     9  Jugsch          Kathrin          ND       85  2646.14   164    1:15:4  757        0:45:1  864        1:11:8  826         200
+    10  Eckert          Teresa           SA       86  2643.00   167    1:18:7  713        0:41:8  945        1:14:6  785         200
+
+    11  Zimdahl         Claudia          BB       85  2612.15   198    1:13:7  781        0:44:5  878        1:16:9  754         200
+    12  Bach            Jessica          SR       86  2602.39   208    1:15:0  762        0:46:4  833        1:13:1  807         200
+    13  Gregor          Merle            SH       85  2571.06   239    1:16:6  741        0:45:7  849        1:14:9  781         200
+    14  Rieder          Julia            TH       86  2543.77   266    1:10:7  825        0:53:0  695        1:11:9  824         200
+    15  Felgentreu      Carolin          BB       86  2533.44   277    1:20:2  694        0:46:6  829        1:12:8  811         200
+
+    16  Voigt           Stefanie         ND       86  2479.87   330    1:18:8  712        0:50:8  738        1:11:5  830         200
+    17  Otten           Tomke            ND       86  2473.36   337    1:18:4  717        0:47:2  815        1:17:8  742         200
+    18  Tilch           Christiane       RP           2471.64   339    1:22:3  668        0:46:5  831        1:15:5  773         200
+    19  Schoder         Stefanie         BE       85  2466.74   344    1:14:1  775        0:48:3  741  50    1:17:1  751         200
+    20  Oelschlägel     Mandy            MV       86  2441.43   369    1:17:9  723        0:47:7  804        1:19:9  714         200
+
+    21  Speicher        Mareike          SR       85  2434.59   376    1:20:9  685        0:48:0  797        1:17:0  752         200
+    22  Alle            Christine        WÜ       86  2429.19   381    1:13:2  788        0:50:3  748        1:21:6  693         200
+    23  Heinz           Alina            SH       86  2408.69   402    1:19:6  701        0:49:4  767        1:17:9  740         200
+    24  Baumann         Catja            TH       85  2404.23   406    1:22:0  672        0:51:7  720        1:12:7  813         200
+    25  Giering         Maren            HH       85  2399.02   411    1:15:8  751        0:49:3  769        1:22:8  678         200
+
+    26  Nettlich        Katja            SA       85  2389.25   421    1:13:4  785        0:49:7  761        1:25:8  643         200
+    27  Höppner         Christina        WE       86  2388.03   422    1:21:8  674        0:47:6  806        1:20:4  708         200
+    28  Ecke            Katharina        SA       86  2355.40   455    1:19:9  697        0:51:1  732        1:19:0  726         200
+    29  Donate          Julia            SR       86  2324.80   485    1:15:5  756        0:48:1  795        1:15:4  774           0
+    30  Lackhoff        Marie - Luise    HE       85  2322.40   488    1:25:5  631        0:46:5  831        1:24:3  661         200
+
+    31  Weiß            Monique          BB       86  2320.63   490    1:15:7  753        0:46:3  636 200    1:18:5  732         200
+    32  Weh             Andrea           BA       86  2217.25   593    1:19:7  700        0:57:8  611        1:20:5  707         200
+    33  Bloom           Heike            BS       85  2067.11   743    1:24:8  639        0:56:5  632        1:30:2  596         200
+        Nicklas         Franziska        SH       85                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:19:59 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 15/16 männlich   
+
+     Wettkampf 1    100 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Wegner          Stefan           SN       85  2593.01     0    1:04:6  789        0:38:3  847        1:05:5  757         200
+     2  Oberleuck       Dominik          SR       85  2564.60    28    1:03:8  802        0:39:3  820        1:06:4  743         200
+     3  Hassemeier      René             WE       86  2540.77    52    1:03:4  809        0:41:0  775        1:05:5  757         200
+     4  Raddatz         Marco            SH       85  2533.65    59    1:05:0  782        0:39:9  804        1:06:1  748         200
+     5  Hesse           Christian        WE       85  2522.81    70    1:08:4  729        0:40:4  791        1:02:7  803         200
+
+     6  Wichmann        Jörg             HE       85  2502.01    91    1:07:0  751        0:40:2  796        1:05:6  755         200
+     7  Hawryluk        Jakub            RP           2495.27    98    1:05:2  779        0:40:3  793        1:07:7  723         200
+     8  Böse            Ulf              WÜ       85  2485.65   107    1:04:4  792        0:41:0  775        1:08:0  718         200
+     9  Braun           Bernhard         BY       86  2462.92   130    1:05:0  782        0:40:7  783        1:09:4  698         200
+    10  Wiersbitzky     Stephan          MV       85  2459.80   133    1:06:6  757        0:42:9  728        1:04:4  775         200
+
+    11  Braun           Norbert          BY       85  2454.91   138    1:06:6  757        0:42:7  733        1:05:0  765         200
+    12  Novak           Lars             BE       85  2448.15   145    1:05:6  773        0:40:9  778        1:09:4  698         200
+    13  Dabel           Peter            MV       85  2448.10   145    1:05:1  781        0:44:0  702        1:05:0  765         200
+    14  Jarosch         Christian        WE       85  2440.66   152    1:06:7  755        0:43:3  719        1:04:9  767         200
+    15  Meißner         Marcel           SN       85  2434.82   158    1:04:7  787        0:41:6  760        1:10:1  688         200
+
+    16  Erbe            Jan-Hendrick     SH       86  2422.55   170    1:08:4  729        0:42:7  733        1:05:3  760         200
+    17  Zerbst          Christoph        NR       86  2414.28   179    1:09:5  713        0:42:5  738        1:05:1  763         200
+    18  Kämpfe          Philipp          TH       86  2409.22   184    1:07:6  742        0:42:4  740        1:07:4  728         200
+    19  Fischer         Alexander        BB       85  2385.88   207    1:10:9  693        0:41:2  770        1:07:7  723         200
+    20  Langbein        Charly           TH       85  2381.75   211    1:06:1  765        0:43:4  716        1:09:2  701         200
+
+    21  Schmider        Daniel           BA       85  2349.89   243    1:10:2  703        0:43:2  721        1:07:5  726         200
+    22  Anbergen        Hauke            HH       86  2309.50   284    1:11:8  680        0:43:7  709        1:07:9  720         200
+    23  Jürgens         Ansgar           WE       86  2283.49   310    1:09:5  713        0:43:7  709        1:12:0  661         200
+    24  Zölke           Franz            SA       85  2276.70   316    1:11:3  687        0:42:5  738        1:12:7  652         200
+    25  Sparrenberger   Julius           HE       85  2210.59   382    1:10:6  697        0:42:8  731        1:03:9  783           0
+
+    26  Schmitt         Stefan           SR       85  2161.40   432    1:17:1  611        0:46:0  658        1:09:8  692         200
+    27  Röwer           Patrick          ND       85  2142.87   450    1:09:4  715        0:44:0  702        1:07:5  726           0
+    28  Brückner        Martin           SN       85   200.00  2393     n. a.              n. a.              n. a.              200
+        Stelter         Michael          BS       85    disq.           n. a.              n. a.              n. a.              200
+        Kleila          Dominic          RP       85                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:20:01 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 17/18 weiblich   
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Bagdahn         Susanne          SN       84  2826.63     0    2:36:6  823        0:44:0  890        1:06:1  914         200
+     2  Erbe            Konstanze        SA       84  2773.16    53    2:40:3  798        0:45:2  861        1:06:1  914         200
+     3  Hermanns        Anja             BB       84  2737.78    89    2:46:3  759        0:45:0  866        1:06:2  912         200
+     4  Leberecht       Franziska        BE       83  2730.14    96    2:23:0  920        0:43:8  895        1:06:0  916           0
+     5  Kliem           Hannah           BY       84  2707.08   120    2:42:1  786        0:42:9  917        1:13:3  804         200
+
+     6  Kunzmann        Denis            WÜ       84  2706.70   120    2:43:8  775        0:43:0  915        1:12:4  817         200
+     7  Kierstein       Jessica          ND       84  2693.78   133    2:42:8  782        0:45:8  847        1:09:2  865         200
+     8  Günther         Sandra           SA       83  2691.70   135    2:38:2  812        0:45:5  854        1:11:8  826         200
+     9  Straube         Britta           SH       83  2651.46   175    2:52:1  724        0:43:7  897        1:11:5  830         200
+    10  Weitekamp       Katharina        WE       83  2609.94   217    2:43:2  779        0:46:8  824        1:13:1  807         200
+
+    11  Adler           Verena           WE       84  2578.98   248    2:59:0  684        0:48:1  795        1:07:0  900         200
+    12  Schaefer        Nadine           BE       84  2562.54   264    2:53:3  717        0:45:0  866        1:15:0  780         200
+    13  Steudte         Julia            TH       84  2558.01   269    2:49:2  742        0:44:9  868        1:17:3  748         200
+    14  Nitsche         Julia            WE       84  2538.00   289    2:48:9  743        0:45:6  852        1:17:7  743         200
+    15  Heyn            Eva              RP           2536.17   290    2:53:9  713        0:48:7  782        1:10:8  841         200
+
+    16  Klatt           Annika           NR       84  2532.82   294    2:47:0  755        0:47:1  817        1:16:4  760         200
+    17  Langbein        Betty            TH       84  2513.26   313    2:47:4  753        0:46:5  831        1:18:7  730         200
+    18  Schmitt         Martina          SR       83  2509.80   317    2:56:4  699        0:46:8  824        1:14:5  787         200
+    19  Funk            Rebecca          HE       83  2494.84   332    2:58:2  689        0:46:7  826        1:15:0  780         200
+    20  Hesse           Stefanie         WE       83  2491.22   335    3:02:4  666        0:45:2  861        1:16:1  764         200
+
+    21  Adebahr         Tanja            SH       84  2475.10   352    2:58:9  685        0:48:7  782        1:13:0  808         200
+    22  Stricksner      Romy             SA       83  2467.62   359    2:54:1  712        0:50:5  744        1:12:8  811         200
+    23  Janzen          Jennifer         BB       84  2467.08   360    2:58:8  685        0:47:6  806        1:15:3  776         200
+    24  Schürmann       Kirsten          WE       84  2435.46   391    2:56:5  698        0:48:7  782        1:16:8  755         200
+    25  Stegmüller      Teresa           BA       83  2434.80   392    3:01:3  672        0:45:5  854        1:20:3  709         200
+
+    26  Dirkes          Anja             WE       84  2421.21   405    2:59:8  680        0:48:5  786        1:16:8  755         200
+    27  Essing          Anna             WE       84  2420.30   406    2:56:2  700        0:48:8  780        1:17:9  740         200
+    28  Boger           Sarah            RP       84  2385.81   441    3:07:8  637        0:47:8  802        1:17:4  747         200
+    29  Schuchort       Steffi           BE       83  2362.28   464    2:53:7  715        0:46:7  826        1:12:1  821           0
+    30  Schneidereit    Tina             NR       84  2307.04   520    2:47:9  750        0:49:7  761        1:13:8  797           0
+
+    31  Steinmetz       Sonja            HH       83  2240.65   586    3:03:0  662        0:51:3  728        1:25:2  650         200
+        Kowacs          Tanja            WÜ       84                    n. a.              n. a.              n. a.            n. a.
+        Fallböhmer      Nina             WE       83                    n. a.              n. a.              n. a.            n. a.
+        Bochmann        Moni             SN       83                    n. a.              n. a.              n. a.            n. a.
+        Stelzer         Jessica          SN       84                    n. a.              n. a.              n. a.            n. a.
+
+        Kühn            Julia            BB       84                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:20:03 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis AK 17/18 männlich   
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Bürger          Martin           WE       83  2925.22     0    2:16:3  844        0:35:8  919        0:54:0  962         200
+     2  Borch           Soeren           BE       83  2852.35    73    2:13:4  867        0:36:2  907        0:58:4  878         200
+     3  Blumenthal      Ralf             BY       84  2772.15   153    2:14:3  859        0:37:6  867        1:00:2  846         200
+     4  Lackhoff        Fritz            HE       84  2672.75   252    2:21:0  808        0:37:7  864        1:02:8  801         200
+     5  Dobranzki       Johannes         WE       83  2663.29   262    2:28:3  755        0:37:5  870        1:00:6  839         200
+
+     6  Prokopp         Tristan          WE       83  2660.22   265    2:22:7  795        0:38:3  847        1:01:8  818         200
+     7  Donate          Oliver           SR       83  2654.28   271    2:26:4  768        0:37:8  861        1:01:4  825         200
+     8  Bahro           Nyk              BE       84  2637.32   288    2:11:7  880        0:39:8  806        1:05:9  751         200
+     9  Richter         Guido            NR       83  2625.75   299    2:19:5  819        0:39:7  809        1:03:0  798         200
+    10  Ritter          Christian        SA       83  2589.41   336    2:15:5  850        0:37:8  861        0:58:4  878           0
+
+    11  Wirtz           Heiko            NR       83  2555.20   370    2:24:9  779        0:39:2  822        1:05:7  754         200
+    12  Berlin          Hannes           MV       83  2544.47   381    2:33:6  719        0:39:3  820        1:02:5  806         200
+    13  Loosen          David            NR       84  2536.27   389    2:21:9  801        0:42:1  748        1:03:6  788         200
+    14  Karow           Christoph        SA       84  2534.39   391    2:15:9  847        0:39:2  822        1:11:7  665         200
+    15  Butschek        Stefan           NR       84  2478.65   447    2:34:8  711        0:40:8  780        1:03:6  788         200
+
+    16  Reichstein      Ralf             SN       83  2477.56   448    2:28:6  753        0:41:6  760        1:05:0  765         200
+    17  Fähnle          Björn            BB       84  2472.16   453    2:31:9  730        0:39:6  812        1:07:2  731         200
+    18  Schmahl         Dominik          RP           2469.08   456    2:28:9  751        0:41:1  773        1:06:2  746         200
+    19  Horn            David            TH       83  2458.83   466    2:20:1  814        0:41:9  752        1:09:8  692         200
+    20  Golubocic       Timo             SH       83  2443.61   482    2:26:6  767        0:42:4  740        1:06:8  737         200
+
+    21  Kurfürst        Benjamin         SH       84  2425.20   500    2:29:7  745        0:42:2  745        1:06:9  735         200
+    22  Bradler         Claas            WE       83  2379.99   545    2:36:5  700        0:43:3  719        1:05:2  762         200
+    23  Wittstock       Raiko            ND       83  2348.45   577    2:37:3  694        0:41:4  765        1:10:0  689         200
+    24  Hagenhoff       Matthias         WE       84  2343.76   581    2:41:5  668        0:40:5  788        1:10:1  688         200
+    25  Nikolaus        Frank            BA       83  2322.72   602    2:42:5  662        0:39:5  814        1:13:1  646         200
+
+    26  Haßbach         Marius           BS       83  1940.94   984    2:47:7  631        0:50:4  573        1:22:5  537         200
+    27  Kühn            Marcel           WÜ       83  1458.20  1467    2:47:9  630        0:39:0  828         n. a.            n. a.
+        Rothacker       Thomas           WÜ       84                    n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:20:05 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis Damen-offene Klasse 
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    100 m Kombiniertes Rettungsschwimmen    
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+ Pl  Name            Vorname         Gld Jg  Gespkt   Diff  Zeit-1 Pkt1 St1  Zeit-2 Pkt2 St2  Zeit-3 Pkt3 St3  Zeit-4 Pkt4 St4   HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+  1  Wieland         Anke            SA  82  3907.23     0  2:31:4  859      0:41:0  966      1:04:4  942      1:24:0  941       200
+  2  Schmutzer       Daniela         MV  78  3879.86    27  2:37:9  814      0:41:0  966      1:03:9  950      1:23:3  950       200
+  3  Reit            Wiebke          ND  81  3873.25    34  2:23:4  917      0:42:3  932      1:07:7  888      1:24:4  936       200
+  4  Popke           Katja           BB  80  3866.90    40  2:39:1  806      0:41:8  945      1:01:2  997      1:25:7  920       200
+  5  Berlin          Alexandra       MV  81  3818.33    89  2:29:1  875      0:42:7  922      1:04:1  947      1:29:4  874       200
+
+  6  Pluhar          Ines            WE  80  3743.63   164  2:45:0  768      0:41:8  945      1:07:2  896      1:24:5  935       200
+  7  Arndt           Elena           BE  80  3701.20   206  2:28:2  881      0:44:5  878      1:09:5  860      1:28:8  882       200
+  8  Rösner          Nicole          SN  82  3684.02   223  2:27:0  890      0:44:7  873      1:08:2  881      1:32:3  840       200
+  9  Eckers          Steffy          WE  75  3667.40   240  2:30:4  866      0:41:5  953      1:06:0  916      1:24:6  933         0
+ 10  Schmutzer       Michaela        MV  78  3625.40   282  2:36:0  827      0:41:5  953      1:05:8  919      1:25:1  927         0
+
+ 11  Schlepphorst    Claudia         WE  75  3587.86   319  3:00:2  678      0:43:4  905      1:04:4  942      1:30:3  864       200
+ 12  Messerschmidt   Katrin          SN  82  3587.69   320  2:35:8  828      0:44:0  890      1:12:5  815      1:31:1  854       200
+ 13  Junker          Katrin          HE  82  3575.52   332  2:41:3  791      0:44:0  890      1:09:4  862      1:33:0  832       200
+ 14  Ludewigs        Mandy           BB  81  3560.95   346  2:48:7  745      0:44:2  885      1:08:5  876      1:31:0  855       200
+ 15  Panek           Susann          BB  80  3529.00   378  2:46:3  759      0:45:2  861      1:09:3  863      1:31:9  845       200
+
+ 16  Könighaus       Corinna         WE  82  3487.23   420  2:47:4  753      0:45:4  856      1:10:0  853      1:33:6  825       200
+ 17  Peschek         Eva             SA  82  3471.61   436  2:49:1  742      0:48:3  791      1:03:8  952      1:37:1  787       200
+ 18  Weber           Sandra          SH  80  3420.51   487  2:47:6  751      0:45:3  859      1:13:6  800      1:34:9  811       200
+ 19  Wäschle         Gabi            WÜ  74  3293.52   614  2:41:5  790      0:49:0  776      1:14:9  781      1:40:9  747       200
+ 20  Pauly           Geesche         RP      3117.25   790  2:53:4  716      0:49:2  771      1:20:0  713      1:43:9  717       200
+
+ 21  Schmidt         Marianne        TH  82  3102.21   805  2:43:8  775      0:49:6  763      1:17:8  742      1:43:3  622 100   200
+ 22  Steinmetz       Daniela         BY  87  3090.01   817  3:00:8  674      0:50:0  755      1:21:2  698      1:39:3  763       200
+ 23  Krüger          Simone          BA  79  3040.82   866  3:07:1  641      0:50:2  750      1:16:5  759      1:46:6  691       200
+ 24  Hübner          Julia           SA  82   878.54  3029  2:28:6  879       n. a.            n. a.            n. a.          n. a.
+     Forsbach        Sabine          NR  76                  n. a.            n. a.            n. a.            n. a.          n. a.
+
+     Offermann       Jill Anna       SH  79                  n. a.            n. a.            n. a.            n. a.          n. a.
+     Lampen          Ruth            ND  81                  n. a.            n. a.            n. a.            n. a.          n. a.
+     Neumerkel       Pia             SR  76                  n. a.            n. a.            n. a.            n. a.          n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:20:07 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+ Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+ Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     Deutsche Meisterschaften 2001
+
+     im Rettungsschwimmen in Itzehoe
+
+
+     Endergebnis Herren-offene Klasse
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    100 m Kombiniertes Rettungsschwimmen    
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+ Pl  Name            Vorname         Gld Jg  Gespkt   Diff  Zeit-1 Pkt1 St1  Zeit-2 Pkt2 St2  Zeit-3 Pkt3 St3  Zeit-4 Pkt4 St4   HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+  1  Heimann         Lutz            SA  76  4054.69     0  2:05:0  936      0:34:4  962      0:54:6  950      1:07:4 1006       200
+  2  Hofmann         Maik            MV  75  3879.95   175  2:13:8  863      0:35:4  931      0:55:4  935      1:11:0  950       200
+  3  Schlepphorst    Carsten         WE  77  3770.01   285  2:17:7  833      0:37:2  878      0:53:6  970      1:15:2  889       200
+  4  Westermann      André           WE  81  3768.33   286  2:15:0  854      0:35:5  928      1:01:3  827      1:10:4  959       200
+  5  Boerner         Tarik           SA  75  3757.74   297  2:16:3  844      0:36:1  910      0:58:3  880      1:12:8  924       200
+
+  6  Mengel          Sascha          MV  80  3683.70   371  2:13:0  870      0:38:9  831      0:57:6  893      1:15:1  890       200
+  7  Ernicke         Markus          BB  82  3681.10   374  2:22:4  797      0:36:9  887      0:57:1  903      1:14:8  895       200
+  8  Görny           Lars            SA  73  3674.55   380  2:21:2  806      0:36:6  896      0:58:8  871      1:14:3  902       200
+  9  Behrens         Bengt           MV  78  3671.26   383  2:19:7  817      0:38:3  847      0:54:9  945      1:17:1  862       200
+ 10  Mohnke          Markus          SH  79  3635.23   419  2:24:7  780      0:36:6  896      0:56:8  908      1:17:9  851       200
+
+ 11  Rogler          René            BB  81  3619.12   436  2:20:3  813      0:37:5  870      0:59:7  855      1:15:7  882       200
+ 12  Theel           Sebastian       MV  81  3615.46   439  2:13:1  869      0:38:2  800  50  0:58:6  875      1:16:4  872       200
+ 13  Fischer         Andreas         ND  81  3579.13   476  2:19:0  823      0:37:1  881      1:02:5  806      1:16:6  869       200
+ 14  Lang            Martin          BY  81  3556.55   498  2:15:8  848      0:39:7  809      0:59:2  864      1:19:0  836       200
+ 15  Garz            Ernesto         SA  82  3544.13   511  2:19:5  819      0:38:1  853      1:02:5  806      1:16:8  866       200
+
+ 16  Stahl           Arne            SH  76  3516.11   539  2:24:8  780      0:37:2  878      1:00:8  835      1:20:0  823       200
+ 17  Greune          Markus          WE  81  3515.95   539  2:17:9  831      0:38:4  844      1:03:1  796      1:18:4  844       200
+ 18  Bahro           Gregor          BE  81  3504.05   551  2:18:0  830      0:38:7  836      1:04:1  780      1:17:4  858       200
+ 19  Klimach         Martin          RP      3475.75   579  2:29:3  748      0:39:3  820      0:57:8  889      1:20:3  819       200
+ 20  Bürger          Matthias        WE  81  3471.95   583  2:19:0  823      0:37:5  870      0:57:5  895      1:15:5  885         0
+
+ 21  Hunold          Rene            MV  79  3442.09   613  2:19:2  821      0:36:8  890      1:00:9  834      1:14:6  897         0
+ 22  Blümke          Steffen         SN  75  3436.44   618  2:22:5  796      0:39:8  806      1:02:7  803      1:19:4  831       200
+ 23  Ott             Michael         NR  79  3366.13   689  2:24:6  781      0:40:2  796      1:04:1  780      1:21:0  810       200
+ 24  Heimann         Marc            SH  76  3338.86   716  2:25:3  776      0:39:3  820      1:08:5  711      1:19:3  832       200
+ 25  Voges           Marco           BA  70  3323.19   731  2:30:1  742      0:41:0  775      1:01:8  818      1:22:7  788       200
+
+ 26  Haaser          Norbert         WÜ  65  3317.42   737  2:32:2  728      0:39:7  809      1:04:8  768      1:20:8  812       200
+ 27  Scheide         Christoph       SH  78  3304.50   750  2:28:7  752      0:40:1  798      1:08:3  714      1:18:7  840       200
+ 28  Krause          Matthias        SA  79  3277.65   777  2:23:7  788      0:42:0  750      1:02:5  806      1:27:1  734       200
+ 29  Binkle          Nico            SR  75  3276.62   778  2:37:0  696      0:38:7  836      1:06:6  740      1:21:4  804       200
+ 30  Schreiner       Thorsten        HE  78  3213.08   842  2:36:4  700      0:40:2  796      1:06:3  744      1:23:9  773       200
+
+ 31  Carl            Matthias        BS  81  3154.10   901  2:35:7  705      0:41:6  760      1:08:7  708      1:23:2  781       200
+ 32  Diekelmann      Jan             HH  79  3086.68   968  2:38:3  688      0:40:1  798      1:12:4  656      1:26:2  745       200
+ 33  Heise           Alexander       TH  79  2975.19  1079  2:49:0  624      0:41:7  757      1:14:0  635      1:25:0  759       200
+     Scholze         Matthias        BB  81                  n. a.            n. a.            n. a.            n. a.          n. a.
+     Nagelschmidt    Sven            BE  81                  n. a.            n. a.            n. a.            n. a.          n. a.
+
+     Brenner         Sebastian       RP                      n. a.            n. a.            n. a.            n. a.          n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 20:20:10 Uhr ———————————————————— 27.10.2001 —————————————————————
+
+
+
+ Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+ Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!

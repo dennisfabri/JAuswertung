@@ -1,0 +1,42 @@
+:title Systemvoraussetzungen
+:label system
+
+:h2 Betriebssysteme
+
+:h3 Unterstützt:
+
+- Windows XP, Vista, 7
+- Linux
+- MacOS X
+
+:h3 Empfohlen:
+
+- Windows XP oder 7
+- Linux
+
+:h2 Systemkonfiguration
+
+:h3 Minimalkonfiguration
+
+# Hardware
+- Pentium III (oder entsprechender Prozessor) mit 500Mhz
+- 128 MB Arbeitsspeicher
+- 100 MB freie Festplattenkapazität
+- Grafikkarte und Monitor mit einer genutzten Auflösung von 1024x768
+# Programme
+- Java Runtime Environment 6 (kostenlos)
+- Zur Anzeige von HTML-Dateien: Internet Explorer (kostenlos), Firefox (kostenlos) oder andere
+
+:h3 Empfohlene Konfiguration
+
+# Hardware
+- Pentium IV (oder entsprechender Prozessor) mit 1Ghz
+- 512 MB Arbeitsspeicher
+- 500 MB freie Festplattenkapazität
+- Grafikkarte und Monitor mit einer genutzten Auflösung von 1280x1024 Pixel
+- Drucker
+# Software
+- Java Runtime Environment 6.0 Update 20 (kostenlos)
+- Zur Anzeige von HTML-Dateien: Internet Explorer (kostenlos), Firefox (kostenlos) oder andere
+- Zur Bearbeitung von Excel-Dateien: Microsoft Office oder OpenOffice (kostenlos)
+- Zur Anzeige von PDF-Dateien: Adobe Acrobat Reader (kostenlos)

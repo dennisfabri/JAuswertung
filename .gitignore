@@ -1,0 +1,14 @@
+/target/
+
+.project
+.classpath
+.settings
+
+.idea
+*.iml
+
+*.install4j~
+
+/release/
+/ant/
+/distribute/

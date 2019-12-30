@@ -1,0 +1,27 @@
+:title Obere Knopfleiste
+:label knopfleisteoben
+
+:h2 Die obere Knopfleiste
+
+:image knopfleiste.png|Obere Knopfleiste
+
+Diese Knopfleiste stellt Funktionen zur Verfügung, die weitestgehend über Menüs zu erreichen sind. Die Funktionen entsprechen von Links nach Rechts den folgenden Menüpunkten:
+- <<jauswertungmenus#neu|Datei -> Neu>>
+- <<jauswertungmenus#neu|Datei -> Öffnen>>
+- <<jauswertungmenus#neu|Datei -> Speichern>>
+- <<jauswertungmenus#undo|Bearbeiten -> Rückgängig>>
+- <<jauswertungmenus#undo|Bearbeiten -> Wiederholen>>
+- <<jauswertungmenus#laufliste|Werkzeuge -> Laufliste -> Bearbeiten/Anzeigen>>
+- <<jauswertungmenus#laufliste|Werkzeuge -> HLW -> Bearbeiten/Anzeigen>>
+- <<jauswertungmenus#datenpruefen|Werkzeuge -> Daten prüfen>>
+- HTTP-Server starten
+- Cache des HTTP-Servers löschen
+- Ausgabefilter einstellen
+- Informationen über den aktuellen Stand der Eingabe
+
+Die Knöpfe zur Bearbeitung der Laufliste und der HLW-Liste nehmen dabei eine Sonderstellung ein. Ist die Sperrung zur Bearbeitung einer Liste aktiviert, so wird der Knopf nicht deaktiviert sondern auf die Funktion "Anzeigen" umgeschaltet.
+
+Mit dem Icon "Weltkugel" können Sie den HTTP-Server aktivieren bzw. wieder deaktivieren. Mit dem HTTP-Server können Sie, wenn Sie mehrere Rechner vernetzen, direkt auf die Daten von JAuswertung zugreifen, ohne den Auswerter stören zu müssen. Beachten Sie aber, dass jede Anfrage Rechenzeit benötigt und den Rechner des Auswerters damit zusätzlich belastet. Dies gilt vor allem für den Download von PDF-Dateien. Sie sollten den HTTP-Server nur intern nutzen, da er nicht darauf ausgelegt ist, große Mengen an Daten/Anfragen zu bewältigen. Beachten Sie bitte, dass der Aufruf der Seiten von der Einstellung des Ports abhängt (siehe <<jauswertungmenus#optionen|Extras -> Optionen>>).
+
+:anchor ausgabefilter
+Rechts neben diesen Knöpfen ist die Auswahl von "Ausgabefiltern" möglich. Diese beeinflussen nicht die Eingabe und Auswertung eines Wettkampfs, können aber die Ausgabe einschränken. So ist es möglich die Meisterschaften z.B. mehrerer Bezirke in einem Wettkampf durchzuführen und getrennte Ergebnisse zu erstellen. Die Ausgabefilter beziehen sich nur auf die Ausgabe von Ergebnissen, Protokollen und Meldelisten beim Drucken und beim Export. Ist das Auswahlfeld deaktiviert, sind keine Ausgabefilter definiert. Sie können über den Menüpunkt <<jauswertungmenus#ausgabefilterbearbeiten|Extras -> Ausgabefilter bearbeiten>> Ausgabefilter einrichten und ändern. Funktione für Ausgaben z.B. Ausdrucke signalisieren, dass Sie von einem Ausgabefilter beeinflusst werden durch ein Icon "Auge".

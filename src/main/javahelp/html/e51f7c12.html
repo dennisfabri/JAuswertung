@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" href="style.css" type="text/css"></link>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+<meta name="author" content="Dennis Fabri" />
+<meta name="date" content="20161012224319" />
+<!-- created with HelpSetMaker, ID=e51f7c12 -->
+<title>FAQ</title>
+</head>
+<body class="doc">
+<h1 class="title">FAQ</h1>
+<h3>Was bedeuten die unterschiedlichen Farben in Eingabefeldern?</h3>
+
+<p>Gelb markiert Felder m&uuml;ssen ausgef&uuml;llt werden. Rot markierte Felder enthalten fehlerhafte Angaben.</p>
+<h3>JAuswertung wird w&auml;hrend der Ausf&uuml;hrung langsamer und belegt mehr Speicher. Woran liegt das?</h3>
+
+<p>JAuswertung richtet einige Funktionen erst dann ein, wenn Sie zum ersten mal ben&ouml;tigt wurden. Dies reduziert zum Einen die Zeit, die zum Starten ben&ouml;tigt wird, und zum Anderen auch den Speicherbedarf w&auml;hrend des Betriebs. Jedes mal, wenn Sie eine Funktion aufrufen, die Sie bisher nicht ben&ouml;tigt haben, wird diese eingerichtet und belegt ab diesem Zeitpunkt zus&auml;tzlichen Arbeitsspeicher.</p>
+<h3>Ich habe einen Fehler gefunden, wo kann ich diesen melden?</h3>
+
+<p>Fehler im Programm k&ouml;nnen Sie an support@dennismueller.de schicken oder im Forum auf der Webseite melden.</p>
+<h3>Wie kann ich die Warnung bei hohen Zeiten abschalten?</h3>
+
+<p>&Uuml;ber den Men&uuml;punkt Extras&rarr;Option k&ouml;nnen Sie im Register Allgemein die Warnung abschalten.</p>
+<h3>Welche Tastaturk&uuml;rzel stehen bei der Eingabe zur Verf&uuml;gung?</h3>
+
+<p>Antwort: Bei der Zeiten- und Laufzeiteneingabe k&ouml;nnen direkt Strafen vergeben werden: "n" setzt nur solange keine Zeit eingetragen wurde "Nicht Angetreten", "d" setzt immer "Disqualifiziert", "p" &ouml;ffnet ein Fenster zur Strafpunkteeingabe und "#" l&ouml;scht immer eine Strafe.</p>
+
+<p>Bei der Zeiten-, Laufzeiten- und HLW-Eingabe k&ouml;nnen Sie zwischen den einzelnen Zeilen durch dr&uuml;cken der Tasten Pfeiltaste oben und unten wechseln. Mit "Strg + Enter" dr&uuml;cken Sie den Button "weiter". Bei der Laufzeiteneingabe k&ouml;nnen Sie mit den Pfeiltasten oben und unten zwischen den einzelnen Bahnen wechseln, sind Sie in der ersten oder letzten belegten Bahn angekommen, k&ouml;nnen Sie durch erneutes Dr&uuml;cken der jeweiligen Pfeiltaste zum n&auml;chsten Lauf wechseln.</p>
+<h3>Beim Seriendruck mit Microsoft Word werden die Punkte teilweise mit sehr vielen Nachkommastellen angegeben. Ist das ein Fehler?</h3>
+
+<p>Jein, es ist ein Fehler in Microsoft Word, der mit der Darstellung von Dezimalzahlen in Computern zusammenh&auml;ngt. </p>
+
+<p>Umgehung des Fehlers: Exportieren Sie die Ergebnisse von JAuswertung in eine CSV-Datei. Diese kann mit Microsoft Word ebenfalls als Datenquelle genutzt werden. Da hier die Punkte als Text gespeichert werden, hat Microsoft Word keine Probleme mit der Darstellung, da diese bereits von JAuswertung korrekt vorgenommen wurde.</p>
+
+<p><b>Erkl&auml;rung:</b> Microsoft Word ignoriert beim Seriendruck s&auml;mtliche Formatierungen, die in Excel vorgenommen wurden und stellt die Zahlen so dar, wie Sie gespeichert wurden. Leider k&ouml;nnen nicht alle Dezimalzahlen exakt gespeichert werden, so dass die n&auml;chstm&ouml;gliche Zahl gespeichert wird. Z.B.:</p>
+
+<ul><li>
+<p>1320,64: 1320,6400000000001</p>
+</li><li>
+<p>1257,31: 1257,3099999999999</p>
+</li></ul>
+
+<p>Die Zahlen unterscheiden sich um ca 0,0000000000001 vom richtigen Wert, was normalerweise v&ouml;llig ausreichend ist. Bei der Anzeige sieht es allerdings nicht so gut aus.</p>
+<h3>JAuswertung kann einige Excel-Dateien nicht &ouml;ffnen. Mit Excel ist das problemlos m&ouml;glich.</h3>
+
+<p>JAuswertung nutzt ein freies Programm, um Excel-Datei zu lesen. Daher kann es zu Problemen mit einigen Elementen kommen. Zu diesen geh&ouml;ren</p>
+
+<ul><li>
+<p>Bilder,</p>
+</li><li>
+<p>Diagramme,</p>
+</li><li>
+<p>Formulare und</p>
+</li><li>
+<p>einige Formeln und Makros.</p>
+</li></ul>
+
+<p>Sollten Sie Probleme haben, speichern Sie die Datei einfach als CSV-Datei. Dieses Format bereitet weniger Probleme.</p>
+<h3>Beim PDF-Export zeigt mir die Statusanzeige immer eine Seite mehr an, als anschlie&szlig;end im PDF-Dokument enthalten sind.</h3>
+
+<p>Die Seiten werden nacheinander geschrieben. Dabei wird jeweils gepr&uuml;ft, ob auf eine Seite etwas ausgegeben werden muss. W&auml;hrend dieser &Uuml;berpr&uuml;fung wird eine Seite mehr angegeben, als anschlie&szlig;end im Dokument erscheinen.</p>
+
+<p>Diese Anzeige bleibt so lange bestehen, bis alle Daten geschrieben wurden. Es ist also nicht die &Uuml;berpr&uuml;fung, die an dieser Stelle die meiste Zeit beansprucht.</p>
+<h3>JAuswertung kann Excel-Dateien nicht &ouml;ffnen, die mit Office 95 oder &auml;lter erstellt wurden.</h3>
+
+<p>Microsoft hat mit der Version 97 ein neues Dateiformat eingef&uuml;hrt. Speichern Sie ihre Dateien einfach vor dem Import in JAuswertung im Format, dass mit Excel 97-2003 kompatibel ist.</p>
+<h3>JAuswertung kann Excel-Dateien nicht &ouml;ffnen, die mit Office 2007 erstellt wurden.</h3>
+
+<p>Microsoft hat mit dieser Version ein neues Dateiformat eingef&uuml;hrt. Speichern Sie ihre Dateien einfach vor dem Import in JAuswertung im alten Format. Dieses k&ouml;nnen Sie an der Endung ".xls" erkennen.</p>
+<h3>Anstatt der normalen Funktion hat sich ein Fenster mit dem Titel "Bug-Report" ge&ouml;ffnet. Was hat das zu bedeuten?</h3>
+
+<p>Sie sind leider auf einen Fehler in JAuswertung gesto&szlig;en. Das Fenster erm&ouml;glicht es Ihnen die internen Fehlermeldungen zu speichern. Wenn Sie mir diese Datei per Email schicken, erleichtert mir das den Fehler zu beseitigen.</p>
+<h3>&Uuml;bertr&auml;gt der "Bug-Report" automatisch private Daten ins Internet?</h3>
+
+<p>Der "Bug-Report" &uuml;bertr&auml;gt gar keine Dateien ins Internet. Es werden ausschlie&szlig;lich Informationen gesammelt, die Sie in eine Datei speichern k&ouml;nnen.</p>
+<h3>Enth&auml;lt die Datei, die im "Bug-Report" gespeichert wurde, private Daten?</h3>
+
+<p>Der Bug-Report speichert eine Datei, in unter anderem der Informationen des Systems (Prozessor, Arbeitsspeicher etc.) und der aktuelle Wettkampf enthalten sind. Dies sind die einzigen privaten Daten, die gespeichert werden. &Uuml;ber den Knopf "Anonymisieren" k&ouml;nnen Sie verhindern, dass diese Informationen gespeichert werden. Die Datei enth&auml;lt dann ausschlie&szlig;lich Daten, die sich direkt auf den Fehler beziehen. Beachten Sie aber bitte, dass mir alle zus&auml;tzlichen Informationen helfen k&ouml;nnen, den Fehler zu beseitigen. Dar&uuml;ber hinaus werden die Daten an Dritte <b>nicht weitergeleitet</b> und nach der Beseitigung des Fehlers <b>gel&ouml;scht</b>.</p>
+</body>
+</html>

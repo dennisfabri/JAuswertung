@@ -1,0 +1,150 @@
+package de.df.jauswertung.gui.veranstaltung;
+
+import java.awt.event.*;
+import java.util.*;
+
+import javax.swing.*;
+
+import com.jgoodies.forms.factories.CC;
+import com.jgoodies.forms.layout.FormLayout;
+
+import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
+import de.df.jauswertung.dp.displaytool.data.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.util.*;
+import de.df.jutils.gui.filefilter.SimpleFileFilter;
+import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.*;
+
+class ResultsExporter implements Printer {
+
+    private JButton                      resultprint;
+    private JComboBox<String>            resultmodus;
+    private JPanel                       panel;
+
+    private final JVeranstaltungswertung parent;
+
+    public ResultsExporter(JVeranstaltungswertung parent) {
+        this.parent = parent;
+        initUI();
+    }
+
+    private void initUI() {
+        resultprint = new JButton(I18n.get("Export"));
+        resultprint.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                print();
+            }
+        });
+
+        resultmodus = new JComboBox<String>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
+
+        panel = new JPanel(new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                FormLayoutUtils.createLayoutString(1, 4, 0)));
+
+        panel.add(new JLabel(I18n.get("Print.WertungNach")), CC.xy(4, 2));
+        panel.add(resultmodus, CC.xy(6, 2));
+        panel.add(resultprint, CC.xy(10, 2));
+    }
+
+    @SuppressWarnings("rawtypes")
+    private AWettkampf getResult() {
+        Veranstaltung vs = parent.getVeranstaltung();
+        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
+        return Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public void dataUpdated(AWettkampf wk) {
+        // Nothing to do
+    }
+
+    @Override
+    public String getName() {
+        return I18n.get("Results");
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    private void print() {
+        AWettkampf p = getResult();
+        if (p == null) {
+            DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
+            return;
+        }
+        String filename = FileChooserUtils.chooseFile(I18n.get("Export"), I18n.get("Export"),
+                new SimpleFileFilter("Competition-Datei", ".competition"), parent);
+        if (filename != null) {
+            Competition c = getGesamtwertung(p, parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0);
+            OutputManager.speichereObject(filename, c);
+        }
+    }
+
+    @SuppressWarnings({ "unchecked", "null", "rawtypes" })
+    private static <T extends ASchwimmer> Competition getGesamtwertung(AWettkampf<T> wk, Veranstaltung vs, boolean gliederung) {
+        AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
+        String[] nx = vs.getCompetitionNames();
+        LinkedList<Integer> sizes = new LinkedList<Integer>();
+        LinkedList<String> names = new LinkedList<String>();
+        LinkedList<String> sexes = new LinkedList<String>();
+        for (int x = 0; x < wks.length; x++) {
+            int amount = 0;
+            if (wks[x] != null) {
+                if (!gliederung) {
+                    ListIterator<ASchwimmer> li = wks[x].getSchwimmer().listIterator();
+                    while (li.hasNext()) {
+                        ASchwimmer s = li.next();
+                        if (s.getQualifikationsebene().trim().length() == 0) {
+                            li.remove();
+                        } else {
+                            s.setGliederung(s.getQualifikationsebene());
+                        }
+                    }
+                }
+                for (int y = 0; y < wks[x].getRegelwerk().size(); y++) {
+                    if (SearchUtils.hasSchwimmer(wks[x], wks[x].getRegelwerk().getAk(y))) {
+                        amount++;
+                        sexes.add(wks[x].getRegelwerk().getTranslation("femaleShort", I18n.get("sex1Short")));
+                        sexes.add(wks[x].getRegelwerk().getTranslation("maleShort", I18n.get("sex2Short")));
+                    }
+                }
+            }
+            if (amount > 0) {
+                sizes.addLast(amount);
+                names.addLast(nx[x]);
+            }
+        }
+        if (sizes.size() == 0) {
+            return null;
+        }
+
+        Competition c = new Competition(gliederung ? "National" : "LV");
+        GesamtwertungSchwimmer[] result = buildGesamtwertungsergebnis(wk, false, sexes.toArray(new String[sexes.size()]));
+        if (result == null || result.length == 0) {
+            return c;
+        }
+        c.setCompetitors(Arrays.stream(result).map(m -> new Competitor(m.getName(), m.getPunkte())).toArray(Competitor[]::new));
+        return c;
+   }
+
+    @SuppressWarnings("rawtypes")
+    private static GesamtwertungSchwimmer[] buildGesamtwertungsergebnis(AWettkampf wettkampf, boolean nachkomma,
+            String[] sexes) {
+        if (!wettkampf.getRegelwerk().hasGesamtwertung()) {
+            return null;
+        }
+        GesamtwertungWettkampf gesamt = new GesamtwertungWettkampf(wettkampf);
+        Altersklasse ak = gesamt.getRegelwerk().getAk(0);
+        return gesamt.getResult();
+    }
+
+}

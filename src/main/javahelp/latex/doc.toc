@@ -1,0 +1,28 @@
+\select@language {ngerman}
+\select@language {english}
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Features}{3}{section.1}
+\contentsline {section}{\numberline {2}Programme}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}JAuswertung}{8}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Men\IeC {\"u}s}{9}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Obere Knopfleiste}{40}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Linke Knopfleisten}{42}{subsubsection.2.1.3}
+\contentsline {subsection}{\numberline {2.2}Regelwerkseditor}{57}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Veranstaltungswertung}{60}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}JTeams}{61}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}AlphaServer}{62}{subsection.2.5}
+\contentsline {section}{\numberline {3}Enthaltene Dateien}{63}{section.3}
+\contentsline {subsection}{\numberline {3.1}Punktetabellen}{64}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}HLW"=Bahnenprotkoll}{65}{subsection.3.2}
+\contentsline {section}{\numberline {4}Ablauf eines Wettkampfs}{66}{section.4}
+\contentsline {subsection}{\numberline {4.1}Vorbereitungen}{67}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Vor dem Wettkampf}{68}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}W\IeC {\"a}hrend des Wettkampfs}{70}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Nach dem Wettkampf}{72}{subsection.4.4}
+\contentsline {section}{\numberline {5}Systemvoraussetzungen}{73}{section.5}
+\contentsline {section}{\numberline {6}Download}{74}{section.6}
+\contentsline {section}{\numberline {7}Anhang}{75}{section.7}
+\contentsline {subsection}{\numberline {7.1}FAQ}{76}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}HTML"=Vorlagen}{79}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Links}{80}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Lizenzbedingungen}{81}{subsection.7.4}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="ZW-Plugin" description="" id="de.df.jauswertung.zw" classname="de.df.jauswertung.gui.plugins.zw.MZWPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>
