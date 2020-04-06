@@ -29,25 +29,7 @@
 
 	<propertyregex property="version_" input="${version}" regexp="\." replace="_" casesensitive="false" />
 
-	<target name="maven-dependencies" >
-		<exec executable="mvn.cmd" dir="../jutils-legacy">
-			<arg value="clean" />
-			<arg value="package" />
-		</exec>
-		<exec executable="mvn.cmd" dir="../alphaserver">
-			<arg value="clean" />
-			<arg value="package" />
-		</exec>
-	</target>
-
-	<target name="maven" >
-		<exec executable="mvn.cmd">
-			<arg value="clean" />
-			<arg value="package" />
-		</exec>
-	</target>
-
-	<target name="init" depends="clean, maven" description="Initialisation">
+	<target name="init" depends="clean" description="Initialisation">
 		<!-- Create the time stamp -->
 		<tstamp>
 			<format property="date" pattern="dd.MM.yyyy" locale="de,DE" />
