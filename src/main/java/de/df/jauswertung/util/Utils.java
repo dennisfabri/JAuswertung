@@ -15,10 +15,12 @@ import java.util.prefs.Preferences;
 import com.rits.cloning.Cloner;
 import com.thoughtworks.xstream.XStream;
 
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.IOUtils;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jutils.gui.util.UIPerformanceMode;
-import uk.ac.shef.wit.simmetrics.similaritymetrics.AbstractStringMetric;
-import uk.ac.shef.wit.simmetrics.similaritymetrics.Jaro;
+import org.simmetrics.StringMetric;
+import org.simmetrics.metrics.Jaro;
 
 public final class Utils {
 
@@ -26,15 +28,15 @@ public final class Utils {
         // Hide
     }
 
-    private final static String[][]           NotSimilar         = new String[][] {
+    private final static String[][] NotSimilar = new String[][] {
             { "Gelsenkirchen-Buer", "Gelsenkirchen-Horst", "Gelsenkirchen-Mitte" }, { "Weimar", "Wismar" },
             { "Dettingen", "Ertingen", "Ettlingen" } };
 
-    private static boolean                    initialized        = false;
-    private static ResourceBundle             build              = null;
+    private static boolean initialized = false;
+    private static ResourceBundle build = null;
 
-    private final static AbstractStringMetric metric             = new Jaro();
-    private final static double               SimilarityBoundary = 0.85;
+    private final static StringMetric metric = new Jaro();
+    private final static double SimilarityBoundary = 0.85;
 
     public static boolean areSimilar(String s1, String s2) {
         if (s1 == null && s2 == null) {
@@ -52,7 +54,7 @@ public final class Utils {
         if (AreMarked(s1, s2)) {
             return false;
         }
-        double result = metric.getSimilarity(s1.trim(), s2.trim());
+        double result = metric.compare(s1.trim(), s2.trim());
         return (result >= SimilarityBoundary);
     }
 

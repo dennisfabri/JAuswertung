@@ -24,9 +24,9 @@ public final class MiscImportUtils {
         // Hide constructor
     }
 
-    private final static String[] NAMES    = { "ak12", "ak13", "ak15", "ak17", "akoffen" };
+    private final static String[] NAMES = { "ak12", "ak13", "ak15", "ak17", "akoffen" };
 
-    private static CsvImporter    importer = new CsvImporter();
+    private static CsvImporter importer = new CsvImporter();
 
     public static <T extends ASchwimmer> LinkedList<T> importMeldeliste(String name, AWettkampf<T> wk)
             throws TableFormatException, TableEntryException, TableException, IOException {
@@ -54,7 +54,8 @@ public final class MiscImportUtils {
         createFiles(dir, "mannschaft");
     }
 
-    private static void createFiles(String dir, String prefix) throws FileNotFoundException, UnsupportedEncodingException {
+    private static void createFiles(String dir, String prefix)
+            throws FileNotFoundException, UnsupportedEncodingException {
         String[] daten = FileUtils.readTextFile(dir + prefix + ".txt");
         int y = 0;
         boolean male = false;
@@ -95,8 +96,8 @@ public final class MiscImportUtils {
         return importFile(wk, ak, male, file, 2001);
     }
 
-    public static <T extends ASchwimmer> Object[][] importFile(AWettkampf<T> wk, int ak, boolean male, String file, int jahr)
-            throws TableException, TableFormatException, IOException, TableEntryException {
+    public static <T extends ASchwimmer> Object[][] importFile(AWettkampf<T> wk, int ak, boolean male, String file,
+            int jahr) throws TableException, TableFormatException, IOException, TableEntryException {
         String[] datei = FileUtils.readTextFile(file);
         int disz = wk.getRegelwerk().getAk(ak).getDiszAnzahl();
         LinkedList<String[]> result = new LinkedList<String[]>();
@@ -385,7 +386,7 @@ public final class MiscImportUtils {
         }
         ps.close();
         Object[][] data = importFile(wk, dateiname, jahr);
-        new File(dateiname).deleteOnExit();
+        // new File(dateiname).deleteOnExit();
         return data;
     }
 
@@ -434,7 +435,8 @@ public final class MiscImportUtils {
         Object[] title = tm.getTitles();
         for (int y = 0; y < data[0].length; y++) {
             T t = SearchUtils.getSchwimmer(wk, y + 1 + offset);
-            if (data[7][y].toString().startsWith("Ausschluß") || data[7][y].toString().startsWith("disq") || data[7][y].toString().startsWith("ausg.")
+            if (data[7][y].toString().startsWith("Ausschlu") || data[7][y].toString().startsWith("disq")
+                    || data[7][y].toString().startsWith("ausg.")
                     || (wk.getStrafen().getStrafe(data[7][y].toString()) != null)) {
                 if ((wk.getStrafen().getStrafe(data[7][y].toString()) != null)) {
                     t.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF, wk.getStrafen().getStrafe(data[7][y].toString()));
@@ -448,14 +450,15 @@ public final class MiscImportUtils {
                     String index1string = data[index + 1][y].toString().trim();
                     String index2string = data[index + 2][y].toString().trim();
 
-                    String[] text = new String[] { " 800", " 600", " 400", " 300", " 200", " 100", " 50", " n.a.", " disq." };
+                    String[] text = new String[] { " 800", " 600", " 400", " 300", " 200", " 100", " 50", " n.a.",
+                            " disq." };
                     for (String aText : text) {
                         if (index2string.endsWith(aText)) {
                             index2string = index2string.substring(0, index2string.length() - aText.length()).trim();
                         }
                     }
-                    if (indexstring.equals("n. a.") || (index2string.equals("n.a.")) || (index2string.equalsIgnoreCase("V1"))
-                            || (index2string.equalsIgnoreCase("V1 n.a."))) {
+                    if (indexstring.equals("n. a.") || (index2string.equals("n.a."))
+                            || (index2string.equalsIgnoreCase("V1")) || (index2string.equalsIgnoreCase("V1 n.a."))) {
                         t.addStrafe(x, Strafe.NICHT_ANGETRETEN);
                     } else if ((indexstring.length() > 0) && (!indexstring.equals("-"))) {
                         if (indexstring.equals("aufg.")) {
@@ -493,8 +496,10 @@ public final class MiscImportUtils {
                                 for (int i = 0; i < index2string.length() / 2; i++) {
                                     Strafe s = wk.getStrafen().getStrafe(index2string.substring(2 * i, 2 * i + 2));
                                     if (s == null) {
-                                        // System.err.println("Illegal value "+index2string +" (from "+(2*i)+" to " + (2*i+2)+")");
-                                        throw new RuntimeException("Illegal value " + index2string.substring(2 * i, 2 * i + 2) + " in " + index2string);
+                                        // System.err.println("Illegal value "+index2string +" (from "+(2*i)+" to " +
+                                        // (2*i+2)+")");
+                                        throw new RuntimeException("Illegal value "
+                                                + index2string.substring(2 * i, 2 * i + 2) + " in " + index2string);
                                     }
                                     t.addStrafe(x, s);
                                 }

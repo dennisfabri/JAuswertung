@@ -14,14 +14,14 @@ import junit.framework.TestCase;
 
 public class DM00E12mTest extends TestCase {
 
-    private static EinzelWettkampf               wk      = null;
+    private static EinzelWettkampf wk = null;
 
-    private static final String                  FILE    = "src/test/resources/competitions/dm00/einzel-ak12m.txt";
-    private static final boolean                 MALE    = true;
-    private static final int                     AK      = 0;
+    private static final String FILE = "src/test/resources/competitions/dm00/einzel-ak12m.txt";
+    private static final boolean MALE = true;
+    private static final int AK = 0;
 
     private static SchwimmerResult<Teilnehmer>[] results = null;
-    private static Object[][]                    data    = null;
+    private static Object[][] data = null;
 
     public DM00E12mTest(String x) {
         super(x);
@@ -29,7 +29,7 @@ public class DM00E12mTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        if (TestUtils.INDEPENDENT_INITIALIZATION || (wk == null)) {
+        if (wk == null) {
             wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwe"),
                     InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", true));
             data = MiscImportUtils.importFile(wk, AK, MALE, FILE, 2000);

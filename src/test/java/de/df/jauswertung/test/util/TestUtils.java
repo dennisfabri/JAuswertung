@@ -8,22 +8,18 @@ import de.df.jutils.util.StringTools;
 
 public final class TestUtils {
 
-    /*
-     * If set to true, all tests will be initialized independently. Otherwise Objects will remain initialized, so that
-     * the next test can start earlier.
-     */
-    public static boolean INDEPENDENT_INITIALIZATION = false;
-
     private TestUtils() {
         // Hide
     }
 
-    public static <T extends ASchwimmer> void checkRow(Object[][] data, SchwimmerResult<T>[] results, int x, int offset) {
+    public static <T extends ASchwimmer> void checkRow(Object[][] data, SchwimmerResult<T>[] results, int x,
+            int offset) {
         if (x >= results.length) {
             return;
         }
         T t = results[x].getSchwimmer();
-        if (data[7][t.getStartnummer() - 1].toString().startsWith("Ausschluﬂ") || data[7][t.getStartnummer() - 1].toString().startsWith("disq")
+        if (data[7][t.getStartnummer() - 1].toString().startsWith("Ausschlu")
+                || data[7][t.getStartnummer() - 1].toString().startsWith("disq")
                 || data[7][t.getStartnummer() - 1].toString().startsWith("ausg.")) {
             Assert.assertTrue(t.isAusgeschlossen());
         } else {

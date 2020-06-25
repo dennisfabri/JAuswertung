@@ -694,7 +694,7 @@ public class ImportUtils {
 
     private static final String[] YES_CONSTANTS = new String[] { "ja", "j", "true", "1", "+", "yes", "y", "x",
             I18n.get("yes") };
-    private static final String[] NO_CONSTANTS  = new String[] { "no", "n", "false", "0", "-", "no", I18n.get("no") };
+    private static final String[] NO_CONSTANTS = new String[] { "no", "n", "false", "0", "-", "no", I18n.get("no") };
 
     private static boolean getBoolean(Object[] data, int index, int row, String sheet, String file,
             boolean defaultvalue) throws TableEntryException {
@@ -744,7 +744,7 @@ public class ImportUtils {
             return 0.0;
         }
         // Compatibility with ChaosSoftware
-        if (text.startsWith("ausschluﬂ") || text.startsWith("ausschluss") || text.startsWith("disq")) {
+        if (text.startsWith("ausschlu") || text.startsWith("ausschluss") || text.startsWith("disq")) {
             return 0;
         }
         try {

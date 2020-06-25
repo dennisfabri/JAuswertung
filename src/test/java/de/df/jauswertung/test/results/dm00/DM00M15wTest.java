@@ -29,7 +29,7 @@ public class DM00M15wTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        if (TestUtils.INDEPENDENT_INITIALIZATION || (wk == null)) {
+        if (wk == null) {
             wk = new MannschaftWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm"),
                     InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", false));
             data = MiscImportUtils.importFile(wk, AK, MALE, FILE, 2000);
