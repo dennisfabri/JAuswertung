@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -11,7 +12,7 @@
 	<url>https://github.com/dennisfabri/JAuswertung</url>
 
 	<properties>
-		<project.build.sourceEncoding>Windows-1252</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -21,11 +22,22 @@
 		<poi.version>4.1.2</poi.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.sonatype.install4j</groupId>
+				<artifactId>install4j-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<type>maven-plugin</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
-			<groupId>uk.ac.shef.wit.simmetrics</groupId>
-			<artifactId>simmetrics</artifactId>
-			<version>1.6.2.20070207</version>
+			<groupId>com.github.mpkorstanje</groupId>
+			<artifactId>simmetrics-core</artifactId>
+			<version>4.1.1</version>
 		</dependency>
 
 		<dependency>
@@ -95,9 +107,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mxgraph</groupId>
+			<groupId>com.github.vlsi.mxgraph</groupId>
 			<artifactId>jgraphx</artifactId>
-			<version>4.0.6</version>
+			<version>4.1.0</version>
 		</dependency>
 
 		<dependency>
@@ -109,8 +121,8 @@
 
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>xhtmlrenderer</artifactId>
-			<version>8.7-atlassian-4</version>
+			<artifactId>flying-saucer-core</artifactId>
+			<version>9.1.20</version>
 		</dependency>
 
 		<dependency>
@@ -134,22 +146,8 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>TU-Darmstadt</id>
-			<url>http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-releases/</url>
-		</repository>
-		<repository>
-			<id>Atlassian</id>
-			<url>https://packages.atlassian.com/maven-3rdparty/</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<plugins>
-			<!-- <plugin> <artifactId>maven-surefire-plugin</artifactId> <version>2.22.2</version> <dependencies> <dependency> <groupId>org.junit.platform</groupId> 
-				<artifactId>junit-platform-surefire-provider</artifactId> <version>1.3.2</version> </dependency> <dependency> <groupId>org.junit.jupiter</groupId> 
-				<artifactId>junit-jupiter-engine</artifactId> <version>${junit.version}</version> </dependency> </dependencies> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -195,7 +193,9 @@
 				<version>1.8</version>
 				<configuration>
 					<tasks>
-						<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
+						<taskdef
+							resource="net/sf/antcontrib/antcontrib.properties"
+							classpathref="maven.plugin.classpath" />
 						<ant antfile="${basedir}/build.xml">
 							<target name="release" />
 						</ant>
@@ -224,6 +224,28 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<!-- 
+			<plugin>
+				<groupId>org.sonatype.install4j</groupId>
+				<artifactId>install4j-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compile-installers</id>
+						<phase>package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
+							<destination>release</destination>
+							<debug>false</debug>
+							<buildIds>w32jre mac unix</buildIds>
+							<release>${project.version}</release>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 </project>
