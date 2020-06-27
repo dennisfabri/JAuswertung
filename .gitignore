@@ -12,3 +12,5 @@
 /release/
 /ant/
 /distribute/
+
+**/hs_err_pid*.log

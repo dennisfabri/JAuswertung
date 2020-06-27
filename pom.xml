@@ -20,6 +20,7 @@
 
 		<junit.version>4.13</junit.version>
 		<poi.version>4.1.2</poi.version>
+		<jersey.version>2.31</jersey.version>
 	</properties>
 
 	<dependencyManagement>
@@ -137,6 +138,29 @@
 			<version>1.8</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.11.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -224,28 +248,12 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- 
-			<plugin>
-				<groupId>org.sonatype.install4j</groupId>
-				<artifactId>install4j-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>compile-installers</id>
-						<phase>package</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
-							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
-							<destination>release</destination>
-							<debug>false</debug>
-							<buildIds>w32jre mac unix</buildIds>
-							<release>${project.version}</release>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			-->
+			<!-- <plugin> <groupId>org.sonatype.install4j</groupId> <artifactId>install4j-maven-plugin</artifactId> 
+				<executions> <execution> <id>compile-installers</id> <phase>package</phase> 
+				<goals> <goal>compile</goal> </goals> <configuration> <projectFile>${project.basedir}/install4j/install4j.install4j</projectFile> 
+				<destination>release</destination> <debug>false</debug> <buildIds>w32jre 
+				mac unix</buildIds> <release>${project.version}</release> </configuration> 
+				</execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 </project>
