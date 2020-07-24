@@ -11,8 +11,8 @@ public class ResultsDto {
     public ResultsDto(CompetitionType type, List<Individual> individuals, List<Team> teams) {
         super();
         this.type = type;
-        this.individuals = individuals.stream().limit(10).collect(Collectors.toUnmodifiableList());
-        this.teams = teams.stream().limit(10).collect(Collectors.toUnmodifiableList());
+        this.individuals = individuals.stream().collect(Collectors.toUnmodifiableList());
+        this.teams = teams.stream().collect(Collectors.toUnmodifiableList());
     }
 
     public CompetitionType getType() {
