@@ -1,7 +1,7 @@
 package de.df.jauswertung.gui.plugins.upload.dto;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResultsDto {
     private final CompetitionType type;
@@ -11,8 +11,8 @@ public class ResultsDto {
     public ResultsDto(CompetitionType type, List<Individual> individuals, List<Team> teams) {
         super();
         this.type = type;
-        this.individuals = Collections.synchronizedList(individuals);
-        this.teams = Collections.synchronizedList(teams);
+        this.individuals = individuals.stream().limit(10).collect(Collectors.toUnmodifiableList());
+        this.teams = teams.stream().limit(10).collect(Collectors.toUnmodifiableList());
     }
 
     public CompetitionType getType() {

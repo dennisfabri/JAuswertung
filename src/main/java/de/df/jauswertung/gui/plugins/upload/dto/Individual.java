@@ -13,7 +13,11 @@ public class Individual {
 
     public Individual(String firstName, String lastName, SexIndividual sex, int yearOfBirth, String agegroup,
             List<Result> results) {
-        super();
+
+        if (firstName == null || firstName.length() == 0) {
+            throw new IllegalArgumentException("firstName must not be null.");
+        }
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
