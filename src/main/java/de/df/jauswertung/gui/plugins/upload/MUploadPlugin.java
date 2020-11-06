@@ -44,6 +44,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.ergebnis.ResultUtils;
 import de.df.jauswertung.util.ergebnis.SchwimmerData;
@@ -80,8 +81,12 @@ public class MUploadPlugin extends ANullPlugin {
         });
         upload.setToolTipText(I18n.getToolTip("Upload"));
 
-        menues = new MenuInfo[1];
-        menues[0] = new MenuInfo(I18n.get("Edit"), 500, upload, 976);
+        if (Utils.isInDevelopmentMode()) {
+            menues = new MenuInfo[1];
+            menues[0] = new MenuInfo(I18n.get("Edit"), 500, upload, 976);
+        } else {
+            menues = new MenuInfo[0];
+        }
     }
 
     private void uploadJson(String attachmentId, AWettkampf<?> wk) {
