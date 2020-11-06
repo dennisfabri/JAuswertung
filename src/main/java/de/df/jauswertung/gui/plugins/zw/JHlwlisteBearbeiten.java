@@ -35,12 +35,19 @@ import javax.swing.SwingUtilities;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JTaskPaneGroup;
+import com.l2fprod.common.tasks.JTaskPaneGroup;
 import com.xduke.xswing.DataTipManager;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.Duration;
+import de.df.jauswertung.daten.laufliste.HLWLauf;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Time;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.ZWTableCellRenderer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JInvisibleSplitPane;

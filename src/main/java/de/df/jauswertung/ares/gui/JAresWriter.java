@@ -22,9 +22,12 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.ares.export.*;
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.ares.export.AresWriterDefault;
+import de.df.jauswertung.ares.export.AresWriterFinals;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.JWarningTextField;

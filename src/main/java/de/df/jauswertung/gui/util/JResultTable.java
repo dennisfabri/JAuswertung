@@ -20,11 +20,22 @@ import javax.swing.table.TableColumnModel;
 
 import com.xduke.xswing.DataTipManager;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.util.ergebnis.DataType;
+import de.df.jauswertung.util.ergebnis.FormelManager;
+import de.df.jauswertung.util.ergebnis.ResultUtils;
+import de.df.jauswertung.util.ergebnis.SchwimmerData;
+import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.jtable.ColumnFittingMouseAdapter;
 import de.df.jutils.gui.jtable.ColumnGroup;
 import de.df.jutils.gui.jtable.GroupableTableHeader;

@@ -25,10 +25,14 @@ import org.w3c.dom.Document;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.plugins.core.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.gui.plugins.core.AgegroupResultSelection;
+import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
+import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.data.EnumerationIterable;
 import de.df.jutils.io.Transform;
 

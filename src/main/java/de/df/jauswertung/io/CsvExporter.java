@@ -24,9 +24,11 @@ import java.util.LinkedList;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.DataTableUtils.RegistrationDetails;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.util.Feedback;

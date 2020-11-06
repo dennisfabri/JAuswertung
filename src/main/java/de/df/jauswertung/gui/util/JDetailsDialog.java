@@ -21,7 +21,8 @@ import javax.swing.event.ChangeListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jutils.gui.util.WindowUtils;
 
 public class JDetailsDialog<T extends ASchwimmer> extends JDialog {

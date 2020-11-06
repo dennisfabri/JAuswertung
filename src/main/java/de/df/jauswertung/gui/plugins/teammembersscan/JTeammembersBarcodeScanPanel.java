@@ -28,16 +28,21 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JTaskPaneGroup;
+import com.l2fprod.common.tasks.JTaskPaneGroup;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.http.HttpServerPlugin;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.JTeammembersStatusPanel;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.TeamUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jauswertung.util.valueobjects.*;
+import de.df.jauswertung.util.valueobjects.Team;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.graphics.ColorUtils;
 import de.df.jutils.gui.JDottingLabel;
 import de.df.jutils.gui.JIcon;

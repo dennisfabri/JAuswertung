@@ -7,7 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.HLWLauf;
 
 class TableTransferHandler<T extends ASchwimmer> extends AZWTransferHandler<T> {

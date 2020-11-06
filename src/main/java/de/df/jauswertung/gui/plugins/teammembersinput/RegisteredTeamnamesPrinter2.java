@@ -9,9 +9,11 @@ import java.awt.print.Printable;
 
 import javax.swing.JButton;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.TeamnamesRegistrationPrintable;
 import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;

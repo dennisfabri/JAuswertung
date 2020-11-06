@@ -5,8 +5,11 @@ package de.df.jauswertung.util.ergebnis;
 
 import java.util.Hashtable;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
 
 /**
  * @author Dennis Fabri

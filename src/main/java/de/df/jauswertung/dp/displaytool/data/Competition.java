@@ -1,7 +1,10 @@
 package de.df.jauswertung.dp.displaytool.data;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Competition implements Serializable {
 

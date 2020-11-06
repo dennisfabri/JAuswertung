@@ -9,7 +9,8 @@ import java.util.LinkedList;
 import javax.swing.JTable;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.kampfrichter.*;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jutils.print.TextTablePrintable;
 
 public final class RefereesTableCompactCreator {

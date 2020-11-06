@@ -5,7 +5,8 @@ import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.Tupel;

@@ -19,7 +19,8 @@ import org.dom4j.Element;
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.util.StringTools;
 

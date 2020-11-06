@@ -3,7 +3,8 @@ package de.df.jauswertung.daten.laufliste;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.Converter;
 

@@ -8,7 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.Eingabe;
+import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.layout.SimpleFormBuilder;

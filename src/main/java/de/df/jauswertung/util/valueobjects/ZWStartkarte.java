@@ -4,7 +4,9 @@
 
 package de.df.jauswertung.util.valueobjects;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;

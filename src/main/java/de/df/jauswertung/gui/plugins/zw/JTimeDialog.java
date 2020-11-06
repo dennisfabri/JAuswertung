@@ -13,8 +13,10 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.laufliste.Duration;
+import de.df.jauswertung.daten.laufliste.Time;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.WindowUtils;
 
 final class JTimeDialog<T extends ASchwimmer> extends JDialog {

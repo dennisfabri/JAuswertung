@@ -3,7 +3,18 @@
  */
 package de.df.jauswertung.io;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
 
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -11,12 +22,50 @@ import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.event.*;
-import de.df.jauswertung.daten.kampfrichter.*;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Eingabe;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Filter;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
+import de.df.jauswertung.daten.Mannschaftsmitgliedermeldung;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.Timelimit;
+import de.df.jauswertung.daten.Timelimitchecktype;
+import de.df.jauswertung.daten.Timelimits;
+import de.df.jauswertung.daten.TimelimitsContainer;
+import de.df.jauswertung.daten.Wettkampfart;
+import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.event.PropertyChangeListener;
+import de.df.jauswertung.daten.event.PropertyChangeManager;
+import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.daten.laufliste.Duration;
+import de.df.jauswertung.daten.laufliste.HLWLauf;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWLauf;
+import de.df.jauswertung.daten.laufliste.OWLaufliste;
+import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.daten.misc.BugReport;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Einspruch;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startgruppe;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
+import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
+import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.dm.collector.XStreamUtil;
 
 /**

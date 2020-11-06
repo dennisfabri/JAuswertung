@@ -3,8 +3,10 @@ package de.df.jauswertung.dp.splitter;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
 
 public class DPSplitter {

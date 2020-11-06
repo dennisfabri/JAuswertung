@@ -2,7 +2,8 @@ package de.df.jauswertung.util.valueobjects;
 
 import java.io.IOException;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.Geschlecht;
+import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.gui.util.I18n;
 
 public class Teammember {

@@ -5,16 +5,18 @@ import javax.swing.SwingConstants;
 import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.util.GesamtwertungSchwimmer;
+import de.df.jauswertung.util.GesamtwertungWettkampf;
 import de.df.jutils.gui.jtable.ColumnGroup;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
+import de.df.jutils.gui.jtable.ExtendedTableModel.TitleCell;
+import de.df.jutils.gui.jtable.ExtendedTableModel.TitleRow;
 import de.df.jutils.gui.jtable.GroupableTableHeader;
 import de.df.jutils.gui.jtable.JGroupableTable;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.jtable.SimpleTableModel;
-import de.df.jutils.gui.jtable.ExtendedTableModel.TitleCell;
-import de.df.jutils.gui.jtable.ExtendedTableModel.TitleRow;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 import de.df.jutils.util.StringTools;
 

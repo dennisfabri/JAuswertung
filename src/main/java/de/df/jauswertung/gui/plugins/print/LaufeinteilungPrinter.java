@@ -21,7 +21,9 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.TableHeatUtils;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;

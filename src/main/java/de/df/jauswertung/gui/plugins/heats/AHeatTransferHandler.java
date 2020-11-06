@@ -14,7 +14,8 @@ import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 
 abstract class AHeatTransferHandler<T extends ASchwimmer> extends TransferHandler {
 

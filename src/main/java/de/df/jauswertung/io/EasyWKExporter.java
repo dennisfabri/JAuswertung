@@ -9,7 +9,9 @@ import static de.df.jauswertung.io.ExportManager.HEATTIMES;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.util.Feedback;

@@ -8,9 +8,13 @@ import java.util.ResourceBundle;
 
 import javax.swing.KeyStroke;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Geschlecht;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jutils.exception.ParserException;
 import de.df.jutils.i18n.SafeTextProcessor;
 import de.df.jutils.resourcebundle.IdentityResourceBundle;

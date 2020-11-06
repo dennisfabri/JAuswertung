@@ -19,11 +19,13 @@ import javax.swing.WindowConstants;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JButtonBar;
+import com.l2fprod.common.buttonbar.JButtonBar;
 
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JGlassPane;
 import de.df.jutils.gui.border.ShadowBorder;

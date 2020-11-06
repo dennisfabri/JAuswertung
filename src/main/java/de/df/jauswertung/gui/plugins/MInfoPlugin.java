@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.AboutDialogCreator;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.window.JAboutDialog;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.MenuInfo;

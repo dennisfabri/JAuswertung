@@ -4,7 +4,8 @@
 
 package de.df.jauswertung.daten;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.util.AltersklassenUtils;
 
 /**

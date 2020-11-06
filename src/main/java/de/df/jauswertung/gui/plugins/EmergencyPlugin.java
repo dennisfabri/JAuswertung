@@ -10,8 +10,11 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.SystemUtils;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.AltersklassenUtils;

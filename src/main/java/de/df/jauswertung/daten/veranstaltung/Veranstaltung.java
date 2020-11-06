@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
+import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 
 public class Veranstaltung implements Serializable {
 

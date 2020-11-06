@@ -9,13 +9,14 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JIntegerField.Validator;
+import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {

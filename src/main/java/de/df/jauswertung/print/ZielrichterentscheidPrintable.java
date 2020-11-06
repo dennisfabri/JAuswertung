@@ -9,9 +9,13 @@ import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.LaufInfo;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.util.ZielrichterentscheidUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.print.ComponentPackingPrintable;

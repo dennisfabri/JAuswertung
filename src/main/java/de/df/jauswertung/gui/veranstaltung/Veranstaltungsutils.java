@@ -3,13 +3,23 @@ package de.df.jauswertung.gui.veranstaltung;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.daten.veranstaltung.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.veranstaltung.CompetitionContainer;
+import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.JResultTable;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.util.ergebnis.FormelDirectPoints;
+import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 
 class Veranstaltungsutils {
 

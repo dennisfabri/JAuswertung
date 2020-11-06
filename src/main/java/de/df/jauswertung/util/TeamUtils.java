@@ -1,6 +1,10 @@
 package de.df.jauswertung.util;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.util.valueobjects.Team;
 
 public class TeamUtils {

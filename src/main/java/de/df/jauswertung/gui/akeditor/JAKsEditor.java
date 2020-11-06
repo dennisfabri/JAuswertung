@@ -34,9 +34,13 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.plugins.print.RulebookPrinter;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.io.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.gui.util.AboutDialogCreator;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.FileFilters;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
 import de.df.jutils.gui.JGlassFrame;
 import de.df.jutils.gui.border.BorderUtils;

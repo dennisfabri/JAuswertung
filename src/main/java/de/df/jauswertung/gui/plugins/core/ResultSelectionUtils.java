@@ -4,9 +4,14 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
 
 public class ResultSelectionUtils {
 

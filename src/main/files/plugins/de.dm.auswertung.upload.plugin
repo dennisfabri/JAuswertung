@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="UploadsPlugin" description="" id="de.df.jauswertung.upload" classname="de.df.jauswertung.gui.plugins.upload.MUploadPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

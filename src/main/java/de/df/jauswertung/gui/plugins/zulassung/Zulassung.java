@@ -5,7 +5,10 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Qualifikation;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.HashedCounter;

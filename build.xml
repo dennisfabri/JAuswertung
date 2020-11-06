@@ -4,7 +4,7 @@
 	<property environment="env" />
 
 	<!-- set global properties for this build -->
-	<property name="version" value="15.0.1" />
+	<property name="version" value="15.0.2" />
 	<property name="year" value="2020" />
 	<property name="build-temp" location="ant/build-temp" />
 	<property name="build" location="ant/build" />
@@ -15,7 +15,7 @@
 	<property name="jars" location="target/libs" />
 	<property name="required" location="required" />
 	<property name="release" location="release" />
-	<property name="itext" value="itextpdf-5.5.13.1.jar" />
+	<property name="itext" value="itextpdf-5.5.13.2.jar" />
 
 	<property name="version.alphaserver" value="1.0.0-SNAPSHOT" />
 

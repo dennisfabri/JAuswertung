@@ -13,7 +13,9 @@ import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JLabelSeparator;
 import de.df.jutils.gui.layout.SimpleFormBuilder;

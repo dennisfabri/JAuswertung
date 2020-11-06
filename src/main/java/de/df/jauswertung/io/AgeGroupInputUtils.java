@@ -9,8 +9,13 @@ import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
+import de.df.jauswertung.util.ergebnis.FormelDLRG;
+import de.df.jauswertung.util.ergebnis.FormelManager;
 
 /**
  * @author Dennis Fabri

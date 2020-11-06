@@ -10,7 +10,9 @@ import java.util.ListIterator;
 
 import javax.swing.JMenuItem;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.akeditor.JAKsEditor;

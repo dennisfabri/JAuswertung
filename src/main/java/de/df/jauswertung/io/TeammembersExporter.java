@@ -3,7 +3,12 @@ package de.df.jauswertung.io;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitgliedermeldung;
+import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.util.Feedback;

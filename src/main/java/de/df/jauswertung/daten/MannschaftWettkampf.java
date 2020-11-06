@@ -6,7 +6,8 @@ package de.df.jauswertung.daten;
 import java.util.Arrays;
 import java.util.Random;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jutils.util.RandomUtils;
 

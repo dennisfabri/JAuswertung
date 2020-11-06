@@ -18,7 +18,8 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.plugin.IPluginManager;

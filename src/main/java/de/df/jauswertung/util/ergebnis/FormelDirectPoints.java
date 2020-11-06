@@ -9,9 +9,17 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.ergebnis.FormelDLRG2007.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.util.ergebnis.FormelDLRG2007.DLRGComparator;
+import de.df.jauswertung.util.ergebnis.FormelDLRG2007.RankComparator;
+import de.df.jauswertung.util.ergebnis.FormelDLRG2007.RankComparator2;
 
 /**
  * @author Dennis Fabri

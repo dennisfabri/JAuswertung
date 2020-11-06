@@ -5,7 +5,8 @@ package de.df.jauswertung.gui.plugins.print;
 
 import javax.swing.JPanel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jutils.plugin.UpdateEvent;
 
 /**

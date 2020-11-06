@@ -87,7 +87,8 @@ public final class ErzeugeWettkaempfe {
 
         long time = System.currentTimeMillis();
 
-        EinzelWettkampf ewk = new EinzelWettkampf(AltersklassenUtils.getDefaultAKs(true), InputManager.ladeStrafen(null, true));
+        EinzelWettkampf ewk = new EinzelWettkampf(AltersklassenUtils.getDefaultAKs(true),
+                InputManager.ladeStrafen(null, true));
         // ewk.setLogo(IconManager.getLogoImage());
         int lanes = 6;
         if (anzahl > 20) {
@@ -100,13 +101,14 @@ public final class ErzeugeWettkaempfe {
         for (int a = 0; a < 5; a++) {
             for (int g = 0; g < 2; g++) {
                 for (int x = 0; x < anzahl; x++) {
-                    Teilnehmer tn = ewk.createTeilnehmer(n.generateNachname(), n.generateVorname(g == 1), getJahrgang(ewk, a), g == 1, n.generateGliederung(),
-                            a, "");
+                    Teilnehmer tn = ewk.createTeilnehmer(n.generateNachname(), n.generateVorname(g == 1),
+                            getJahrgang(ewk, a), g == 1, n.generateGliederung(), a, "");
                     tn.setQualifikationsebene(n.generateLV(tn.getGliederung()));
                     ewk.addSchwimmer(tn);
                     if (tn.getAK().isDisciplineChoiceAllowed()) {
                         int d = tn.getAK().getMinimalChosenDisciplines()
-                                + rng.nextInt(tn.getAK().getMaximalChosenDisciplines() - tn.getAK().getMinimalChosenDisciplines() + 1);
+                                + rng.nextInt(tn.getAK().getMaximalChosenDisciplines()
+                                        - tn.getAK().getMinimalChosenDisciplines() + 1);
                         while (tn.getDisciplineChoiceCount() < d) {
                             int index = rng.nextInt(tn.getAK().getDiszAnzahl());
                             tn.setDisciplineChoice(index, true);
@@ -120,7 +122,8 @@ public final class ErzeugeWettkaempfe {
                     double factor = 1.75 * rng.nextDouble();
                     for (int i = 0; i < disz; i++) {
                         if (tn.isDisciplineChosen(i)) {
-                            double result = (0.98 + factor + 0.25 * rng.nextDouble()) * ak.getDisziplin(i, g == 1).getRec();
+                            double result = (0.98 + factor + 0.25 * rng.nextDouble())
+                                    * ak.getDisziplin(i, g == 1).getRec();
                             tn.setZeit(i, (int) result);
                             tn.setMeldezeit(i, (int) Math.round(tn.getZeit(i) * (0.95 + rng.nextDouble() * 0.1)));
                             if (rng.nextDouble() < 0.1) {
@@ -142,7 +145,8 @@ public final class ErzeugeWettkaempfe {
                     }
                     tn.setMeldepunkte(0, (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000);
                     tn.setMeldungMitProtokoll(0, rng.nextDouble() > 0.2);
-                    tn.setMeldepunkte(1, (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000 + tn.getHLWPunkte());
+                    tn.setMeldepunkte(1,
+                            (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000 + tn.getHLWPunkte());
                     tn.setMeldungMitProtokoll(1, rng.nextDouble() > 0.2);
                 }
             }
@@ -150,7 +154,9 @@ public final class ErzeugeWettkaempfe {
         ewk.getLaufliste().erzeugen();
         ewk.getHLWListe().erzeugen();
         if (datei != null) {
-            System.out.println("  " + datei + " (" + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time))) + "s)");
+            System.out.println("  " + datei + " ("
+                    + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time)))
+                    + "s)");
             OutputManager.speichereWettkampf(datei, ewk);
         }
         return ewk;
@@ -212,8 +218,8 @@ public final class ErzeugeWettkaempfe {
                         stufe = KampfrichterStufe.D12;
                         break;
                     }
-                    Kampfrichter kr = new Kampfrichter(ng.generateVorname(true) + " " + ng.generateNachname(), ng.generateGliederung(), "",
-                            stufe.mit(ke.getPosition(pos).getMinimaleStufe()));
+                    Kampfrichter kr = new Kampfrichter(ng.generateVorname(true) + " " + ng.generateNachname(),
+                            ng.generateGliederung(), "", stufe.mit(ke.getPosition(pos).getMinimaleStufe()));
                     karis.addLast(kr);
                 }
                 ke.setKampfrichter(pos, karis);
@@ -230,7 +236,8 @@ public final class ErzeugeWettkaempfe {
 
         long time = System.currentTimeMillis();
 
-        MannschaftWettkampf mwk = new MannschaftWettkampf(AltersklassenUtils.getDefaultAKs(false), InputManager.ladeStrafen(null, false));
+        MannschaftWettkampf mwk = new MannschaftWettkampf(AltersklassenUtils.getDefaultAKs(false),
+                InputManager.ladeStrafen(null, false));
         // mwk.setLogo(IconManager.getLogoImage());
 
         int lanes = 6;
@@ -287,7 +294,8 @@ public final class ErzeugeWettkaempfe {
                     double factor = 1.75 * rng.nextDouble();
                     for (int i = 0; i < disz; i++) {
                         if (m.isDisciplineChosen(i)) {
-                            double result = (0.98 + factor + 0.25 * rng.nextDouble()) * ak.getDisziplin(i, g == 1).getRec();
+                            double result = (0.98 + factor + 0.25 * rng.nextDouble())
+                                    * ak.getDisziplin(i, g == 1).getRec();
                             m.setZeit(i, (int) result);
                             m.setMeldezeit(i, (int) Math.round(m.getZeit(i) * (0.95 + rng.nextDouble() * 0.1)));
                             if (rng.nextDouble() < 0.1) {
@@ -309,7 +317,8 @@ public final class ErzeugeWettkaempfe {
                     }
                     m.setMeldepunkte(0, (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000);
                     m.setMeldungMitProtokoll(0, rng.nextDouble() > 0.2);
-                    m.setMeldepunkte(1, (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000 + m.getHLWPunkte());
+                    m.setMeldepunkte(1,
+                            (rng.nextDouble() / 2.0 + 0.5) * ak.getUsedDisciplines() * 1000 + m.getHLWPunkte());
                     m.setMeldungMitProtokoll(1, rng.nextDouble() > 0.2);
                 }
             }
@@ -318,7 +327,9 @@ public final class ErzeugeWettkaempfe {
         mwk.getLaufliste().erzeugen();
         mwk.getHLWListe().erzeugen();
         if (datei != null) {
-            System.out.println("  " + datei + " (" + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time))) + "s)");
+            System.out.println("  " + datei + " ("
+                    + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time)))
+                    + "s)");
             OutputManager.speichereWettkampf(datei, mwk);
         }
         return mwk;
@@ -338,24 +349,24 @@ public final class ErzeugeWettkaempfe {
 
     public static void main(String[] args) {
         System.out.println("Erzeuge Wettk\u00E4mpfe:");
-        String s = "../../required";
+        String s = "../../test/resources/values";
         if ((args != null) && (args.length > 0)) {
             s = args[0];
         }
-        einzel(new Namengenerator(s, 12), "../../Einzel 1.wk", 12, -1);
-        einzel(new Namengenerator(s, 32), "../../Einzel 2.wk", 32, -1);
-        einzel(new Namengenerator(s, 100), "../../Einzel 3.wk", 64, -1);
-        einzel(new Namengenerator(s, 1000), "../../Einzel 4.wk", 128, -1);
-        mannschaft(new Namengenerator(s, 12), "../../Mannschaft 1.wk", 12, -1);
-        mannschaft(new Namengenerator(s, 32), "../../Mannschaft 2.wk", 32, -1);
-        mannschaft(new Namengenerator(s, 100), "../../Mannschaft 3.wk", 64, -1);
-        mannschaft(new Namengenerator(s, 1000), "../../Mannschaft 4.wk", 128, -1);
-        einzel(new Namengenerator(s, 12), "../../Einzel 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
-        einzel(new Namengenerator(s, 32), "../../Einzel 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
-        einzel(new Namengenerator(s, 100), "../../Einzel 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
-        mannschaft(new Namengenerator(s, 12), "../../Mannschaft 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
-        mannschaft(new Namengenerator(s, 32), "../../Mannschaft 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
-        mannschaft(new Namengenerator(s, 100), "../../Mannschaft 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
+        einzel(new Namengenerator(s, 12), "../../../data/Einzel 1.wk", 12, -1);
+        einzel(new Namengenerator(s, 32), "../../../data/Einzel 2.wk", 32, -1);
+        einzel(new Namengenerator(s, 100), "../../../data/Einzel 3.wk", 64, -1);
+        einzel(new Namengenerator(s, 1000), "../../../data/Einzel 4.wk", 128, -1);
+        mannschaft(new Namengenerator(s, 12), "../../../data/Mannschaft 1.wk", 12, -1);
+        mannschaft(new Namengenerator(s, 32), "../../../data/Mannschaft 2.wk", 32, -1);
+        mannschaft(new Namengenerator(s, 100), "../../../data/Mannschaft 3.wk", 64, -1);
+        mannschaft(new Namengenerator(s, 1000), "../../../data/Mannschaft 4.wk", 128, -1);
+        einzel(new Namengenerator(s, 12), "../../../data/Einzel 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
+        einzel(new Namengenerator(s, 32), "../../../data/Einzel 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
+        einzel(new Namengenerator(s, 100), "../../../data/Einzel 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
+        mannschaft(new Namengenerator(s, 12), "../../../data/Mannschaft 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
+        mannschaft(new Namengenerator(s, 32), "../../../data/Mannschaft 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
+        mannschaft(new Namengenerator(s, 100), "../../../data/Mannschaft 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
         System.out.println("Fertig");
     }
 }

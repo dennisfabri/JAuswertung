@@ -14,8 +14,10 @@ import javax.swing.JMenuItem;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.gui.plugins.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.WarningPlugin;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.window.JOptionsDialog.OptionsListener;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;

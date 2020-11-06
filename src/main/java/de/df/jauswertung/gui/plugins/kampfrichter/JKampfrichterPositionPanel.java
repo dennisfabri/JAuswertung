@@ -30,8 +30,12 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.kampfrichter.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.graphics.ColorUtils;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;

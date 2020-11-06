@@ -13,9 +13,14 @@ import javax.swing.WindowConstants;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.plugins.elektronischezeit.sources.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.AresfileTimesSource;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.HttpTimesSource;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.ITimesSource;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.SourcesConfig;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.exception.NotEnabledException;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;

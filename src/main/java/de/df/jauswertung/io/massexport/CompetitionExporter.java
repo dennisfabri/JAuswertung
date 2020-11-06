@@ -10,13 +10,22 @@ import java.util.Date;
 
 import org.w3c.dom.Document;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.OWUtils;
+import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.util.CompetitionUtils;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.util.ergebnis.DataType;
+import de.df.jauswertung.util.ergebnis.FormelILS;
+import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jutils.io.Transform;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;

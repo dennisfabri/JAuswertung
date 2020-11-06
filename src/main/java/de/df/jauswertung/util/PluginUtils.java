@@ -1,7 +1,9 @@
 package de.df.jauswertung.util;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jutils.plugin.IFeature;
 import de.df.jutils.plugin.IPluginManager;

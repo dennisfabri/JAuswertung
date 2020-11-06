@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JFontChooser;
+import com.l2fprod.common.fontchooser.JFontChooser;
 
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
@@ -22,8 +22,8 @@ public class JFontDialog extends JDialog {
 
     private static final long serialVersionUID = -9025893350153624458L;
 
-    private JFontChooser      fonts            = new JFontChooser();
-    private boolean           accepted         = false;
+    private JFontChooser fonts = new JFontChooser();
+    private boolean accepted = false;
 
     public JFontDialog(JFrame parent) {
         super(parent, I18n.get("Font"), true);
@@ -43,7 +43,8 @@ public class JFontDialog extends JDialog {
             }
         });
 
-        FormLayout layout = new FormLayout("4dlu,0px:grow,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,0px:grow,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(fonts, CC.xyw(2, 2, 4, "fill,fill"));

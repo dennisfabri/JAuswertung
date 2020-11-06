@@ -22,7 +22,9 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.util.SearchUtils;

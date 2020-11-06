@@ -15,9 +15,15 @@ import javax.swing.SwingConstants;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.data.ListUtils;
 import de.df.jutils.gui.jtable.ColumnGroup;

@@ -1,8 +1,22 @@
 package de.df.jauswertung.dp.displaytool;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.color.ColorSpace;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -10,14 +24,14 @@ import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 
-import org.hsqldb.Row;
-
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.dp.displaytool.vm.*;
+import de.df.jauswertung.dp.displaytool.vm.CompetitionPresenter;
+import de.df.jauswertung.dp.displaytool.vm.PresentationRow;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.graphics.ColorUtils;
-import de.df.jutils.gui.util.*;
+import de.df.jutils.gui.util.EDTUtils;
+import de.df.jutils.gui.util.WindowUtils;
 
 public class JHeatPresentationFrame extends JFrame {
 

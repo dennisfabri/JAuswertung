@@ -12,10 +12,10 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.l2fprod.common.swing.JTipOfTheDay;
-import com.l2fprod.common.swing.JTipOfTheDay.ShowOnStartupChoice;
-import com.l2fprod.common.swing.tips.DefaultTip;
-import com.l2fprod.common.swing.tips.DefaultTipModel;
+import com.l2fprod.common.totd.JTipOfTheDay;
+import com.l2fprod.common.totd.JTipOfTheDay.ShowOnStartupChoice;
+import com.l2fprod.common.totd.tips.DefaultTip;
+import com.l2fprod.common.totd.tips.DefaultTipModel;
 
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;

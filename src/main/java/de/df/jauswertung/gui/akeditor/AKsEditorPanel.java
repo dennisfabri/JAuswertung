@@ -24,8 +24,12 @@ import javax.swing.event.ListSelectionListener;
 
 import com.blogspot.rabbithole.JSmoothList;
 
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startgruppe;
+import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.jlist.JListUtils;
