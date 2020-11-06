@@ -16,11 +16,15 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.print.util.ComponentUtils;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.BarcodeType;
+import de.df.jauswertung.util.BarcodeUtils;
 import de.df.jauswertung.util.BarcodeUtils.ZWResultType;
+import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.valueobjects.ZWStartkarte;
 import de.df.jutils.gui.JDottingLabel;
 import de.df.jutils.gui.JMiddleline;

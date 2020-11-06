@@ -25,9 +25,11 @@ import javax.swing.JFrame;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.print.PrintManager;
 

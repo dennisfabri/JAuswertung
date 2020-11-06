@@ -22,11 +22,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.HLWListe;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.PluginUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.ISimpleCallback;

@@ -3,21 +3,31 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.TeamnamesRegistrationPrintable;
-import de.df.jutils.plugin.*;
-import de.df.jutils.print.*;
+import de.df.jutils.plugin.IPluginManager;
+import de.df.jutils.plugin.UpdateEvent;
+import de.df.jutils.print.PrintManager;
+import de.df.jutils.print.PrintableCreator;
 
 /**
  * @author Dennis Fabri

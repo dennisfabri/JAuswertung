@@ -25,9 +25,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.Timelimit;
+import de.df.jauswertung.daten.Timelimitchecktype;
+import de.df.jauswertung.daten.Timelimits;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.Excel2007Utils;
+import de.df.jauswertung.io.ExcelReader;
+import de.df.jauswertung.io.ImportUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.filefilter.SimpleFileFilter;

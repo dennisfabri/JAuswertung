@@ -19,12 +19,14 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.gui.plugins.elektronischezeit.layer.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.plugins.elektronischezeit.layer.HeatInfo;
+import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.util.StringTools;

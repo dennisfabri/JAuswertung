@@ -10,7 +10,8 @@ import java.util.ListIterator;
 
 import javax.swing.AbstractListModel;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 

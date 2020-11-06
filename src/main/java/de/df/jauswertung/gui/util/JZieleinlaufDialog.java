@@ -14,7 +14,8 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.ISimpleCallback;

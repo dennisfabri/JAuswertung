@@ -20,7 +20,9 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.UrkundenPrintable;

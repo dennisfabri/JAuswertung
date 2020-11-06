@@ -1,21 +1,32 @@
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.print.*;
-import de.df.jutils.plugin.*;
-import de.df.jutils.print.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.print.RefereesTableCompactCreator;
+import de.df.jauswertung.print.RefereesTableCreator;
+import de.df.jauswertung.print.RefereesTableVeryCompactCreator;
+import de.df.jutils.plugin.IPluginManager;
+import de.df.jutils.plugin.UpdateEvent;
+import de.df.jutils.print.EmptyPrintable;
+import de.df.jutils.print.HeaderFooterPrintable;
+import de.df.jutils.print.PrintManager;
+import de.df.jutils.print.PrintableCreator;
 
 /**
  * @author Dennis Fabri

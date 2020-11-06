@@ -13,9 +13,11 @@ import com.eit.easyprint.TextPrintable;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.EmptyPrintable;

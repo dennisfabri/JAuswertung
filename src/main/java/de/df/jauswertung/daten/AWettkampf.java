@@ -43,13 +43,27 @@ import org.dom4j.Element;
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.event.*;
+import de.df.jauswertung.daten.event.PropertyChangeListener;
+import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.util.*;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWLaufliste;
+import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Einspruch;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startgruppe;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.ergebnis.DataType;
+import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.data.EnumerationIterable;
 
 /**

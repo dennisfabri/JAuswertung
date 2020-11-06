@@ -13,7 +13,8 @@ import javax.swing.SwingUtilities;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.plugins.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
@@ -27,7 +28,6 @@ import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PageSetup;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.PrintQueue;
-import de.df.jutils.util.ReturnRunnable;
 
 /**
  * @author Dennis Fabri

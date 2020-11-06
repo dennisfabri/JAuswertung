@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;

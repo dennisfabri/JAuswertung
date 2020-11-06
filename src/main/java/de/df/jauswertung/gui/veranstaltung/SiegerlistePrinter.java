@@ -22,8 +22,10 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.util.GesamtwertungSchwimmer;
+import de.df.jauswertung.util.GesamtwertungWettkampf;
 import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.gui.jtable.JPrintTable;

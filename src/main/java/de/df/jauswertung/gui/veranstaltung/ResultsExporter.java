@@ -1,23 +1,34 @@
 package de.df.jauswertung.gui.veranstaltung;
 
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
-import de.df.jauswertung.dp.displaytool.data.*;
+import de.df.jauswertung.dp.displaytool.data.Competition;
+import de.df.jauswertung.dp.displaytool.data.Competitor;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.OutputManager;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.GesamtwertungSchwimmer;
+import de.df.jauswertung.util.GesamtwertungWettkampf;
+import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.layout.FormLayoutUtils;
-import de.df.jutils.gui.util.*;
+import de.df.jutils.gui.util.DialogUtils;
+import de.df.jutils.gui.util.FileChooserUtils;
 
 class ResultsExporter implements Printer {
 

@@ -12,7 +12,8 @@ package de.df.jauswertung.daten.laufliste;
 import java.io.Serializable;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.util.Converter;
 

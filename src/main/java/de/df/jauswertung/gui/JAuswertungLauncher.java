@@ -19,8 +19,10 @@ import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.util.DefaultInit;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.awt.ProgressSplashWindow;
 import de.df.jutils.gui.util.DesignInit;
 import de.df.jutils.gui.util.EDTUtils;

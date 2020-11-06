@@ -21,11 +21,15 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIntegerField;

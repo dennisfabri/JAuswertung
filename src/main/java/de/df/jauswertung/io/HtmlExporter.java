@@ -11,7 +11,8 @@ import java.io.OutputStream;
 
 import org.w3c.dom.Document;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.io.Transform;
 import de.df.jutils.util.Feedback;

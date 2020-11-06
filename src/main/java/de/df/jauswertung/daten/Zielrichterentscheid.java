@@ -7,7 +7,8 @@ import java.util.ListIterator;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.util.SearchUtils;
 
 public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable {

@@ -12,7 +12,6 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.jtable.BasicTableModel;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.util.AReturnRunner;
 
 public final class TableRegistrationUtils {
 

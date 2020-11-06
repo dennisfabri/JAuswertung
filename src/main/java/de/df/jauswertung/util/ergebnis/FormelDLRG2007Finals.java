@@ -1,7 +1,8 @@
 package de.df.jauswertung.util.ergebnis;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 
 public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<T> {
 

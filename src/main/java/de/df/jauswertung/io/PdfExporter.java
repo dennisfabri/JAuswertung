@@ -21,10 +21,19 @@ import java.util.LinkedList;
 
 import javax.swing.JTable;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.plugins.print.*;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.print.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.gui.plugins.print.BestzeitenPrinter;
+import de.df.jauswertung.gui.plugins.print.ProtocolPrinter;
+import de.df.jauswertung.gui.plugins.print.RefereePrinter;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.TableHeatUtils;
+import de.df.jauswertung.gui.util.TableZWUtils;
+import de.df.jauswertung.print.PenaltyCatalogPrintable;
+import de.df.jauswertung.print.PrintUtils;
+import de.df.jauswertung.print.StartkartenPrintable;
+import de.df.jauswertung.print.ZWStartkartenPrintable;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.io.PdfOutput;

@@ -4,20 +4,30 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.Window;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.gui.*;
+import de.df.jutils.gui.JIntSpinner;
+import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.util.FileChooserUtils;
-import de.df.jutils.plugin.*;
+import de.df.jutils.plugin.AFeature;
+import de.df.jutils.plugin.IPluginManager;
+import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
 
 public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {

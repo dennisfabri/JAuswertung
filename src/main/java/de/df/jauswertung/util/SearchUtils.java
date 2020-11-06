@@ -7,8 +7,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 
 /**

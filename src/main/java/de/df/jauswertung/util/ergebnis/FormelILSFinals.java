@@ -10,10 +10,18 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.SearchUtils;
 
 /**
  * @author Dennis Fabri

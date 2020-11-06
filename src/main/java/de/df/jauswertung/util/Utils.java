@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import org.simmetrics.StringMetric;
+import org.simmetrics.metrics.Jaro;
+
 import com.rits.cloning.Cloner;
 import com.thoughtworks.xstream.XStream;
 
@@ -19,8 +22,6 @@ import de.df.jauswertung.io.IOUtils;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jutils.gui.util.UIPerformanceMode;
-import org.simmetrics.StringMetric;
-import org.simmetrics.metrics.Jaro;
 
 public final class Utils {
 

@@ -5,7 +5,8 @@ package de.df.jauswertung.io;
 
 import java.io.OutputStream;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jutils.util.Feedback;
 
 /**

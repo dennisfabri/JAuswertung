@@ -15,9 +15,21 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.util.ergebnis.FormelILS;
+import de.df.jauswertung.util.ergebnis.FormelMedaillen;
+import de.df.jauswertung.util.ergebnis.ResultUtils;
+import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 
 public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 

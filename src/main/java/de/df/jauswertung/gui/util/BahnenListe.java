@@ -12,8 +12,12 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jutils.gui.jtable.JTableUtils;

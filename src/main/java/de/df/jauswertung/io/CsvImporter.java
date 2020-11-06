@@ -11,7 +11,8 @@ import java.text.NumberFormat;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.io.FileUtils;

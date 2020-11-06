@@ -11,9 +11,12 @@ import java.util.LinkedList;
 
 import javax.swing.JMenuItem;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jutils.gui.JUndoButton;
 import de.df.jutils.gui.JUndoButton.UndoListener;
 import de.df.jutils.gui.util.EDTUtils;

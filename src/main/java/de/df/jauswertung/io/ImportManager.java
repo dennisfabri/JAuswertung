@@ -12,7 +12,13 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Geschlecht;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;

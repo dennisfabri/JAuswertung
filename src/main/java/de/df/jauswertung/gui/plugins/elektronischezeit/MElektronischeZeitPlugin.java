@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.plugins.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.MOptionenPlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.Utils;

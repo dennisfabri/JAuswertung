@@ -11,8 +11,11 @@ package de.df.jauswertung.util;
 import java.io.File;
 import java.util.Hashtable;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG;
 

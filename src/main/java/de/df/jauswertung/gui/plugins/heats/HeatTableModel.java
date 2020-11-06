@@ -12,9 +12,12 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 
 public class HeatTableModel<T extends ASchwimmer> implements TableModel {
 

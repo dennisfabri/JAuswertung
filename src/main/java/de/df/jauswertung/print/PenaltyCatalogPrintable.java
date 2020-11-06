@@ -14,8 +14,12 @@ import javax.swing.JTextArea;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
+import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jutils.print.ComponentListPrintable2;
 import de.df.jutils.print.PrintManager;

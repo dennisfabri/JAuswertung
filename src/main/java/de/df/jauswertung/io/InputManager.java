@@ -17,11 +17,14 @@ import java.util.Hashtable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.misc.BugReport;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.util.AltersklassenUtils;
+import de.df.jauswertung.util.Utils;
 
 /**
  * @author Dennis Fabri

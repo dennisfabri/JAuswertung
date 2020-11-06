@@ -10,7 +10,8 @@ import javax.swing.JToggleButton;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 
 public class PrintFilter<T extends ASchwimmer> {
 

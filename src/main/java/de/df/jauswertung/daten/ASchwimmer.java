@@ -7,7 +7,11 @@ import java.util.ListIterator;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startunterlagen;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.ArrayUtils;
 import de.df.jutils.util.StringTools;

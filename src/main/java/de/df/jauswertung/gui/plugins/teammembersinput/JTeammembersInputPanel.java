@@ -22,15 +22,22 @@ import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JTaskPaneGroup;
+import com.l2fprod.common.tasks.JTaskPaneGroup;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.Geschlecht;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.JTeammembersStatusPanel;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jauswertung.util.vergleicher.*;
+import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
+import de.df.jauswertung.util.vergleicher.SchwimmerGeschlechtVergleicher;
+import de.df.jauswertung.util.vergleicher.SchwimmerNameVergleicher;
+import de.df.jauswertung.util.vergleicher.SchwimmerStartnummernVergleicher;
 import de.df.jutils.data.CompoundComparator;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JWarningTextField;

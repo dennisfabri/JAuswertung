@@ -12,8 +12,10 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 
 class SchwimmerAndLaneListCellRenderer implements ListCellRenderer {

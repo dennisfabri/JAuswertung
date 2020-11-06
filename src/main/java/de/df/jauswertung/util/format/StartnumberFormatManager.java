@@ -3,7 +3,9 @@ package de.df.jauswertung.util.format;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 
 public class StartnumberFormatManager {
 

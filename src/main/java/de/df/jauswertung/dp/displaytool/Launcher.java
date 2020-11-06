@@ -1,12 +1,10 @@
 package de.df.jauswertung.dp.displaytool;
 
-import java.io.File;
-
 import com.jgoodies.common.base.Strings;
 
 import de.df.jauswertung.dp.displaytool.data.Competition;
 import de.df.jauswertung.dp.displaytool.vm.CompetitionPresenter;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.InputManager;
 import de.df.jutils.gui.util.DesignInit;
 
 public class Launcher {

@@ -14,7 +14,8 @@ import javax.swing.SwingUtilities;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIUtils;

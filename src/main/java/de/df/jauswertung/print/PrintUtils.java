@@ -3,29 +3,62 @@
  */
 package de.df.jauswertung.print;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.BitSet;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTable.PrintMode;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.util.*;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Startgruppe;
+import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.JResultTable;
+import de.df.jauswertung.gui.util.TableUtils;
+import de.df.jauswertung.util.BarcodeType;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.ergebnis.DataType;
+import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.border.ExtendedLineBorder;
-import de.df.jutils.gui.jtable.*;
+import de.df.jutils.gui.jtable.JPrintTable;
+import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.print.*;
+import de.df.jutils.print.EmptyPrintable;
+import de.df.jutils.print.ExtendedHeaderFooterPrintable;
+import de.df.jutils.print.HeaderFooterPrintable;
+import de.df.jutils.print.JTablePrintable;
+import de.df.jutils.print.MultiplePrintable;
+import de.df.jutils.print.PrintManager;
 import de.df.jutils.util.StringTools;
 
 public final class PrintUtils {

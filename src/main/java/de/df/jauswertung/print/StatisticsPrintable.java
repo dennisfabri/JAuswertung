@@ -6,9 +6,12 @@ import java.util.ListIterator;
 
 import javax.swing.JComponent;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.StatisticsUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.print.ComponentListPrintable2;
 import de.df.jutils.print.MultiplePrintable;
 

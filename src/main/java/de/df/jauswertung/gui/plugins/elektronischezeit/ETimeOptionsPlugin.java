@@ -17,7 +17,8 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
-import de.df.jauswertung.gui.plugins.elektronischezeit.sources.*;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.Sources;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.SourcesConfig;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.layout.FormLayoutUtils;

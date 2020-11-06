@@ -12,8 +12,11 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HLWLauf;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.gui.util.I18n;
 
 class ZWTableModel<T extends ASchwimmer> implements TableModel {

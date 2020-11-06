@@ -16,7 +16,8 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.FehlermeldekartenPrintable;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.plugin.IPluginManager;

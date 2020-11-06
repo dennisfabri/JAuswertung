@@ -10,10 +10,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.plugins.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.OGeneralOptionsPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.util.DialogUtils;

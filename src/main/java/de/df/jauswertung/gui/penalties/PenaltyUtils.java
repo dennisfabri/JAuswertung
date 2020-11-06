@@ -18,9 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;

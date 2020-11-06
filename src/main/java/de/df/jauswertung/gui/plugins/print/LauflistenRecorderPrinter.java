@@ -5,10 +5,12 @@ package de.df.jauswertung.gui.plugins.print;
 
 import java.awt.print.Printable;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.print.*;
+import de.df.jauswertung.print.PrintUtils;
+import de.df.jauswertung.print.RecorderPrintable;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.print.PrintManager;
 

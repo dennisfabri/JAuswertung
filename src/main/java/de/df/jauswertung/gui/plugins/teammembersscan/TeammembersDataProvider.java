@@ -4,7 +4,8 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import de.df.jauswertung.gui.plugins.http.*;
+import de.df.jauswertung.gui.plugins.http.HttpServerPlugin;
+import de.df.jauswertung.gui.plugins.http.IDataProvider;
 import de.df.jauswertung.util.BarcodeUtils;
 
 public class TeammembersDataProvider implements IDataProvider {

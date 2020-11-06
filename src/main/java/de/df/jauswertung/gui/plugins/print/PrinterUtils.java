@@ -5,7 +5,8 @@ package de.df.jauswertung.gui.plugins.print;
 
 import java.util.LinkedList;
 
-import de.df.jauswertung.gui.plugins.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.plugin.IPluginManager;
 

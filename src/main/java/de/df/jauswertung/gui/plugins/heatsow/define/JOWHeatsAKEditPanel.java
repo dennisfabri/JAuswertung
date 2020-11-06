@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 

@@ -24,15 +24,19 @@ import javax.swing.SwingUtilities;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JTaskPaneGroup;
+import com.l2fprod.common.tasks.JTaskPaneGroup;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.plugins.*;
+import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.print.JSelectionDialog.PrintCallBack;
-import de.df.jauswertung.gui.util.*;
-import de.df.jauswertung.print.*;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.print.PrintUtils;
+import de.df.jauswertung.print.UnterschriftPrintable;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
 import de.df.jutils.gui.util.DialogUtils;

@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
+import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JLabelSeparator;

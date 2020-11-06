@@ -5,7 +5,9 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.daten.laufliste.Lauf;
 
 public final class ZielrichterentscheidUtils {

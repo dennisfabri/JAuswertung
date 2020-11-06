@@ -12,9 +12,11 @@ import javax.swing.border.TitledBorder;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.util.ergebnis.Formel;
+import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.print.ComponentListPrintable2;

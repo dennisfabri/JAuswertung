@@ -4,7 +4,9 @@
 package de.df.jauswertung.util.ergebnis;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 
 /**
  * @author Fabri

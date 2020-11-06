@@ -11,12 +11,14 @@ import java.util.ListIterator;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HLWLauf;
+import de.df.jauswertung.daten.laufliste.HLWListe;
+import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.jtable.SimpleTableModel;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.util.AReturnRunner;
 
 public final class TableZWUtils {
 

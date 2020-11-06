@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JPanel;
 
-import com.l2fprod.common.swing.JFontChooser;
+import com.l2fprod.common.fontchooser.JFontChooser;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.border.BorderUtils;
@@ -15,7 +15,7 @@ class JVeranstaltungsschriftart extends JPanel {
     @SuppressWarnings("unused")
     private final JVeranstaltungswertung parent;
 
-    private JFontChooser                 font = new JFontChooser();
+    private JFontChooser font = new JFontChooser();
 
     public JVeranstaltungsschriftart(JVeranstaltungswertung parent) {
         this.parent = parent;

@@ -24,7 +24,8 @@ import java.util.LinkedList;
 
 import javax.swing.JTable;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;

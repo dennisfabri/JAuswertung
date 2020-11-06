@@ -21,9 +21,12 @@ import javax.swing.WindowConstants;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.ZielrichterentscheidUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;

@@ -1,11 +1,12 @@
 package de.df.jauswertung.dp.displaytool;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.util.FileChooserUtils;

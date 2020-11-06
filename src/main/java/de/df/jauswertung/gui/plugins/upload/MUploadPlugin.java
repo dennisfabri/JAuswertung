@@ -4,13 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
 
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.swing.JMenuItem;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -20,7 +17,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.glassfish.jersey.client.ClientConfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,15 +43,11 @@ import de.df.jauswertung.gui.plugins.upload.dto.Team;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.util.CompetitionUtils;
-import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.ergebnis.ResultUtils;
 import de.df.jauswertung.util.ergebnis.SchwimmerData;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.gui.jtable.ExtendedTableModel;
-import de.df.jutils.io.csv.CsvDataWriter;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
@@ -76,8 +68,8 @@ public class MUploadPlugin extends ANullPlugin {
                 try {
                     AWettkampf<?> wk = core.getFilteredWettkampf();
 
-                    String jsonAttachmentId = "eb3dcb8a-4c72-4799-8d5b-75a076b25d64";
-                    String pdfAttachmentId = "f9e2cf27-9c84-437e-a222-5117545b2965";
+                    String jsonAttachmentId = "e9c3e05a-d44e-4cc8-b9fe-3ee883c24b86";
+                    String pdfAttachmentId = "bd727123-ca9b-4dad-b6ac-911d54b940111d";
 
                     uploadPdf(pdfAttachmentId, wk);
                     uploadJson(jsonAttachmentId, wk);

@@ -76,19 +76,42 @@ import static de.df.jauswertung.io.ImportConstants.VORNAME9;
 import static de.df.jauswertung.io.ImportConstants.ZW;
 import static de.df.jauswertung.io.ImportConstants.getRequiredIndizes;
 
-import java.text.*;
-import java.util.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.kampfrichter.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Geschlecht;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Qualifikation;
+import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.DataTableUtils;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.ZWUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.i18n.EmptyResourceBundle;
 import de.df.jutils.io.csv.CsvManager;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
-import de.df.jutils.util.*;
+import de.df.jutils.util.Feedback;
+import de.df.jutils.util.StringTools;
+import de.df.jutils.util.Tupel;
 
 public class ImportUtils {
 

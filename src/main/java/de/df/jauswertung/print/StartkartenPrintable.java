@@ -3,23 +3,34 @@
  */
 package de.df.jauswertung.print;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.LinkedList;
 
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.JTimeSpacer;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.util.valueobjects.Startkarte;
-import de.df.jutils.gui.*;
+import de.df.jutils.gui.JDottingLabel;
+import de.df.jutils.gui.JMiddleline;
 import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.print.*;
+import de.df.jutils.print.AComponentMultiOnPagePrintable;
+import de.df.jutils.print.PageMode;
+import de.df.jutils.print.PrintManager;
 
 public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
 

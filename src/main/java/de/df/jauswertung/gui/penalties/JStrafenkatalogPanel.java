@@ -32,8 +32,14 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.xduke.xswing.DataTipManager;
 
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
+import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.PenaltyImageListCellRenderer;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.JListUtils;
 

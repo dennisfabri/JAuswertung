@@ -6,9 +6,11 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.TeamUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JTeammembersStatusPanel extends JPanel {

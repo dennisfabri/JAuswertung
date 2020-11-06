@@ -15,7 +15,11 @@ import org.xhtmlrenderer.simple.XHTMLPanel;
 import org.xhtmlrenderer.simple.extend.XhtmlNamespaceHandler;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.kampfrichter.*;
+import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.print.ComponentListPrintable2;
 import de.df.jutils.print.PrintManager;

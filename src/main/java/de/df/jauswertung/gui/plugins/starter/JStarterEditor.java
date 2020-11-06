@@ -14,9 +14,13 @@ import javax.swing.JTabbedPane;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Eingabe;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;

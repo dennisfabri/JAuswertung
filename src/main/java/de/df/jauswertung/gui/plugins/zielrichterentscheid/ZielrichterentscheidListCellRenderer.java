@@ -8,8 +8,11 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.LaufInfo;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
 
 class ZielrichterentscheidListCellRenderer extends DefaultListCellRenderer {
 

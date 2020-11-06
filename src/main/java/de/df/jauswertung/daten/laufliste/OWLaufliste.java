@@ -3,7 +3,8 @@ package de.df.jauswertung.daten.laufliste;
 import java.io.Serializable;
 import java.util.Hashtable;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 
 public class OWLaufliste<T extends ASchwimmer> implements Serializable {
 

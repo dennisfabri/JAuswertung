@@ -23,8 +23,10 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.veranstaltung.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.veranstaltung.CompetitionContainer;
+import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;

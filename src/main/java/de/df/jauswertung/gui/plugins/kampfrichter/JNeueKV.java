@@ -20,10 +20,11 @@ import javax.swing.KeyStroke;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.swing.JButtonBar;
+import com.l2fprod.common.buttonbar.JButtonBar;
 
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.BorderUtils;

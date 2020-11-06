@@ -19,10 +19,12 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.*;
+import de.df.jauswertung.util.StatisticsUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIUtils;

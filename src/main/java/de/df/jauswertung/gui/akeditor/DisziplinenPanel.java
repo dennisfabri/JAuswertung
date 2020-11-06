@@ -20,13 +20,15 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.gui.util.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 /**
