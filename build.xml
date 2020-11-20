@@ -5,17 +5,11 @@
 
 	<!-- set global properties for this build -->
 	<property name="version" value="15.1.0" />
-	<property name="year" value="2020" />
-	<property name="build-temp" location="ant/build-temp" />
-	<property name="build" location="ant/build" />
-	<property name="dist" location="distribute" />
-	<property name="jar-temp" location="ant/jar-temp" />
+	<property name="year" value="2021" />
+	<property name="dist" location="target/distribute" />
 	<property name="include1" location="src/main/files" />
 	<property name="include2" location="src/main/resources" />
-	<property name="jars" location="target/libs" />
-	<property name="required" location="required" />
-	<property name="release" location="release" />
-	<property name="itext" value="itextpdf-5.5.13.2.jar" />
+	<property name="release" location="target/installer" />
 
 	<property name="version.alphaserver" value="1.0.0-SNAPSHOT" />
 
@@ -35,16 +29,6 @@
 			<format property="date" pattern="dd.MM.yyyy" locale="de,DE" />
 		</tstamp>
 
-		<!-- Check if dependencies are met. -->
-		<available filepath="target/libs" file="${itext}" property="itext.exists" />
-		<fail message="itext not available ${itext} in target/libs">
-			<condition>
-				<not>
-					<isset property="itext.exists" />
-				</not>
-			</condition>
-		</fail>
-
 		<!-- Be nice -->
 		<nice newpriority="1" />
 
@@ -63,9 +47,6 @@
 			</fileset>
 			<fileset dir="${include2}" />
 		</copy>
-		<copy todir="${dist}/libs">
-			<fileset file="${jars}/*.jar" />
-		</copy>
 
 		<unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${dist}"/>
 
@@ -83,20 +64,6 @@
 			<format property="datestamp" pattern="yyyy-MM-dd" />
 		</tstamp>
 
-		<mkdir dir="${jar-temp}" />
-		<unzip dest="${jar-temp}">
-			<patternset>
-				<exclude name="META-INF/MANIFEST.MF" />
-			</patternset>
-			<fileset dir="${jars}">
-				<include name="*.jar" />
-				<include name="*.zip" />
-				<exclude name="jhall.jar" />
-				<exclude name="${itext}" />
-			    <exclude name="javafx-*.jar" />
-			</fileset>
-		</unzip>
-
 		<jar jarfile="${dist}/jteams.jar" compress="false">
 			<manifest>
 				<attribute name="Main-Class" value="JTeams" />
@@ -106,7 +73,7 @@
 				<attribute name="Implementation-Title" value="JTeams" />
 				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
 				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="jauswertung.jar . jhall.jar libs.jar ${itext}" />
+				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
 				<attribute name="SplashScreen-Image" value="logo.png" />
 			</manifest>
 		</jar>
@@ -120,7 +87,7 @@
 				<attribute name="Implementation-Title" value="DPSplitter" />
 				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
 				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="jauswertung.jar . jhall.jar libs.jar ${itext}" />
+				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
 			</manifest>
 		</jar>
 
@@ -133,7 +100,7 @@
 				<attribute name="Implementation-Title" value="JAuswertung Regelwerkseditor" />
 				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
 				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="jauswertung.jar . jhall.jar libs.jar ${itext}" />
+				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
 				<attribute name="SplashScreen-Image" value="logo.png" />
 			</manifest>
 		</jar>
@@ -147,7 +114,7 @@
 				<attribute name="Implementation-Title" value="AlphaServer UI" />
 				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
 				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="jauswertung.jar . jhall.jar libs.jar ${itext}" />
+				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
 				<attribute name="SplashScreen-Image" value="logo.png" />
 			</manifest>
 		</jar>
@@ -161,7 +128,7 @@
 				<attribute name="Implementation-Title" value="AlphaServer UI" />
 				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
 				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="jauswertung.jar . jhall.jar libs.jar ${itext}" />
+				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
 				<attribute name="SplashScreen-Image" value="logo.png" />
 			</manifest>
 		</jar>
@@ -220,16 +187,10 @@
 	</target>
 
 	<target name="clean-temp" description="clean up everything">
-		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${jar-temp}" />
-		<delete dir="${build}" />
-		<delete dir="${dist}" />
-
 		<delete dir="ant" />
 	</target>
 
 	<target name="clean" depends="clean-temp" description="clean up everything">
-		<delete dir="${release}" />
 	</target>
 
 	<target name="help" description="Creates the Help-Files">
