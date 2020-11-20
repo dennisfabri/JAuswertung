@@ -29,6 +29,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -47,9 +50,7 @@ import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;

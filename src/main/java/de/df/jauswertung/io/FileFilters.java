@@ -3,7 +3,7 @@
  */
 package de.df.jauswertung.io;
 
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 public final class FileFilters {
 

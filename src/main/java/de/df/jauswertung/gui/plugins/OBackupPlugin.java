@@ -17,6 +17,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -24,7 +26,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JIntSpinner;
 import de.df.jutils.gui.JWarningTextField;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.plugin.AFeature;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;

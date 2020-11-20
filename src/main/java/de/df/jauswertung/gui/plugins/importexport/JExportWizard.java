@@ -24,6 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -36,10 +39,8 @@ import de.df.jauswertung.gui.util.WizardUIElementsProvider;
 import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;

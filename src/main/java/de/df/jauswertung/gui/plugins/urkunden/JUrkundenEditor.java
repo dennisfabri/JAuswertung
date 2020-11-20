@@ -39,6 +39,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -57,10 +60,8 @@ import de.df.jauswertung.util.GraphUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.RulerBorder;
 import de.df.jutils.gui.border.ShadowBorder;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;

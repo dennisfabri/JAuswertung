@@ -36,6 +36,8 @@ import javax.swing.text.BadLocationException;
 
 import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.hssf.record.RecordInputStream.LeftoverDataException;
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -58,10 +60,8 @@ import de.df.jutils.exception.NotEnabledException;
 import de.df.jutils.exception.NotSupportedException;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
 import de.df.jutils.gui.border.ShadowBorder;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;

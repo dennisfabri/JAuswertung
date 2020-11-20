@@ -19,6 +19,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -31,11 +34,9 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.JWarningTextField;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.uistate.UIStateManager;
 

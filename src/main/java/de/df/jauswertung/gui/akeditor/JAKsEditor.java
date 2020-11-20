@@ -29,6 +29,9 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -44,11 +47,9 @@ import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
 import de.df.jutils.gui.JGlassFrame;
 import de.df.jutils.gui.border.BorderUtils;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;

@@ -8,12 +8,14 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.*;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.*;
 
 /**

@@ -7,9 +7,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import de.df.jutils.gui.jtable.JTableUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 
 public class DataDisplayWindow extends DisplayToolWindow {
 

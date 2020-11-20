@@ -17,6 +17,9 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.buttonbar.JButtonBar;
@@ -29,10 +32,8 @@ import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JGlassPane;
 import de.df.jutils.gui.border.ShadowBorder;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 

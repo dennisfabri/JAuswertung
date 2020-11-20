@@ -18,6 +18,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -25,10 +28,8 @@ import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jutils.gui.border.BorderUtils;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 
 /**
  * @author Dennis Fabri

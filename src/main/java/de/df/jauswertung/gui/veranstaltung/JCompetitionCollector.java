@@ -18,6 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import com.blogspot.rabbithole.JSmoothList;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -32,10 +35,8 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.border.ShadowBorder;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 class JCompetitionCollector extends JPanel {

@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.JNeuerWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
@@ -19,9 +22,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.FileFilters;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.gui.filefilter.SimpleFileFilter;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.FileChooserUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;

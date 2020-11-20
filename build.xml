@@ -4,7 +4,7 @@
 	<property environment="env" />
 
 	<!-- set global properties for this build -->
-	<property name="version" value="15.0.2" />
+	<property name="version" value="15.1.0" />
 	<property name="year" value="2020" />
 	<property name="build-temp" location="ant/build-temp" />
 	<property name="build" location="ant/build" />
@@ -62,8 +62,9 @@
 				<exclude name="plugins/de.df.jauswertung.agegroupchange.plugin" />
 			</fileset>
 			<fileset dir="${include2}" />
-			<fileset file="${jars}/jhall.jar" />
-			<fileset file="${jars}/${itext}" />
+		</copy>
+		<copy todir="${dist}/libs">
+			<fileset file="${jars}/*.jar" />
 		</copy>
 
 		<unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${dist}"/>
@@ -92,18 +93,9 @@
 				<include name="*.zip" />
 				<exclude name="jhall.jar" />
 				<exclude name="${itext}" />
+			    <exclude name="javafx-*.jar" />
 			</fileset>
 		</unzip>
-		<jar jarfile="${dist}/libs.jar" basedir="${jar-temp}" compress="true" level="9" zip64Mode="always">
-			<manifest>
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="JAuswertung libraries" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-			</manifest>
-		</jar>
 
 		<jar jarfile="${dist}/jteams.jar" compress="false">
 			<manifest>
@@ -174,13 +166,13 @@
 			</manifest>
 		</jar>
 
-		<copy file="target/jauswertung-${version}-SNAPSHOT.jar" tofile="${dist}/jauswertung.jar" />
+		<copy file="target/jauswertung-${version}-SNAPSHOT.jar" tofile="${dist}/libs/jauswertung.jar" />
 	</target>
 
 	<target name="installer" depends="build" description="generate the installer">
-		<install4j projectfile="install4j/install4j.install4j" destination="${release}" debug="false" buildids="w32jre,mac,unix" release="${version}" />
+		<install4j projectfile="install4j/install4j.install4j" destination="${release}" debug="false" buildids="w64jre,mac,unix" release="${version}" />
 
-		<move file="${release}/JAuswertung-setup-${version_}-x32-jre.exe" tofile="${release}/JAuswertung-Setup-${year}-${version}.exe" />
+		<move file="${release}/JAuswertung-setup-${version_}-x64-jre.exe" tofile="${release}/JAuswertung-Setup-${year}-${version}.exe" />
 		<move file="${release}/JAuswertung-setup-${version_}.dmg" tofile="${release}/JAuswertung-Setup-${year}-${version}.dmg" />
 		<move file="${release}/JAuswertung-setup-${version_}.sh" tofile="${release}/JAuswertung-Setup-${year}-${version}.sh" />
 
@@ -232,6 +224,7 @@
 		<delete dir="${jar-temp}" />
 		<delete dir="${build}" />
 		<delete dir="${dist}" />
+
 		<delete dir="ant" />
 	</target>
 
@@ -240,7 +233,7 @@
 	</target>
 
 	<target name="help" description="Creates the Help-Files">
-		<zip destfile="${dist}/JavaHelp.jar">
+		<zip destfile="${dist}/libs/JavaHelp.jar">
 			<fileset dir="src/main/JavaHelp/hs" casesensitive="no">
 				<include name="**" />
 				<include name="*" />
