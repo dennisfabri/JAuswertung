@@ -1,204 +1,206 @@
 <project name="JAuswertung" default="release" basedir=".">
-	<description>JAuswertung build-file</description>
+    <description>JAuswertung build-file</description>
 
-	<property environment="env" />
+    <property environment="env" />
 
-	<!-- set global properties for this build -->
-	<property name="version" value="15.1.0" />
-	<property name="year" value="2021" />
-	<property name="dist" location="target/distribute" />
-	<property name="include1" location="src/main/files" />
-	<property name="include2" location="src/main/resources" />
-	<property name="release" location="target/installer" />
+    <!-- set global properties for this build -->
+    <property name="version" value="15.1.0" />
+    <property name="year" value="2021" />
+    <property name="dist-base" location="target/distribution" />
+    <property name="dist-main" location="${dist-base}/main" />
 
-	<property name="version.alphaserver" value="1.0.0-SNAPSHOT" />
+    <property name="include1" location="src/main/files" />
+    <property name="include2" location="src/main/resources" />
+    <property name="release" location="target/installer" />
 
-	<taskdef name="install4j" classname="com.install4j.Install4JTask" classpath="${env.install4j}/bin/ant.jar" />
+    <property name="version.alphaserver" value="1.0.0-SNAPSHOT" />
 
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<pathelement location="${env.ant-contrib}/ant-contrib-1.0b3.jar" />
-		</classpath>
-	</taskdef>
+    <taskdef name="install4j" classname="com.install4j.Install4JTask" classpath="${env.install4j}/bin/ant.jar" />
 
-	<propertyregex property="version_" input="${version}" regexp="\." replace="_" casesensitive="false" />
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${env.ant-contrib}/ant-contrib-1.0b3.jar" />
+        </classpath>
+    </taskdef>
 
-	<target name="init" depends="clean" description="Initialisation">
-		<!-- Create the time stamp -->
-		<tstamp>
-			<format property="date" pattern="dd.MM.yyyy" locale="de,DE" />
-		</tstamp>
+    <propertyregex property="version_" input="${version}" regexp="\." replace="_" casesensitive="false" />
 
-		<!-- Be nice -->
-		<nice newpriority="1" />
+    <target name="init" depends="clean" description="Initialisation">
+        <!-- Create the time stamp -->
+        <tstamp>
+            <format property="date" pattern="dd.MM.yyyy" locale="de,DE" />
+        </tstamp>
 
-		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${dist}" />
-		<mkdir dir="${release}" />
-	</target>
+        <!-- Be nice -->
+        <nice newpriority="1" />
 
-	<target name="build" depends="init, help" description="generate the distribution">
-		<!-- Create the distribution directory and copy prepared files -->
-		<copy todir="${dist}">
-			<fileset dir="${include1}">
-				<exclude name="*.jar" />
-				<exclude name="plugins/de.df.jauswertung.dm.plugin" />
-				<exclude name="plugins/de.df.jauswertung.agegroupchange.plugin" />
-			</fileset>
-			<fileset dir="${include2}" />
-		</copy>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${dist-main}" />
+        <mkdir dir="${release}" />
+    </target>
 
-		<unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${dist}"/>
+    <target name="build" depends="init, help" description="generate the distribution">
+        <!-- Create the distribution directory and copy prepared files -->
+        <copy todir="${dist-main}">
+            <fileset dir="${include1}">
+                <exclude name="*.jar" />
+                <exclude name="plugins/de.df.jauswertung.dm.plugin" />
+                <exclude name="plugins/de.df.jauswertung.agegroupchange.plugin" />
+            </fileset>
+            <fileset dir="${include2}" />
+        </copy>
 
-		<delete file="${dist}/devel.properties" />
-		<delete file="${dist}/build.properties" />
-		<delete>
-			<fileset dir="${dist}" casesensitive="no">
-				<include name="*.log" />
-			</fileset>
-		</delete>
+        <unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${dist-main}" />
 
-		<echo file="${dist}/build.properties" message="builddate = ${date}" />
+        <delete file="${dist-main}/devel.properties" />
+        <delete file="${dist-main}/build.properties" />
+        <delete>
+            <fileset dir="${dist-main}" casesensitive="no">
+                <include name="*.log" />
+            </fileset>
+        </delete>
 
-		<tstamp prefix="jar">
-			<format property="datestamp" pattern="yyyy-MM-dd" />
-		</tstamp>
+        <echo file="${dist-main}/build.properties" message="builddate = ${date}" />
 
-		<jar jarfile="${dist}/jteams.jar" compress="false">
-			<manifest>
-				<attribute name="Main-Class" value="JTeams" />
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="JTeams" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
-				<attribute name="SplashScreen-Image" value="logo.png" />
-			</manifest>
-		</jar>
+        <tstamp prefix="jar">
+            <format property="datestamp" pattern="yyyy-MM-dd" />
+        </tstamp>
 
-		<jar jarfile="${dist}/dpsplitter.jar" compress="false">
-			<manifest>
-				<attribute name="Main-Class" value="de.df.jauswertung.io.dp.DPSplitter" />
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="DPSplitter" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
-			</manifest>
-		</jar>
+        <jar jarfile="${dist-main}/jteams.jar" compress="false">
+            <manifest>
+                <attribute name="Main-Class" value="JTeams" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-At" value="${jar.datestamp}" />
+                <attribute name="Implementation-Version" value="${jar.datestamp}" />
+                <attribute name="Implementation-Title" value="JTeams" />
+                <attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
+                <attribute name="Contributors" value="Dennis Fabri" />
+                <attribute name="Class-Path" value="libs/jauswertung.jar ." />
+                <attribute name="SplashScreen-Image" value="logo.png" />
+            </manifest>
+        </jar>
 
-		<jar jarfile="${dist}/regelwerkseditor.jar" compress="false">
-			<manifest>
-				<attribute name="Main-Class" value="Launcher" />
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="JAuswertung Regelwerkseditor" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
-				<attribute name="SplashScreen-Image" value="logo.png" />
-			</manifest>
-		</jar>
+        <jar jarfile="${dist-main}/dpsplitter.jar" compress="false">
+            <manifest>
+                <attribute name="Main-Class" value="de.df.jauswertung.io.dp.DPSplitter" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-At" value="${jar.datestamp}" />
+                <attribute name="Implementation-Version" value="${jar.datestamp}" />
+                <attribute name="Implementation-Title" value="DPSplitter" />
+                <attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
+                <attribute name="Contributors" value="Dennis Fabri" />
+                <attribute name="Class-Path" value="libs/jauswertung.jar ." />
+            </manifest>
+        </jar>
 
-		<jar jarfile="${dist}/alphaserver-ui.jar" compress="false">
-			<manifest>
-				<attribute name="Main-Class" value="de.dm.collector.JCollector" />
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="AlphaServer UI" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
-				<attribute name="SplashScreen-Image" value="logo.png" />
-			</manifest>
-		</jar>
+        <jar jarfile="${dist-main}/regelwerkseditor.jar" compress="false">
+            <manifest>
+                <attribute name="Main-Class" value="Launcher" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-At" value="${jar.datestamp}" />
+                <attribute name="Implementation-Version" value="${jar.datestamp}" />
+                <attribute name="Implementation-Title" value="JAuswertung Regelwerkseditor" />
+                <attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
+                <attribute name="Contributors" value="Dennis Fabri" />
+                <attribute name="Class-Path" value="libs/jauswertung.jar ." />
+                <attribute name="SplashScreen-Image" value="logo.png" />
+            </manifest>
+        </jar>
 
-		<jar jarfile="${dist}/alphaserver-cmd.jar" compress="false">
-			<manifest>
-				<attribute name="Main-Class" value="de.dm.collector.CollectorCmd" />
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Built-At" value="${jar.datestamp}" />
-				<attribute name="Implementation-Version" value="${jar.datestamp}" />
-				<attribute name="Implementation-Title" value="AlphaServer UI" />
-				<attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
-				<attribute name="Contributors" value="Dennis Fabri" />
-				<attribute name="Class-Path" value="libs/jauswertung.jar ." />
-				<attribute name="SplashScreen-Image" value="logo.png" />
-			</manifest>
-		</jar>
+        <jar jarfile="${dist-main}/alphaserver-ui.jar" compress="false">
+            <manifest>
+                <attribute name="Main-Class" value="de.dm.collector.JCollector" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-At" value="${jar.datestamp}" />
+                <attribute name="Implementation-Version" value="${jar.datestamp}" />
+                <attribute name="Implementation-Title" value="AlphaServer UI" />
+                <attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
+                <attribute name="Contributors" value="Dennis Fabri" />
+                <attribute name="Class-Path" value="libs/jauswertung.jar ." />
+                <attribute name="SplashScreen-Image" value="logo.png" />
+            </manifest>
+        </jar>
 
-		<copy file="target/jauswertung-${version}-SNAPSHOT.jar" tofile="${dist}/libs/jauswertung.jar" />
-	</target>
+        <jar jarfile="${dist-main}/alphaserver-cmd.jar" compress="false">
+            <manifest>
+                <attribute name="Main-Class" value="de.dm.collector.CollectorCmd" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-At" value="${jar.datestamp}" />
+                <attribute name="Implementation-Version" value="${jar.datestamp}" />
+                <attribute name="Implementation-Title" value="AlphaServer UI" />
+                <attribute name="Implementation-URL" value="https://www.dennisfabri.de" />
+                <attribute name="Contributors" value="Dennis Fabri" />
+                <attribute name="Class-Path" value="libs/jauswertung.jar ." />
+                <attribute name="SplashScreen-Image" value="logo.png" />
+            </manifest>
+        </jar>
 
-	<target name="installer" depends="build" description="generate the installer">
-		<install4j projectfile="install4j/install4j.install4j" destination="${release}" debug="false" buildids="w64jre,mac,unix" release="${version}" />
+        <copy file="target/jauswertung-${version}-SNAPSHOT.jar" tofile="${dist-main}/libs/jauswertung.jar" />
+    </target>
 
-		<move file="${release}/JAuswertung-setup-${version_}-x64-jre.exe" tofile="${release}/JAuswertung-Setup-${year}-${version}.exe" />
-		<move file="${release}/JAuswertung-setup-${version_}.dmg" tofile="${release}/JAuswertung-Setup-${year}-${version}.dmg" />
-		<move file="${release}/JAuswertung-setup-${version_}.sh" tofile="${release}/JAuswertung-Setup-${year}-${version}.sh" />
+    <target name="installer" depends="build" description="generate the installer">
+        <install4j projectfile="install4j/install4j.install4j" destination="${release}" debug="false" buildids="w64jre,mac,unix" release="${version}" />
 
-		<tar tarfile="${release}/JAuswertung-Setup-${year}-${version}.tar">
-			<tarfileset dir="${release}" filemode="755">
-				<include name="JAuswertung-Setup-${year}-${version}.sh" />
-			</tarfileset>
-		</tar>
-		<delete file="${release}/JAuswertung-Setup-${year}-${version}.sh" />
+        <move file="${release}/JAuswertung-setup-${version_}-x64-jre.exe" tofile="${release}/JAuswertung-Setup-${year}-${version}.exe" />
+        <move file="${release}/JAuswertung-setup-${version_}.dmg" tofile="${release}/JAuswertung-Setup-${year}-${version}.dmg" />
+        <move file="${release}/JAuswertung-setup-${version_}.sh" tofile="${release}/JAuswertung-Setup-${year}-${version}.sh" />
 
-		<delete file="${release}/sha256sums" />
-		<delete file="${release}/output.txt" />
-		<delete file="${release}/updates.xml" />
-	</target>
+        <tar tarfile="${release}/JAuswertung-Setup-${year}-${version}.tar">
+            <tarfileset dir="${release}" filemode="755">
+                <include name="JAuswertung-Setup-${year}-${version}.sh" />
+            </tarfileset>
+        </tar>
+        <delete file="${release}/JAuswertung-Setup-${year}-${version}.sh" />
 
-	<target name="release" depends="installer" description="create the release">
-		<copy file="${include1}/anleitung.pdf" tofile="${release}/JAuswertung-${year}-${version}.pdf" />
+        <delete file="${release}/sha256sums" />
+        <delete file="${release}/output.txt" />
+        <delete file="${release}/updates.xml" />
+    </target>
 
-		<zip destfile="${release}/JAuswertung-src-${year}-${version}.zip" compress="true" level="9">
-			<fileset dir="." casesensitive="no">
-				<include name="*.*" />
-				<include name="src/**/*.*" />
-				<include name="install4j/**/*.*" />
-				<exclude name="src-test/de/dm/auswertung/gui/plugins/**/*.*" />
-				<exclude name="*.wk" />
-				<exclude name="*.vs" />
-				<exclude name=".classpath" />
-				<exclude name=".project" />
-				<exclude name="*.iml" />
-				<exclude name="target" />
-				<exclude name=".idea" />
-				<exclude name=".settings" />
-				<exclude name="release" />
-				<exclude name="results.html" />
-				<exclude name="src/main/files/anleitung.pdf" />
-				<exclude name="**/*.class" />
-			</fileset>
-		</zip>
+    <target name="release" depends="installer" description="create the release">
+        <copy file="${include1}/anleitung.pdf" tofile="${release}/JAuswertung-${year}-${version}.pdf" />
 
-		<delete file="JUtils-src.zip" />
-		<delete file="AlphaServer-src.zip" />
+        <zip destfile="${release}/JAuswertung-src-${year}-${version}.zip" compress="true" level="9">
+            <fileset dir="." casesensitive="no">
+                <include name="*.*" />
+                <include name="src/**/*.*" />
+                <include name="install4j/**/*.*" />
+                <exclude name="src-test/de/dm/auswertung/gui/plugins/**/*.*" />
+                <exclude name="*.wk" />
+                <exclude name="*.vs" />
+                <exclude name=".git" />
+                <exclude name=".classpath" />
+                <exclude name=".project" />
+                <exclude name="*.iml" />
+                <exclude name="target" />
+                <exclude name=".idea" />
+                <exclude name=".settings" />
+                <exclude name="results.html" />
+                <exclude name="src/main/files/anleitung.pdf" />
+                <exclude name="**/*.class" />
+            </fileset>
+        </zip>
 
-		<!-- Cleanup -->
-		<antcall target="clean-temp" />
-	</target>
+        <delete file="JUtils-src.zip" />
+        <delete file="AlphaServer-src.zip" />
 
-	<target name="clean-temp" description="clean up everything">
-		<delete dir="ant" />
-	</target>
+        <!-- Cleanup -->
+        <antcall target="clean-temp" />
+    </target>
 
-	<target name="clean" depends="clean-temp" description="clean up everything">
-	</target>
+    <target name="clean-temp" description="clean up everything">
+        <delete dir="ant" />
+    </target>
 
-	<target name="help" description="Creates the Help-Files">
-		<zip destfile="${dist}/libs/JavaHelp.jar">
-			<fileset dir="src/main/JavaHelp/hs" casesensitive="no">
-				<include name="**" />
-				<include name="*" />
-			</fileset>
-		</zip>
-	</target>
+    <target name="clean" depends="clean-temp" description="clean up everything">
+    </target>
+
+    <target name="help" description="Creates the Help-Files">
+        <zip destfile="${dist-main}/libs/JavaHelp.jar">
+            <fileset dir="src/main/JavaHelp/hs" casesensitive="no">
+                <include name="**" />
+                <include name="*" />
+            </fileset>
+        </zip>
+    </target>
 </project>

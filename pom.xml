@@ -21,6 +21,8 @@
 		<junit.version>4.13.1</junit.version>
 		<poi.version>4.1.2</poi.version>
 		<jersey.version>2.32</jersey.version>
+		<javafx.version>15.0.1</javafx.version>
+		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
 	</properties>
 
 	<dependencyManagement>
@@ -56,7 +58,7 @@
 		<dependency>
 			<groupId>de.dennisfabri</groupId>
 			<artifactId>alphaserver</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${version.alphaserver}</version>
 		</dependency>
 
 		<dependency>
@@ -129,7 +131,6 @@
 			<version>2.1.3</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
 			<artifactId>flying-saucer-core</artifactId>
@@ -160,6 +161,8 @@
 			<version>${jersey.version}</version>
 		</dependency>
 
+		<!-- Runtime -->
+
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
@@ -173,6 +176,8 @@
 			<version>2.11.3</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Test -->
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -195,11 +200,57 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribute/libs</outputDirectory>
+							<outputDirectory>${project.build.directory}/distribution/main/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<includeScope>runtime</includeScope>
+							<excludeClassifiers>linux,win,mac</excludeClassifiers>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies-linux</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/linux/libs</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeScope>runtime</includeScope>
+							<classifier>linux</classifier>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies-windows</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/windows/libs</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeScope>runtime</includeScope>
+							<classifier>win</classifier>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies-macos</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/macos/libs</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeScope>runtime</includeScope>
+							<classifier>mac</classifier>
 						</configuration>
 					</execution>
 				</executions>
@@ -215,15 +266,82 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- append to the packaging phase. -->
+						<id>make-assembly</id>
+						<phase>package</phase>
 						<goals>
-							<goal>single</goal> <!-- goals == mojos -->
+							<goal>single</goal>
 						</goals>
+						<configuration>
+							<archiveBaseDirectory>.</archiveBaseDirectory>
+							<outputDirectory>target</outputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
+
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-files</id>
+						<!-- here the phase you need -->
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/files</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-jar</id>
+						<!-- here the phase you need -->
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/main/libs</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/target</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>jauswertung-*.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>						
+						<configuration>
+							<target>
+								<unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${project.build.directory}/distribution/main" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+<!-- 
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
@@ -260,12 +378,28 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- <plugin> <groupId>org.sonatype.install4j</groupId> <artifactId>install4j-maven-plugin</artifactId> 
-				<executions> <execution> <id>compile-installers</id> <phase>package</phase> 
-				<goals> <goal>compile</goal> </goals> <configuration> <projectFile>${project.basedir}/install4j/install4j.install4j</projectFile> 
-				<destination>release</destination> <debug>false</debug> <buildIds>w32jre 
-				mac unix</buildIds> <release>${project.version}</release> </configuration> 
-				</execution> </executions> </plugin> -->
+-->
+			<plugin>
+				<groupId>org.sonatype.install4j</groupId>
+				<artifactId>install4j-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<executions>
+					<execution>
+						<id>compile-installers</id>
+						<phase>package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
+							<destination>target/installer</destination>
+							<debug>false</debug>
+							<buildIds>w64jre,mac,unix</buildIds>
+							<release>${project.version}</release>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

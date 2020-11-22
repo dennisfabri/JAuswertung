@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
-  <directoryPresets config="../target" />
+  <directoryPresets config="../target/distribution/main/icons" />
   <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/installer" compression="9" lzmaCompression="true" createChecksums="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="15.1.0" allPathsRelative="true" backupOnSave="true" autoSave="true" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="11" allowBetaVM="true" jdkMode="jdk" jdkName="JDK 11.0">
     <languages>
       <principalLanguage id="de" />
@@ -8,17 +8,57 @@
     <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk15/jdk-15.0.1+9" />
   </application>
   <files>
+    <filesets>
+      <fileset name="Windows" id="895" />
+      <fileset name="Linux" id="1017" />
+      <fileset name="MacOS" id="1021" />
+    </filesets>
+    <roots>
+      <root id="896" fileset="895" />
+      <root id="1018" fileset="1017" />
+      <root id="1022" fileset="1021" />
+    </roots>
     <mountPoints>
       <mountPoint id="58" />
+      <mountPoint id="897" root="896" />
+      <mountPoint id="1023" root="1018" />
+      <mountPoint id="1024" root="1022" />
     </mountPoints>
     <entries>
-      <dirEntry mountPoint="58" file="../target/distribute" subDirectory="distribute" excludeSuffixes="*.log" />
+      <dirEntry mountPoint="58" file="../target/distribution/main" subDirectory="distribute" excludeSuffixes="*.log" />
+      <dirEntry mountPoint="897" file="../target/distribution/windows" subDirectory="windows" />
+      <dirEntry mountPoint="1023" file="../target/distribution/linux" subDirectory="linux" />
+      <dirEntry mountPoint="1024" file="../target/distribution/macos" subDirectory="macos" />
     </entries>
     <components>
       <component name="JAuswertung" id="740" changeable="false">
-        <include all="true">
+        <include>
           <entry defaultFileset="true" />
         </include>
+      </component>
+      <component name="Windows" id="899" changeable="false" hidden="true">
+        <include>
+          <entry filesetId="895" />
+        </include>
+        <dependencies>
+          <component id="740" />
+        </dependencies>
+      </component>
+      <component name="Linux" id="1027" changeable="false" hidden="true">
+        <include>
+          <entry filesetId="1017" />
+        </include>
+        <dependencies>
+          <component id="740" />
+        </dependencies>
+      </component>
+      <component name="MacOS" id="1028" changeable="false" hidden="true">
+        <include>
+          <entry filesetId="1021" />
+        </include>
+        <dependencies>
+          <component id="740" />
+        </dependencies>
       </component>
     </components>
   </files>
@@ -179,6 +219,41 @@
       <executable name="AresWriter" iconSet="true" executableDir="." executableMode="gui" singleInstance="true" />
       <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
       <java mainClass="AresLauncher" vmParameters="-Xmx1024m -Xms64m">
+        <classPath>
+          <scanDirectory location="libs" failOnError="false" />
+          <directory location="." failOnError="false" />
+        </classPath>
+      </java>
+      <macStaticAssociationActions mode="selected" />
+      <iconImageFiles>
+        <file path="../src/main/files/icons/jauswertung-16.png" />
+        <file path="../src/main/files/icons/jauswertung-32.png" />
+        <file path="../src/main/files/icons/jauswertung-48.png" />
+        <file path="../src/main/files/icons/jauswertung-128.png" />
+        <file path="../src/main/files/icons/jauswertung-256.png" />
+      </iconImageFiles>
+    </launcher>
+    <launcher name="alphaserver-cmd" id="1147">
+      <executable name="alphaserver-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
+      <java mainClass="de.dm.collector.CollectorCmd" vmParameters="-Xmx1024m -Xms64m">
+        <classPath>
+          <scanDirectory location="libs" failOnError="false" />
+          <directory location="." failOnError="false" />
+        </classPath>
+      </java>
+      <iconImageFiles>
+        <file path="../target/distribution/main/icons/alphaserver-16.png" />
+        <file path="../target/distribution/main/icons/alphaserver-32.png" />
+        <file path="../target/distribution/main/icons/alphaserver-48.png" />
+        <file path="../target/distribution/main/icons/alphaserver-64.png" />
+        <file path="../target/distribution/main/icons/alphaserver-128.png" />
+        <file path="../target/distribution/main/icons/alphaserver-256.png" />
+      </iconImageFiles>
+    </launcher>
+    <launcher name="dpsplitter-cmd" id="1153">
+      <executable name="dpsplitter-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
+      <splashScreen bitmapFile="../src/main/files/images/logo.png" />
+      <java mainClass="de.df.jauswertung.dp.splitter.DPSplitter" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -745,11 +820,19 @@ return console.askYesNo(message, true);
   </installerGui>
   <mediaSets>
     <windows name="Windows" id="65" customizedId="w64" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x64">
+      <excludedComponents>
+        <component id="1027" />
+        <component id="1028" />
+      </excludedComponents>
       <exclude>
         <entry filesetId="734" />
       </exclude>
     </windows>
     <windows name="Windows (64 with JRE)" id="583" customizedId="w64jre" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x64-jre">
+      <excludedComponents>
+        <component id="1027" />
+        <component id="1028" />
+      </excludedComponents>
       <exclude>
         <entry filesetId="734" />
       </exclude>
@@ -760,6 +843,10 @@ return console.askYesNo(message, true);
       </jreBundle>
     </windows>
     <macosFolder name="macOS Folder" id="63" customizedId="mac" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}">
+      <excludedComponents>
+        <component id="899" />
+        <component id="1027" />
+      </excludedComponents>
       <exclude>
         <entry filesetId="734" />
         <entry filesetId="736" />
@@ -771,12 +858,16 @@ return console.askYesNo(message, true);
       </jreBundle>
     </macosFolder>
     <unixInstaller name="Unix Installer" id="64" customizedId="unix" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}">
-      <exclude>
-        <entry filesetId="734" />
-        <entry filesetId="736" />
-      </exclude>
+      <excludedComponents>
+        <component id="899" />
+        <component id="1028" />
+      </excludedComponents>
     </unixInstaller>
     <windows name="Windows (32 with JRE)" id="894" customizedId="w32jre" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x32-jre" jreBitType="32" includeAllDownloadableComponents="true">
+      <excludedComponents>
+        <component id="1027" />
+        <component id="1028" />
+      </excludedComponents>
       <jreBundle jreBundleSource="generated" shared="true">
         <modules>
           <defaultModules set="jre" />
