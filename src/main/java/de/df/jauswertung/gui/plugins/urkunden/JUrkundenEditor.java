@@ -75,40 +75,40 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
     private static final long serialVersionUID = -523804656941976436L;
 
-    private JFrame            parent;
-    private AWettkampf<T>     wk;
-    private IPluginManager    controller;
+    private JFrame parent;
+    private AWettkampf<T> wk;
+    private IPluginManager controller;
 
-    mxGraph                   graph;
-    mxGraphComponent          jgraph;
-    JPanel                    inner;
+    mxGraph graph;
+    mxGraphComponent jgraph;
+    JPanel inner;
 
-    Point                     clicked;
+    Point clicked;
 
-    JPopupMenu                menu;
-    JMenuItem                 font;
-    JMenuItem                 delete;
-    JMenu                     alignment;
-    private JMenuItem         alignleft;
-    private JMenuItem         alignright;
-    private JMenuItem         aligncenter;
+    JPopupMenu menu;
+    JMenuItem font;
+    JMenuItem delete;
+    JMenu alignment;
+    private JMenuItem alignleft;
+    private JMenuItem alignright;
+    private JMenuItem aligncenter;
 
-    private JButton           left;
-    private JButton           center;
-    private JButton           right;
-    private JButton           fontbutton;
+    private JButton left;
+    private JButton center;
+    private JButton right;
+    private JButton fontbutton;
 
-    JToggleButton             add;
-    JPanel                    graphcontainer;
+    JToggleButton add;
+    JPanel graphcontainer;
 
-    Font                      lastfont         = PrintManager.getFont();
+    Font lastfont = PrintManager.getFont();
 
-    private boolean           grid             = true;
+    private boolean grid = true;
 
-    JDialog                   help;
-    JToggleButton             helper;
+    JDialog help;
+    JToggleButton helper;
 
-    private final boolean     einzelwertung;
+    private final boolean einzelwertung;
 
     public JUrkundenEditor(JFrame parent, AWettkampf<T> wk, IPluginManager pm, boolean einzelwertung) {
         super(I18n.get("Documenteditor"));
@@ -166,7 +166,8 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
                 }
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (add.isSelected()) {
-                        GraphUtils.addTextfield(graph, clicked.getX(), clicked.getY(), e.getX() - clicked.getX(), e.getY() - clicked.getY(), null, true);
+                        GraphUtils.addTextfield(graph, clicked.getX(), clicked.getY(), e.getX() - clicked.getX(),
+                                e.getY() - clicked.getY(), null, true);
                         add.setSelected(false);
                     }
                 }
@@ -392,7 +393,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
     @SuppressWarnings("unchecked")
     void laden() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), FILTER, this);
+        String name = FileChooserUtils.openFile(this, FILTER);
         if (name != null) {
             Hashtable<String, Object>[] neu = (Hashtable<String, Object>[]) InputManager.ladeObject(name);
             if (neu == null) {
@@ -409,11 +410,12 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
     }
 
     void speichern() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), FILTER, controller.getWindow());
+        String name = FileChooserUtils.saveFile(controller.getWindow(), FILTER);
         if (name != null) {
             boolean result = true;
             if (new File(name).exists()) {
-                result = DialogUtils.ask(this, I18n.get("OverwriteFileQuestion", name), I18n.get("OverwriteFileQuestion.Note", name));
+                result = DialogUtils.ask(this, I18n.get("OverwriteFileQuestion", name),
+                        I18n.get("OverwriteFileQuestion.Note", name));
             }
             if (result) {
                 result = OutputManager.speichereObject(name, GraphUtils.collectGraph(graph));
@@ -443,8 +445,8 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Hashtable<String, Object>[] cells = GraphUtils.collectGraph(graph);
-                JPrintPreview jpp = new JPrintPreview(JUrkundenEditor.this, new DocumentsCreator(cells), I18n.get("Document"), IconManager.getIconBundle(),
-                        IconManager.getTitleImages());
+                JPrintPreview jpp = new JPrintPreview(JUrkundenEditor.this, new DocumentsCreator(cells),
+                        I18n.get("Document"), IconManager.getIconBundle(), IconManager.getTitleImages());
                 ModalFrameUtil.showAsModal(jpp, JUrkundenEditor.this);
             }
         });

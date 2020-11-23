@@ -64,26 +64,26 @@ import de.df.jutils.print.PrintableCreator;
  */
 abstract class APerDisciplinePrinter implements Printer {
 
-    CorePlugin                core          = null;
-    IPluginManager            controller    = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
 
-    private JPanel            panel         = null;
-    private JButton           print         = null;
-    private JButton           export        = null;
-    private JButton           preview       = null;
-    private JComboBox<String> agegroup      = null;
-    private JLabel            warning       = null;
-    private JLabel            filter        = null;
+    private JPanel panel = null;
+    private JButton print = null;
+    private JButton export = null;
+    private JButton preview = null;
+    private JComboBox<String> agegroup = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
 
-    private final boolean     hasHeader;
+    private final boolean hasHeader;
 
-    private int[]             indices       = new int[0];
+    private int[] indices = new int[0];
 
-    private PreviewCB         previewcb     = new PreviewCB();
-    private PrintCB           printcb       = new PrintCB();
+    private PreviewCB previewcb = new PreviewCB();
+    private PrintCB printcb = new PrintCB();
 
-    private JSelectionDialog  previewDialog = null;
-    private JSelectionDialog  printDialog   = null;
+    private JSelectionDialog previewDialog = null;
+    private JSelectionDialog printDialog = null;
 
     public APerDisciplinePrinter(IPluginManager window, CorePlugin plugin, boolean hasHeader) {
         core = plugin;
@@ -124,9 +124,8 @@ abstract class APerDisciplinePrinter implements Printer {
             }
         });
 
-        panel = new JPanel(
-                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
-                        "4dlu,fill:default,4dlu"));
+        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -149,8 +148,9 @@ abstract class APerDisciplinePrinter implements Printer {
                     result = wk.getLauflisteOW() != null && !wk.getLauflisteOW().isEmpty();
                     agegroup.removeAllItems();
                 } else if (wk.hasSchwimmer()) {
-                    if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_SWIMMER_CHANGED | REASON_SWIMMER_DELETED | REASON_FILTER_SELECTION
-                            | REASON_POINTS_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK | REASON_NEW_WK)) > 0) {
+                    if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_SWIMMER_CHANGED | REASON_SWIMMER_DELETED
+                            | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK
+                            | REASON_NEW_WK)) > 0) {
                         result = false;
                         int index = Math.max(0, agegroup.getSelectedIndex());
                         LinkedList<Integer> indexlist = new LinkedList<Integer>();
@@ -252,6 +252,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -300,8 +301,8 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("unchecked")
     private void export(OWSelection t) {
-        String filename = FileChooserUtils.chooseFile(I18n.get("Export"), I18n.get("Save"), new SimpleFileFilter("Microsoft Excel", "xls"),
-                controller.getWindow());
+        String filename = FileChooserUtils.saveFile(controller.getWindow(), I18n.get("Export"),
+                new SimpleFileFilter("Microsoft Excel", "xls"));
         if (filename == null || filename.trim().length() == 0) {
             return;
         }
@@ -377,15 +378,16 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     void previewResults(boolean[][] selection) {
-        PrintManager.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Einzelwertung"), IconManager.getIconBundle(),
-                IconManager.getTitleImages());
+        PrintManager.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Einzelwertung"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     @SuppressWarnings("rawtypes")
     void showPreviewSelectionDialog() {
         AWettkampf w = getWettkampf();
         if (w == null) {
-            DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"), I18n.get("Information.NoParticipantsForResultgroup"),
+            DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),
+                    I18n.get("Information.NoParticipantsForResultgroup"),
                     I18n.get("Note.NoParticipantsForResultgroup"));
             return;
         }
@@ -400,7 +402,8 @@ abstract class APerDisciplinePrinter implements Printer {
     void showPrintSelectionDialog() {
         AWettkampf w = getWettkampf();
         if (w == null) {
-            DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"), I18n.get("Information.NoParticipantsForResultgroup"),
+            DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),
+                    I18n.get("Information.NoParticipantsForResultgroup"),
                     I18n.get("Note.NoParticipantsForResultgroup"));
             return;
         }
@@ -438,8 +441,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen", "Ergebnis zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPrintSelectionDialog();
             }
@@ -460,8 +463,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         }
                     }
                 };
-                OWUtils.ShowRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen", "Ergebnis zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.ShowRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 // export();
             }
@@ -492,13 +495,14 @@ abstract class APerDisciplinePrinter implements Printer {
                     @Override
                     public void callback(OWSelection[] t) {
                         if (t != null) {
-                            PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk, t), I18n.get("Einzelwertung"), IconManager.getIconBundle(),
+                            PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk, t),
+                                    I18n.get("Einzelwertung"), IconManager.getIconBundle(),
                                     IconManager.getTitleImages());
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen", "Ergebnis zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPreviewSelectionDialog();
             }
@@ -525,11 +529,13 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     private JSelectionDialog createPrintDialog(AWettkampf wk) {
-        return new JSelectionDialog(controller.getWindow(), wk, printcb, I18n.get("Print"), JSelectionDialog.MODE_DISCIPLINE_SELECTION);
+        return new JSelectionDialog(controller.getWindow(), wk, printcb, I18n.get("Print"),
+                JSelectionDialog.MODE_DISCIPLINE_SELECTION);
     }
 
     @SuppressWarnings("rawtypes")
     private JSelectionDialog createPreviewDialog(AWettkampf wk) {
-        return new JSelectionDialog(controller.getWindow(), wk, previewcb, I18n.get("Preview"), JSelectionDialog.MODE_DISCIPLINE_SELECTION);
+        return new JSelectionDialog(controller.getWindow(), wk, previewcb, I18n.get("Preview"),
+                JSelectionDialog.MODE_DISCIPLINE_SELECTION);
     }
 }

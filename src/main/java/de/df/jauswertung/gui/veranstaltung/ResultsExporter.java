@@ -33,9 +33,9 @@ import de.df.jutils.gui.util.DialogUtils;
 
 class ResultsExporter implements Printer {
 
-    private JButton                      resultprint;
-    private JComboBox<String>            resultmodus;
-    private JPanel                       panel;
+    private JButton resultprint;
+    private JComboBox<String> resultmodus;
+    private JPanel panel;
 
     private final JVeranstaltungswertung parent;
 
@@ -93,8 +93,7 @@ class ResultsExporter implements Printer {
             DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
             return;
         }
-        String filename = FileChooserUtils.chooseFile(I18n.get("Export"), I18n.get("Export"),
-                new SimpleFileFilter("Competition-Datei", ".competition"), parent);
+        String filename = FileChooserUtils.saveFile(parent, new SimpleFileFilter("Competition-Datei", ".competition"));
         if (filename != null) {
             Competition c = getGesamtwertung(p, parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0);
             OutputManager.speichereObject(filename, c);
@@ -102,7 +101,8 @@ class ResultsExporter implements Printer {
     }
 
     @SuppressWarnings({ "unchecked", "null", "rawtypes" })
-    private static <T extends ASchwimmer> Competition getGesamtwertung(AWettkampf<T> wk, Veranstaltung vs, boolean gliederung) {
+    private static <T extends ASchwimmer> Competition getGesamtwertung(AWettkampf<T> wk, Veranstaltung vs,
+            boolean gliederung) {
         AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
         String[] nx = vs.getCompetitionNames();
         LinkedList<Integer> sizes = new LinkedList<Integer>();
@@ -140,13 +140,15 @@ class ResultsExporter implements Printer {
         }
 
         Competition c = new Competition(gliederung ? "National" : "LV");
-        GesamtwertungSchwimmer[] result = buildGesamtwertungsergebnis(wk, false, sexes.toArray(new String[sexes.size()]));
+        GesamtwertungSchwimmer[] result = buildGesamtwertungsergebnis(wk, false,
+                sexes.toArray(new String[sexes.size()]));
         if (result == null || result.length == 0) {
             return c;
         }
-        c.setCompetitors(Arrays.stream(result).map(m -> new Competitor(m.getName(), m.getPunkte())).toArray(Competitor[]::new));
+        c.setCompetitors(
+                Arrays.stream(result).map(m -> new Competitor(m.getName(), m.getPunkte())).toArray(Competitor[]::new));
         return c;
-   }
+    }
 
     @SuppressWarnings("rawtypes")
     private static GesamtwertungSchwimmer[] buildGesamtwertungsergebnis(AWettkampf wettkampf, boolean nachkomma,

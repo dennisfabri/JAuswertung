@@ -121,7 +121,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
     void browseFile() {
         SimpleFileFilter filter = new SimpleFileFilter(ExportManager.getName(FORMATS[format.getSelectedIndex()]),
                 ExportManager.getSuffixes(FORMATS[format.getSelectedIndex()]));
-        String name = FileChooserUtils.chooseFile(I18n.get("ChooseAFile"), I18n.get("Ok"), filter, this);
+        String name = FileChooserUtils.openFile(this, filter);
         if (name != null) {
             file.filename.setText(name);
         }

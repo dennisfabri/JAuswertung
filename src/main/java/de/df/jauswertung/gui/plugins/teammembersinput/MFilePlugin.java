@@ -38,16 +38,16 @@ import de.df.jutils.util.RecentlyUsedFiles;
  */
 public class MFilePlugin extends ANullPlugin {
 
-    private static final SimpleFileFilter   FILTER_WK     = FileFilters.FF_TEAMMEMBERS;
-    private static final SimpleFileFilter[] FILTERS       = { FILTER_WK };
+    private static final SimpleFileFilter FILTER_WK = FileFilters.FF_TEAMMEMBERS;
+    private static final SimpleFileFilter[] FILTERS = { FILTER_WK };
 
-    private IPluginManager                  controller;
-    private CorePlugin                      core;
-    private JMenuItem[]                     menu;
-    private JMenuItem[]                     recent;
-    private JButton[]                       buttons;
+    private IPluginManager controller;
+    private CorePlugin core;
+    private JMenuItem[] menu;
+    private JMenuItem[] recent;
+    private JButton[] buttons;
 
-    RecentlyUsedFiles                       recentlyFiles = RecentlyUsedFiles.open(Utils.getPreferences(), "Teammembers");
+    RecentlyUsedFiles recentlyFiles = RecentlyUsedFiles.open(Utils.getPreferences(), "Teammembers");
 
     @Override
     public void setController(IPluginManager c, String uid) {
@@ -87,7 +87,8 @@ public class MFilePlugin extends ANullPlugin {
 
         // init menu
         menu = new JMenuItem[3];
-        // menu[0] = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("newfile"));
+        // menu[0] = new JMenuItem(I18n.get("New"),
+        // IconManager.getSmallIcon("newfile"));
         menu[0] = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
         menu[1] = new JMenuItem(I18n.get("Save"), IconManager.getSmallIcon("savefile"));
         menu[2] = new JMenuItem(I18n.get("SaveAs"), IconManager.getSmallIcon("saveasfile"));
@@ -178,7 +179,7 @@ public class MFilePlugin extends ANullPlugin {
         if (controller.acceptWarning()) {
             JFrame window = controller.getWindow();
 
-            String name = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), FILTERS, window);
+            String name = FileChooserUtils.openFile(window, FILTERS);
             if (name != null) {
                 if (!core.load(name)) {
                     String meldung = I18n.get("OpenFailedText", name);
@@ -220,11 +221,12 @@ public class MFilePlugin extends ANullPlugin {
     }
 
     void saveAsFile() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), FILTER_WK, controller.getWindow());
+        String name = FileChooserUtils.saveFile(controller.getWindow(), FILTER_WK);
         if (name != null) {
             boolean result = true;
             if (new File(name).exists()) {
-                result = DialogUtils.ask(controller.getWindow(), I18n.get("OverwriteFileQuestion", name), I18n.get("OverwriteFileQuestion.Note", name));
+                result = DialogUtils.ask(controller.getWindow(), I18n.get("OverwriteFileQuestion", name),
+                        I18n.get("OverwriteFileQuestion.Note", name));
             }
             if (result) {
                 if (core.saveAs(name)) {
@@ -241,21 +243,24 @@ public class MFilePlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(I18n.get("File"), 100, menu, 100), new MenuInfo(I18n.get("File"), 100, recent, 500) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("File"), 100, menu, 100),
+                new MenuInfo(I18n.get("File"), 100, recent, 500) };
     }
 
     @Override
     public void dataUpdated(UpdateEvent due) {
-        setSaveIcons((core.getFilename() != null) && ((due.getChangeReason() & UpdateEventConstants.REASON_LOAD_WK) == 0));
+        setSaveIcons(
+                (core.getFilename() != null) && ((due.getChangeReason() & UpdateEventConstants.REASON_LOAD_WK) == 0));
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getQuickButtons()
      */
     @Override

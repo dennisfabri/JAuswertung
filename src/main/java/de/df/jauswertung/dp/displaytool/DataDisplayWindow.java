@@ -58,9 +58,8 @@ public class DataDisplayWindow extends DisplayToolWindow {
 
     @Override
     protected void doOpen() {
-        String filename = FileChooserUtils.chooseFile("Öffnen", "Öffnen",
-                new SimpleFileFilter[] { new SimpleFileFilter("Competition-Datei", ".competition", ".xml") },
-                getWindow());
+        String filename = FileChooserUtils.openFile(getWindow(), 
+                new SimpleFileFilter("Competition-Datei", ".competition", ".xml"));
         if (filename != null) {
             controller.setFilename(filename);
             doUpdate();

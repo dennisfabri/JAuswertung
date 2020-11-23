@@ -145,7 +145,7 @@ class JKampfrichterManager extends JGlassFrame {
     }
 
     void laden() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), FILTER, this);
+        String name = FileChooserUtils.openFile(controller.getWindow(), FILTER);
         if (name != null) {
             KampfrichterVerwaltung neu = InputManager.ladeKampfrichter(name);
             if (neu == null) {
@@ -159,7 +159,7 @@ class JKampfrichterManager extends JGlassFrame {
     }
 
     void speichern() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), FILTER, controller.getWindow());
+        String name = FileChooserUtils.saveFile(controller.getWindow(), FILTER);
         if (name != null) {
             boolean result = true;
             if (new File(name).exists()) {

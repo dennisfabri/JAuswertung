@@ -284,16 +284,16 @@ public class JNeuerWettkampf extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            SimpleFileFilter[] ff = null;
+            SimpleFileFilter ff = null;
             switch (type) {
             case TYPE_STAFFEL:
-                ff = new SimpleFileFilter[] { FileFilters.FF_RULEBOOKS_TEAM };
+                ff = FileFilters.FF_RULEBOOKS_TEAM ;
                 break;
             default:
-                ff = new SimpleFileFilter[] { FileFilters.FF_RULEBOOKS_SINGLE };
+                ff = FileFilters.FF_RULEBOOKS_SINGLE;
                 break;
             }
-            String name = FileChooserUtils.chooseFile(I18n.get("ChooseFile"), I18n.get("Open"), ff, parent);
+            String name = FileChooserUtils.openFile(parent, ff);
             if (name != null) {
                 Regelwerk aks = AgeGroupIOUtils.ladeAKs(name);
                 if (aks != null) {

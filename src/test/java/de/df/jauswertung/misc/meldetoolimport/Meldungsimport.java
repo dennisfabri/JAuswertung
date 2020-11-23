@@ -240,13 +240,13 @@ class Meldungsimport {
         String prefix = "";
         switch (zu.GetTyp()) {
         case OpenSingle:
-            prefix = "Ocean-Einzel-Start-";
+            prefix = "OCEAN-Einzel-Start-";
             break;
         case OpenTeam:
-            prefix = "Ocean-Staffel-Startposition-";
+            prefix = "OCEAN-Staffel-Startposition-";
             break;
         case OpenMixed:
-            prefix = "Ocean-Mixed-Startposition-";
+            prefix = "OCEAN-Mixed-Startposition-";
             break;
         case PoolSingle:
             prefix = "Pool-Einzel-Meldezeit-";

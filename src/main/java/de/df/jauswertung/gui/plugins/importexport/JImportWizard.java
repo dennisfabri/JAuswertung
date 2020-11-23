@@ -89,13 +89,13 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
      */
     private static final long serialVersionUID = 3545515093153625141L;
 
-    CorePlugin                core;
-    IPluginManager            controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    JTypeChooser              type             = null;
-    JFormatChooser            format           = null;
-    JFilePage                 file             = null;
-    Object                    results          = null;
+    JTypeChooser type = null;
+    JFormatChooser format = null;
+    JFilePage file = null;
+    Object results = null;
 
     public JImportWizard(JFrame parent, CorePlugin c, IPluginManager con, ImportExportMode mode) {
         super(parent, I18n.get("Import"), WizardUIElementsProvider.getInstance(), false);
@@ -165,8 +165,16 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
      */
     void browseFile() {
         IImporter i = ImportManager.getImporter(format.getSelectedItemname());
-        String[] names = FileChooserUtils.chooseFiles(I18n.get("ChooseAFile"), I18n.get("Open"), new SimpleFileFilter(i.getName(), i.getSuffixes()),
-                JImportWizard.this, !ImportManager.isMultifileImportAllowed(type.getSelectedIndex()));
+        String[] names = null;
+        if (!ImportManager.isMultifileImportAllowed(type.getSelectedIndex())) {
+            names = FileChooserUtils.openFiles(JImportWizard.this, new SimpleFileFilter(i.getName(), i.getSuffixes()));
+        } else {
+            String name = FileChooserUtils.openFile(JImportWizard.this,
+                    new SimpleFileFilter(i.getName(), i.getSuffixes()));
+            if (name != null) {
+                names = new String[] { name };
+            }
+        }
         if (names != null) {
             file.filename.setText(StringTools.concatenateFilenames(names));
         }
@@ -214,39 +222,48 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     boolean finishImport() {
         Object data = null;
         if (results != null) {
-            data = ImportManager.finishImport(type.getSelectedIndex(), core.getWettkampf(), results, new SystemOutFeedback());
+            data = ImportManager.finishImport(type.getSelectedIndex(), core.getWettkampf(), results,
+                    new SystemOutFeedback());
             results = null;
             if (data != null) {
                 switch (type.getSelectedIndex()) {
                 case ImportManager.REGISTRATION:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data, null,
-                            null);
+                    controller.sendDataUpdateEvent("Import",
+                            UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
+                            null, null);
                     break;
                 case ImportManager.HEATLIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
+                            null);
                     break;
                 case ImportManager.ZWLIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_ZW_LIST_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_ZW_LIST_CHANGED, data, null,
+                            null);
                     break;
                 case ImportManager.HEATTIMES:
                 case ImportManager.RESULTS:
                     core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data, null,
-                            null);
+                    controller.sendDataUpdateEvent("Import",
+                            UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data,
+                            null, null);
                     break;
                 case ImportManager.REFEREES:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
+                            null);
                     break;
                 case ImportManager.TEAMMEMBERS:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
+                            null);
                     break;
                 case ImportManager.ZWRESULTS:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null,
+                            null);
                     break;
                 default:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_EVERYTHING_CHANGED, data, null, null);
+                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_EVERYTHING_CHANGED, data, null,
+                            null);
                     break;
                 }
             }
@@ -259,7 +276,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         private final ImportExportMode mode;
 
         public JTypeChooser(ImportExportMode mode) {
-            super(getWizard(), I18n.get("ChooseAType"), I18n.get("Import.ChooseAType.Information"), ImportManager.NAMES);
+            super(getWizard(), I18n.get("ChooseAType"), I18n.get("Import.ChooseAType.Information"),
+                    ImportManager.NAMES);
             this.mode = mode;
             for (int x = 0; x < ImportManager.NAMES.length; x++) {
                 boolean enabled = (mode == ImportExportMode.Normal) || (x == ImportManager.TEAMMEMBERS);
@@ -286,7 +304,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
          * @param enabled
          */
         public JFormatChooser() {
-            super(getWizard(), I18n.get("ChooseAFormat"), I18n.get("Import.ChooseAFormat.Information"), ImportManager.getSupportedFormats());
+            super(getWizard(), I18n.get("ChooseAFormat"), I18n.get("Import.ChooseAFormat.Information"),
+                    ImportManager.getSupportedFormats());
             pageSwitch(true);
         }
 
@@ -304,9 +323,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JFilePage extends AWizardPage implements UpdateListener, PageSwitchListener {
 
-        JTextField     filename = new JTextField();
+        JTextField filename = new JTextField();
 
-        private JPanel panel    = null;
+        private JPanel panel = null;
 
         /**
          * @param arg0
@@ -315,7 +334,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             super(I18n.get("ChooseAFile"), I18n.get("Import.ChooseAFile.Information"));
             FileAutoCompleter.addFileAutoCompleter(filename);
 
-            panel = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu", "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
+            panel = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu",
+                    "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
                 private static final long serialVersionUID = 0L;
 
                 @Override
@@ -492,9 +512,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JProgressPage extends AWizardPage implements PageSwitchListener, UpdateListener {
 
-        private JPanel      panel;
+        private JPanel panel;
         private JScrollPane scroller;
-        JTextArea           text;
+        JTextArea text;
 
         public JProgressPage() {
             super(I18n.get("Progress"), I18n.get("Import.Progress.Information"));
@@ -525,7 +545,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             update(true);
         }
 
-        @SuppressWarnings("rawtypes")
         private void update(boolean message) {
             if (getWizard().isCurrentPage(this)) {
                 getWizard().setNextButtonEnabled(false);
@@ -560,7 +579,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             public void run() {
                 boolean display = (getWizard().isCurrentPage(JProgressPage.this));
 
-                AWettkampf wk = core.getWettkampf();
+                AWettkampf<?> wk = core.getWettkampf();
 
                 String fname = file.getText().trim();
                 if (fname.length() != 0) {
@@ -572,18 +591,20 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 }
             }
 
-            @SuppressWarnings("unchecked")
-            void processFiles(AWettkampf wk, String[] names, boolean display) {
+            void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
                 try {
-                    results = ImportManager.importData(type.getSelectedIndex(), names, format.getSelectedItemname(), wk, new Feedback() {
-                        @Override
-                        public void showFeedback(String t) {
-                            insertText(t);
-                        }
-                    });
+                    results = ImportManager.importData(type.getSelectedIndex(), names, format.getSelectedItemname(), wk,
+                            new Feedback() {
+                                @Override
+                                public void showFeedback(String t) {
+                                    insertText(t);
+                                }
+                            });
                 } catch (TableEntryException tee) {
                     if (display) {
-                        DialogUtils.warn(JImportWizard.this, I18n.get("EntryError", StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn())),
+                        DialogUtils.warn(JImportWizard.this,
+                                I18n.get("EntryError",
+                                        StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn())),
                                 tee.getData(), null);
                     }
                     results = null;
@@ -592,7 +613,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         StringBuilder sb = new StringBuilder();
                         sb.append(I18n.get("TheFollowingRequiredFieldsWereNotFound"));
                         sb.append(ImportManager.indizesToNames(tfe.getData(), ""));
-                        DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb.toString(), I18n.get("CheckColumnheaders"));
+                        DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb.toString(),
+                                I18n.get("CheckColumnheaders"));
                     }
                     results = null;
                 } catch (TableException e) {
@@ -606,11 +628,14 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.toString(), null);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"), I18n.get("CheckFile"));
+                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
+                            I18n.get("CheckFile"));
                 } catch (OldExcelFormatException old) {
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"), I18n.get("OldFileExcelFormat"));
+                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
+                            I18n.get("OldFileExcelFormat"));
                 } catch (LeftoverDataException lde) {
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"), I18n.get("ErrorInExcelFormat"));
+                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
+                            I18n.get("ErrorInExcelFormat"));
                 }
             }
         }
@@ -640,15 +665,16 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JImportPage extends AWizardPage implements PageSwitchListener, UpdateListener {
 
-        private JPanel            panel;
-        private JScrollPane       scroller;
+        private JPanel panel;
+        private JScrollPane scroller;
         private JList<ASchwimmer> data;
-        private JLabel            amount;
+        private JLabel amount;
 
         public JImportPage() {
             super(I18n.get("ImportData"), I18n.get("ImportData.Information"));
 
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
             panel = new JPanel(layout);
             amount = new JLabel();
             data = new JList<ASchwimmer>();

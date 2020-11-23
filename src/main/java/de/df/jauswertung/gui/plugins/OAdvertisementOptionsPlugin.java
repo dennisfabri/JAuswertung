@@ -19,7 +19,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
-import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -185,7 +184,7 @@ public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MO
         return p;
     }
 
-    private static final class FileActionListener implements ActionListener {
+    private final class FileActionListener implements ActionListener {
 
         private final JTextField jtf;
 
@@ -195,7 +194,7 @@ public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MO
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            String d = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), (SimpleFileFilter[]) null, null);
+            String d = FileChooserUtils.openFile(getController().getWindow());
             if (d != null) {
                 jtf.setText(d);
             }

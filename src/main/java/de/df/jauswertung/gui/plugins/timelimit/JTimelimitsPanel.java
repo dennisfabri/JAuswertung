@@ -163,7 +163,7 @@ class JTimelimitsPanel extends JPanel {
     }
 
     private void doImport() {
-        String filename = FileChooserUtils.chooseFile(I18n.get("Import"), I18n.get("Import"), new SimpleFileFilter("Microsoft Excel", "xls", "xlsx"), parent);
+        String filename = FileChooserUtils.openFile(parent, I18n.get("Import"), new SimpleFileFilter("Microsoft Excel", "xls", "xlsx"));
         if (filename != null) {
             try {
                 Feedback fb = new NullFeedback();

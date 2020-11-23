@@ -459,7 +459,7 @@ public class JAKsEditor extends JGlassFrame {
 
     void doOpen() {
         SimpleFileFilter[] ff = new SimpleFileFilter[] { FileFilters.FF_RULEBOOKS };
-        String name2 = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), ff, null);
+        String name2 = FileChooserUtils.openFile(this, ff);
         if (name2 != null) {
             doOpen(name2);
         }
@@ -495,7 +495,7 @@ public class JAKsEditor extends JGlassFrame {
         if (!aks.isEinzel()) {
             ff = FileFilters.FF_RULEBOOK_TEAM;
         }
-        String name2 = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), ff, null);
+        String name2 = FileChooserUtils.saveFile(this, ff);
         if (name2 != null) {
             name = name2;
             doSave();

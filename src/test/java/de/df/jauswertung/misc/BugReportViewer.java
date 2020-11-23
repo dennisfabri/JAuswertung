@@ -102,7 +102,7 @@ public final class BugReportViewer {
                 // Nothing to do
             }
 
-            String file = FileChooserUtils.chooseFile("BugReport laden", "\u00D6ffnen", new SimpleFileFilter("Bug", "bug"), null);
+            String file = FileChooserUtils.openFile(null, "BugReport laden", new SimpleFileFilter("Bug", "bug"));
             if (file != null) {
                 name = file;
             }

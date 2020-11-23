@@ -198,7 +198,7 @@ public class JVeranstaltungswertung extends JFrame {
     }
 
     private void ladeVeranstaltung() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), ff, this);
+        String name = FileChooserUtils.openFile(this, ff);
         if (name == null) {
             return;
         }
@@ -221,7 +221,7 @@ public class JVeranstaltungswertung extends JFrame {
     }
 
     void saveas() {
-        String name = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), ff, this);
+        String name = FileChooserUtils.saveFile(this, ff);
         if (name == null) {
             return;
         }

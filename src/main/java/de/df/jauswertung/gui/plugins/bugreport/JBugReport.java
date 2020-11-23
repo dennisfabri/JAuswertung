@@ -105,7 +105,7 @@ final class JBugReport extends JDialog {
 
     void save() {
         try {
-            String name = FileChooserUtils.chooseFile(I18n.get("Save"), I18n.get("Save"), new SimpleFileFilter("Bug", "bug"), null);
+            String name = FileChooserUtils.saveFile(this, new SimpleFileFilter("Bug", "bug"));
             if (name != null) {
                 br.setInfo(info.getText());
                 br.setData(daten.getText());

@@ -112,8 +112,8 @@ public final class ErzeugeStrafen {
         // "include/main/penalties/International - Pool.def");
         // strafen("required/Strafen/Strafen International - Pool.xls",
         // "include/main/penalties/International - Pool Mixed.def");
-        // strafen("required/Strafen/Strafen International - Ocean.xls",
-        // "include/main/penalties/International - Ocean.def");
+        // strafen("required/Strafen/Strafen International - OCEAN.xls",
+        // "include/main/penalties/International - OCEAN.def");
 
     }
 

@@ -314,7 +314,7 @@ class JCompetitionCollector extends JPanel {
         }
 
         void browse() {
-            String fn = FileChooserUtils.chooseFile(I18n.get("Open"), I18n.get("Open"), wkff, parent);
+            String fn = FileChooserUtils.openFile(parent, wkff);
             if (fn != null) {
                 file.setText(fn);
             }

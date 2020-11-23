@@ -192,8 +192,7 @@ public class JAresWriter extends JFrame {
     }
 
     private void doAdd() {
-        // FileChooserUtils.chooseDirectory(this);
-        String fn = FileChooserUtils.chooseFile(I18n.get("ChooseFile"), I18n.get("Add"), new SimpleFileFilter(I18n.get("Competition"), ".wk"), this);
+        String fn = FileChooserUtils.openFile(this, I18n.get("ChooseFile"), new SimpleFileFilter(I18n.get("Competition"), ".wk"));
         if (fn != null && !fn.isEmpty()) {
             filesmodel.addLast(new FileLocation(fn));
         }

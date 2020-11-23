@@ -46,7 +46,7 @@ public class Mannschaft {
             prefix = "Pool-Staffel-Startposition-";
             break;
         case OpenTeam:
-            prefix = "Ocean-Staffel-Startposition-";
+            prefix = "OCEAN-Staffel-Startposition-";
             break;
         default:
             return "";
