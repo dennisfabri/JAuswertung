@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
   <directoryPresets config="../target/distribution/main/icons" />
-  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/installer" compression="9" lzmaCompression="true" createChecksums="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="15.1.0" allPathsRelative="true" backupOnSave="true" autoSave="true" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="11" allowBetaVM="true" jdkMode="jdk" jdkName="JDK 11.0">
+  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="15.1.0" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="11" allowBetaVM="true" jdkMode="jdk" jdkName="JDK 11.0">
     <languages>
       <principalLanguage id="de" />
     </languages>
@@ -819,16 +819,7 @@ return console.askYesNo(message, true);
     </styles>
   </installerGui>
   <mediaSets>
-    <windows name="Windows" id="65" customizedId="w64" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x64">
-      <excludedComponents>
-        <component id="1027" />
-        <component id="1028" />
-      </excludedComponents>
-      <exclude>
-        <entry filesetId="734" />
-      </exclude>
-    </windows>
-    <windows name="Windows (64 with JRE)" id="583" customizedId="w64jre" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x64-jre">
+    <windows name="Windows" id="583" customizedId="windows" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
       <excludedComponents>
         <component id="1027" />
         <component id="1028" />
@@ -842,7 +833,7 @@ return console.askYesNo(message, true);
         </modules>
       </jreBundle>
     </windows>
-    <macosFolder name="macOS Folder" id="63" customizedId="mac" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}">
+    <macosFolder name="macOS Folder" id="63" customizedId="macos" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
       <excludedComponents>
         <component id="899" />
         <component id="1027" />
@@ -857,23 +848,12 @@ return console.askYesNo(message, true);
         </modules>
       </jreBundle>
     </macosFolder>
-    <unixInstaller name="Unix Installer" id="64" customizedId="unix" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}">
+    <unixInstaller name="Unix Installer" id="64" customizedId="unix" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
       <excludedComponents>
         <component id="899" />
         <component id="1028" />
       </excludedComponents>
     </unixInstaller>
-    <windows name="Windows (32 with JRE)" id="894" customizedId="w32jre" mediaFileName="${compiler:sys.shortName}-Setup-${compiler:sys.version}-x32-jre" jreBitType="32" includeAllDownloadableComponents="true">
-      <excludedComponents>
-        <component id="1027" />
-        <component id="1028" />
-      </excludedComponents>
-      <jreBundle jreBundleSource="generated" shared="true">
-        <modules>
-          <defaultModules set="jre" />
-        </modules>
-      </jreBundle>
-    </windows>
   </mediaSets>
   <buildIds buildAll="false">
     <mediaSet refId="583" />

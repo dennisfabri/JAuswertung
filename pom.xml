@@ -191,6 +191,26 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.6.3</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
@@ -253,33 +273,32 @@
 							<classifier>mac</classifier>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<descriptors>
-						<descriptor>assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
 					<execution>
-						<id>make-assembly</id>
+						<id>unpack</id>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>unpack</goal>
 						</goals>
 						<configuration>
-							<archiveBaseDirectory>.</archiveBaseDirectory>
-							<outputDirectory>target</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>de.dennisfabri</groupId>
+									<artifactId>alphaserver</artifactId>
+									<version>1.0.0-SNAPSHOT</version>
+									<classifier>files</classifier>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+									<excludes>**/*.sh</excludes>
+								</artifactItem>
+							</artifactItems>
+							<includes>**/*.*</includes>
+							<outputDirectory>${project.build.directory}/wars</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
-
 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -287,7 +306,6 @@
 				<executions>
 					<execution>
 						<id>copy-files</id>
-						<!-- here the phase you need -->
 						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -304,7 +322,6 @@
 					</execution>
 					<execution>
 						<id>copy-jar</id>
-						<!-- here the phase you need -->
 						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -325,6 +342,61 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.sonatype.install4j</groupId>
+				<artifactId>install4j-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<executions>
+					<execution>
+						<id>compile-setups</id>
+						<phase>package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
+							<destination>target/</destination>
+							<debug>false</debug>
+							<buildIds>windows,macos,unix</buildIds>
+							<release>${project.version}</release>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>pack-src</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<archiveBaseDirectory>.</archiveBaseDirectory>
+							<outputDirectory>target</outputDirectory>
+							<descriptors>
+								<descriptor>assembly-src.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pack-linux-setup</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<archiveBaseDirectory>.</archiveBaseDirectory>
+							<outputDirectory>target</outputDirectory>
+							<descriptors>
+								<descriptor>assembly-setup.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>3.0.0</version>
 				<executions>
@@ -332,70 +404,15 @@
 						<phase>package</phase>
 						<goals>
 							<goal>run</goal>
-						</goals>						
+						</goals>
 						<configuration>
 							<target>
-								<unzip src="../alphaserver/target/alphaserver-${version.alphaserver}-files.zip" dest="${project.build.directory}/distribution/main" />
+								<delete
+									file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
+								<delete file="${project.build.directory}/sha256sums" />
+								<delete file="${project.build.directory}/output.txt" />
+								<delete file="${project.build.directory}/updates.xml" />
 							</target>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-<!-- 
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<configuration>
-					<tasks>
-						<taskdef
-							resource="net/sf/antcontrib/antcontrib.properties"
-							classpathref="maven.plugin.classpath" />
-						<ant antfile="${basedir}/build.xml">
-							<target name="release" />
-						</ant>
-					</tasks>
-				</configuration>
-				<executions>
-					<execution>
-						<id>Create-installers</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>ant-contrib</groupId>
-						<artifactId>ant-contrib</artifactId>
-						<version>1.0b3</version>
-						<exclusions>
-							<exclusion>
-								<groupId>ant</groupId>
-								<artifactId>ant</artifactId>
-							</exclusion>
-						</exclusions>
-					</dependency>
-				</dependencies>
-			</plugin>
--->
-			<plugin>
-				<groupId>org.sonatype.install4j</groupId>
-				<artifactId>install4j-maven-plugin</artifactId>
-				<version>1.1.2</version>
-				<executions>
-					<execution>
-						<id>compile-installers</id>
-						<phase>package</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
-							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
-							<destination>target/installer</destination>
-							<debug>false</debug>
-							<buildIds>w64jre,mac,unix</buildIds>
-							<release>${project.version}</release>
 						</configuration>
 					</execution>
 				</executions>
