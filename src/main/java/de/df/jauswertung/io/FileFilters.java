@@ -37,7 +37,7 @@ public final class FileFilters {
         FF_RULEBOOKS_TEAM = new SimpleFileFilter("Regelwerk (Mannschaft)", new String[] { "rwm", "akm" });
 
         FF_TEAMMEMBERS = new SimpleFileFilter("Mannschaftsmitglieder", "wkmm");
-        FF_COMPETITION = new SimpleFileFilter("Wettkampf", "wk");
+        FF_COMPETITION = new SimpleFileFilter("Wettkampf", ".wk");
         FF_REFEREES = new SimpleFileFilter("Kampfrichter", "kr");
         FF_DOCUMENT = new SimpleFileFilter("Urkunde", "wku");
     }

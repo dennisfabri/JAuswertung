@@ -8,19 +8,18 @@ import javax.swing.JLabel;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitArray;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.df.jutils.gui.JIcon;
-import net.sourceforge.barbecue.BarcodeException;
-import net.sourceforge.barbecue.BarcodeFactory;
 
 public class BarcodeUtils {
 
-    public static final byte VALUE_OK     = 1;
+    public static final byte VALUE_OK = 1;
     public static final byte VALUE_NOT_OK = 0;
-    public static final byte VALUE_DNS    = 3;
+    public static final byte VALUE_DNS = 3;
 
     public enum ZWResultType {
         OK, NOT_OK, DNS
@@ -28,8 +27,8 @@ public class BarcodeUtils {
 
     public static class ZWResult {
 
-        public final int          sn;
-        public final int          offset;
+        public final int sn;
+        public final int offset;
         public final ZWResultType ok;
 
         public ZWResult(int sn, int offset, ZWResultType ok) {
@@ -49,7 +48,7 @@ public class BarcodeUtils {
         if (sn < 0) {
             throw new IllegalArgumentException("Startnumber must not be lower than 0 but was " + sn + ".");
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(sn);
         sb.append(offset);
         switch (ok) {
@@ -130,10 +129,8 @@ public class BarcodeUtils {
             if (code.length() <= 1) {
                 return false;
             }
-            String v = code.substring(0, code.length() - 1);
-            String c = code.substring(code.length() - 1);
-            int value = Integer.valueOf(v);
-            int cs = Integer.valueOf(c);
+            int value = Integer.parseInt(code.substring(0, code.length() - 1));
+            int cs = Integer.parseInt(code.substring(code.length() - 1));
             return (cs == calculateChecksum(value));
         } catch (Exception e) {
             return false;
@@ -154,23 +151,11 @@ public class BarcodeUtils {
             return null;
         }
 
-        try {
-            switch (type) {
-            case NONE: {
-                return null;
-            }
-            case CODE128: {
-                return BarcodeFactory.createCode128(key);
-            }
-            case EAN13: {
-                while (key.length() < 12) {
-                    key = "0" + key;
-                }
-                return BarcodeFactory.createEAN13(key);
-            }
-            }
-        } catch (BarcodeException e) {
-            e.printStackTrace();
+        switch (type) {
+        case NONE:
+            return null;
+        case CODE128:
+            return getBarcode(key);
         }
         return new JLabel(key);
     }
@@ -179,13 +164,10 @@ public class BarcodeUtils {
         if ((key == null) || (key.trim().length() == 0)) {
             return null;
         }
-
-        try {
-            return BarcodeFactory.createCode128(key);
-        } catch (BarcodeException e) {
-            e.printStackTrace();
-            return new JLabel(key);
+        while (key.length() < 6) {
+            key = "0" + key;
         }
+        return new JIcon(getBarCodeImage(key, 150, 50), true);
     }
 
     public static JComponent getQRCode(String key) {
@@ -193,6 +175,17 @@ public class BarcodeUtils {
             return null;
         }
         return new JIcon(getQRCodeImage(key, 300), true);
+    }
+
+    public static Image getBarCodeImage(String key, int width, int height) {
+        if ((key == null) || (key.trim().length() == 0)) {
+            return null;
+        }
+
+        Code128Writer writer = new Code128Writer();
+        BitMatrix bitMatrix = writer.encode(key, BarcodeFormat.CODE_128, width, height);
+        BufferedImage i = toBufferedImage(bitMatrix);
+        return cropImage2(i);
     }
 
     public static Image getQRCodeImage(String key, int size) {
@@ -204,12 +197,30 @@ public class BarcodeUtils {
         BitMatrix bitMatrix = null;
         try {
             bitMatrix = writer.encode(key, BarcodeFormat.QR_CODE, size, size);
-            BufferedImage i = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            BufferedImage i = toBufferedImage(bitMatrix);
             return cropImage2(i);
         } catch (WriterException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static BufferedImage toBufferedImage(BitMatrix matrix) {
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+        int onColor = 0xFF000000;
+        int offColor = 0xFFFFFFFF;
+        int[] rowPixels = new int[width];
+        BitArray row = new BitArray(width);
+        for (int y = 0; y < height; y++) {
+            row = matrix.getRow(y, row);
+            for (int x = 0; x < width; x++) {
+                rowPixels[x] = row.get(x) ? onColor : offColor;
+            }
+            image.setRGB(0, y, width, 1, rowPixels, 0, width);
+        }
+        return image;
     }
 
     private static BufferedImage cropImage2(BufferedImage source) {
@@ -240,9 +251,11 @@ public class BarcodeUtils {
             }
         }
 
-        BufferedImage destination = new BufferedImage((bottomX - topX + 1), (bottomY - topY + 1), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage destination = new BufferedImage((bottomX - topX + 1), (bottomY - topY + 1),
+                BufferedImage.TYPE_INT_ARGB);
 
-        destination.getGraphics().drawImage(source, 0, 0, destination.getWidth(), destination.getHeight(), topX, topY, bottomX, bottomY, null);
+        destination.getGraphics().drawImage(source, 0, 0, destination.getWidth(), destination.getHeight(), topX, topY,
+                bottomX, bottomY, null);
 
         return destination;
     }
@@ -258,8 +271,8 @@ public class BarcodeUtils {
         int bGreen = ((b & 0x0000FF00) >>> 8); // Green level
         int bBlue = (b & 0x000000FF); // Blue level
 
-        double distance = Math.sqrt((aAlpha - bAlpha) * (aAlpha - bAlpha) + (aRed - bRed) * (aRed - bRed) + (aGreen - bGreen) * (aGreen - bGreen)
-                + (aBlue - bBlue) * (aBlue - bBlue));
+        double distance = Math.sqrt((aAlpha - bAlpha) * (aAlpha - bAlpha) + (aRed - bRed) * (aRed - bRed)
+                + (aGreen - bGreen) * (aGreen - bGreen) + (aBlue - bBlue) * (aBlue - bBlue));
 
         // 510.0 is the maximum distance between two colors
         // (0,0,0,0 -> 255,255,255,255)

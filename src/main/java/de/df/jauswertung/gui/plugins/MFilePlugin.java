@@ -38,8 +38,6 @@ import de.df.jutils.util.RecentlyUsedFiles;
 public class MFilePlugin extends ANullPlugin {
 
     private static final SimpleFileFilter   FILTER_WK     = FileFilters.FF_COMPETITION;
-    private static final SimpleFileFilter[] FILTERS       = { FILTER_WK };
-
     private IPluginManager                  controller;
     private CorePlugin                      core;
     private JMenuItem[]                     menu;
@@ -187,7 +185,7 @@ public class MFilePlugin extends ANullPlugin {
         if (controller.acceptWarning()) {
             JFrame window = controller.getWindow();
 
-            String name = FileChooserUtils.openFile(window, FILTERS);
+            String name = FileChooserUtils.openFile(window, FILTER_WK);
             if (name != null) {
                 if (!core.load(name)) {
                     String meldung = I18n.get("OpenFailedText", name);

@@ -19,6 +19,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.lisasp.legacy.uistate.UIStateManager;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -38,7 +39,6 @@ import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.WindowUtils;
-import de.df.uistate.UIStateManager;
 
 public class JAresWriter extends JFrame {
 
@@ -192,7 +192,7 @@ public class JAresWriter extends JFrame {
     }
 
     private void doAdd() {
-        String fn = FileChooserUtils.openFile(this, I18n.get("ChooseFile"), new SimpleFileFilter(I18n.get("Competition"), ".wk"));
+        String fn = FileChooserUtils.openFile(this, new SimpleFileFilter(I18n.get("Competition"), "wk"));
         if (fn != null && !fn.isEmpty()) {
             filesmodel.addLast(new FileLocation(fn));
         }

@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 
+import org.lisasp.legacy.uistate.UIStateManager;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -36,7 +37,6 @@ import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.uistate.UIStateManager;
 
 class JKampfrichterManager extends JGlassFrame {
 

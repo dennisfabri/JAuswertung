@@ -15,6 +15,7 @@ import java.awt.print.PageFormat;
 import java.io.PrintStream;
 import java.text.MessageFormat;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.prefs.Preferences;
 
@@ -23,17 +24,21 @@ import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 
 import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
+import org.jdesktop.swinghelper.debug.EventDispatchThreadHangMonitor;
+import org.lisasp.legacy.uistate.UIStateHandler;
+import org.lisasp.legacy.uistate.UIStateManager;
+import org.lisasp.legacy.uistate.handlers.JListStateHandler;
+import org.lisasp.legacy.uistate.handlers.JTabbedPaneStateHandler;
+import org.lisasp.legacy.uistate.handlers.JTableStateHandler;
+import org.lisasp.legacy.uistate.handlers.JTreeStateHandler;
+import org.lisasp.legacy.uistate.handlers.JViewportStateHandler;
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.io.NullOutputStream;
 import de.df.jutils.print.PageSetup;
 import de.df.jutils.print.PrintManager;
-import de.df.uistate.UIStateManager;
-import de.df.uistate.handlers.JListStateHandler;
-import de.df.uistate.handlers.JTabbedPaneStateHandler;
-import de.df.uistate.handlers.JTableStateHandler;
-import de.df.uistate.handlers.JTreeStateHandler;
-import de.df.uistate.handlers.JViewportStateHandler;
 import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import skt.swing.scroll.ScrollGestureRecognizer;
 
@@ -60,26 +65,24 @@ public final class DefaultInit {
 
         if (Utils.isInDevelopmentMode()) {
             RepaintManager.setCurrentManager(new CheckThreadViolationRepaintManager());
-            // EventDispatchThreadHangMonitor.initMonitoring();
+            EventDispatchThreadHangMonitor.initMonitoring();
         } else {
             System.setOut(new PrintStream(new NullOutputStream()));
-            System.setErr(System.out);
+            System.setErr(new PrintStream(new NullOutputStream()));
         }
 
         initUIState();
+        initFileChooser();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ScrollGestureRecognizer.getInstance();
-                    new JFileChooser();
+        SwingUtilities.invokeLater(() -> {
+            try {
+                ScrollGestureRecognizer.getInstance();
+                new JFileChooser();
 
-                    initPrintSetup();
-                    initPrintManager();
-                } catch (RuntimeException re) {
-                    // re.printStackTrace();
-                }
+                initPrintSetup();
+                initPrintManager();
+            } catch (RuntimeException re) {
+                re.printStackTrace();
             }
         });
 
@@ -87,33 +90,20 @@ public final class DefaultInit {
         InfiniteProgressPanel.setColorFocus(new Color(4, 22, 188));
     }
 
+    private static void initFileChooser() {
+        FileChooserUtils.initialize(new FileChooserJFX());
+    }
+
     private static void initUIState() {
         try {
             UIStateManager.setPreferences(Preferences.userRoot().node("jauswertung/uistate"));
-            @SuppressWarnings("rawtypes")
-            java.util.List l = UIStateManager.getDefaultHandlers();
-            @SuppressWarnings("rawtypes")
-            ListIterator li = l.listIterator();
+            List<UIStateHandler> l = UIStateManager.getDefaultHandlers();
+            ListIterator<UIStateHandler> li = l.listIterator();
             while (li.hasNext()) {
                 Object o = li.next();
-                if (o instanceof JTreeStateHandler) {
+                if (o instanceof JTreeStateHandler || o instanceof JListStateHandler || o instanceof JTableStateHandler
+                        || o instanceof JViewportStateHandler || o instanceof JTabbedPaneStateHandler) {
                     li.remove();
-                } else {
-                    if (o instanceof JListStateHandler) {
-                        li.remove();
-                    } else {
-                        if (o instanceof JTableStateHandler) {
-                            li.remove();
-                        } else {
-                            if (o instanceof JViewportStateHandler) {
-                                li.remove();
-                            } else {
-                                if (o instanceof JTabbedPaneStateHandler) {
-                                    li.remove();
-                                }
-                            }
-                        }
-                    }
                 }
             }
             UIStateManager.setDefaultHandlers(l);
@@ -127,17 +117,16 @@ public final class DefaultInit {
                 }
             }
         } catch (Exception ex) {
-        } catch (Error e) {
+            ex.printStackTrace();
         }
     }
 
     @SuppressWarnings({ "unchecked" })
     static void initPrintSetup() {
         Object o = Utils.readFromPreferences("PrintSettings");
-        Hashtable<String, PageFormat> prasTable;
-        prasTable = (Hashtable<String, PageFormat>) o;
+        Hashtable<String, PageFormat> prasTable = (Hashtable<String, PageFormat>) o;
         if (prasTable == null) {
-            prasTable = new Hashtable<String, PageFormat>();
+            prasTable = new Hashtable<>();
             prasTable.put(I18n.get("Results"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
             prasTable.put(I18n.get("GroupEvaluation"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
             prasTable.put(I18n.get("Meldezeiten"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));

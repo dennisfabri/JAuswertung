@@ -241,7 +241,7 @@ class BrokenLimitsPrinter implements Printer {
 
         LinkedList<Object[]> result = new LinkedList<Object[]>();
 
-        if (tlc != null || !tlc.isEmpty()) {
+        if (tlc != null && !tlc.isEmpty()) {
             int akmin = 0;
             int akmax = wk.getRegelwerk().size();
             if ((index >= 0) && (index < wk.getRegelwerk().size())) {

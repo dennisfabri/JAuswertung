@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.lisasp.legacy.uistate.UIStateManager;
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -26,7 +28,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.gui.util.WindowUtils;
-import de.df.uistate.UIStateManager;
 
 public class JStarterEditor extends JFrame {
 

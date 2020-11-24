@@ -827,7 +827,7 @@ return console.askYesNo(message, true);
       <exclude>
         <entry filesetId="734" />
       </exclude>
-      <jreBundle usePack200="false" jreBundleSource="generated" shared="true">
+      <jreBundle usePack200="false" jreBundleSource="generated">
         <modules>
           <defaultModules set="jre" />
         </modules>
@@ -842,7 +842,7 @@ return console.askYesNo(message, true);
         <entry filesetId="734" />
         <entry filesetId="736" />
       </exclude>
-      <jreBundle jreBundleSource="generated" includedJre="macosx-amd64-11.0.3">
+      <jreBundle jreBundleSource="generated">
         <modules>
           <defaultModules set="jre" />
         </modules>

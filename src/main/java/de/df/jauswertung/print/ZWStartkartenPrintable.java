@@ -41,22 +41,23 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
     @SuppressWarnings("rawtypes")
     private static final ZWStartkarte[] EMPTY = new ZWStartkarte[0];
 
-    private final ZWStartkarte<T>[]     startkarten;
-    private final boolean               membernames;
-    private final BarcodeType           type;
+    private final ZWStartkarte<T>[] startkarten;
+    private final boolean membernames;
+    private final BarcodeType type;
 
     public ZWStartkartenPrintable(PageMode mode) {
         this(null, mode, true, 0, 0, false, false, BarcodeType.NONE);
     }
 
     @SuppressWarnings("unchecked")
-    public ZWStartkartenPrintable(AWettkampf<T> wk, PageMode mode, boolean allheats, int minheat, int maxheat, boolean membernames, boolean bylane,
-            BarcodeType type) {
+    public ZWStartkartenPrintable(AWettkampf<T> wk, PageMode mode, boolean allheats, int minheat, int maxheat,
+            boolean membernames, boolean bylane, BarcodeType type) {
         super(mode);
         wk = Utils.copy(wk);
         this.membernames = membernames;
         if (wk != null) {
-            LinkedList<ZWStartkarte<T>> sk = SchwimmerUtils.toZWStartkarten(wk.getHLWListe(), getPagesPerPage(), allheats, minheat, maxheat, bylane);
+            LinkedList<ZWStartkarte<T>> sk = SchwimmerUtils.toZWStartkarten(wk.getHLWListe(), getPagesPerPage(),
+                    allheats, minheat, maxheat, bylane);
             if (sk == null) {
                 startkarten = EMPTY;
             } else {
@@ -118,7 +119,8 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         }
     }
 
-    private static <T extends ASchwimmer> JPanel getSchwimmerPanel(ZWStartkarte<T> s, boolean membernames, JComponent dns) {
+    private static <T extends ASchwimmer> JPanel getSchwimmerPanel(ZWStartkarte<T> s, boolean membernames,
+            JComponent dns) {
         if (s != null) {
             return getSchwimmerFilledPanel(s, membernames, dns);
         }
@@ -126,8 +128,10 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
     }
 
     private static <T extends ASchwimmer> JPanel getSchwimmerBlankPanel() {
-        FormLayout layout = new FormLayout("0dlu,fill:default,1dlu,fill:default:grow," + "1dlu,fill:default,1dlu,fill:default:grow,0dlu",
-                "0dlu,fill:max(default;20dlu)," + "1dlu,fill:max(default;20dlu)," + "1dlu,fill:max(default;20dlu)," + "1dlu,fill:max(default;20dlu),0dlu");
+        FormLayout layout = new FormLayout(
+                "0dlu,fill:default,1dlu,fill:default:grow," + "1dlu,fill:default,1dlu,fill:default:grow,0dlu",
+                "0dlu,fill:max(default;20dlu)," + "1dlu,fill:max(default;20dlu)," + "1dlu,fill:max(default;20dlu),"
+                        + "1dlu,fill:max(default;20dlu),0dlu");
         layout.setColumnGroups(new int[][] { { 4, 8 } });
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8 } });
         JPanel panel = new JSpecialPanel(layout);
@@ -168,10 +172,12 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         return sb.toString();
     }
 
-    private static <T extends ASchwimmer> JPanel getSchwimmerFilledPanel(ZWStartkarte<T> s, boolean membernames, JComponent dns) {
+    private static <T extends ASchwimmer> JPanel getSchwimmerFilledPanel(ZWStartkarte<T> s, boolean membernames,
+            JComponent dns) {
         boolean bigger = s.getUhrzeit().length() == 0;
         int rows = 4 + (bigger ? 1 : 0);
-        FormLayout layout = new FormLayout("0dlu,fill:default:grow,1dlu,fill:60dlu,1dlu,fill:default,0dlu", FormLayoutUtils.createLayoutString(rows, 1, 0));
+        FormLayout layout = new FormLayout("0dlu,fill:default:grow,1dlu,fill:60dlu,1dlu,fill:default,0dlu",
+                FormLayoutUtils.createLayoutString(rows, 1, 0));
         int[][] group = new int[1][rows];
         for (int x = 0; x < rows; x++) {
             group[0][x] = 2 + 2 * x;
@@ -211,7 +217,8 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         }
 
         if (dns != null) {
-            JPanel p = new JPanel(new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default,1dlu,fill:default,0dlu"));
+            JPanel p = new JPanel(
+                    new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default,1dlu,fill:default,0dlu"));
             p.setBackground(Color.WHITE);
             p.setOpaque(true);
 
@@ -225,7 +232,7 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
             p.add(text, CC.xy(2, 2, "center,bottom"));
             p.add(dns, CC.xy(2, 4));
 
-            panel.add(p, CC.xywh(4, 4, 3, 5, "fill,bottom"));
+            panel.add(p, CC.xywh(4, 4, 3, 5, "fill,fill"));
         }
 
         return panel;
@@ -251,12 +258,13 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
     }
 
     private static <T extends ASchwimmer> JPanel getBarcodePanel(ZWStartkarte<T> s, JComponent yes, JComponent no) {
-        FormLayout layout = new FormLayout("0dlu,fill:1dlu:grow,1dlu,fill:default,1dlu,fill:1dlu:grow,0dlu", "10dlu,fill:default,1dlu,fill:default:grow,0dlu");
+        FormLayout layout = new FormLayout("0dlu,fill:1dlu:grow,1dlu,fill:default,1dlu,fill:1dlu:grow,0dlu",
+                "10dlu,fill:default,1dlu,fill:default:grow,0dlu");
         layout.setColumnGroups(new int[][] { { 2, 6 } });
         JPanel panel = new JSpecialPanel(layout);
 
-        panel.add(new JLabel(I18n.get("yes")), CC.xy(2, 2, "center,center"));
-        panel.add(new JLabel(I18n.get("no")), CC.xy(6, 2, "center,center"));
+        panel.add(new JLabel(String.format(" %s ", I18n.get("yes"))), CC.xy(2, 2, "center,center"));
+        panel.add(new JLabel(String.format(" %s ",I18n.get("no"))), CC.xy(6, 2, "center,center"));
 
         panel.add(yes, CC.xy(2, 4));
         panel.add(new JRotatingLabel(I18n.get("Question.Short.Passed")), CC.xy(4, 4, "center,center"));
@@ -271,9 +279,12 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         JComponent dns = null;
 
         if (s != null) {
-            yes = BarcodeUtils.getBarcode(BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.OK), type);
-            no = BarcodeUtils.getBarcode(BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.NOT_OK), type);
-            dns = BarcodeUtils.getBarcode(BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.DNS), type);
+            yes = BarcodeUtils.getBarcode(
+                    BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.OK), type);
+            no = BarcodeUtils.getBarcode(
+                    BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.NOT_OK), type);
+            dns = BarcodeUtils.getBarcode(
+                    BarcodeUtils.toCode(s.getStartnummerWert(), s.getStarterIndex(), ZWResultType.DNS), type);
         }
 
         boolean growall = false;
