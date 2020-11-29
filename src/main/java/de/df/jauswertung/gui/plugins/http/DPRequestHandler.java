@@ -1,19 +1,18 @@
 package de.df.jauswertung.gui.plugins.http;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.Locale;
 
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.MethodNotSupportedException;
-import org.apache.http.entity.ContentProducer;
-import org.apache.http.entity.EntityTemplate;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.protocol.HttpRequestHandler;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpException;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.MethodNotSupportedException;
+import org.apache.hc.core5.http.io.HttpRequestHandler;
+import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.protocol.HttpContext;
 
 class DPRequestHandler implements HttpRequestHandler {
 
@@ -24,31 +23,24 @@ class DPRequestHandler implements HttpRequestHandler {
     }
 
     @Override
-    public void handle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
-        String method = request.getRequestLine().getMethod().toUpperCase(Locale.ENGLISH);
+    public void handle(ClassicHttpRequest request, ClassicHttpResponse response, HttpContext context)
+            throws HttpException, IOException {
+        String method = request.getMethod().toUpperCase(Locale.ENGLISH);
         if (!(method.equals("GET") || method.equals("POST"))) {
             throw new MethodNotSupportedException(method + " method not supported");
         }
-        String target = request.getRequestLine().getUri();
+        String target = request.getRequestUri();
 
         if (dp.knowsFile(target)) {
             DataProducer producer = new DataProducer(dp, target);
-            response.setStatusCode(HttpStatus.SC_OK);
-            EntityTemplate body = new EntityTemplate(producer);
+            response.setCode(HttpStatus.SC_OK);
+            byte[] data = producer.writeTo();
+            ByteArrayEntity body = new ByteArrayEntity(data, producer.getContentType());
             response.setEntity(body);
         } else {
-            response.setStatusCode(HttpStatus.SC_NOT_FOUND);
-            EntityTemplate body = new EntityTemplate(new ContentProducer() {
-                @Override
-                public void writeTo(final OutputStream outstream) throws IOException {
-                    OutputStreamWriter writer = new OutputStreamWriter(outstream, "UTF-8");
-                    writer.write("<html><body><h1>");
-                    writer.write("Page not found");
-                    writer.write("</h1></body></html>");
-                    writer.flush();
-                }
-            });
-            body.setContentType("text/html; charset=UTF-8");
+            response.setCode(HttpStatus.SC_NOT_FOUND);
+            StringEntity body = new StringEntity("<html><body><h1>Page not found</h1></body></html>",
+                    ContentType.TEXT_HTML);
             response.setEntity(body);
         }
     }

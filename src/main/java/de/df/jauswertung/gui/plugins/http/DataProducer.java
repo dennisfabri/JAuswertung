@@ -1,11 +1,12 @@
 package de.df.jauswertung.gui.plugins.http;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Locale;
 
-import org.apache.http.entity.ContentProducer;
+import org.apache.hc.core5.http.ContentType;
 
-public class DataProducer implements ContentProducer {
+public class DataProducer {
 
     private final String       name;
     private final DataProvider dp;
@@ -15,8 +16,39 @@ public class DataProducer implements ContentProducer {
         this.dp = dp;
     }
 
-    @Override
-    public void writeTo(OutputStream out) throws IOException {
-        dp.sendData(out, name);
+    public byte[] writeTo() throws IOException {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            dp.sendData(out, name);
+            return out.toByteArray();
+        }
+    }
+
+    public ContentType getContentType() {
+        String line = name.toLowerCase(Locale.ENGLISH);
+        if (line.endsWith(".wk")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        if (line.endsWith(".pdf")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        if (line.endsWith(".csv")) {
+            return ContentType.DEFAULT_TEXT;
+        }
+        if (line.endsWith(".xml")) {
+            return ContentType.TEXT_XML;
+        }
+        if (line.endsWith(".xls")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        if (line.endsWith(".zip")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        if (line.endsWith(".wkmm")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        if (line.endsWith(".xlsx")) {
+            return ContentType.DEFAULT_BINARY;
+        }
+        return ContentType.TEXT_HTML;
     }
 }

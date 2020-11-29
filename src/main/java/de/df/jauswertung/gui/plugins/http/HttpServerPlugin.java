@@ -7,9 +7,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
+
+import org.apache.hc.core5.http.ConnectionClosedException;
+import org.apache.hc.core5.http.ExceptionListener;
+import org.apache.hc.core5.http.HttpConnection;
+import org.apache.hc.core5.http.impl.bootstrap.HttpServer;
+import org.apache.hc.core5.http.impl.bootstrap.ServerBootstrap;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.io.CloseMode;
+import org.apache.hc.core5.util.TimeValue;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -44,7 +55,7 @@ public class HttpServerPlugin extends ANullPlugin {
 
     private int                     port  = 80;
 
-    private RequestListenerThread   httpServer;
+    private HttpServer   httpServer;
 
     private DataProvider            source;
     // private HttpDataProviderCache cache = null;
@@ -158,9 +169,47 @@ public class HttpServerPlugin extends ANullPlugin {
     boolean startUp() {
         try {
             state = true;
-            httpServer = new RequestListenerThread(port);
-            httpServer.getResolver().register("*", new DPRequestHandler(getDataProvider()));
+            
+            final SocketConfig socketConfig = SocketConfig.custom()
+                    .setSoTimeout(15, TimeUnit.SECONDS)
+                    .setTcpNoDelay(true)
+                    .build();
+            
+            httpServer = ServerBootstrap.bootstrap()
+                    .setListenerPort(port)
+                    .setSocketConfig(socketConfig)
+                    .setExceptionListener(new ExceptionListener() {
+                        
+                        @Override
+                        public void onError(final Exception ex) {
+                            ex.printStackTrace();
+                        }
+
+                        @Override
+                        public void onError(final HttpConnection conn, final Exception ex) {
+                            if (ex instanceof SocketTimeoutException) {
+                                System.err.println("Connection timed out");
+                            } else if (ex instanceof ConnectionClosedException) {
+                                System.err.println(ex.getMessage());
+                            } else {
+                                ex.printStackTrace();
+                            }
+                        }
+
+                    })
+                    .register("*", new DPRequestHandler(getDataProvider()))
+                    .create();            
+            
             httpServer.start();
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    httpServer.close(CloseMode.GRACEFUL);
+                }
+            });
+            
+            httpServer.start();
+            
             httpOptions.setEnabled(false);
             filter.setEnabled(source.getExportMode() == ExportMode.Filtered);
             clearcache.setEnabled(true);
@@ -168,9 +217,7 @@ public class HttpServerPlugin extends ANullPlugin {
         } catch (Exception e) {
             e.printStackTrace();
             DialogUtils.wichtigeMeldung(null, I18n.get("HttpServerNotStartet"));
-            if ((httpServer != null) && httpServer.isAlive()) {
-                shutDown();
-            }
+            shutDown();
             httpServer = null;
             state = false;
             httpOptions.setEnabled(true);
@@ -186,8 +233,7 @@ public class HttpServerPlugin extends ANullPlugin {
         // cache.clearCache();
         // }
         if (httpServer != null) {
-            httpServer.interrupt();
-            long time = System.currentTimeMillis();
+            httpServer.close(CloseMode.GRACEFUL);
 
             try {
                 // Send an HTTP-Request to activate the server thread
@@ -196,13 +242,12 @@ public class HttpServerPlugin extends ANullPlugin {
                 // Nothing to do
             }
 
-            while (httpServer.isAlive() && (System.currentTimeMillis() - time < 500)) {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    // Nothing to do
-                }
+            try {
+                httpServer.awaitTermination(TimeValue.ofMilliseconds(500));
+            } catch (InterruptedException e) {
+                // Nothing to do
             }
+
             httpServer = null;
             state = false;
         }

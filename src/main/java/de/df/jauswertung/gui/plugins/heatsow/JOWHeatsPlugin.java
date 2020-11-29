@@ -320,7 +320,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     T ti = SearchUtils.getSchwimmer(wk, tx);
                     if (ti instanceof Mannschaft && disziplin.round > 0) {
                         Mannschaft m = (Mannschaft) ti;
-                        int[] starter = m.getStarter(disziplin.getId(disziplin.akNummer, disziplin.maennlich, disziplin.disziplin, disziplin.round - 1));
+                        int[] starter = m.getStarter(OWDisziplin.getId(disziplin.akNummer, disziplin.maennlich, disziplin.disziplin, disziplin.round - 1));
                         if (starter == null && disziplin.round == 1) {
                             starter = m.getStarter(disziplin.disziplin);
                         }
