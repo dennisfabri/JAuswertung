@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Handbuch JAuswertung">
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-fluido-skin</artifactId>
+		<version>1.9</version>
+	</skin>
+
+	<bannerLeft>
+		<name>JAuswertung</name>
+		<src>images/logo.png</src>
+		<href>https://www.dennisfabri.de/</href>
+	</bannerLeft>
+
+	<publishDate position="right" />
+	<version position="right" />
+
+	<body>
+		<menu name="Einleitung">		
+			<item name="Einleitung" href="index.html" />
+			<item name="Features" href="features.html" />
+		</menu>
+		<menu name="Programme">		
+			<item name="Installation" href="programme/installation.html" />
+			<item name="JAuswertung" href="programme/jauswertung/jauswertung.html" />
+			<item name="Regelwerkseditor" href="programme/regelwerkseditor/regelwerkseditor.html" />
+			<item name="Veranstaltungswertung" href="programme/veranstaltungswertung/veranstaltungswertung.html" />
+			<item name="JTeams" href="programme/jteams/jteams.html" />
+			<item name="AlphaServer" href="programme/alphaserver/alphaserver.html" />
+		</menu>
+		<menu name="Ablauf eines Wettkampfs">		
+			<item name="Übersicht" href="ablauf/ablauf.html" />
+			<item name="Vorbereitungen" href="ablauf/vorbereitungen.html" />
+			<item name="Vor dem Wettkampf" href="ablauf/vor-dem-wettkampf.html" />
+			<item name="Während des Wettkampfs" href="ablauf/waehrend-des-wettkampfs.html" />
+			<item name="Nach dem Wettkampf" href="ablauf/nach-dem-wettkampf.html" />
+		</menu>
+		<menu name="Anhang">		
+			<item name="FAQ" href="anhang/faq.html" />
+			<item name="HTML-Vorlagen" href="anhang/html-vorlagen.html" />
+		</menu>
+		<menu ref="reports" />
+	</body>
+</project>

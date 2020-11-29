@@ -1,0 +1,11 @@
+# Einleitung
+
+JAuswertung ist ein Programm der neuesten Generation zur Durchführung und Protokollierung von Wettkämpfen. Dabei spielt es keine Rolle, ob Sie Meisterschaften oder Freundschaftswettkämpfe durchführen wollen. Sie sind nicht an vorgegebene Disziplinen gebunden und können einfach neue Altersklassen, Disziplinen, Regelverstöße u. ä. festlegen. Auch um die Einteilung der Läufe (sowohl für den schwimmerischen Teil, als auch bei der HLW) müssen Sie sich keine Sorgen machen. JAuswertung kann eine Laufeinteilung nach Ihren Wünschen erstellen. Sollten Sie diese später anpassen wollen, wird JAuswertung Sie auch dabei unterstützen. 
+
+Zentrales Augenmerk wurde auf Bedienkomfort und hohe Eingabegeschwindigkeit gelegt. Wenn Sie z.B. in den Ergebnissen einen Fehler entdecken, können Sie diesen dort direkt ändern, wobei es keine Rolle spielt, ob es sich um eine falsche Zeit, einen falsch eingetragenen Regelverstoß oder einen falsch geschriebenen Namen handelt. Die laufweise Zeiteneingabe ermöglicht es Ihnen, Zeiten so wie sie bei Ihnen ankommen, direkt einzugeben. Diese Eingabemethode ist so effizient, dass Sie keine Probleme hätten, mehrere Wettkämpfe gleichzeitig auszuwerten.
+
+Meldungen werden meist in einer Tabellenkalkulation verwaltet, bis Sie dann in ein Auswertungsprogramm übertragen werden. Auch dabei unterstützt Sie JAuswertung. Wenn die Daten als Excel- oder CSV-Datei vorliegen, können diese direkt importiert werden. Bei vielen Wettkämpfen wird ein Gesamtsieg an die erfolgreichste Gliederung vergeben. Auch eine Gesamtwertung müssen Sie nicht von Hand berechnen. Aktivieren Sie einfach die Gesamtwertung und stellen Sie sie nach Ihren Wünschen ein.
+
+Darüber hinaus kann JAuswertung die eingegebenen Daten überprüfen und viele Fehler wie z.B. fehlende Zeiten oder bei nachträglich hinzugefügten Teilnehmern fehlende Eintragungen in die Laufliste erkennen. Anstatt also an verschiedenen Orten die Korrektheit Ihrer Daten überprüfen zu müssen, können Sie diese Informationen an einer Stelle abfragen und sofern sinnvoll auch direkt beheben. Weiterhin kann JAuswertung auch überprüfen, ob die eingegebenen Daten plausibel sind und Sie so z.B. bei sehr niedrigen oder hohen Zeiten informieren.
+
+![JAuswertung](programme/jauswertung/jauswertung.png)
