@@ -18,9 +18,9 @@
 
     You can contact me via mail at: info@dennisfabri.de
 
-    Dennis Müller, hereby disclaims all copyright interest
+    Dennis Fabri, hereby disclaims all copyright interest
     in the program `JAuswertung' (which makes passes at compilers)
-    written by Dennis Müller.
+    written by Dennis Fabri.
 
     This General Public License does not permit incorporating your program into 
     proprietary programs. If your program is a subroutine library, you may 
