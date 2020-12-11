@@ -9,13 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JMenuItem;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
@@ -53,6 +46,13 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 public class MUploadPlugin extends ANullPlugin {
 
