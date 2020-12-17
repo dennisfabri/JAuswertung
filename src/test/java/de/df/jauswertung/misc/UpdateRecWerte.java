@@ -12,9 +12,9 @@ public class UpdateRecWerte {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        recwerte("..\\..\\..\\required\\misc\\Rec-Werte %s Einzel.csv", "aks\\DLRG %s.rwe", "Regelwerk %s", 2020);
-        recwerte("..\\..\\..\\required\\misc\\Rec-Werte %s Mannschaft.csv", "aks\\DLRG %s.rwm", "Regelwerk %s",
-                2020);
+        recwerte("..\\..\\..\\src\\test\\resources\\rec-werte\\Rec-Werte %s Einzel.csv", "aks\\DLRG %s.rwe", "Regelwerk %s", 2021);
+        recwerte("..\\..\\..\\src\\test\\resources\\rec-werte\\Rec-Werte %s Mannschaft.csv", "aks\\DLRG %s.rwm", "Regelwerk %s",
+                2021);
     }
 
     private static void recwerte(String werte, String regelwerk, String beschreibung, int jahr) throws IOException {

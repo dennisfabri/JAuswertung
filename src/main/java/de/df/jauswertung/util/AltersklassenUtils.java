@@ -80,7 +80,7 @@ public final class AltersklassenUtils {
     }
 
     public static String getDefaultAKsName() {
-        return "DLRG 2020";
+        return "DLRG 2021";
     }
 
     public static Regelwerk getDefaultAKs(boolean einzel) {
