@@ -22,7 +22,7 @@ public class PunkteRechnerExport {
         Regelwerk einzel = AltersklassenUtils.getDefaultAKs(true);
         Regelwerk mannschaft = AltersklassenUtils.getDefaultAKs(false);
 
-        int jahr = 2020;
+        int jahr = 2021;
         
         // System.out.println("Einzel");
         write(einzel, jahr, "e");
