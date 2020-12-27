@@ -1,9 +1,0 @@
-:title JRechner
-
-JRechner ist ein kleiner Punkterechner, der die Rec-Werte aller Disziplinen des Regelwerks kennt und zu Zeiten die entsprechenden Punkte berechnen kann.
-
-:image jrechner.png|JRechner
-
-:h2 Hinweis
-
-Geben Sie im Feld Zeit nur die Ziffern ein, die Sie auch auf einer Stoppuhr sehen. Im Feld darunter wird dann die richtige Zeit dargestellt und die passenden Punkte berechnet. Beispielsweise müssen Sie für die Zeit 1 Minute 6 Sekunden und 3 Zehntel (1:06,3) nur die Zahl 1063 eingeben.
