@@ -35,13 +35,13 @@ public class PunkteTabelleExport {
         Regelwerk einzel = AltersklassenUtils.getDefaultAKs(true);
         Regelwerk mannschaft = AltersklassenUtils.getDefaultAKs(false);
 
-        System.out.println("Einzel Junioren");
+        System.out.println("-");
         writeByAgegroup(einzel, idsE1, namesE1);
-        System.out.println("Einzel Offen");
+        System.out.println("Einzel");
         writeByAgegroup(einzel, idsE2, namesE2);
-        System.out.println("Mannschaft Junioren");
+        System.out.println("Mannschaft AK 12 & 13/14");
         writeBySex(mannschaft, idsM1, namesM1);
-        System.out.println("Mannschaft Offen");
+        System.out.println("Mannschaft AK 15/16 - Offen");
         writeBySex(mannschaft, idsM2, namesM2);
     }
 
