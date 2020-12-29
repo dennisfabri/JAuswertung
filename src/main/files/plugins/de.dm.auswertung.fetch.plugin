@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Fetch-Plugin" 
-		description="" 
-		id="de.df.jauswertung.fetchplugin" 
-		classname="de.df.jauswertung.gui.plugins.fetch.FetchPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

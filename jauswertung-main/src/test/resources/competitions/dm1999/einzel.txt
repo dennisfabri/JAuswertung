@@ -1,0 +1,541 @@
+
+
+Deutsche Meisterschaften 1999
+
+im Rettungsschwimmen
+
+Einzelwettkämpfe
+
+im usa-wellenbad
+
+Bad Nauheim, den 09.10.1999
+
+
+Endergebnis AK 12 weiblich      
+
+Wettkampf 1     50 m Hindernisschwimmen                
+Wettkampf 2     50 m Kombiniertes Schwimmen            
+Wettkampf 3     50 m Flossenschwimmen                  
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3
+
+
+     1  Hainke          Melanie          WE       87  2213.14     0    0:33:5  770        0:39:2  682        0:26:3  760    
+     2  Röwer           Nina             ND       87  2121.16    92    0:35:4  713        0:41:3  631        0:25:9  776    
+     3  Maslek          Stefanie         NR       87  2098.51   115    0:34:8  731        0:41:5  627        0:26:8  741    
+     4  Dräger          Jenny            MV       87  2056.86   156    0:36:8  674        0:40:7  646        0:26:9  737    
+     5  Wischnewski     Kirsten          HE       87  2017.70   195    0:36:1  693        0:40:4  653        0:28:7  672    
+
+     6  Schärf          Leonie           WE       87  2014.85   198    0:37:0  669        0:42:3  609        0:26:9  737    
+     7  Müller          Claudia          BB       87  1971.73   241    0:37:7  650        0:41:9  618        0:27:8  703    
+     8  Krüger          Juliane          MV       89  1960.70   252    0:36:6  680        0:45:1  552        0:27:1  729    
+     9  Eidhoff         Anne-Theresa     WE       87  1957.76   255    0:37:7  650        0:42:7  600        0:27:7  707    
+    10  Randecker       Jasmin           WÜ       87  1955.95   257    0:37:0  669        0:41:4  629        0:29:1  658    
+
+    11  Schraut         Katharina        BY           1953.79   259    0:37:6  653        0:42:5  604        0:28:0  696    
+    12  Heinz           Elvira           BA       87  1943.71   269    0:37:6  653        0:44:6  561        0:27:1  729    
+    13  Höning          Linda            WE       87  1897.79   315    0:38:6  628        0:44:7  559        0:27:6  711    
+    14  Riedel          Jenny            TH       87  1883.39   330    0:40:3  588        0:43:6  581        0:27:5  714    
+    15  Kellner         Ariane           SA       87  1875.24   338    0:37:4  658        0:43:1  592        0:30:1  625    
+
+    16  Dirkes          Julia            WE       87  1851.54   362    0:38:6  628        0:43:7  579        0:29:5  645    
+    17  Derix           Dominiek         NR       88  1848.70   364    0:38:3  635        0:42:4  607        0:30:7  607    
+    18  Zdralek         Nora             BS       87  1807.83   405    0:39:5  606        0:45:7  540        0:29:0  661    
+    19  Bocian          Marie Christin   SH       88  1779.71   433    0:39:9  597        0:43:7  579        0:30:8  604    
+    20  Scheel          Sandy            BE       87  1765.59   448    0:40:6  581        0:45:2  550        0:29:8  635    
+
+    21  Maximini        Julie            SR       88  1728.16   485    0:40:5  583        0:46:7  523        0:30:2  622    
+    22  Drucks          Susanne          SN       87  1723.69   489    0:39:7  601        0:46:6  524        0:31:0  598    
+    23  Meyer           Jennifer         HH       87  1590.83   622    0:43:2  528        0:48:5  494        0:32:0  569    
+    24  Neumann         Ulrike           RP            642.81  1570    0:38:0  643        0:44:7      VaP     n. a.         
+
+	-- CHAOS-SOFTWARE ----
+	
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 12 männlich      
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Kombiniertes Schwimmen            
+     Wettkampf 3     50 m Flossenschwimmen                  
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3
+
+
+     1  Krohn           Sven             SH       87  1952.74     0    0:31:3  719        0:40:3  554        0:24:4  680    
+     2  Pankrath        Enrico           BB       87  1737.07   216    0:34:9  612        0:42:7  507        0:26:0  618    
+     3  Große Cossmann  Christopher      WE       87  1726.93   226    0:35:1  606        0:42:0  520        0:26:5  600    
+     4  Landsbeck       Toni             HE       88  1657.35   295    0:34:3  628        0:43:2  499        0:28:7  531    
+     5  Daniel          Dennis           NR       87  1649.03   304    0:35:6  593        0:42:7  507        0:28:1  548    
+
+     6  Hofer           Sebastian        HE       87  1626.11   327    0:37:1  557        0:41:8  524        0:28:2  545    
+     7  Ehrlinspiel     Marius           WÜ       87  1624.42   328    0:35:9  586        0:46:8  445        0:26:7  593    
+     8  Gelleschus      Axel             SA       87  1614.62   338    0:35:9  586        0:44:1  484        0:28:2  545    
+     9  Kolbe           Sebastian        HE       87  1598.21   355    0:36:5  571        0:44:2  482        0:28:2  545    
+    10  Hoffmann        Jan-Hendrik      SH       87  1595.30   357    0:39:1  514        0:43:2  499        0:27:0  583    
+
+    11  Schlüter        Roman            MV       87  1586.87   366    0:37:7  543        0:45:4  464        0:27:1  580    
+    12  Taubmann        Paul             TH       87  1581.93   371    0:38:4  528        0:43:5  493        0:27:7  561    
+    13  Grebenstein     Tom              TH       87  1577.34   375    0:36:8  564        0:44:7  474        0:28:4  539    
+    14  Gojowy          Robin            NR       87  1501.80   451    0:37:5  548        0:45:3  465        0:30:3  489    
+    15  Vogel           Andreas          BA       87  1500.44   452    0:38:8  520        0:46:2  453        0:28:8  528    
+
+    16  Schildknecht    Konstantin       BE       88  1490.40   462    0:39:9  498        0:46:2  453        0:28:4  539    
+    17  Drüke           Markus           WE       87  1489.65   463    0:39:3  510        0:44:9  471        0:29:5  509    
+    18  Brenner         Achim            RP       87  1478.00   475    0:40:8  482        0:47:1  442        0:27:9  554    
+    19  Schmidt         Stephan          BY           1448.51   504    0:38:6  524        0:47:0  443        0:30:6  482    
+    20  Niemeyer        Sascha           ND       88  1404.00   549    0:39:6  504        0:47:8  434        0:31:3  467    
+
+    21  Albers          Lucas            BS       87  1321.56   631    0:43:9  436        0:47:9  433        0:32:0  453    
+    22  Paulig          Sascha           HH       88  1149.47   803    0:47:1  406        1:04:1  338        0:35:3  406    
+    23  Kind            Holger           SR       87  1016.06   937    0:39:7  502        0:48:5      VaP    0:29:3  514    
+        Steiner         Martin           SN       88                    n. a.              n. a.              n. a.         
+
+	-- CHAOS-SOFTWARE ----
+		
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 13/14 weiblich   
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3     50 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Gottschalk      Corinna          BY           2662.29     0    0:31:4  839        0:46:2  838        0:33:0  786         200
+     2  Schubert        Linda            WE       85  2660.35     2    0:34:1  752        0:44:4  880        0:31:7  828         200
+     3  Quaas           Daniela          SA       85  2649.55    13    0:33:6  767        0:44:8  871        0:32:2  812         200
+     4  Jugsch          Kathrin          ND       85  2513.67   149    0:35:4  713        0:48:1  795        0:32:4  805         200
+     5  Kochmann        Steffi           BY           2511.98   150    0:34:2  749        0:46:3  836        0:34:9  728         200
+
+     6  Jaeger          Jasmin           WE       85  2475.90   186    0:33:8  761        0:48:6  784        0:34:8  731         200
+     7  Tilch           Christine        RP           2442.54   220    0:36:7  677        0:46:2  838        0:34:9  728         200
+     8  Ternes          Patricia         NR       85  2432.24   230    0:33:7  764        0:48:4  789        0:36:6  680         200
+     9  Bagdahn         Christina        SN       86  2429.88   232    0:34:2  749        0:49:5  765        0:35:3  716         200
+    10  Weßeling        Patricia         WE       86  2407.27   255    0:33:4  773        0:49:5  765        0:37:0  669         200
+
+    11  Donate          Julia            SR       86  2393.15   269    0:33:7  764        0:49:6  763        0:37:1  666         200
+    12  Hille           Jennifer         SH       85  2388.92   273    0:36:7  677        0:48:2  793        0:35:2  719         200
+    13  Nicklas         Franziska        SH       85  2373.17   289    0:35:0  725        0:48:7  782        0:37:1  666         200
+    14  Kornek          Susanne          WE       85  2364.67   298    0:33:3  776        0:50:2  750        0:38:2  638         200
+    15  Strüver         Tina             SA       85  2345.62   317    0:36:0  696        0:50:9  736        0:35:4  713         200
+
+    16  Behnke          Andrea           ND       85  2329.92   332    0:35:9  699        0:48:9  778        0:37:6  653         200
+    17  Schönfelder     Vera             RP       85  2319.24   343    0:36:8  674        0:51:7  720        0:35:0  725         200
+    18  Stolz           Sophia           HE       85  2288.76   374    0:36:9  672        0:51:8  718        0:35:9  699         200
+    19  Felgentreu      Caroline         BB       86  2263.45   399    0:38:2  638        0:51:8  718        0:35:6  708         200
+    20  Rehfuß          Inka             BA       85  2231.75   431    0:36:2  691        0:50:5  744        0:39:9  597         200
+
+    21  Kleve           Katrin           WE       85  2229.53   433    0:36:3  688        0:50:7  740        0:39:7  601         200
+    22  Baumann         Catja            TH       85  2178.17   484    0:38:9  620        0:54:2  673        0:36:4  685         200
+    23  Speicher        Mareike          SR       85  2173.61   489    0:37:7  650        0:50:5  744        0:40:7  579         200
+    24  Benson          Britta           WE       86  2102.75   560    0:35:5  710        0:48:4  789        0:39:6  604           0
+    25  Schoder         Stefanie         BE       85  2096.58   566    0:35:7  705        0:51:0  734        0:47:6  458         200
+
+    26  Bürger          Julia            WE       86  2055.56   607    0:36:3  688        0:48:8  780        0:40:3  588           0
+    27  Bannert         Jennifer         MV       86  2017.98   644    0:37:7  650        0:51:6  722        0:37:9  645           0
+    28  Fischer         Katja            WÜ       85  2016.45   646    0:39:1  616        0:52:0  714        0:45:6  487         200
+    29  Bloom           Heike            BS       85  2002.03   660    0:39:9  597        0:56:2  637        0:41:2  568         200
+    30  Kröger          Meike            HH       85  1793.75   869    0:39:7  601        0:56:1  639        0:41:9  553           0
+
+    31  Gredler         Daniela          HB       85  1720.07   942    0:38:8  623        0:57:8  611        0:45:6  487           0
+        Meier           Nadine           WE       85                    n. a.              n. a.              n. a.            n. a.
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 13/14 männlich   
+
+     Wettkampf 1     50 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3     50 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Krüger          Martin           SA       85  2387.34     0    0:31:1  725        0:42:4  740        0:31:2  722         200
+     2  Oberleuck       Dominik          SR       85  2346.03    41    0:31:7  706        0:42:9  728        0:31:5  712         200
+     3  Kleila          Dominic          RP       85  2315.39    72    0:31:1  725        0:43:3  719        0:32:8  672         200
+     4  Fischer         Alexander        BB       85  2283.17   104    0:32:4  684        0:44:1  700        0:31:9  699         200
+     5  Schmäing        Björn            WE       85  2275.43   112    0:32:7  675        0:44:6  689        0:31:5  712         200
+
+     6  Wiersbitzky     Stephan          MV       85  2221.27   166    0:31:7  706        0:46:1  656        0:33:2  660         200
+     7  Wichmann        Jörg             HE       85  2217.13   170    0:32:9  669        0:43:7  709        0:33:9  639         200
+     8  Braun           Norbert          BY           2184.22   203    0:32:3  687        0:46:0  658        0:33:9  639         200
+     9  Röwer           Patrick          ND       85  2162.42   225    0:30:6  742        0:43:6  712        0:31:6  709           0
+    10  Stefan          Wegner           SN       85  2156.40   231    0:33:0  666        0:44:1  700        0:35:7  591         200
+
+    11  Hesse           Christian        WE       86  2148.36   239    0:33:7  645        0:46:4  650        0:33:4  654         200
+    12  Bruckwilder     Fabian           NR       85  2131.75   256    0:32:3  687        0:47:6  625        0:34:6  620         200
+    13  Raddatz         Marco            SH       85  2093.98   293    0:31:9  699        0:46:1  656        0:37:9  539         200
+    14  Stachetzki      Daniel           ND       85  2073.25   314    0:33:5  651        0:48:9  600        0:34:5  623         200
+    15  Demuth          Christian        RP       85  2022.53   365    0:33:2  660        0:55:7  491        0:32:8  672         200
+
+    16  Kretschmann     Sascha           BE       85  1980.98   406    0:33:6  648        0:47:2  633        0:39:8  500         200
+    17  Jarosch         Christian        WE       85  1962.65   425    0:32:9  669        0:55:0  501        0:35:6  593         200
+    18  Bieg            Ralph            WÜ       85  1928.86   458    0:35:3  601        0:50:1  578        0:37:4  550         200
+    19  Meißner         Marcel           SN       85  1921.20   466    0:32:0  696        0:48:2  613        0:34:9  612           0
+    20  Tittmann        Andre            BA       85  1897.81   490    0:33:3  657        0:49:1  596        0:33:7  645           0
+
+    21  Berger          Jens             TH       85  1867.16   520    0:34:8  614        0:50:5  571        0:40:8  482         200
+    22  Graw            Marco            HH       86  1676.09   711    0:36:5  571        0:50:5  571        0:38:1  534           0
+    23  Sieb            Christopher      HB       85  1368.37  1019    0:44:9  425        1:02:0  426        0:38:9  518           0
+        Kolbe           André            BS       86                    n. a.              n. a.              n. a.            n. a.
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 15/16 weiblich   
+
+     Wettkampf 1    100 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Erbe            Konstanze        SA       84  2806.85     0    1:09:8  838        0:44:4  880        1:07:7  888         200
+     2  Dornquast       Maria            BB       84  2689.85   117    1:13:0  791        0:45:7  849        1:10:2  850         200
+     3  Hajek           Nancy            SA       84  2647.56   159    1:11:6  811        0:47:2  815        1:12:1  821         200
+     4  Carl            Christina        BS       83  2631.54   175    1:12:1  804        0:45:7  849        1:15:1  778         200
+     5  Bochmann        Monika           SN       83  2606.59   200    1:14:6  768        0:45:9  845        1:14:0  794         200
+
+     6  Langbein        Betty            TH       84  2585.64   221    1:15:6  754        0:45:9  845        1:14:5  787         200
+     7  Bagdahn         Susanne          SN       84  2585.08   222    1:14:3  772        0:48:4  789        1:11:9  824         200
+     8  Fallböhmer      Nina             WE       83  2584.44   222    1:16:2  746        0:45:3  859        1:15:0  780         200
+     9  Günther         Sandra           SA       83  2580.51   226    1:12:2  802        0:48:4  789        1:14:3  790         200
+    10  Klatt           Annika           NR       84  2557.04   250    1:15:2  760        0:46:9  822        1:15:3  776         200
+
+    11  Herrmanns       Anja             BB       84  2540.33   267    1:18:3  718        0:47:7  804        1:12:3  818         200
+    12  Jansen          Jennifer         BB       84  2536.10   271    1:17:4  730        0:47:9  800        1:13:1  807         200
+    13  Heyn            Eva              RP       84  2525.57   281    1:16:1  747        0:50:1  753        1:11:8  826         200
+    14  Adler           Verena           WE       84  2502.44   304    1:19:2  706        0:48:3  791        1:13:2  805         200
+    15  Welters         Sabrina          NR       83  2490.82   316    1:17:0  735        0:50:7  740        1:12:5  815         200
+
+    16  Boger           Sarah            RP       84  2476.19   331    1:19:2  706        0:47:7  804        1:16:0  766         200
+    17  Kloster         Inka             ND       83  2474.21   333    1:13:6  782        0:47:1  817        1:23:1  675         200
+    18  Kliem           Hannah           BY           2445.80   361    1:19:8  699        0:47:1  817        1:18:7  730         200
+    19  Schürmann       Kirsten          WE       84  2442.42   364    1:18:0  722        0:48:3  791        1:18:7  730         200
+    20  Kowacs          Tanja            WÜ       84  2417.53   389    1:16:8  738        0:51:2  730        1:17:2  750         200
+
+    21  Arning          Sarah            ND       83  2396.48   410    1:17:8  725        0:52:0  714        1:16:6  758         200
+    22  Schäfer         Nadine           BE       84  2392.56   414    1:19:5  703        0:47:9  800        1:21:8  690         200
+    23  Berlin          Christina        MV       83  2380.02   427    1:20:1  695        0:47:2  815        1:23:5  670         200
+    24  Kowalski        Anna             SH       83  2332.07   475    1:27:8  606        0:48:4  789        1:18:1  738         200
+    25  Moßmann         Stefanie         RP       84  2283.84   523    1:17:7  726        0:47:5  808        1:17:2  550 200     200
+
+    26  Hoss            Frauke           ND           2210.26   597    1:18:1  721        0:48:6  784        1:20:6  505 200     200
+    27  Nappora         Mareike          HB       83  1806.47  1000    1:35:3  534        0:59:8  579        1:42:1  493         200
+    28  Schweitzer      Katrin           SA       83   200.00  2607     n. a.              n. a.              n. a.              200
+        Behnk           Aniella          HE       84                    n. a.              n. a.              n. a.            n. a.
+        Coassin         Christine        SR       84                    n. a.              n. a.              n. a.            n. a.
+
+        Dittloff        Ulrike           HH       84                    n. a.              n. a.              n. a.            n. a.
+        Betzel          Anne             BA       84                    n. a.              n. a.              n. a.            n. a.
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 15/16 männlich   
+
+     Wettkampf 1    100 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Blumenthal      Ralf             BY           2653.14     0    1:02:1  831        0:39:3  820        1:02:7  803         200
+     2  Gleitsmann      Richard          SA       83  2608.40    45    1:04:6  789        0:38:5  842        1:04:2  778         200
+     3  Bürger          Martin           WE       83  2585.50    68    1:05:9  768        0:39:3  820        1:03:0  798         200
+     4  Berlin          Hannes           MV       83  2564.49    89    1:05:6  773        0:39:4  817        1:04:4  775         200
+     5  Ritter          Christian        SA       83  2538.28   115    1:05:7  771        0:40:9  778        1:03:5  789         200
+
+     6  Golubovic       Timo             SH       83  2528.22   125    1:00:1  865        0:44:2  698        1:05:0  765         200
+     7  Dobrzanski      Johannes         WE       83  2499.20   154    1:08:8  723        0:40:0  801        1:04:4  775         200
+     8  Rothacker       Thomas           WÜ       84  2498.91   154    1:04:3  794        0:40:9  778        1:07:4  728         200
+     9  Meilick         André            SN       83  2473.86   179    1:03:9  800        0:40:2  796        1:10:8  678         200
+    10  Donate          Oliver           SR       83  2426.85   226    1:03:6  805        0:39:4  817        1:02:6  805           0
+
+    11  Fähnle          Björn            BB       84  2411.67   241    1:09:4  715        0:40:4  791        1:08:8  707         200
+    12  Außendorf       Marc             WE       84  2405.91   247    1:07:7  740        0:41:8  755        1:08:5  711         200
+    13  Kohlschütter    Marc Daniel      HE       83  2384.14   269    1:09:7  710        0:40:4  791        1:10:4  683         200
+    14  Johann          Andreas          SR       83  2341.76   311    1:12:2  675        0:43:2  721        1:06:2  746         200
+    15  Kühn            Marcel           WÜ       84  2332.71   320    1:09:8  709        0:42:5  738        1:10:2  686         200
+
+    16  Sachse          Martin           TH       83  2329.16   324    1:08:0  735        0:43:9  705        1:10:0  689         200
+    17  Wirtz           Heiko            NR       83  2308.56   345    1:05:7  771        0:42:8  731        1:16:2  607         200
+    18  Häußler         Matthias         RP       84  2281.38   372    1:10:6  697        0:41:4  765        1:15:2  619         200
+    19  Wersich         Julian           BA       83  2197.13   456    1:13:9  652        0:46:5  648        1:09:4  698         200
+    20  Etgeton         Sascha           ND       84  2104.49   549    1:14:6  643        0:49:3  592        1:11:4  669         200
+
+    21  Leo             Sebastian        BE       83  2059.09   594    1:13:5  657        0:46:5  648        1:20:8  554         200
+    22  Rademacher      Daniel           BS       83  2000.71   652    1:21:9  557        0:47:2  633        1:15:9  611         200
+    23  Maliszewski     Florian          HH       83  1868.56   785    1:18:6  594        0:45:2  675        1:16:8  600           0
+    24  Sengönül        Can              HB       83  1559.47  1094    1:21:3  563        0:52:0  546        1:33:0  451           0
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 17/18 weiblich   
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Reit            Wiebke           ND       81  2919.20     0    2:23:3  917        0:42:3  932        1:08:9  870         200
+     2  Wieland         Anke             SA       82  2887.04    32    2:37:8  815        0:41:4  955        1:05:9  917         200
+     3  Geilfus         Maike            HE       81  2853.56    66    2:32:8  849        0:45:2  861        1:04:3  944         200
+     4  Berlin          Alexandra        MV       81  2850.98    68    2:31:8  856        0:43:7  897        1:07:1  898         200
+     5  Messerschmidt   Katrin           SN       82  2779.26   140    2:32:3  852        0:43:9  892        1:11:2  835         200
+
+     6  Junker          Kathrin          HE       82  2768.03   151    2:37:5  817        0:45:8  847        1:06:7  904         200
+     7  Könighaus       Corinna          WE       82  2760.60   159    2:40:0  800        0:44:8  871        1:07:6  890         200
+     8  Ludewigs        Mandy            BB       81  2739.52   180    2:50:1  736        0:43:3  907        1:07:2  896         200
+     9  Hübner          Julia            SA       82  2736.30   183    2:25:3  903        0:46:8  824        1:12:9  810         200
+    10  Lampen          Ruth             ND       81  2719.05   200    2:44:1  773        0:44:0  890        1:09:8  856         200
+
+    11  Lang            Anita            BY           2646.38   273    2:41:3  791        0:46:0  842        1:12:7  813         200
+    12  Pescheck        Eva              SA       82  2641.38   278    2:50:7  732        0:47:6  806        1:06:8  903         200
+    13  Seidel          Katja            SN       81  2614.22   305    2:35:7  829        0:47:0  820        1:16:0  766         200
+    14  Vogel           Christiane       BA       82  2599.72   319    2:52:3  723        0:46:8  824        1:10:0  853         200
+    15  Eitner          Janina           SA       82  2555.93   363    2:35:1  833        0:44:0  890        1:11:3  833           0
+
+    16  Paulussen       Tanja            NR       82  2538.99   380    2:38:6  809        0:50:7  740        1:14:3  790         200
+    17  Barthel         Sandra           RP       82  2432.62   487    3:02:5  665        0:46:6  829        1:18:0  739         200
+    18  Schulz          Anne             SH       81  2403.98   515    2:52:9  719        0:50:3  748        1:18:2  736         200
+    19  Schatz          Janin            BE       82  2399.96   519    2:57:2  694        0:49:3  769        1:18:2  736         200
+    20  Förster         Kerstin          TH       81  2315.53   604    2:58:2  689        0:51:7  720        1:20:5  707         200
+
+    21  Schüttig        Sina             HH       82  2120.26   799    3:32:0  529        0:51:4  726        1:23:9  665         200
+    22  Dötsch          Carina           SR       82  2066.97   852    3:14:8  603        0:52:2  710        1:34:6  554         200
+    23  Siebert         Anne             BS       81  1883.92  1035    3:39:5  502        0:55:5  649        1:37:0  533         200
+        Fischer         Claudia          WÜ       82                    n. a.              n. a.              n. a.            n. a.
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis AK 17/18 männlich   
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    Herz-Lungen-Wiederbelebung
+
+    Pl  Name            Vorname          Gld      Jg  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3     HLW
+
+
+     1  Westermann      André            WE       81  2691.35     0    2:21:8  802        0:36:5  899        1:03:4  791         200
+     2  Bürger          Matthias         WE       81  2666.91    24    2:26:0  771        0:37:7  864        1:01:0  832         200
+     3  Scholze         Matthias         BB       81  2662.12    29    2:32:3  727        0:37:9  858        0:58:5  877         200
+     4  Scheler         Fabian           BY           2638.71    53    2:21:8  802        0:37:7  864        1:04:5  773         200
+     5  Ernicke         Markus           BB       82  2623.46    68    2:28:3  755        0:38:8  833        1:00:8  835         200
+
+     6  Klimach         Martin           RP           2618.51    73    2:28:6  753        0:38:4  844        1:01:6  822         200
+     7  Theel           Sebastian        MV       81  2614.04    77    2:16:6  841        0:40:3  793        1:04:1  780         200
+     8  Bahro           Gregor           BE       81  2608.70    83    2:19:0  823        0:39:8  806        1:04:1  780         200
+     9  Kohne           Norman           ND       82  2566.86   124    2:24:6  781        0:42:2  745        1:00:5  841         200
+    10  Görges          Christian        BB       81  2543.80   148    2:33:4  720        0:39:5  814        1:02:3  810         200
+
+    11  Schächterle     Uwe              WÜ       82  2521.56   170    2:33:8  717        0:40:7  783        1:01:6  822         200
+    12  Zinnert         Toni             SA       81  2470.34   221    2:43:2  658        0:42:5  738        0:58:6  875         200
+    13  Grillenberger   Andreas          BY           2467.41   224    2:20:4  812        0:42:6  735        1:07:9  720         200
+    14  Schuchort       Rene             BE       81  2395.27   296    2:26:9  765        0:41:6  760        1:11:3  671         200
+    15  Carl            Matthias         BS       81  2383.73   308    2:29:3  748        0:42:6  735        1:09:2  701         200
+
+    16  Klein           Frank            SN       81  2374.64   317    2:34:5  713        0:41:6  760        1:09:1  702         200
+    17  Reich           Stephan          SH       82  2346.58   345    2:39:0  684        0:41:8  755        1:08:7  708         200
+    18  Kennel          Bastian          RP       81  2328.84   363    2:44:1  652        0:41:5  762        1:08:3  714         200
+    19  Naake           Steffen          TH       81  2307.16   384    2:33:9  717        0:42:9  728        1:11:9  663         200
+    20  Barbian         Richard          SR       82  2260.77   431    2:49:5  621        0:41:7  757        1:10:5  682         200
+
+    21  Konietzny       Roland           BA       82  2171.70   520    2:43:1  658        0:44:7  686        1:14:6  627         200
+    22  Seckler         Sebastian        HE       82  2040.82   651    3:01:0  562        0:43:5  714        1:19:8  565         200
+    23  Rodewig         Marcel           NR       82  1610.89  1080    2:18:3  828        0:40:7  783                    VaP   n. a.
+    24  Abele           Matthias         WÜ       81   200.00  2491     n. a.              n. a.              n. a.              200
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis Damen-offene Klasse 
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    100 m Kombiniertes Rettungsschwimmen    
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+ Pl  Name            Vorname         Gld Jg  Gespkt   Diff  Zeit-1 Pkt1 St1  Zeit-2 Pkt2 St2  Zeit-3 Pkt3 St3  Zeit-4 Pkt4 St4   HLW
+
+
+  1  Schmutzer       Daniela         HE  78  3894.23     0  2:32:5  851      0:41:4  955      1:04:4  942      1:23:6  946       200
+  2  Pescheck        Jana            SA  75  3888.58     6  2:27:3  888      0:41:6  950      1:08:5  876      1:21:4  975       200
+  3  Popke           Katja           BB  80  3759.64   135  2:40:5  797      0:42:8  920      1:05:5  924      1:25:7  920       200
+  4  Schmutzer       Michaela        HE  78  3735.27   159  2:37:3  818      0:43:2  910      1:06:4  909      1:27:4  899       200
+  5  Pluhar          Ines            WE  80  3700.92   193  2:39:1  806      0:43:5  902      1:07:1  898      1:27:7  895       200
+
+  6  Schlepphorst    Claudia         WE  75  3648.28   246  2:43:7  776      0:43:7  897      1:07:0  900      1:29:3  876       200
+  7  Hasken          Nadine          ND  77  3632.45   262  2:43:1  780      0:44:3  883      1:09:1  867      1:27:0  904       200
+  8  Pannek          Susann          BB  80  3614.66   280  2:43:9  775      0:43:3  907      1:09:0  868      1:30:2  865       200
+  9  Weinert         Katrin          RP      3596.55   298  2:44:0  774      0:43:8  895      1:09:8  856      1:29:6  872       200
+ 10  Christine       Glöe            SH  79  3584.50   310  2:41:8  788      0:45:5  854      1:08:1  882      1:30:6  860       200
+
+ 11  Pfeifer         Katja           SA  80  3567.98   326  2:35:5  830      0:46:5  831      1:09:7  857      1:31:5  850       200
+ 12  Forsbach        Alexandra       NR  74  3471.04   423  2:33:8  842      0:46:7  826      1:17:1  751      1:31:3  852       200
+ 13  Krampe          Britta          WE  80  3468.60   426  2:47:1  754      0:44:5  878      1:14:5  787      1:31:5  850       200
+ 14  Wäschle         Gabi            WÜ  74  3430.17   464  2:37:0  820      0:47:9  800      1:13:5  801      1:35:0  810       200
+ 15  Carl            Cornelia        BS  78  3411.76   482  2:30:1  868      0:45:8  847      1:09:9  854      1:32:1  843         0
+
+ 16  Boerner         Baukis          BY      3381.05   513  2:39:9  801      0:47:3  813      1:17:5  746      1:33:9  822       200
+ 17  Wunderlich      Jana            BE  79  3375.96   518  2:39:1  806      0:46:8  824      1:18:8  728      1:34:3  818       200
+ 18  Voigt           Imke            SN  75  3279.35   615  2:53:8  714      0:47:1  817      1:17:3  748      1:35:9  800       200
+ 19  Stoltze         Petra           TH  79  3126.30   768  3:04:5  654      0:50:4  746      1:12:4  817      1:44:7  709       200
+ 20  Kunz            Beate           BA  79  2980.78   913  3:00:6  675      0:48:6  584 200  1:16:2  763      1:39:8  758       200
+
+ 21  Dorbach         Silvia          SR  76  2848.69  1046  3:07:6  638      0:51:1  732      1:32:3  575      1:45:3  703       200
+ 22  Reinke          Svenja          HH  80  2318.02  1576  2:53:9  713      0:50:4  746      1:24:5  658       n. a.            200
+ 23  Gredler         Andrea          HB  80  1919.96  1974  3:58:6  446      1:01:1  561      1:38:2  523      2:13:5  391 100     0
+     Lewerenz        Eike            MV  80                  n. a.            n. a.            n. a.            n. a.          n. a.
+
+	-- CHAOS-SOFTWARE ----
+
+     Deutsche Meisterschaften 1999
+
+     im Rettungsschwimmen
+
+     Einzelwettkämpfe
+
+     im usa-wellenbad
+
+     Bad Nauheim, den 09.10.1999
+
+
+     Endergebnis Herren-offene Klasse
+
+     Wettkampf 1    200 m Hindernisschwimmen                
+     Wettkampf 2     50 m Retten                            
+     Wettkampf 3    100 m Retten mit Flossen                
+     Wettkampf 4    100 m Kombiniertes Rettungsschwimmen    
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+ Pl  Name            Vorname         Gld Jg  Gespkt   Diff  Zeit-1 Pkt1 St1  Zeit-2 Pkt2 St2  Zeit-3 Pkt3 St3  Zeit-4 Pkt4 St4   HLW
+
+
+  1  Heimann         Lutz            SA  76  4055.88     0  2:03:4  950      0:35:0  944      0:54:3  956      1:07:4 1006       200
+  2  Schlepphorst    Carsten         WE  77  3858.42   197  2:13:4  867      0:36:2  907      0:53:7  968      1:13:3  916       200
+  3  Boerner         Tarik           BY      3833.92   222  2:13:4  867      0:35:3  934      0:58:5  877      1:10:6  956       200
+  4  Görny           Lars            SA  73  3783.65   272  2:17:9  831      0:35:8  919      0:56:8  908      1:12:7  925       200
+  5  Laurent         Thorsten        SR  75  3716.27   340  2:27:9  758      0:35:0  944      0:57:6  893      1:12:9  922       200
+
+  6  Löwenberg       Matthias        BA  77  3679.04   377  2:14:5  858      0:37:5  870      0:59:1  866      1:15:4  886       200
+  7  Rogler          Rene            BB  79  3606.03   450  2:21:1  807      0:37:4  872      1:00:5  841      1:15:4  886       200
+  8  Fischer         Andreas         ND      3588.52   467  2:17:5  834      0:37:0  884      1:03:9  783      1:15:3  887       200
+  9  Hunold          Rene            MV  79  3580.71   475  2:20:0  815      0:38:0  856      1:01:7  820      1:15:1  890       200
+ 10  Behrens         Bengt           MV  78  3576.50   479  2:24:1  785      0:38:7  836      0:57:8  889      1:16:8  866       200
+
+ 11  Zoberbier       Henry           BB  77  3561.94   494  2:24:0  785      0:38:0  856      1:00:5  841      1:15:8  880       200
+ 12  Hofmann         Maik            SA  75  3516.64   539  2:16:5  842      0:36:8  890      0:58:3  880      1:14:1  905         0
+ 13  Gerdes          Gerd            WÜ  73  3488.73   567  2:21:0  808      0:39:3  820      1:02:1  813      1:18:1  848       200
+ 14  Speer           Thomas          BA  75  3434.43   621  2:27:3  762      0:39:2  822      1:01:8  818      1:19:3  832       200
+ 15  Bauer           Thomas          HE  76  3428.42   627  2:20:8  809      0:38:9  831      1:05:7  754      1:19:1  835       200
+
+ 16  Draeger         Dirk            BE  73  3425.66   630  2:32:1  729      0:37:2  878      1:05:0  765      1:17:7  854       200
+ 17  Brenner         Sebastian       RP  79  3373.22   683  2:33:8  717      0:40:2  796      1:01:3  827      1:19:2  833       200
+ 18  Heimann         Marc            SH  76  3302.69   753  2:24:4  783      0:38:0  856      1:02:8  801      1:17:0  864         0
+ 19  Sonsmann        Thorsten        NR  74  3301.82   754  2:29:7  745      0:40:4  791      1:03:4  791      1:23:7  775       200
+ 20  Stahl           Arne            SH  76  3268.32   788  2:25:3  776      0:39:4  817      1:00:9  834      1:18:6  842         0
+
+ 21  Blümke          Steffen         SN  75  3266.34   790  2:22:7  795      0:39:7  809      1:01:1  830      1:19:3  832         0
+ 22  Heise           Alexander       TH  79  3142.55   913  2:36:4  700      0:40:8  780      1:10:5  682      1:23:3  780       200
+ 23  Helberg         Jens            BS  76  2976.22  1080  2:52:5  605      0:41:0  775      1:12:7  652      1:26:2  745       200
+     Eder            Stephan         SH  74                  n. a.            n. a.            n. a.            n. a.          n. a.
+
+	-- CHAOS-SOFTWARE ----

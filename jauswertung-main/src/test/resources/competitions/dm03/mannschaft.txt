@@ -1,0 +1,631 @@
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 12 weiblich      
+
+     Wettkampf 1    4 x 25 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m RLB                            
+     Wettkampf 3    4 x 25 m Rettungsstaffel                
+     Wettkampf 4    4 x 25 m Gurtretterstaffel              
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Weimar                TH   2640.35     0    1:10:4  775        1:35:3  534        1:04:8  725        1:21:9  606    
+     2  Reichenbach           WÜ   2553.81    87    1:12:7  742        1:37:1  519        1:06:9  693        1:22:4  601    
+     3  Wermelskirchen Dhünn  NR   2447.57   193    1:15:2  707        1:38:1  511        1:08:2  673        1:26:6  556    
+     4  Bietigheim-Bissingen  WÜ   2415.04   225    1:13:3  733        1:44:8  464        1:07:8  679        1:28:4  539    
+     5  Bochum-Mitte          WE   2389.31   251    1:17:4  678        1:41:9  483        1:11:3  630        1:22:6  599    
+
+     6  Rheda-Wiedenbrück     WE   2314.64   326    1:20:1  644        1:45:3  461        1:09:4  656        1:26:9  553    
+     7  Halberstadt           SA   2298.32   342    1:16:8  686        1:42:7  477        1:11:5  628        1:31:9  508    
+     8  Lette                 WE   2295.78   345    1:16:9  684        1:44:8  464        1:10:9  636        1:31:4  512    
+     9  Emsdetten             WE   2294.21   346    1:13:6  729        1:50:5  433        1:13:7  599        1:29:0  533    
+    10  Herzebrock-Clarholz   WE   2273.75   367    1:19:4  653        1:45:1  462        1:12:5  614        1:27:8  545    
+
+    11  Herzogenaurach        BY   2252.26   388    1:21:0  634        1:45:6  459        1:11:1  633        1:29:7  527    
+    12  Reken                 WE   2246.26   394    1:16:9  684        1:40:8  490        1:14:3  592        1:35:5  480    
+    13  Alpen                 NR   2237.84   403    1:20:8  636        1:47:1  450        1:13:3  604        1:27:5  548    
+    14  Emsbüren              ND   2236.78   404    1:17:3  679        1:48:2  444        1:11:6  576  50    1:28:6  537    
+    15  Stralsund             MV   2203.90   436    1:21:7  625        1:42:0  482        1:11:4  629        1:37:2  468    
+
+    16  Leer                  ND   2202.72   438    1:20:5  639        1:45:3  461        1:13:4  603        1:32:9  500    
+    17  Luckenwalde           BB   2186.27   454    1:15:8  699        1:35:5  332 200    1:10:6  640        1:31:0  516    
+    18  Idsteim               HE   2170.21   470    1:22:0  622        1:47:6  447        1:16:1  570        1:29:3  531    
+    19  Bühl-Bühlertal        BA   2155.66   485    1:20:9  635        1:45:5  459        1:15:0  583        1:35:7  478    
+    20  Lollar                HE   2141.82   499    1:19:8  648        1:49:2  439        1:14:3  592        1:37:9  463    
+
+    21  Lübeck                SH   2123.49   517    1:21:3  630        1:47:7  447        1:14:5  589        1:38:8  457    
+    22  Karlsruhe             BA   2095.88   544    1:22:3  618        1:51:5  428        1:13:5  602        1:40:4  448    
+    23  Loßburg               WÜ   2044.53   596    1:23:9  600        1:54:8  415        1:18:1  548        1:35:3  481    
+    24  Perl                  SR   1964.49   676    1:27:9  559        1:52:8  423        1:16:7  563        1:46:0  420    
+    25  Tempelhof             BE   1939.44   701    1:27:3  565        1:53:3  421        1:18:6  542        1:48:1  412    
+
+    26  Eisenberg             RP   1789.21   851    1:25:2  386 200    2:00:0  400        1:18:8  540        1:38:0  462    
+    27  Altona                HH   1654.29   986    1:26:6  572        1:58:6      VaP    1:12:8  611        1:36:6  472    
+    28  Salzgitter Lebenst.   BS   1475.70  1165    1:44:6  435        2:07:5  383        1:25:9  475        1:59:1  183 200
+
+—————————————————— CHAOS-SOFTWARE V9.07—S67—————————————————— 19:46:41 Uhr ——————————————————  4.10.2003 ———————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 12 männlich      
+
+     Wettkampf 1    4 x 25 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m RLB                            
+     Wettkampf 3    4 x 25 m Rettungsstaffel                
+     Wettkampf 4    4 x 25 m Gurtretterstaffel              
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Idstein               HE   2275.97     0    1:10:6  659        1:36:2  475        1:06:4  578        1:16:6  565    
+     2  Rheda-Wiedenbrück     WE   2253.83    22    1:13:1  625        1:34:5  487        1:03:8  614        1:20:1  527    
+     3  Halberstadt           SA   2119.33   157    1:10:7  658        1:46:9  416        1:06:9  571        1:25:9  475    
+     4  Gelsenkirchen-Mitte   WE   2108.08   168    1:14:0  614        1:45:3  423        1:06:4  578        1:23:6  494    
+     5  Völklingen            SR   2084.41   192    1:13:1  625        1:45:0  424        1:10:1  531        1:22:5  504    
+
+     6  Pirna                 SN   2061.16   215    1:15:1  600        1:42:6  435        1:07:4  565        1:27:7  461    
+     7  Magdeburg             SA   2053.28   223    1:13:6  619        1:49:3  408        1:10:9  522        1:22:4  505    
+     8  Weimar                TH   2050.91   225    1:13:3  623        1:42:5  436        1:10:5  527        1:27:1  465    
+     9  Luckenwalde           BB   2025.84   250    1:17:4  573        1:38:9  457        1:09:4  540        1:28:3  457    
+    10  Lollar                HE   2016.62   259    1:14:1  613        1:44:3  427        1:13:7  493        1:24:7  484    
+
+    11  Stralsund             MV   2008.66   267    1:14:0  614        1:44:4  427        1:12:0  510        1:28:1  458    
+    12  Lensahn               SH   1988.15   288    1:19:7  547        1:45:1  423        1:08:9  546        1:26:3  472    
+    13  Loßburg               WÜ   1969.07   307    1:16:1  588        1:52:8  398        1:12:7  503        1:25:2  480    
+    14  Emsdetten             WE   1940.70   335    1:16:7  581        1:49:3  408        1:14:2  488        1:27:2  465    
+    15  Herzebrock-Clarholz   WE   1909.57   366    1:20:7  537        1:54:0  395        1:10:1  531        1:29:9  446    
+
+    16  Emsbüren              ND   1856.85   419    1:19:8  546        1:50:1  405        1:12:6  504        1:39:4  402    
+    17  Höpfingen             BA   1822.74   453    1:22:8  516        2:01:1  378        1:14:5  485        1:30:3  443    
+    18  Kronach               BY   1814.75   461    1:18:5  560        1:56:3  390        1:17:7  457        1:37:5  408    
+    19  Karlsruhe             BA   1771.96   504    1:23:7  508        1:48:3  411        1:16:6  466        1:44:7  387    
+    20  Pankow                BE   1747.16   529    1:21:6  528        2:05:0  369        1:15:9  422  50    1:32:9  428    
+
+    21  Helmstedt             BS   1743.91   532    1:27:5  476        1:50:2  405        1:14:4  486        1:48:3  378    
+    22  Eisenach              TH   1682.76   593    1:23:7  508        2:06:7  365        1:25:0  411        1:40:5  399    
+    23  Emmelshausen          RP   1651.71   624    1:20:3  341 200    1:53:1  397        1:13:3  497        1:35:3  417    
+    24  Oldenburg             ND   1581.93   694    1:43:1  397        1:41:5  241 200    1:10:9  522        1:34:3  421    
+    25  Alpen                 NR   1523.22   753    1:18:2  564        1:48:9      VaP    1:13:7  493        1:26:9  467    
+
+    26  Lüdinghausen          WE   1433.58   842    1:22:0  524        1:48:8      VaP    1:13:4  496        1:35:9  414    
+    27  Schwerte              WE   1348.32   928    1:24:9  497        1:55:3      VaP    1:18:7  449        1:39:2  402    
+        Wuppertal             NR     disq.                                                                                  
+
+—————————————————— CHAOS-SOFTWARE V9.07—S67—————————————————— 19:46:41 Uhr ——————————————————  4.10.2003 ———————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 13/14 weiblich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Kleine Rettungsstaffel         
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Kelkheim              HE   4183.87     0    2:16:5  808        2:01:0  778        2:27:3  892        2:03:2  906         800
+     2  Lette                 WE   4162.62    21    2:18:6  792        1:51:7  863        2:35:8  832        2:06:7  876         800
+     3  Weimar                TH   4086.46    97    2:19:0  788        2:01:8  771        2:37:5  821        2:03:2  906         800
+     4  Pirna                 SN   3929.70   254    2:22:4  763        2:03:2  759        2:44:0  778        2:12:4  829         800
+     5  Reichenbach           WÜ   3885.52   298    2:31:1  702        2:03:4  757        2:38:5  814        2:14:6  812         800
+
+     6  Buseck                HE   3778.18   406    2:32:6  692        2:02:0  769        2:49:6  743        2:19:6  774         800
+     7  Beckum                WE   3768.48   415    2:21:0  773        2:04:8  746        2:42:7  786        2:08:3  863         600
+     8  Emsbüren              ND   3762.49   421    2:22:8  760        2:00:7  781        2:39:6  807        2:14:2  815         600
+     9  Rheda-Wiedenbrück     WE   3677.92   506    2:33:0  690        2:12:6  684        2:50:4  738        2:20:6  766         800
+    10  Lübeck                SH   3642.26   542    2:33:4  687        2:16:3  657        2:54:8  712        2:17:9  786         800
+
+    11  Weener                ND   3586.47   597    2:35:9  671        2:15:0  666        2:53:3  721        2:25:8  728         800
+    12  Malsch                BA   3548.61   635    2:43:8  623        2:12:9  682        2:55:7  707        2:24:6  737         800
+    13  Ahrensburg            SH   3527.14   657    2:26:4  734        2:10:0  704        2:58:1  693        2:16:7  796         600
+    14  Olfen                 WE   3521.90   662    2:40:0  645        2:08:4  717        3:02:1  671        2:31:6  689         800
+    15  Hagen                 ND   3472.88   711    2:48:8  595        2:13:9  674        2:59:7  684        2:27:1  719         800
+
+    16  Luckenwalde           BB   3459.51   724    2:36:4  668        2:12:6  484 200    2:49:1  746        2:21:2  762         800
+    17  Alpen                 NR   3443.94   740    2:44:4  620        2:14:5  670        3:01:4  675        2:33:0  680         800
+    18  Waldfeucht            NR   3443.50   740    2:36:4  668        2:09:6  707        2:50:3  539 200    2:25:6  730         800
+    19  Westhofen-Garenfeld   WE   3393.18   791    2:33:7  685        1:59:0  795        2:50:0  741        2:19:8  772         400
+    20  Merzig                SR   3386.03   798    2:35:9  671        2:18:8  639        2:58:6  490 200    2:18:0  786         800
+
+    21  Herzogenaurach        BY   3333.33   851    2:34:9  677        2:20:3  629        3:00:3  681        2:23:3  746         600
+    22  Reken                 WE   3317.69   866    2:29:0  716        2:07:0  528 200    2:50:7  686  50    2:17:8  787         600
+    23  Mitte                 BE   3227.90   956    2:51:1  583        2:31:9  557        3:06:8  646        2:38:9  643         800
+    24  Eisenberg             RP   3055.31  1129    2:46:9  605        2:14:8  668        3:00:1  682        2:29:9  700         400
+    25  Wernigerode           SA   2992.65  1191    2:32:4  694        2:20:9  625        2:53:7  719        2:22:0  556 200     400
+
+    26  Kronskamp             MV   2805.55  1378    2:53:6  570        2:34:7  541        3:08:5  237 400    2:36:5  657         800
+    27  Dettum                BS   2777.99  1406    2:54:9  513  50    2:17:2  650        3:17:7  393 200    2:42:4  622         600
+    28  Emsdetten             WE   2677.65  1506    2:51:3  582        2:20:1  630        3:12:8  416 200    2:37:7  650         400
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:41 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 13/14 männlich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Kleine Rettungsstaffel         
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Anklam                MV   3827.46     0    2:07:9  759        1:50:3  699        2:22:3  767        1:57:5  803         800
+     2  Bietigheim-Bissingen  WÜ   3664.74   163    2:11:6  730        1:50:7  695        2:35:3  677        2:02:1  763         800
+     3  Görlitz               SN   3652.78   175    2:09:2  749        1:56:9  641        2:34:3  684        2:00:2  779         800
+     4  Luckenwalde           BB   3510.94   317    2:13:2  717        1:51:5  488 200    2:23:9  755        2:03:5  751         800
+     5  Bad Wünnenberg        WE   3480.04   347    2:20:3  665        1:59:0  624        2:38:9  655        2:05:3  736         800
+
+     6  Nieder-Olm/Wörrstadt  RP   3407.35   420    2:22:6  649        1:58:5  628        2:42:5  633        2:10:2  697         800
+     7  Ennigerloh            WE   3356.36   471    2:23:4  644        2:01:7  603        2:39:2  653        2:15:6  656         800
+     8  Magdeburg             SA   3343.38   484    2:12:2  725        1:58:1  631        2:36:0  473 200    2:08:0  714         800
+     9  Lüdinghausen          WE   3334.23   493    2:24:7  635        1:58:7  627        2:43:1  630        2:17:5  643         800
+    10  Borken                WE   3268.59   559    2:25:7  629        2:09:2  550        2:47:6  604        2:11:6  686         800
+
+    11  Höpfingen             BA   3261.13   566    2:21:2  659        2:05:4  576        2:57:0  555        2:13:6  671         800
+    12  Harsewinkel           WE   3186.55   641    2:25:2  632        2:18:0  497        2:44:5  622        2:18:5  636         800
+    13  Bochum-Mitte          WE   3131.85   696    2:15:9  697        1:58:8  626        2:34:8  681        2:06:2  728         400
+    14  Lensahn               SH   3114.97   712    2:37:4  558        2:08:8  553        2:43:2  629        2:27:9  575         800
+    15  Kronach               BY   3051.59   776    2:30:2  600        2:21:7  478        2:59:9  542        2:19:1  632         800
+
+    16  Lollar                HE   3027.07   800    2:21:3  658        1:58:5  628        2:43:2  629        2:08:3  712         400
+    17  Alpen                 NR   3022.12   805    2:28:1  613        2:08:4  555        2:49:9  592        2:14:8  662         600
+    18  Wachbach              WÜ   2981.11   846    2:28:0  614        2:13:6  522        2:52:1  380 200    2:14:4  665         800
+    19  Langenberg            NR   2972.77   855    2:30:7  597        2:09:6  547        2:47:7  604        2:20:1  625         600
+    20  Völklingen            SR   2962.88   865    2:40:2  543        2:12:3  530        3:06:6  512        2:27:5  577         800
+
+    21  Emsbüren              ND   2877.86   950    2:38:0  555        2:25:8  460        3:13:7  484        2:27:2  579         800
+    22  Weil im Schönbuch     WÜ   2832.42   995    2:28:4  611        2:06:5  568        2:49:1  596        2:15:5  657         400
+    23  Gotha                 TH   2825.09  1002    2:31:8  590        2:24:4  466        2:57:9  551        2:21:1  618         600
+    24  Waldfeucht            NR   2820.85  1007    2:32:4  587        1:59:5  620        2:48:4  400 200    2:21:7  614         600
+    25  Tempelhof             BE   2728.73  1099    2:32:7  585        2:24:1  467        3:18:0  469        2:22:7  608         600
+
+    26  Coppenbrügge          ND   2459.76  1368    2:40:7  541        2:15:9  509        3:13:6  235 250    2:27:8  576         600
+    27  Salzgitter-Thiede     BS   2193.79  1634    2:30:7  597        2:22:8  273 200    3:04:4  321 200    2:23:5  602         400
+    28  Neustadt              BY   1934.79  1893    2:24:4  637        2:21:6  279 200    3:00:3  540        2:12:5  479 200   n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:41 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 15/16 weiblich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Kleine Rettungsstaffel         
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Korschenbroich        NR   4367.98     0    2:12:9  836        1:48:1  898        2:24:9  910        2:01:1  925         800
+     2  Halle-Saalkreis       SA   4276.76    91    2:15:8  813        1:52:9  851        2:29:0  880        2:00:2  933         800
+     3  Gelsenkirchen-Mitte   WE   4203.11   165    2:12:3  841        1:56:8  815        2:28:6  883        2:08:1  865         800
+     4  Luckenwalde 1         BB   4107.00   261    2:16:9  605 200    1:50:1  878        2:22:6  927        2:04:2  898         800
+     5  Weener                ND   4024.15   344    2:22:4  763        2:02:8  763        2:35:3  836        2:08:3  863         800
+
+     6  Norderstedt           SH   3982.16   386    2:25:2  743        1:58:5  800        2:40:2  803        2:11:5  837         800
+     7  Bietigheim-Bissingen  WÜ   3981.55   386    2:22:4  763        2:03:7  755        2:40:9  798        2:08:0  865         800
+     8  Wismar                MV   3951.98   416    2:19:2  787        1:54:7  834        2:33:2  850        2:06:2  881         600
+     9  Halberstadt           SA   3890.41   478    2:24:2  750        2:06:5  732        2:43:7  780        2:12:5  829         800
+    10  Lette                 WE   3834.48   533    2:27:1  730        2:04:0  752        2:44:2  777        2:19:3  776         800
+
+    11  Laubach               HE   3834.03   534    2:29:9  710        2:02:5  765        2:47:1  758        2:16:1  800         800
+    12  Hagen                 ND   3822.95   545    2:38:2  657        2:00:9  779        2:36:6  827        2:21:3  761         800
+    13  Weimar                TH   3814.56   553    2:31:4  700        2:10:5  700        2:37:9  818        2:16:6  796         800
+    14  Kelkheim              HE   3806.46   562    2:22:4  763        2:00:3  784        2:40:4  801        2:08:9  858         600
+    15  Tempelhof             BE   3785.39   583    2:33:5  686        2:01:7  772        2:44:7  774        2:22:3  754         800
+
+    16  Neuenkirchen-Wettr.   WE   3670.76   697    2:28:3  721        2:06:1  735        2:38:8  812        2:15:8  803         600
+    17  Emmelshausen          RP   3662.91   705    2:43:0  628        2:00:4  783        2:56:9  700        2:22:5  752         800
+    18  Reichenbach           WÜ   3656.31   712    2:27:1  680  50    2:02:7  763        2:42:2  790        2:13:1  824         600
+    19  Emsdetten             WE   3639.99   728    2:24:4  749        2:09:1  711        2:44:4  775        2:15:5  805         600
+    20  Bergen                ND   3619.07   749    2:28:3  721        2:04:5  748        2:41:1  797        2:22:4  753         600
+
+    21  Pirna                 SN   3585.08   783    2:33:2  688        2:05:2  742        2:47:3  757        2:16:5  797         600
+    22  Völklingen            SR   3577.48   790    2:45:5  613        2:05:7  738        2:49:3  745        2:32:8  681         800
+    23  Lübeck                SH   3556.20   812    2:36:8  665        2:14:0  674        2:57:0  699        2:27:3  718         800
+    24  Karlsruhe             BA   3521.01   847    2:35:4  674        2:06:6  731        2:50:7  736        2:18:8  780         600
+    25  Helmstedt             BS   3468.17   900    2:38:2  657        2:12:4  686        2:45:2  770        2:22:0  756         600
+
+    26  Regensburg            BY   3257.11  1111    2:35:3  675        2:10:3  502 200    2:48:9  747        2:25:1  733         600
+    27  Waldfeucht            NR   2839.81  1528    2:36:4  668        2:09:1  711        2:58:7  690        2:19:9  771           0
+        Luckenwalde 2         BB                     n. a.              n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 15/16 männlich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Kleine Rettungsstaffel         
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Luckenwalde 1         BB   4284.27     0    1:58:7  838        1:35:0  855        2:07:6  882        1:46:3  910         800
+     2  Rheda-Wiedenbrück     WE   4026.28   258    2:05:3  781        1:39:3  808        2:17:2  805        1:54:2  833         800
+     3  Herzebrock-Clarholz   WE   4025.42   259    2:02:6  804        1:42:9  770        2:15:8  816        1:53:9  836         800
+     4  Lichtenberg           BE   3929.19   355    2:01:5  813        1:41:1  589 200    2:11:8  848        1:49:3  880         800
+     5  Großschönau           SN   3863.24   421    2:08:4  755        1:49:4  707        2:17:5  803        1:58:0  798         800
+
+     6  Luckenwalde 2         BB   3860.64   424    2:09:2  749        1:45:3  746        2:21:0  776        1:59:0  789         800
+     7  Anklam                MV   3841.49   443    2:02:4  805        1:42:4  775        2:14:5  826        1:54:0  835         600
+     8  Baunatal              HE   3769.95   514    2:09:1  749        1:47:8  722        2:28:7  721        2:00:4  777         800
+     9  Schwerte              WE   3763.38   521    2:11:9  727        1:49:5  706        2:21:4  773        2:02:8  757         800
+    10  Weimar                TH   3758.07   526    2:10:0  742        1:54:4  662        2:22:8  763        1:58:9  790         800
+
+    11  Neuenkirchen-Wettr.   WE   3726.24   558    2:11:8  728        1:51:5  688        2:28:0  726        1:59:6  784         800
+    12  Neumarkt              BY   3663.92   620    2:05:1  782        1:44:1  558 200    2:26:6  736        1:59:2  788         800
+    13  Halle-Saalkreis       SA   3554.67   730    1:58:0  844        1:41:0  590 200    2:10:7  857        1:50:9  864         400
+    14  Bietigheim-Bissingen  WÜ   3522.51   762    2:13:9  712        2:00:5  612        2:35:5  676        2:07:0  722         800
+    15  Lette                 WE   3486.99   797    2:09:1  749        1:54:8  659        2:30:6  708        2:01:2  770         600
+
+    16  Kleve                 NR   3460.11   824    2:15:1  703        1:48:7  714        2:32:4  696        2:03:9  747         600
+    17  Emmelshausen          RP   3401.24   883    2:27:9  614        1:56:2  647        2:34:7  681        2:15:3  658         800
+    18  Ahrensburg            SH   3389.45   895    2:21:4  658        2:01:7  603        2:44:3  623        2:09:0  706         800
+    19  Nieder-Olm/Wörrstadt  RP   3389.29   895    2:16:1  695        1:51:7  686        2:33:5  689        2:07:4  719         600
+    20  Völklingen            SR   3384.31   900    2:12:7  721        1:56:7  643        2:32:1  698        2:07:0  722         600
+
+    21  Beckum                WE   3382.11   902    2:17:0  689        1:52:4  680        2:38:3  659        2:03:0  755         600
+    22  Lörrach               BA   3374.12   910    2:12:7  721        1:55:8  650        2:43:1  630        2:00:9  773         600
+    23  Braunschweig          BS   3311.13   973    2:22:1  653        2:02:8  595        2:52:7  577        2:11:5  687         800
+    24  Pohlheim              HE   3259.12  1025    2:21:6  656        1:58:9  625        2:34:7  681        2:10:2  697         600
+    25  Emsbüren              ND   3230.14  1054    2:21:5  657        2:01:9  602        2:37:8  462 200    2:08:5  710         800
+
+    26  Görlitz               SN   3197.38  1087    2:03:1  799        1:51:7  686        2:26:0  540 200    2:01:0  772         400
+    27  Magdeburg             SA   3103.29  1181    2:25:9  627        2:13:6  522        2:41:4  640        2:08:0  514 200     800
+    28  Lüdinghausen          WE   2169.27  2115    2:12:2  725        1:48:8  713        2:27:2  732        1:56:5      VaP   n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 17/18 weiblich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Rettungsstaffel                
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Lichtenberg           BE   4468.27     0    2:07:2  883        1:49:4  885        2:23:3  922        1:55:1  979         800
+     2  Halle-Saalkreis       SA   4246.09   222    2:12:0  843        1:43:8  941        2:27:2  693 200    1:56:2  969         800
+     3  Reken                 WE   4121.63   347    2:20:8  775        1:54:2  839        2:36:3  829        2:06:4  879         800
+     4  Pirna                 SN   4049.17   419    2:18:7  791        1:49:9  880        2:29:1  879        2:04:0  899         600
+     5  Region Uetersen       SH   4039.72   429    2:12:7  838        1:45:2  727 200    2:24:1  916        1:57:2  960         600
+
+     6  Olfen                 WE   4012.29   456    2:25:4  742        1:55:5  827        2:36:2  829        2:14:3  814         800
+     7  Gelsenkirchen-Mitte   WE   3953.07   515    2:18:3  794        1:54:4  837        2:34:8  839        2:05:9  883         600
+     8  Neuenkirchen-Wettr.   WE   3935.04   533    2:26:1  737        1:58:5  800        2:39:8  805        2:17:0  793         800
+     9  Rheurdt-Schaephuysen  NR   3851.80   616    2:34:6  679        1:59:9  788        2:42:1  790        2:16:8  795         800
+    10  Herzogenaurach        BY   3830.64   638    2:19:1  788        2:00:0  787        2:42:0  791        2:08:0  865         600
+
+    11  Altona                HH   3827.32   641    2:30:7  705        2:06:0  736        2:44:9  772        2:14:3  814         800
+    12  Bergen                ND   3820.43   648    2:31:5  700        2:02:4  766        2:43:7  780        2:19:4  775         800
+    13  Spelle                ND   3800.21   668    2:29:4  714        2:04:6  747        2:44:2  777        2:21:1  762         800
+    14  Luckenwalde           BB   3768.09   700    2:22:7  761        1:51:5  865        2:28:9  680 200    2:08:4  662 200     800
+    15  Durlach               BA   3764.86   703    2:31:2  702        2:05:6  739        2:48:0  753        2:19:9  771         800
+
+    16  Nümbrecht             NR   3761.07   707    2:34:8  678        2:05:6  739        2:44:6  774        2:20:1  770         800
+    17  Weimar                TH   3703.30   765    2:28:5  720        2:05:3  742        2:41:3  595 200    2:10:3  846         800
+    18  Magdeburg             SA   3676.01   792    2:18:9  789        2:12:4  686        2:51:9  729        2:07:2  872         600
+    19  Alpen                 NR   3671.28   797    2:28:1  723        2:04:1  552 200    2:41:2  796        2:16:0  801         800
+    20  Pohlheim              HE   3634.70   834    2:38:9  652        1:55:3  829        2:42:4  588 200    2:20:7  765         800
+
+    21  Bietigheim-Bissingen  WÜ   3546.35   922    2:35:4  674        2:14:7  668        3:04:2  660        2:23:6  744         800
+    22  Schloß Holte St.      WE   3542.19   926    2:41:7  635        2:00:2  785        2:42:8  786        2:24:7  736         600
+    23  Dettingen             WÜ   3467.20  1001    2:28:3  721        2:02:5  365 400    2:46:3  763        2:13:9  817         800
+    24  Lette                 WE   3199.96  1268    2:40:8  441 200    2:10:8  698        2:47:4  757        2:29:2  705         600
+    25  Oggersheim            RP   2838.59  1630    2:40:4  643        1:59:9  788        2:39:4  608 200    2:22:6      VaP     800
+
+    26  Dettum                BS   2823.64  1645    2:55:0  513  50    2:22:1  617        3:05:4  653        2:39:2  641         400
+        Echternacherbrück     RP                     n. a.              n. a.              n. a.              n. a.            n. a.
+        Wadgassen             SR                     n. a.              n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis AK 17/18 männlich   
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Rettungsstaffel                
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Lichtenberg           BE   4384.50     0    1:50:9  910        1:35:7  847        2:06:3  893        1:43:9  934         800
+     2  Pirna                 SN   4289.01    95    1:56:4  859        1:34:1  865        2:10:9  855        1:46:2  911         800
+     3  Stralsund             MV   4212.25   172    1:55:8  864        1:37:4  828        2:15:6  817        1:47:0  903         800
+     4  Luckenwalde           BB   4145.91   239    2:01:8  810        1:37:7  825        2:11:6  849        1:51:2  861         800
+     5  Kämpfelbach           BA   4139.67   245    2:04:0  792        1:34:6  859        2:11:7  848        1:53:4  840         800
+
+     6  Ahrensburg            SH   4137.54   247    2:01:5  813        1:35:6  848        2:15:4  819        1:51:6  858         800
+     7  Ennigerloh            WE   4121.10   263    1:54:7  874        1:32:3  885        2:11:8  848        1:45:9  914         600
+     8  Magdeburg             SA   4095.95   289    2:01:6  812        1:39:9  801        2:14:4  827        1:51:8  856         800
+     9  Pohlheim              HE   4069.17   315    2:00:3  824        1:42:4  775        2:16:2  813        1:51:6  858         800
+    10  Weimar                TH   4045.63   339    1:54:3  878        1:38:9  812        2:12:5  842        1:45:9  914         600
+
+    11  Gütersloh             WE   4034.24   350    2:03:3  798        1:41:0  790        2:17:5  803        1:53:0  844         800
+    12  Heuchelheim           HE   4012.59   372    2:04:2  790        1:42:3  776        2:16:6  810        1:53:8  837         800
+    13  Emsdetten             WE   3957.12   427    1:59:1  834        1:45:8  741        2:23:9  755        1:54:9  827         800
+    14  Hagen                 ND   3918.22   466    2:10:6  738        1:39:4  807        2:18:6  794        2:00:1  780         800
+    15  Herzogenaurach        BY   3758.87   626    2:00:8  819        1:45:7  742        2:23:0  762        1:53:9  836         600
+
+    16  Langenberg            NR   3755.98   629    2:12:3  724        1:46:8  732        2:27:7  728        2:01:0  772         800
+    17  Neuenkirchen-Wettr.   WE   3723.99   661    2:00:5  822        1:50:0  701        2:24:9  548 200    1:52:1  853         800
+    18  Siersburg             SR   3703.12   681    2:10:9  735        1:55:9  650        2:27:6  729        1:59:0  789         800
+    19  Altona                HH   3656.37   728    2:06:7  769        1:48:4  716        2:25:9  541 200    1:54:5  830         800
+    20  Dorheim               HE   3641.15   743    2:08:0  758        1:47:2  728        2:23:8  556 200    1:57:9  799         800
+
+    21  Obernheim             WÜ   3597.72   787    2:11:1  734        2:01:3  606        2:33:6  688        2:01:3  769         800
+    22  Brühl                 NR   3562.67   822    2:10:6  738        1:50:0  701        2:27:6  729        1:58:4  795         600
+    23  Eisenberg             RP   3517.67   867    2:19:6  670        1:50:3  699        2:40:1  648        2:09:6  701         800
+    24  Altenkirchen          RP   3495.30   889    2:09:2  749        1:52:5  679        2:31:2  504 200    2:02:0  763         800
+    25  Helmstedt             BS   3412.30   972    2:18:4  679        2:06:1  571        2:44:6  621        2:04:6  742         800
+
+        Leer                  ND                     n. a.              n. a.              n. a.              n. a.            n. a.
+        Hettstedt             SA                     n. a.              n. a.              n. a.              n. a.            n. a.
+        Bad Salzuflen         WE                     n. a.              n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis Damen-offene Klasse 
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Rettungsstaffel                
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Anklam                MV   4692.31     0    2:03:6  913        1:41:5  965        2:12:5 1005        1:52:0 1008         800
+     2  Lichtenberg           BE   4599.37    93    2:05:1  901        1:40:8  973        2:19:8  948        1:55:2  978         800
+     3  Halle-Saalkreis       SA   4360.90   331    2:11:3  849        1:43:1  948        2:15:0  785 200    1:55:2  978         800
+     4  Region Uetersen 2     SH   4348.65   344    2:08:7  870        1:41:3  967        2:20:2  945        1:56:5  966         600
+     5  Bietigheim-Biss. 2    WÜ   4288.05   404    2:11:5  847        1:52:6  854        2:28:3  885        2:03:7  902         800
+
+     6  Luckenwalde           BB   4201.02   491    2:19:5  785        1:52:9  851        2:25:8  903        2:08:4  862         800
+     7  Region Uetersen 1     SH   4173.81   519    2:20:1  780        1:51:9  861        2:25:2  907        2:06:8  825  50     800
+     8  Harsewinkel           WE   4172.96   519    2:19:1  788        1:53:9  842        2:32:1  858        2:05:6  886         800
+     9  Rheda-Wiedenbrück     WE   4170.69   522    2:16:4  808        1:46:1  718 200    2:23:4  921        2:01:2  924         800
+    10  Nümbrecht             NR   4166.58   526    2:19:1  788        1:58:3  802        2:27:6  890        2:05:4  887         800
+
+    11  Altona                HH   4100.87   591    2:21:0  773        1:53:1  849        2:38:2  816        2:08:4  862         800
+    12  Bad Wünnenberg        WE   4084.40   608    2:19:5  785        1:49:4  885        2:24:0  916        2:04:1  898         600
+    13  Magdeburg             SA   4071.17   621    2:13:1  834        1:55:0  632 200    2:28:9  880        2:01:1  925         800
+    14  Schloß Holte St.      WE   4062.17   630    2:23:8  753        1:56:2  821        2:31:9  859        2:12:4  829         800
+    15  Norderstedt           SH   4020.63   672    2:17:9  797        1:50:4  875        2:28:4  884        2:08:1  865         600
+
+    16  Heuchelheim           HE   4018.68   674    2:24:7  747        1:54:5  836        2:39:5  807        2:12:5  829         800
+    17  Bietigheim-Biss. 1    WÜ   3982.96   709    2:23:4  756        2:01:5  774        2:38:8  812        2:10:9  841         800
+    18  Bochum-Mitte          WE   3949.66   743    2:25:4  742        2:01:9  770        2:41:4  795        2:10:7  843         800
+    19  Gelsenkirchen-Mitte   WE   3911.48   781    2:24:5  748        2:03:2  759        2:43:1  784        2:13:5  821         800
+    20  Emsdetten             WE   3851.44   841    2:20:9  774        1:55:6  826        2:37:7  819        2:12:1  832         600
+
+    21  Karlsruhe             BA   3818.78   874    2:27:5  727        1:54:0  841        2:36:4  828        2:13:2  823         600
+    22  Weener                ND   3796.44   896    2:27:3  528 200    1:57:5  809        2:39:5  807        2:09:6  852         800
+    23  Völklingen            SR   3690.27  1002    2:28:3  721        2:02:4  766        2:39:0  811        2:17:1  792         600
+    24  Laubach               HE   3127.41  1565    2:27:0  730        1:58:3  802        2:41:3  795        2:17:5      VaP     800
+        Rheinböllen           RP                     n. a.              n. a.              n. a.              n. a.            n. a.
+
+        Leipzig               SN                     n. a.              n. a.              n. a.              n. a.            n. a.
+        Salzgitter-Thiede     BS                     n. a.              n. a.              n. a.              n. a.            n. a.
+        Weimar                TH                     n. a.              n. a.              n. a.              n. a.            n. a.
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!
+
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+
+
+     31. Deutschen Meisterschaften
+     im Rettungsschwimmen
+     Mannschaftswettbewerbe
+     Samstag 4.10.2003 in Braunschweig
+
+
+     Endergebnis Herren-offene Klasse
+
+     Wettkampf 1    4 x 50 m Hindernisstaffel               
+     Wettkampf 2    4 x 25 m Puppenstaffel                  
+     Wettkampf 3    4 x 50 m Rettungsstaffel                
+     Wettkampf 4    4 x 50 m Gurtretterstaffel              
+     Wettkampf 5    Herz-Lungen-Wiederbelebung
+
+    Pl  Mannschaft            Gld  Gespkt   Diff    Zeit-1 Pkt1 St1    Zeit-2 Pkt2 St2    Zeit-3 Pkt3 St3    Zeit-4 Pkt4 St4     HLW
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+     1  Gütersloh             WE   4619.51     0    1:52:4  896        1:22:2 1009        1:58:3  963        1:42:3  951         800
+     2  Halle-Saalkreis 1     SA   4608.62    11    1:50:5  914        1:26:1  960        2:00:3  945        1:38:7  989         800
+     3  Lichtenberg           BE   4584.08    35    1:48:8  931        1:21:0 1025        1:51:9 1023        1:37:2 1005         600
+     4  Bietigheim-Biss. 1    WÜ   4576.03    43    1:50:2  917        1:24:8  976        2:02:9  922        1:41:4  960         800
+     5  Region Uetersen 1     SH   4481.13   138    1:53:2  888        1:28:6  929        2:02:7  924        1:43:4  939         800
+
+     6  Bad Wünnenberg        WE   4445.02   174    1:55:2  870        1:29:1  923        2:02:0  930        1:45:1  922         800
+     7  Alpen                 NR   4444.62   175    1:52:8  892        1:31:4  896        2:02:2  929        1:44:5  928         800
+     8  Rheda-Wiedenbrück 1   WE   4441.69   178    1:56:7  856        1:32:0  889        1:58:7  960        1:43:6  937         800
+     9  Luckenwalde           BB   4416.56   203    1:54:7  874        1:31:3  897        2:02:1  929        1:45:7  916         800
+    10  Wadgassen             SR   4350.21   269    1:51:5  905        1:25:8  964        1:58:2  764 200    1:45:5  918         800
+
+    11  Weener                ND   4339.87   280    1:54:2  879        1:39:0  811        2:02:7  924        1:44:7  926         800
+    12  Magdeburg             SA   4287.69   332    1:49:1  928        1:34:9  656 200    1:53:4  959  50    1:42:8  945         800
+    13  Halle-Saalkreis 2     SA   4276.12   343    2:00:3  824        1:32:6  882        2:05:1  903        1:50:6  867         800
+    14  Bietigheim-Biss. 2    WÜ   4247.35   372    1:56:1  861        1:32:6  882        2:14:0  830        1:49:9  874         800
+    15  Oggersheim            RP   4204.09   415    1:59:3  832        1:36:2  841        2:11:8  848        1:49:0  883         800
+
+    16  Korschenbroich        NR   4199.38   420    2:00:7  820        1:35:6  848        2:10:0  862        1:50:4  869         800
+    17  Rheda-Wiedenbrück 2   WE   4144.43   475    2:02:3  806        1:34:2  864        2:10:5  858        1:56:0  816         800
+    18  Weimar 1              TH   4141.22   478    1:57:0  853        1:42:5  774        2:15:5  818        1:47:7  896         800
+    19  Nieder-Olm/Wörrstadt  RP   4070.69   549    2:01:2  816        1:41:1  789        2:16:1  814        1:52:1  853         800
+    20  Region Uetersen 2     SH   3988.40   631    1:59:0  835        1:35:9  845        2:12:2  844        1:50:9  864         600
+
+    21  Wismar                MV   3976.05   643    1:59:7  829        1:42:1  778        2:09:4  867        1:47:1  902         600
+    22  Pohlheim              HE   3967.09   652    2:06:6  770        1:43:1  768        2:16:8  808        1:55:5  821         800
+    23  Stralsund             MV   3955.32   664    1:52:2  898        1:26:5  955        1:58:2  964        1:43:5  938         200
+    24  Karlsruhe             BA   3931.09   688    2:05:1  782        1:32:5  883        2:16:8  808        1:51:6  858         600
+    25  Nümbrecht             NR   3863.03   756    2:04:2  790        1:40:5  795        2:14:1  829        1:52:5  849         600
+
+    26  Rheinböllen           RP   3832.20   787    2:04:7  586 200    1:42:0  779        2:19:0  791        1:49:7  876         800
+    27  Braunschweig          BS   3821.04   798    2:17:7  684        1:43:4  765        2:18:4  796        2:00:5  776         800
+    28  Pirna                 SN   3754.08   865    2:02:2  807        1:42:6  773        2:19:1  591 200    1:59:7  783         800
+
+———————————————————— CHAOS-SOFTWARE V9.07—S67———————————————————— 19:46:42 Uhr ————————————————————  4.10.2003 —————————————————————
+
+
+
+    Die Berechnung der Punkte erfolgt auf zwei Nachkommastellen.
+    Im Protokoll werden diese aus Platzgründen nur bei der Gesamtpunktzahl dargestellt!

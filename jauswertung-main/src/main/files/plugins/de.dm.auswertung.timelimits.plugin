@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="TimeLimitsPlugin" description="" id="de.df.jauswertung.timelimits" classname="de.df.jauswertung.gui.plugins.timelimit.TimeLimitsPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

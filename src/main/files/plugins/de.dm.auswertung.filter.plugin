@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Filterplugin" description="" id="de.df.jauswertung.filter" classname="de.df.jauswertung.gui.plugins.filter.FilterPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.warning"/>
-</plugin>

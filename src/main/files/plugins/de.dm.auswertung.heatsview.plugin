@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Heatsviewplugin" description="" id="de.df.jauswertung.heatsview" classname="de.df.jauswertung.gui.plugins.heatsview.MHeatsViewPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.warning"/>
-</plugin>

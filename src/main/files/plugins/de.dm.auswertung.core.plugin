@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Coreplugin" id="de.df.jauswertung.core" description="" classname="de.df.jauswertung.gui.plugins.CorePlugin">
-</plugin>

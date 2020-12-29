@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Ergebnisplugin" description="" id="de.df.jauswertung.result" classname="de.df.jauswertung.gui.plugins.PResulttablePlugin">
+    <dependency id="de.df.jauswertung.core"/>
+    <dependency id="de.df.jauswertung.editor"/>
+</plugin>

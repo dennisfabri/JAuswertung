@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Mannschaftstaffelregistrationplugin" description="" id="de.df.jauswertung.teamteamregistration" classname="de.df.jauswertung.gui.plugins.registration.PRegistrationInternalMannschaftStaffelPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Import-Export-Plugin" description="" id="de.df.jauswertung.importexport" classname="de.df.jauswertung.gui.plugins.importexport.MImportExportPlugin">
-    <dependency id="de.df.jauswertung.core" optional="true"/>
-    <dependency id="de.df.jauswertung.selectorganisation" optional="true" />
-    <dependency id="de.df.jauswertung.bugreport" />
-</plugin>

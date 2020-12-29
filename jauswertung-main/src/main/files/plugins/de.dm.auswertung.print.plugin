@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Printplugin" description="" id="de.df.jauswertung.print" classname="de.df.jauswertung.gui.plugins.print.PPrintPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+    <dependency id="de.df.jauswertung.warning"/>
+</plugin>

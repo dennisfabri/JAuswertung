@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="urkundenplugin" description="" id="de.df.jauswertung.urkunden" classname="de.df.jauswertung.gui.plugins.urkunden.MUrkundenPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

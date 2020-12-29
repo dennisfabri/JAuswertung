@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="StatisticsPlugin" description="" id="de.df.jauswertung.statistics" classname="de.df.jauswertung.gui.plugins.statistics.MStatisticsPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

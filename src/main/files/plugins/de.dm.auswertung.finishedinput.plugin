@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="FinishedInputPlugin" description="" id="de.df.jauswertung.finishedinput" classname="de.df.jauswertung.gui.plugins.finished.BFinishedInputPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

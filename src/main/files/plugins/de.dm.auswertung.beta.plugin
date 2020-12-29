@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="BetaPlugin" description="" id="de.df.jauswertung.beta" classname="de.df.jauswertung.gui.plugins.OBetaPlugin">
-    <dependency id="de.df.jauswertung.options"/>
-</plugin>

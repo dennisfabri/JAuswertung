@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="File-Plugin" description="Adds support for new, open and save" id="de.df.jauswertung.file" classname="de.df.jauswertung.gui.plugins.MFilePlugin">
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

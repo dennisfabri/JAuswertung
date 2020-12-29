@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Properties-Plugin" description="" id="de.df.jauswertung.properties" classname="de.df.jauswertung.gui.plugins.properties.MPropertiesPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+    <dependency id="de.df.jauswertung.warning"/>
+</plugin>

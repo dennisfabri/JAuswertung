@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Searchplugin" description="" id="de.df.jauswertung.search" classname="de.df.jauswertung.gui.plugins.PSearchPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.editor"/>
-    <dependency id="de.df.jauswertung.starter"/>
-</plugin>

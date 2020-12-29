@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Starterfeature" description="" id="de.df.jauswertung.starter" classname="de.df.jauswertung.gui.plugins.starter.StarterPlugin">
-</plugin>

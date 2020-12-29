@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-15" ?>
+<plugin name="Switch Agegroups Plugin" description="" id="de.df.jauswertung.switchags" classname="de.df.jauswertung.gui.plugins.switchagegroups.BSwitchAgeGroupsPlugin">
+    <dependency id="de.df.jauswertung.core"/>
+</plugin>

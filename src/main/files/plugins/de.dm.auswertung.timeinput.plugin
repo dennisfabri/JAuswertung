@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Timeinputplugin" description="" id="de.df.jauswertung.Timeinput" classname="de.df.jauswertung.gui.plugins.PTimeInputPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.editor"/>
-</plugin>

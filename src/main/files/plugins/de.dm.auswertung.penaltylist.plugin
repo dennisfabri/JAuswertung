@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Penaltylist-Plugin" 
-		description="" 
-		id="de.df.jauswertung.penaltylist" 
-		classname="de.df.jauswertung.gui.plugins.MPenaltylistPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.editor"/>
-</plugin>

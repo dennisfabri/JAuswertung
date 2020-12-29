@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Exitplugin" description="" id="de.df.jauswertung.exit" classname="de.df.jauswertung.gui.plugins.MExitPlugin">
-</plugin>

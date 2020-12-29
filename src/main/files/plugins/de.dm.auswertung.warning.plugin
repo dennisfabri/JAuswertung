@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="WarningPlugin" description="" id="de.df.jauswertung.warning" classname="de.df.jauswertung.gui.plugins.WarningPlugin">
-</plugin>

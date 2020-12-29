@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="BackupPlugin" description="" id="de.df.jauswertung.backup" classname="de.df.jauswertung.gui.plugins.OBackupPlugin">
-    <dependency id="de.df.jauswertung.options"/>
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

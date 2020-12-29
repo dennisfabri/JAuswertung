@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Lauflistenplugin" description="" id="de.df.jauswertung.laufliste" classname="de.df.jauswertung.gui.plugins.heats.MLauflistePlugin">
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

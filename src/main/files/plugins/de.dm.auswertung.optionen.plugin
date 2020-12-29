@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Konfigurationsplugin" 
-        description="" 
-        id="de.df.jauswertung.options" 
-        classname="de.df.jauswertung.gui.plugins.MOptionenPlugin">
-</plugin>

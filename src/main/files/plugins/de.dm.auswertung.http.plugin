@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="HttpServerPlugin" description="" id="de.df.jauswertung.http" classname="de.df.jauswertung.gui.plugins.http.HttpServerPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-    <dependency id="de.df.jauswertung.options"/>
-</plugin>

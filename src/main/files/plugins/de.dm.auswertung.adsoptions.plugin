@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="AdsOptionsPlugin" description="" id="de.df.jauswertung.adsoptions" classname="de.df.jauswertung.gui.plugins.OAdvertisementOptionsPlugin">
-    <dependency id="de.df.jauswertung.options"/>
-</plugin>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
-<plugin name="Hohe Zeiten" description="" id="de.df.jauswertung.hightimes" classname="de.df.jauswertung.gui.plugins.HighTimesPlugin">
-    <dependency id="de.df.jauswertung.core"/>
-</plugin>

@@ -1,0 +1,26 @@
+Klicken Sie doppelt auf die Ergebnistabelle, um gezielt Daten zu ändern.
+Im Strafenkatalog sind alle Strafen des DLRG-Regelwerks enthalten.
+Gelb markiert Felder müssen ausgefüllt werden. Rot markierte Felder enthalten fehlerhafte Angaben.
+Knöpfe sind in der Regel so lange gesperrt, bis alle nötigen Daten vorhanden sind.
+Im Bereich "Drucken" können auch leere Start-, Zieleinlauf- und Fehlermeldekarten gedruckt werden.
+Die Funktion "Laufzeiten" steht nur zur Verfügung, wenn bereits eine Laufeinteilung erstellt wurde.
+An verschiedenen Stellen stehen zusätzliche Funktionen über Doppel- und Rechtsklicks mit der Maus zur Verfügung.
+Anregungen zum Programm können Sie an info@dennisfabri.de schicken.
+In der Ansicht "Meldungen" können Sie mit einem Rechtsklick auf die Spaltenüberschriften der Tabellen auswählen, welche Angaben zu den Schwimmern angezeigt werden sollen.
+Mit einem Doppelklick zwischen zwei Spaltenüberschriften können Sie die Spalten auf ihre optimale Breite bringen.
+Bei der Zeiten- und Laufzeiteneingabe können direkt Strafen vergeben werden: "n" setzt (nur solange keine Zeit eingetragen wurde) "Nicht Angetreten", "d" setzt immer "Disqualifiziert", "p" öffnet ein Fenster zur Strafpunkteeingabe, "c" öffnet ein Fenster zur Auswahl des Fehlercodes und "#" löscht immer eine Strafe.
+Bei der Zeiten- und Laufzeiten-Eingabe können Sie zwischen den einzelnen Zeilen durch drücken der Tasten Pfeil-Oben und Pfeil-Unten wechseln. Mit "Strg+Enter" drücken sie den Button "weiter".
+Bei der Laufzeiteneingabe können Sie mit den Cursor-Tasten zwischen den einzelnen Läufen wechseln.
+Fehler des Programms können Sie unter info@dennisfabri.de melden.
+Während der Bearbeitung von Lauf-Listen können Sie einzelne Teilnehmer oder Mannschaften mit Drag'n'Drop in die Warteliste bzw. in die Tabelle verschieben.
+Um bei der Bearbeitung von Lauf-Listen versehentliches Ersetzen eines Teilnehmers oder einer Mannschaft zu verhindern, kann jeweils nur eine Aktion ausgeführt werden. D.h. entweder wird z.B. ein Teilnehmer hinzugefügt oder er wird entfernt. Überschreiben ist nicht möglich.
+Startkarten werden so gedruckt, dass die Startkarten der jeweiligen Bahnen hintereinander liegen.
+Wenn Sie Startkarten gedruckt haben, scheiden sie Startkarten auseinander ohne die Reihenfolge der Blätter zu ändern. Wenn Sie nun die vier Stapel von in der Reihenfolge unten rechts, unten links, oben rechts und oben links aufeinanderlegen, sind die Startkarten bereits vollständig sortiert.
+Die Felder zur Auswahl einzelner Disziplinen sind nur dann aktiv, wenn die Altersklasse die Auswahl von Disziplinen erlaubt.
+Das Ausdrucken von Wertungen einzelner Disziplinen ist nur für die Altersklassen aktiv, die eine Einzelwertung der Disziplinen vorsehen.
+F11 druckt die Ergebnisse der Altersklasse, bei der zuletzt eine Disziplin komplett eingegeben wurde. Drückt man dabei die Taste Strg, erscheint der Drucken-Dialog.
+F12 druckt für alle Altersklassen die Ergebnisse mit den Disziplinen, die vollständig eingegeben wurden. Drückt man dabei die Taste Strg, erscheint der Drucken-Dialog.
+Bei der Zeiten und Laufzeiteneingabe kann die korrekte Zeit aus mehreren von Hand gemessenen Zeiten für eine Bahn ermittelt werden, indem sie den entsprechenden Dialog mittels "m" öffnen und dort alle gemessenen Zeiten eintragen.
+Es gibt eine Reihe von Tastaturkürzeln für häufig verwendete Funktionen: Strg+S: Speichern eines Wettkampfs, Strg+O: Öffnen eines Wettkampfs, Strg+Z: Zielrichterentscheid, Strg+I: Importieren, Strg+E: Exportieren, Strg+D: Daten prüfen, Strg+R: Regelwerk bearbeiten.
+Eingegebene Zeiten werden direkt übernommen und müssen nicht einzeln gespeichert werden.
+Sie können unter Eigenschaften das Jahr des Wettkampfs festlegen. Dieses Jahr wird dann zur Bestimmung der Altersklassen genutzt. Nutzen Sie diese Funktion, um Wettkämpfe vorzubereiten, die erst im nächsten Jahr statt finden.
