@@ -166,6 +166,8 @@ public final class DefaultInit {
         if (font != null) {
             font = font.deriveFont(Font.PLAIN, 10);
         }
-        PrintManager.setFont(font);
+        if (font != null) {
+            PrintManager.setFont(font);
+        }
     }
 }
