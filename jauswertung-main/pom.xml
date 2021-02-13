@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.dennisfabri</groupId>
 		<artifactId>jauswertung</artifactId>
-		<version>15.1.0-SNAPSHOT</version>
+		<version>15.1.1</version>
 	</parent>
 
 	<artifactId>jauswertung-main</artifactId>
