@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="8.0.8" transformSequenceNumber="8">
+<install4j version="8.0.9" transformSequenceNumber="8">
   <directoryPresets config="../target" />
   <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="15.1.0" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="11" allowBetaVM="true" jdkMode="jdk" jdkName="JDK 11.0">
     <languages>
@@ -19,14 +19,12 @@
       <root id="1022" fileset="1021" />
     </roots>
     <mountPoints>
-      <mountPoint id="1257" location="handbuch" />
       <mountPoint id="58" />
       <mountPoint id="897" root="896" />
       <mountPoint id="1023" root="1018" />
       <mountPoint id="1024" root="1022" />
     </mountPoints>
     <entries>
-      <dirEntry mountPoint="1257" file="../target/site" subDirectory="site" />
       <dirEntry mountPoint="58" file="../target/distribution/main" subDirectory="distribute" excludeSuffixes="*.log" />
       <dirEntry mountPoint="897" file="../target/distribution/windows" subDirectory="windows" />
       <dirEntry mountPoint="1023" file="../target/distribution/linux" subDirectory="linux" />
@@ -67,7 +65,7 @@
   <launchers>
     <launcher name="JAuswertung" id="247">
       <executable name="JAuswertung" iconSet="true" executableMode="gui" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="JAuswertung" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -76,16 +74,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="UISettings" id="348">
       <executable name="UISettings" iconSet="true" executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="UISettings" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -94,16 +92,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="JTeams" id="354">
       <executable name="JTeams" iconSet="true" executableMode="gui" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="JTeams" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -112,16 +110,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="AlphaServer" id="357">
       <executable name="AlphaServer" iconSet="true" redirectStdout="true" executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png">
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png">
         <text>
           <statusLine y="20" text="AlphaServer" />
           <versionLine y="40" text="Version ${compiler:sys.version}" />
@@ -138,16 +136,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="Strafenkatalog" id="358">
       <executable name="Strafenkatalog" iconSet="true" executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-strafenkatalog">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -156,16 +154,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="Regelwerkseditor" id="359">
       <executable name="Regelwerkseditor" iconSet="true" executableMode="gui" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-ak">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -174,16 +172,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="Veranstaltungswertung" id="360">
       <executable name="Veranstaltungswertung" iconSet="true" executableMode="gui" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-veranstaltungswertung">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -192,16 +190,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="Launcher" id="366" excludeFromMenu="true">
       <executable name="Launcher" iconSet="true" executableMode="gui" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="Launcher" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -210,16 +208,16 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="AresWriter" id="476">
       <executable name="AresWriter" iconSet="true" executableDir="." executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="AresLauncher" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -228,11 +226,11 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="alphaserver-cmd" id="1147" excludeFromMenu="true">
@@ -254,7 +252,7 @@
     </launcher>
     <launcher name="dpsplitter-cmd" id="1153" excludeFromMenu="true">
       <executable name="dpsplitter-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
-      <splashScreen bitmapFile="../src/main/files/images/logo.png" />
+      <splashScreen bitmapFile="../target/distribution/main/images/logo.png" />
       <java mainClass="de.df.jauswertung.dp.splitter.DPSplitter" vmParameters="-Xmx1024m -Xms64m">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
@@ -263,11 +261,11 @@
       </java>
       <macStaticAssociationActions mode="selected" />
       <iconImageFiles>
-        <file path="../src/main/files/icons/jauswertung-16.png" />
-        <file path="../src/main/files/icons/jauswertung-32.png" />
-        <file path="../src/main/files/icons/jauswertung-48.png" />
-        <file path="../src/main/files/icons/jauswertung-128.png" />
-        <file path="../src/main/files/icons/jauswertung-256.png" />
+        <file path="../target/distribution/main/icons/jauswertung-16.png" />
+        <file path="../target/distribution/main/icons/jauswertung-32.png" />
+        <file path="../target/distribution/main/icons/jauswertung-48.png" />
+        <file path="../target/distribution/main/icons/jauswertung-128.png" />
+        <file path="../target/distribution/main/icons/jauswertung-256.png" />
       </iconImageFiles>
     </launcher>
   </launchers>
@@ -319,7 +317,7 @@
                     <property name="imageEdgeBorder" type="boolean" value="true" />
                     <property name="imageFile">
                       <object class="com.install4j.api.beans.ExternalFile">
-                        <string>../src/main/files/images/logo-vertical.png</string>
+                        <string>../target/distribution/main/images/logo-vertical.png</string>
                       </object>
                     </property>
                     <property name="insets">
@@ -431,7 +429,7 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="icon">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jAuswertung.ico</string>
+                      <string>../target/distribution/main/icons/jAuswertung.ico</string>
                     </object>
                   </property>
                   <property name="iconSource" type="enum" class="com.install4j.runtime.beans.actions.desktop.IconSource" value="CUSTOM" />
@@ -543,7 +541,7 @@ return console.askOkCancel(message, true);
                   <property name="winAdditionalParameters" type="string" />
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jDatei.ico</string>
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
                     </object>
                   </property>
                 </serializedBean>
@@ -557,7 +555,7 @@ return console.askOkCancel(message, true);
                   <property name="winAdditionalParameters" type="string" />
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jDatei.ico</string>
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
                     </object>
                   </property>
                 </serializedBean>
@@ -570,7 +568,7 @@ return console.askOkCancel(message, true);
                   <property name="macRole" type="enum" class="com.install4j.runtime.beans.actions.desktop.MacAssociationRole" value="EDITOR" />
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jDatei.ico</string>
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
                     </object>
                   </property>
                 </serializedBean>
@@ -584,7 +582,7 @@ return console.askOkCancel(message, true);
                   <property name="winAdditionalParameters" type="string" />
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jDatei.ico</string>
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
                     </object>
                   </property>
                 </serializedBean>
@@ -597,7 +595,7 @@ return console.askOkCancel(message, true);
                   <property name="macRole" type="enum" class="com.install4j.runtime.beans.actions.desktop.MacAssociationRole" value="EDITOR" />
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>../src/main/files/icons/jDatei.ico</string>
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
                     </object>
                   </property>
                 </serializedBean>

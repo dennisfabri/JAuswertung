@@ -1,168 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>de.dennisfabri</groupId>
-		<artifactId>jauswertung</artifactId>
-		<version>15.1.1</version>
+		<artifactId>jauswertung-project</artifactId>
+		<version>15.1.2</version>
 	</parent>
+	<artifactId>jauswertung-setup</artifactId>
+	<packaging>pom</packaging>
 
-	<artifactId>jauswertung-main</artifactId>
-	<packaging>jar</packaging>
+	<name>JAuswertung Setup</name>
 
-    <name>JAuswertung Main</name>
-	<description></description>
-
-	<properties>
-		<project.build.sourceEncoding>Windows-1252</project.build.sourceEncoding>
-	</properties>
-
-		<dependencies>
-		<dependency>
-			<groupId>com.github.mpkorstanje</groupId>
-			<artifactId>simmetrics-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.pmease</groupId>
-			<artifactId>commons.xmt</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>io.github.kostaskougios</groupId>
-			<artifactId>cloning</artifactId>
-		</dependency>
-
+	<dependencies>
 		<dependency>
 			<groupId>de.dennisfabri</groupId>
-			<artifactId>alphaserver</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-totd</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-fontchooser</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-outlookbar</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-buttonbar</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.vlsi.mxgraph</groupId>
-			<artifactId>jgraphx</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>flying-saucer-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-text</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-jfx</artifactId>
-		</dependency>
-
-		<!-- Runtime -->
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Test -->
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<artifactId>jauswertung</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<release>${java.version}</release>
-					<compilerArgs>
-						<arg>-Xlint:deprecation</arg>
-						<arg>-Xlint:unchecked</arg>
-					</compilerArgs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.4.1</version>
-				<executions>
-					<execution>
-						<id>enforce-maven</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireMavenVersion>
-									<version>3.6.3</version>
-								</requireMavenVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -228,7 +87,54 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>unpack</id>
+						<id>unpack-files</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>de.dennisfabri</groupId>
+									<artifactId>jauswertung-files</artifactId>
+									<version>${project.version}</version>
+									<classifier>files</classifier>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+									<excludes>**/*.sh</excludes>
+								</artifactItem>
+							</artifactItems>
+							<includes>**/*.*</includes>
+							<outputDirectory>${project.build.directory}/wars</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>de.dennisfabri</groupId>
+									<artifactId>jauswertung</artifactId>
+									<version>${project.version}</version>
+									<classifier>site</classifier>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/distribution/main/handbuch</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+							<includes>**/*.*</includes>
+							<outputDirectory>${project.build.directory}/wars</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-alphaserver</id>
 						<phase>package</phase>
 						<goals>
 							<goal>unpack</goal>
@@ -268,7 +174,7 @@
 							<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.basedir}/src/main/files</directory>
+									<directory>${project.basedir}../jauswertung-files/src/main/files</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
@@ -296,47 +202,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.9.1</version>
-				<configuration>
-					<generateReports>true</generateReports>
-					<relativizeDecorationLinks>false</relativizeDecorationLinks>
-					<locales>de</locales>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.doxia</groupId>
-						<artifactId>doxia-module-markdown</artifactId>
-						<version>1.9.1</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<id>package-site</id>
-						<phase>package</phase>
-						<goals>
-							<goal>site</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>site</id>
-						<phase>site</phase>
-						<goals>
-							<goal>site</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.1.1</version>
-			</plugin>
-			<plugin>
 				<groupId>org.sonatype.install4j</groupId>
 				<artifactId>install4j-maven-plugin</artifactId>
-				<version>1.1.2</version>
 				<executions>
 					<execution>
 						<id>compile-setups</id>
@@ -345,7 +212,7 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
-							<projectFile>${project.basedir}/install4j/install4j.install4j</projectFile>
+							<projectFile>${project.basedir}/src/install4j.install4j</projectFile>
 							<destination>target/</destination>
 							<debug>false</debug>
 							<buildIds>windows,macos,unix</buildIds>
@@ -358,20 +225,6 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.3.0</version>
 				<executions>
-					<execution>
-						<id>pack-src</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<archiveBaseDirectory>.</archiveBaseDirectory>
-							<outputDirectory>target</outputDirectory>
-							<descriptors>
-								<descriptor>assembly-src.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
 					<execution>
 						<id>pack-linux-setup</id>
 						<phase>package</phase>
@@ -399,6 +252,9 @@
 						</goals>
 						<configuration>
 							<target>
+							    <move 
+							        file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar" 
+							        tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar"/>
 								<delete
 									file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
 								<delete file="${project.build.directory}/sha256sums" />
@@ -411,25 +267,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.1.1</version>
-				<reportSets>
-					<reportSet>
-						<reports><!-- select reports -->
-							<report>dependencies</report>
-							<report>dependency-convergence</report>
-							<report>dependency-management</report>
-							<report>plugin-management</report>
-							<report>plugins</report>
-							<report>summary</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>

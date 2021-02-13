@@ -5,17 +5,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.dennisfabri</groupId>
-	<artifactId>jauswertung</artifactId>
-	<version>15.1.1</version>
+	<artifactId>jauswertung-project</artifactId>
+	<version>15.1.2</version>
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
 	<description></description>
 	<url>https://github.com/dennisfabri/JAuswertung</url>
-	
+
 	<properties>
 		<project.build.sourceEncoding>Windows-1252</project.build.sourceEncoding>
-		
+
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -24,7 +24,7 @@
 		<poi.version>4.1.2</poi.version>
 		<jersey.version>3.0.0</jersey.version>
 		<javafx.version>15.0.1</javafx.version>
-		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>		
+		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
 	</properties>
 
 	<distributionManagement>
@@ -49,144 +49,147 @@
 	</mailingLists>
 
 	<modules>
-		<module>jauswertung-main</module>
+		<module>jauswertung</module>
+		<module>jauswertung-files</module>
 		<module>jauswertung-misc</module>
 	</modules>
 
+	<profiles>
+		<profile>
+			<id>setup</id>
+			<modules>
+				<module>jauswertung-setup</module>
+			</modules>
+		</profile>
+	</profiles>
+
 	<dependencyManagement>
-	<dependencies>
-				<dependency>
-				<groupId>org.sonatype.install4j</groupId>
-				<artifactId>install4j-maven-plugin</artifactId>
-				<version>1.1.2</version>
-				<type>maven-plugin</type>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.mpkorstanje</groupId>
+				<artifactId>simmetrics-core</artifactId>
+				<version>4.1.2-SNAPSHOT</version>
 			</dependency>
 
-		<dependency>
-			<groupId>com.github.mpkorstanje</groupId>
-			<artifactId>simmetrics-core</artifactId>
-			<version>4.1.2-SNAPSHOT</version>
-		</dependency>
+			<dependency>
+				<groupId>com.pmease</groupId>
+				<artifactId>commons.xmt</artifactId>
+				<version>1.2.1-SNAPSHOT</version>
+			</dependency>
 
-		<dependency>
-			<groupId>com.pmease</groupId>
-			<artifactId>commons.xmt</artifactId>
-			<version>1.2.1-SNAPSHOT</version>
-		</dependency>
+			<dependency>
+				<groupId>io.github.kostaskougios</groupId>
+				<artifactId>cloning</artifactId>
+				<version>1.10.3</version>
+			</dependency>
 
-		<dependency>
-			<groupId>io.github.kostaskougios</groupId>
-			<artifactId>cloning</artifactId>
-			<version>1.10.3</version>
-		</dependency>
+			<dependency>
+				<groupId>de.dennisfabri</groupId>
+				<artifactId>alphaserver</artifactId>
+				<version>${version.alphaserver}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>de.dennisfabri</groupId>
-			<artifactId>alphaserver</artifactId>
-			<version>${version.alphaserver}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>core</artifactId>
+				<version>3.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents.client5</groupId>
+				<artifactId>httpclient5</artifactId>
+				<version>5.0.3</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5</artifactId>
-			<version>5.0.3</version>
-		</dependency>
+			<dependency>
+				<groupId>org.lisasp.legacy</groupId>
+				<artifactId>l2fprod-common-totd</artifactId>
+				<version>7.4.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.lisasp.legacy</groupId>
+				<artifactId>l2fprod-common-fontchooser</artifactId>
+				<version>7.4.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.lisasp.legacy</groupId>
+				<artifactId>l2fprod-common-outlookbar</artifactId>
+				<version>7.4.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.lisasp.legacy</groupId>
+				<artifactId>l2fprod-common-buttonbar</artifactId>
+				<version>7.4.0-SNAPSHOT</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-totd</artifactId>
-			<version>7.4.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-fontchooser</artifactId>
-			<version>7.4.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-outlookbar</artifactId>
-			<version>7.4.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-buttonbar</artifactId>
-			<version>7.4.0-SNAPSHOT</version>
-		</dependency>
+			<dependency>
+				<groupId>com.github.vlsi.mxgraph</groupId>
+				<artifactId>jgraphx</artifactId>
+				<version>4.1.0</version>
+			</dependency>
 
-		<dependency>
-			<groupId>com.github.vlsi.mxgraph</groupId>
-			<artifactId>jgraphx</artifactId>
-			<version>4.1.0</version>
-		</dependency>
+			<dependency>
+				<groupId>org.xhtmlrenderer</groupId>
+				<artifactId>flying-saucer-core</artifactId>
+				<version>9.1.20</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>flying-saucer-core</artifactId>
-			<version>9.1.20</version>
-		</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>1.9</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-text</artifactId>
-			<version>1.9</version>
-		</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-json-jackson</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.lisasp.swing</groupId>
+				<artifactId>filechooser-jfx</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-jfx</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
+			<!-- Runtime -->
 
-		<!-- Runtime -->
+			<dependency>
+				<groupId>org.glassfish.jersey.inject</groupId>
+				<artifactId>jersey-hk2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>2.11.3</version>
+			</dependency>
 
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>2.11.3</version>
-		</dependency>
+			<!-- Test -->
 
-		<!-- Test -->
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-		</dependency>
-	</dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 
 
@@ -199,12 +202,19 @@
 	</reporting>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonatype.install4j</groupId>
+					<artifactId>install4j-maven-plugin</artifactId>
+					<version>1.1.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

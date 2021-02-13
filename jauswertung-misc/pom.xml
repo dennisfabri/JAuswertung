@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.dennisfabri</groupId>
-		<artifactId>jauswertung</artifactId>
-		<version>15.1.1</version>
+		<artifactId>jauswertung-project</artifactId>
+		<version>15.1.2</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>jauswertung-misc</artifactId>
@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.dennisfabri</groupId>
-			<artifactId>jauswertung-main</artifactId>
+			<artifactId>jauswertung</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
