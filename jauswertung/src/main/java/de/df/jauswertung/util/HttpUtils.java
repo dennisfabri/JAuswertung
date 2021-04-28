@@ -46,23 +46,11 @@ public final class HttpUtils {
 
     public static byte[] download(String url) throws IOException {
         synchronized (builder) {
-            HttpClient httpclient = builder.build();
-            HttpGet httpget = new HttpGet(url);
-            HttpEntity entity = httpclient.execute(httpget, resp -> {
-                return resp.getEntity();
+            return builder.build().execute(new HttpGet(url), resp -> {
+                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                resp.getEntity().writeTo(baos);
+                return baos.toByteArray();
             });
-            if (entity == null) {
-                return null;
-            }
-            InputStream instream = entity.getContent();
-            byte[] tmp = new byte[1024];
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int i = instream.read(tmp);
-            while (i >= 0) {
-                bos.write(tmp, 0, i);
-                i = instream.read(tmp);
-            }
-            return bos.toByteArray();
         }
     }
 

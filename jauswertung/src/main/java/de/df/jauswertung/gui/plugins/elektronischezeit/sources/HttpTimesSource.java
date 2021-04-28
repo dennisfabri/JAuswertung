@@ -23,7 +23,7 @@ public class HttpTimesSource implements ITimesSource {
             // return plugin.generateHeats();
         }
         try {
-            byte[] data = HttpUtils.download("http://" + address + ":1999/heats.xml");
+            byte[] data = HttpUtils.download("http://" + address + ":1999/legacy/heats.xml");
             return (Heat[]) InputManager.unserialize(data);
         } catch (IOException e) {
             e.printStackTrace();
