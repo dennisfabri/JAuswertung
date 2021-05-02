@@ -33,7 +33,7 @@ import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.data.EnumerationIterable;
+import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.io.Transform;
 
 class DataProvider {
@@ -135,7 +135,7 @@ class DataProvider {
             return true;
         }
 
-        for (String key : new EnumerationIterable<String>(providers.keys())) {
+        for (String key : HashtableUtils.getKeyIterable(providers)) {
             if (name.startsWith("/" + key + "/")) {
                 IDataProvider dp = providers.get(key);
                 boolean ok = dp.knowsFile(name.substring(key.length() + 2));
@@ -229,7 +229,7 @@ class DataProvider {
             return;
         }
 
-        for (String key : new EnumerationIterable<String>(providers.keys())) {
+        for (String key : HashtableUtils.getKeyIterable(providers)) {
             if (name.startsWith("/" + key + "/")) {
                 IDataProvider dp = providers.get(key);
                 boolean ok = dp.provide(name.substring(key.length() + 2), out);

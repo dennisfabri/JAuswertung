@@ -22,7 +22,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.data.EnumerationIterable;
+import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleListBuilder;
 import de.df.jutils.gui.util.UIStateUtils;
@@ -107,7 +107,7 @@ class JSimilarityCheck extends JDialog {
         }
         SimpleListBuilder slb = new SimpleListBuilder();
         LinkedList<String> keys = new LinkedList<String>();
-        for (String key : new EnumerationIterable<String>(data.keys())) {
+        for (String key : HashtableUtils.getKeyIterable(data)) {
             keys.add(key);
         }
         Collections.sort(keys);

@@ -21,7 +21,7 @@ import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jutils.data.EnumerationIterable;
+import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -99,7 +99,7 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
             }
         }
 
-        for (String key : new EnumerationIterable<String>(table.keys())) {
+        for (String key : HashtableUtils.getKeyIterable(table)) {
             LinkedList<ASchwimmer> ll = table.get(key);
             if (ll.size() > 1) {
                 for (ASchwimmer s : ll) {

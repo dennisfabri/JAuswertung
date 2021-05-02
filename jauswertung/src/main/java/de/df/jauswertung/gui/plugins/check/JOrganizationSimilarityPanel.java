@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -142,7 +143,7 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        LinkedList<String> ids = HashtableUtils.getKeys(similarities);
+        List<String> ids = HashtableUtils.getKeys(similarities);
         Collections.sort(ids);
 
         panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));
