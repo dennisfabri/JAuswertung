@@ -267,13 +267,9 @@ class SiegerlistePrinter implements Printer {
     }
 
     void preview() {
-        parent.setGlass(true);
-        // if (getPrintable(compact.isSelected()) == null) {
-        // DialogUtils.normaleMeldung(parent, I18n.get("NoDataToPrint"));
-        // return;
-        // }
+        parent.setEnabled(false);
         PrintableCreator pc = new SiegerlistePrintableCreator();
-        parent.setGlass(false);
+        parent.setEnabled(true);
         PrintManager.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 

@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -30,14 +29,14 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.gui.JGlassPane;
+import de.df.jutils.gui.JGlassFrame;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
-public class JVeranstaltungswertung extends JFrame {
+public class JVeranstaltungswertung extends JGlassFrame {
 
     private String                       filename     = null;
     boolean                              modified     = false;
@@ -54,8 +53,6 @@ public class JVeranstaltungswertung extends JFrame {
     private JMenuItem                    save;
     private JMenuItem                    saveas;
     private JMenuItem                    quit;
-
-    private JGlassPane                   infinite     = new JGlassPane(this);
 
     private Veranstaltung                vs;
 
@@ -187,10 +184,6 @@ public class JVeranstaltungswertung extends JFrame {
     private void updateUI() {
         competitions.setProperties(vs);
         properties.setProperties(vs);
-    }
-
-    public void setGlass(boolean enabled) {
-        infinite.setVisible(enabled);
     }
 
     void open() {

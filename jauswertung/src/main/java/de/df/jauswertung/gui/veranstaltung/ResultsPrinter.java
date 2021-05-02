@@ -267,7 +267,7 @@ class ResultsPrinter implements Printer {
     }
 
     void preview() {
-        parent.setGlass(true);
+        parent.setEnabled(false);
         // if (getPrintable(compact.isSelected()) == null) {
         // DialogUtils.normaleMeldung(parent, I18n.get("NoDataToPrint"));
         // return;
@@ -278,7 +278,7 @@ class ResultsPrinter implements Printer {
         } else {
             pc = new NormalPrintableCreator();
         }
-        parent.setGlass(false);
+        parent.setEnabled(true);
         PrintManager.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 

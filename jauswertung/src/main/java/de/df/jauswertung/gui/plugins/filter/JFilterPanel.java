@@ -38,7 +38,7 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
 
     private JTextField                name;
 
-    private SortableListModel<String> model            = new SortableListModel<String>();
+    private SortableListModel<String> model            = new SortableListModel<>();
     private JList                     fi               = new JList(model);
     private LinkedList<String>        gl               = null;
     private JButton                   add              = new JTransparentButton(IconManager.getSmallIcon("new"));
