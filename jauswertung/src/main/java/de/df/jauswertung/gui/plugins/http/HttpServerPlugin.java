@@ -10,7 +10,6 @@ import java.awt.event.ItemListener;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
 import org.apache.hc.core5.http.ConnectionClosedException;
@@ -50,7 +49,6 @@ public class HttpServerPlugin extends ANullPlugin {
     private ButtonInfo[]            quicks;
     private JToggleButton           button;
     private JResultsSelectionButton filter;
-    private JButton                 clearcache;
     private HttpOptionsPlugin       httpOptions;
 
     private int                     port  = 80;
@@ -58,8 +56,6 @@ public class HttpServerPlugin extends ANullPlugin {
     private HttpServer   httpServer;
 
     private DataProvider            source;
-    // private HttpDataProviderCache cache = null;
-
     boolean                         state = false;
 
     public HttpServerPlugin() {
@@ -76,16 +72,6 @@ public class HttpServerPlugin extends ANullPlugin {
             }
         });
 
-        clearcache = new JButton(IconManager.getSmallIcon("clearcache"));
-        clearcache.setToolTipText(I18n.get("clearsCache"));
-        clearcache.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearCache();
-            }
-        });
-        clearcache.setEnabled(false);
-
         filter = new JResultsSelectionButton(new IWettkampfProvider() {
             @Override
             public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
@@ -97,7 +83,6 @@ public class HttpServerPlugin extends ANullPlugin {
             public void itemStateChanged(ItemEvent arg0) {
                 if (arg0.getStateChange() == ItemEvent.DESELECTED) {
                     source.setSelection(filter.getSelection(core.getWettkampf()));
-                    clearCache();
                 }
             }
         });
@@ -106,13 +91,6 @@ public class HttpServerPlugin extends ANullPlugin {
         quicks = new ButtonInfo[2];
         quicks[0] = new ButtonInfo(button, 1000);
         quicks[1] = new ButtonInfo(filter, 1001);
-        // quicks[1] = new ButtonInfo(clearcache, 1002);
-    }
-
-    void clearCache() {
-        // if (cache != null) {
-        // cache.clearCache();
-        // }
     }
 
     @Override
@@ -133,16 +111,11 @@ public class HttpServerPlugin extends ANullPlugin {
     @Override
     public void dataUpdated(UpdateEvent due) {
         super.dataUpdated(due);
-
-        // if (cache != null) {
-        // cache.notifyDataUpdate();
-        // }
     }
 
     private DataProvider getDataProvider() {
         if (source == null) {
             source = new DataProvider(core);
-            // cache = new HttpDataProviderCache(source);
         }
         return source;
     }
@@ -212,7 +185,6 @@ public class HttpServerPlugin extends ANullPlugin {
             
             httpOptions.setEnabled(false);
             filter.setEnabled(source.getExportMode() == ExportMode.Filtered);
-            clearcache.setEnabled(true);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,7 +194,6 @@ public class HttpServerPlugin extends ANullPlugin {
             state = false;
             httpOptions.setEnabled(true);
             filter.setEnabled(false);
-            clearcache.setEnabled(false);
             return false;
         }
     }
@@ -253,7 +224,6 @@ public class HttpServerPlugin extends ANullPlugin {
         }
         httpOptions.setEnabled(true);
         filter.setEnabled(false);
-        clearcache.setEnabled(false);
     }
 
     void setPort(int p) {
@@ -278,7 +248,6 @@ public class HttpServerPlugin extends ANullPlugin {
         getDataProvider();
         source.setExportMode(e);
         filter.setVisible(e == ExportMode.Filtered);
-        clearCache();
     }
 
     void buttonAction() {
