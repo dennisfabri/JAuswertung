@@ -34,7 +34,7 @@ public final class RefereesTableCreator {
                     String[][] contents = ke.getInhalt();
                     for (int y = 0; y < contents.length; y++) {
                         if (!last.equals(contents[y][0])) {
-                            StringBuffer sb = new StringBuffer();
+                            StringBuilder sb = new StringBuilder();
                             sb.append("  ");
                             sb.append(contents[y][0]);
                             if ((contents[y][5].length() > 0) && !contents[y][5].equals("-")) {
@@ -51,7 +51,7 @@ public final class RefereesTableCreator {
                             names.addLast(" ");
                         }
                         
-                        StringBuffer content = new StringBuffer();
+                        StringBuilder content = new StringBuilder();
                         content.append(contents[y][1]);
                         if (contents[y][2].length() > 0) {
                             content.append(" (");

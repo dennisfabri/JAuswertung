@@ -90,7 +90,7 @@ public final class IOUtils {
                 String xml2 = new String(xml);
                 int index = xml2.indexOf('>');
                 if (index > 0) {
-                    StringBuffer sb = new StringBuffer();
+                    StringBuilder sb = new StringBuilder();
                     sb.append(prefix);
                     sb.append(xml.substring(0, index));
                     sb.append(" version=\"0\"");
@@ -119,7 +119,7 @@ public final class IOUtils {
 
     static String readText(Reader is) throws IOException {
         BufferedReader br = new BufferedReader(is);
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         String line = br.readLine();
         while (line != null) {
             text.append(line);

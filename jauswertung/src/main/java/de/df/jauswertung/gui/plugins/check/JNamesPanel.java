@@ -216,7 +216,7 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         for (String id : ids) {
             Teilnehmer[] glds = organizations.get(id);
 
-            StringBuffer name = new StringBuffer();
+            StringBuilder name = new StringBuilder();
             name.append(id);
 
             SimpleTableBuilder dfb = new SimpleTableBuilder(new JPanel(), new boolean[] { true, false, false }, false);
@@ -233,16 +233,12 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
             }
 
             JPanel p = new JPanel(new BorderLayout());
-            // p.setUI(new GradientTaskPaneGroupUI());
             p.setBorder(BorderUtils.createLabeledBorder(name.toString()));
             p.add(dfb.getPanel(), BorderLayout.CENTER);
-            // p.setExpanded(false);
 
             panel.add(p, CC.xy(2, y));
             y += 2;
         }
-
-        // main.getPanel();
     }
 
     void changeData() {

@@ -107,7 +107,7 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     private static String[] grow = { ":grow", ":grow", ":grow", ":grow", "", "", "", ":grow" };
 
     private static JPanel createTimepanel(boolean etime) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("0dlu");
         for (int x = 0; x < grow.length; x++) {
             sb.append(",fill:default");
@@ -225,7 +225,7 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     }
 
     private static String createNameString(Startkarte s) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(s.getName());
         boolean covered = (s.getName().indexOf(s.getGliederung()) >= 0);
         boolean qgld = (s.getQualifikationsgliederung().length() > 0) && !s.getGliederung().contains(s.getQualifikationsgliederung());
@@ -245,7 +245,7 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     }
 
     private static String createStartnumberString(Startkarte s) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("S# ");
         sb.append(s.getStartnummer());
 

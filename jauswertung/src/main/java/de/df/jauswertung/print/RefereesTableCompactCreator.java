@@ -52,7 +52,7 @@ public final class RefereesTableCompactCreator {
                             names.addLast(" ");
                         }
 
-                        StringBuffer content = new StringBuffer();
+                        StringBuilder content = new StringBuilder();
                         content.append(contents[y][1]);
                         if (contents[y][2].length() > 0) {
                             content.append(" (");

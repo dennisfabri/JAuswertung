@@ -411,7 +411,7 @@ public final class PrintUtils {
 
     public static JPanel createHeaderPanel(Regelwerk aks, Altersklasse ak, boolean male, boolean reducedview,
             boolean includeAkName, boolean checksum) {
-        StringBuffer sb = new StringBuffer("fill:default");
+        StringBuilder sb = new StringBuilder("fill:default");
         if (includeAkName) {
             sb.append(",1dlu,fill:default");
         }
@@ -635,8 +635,8 @@ public final class PrintUtils {
                         if (result.getRowCount() > 0) {
                             ASchwimmer s = result.getSchwimmer(0);
                             int zeit = s.getZeit(0);
-                            StringBuffer name = new StringBuffer(s.getName());
-                            StringBuffer gld = new StringBuffer(s.getGliederung());
+                            StringBuilder name = new StringBuilder(s.getName());
+                            StringBuilder gld = new StringBuilder(s.getGliederung());
                             int pos = 1;
                             while ((pos < result.getRowCount()) && (result.getSchwimmer(pos).getZeit(0) == zeit)) {
                                 name.append(", ");
@@ -798,7 +798,7 @@ public final class PrintUtils {
 
         @Override
         public String toString() {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(first);
             sb.append(" - ");
             sb.append(last);

@@ -64,7 +64,7 @@ public class BugReport implements Serializable {
         }
         daten = dat;
 
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder();
         s.append("Ort: ");
         s.append(ort);
         s.append(NEWLINE);

@@ -168,7 +168,7 @@ public class ImportUtils {
             try {
                 indizes = identifyIndizes(wk, titles, false, false, file, sheet);
                 boolean first = true;
-                StringBuffer text = new StringBuffer();
+                StringBuilder text = new StringBuilder();
                 if (indizes[STARTNUMMER] < 0) {
                     text.append("\t").append(I18n.get("Startnumber"));
                     first = false;
@@ -995,7 +995,7 @@ public class ImportUtils {
             try {
                 indizes = identifyIndizes(wk, titles, false, false, file, sheet);
                 boolean first = true;
-                StringBuffer text = new StringBuffer();
+                StringBuilder text = new StringBuilder();
                 if (indizes[STARTNUMMER] < 0) {
                     text.append("\t").append(I18n.get("Startnumber"));
                     first = false;
@@ -1203,7 +1203,7 @@ public class ImportUtils {
                     missing.addLast(I18n.get("Level"));
                 }
                 if (!missing.isEmpty()) {
-                    StringBuffer text = new StringBuffer();
+                    StringBuilder text = new StringBuilder();
                     text.append("\t");
                     text.append(missing.getFirst());
                     missing.removeFirst();

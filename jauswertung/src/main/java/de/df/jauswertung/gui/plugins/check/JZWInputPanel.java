@@ -185,7 +185,7 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             edit[x].addActionListener(new Editor(x));
 
             dfb.add(new JLabel(StartnumberFormatManager.format(s)));
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(s.getName());
             if (s.getMaximaleHLW() > 1) {
                 sb.append(" (");

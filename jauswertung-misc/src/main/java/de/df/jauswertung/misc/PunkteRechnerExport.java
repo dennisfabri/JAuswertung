@@ -33,7 +33,7 @@ public class PunkteRechnerExport {
     }
 
     private static void write(Regelwerk aks, int year, String suffix) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("$rec" + year + suffix + " = array(\n");
         for (int x = 0; x < aks.size(); x++) {
             // int a = aks.getIndex(ids[x]);

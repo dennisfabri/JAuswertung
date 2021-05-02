@@ -263,7 +263,7 @@ public final class ErzeugeWettkaempfe {
                         }
                     }
 
-                    // StringBuffer members = new StringBuffer();
+                    // StringBuilder members = new StringBuilder();
                     for (int k = 0; k < m.getMinMembers(); k++) {
                         Mannschaftsmitglied mm = m.getMannschaftsmitglied(k);
                         mm.setVorname(n.generateVorname(m.isMaennlich()));

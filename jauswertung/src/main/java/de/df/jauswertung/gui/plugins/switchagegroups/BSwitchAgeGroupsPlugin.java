@@ -74,7 +74,7 @@ public class BSwitchAgeGroupsPlugin extends ANullPlugin {
         if (core.getWettkampf().getSchwimmeranzahl() > (notchanged == null ? 0 : notchanged.size())) {
             getController().sendDataUpdateEvent("ChangePerson", UpdateEventConstants.REASON_SWIMMER_CHANGED, this);
             if (notchanged != null) {
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
 
                 ListIterator<ASchwimmer> li = notchanged.listIterator();
                 while (li.hasNext()) {

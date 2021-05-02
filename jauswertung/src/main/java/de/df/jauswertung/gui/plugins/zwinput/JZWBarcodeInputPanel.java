@@ -263,7 +263,7 @@ class JZWBarcodeInputPanel extends JPanel {
                 signalHlwOk();
                 break;
             }
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(StartnumberFormatManager.format(s));
             if (s.getMaximaleHLW() > 1) {
                 sb.append(" ");

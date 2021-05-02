@@ -67,10 +67,10 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
         Formel formel = FormelManager.getInstance().get(aks.getFormelID());
         sfm.add(I18n.get("Formula") + ": ", formel.getName());
 
-        StringBuffer gesamtwertung1 = new StringBuffer();
-        StringBuffer gesamtwertung2 = new StringBuffer();
-        StringBuffer gesamtwertung3 = new StringBuffer();
-        StringBuffer gesamtwertung4 = new StringBuffer();
+        StringBuilder gesamtwertung1 = new StringBuilder();
+        StringBuilder gesamtwertung2 = new StringBuilder();
+        StringBuilder gesamtwertung3 = new StringBuilder();
+        StringBuilder gesamtwertung4 = new StringBuilder();
         if (aks.hasGesamtwertung()) {
             gesamtwertung1.append(I18n.get("Yes"));
             switch (aks.getGesamtwertungsmodus()) {
@@ -135,7 +135,7 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
 
         boolean first = true;
 
-        StringBuffer properties = new StringBuffer();
+        StringBuilder properties = new StringBuilder();
 
         if (ak.hasEinzelwertung()) {
             first = false;

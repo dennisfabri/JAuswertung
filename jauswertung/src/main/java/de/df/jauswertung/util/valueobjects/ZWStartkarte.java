@@ -131,7 +131,7 @@ public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkar
         if (member == null) {
             return getName();
         }
-        StringBuffer sb = new StringBuffer(name);
+        StringBuilder sb = new StringBuilder(name);
         if (name.length() > 0) {
             sb.append(" - ");
         }

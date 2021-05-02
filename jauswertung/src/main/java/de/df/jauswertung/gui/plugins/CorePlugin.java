@@ -217,7 +217,7 @@ public class CorePlugin extends AFeature {
         if (s.length == 1) {
             return remove(s[0]);
         }
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         if (s.length <= 10) {
             text.append("\n");
             for (ASchwimmer value : s) {

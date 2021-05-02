@@ -150,7 +150,7 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
     }
 
     private static <T extends ASchwimmer> String createName1String(ZWStartkarte<T> s, boolean membernames) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(s.getName());
         if (membernames && (s.getMember() != null)) {
             sb.append(" - ");
@@ -160,7 +160,7 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
     }
 
     private static <T extends ASchwimmer> String createName2String(ZWStartkarte<T> s, boolean membernames) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         boolean qgld = (s.getQualifikationsebene().length() > 0);
         sb.append(s.getGliederung());
         if (qgld) {
@@ -290,7 +290,7 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         boolean growall = false;
         boolean barcode = (yes != null) && (no != null);
 
-        StringBuffer rows = new StringBuffer();
+        StringBuilder rows = new StringBuilder();
         rows.append("0dlu,fill:default");
         rows.append(",1dlu,fill:default");
         rows.append(",1dlu,fill:default");

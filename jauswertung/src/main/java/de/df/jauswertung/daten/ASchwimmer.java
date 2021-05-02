@@ -193,7 +193,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     public String getGliederungMitQGliederung() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(gliederung);
         if (getQualifikationsebene().length() > 0) {
             sb.append(" (");
@@ -438,7 +438,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
      *            Trennzeichen @return Liste der ausgewaehlten Disziplinen
      */
     public String getDisciplineChoiceAsString(char sep) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (int x = 0; x < disciplineChoice.length; x++) {
             if (disciplineChoice[x]) {
@@ -1095,7 +1095,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     public String getZeiten() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (getZeit(0) > 0) {
             sb.append(StringTools.zeitString(getZeit(0)));
         }

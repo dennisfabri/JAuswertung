@@ -139,7 +139,7 @@ public final class TableHeatUtils {
 						ZWInfo[] infos = SchwimmerUtils.getZWInfo(t.getWettkampf(), t);
 
 						// Only display first time
-						StringBuffer sb = new StringBuffer();
+						StringBuilder sb = new StringBuilder();
 						if ((infos != null) && (infos.length > 0) && (infos[0] != null)
 								&& (infos[0].getZeit() != null)) {
 							sb.append(infos[0].getZeit().trim());

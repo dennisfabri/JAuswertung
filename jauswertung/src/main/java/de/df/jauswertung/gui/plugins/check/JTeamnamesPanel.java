@@ -138,7 +138,7 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
         for (String id : ids) {
             ASchwimmer[] glds = organizations.get(id);
 
-            StringBuffer name = new StringBuffer();
+            StringBuilder name = new StringBuilder();
             name.append(id);
             // name.append(glds[0].getName());
             // for (int x = 0; x < glds.length; x++) {

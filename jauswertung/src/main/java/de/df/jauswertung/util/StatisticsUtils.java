@@ -515,7 +515,7 @@ public class StatisticsUtils {
 
         int space = (print ? 1 : 4);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("0dlu:grow,");
         for (int x = 0; x < max; x++) {
             sb.append("fill:default," + space + "dlu,");
@@ -610,7 +610,7 @@ public class StatisticsUtils {
 
         int space = (print ? 1 : 4);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("" + space + "dlu:grow,fill:default," + space + "dlu,center:default");
         for (int x = 0; x < size; x++) {
             sb.append("," + space + "dlu,center:default");

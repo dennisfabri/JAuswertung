@@ -31,7 +31,7 @@ public final class TestUtils {
                 double punkte = Double.parseDouble(data[7][t.getStartnummer() - 1].toString());
                 long result1 = Math.round(punkte * 100);
                 long result2 = Math.round(results[x].getPoints() * 100);
-                StringBuffer sb = new StringBuffer(t.getName());
+                StringBuilder sb = new StringBuilder(t.getName());
                 sb.append(" (");
                 for (int y = 0; y < results[x].getSchwimmer().getAK().getDiszAnzahl(); y++) {
                     if (y != 0) {

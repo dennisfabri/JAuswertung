@@ -70,8 +70,8 @@ public class PunkteTabelleExport {
             return;
         }
 
-        StringBuffer sb1 = new StringBuffer();
-        StringBuffer sb2 = new StringBuffer();
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         for (int x = 0; x < idx.length; x++) {
             int a = aks.getIndex(idx[x]);
             Altersklasse ak = aks.getAk(a);
@@ -96,8 +96,8 @@ public class PunkteTabelleExport {
             return;
         }
 
-        StringBuffer sb1 = new StringBuffer();
-        StringBuffer sb2 = new StringBuffer();
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         for (int i = 0; i < 2; i++) {
             for (int x = 0; x < idx.length; x++) {
                 int a = aks.getIndex(idx[x]);

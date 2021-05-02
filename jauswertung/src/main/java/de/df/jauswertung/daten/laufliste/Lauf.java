@@ -152,7 +152,7 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
                 startgruppe = startgruppe.substring(3);
             }
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (startgruppe == null) {
             sb.append(I18n.get("Mixed"));
         } else {

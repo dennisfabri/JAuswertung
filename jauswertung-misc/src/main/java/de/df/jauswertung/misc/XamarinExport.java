@@ -36,7 +36,7 @@ public class XamarinExport {
             return;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         int min = junioren ? 0 : 5;
         int max = !senioren ? 5 : aks.size();

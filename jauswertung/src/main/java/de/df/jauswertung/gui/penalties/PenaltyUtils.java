@@ -94,7 +94,7 @@ public final class PenaltyUtils {
         if (strafe == null) {
             return "";
         }
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
 
         if (ak != null) {
             strafe = new Strafe(strafe, ak.isStrafeIstDisqualifikation());
@@ -126,7 +126,7 @@ public final class PenaltyUtils {
         if (strafe == null) {
             return "";
         }
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
 
         if (ak != null) {
             strafe = new Strafe(strafe, ak.isStrafeIstDisqualifikation());
@@ -451,7 +451,7 @@ public final class PenaltyUtils {
     }
 
     private static String getID(int laufindex, int bahnindex, int laufanzahl, int bahnenanzahl, String name, int sn, int offset, int discipline) {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         if (laufanzahl > 0) {
             int llength = Math.max(("" + laufanzahl).length(), 2);
             int blength = Math.max(("" + bahnenanzahl).length(), 2);
@@ -547,7 +547,7 @@ public final class PenaltyUtils {
             return "";
         }
         s = new Strafe(s, ak.isStrafeIstDisqualifikation());
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         if (s.getShortname().length() > 0) {
             text.append(s.getShortname());
             text.append(": ");
@@ -609,7 +609,7 @@ public final class PenaltyUtils {
             break;
         }
 
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         text.append(text1);
         if (text1.length() > 0 && text2.length() > 0) {
             text.append(": ");

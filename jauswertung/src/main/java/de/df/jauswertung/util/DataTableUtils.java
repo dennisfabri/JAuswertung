@@ -179,7 +179,7 @@ public final class DataTableUtils {
         if (index.size() == 0) {
             return "";
         }
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         ListIterator<Integer> li = index.listIterator();
         boolean first = true;
         while (li.hasNext()) {
@@ -1020,7 +1020,7 @@ public final class DataTableUtils {
                     LinkedList<Object> row = new LinkedList<Object>();
 
                     if (t.getMaximaleHLW() > 1) {
-                        StringBuffer sb = new StringBuffer();
+                        StringBuilder sb = new StringBuilder();
                         sb.append(StartnumberFormatManager.format(t));
                         sb.append(StringTools.ABC[x]);
                         row.addLast(sb.toString());
@@ -2013,8 +2013,8 @@ public final class DataTableUtils {
                         if (result.getRowCount() > 0) {
                             ASchwimmer s = result.getSchwimmer(0);
                             int zeit = s.getZeit(0);
-                            StringBuffer name = new StringBuffer(s.getName());
-                            StringBuffer gld = new StringBuffer(s.getGliederung());
+                            StringBuilder name = new StringBuilder(s.getName());
+                            StringBuilder gld = new StringBuilder(s.getGliederung());
                             if (s.getQualifikationsebene().length() > 0) {
                                 gld.append(" (");
                                 gld.append(s.getQualifikationsebene());

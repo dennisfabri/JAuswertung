@@ -83,7 +83,7 @@ public class ExcelStyles {
 
     public HSSFCellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored, String format, HorizontalAlignment align,
             boolean grouping, boolean wrap) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(booleanToBit(top));
         sb.append(booleanToBit(right));
         sb.append(booleanToBit(bottom));

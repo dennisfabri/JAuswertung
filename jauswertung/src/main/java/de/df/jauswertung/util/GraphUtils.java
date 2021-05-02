@@ -305,7 +305,7 @@ public class GraphUtils {
     }
 
     public static String hashtableToStyle(Hashtable<String, Object> style) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(";");
         sb.append(mxConstants.STYLE_FONTFAMILY).append("=").append(style.get(mxConstants.STYLE_FONTFAMILY)).append(";");
         sb.append(mxConstants.STYLE_FONTSIZE).append("=").append(style.get(mxConstants.STYLE_FONTSIZE)).append(";");

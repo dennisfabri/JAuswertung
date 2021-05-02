@@ -390,7 +390,7 @@ class JSimpleInputPanel extends JPanel {
             }
             swimmers[index] = s;
             indizes[index] = i;
-            StringBuffer extname = new StringBuffer();
+            StringBuilder extname = new StringBuilder();
             extname.append(s.getName());
             if (s.getMaximaleHLW() > 1) {
                 boolean ok = false;

@@ -271,7 +271,7 @@ class JTeammembersBarcodeScanPanel extends JPanel {
                 signalZWNok();
             }
 
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             startnumber.setText(StartnumberFormatManager.format(s));
             sb.setLength(0);
 

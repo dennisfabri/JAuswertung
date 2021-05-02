@@ -404,7 +404,7 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                 String[] text = new String[bahnen];
                 for (int x = 0; x < bahnen; x++) {
                     ASchwimmer s = lauf.getSchwimmer(x);
-                    StringBuffer sb = new StringBuffer();
+                    StringBuilder sb = new StringBuilder();
                     sb.append(x + 1);
                     sb.append(": ");
                     if (s != null) {

@@ -176,7 +176,7 @@ public class Mannschaft extends ASchwimmer {
         } while (repeat);
 
         boolean first = true;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String name : namen) {
             if (!first) {
                 sb.append(separator);
@@ -199,7 +199,7 @@ public class Mannschaft extends ASchwimmer {
 
     private static String getMitgliedernamen(Mannschaftsmitglied[] mm, String separator) {
         boolean first = true;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Mannschaftsmitglied m : mm) {
             if (!m.isEmpty()) {
                 if (!first) {

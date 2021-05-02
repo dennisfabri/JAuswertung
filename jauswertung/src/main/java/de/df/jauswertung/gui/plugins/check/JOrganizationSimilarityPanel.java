@@ -152,7 +152,7 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
         for (String id : ids) {
             String[] glds = similarities.get(id);
 
-            StringBuffer name = new StringBuffer();
+            StringBuilder name = new StringBuilder();
             name.append(glds[0]);
             for (int x = 1; x < glds.length; x++) {
                 name.append(", ");

@@ -51,7 +51,7 @@ class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {
 
         columngroups[0][0] = 1;
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("8dlu:grow,fill:default,4dlu,fill:default");
         for (int x = 0; x < disziplinen; x++) {
             sb.append(",4dlu:grow,fill:default,4dlu,fill:default");

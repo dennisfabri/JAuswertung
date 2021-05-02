@@ -125,7 +125,7 @@ public class JResultsSelectionButton extends JToggleButton {
     public static String createLayoutString(int rowsOrColumns) {
         int groups = rowsOrColumns / 2;
         String group = ",fill:default,1dlu,fill:default,4dlu";
-        StringBuffer result = new StringBuffer("4dlu,fill:default,4dlu");
+        StringBuilder result = new StringBuilder("4dlu,fill:default,4dlu");
         for (int x = 0; x < groups; x++) {
             result.append(group);
         }

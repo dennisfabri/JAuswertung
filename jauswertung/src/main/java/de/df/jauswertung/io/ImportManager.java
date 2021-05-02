@@ -66,7 +66,7 @@ public class ImportManager {
     }
 
     public static String indizesToNames(int[] indizes, String spacer) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(spacer);
         for (int x = 0; x < indizes.length; x++) {
             if (x > 0) {

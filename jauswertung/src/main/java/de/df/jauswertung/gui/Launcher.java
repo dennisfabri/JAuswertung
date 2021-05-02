@@ -84,7 +84,7 @@ public final class Launcher {
         if ((args == null) || (args.length == 0)) {
             return "";
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String arg : args) {
             if (sb.length() > 0) {
                 sb.append(" ");
