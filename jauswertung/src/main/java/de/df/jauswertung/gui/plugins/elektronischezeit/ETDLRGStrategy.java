@@ -23,10 +23,10 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.gui.util.TimeStatus;
+import de.df.jauswertung.util.RandomUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.RandomUtils;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.LaneStatus;
 
@@ -66,7 +66,7 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
     @Override
     public Heat[] generateHeats() {
-        Random rng = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+        Random rng = RandomUtils.getRandomNumberGenerator();
         Heat[] heats = new Heat[wk.getLaufliste().getLaufliste().size()];
         int x = 0;
         for (Lauf<T> lauf : wk.getLaufliste().getLaufliste()) {

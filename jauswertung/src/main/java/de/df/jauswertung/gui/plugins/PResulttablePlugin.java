@@ -671,7 +671,6 @@ public class PResulttablePlugin extends ANullPlugin {
         }
     }
 
-    @SuppressWarnings("unchecked")
     void editHLW() {
         ASchwimmer s = getSelectedSwimmer();
         editor.runZWEditor(s);
@@ -748,7 +747,6 @@ public class PResulttablePlugin extends ANullPlugin {
 
             edit = new JMenuItem(I18n.get("Edit"), IconManager.getSmallIcon("edit"));
             edit.addActionListener(new ActionListener() {
-                @SuppressWarnings("unchecked")
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ASchwimmer s = getSelectedSwimmer();
@@ -758,7 +756,6 @@ public class PResulttablePlugin extends ANullPlugin {
             delete = new JMenuItem(I18n.get("Delete"), IconManager.getSmallIcon("delete"));
             delete.addActionListener(new ActionListener() {
                 @Override
-                @SuppressWarnings("unchecked")
                 public void actionPerformed(ActionEvent e) {
                     ASchwimmer s = getSelectedSwimmer();
                     core.remove(s);

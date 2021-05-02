@@ -27,9 +27,9 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.data.ListUtils;
-import de.df.jutils.util.RandomUtils;
 import de.df.jutils.util.Tupel;
 
 public class HLWListe<T extends ASchwimmer> implements Serializable {
@@ -55,7 +55,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
     LinkedList<Time>                   startat;
     private Einteilung[]               verteilung;
 
-    private static Random              random               = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+    private static Random              random               = RandomUtils.getRandomNumberGenerator();
     private static long                seed                 = random.nextLong();
 
     /** Creates new Laufliste */

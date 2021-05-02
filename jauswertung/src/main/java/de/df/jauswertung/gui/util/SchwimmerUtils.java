@@ -265,7 +265,6 @@ public final class SchwimmerUtils {
             if (ll == null) {
                 return null;
             }
-            LinkedList<Lauf<T>> laufliste = ll.getLaufliste();
             int bahnen = ll.getLaufliste().getFirst().getBahnen();
             if (maxLanes < bahnen) {
                 maxLanes = bahnen;

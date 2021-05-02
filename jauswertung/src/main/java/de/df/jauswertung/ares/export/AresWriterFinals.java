@@ -105,8 +105,6 @@ public class AresWriterFinals {
         return aks.size() * 2 + offset;
     }
 
-    private static int anschlaegeJe100m = 1;
-
     private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
@@ -137,42 +135,6 @@ public class AresWriterFinals {
                 }
             }
         }
-    }
-
-    private static String[][] laengen = new String[][] { { "200m", "200m" }, { "200 m", "200m" }, { "100m", "100m" }, { "100 m", "100m" }, { "50m", "50m" },
-            { "50 m", "50m" }, { "25m", "25m" }, { "25 m", "25m" }, { "4*25m", "4*25m" }, { "4*25 m", "4*25m" }, { "4*50m", "4*50m" }, { "4*50 m", "4*50m" } };
-
-    private static String getLaenge(Disziplin d) {
-        String name = d.getName().trim().toLowerCase();
-        name = name.replace('x', '*').replace(" *", "*").replace("* ", "*");
-        for (String[] kv : laengen) {
-            if (name.startsWith(kv[0])) {
-                return kv[1];
-            }
-        }
-        return "25m";
-    }
-
-    private static int getLaenge(String laenge) {
-        if (laenge.equals("200m")) {
-            return 200;
-        }
-        if (laenge.equals("100m")) {
-            return 100;
-        }
-        if (laenge.equals("50m")) {
-            return 50;
-        }
-        if (laenge.equals("25m")) {
-            return 25;
-        }
-        if (laenge.equals("4*25m")) {
-            return 100;
-        }
-        if (laenge.equals("4*50m")) {
-            return 200;
-        }
-        return 0;
     }
 
     private static String[][] shortnames = new String[][] { new String[] { "200m Obstacle Swim", "OS" }, new String[] { "50m Manikin Carry", "MC" },

@@ -31,6 +31,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
@@ -51,7 +52,6 @@ import de.df.jutils.gui.wizard.WizardIntegerPage;
 import de.df.jutils.gui.wizard.WizardOptionPage;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.Feedback;
-import de.df.jutils.util.RandomUtils;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -85,7 +85,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
     private final String            i18nprefix;
     private final AMSelectionPlugin root;
 
-    private Random                  random           = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+    private Random                  random           = RandomUtils.getRandomNumberGenerator();
 
     public JSelectionWizard(JFrame parent, AMSelectionPlugin root, CorePlugin c, IPluginManager con, String i18nprefix, String meldekey) {
         super(parent, I18n.get(i18nprefix + ".Title"), WizardUIElementsProvider.getInstance(), false);

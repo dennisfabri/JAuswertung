@@ -9,11 +9,11 @@ import java.util.Random;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.util.AltersklassenUtils;
-import de.df.jutils.util.RandomUtils;
+import de.df.jauswertung.util.RandomUtils;
 
 public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
 
-    private static final long                    serialVersionUID           = 7430614028771289718L;
+    private static final long serialVersionUID = 7430614028771289718L;
 
     private Mannschaftsmitgliederexportkennung[] teammembersRegistrationIds = null;
 
@@ -53,13 +53,14 @@ public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
     }
 
     public String createTeammembersRegistrationsId() {
-        Random rng = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+        Random rng = RandomUtils.getRandomNumberGenerator();
 
         do {
-            String id = RandomUtils.createString(rng, 6);
+            String id = createString(rng, 6);
 
             if (teammembersRegistrationIds == null) {
-                teammembersRegistrationIds = new Mannschaftsmitgliederexportkennung[] { new Mannschaftsmitgliederexportkennung(id) };
+                teammembersRegistrationIds = new Mannschaftsmitgliederexportkennung[] {
+                        new Mannschaftsmitgliederexportkennung(id) };
                 changedNow();
                 return id;
             }
@@ -70,7 +71,8 @@ public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
                 }
             }
             if (!found) {
-                teammembersRegistrationIds = Arrays.copyOf(teammembersRegistrationIds, teammembersRegistrationIds.length + 1);
+                teammembersRegistrationIds = Arrays.copyOf(teammembersRegistrationIds,
+                        teammembersRegistrationIds.length + 1);
                 for (int x = teammembersRegistrationIds.length - 1; x >= 1; x--) {
                     teammembersRegistrationIds[x] = teammembersRegistrationIds[x - 1];
                 }
@@ -84,5 +86,19 @@ public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
     @Override
     public boolean isEinzel() {
         return false;
+    }
+
+    private static final char[] validChars = "ABCDEFGHIJKLMNOPQRSTUVW23456789".toCharArray();
+
+    private static char getChar(Random rng) {
+        return validChars[rng.nextInt(validChars.length)];
+    }
+
+    public static String createString(Random rng, int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int x = 0; x < length; x++) {
+            sb.append(getChar(rng));
+        }
+        return sb.toString();
     }
 }

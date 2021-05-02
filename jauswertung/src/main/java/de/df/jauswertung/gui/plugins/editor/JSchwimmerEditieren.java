@@ -489,9 +489,8 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     }
 
     private boolean validateData() {
-        int sn = 0;
         try {
-            sn = Integer.parseInt(startnummer.getText());
+            Integer.parseInt(startnummer.getText());
         } catch (Exception ex) {
             return false;
         }

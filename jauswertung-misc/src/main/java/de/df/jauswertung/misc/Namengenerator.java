@@ -7,15 +7,17 @@ package de.df.jauswertung.misc;
 /**
  * @author dennis
  */
-
-import java.util.*;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Random;
 
 import de.df.jauswertung.io.IOUtils;
-import de.df.jutils.util.RandomUtils;
+import de.df.jauswertung.util.RandomUtils;
 
 public class Namengenerator {
 
-    private static Random             zufall        = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+    private static Random             zufall        = RandomUtils.getRandomNumberGenerator();
 
     private static String[]           vornamenM2    = { "Dennis", "Dirk", "Christian", "Holger", "David", "Stefan", "Carsten", "Sven", "Kai", "Matthias",
             "Christoph", "Daniel", "Markus", "Maik", "Martin", "Maximilian", "Marius", "Andreas", "Alexander", "Timo", "Andreas", "Thomas", "Jens", "Pascal",

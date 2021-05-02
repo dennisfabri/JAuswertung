@@ -4,11 +4,6 @@
 
 package de.df.jauswertung.util;
 
-/**
- * @author Dennis Fabri
- * @version 0.1
- */
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.print.PageFormat;
@@ -39,7 +34,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.io.NullOutputStream;
 import de.df.jutils.print.PageSetup;
 import de.df.jutils.print.PrintManager;
-import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import skt.swing.scroll.ScrollGestureRecognizer;
 
 /**

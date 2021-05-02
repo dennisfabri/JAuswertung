@@ -1,24 +1,58 @@
 package de.df.jauswertung.misc;
 
-import static de.df.jauswertung.daten.PropertyConstants.*;
+import static de.df.jauswertung.daten.PropertyConstants.AUSRICHTER;
+import static de.df.jauswertung.daten.PropertyConstants.BEGIN;
+import static de.df.jauswertung.daten.PropertyConstants.DATE;
+import static de.df.jauswertung.daten.PropertyConstants.DEPTH_OF_POOL;
+import static de.df.jauswertung.daten.PropertyConstants.END;
+import static de.df.jauswertung.daten.PropertyConstants.INFOPAGE;
+import static de.df.jauswertung.daten.PropertyConstants.LENGTH_OF_POOL;
+import static de.df.jauswertung.daten.PropertyConstants.LOCATION;
+import static de.df.jauswertung.daten.PropertyConstants.NAME;
+import static de.df.jauswertung.daten.PropertyConstants.NAME_OF_POOL;
+import static de.df.jauswertung.daten.PropertyConstants.ORGANIZER;
+import static de.df.jauswertung.daten.PropertyConstants.OTHER_COMPETITION_INFO;
+import static de.df.jauswertung.daten.PropertyConstants.OTHER_LOCATION_INFO;
+import static de.df.jauswertung.daten.PropertyConstants.POSITION_OF_MANAKIN;
+import static de.df.jauswertung.daten.PropertyConstants.WATERTEMPERATURE;
 
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.Random;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.kampfrichter.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Geschlecht;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.Mannschaftsmitglied;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
+import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.AltersklassenUtils;
-import de.df.jutils.util.RandomUtils;
+import de.df.jauswertung.util.RandomUtils;
 
 /**
  * @author Dennis Mueller
  */
 public final class ErzeugeWettkaempfe {
 
-    private static Random rng = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+    private static Random rng = RandomUtils.getRandomNumberGenerator();
 
     private ErzeugeWettkaempfe() {
         // Hide constructor

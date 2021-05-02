@@ -19,7 +19,6 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.dp.displaytool.data.Competition;
 import de.df.jauswertung.dp.displaytool.data.Competitor;
@@ -156,9 +155,7 @@ class ResultsExporter implements Printer {
         if (!wettkampf.getRegelwerk().hasGesamtwertung()) {
             return null;
         }
-        GesamtwertungWettkampf gesamt = new GesamtwertungWettkampf(wettkampf);
-        Altersklasse ak = gesamt.getRegelwerk().getAk(0);
-        return gesamt.getResult();
+        return new GesamtwertungWettkampf(wettkampf).getResult();
     }
 
 }

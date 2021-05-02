@@ -28,11 +28,11 @@ import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelILSFinals;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoorFinals;
-import de.df.jutils.util.RandomUtils;
 import de.df.jutils.util.Tripel;
 import de.df.jutils.util.Tupel;
 
@@ -60,7 +60,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     private Einteilung[]      verteilung                      = null;
     private BlockEinteilung[] blocks                          = null;
 
-    private static Random     random                          = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+    private static Random     random                          = RandomUtils.getRandomNumberGenerator();
     private static long       seed                            = random.nextLong();
 
     private int               mode                            = 0;
@@ -910,7 +910,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         default:
             break;
         }
-        Collections.shuffle(schwimmer, RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister, seed));
+        Collections.shuffle(schwimmer, RandomUtils.getRandomNumberGenerator(seed));
         switch (sort) {
         case REIHENFOLGE_GLIEDERUNG_EINZELN:
             try {
@@ -920,7 +920,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             }
             break;
         case REIHENFOLGE_GLIEDERUNG_GEGEN:
-            Comparator<ASchwimmer> comparator1 = new Comparator<ASchwimmer>() {
+            Comparator<ASchwimmer> comparator1 = new Comparator<>() {
                 @Override
                 public int compare(ASchwimmer o1, ASchwimmer o2) {
                     return o1.getGliederung().compareTo(o2.getGliederung());

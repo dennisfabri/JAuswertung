@@ -170,12 +170,8 @@ public class MUploadPlugin extends ANullPlugin {
                     if (wk.isHeatBased()) {
                         for (OWDisziplin<T> y : wk.getLauflisteOW().getDisziplinen()) {
                             Altersklasse ak = wk.getRegelwerk().getAk(y.akNummer);
-                            int qualified = 0;
                             int[] runden = ak.getDisziplin(y.disziplin, y.maennlich).getRunden();
                             boolean isFinal = runden.length <= y.round;
-                            if (!isFinal) {
-                                qualified = runden[y.round];
-                            }
 
                             AWettkampf<T> wkl = CompetitionUtils.createCompetitionFor(wk,
                                     new OWSelection(wk.getRegelwerk().getAk(y.akNummer), y.akNummer, y.maennlich,
@@ -183,9 +179,6 @@ public class MUploadPlugin extends ANullPlugin {
 
                             if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
                                 AWettkampf<T> ew = CompetitionUtils.generateEinzelwertungswettkampf(wk, x, false);
-                                // if (!isFinal) {
-                                // ew.getRegelwerk().setFormelID(FormelILS.ID);
-                                // }
                                 if (ew != null) {
                                     for (int i = 0; i < wkl.getRegelwerk().size(); i++) {
                                         Altersklasse a = wkl.getRegelwerk().getAk(i);
@@ -197,8 +190,6 @@ public class MUploadPlugin extends ANullPlugin {
                                         if (a.getDiszAnzahl() == 0) {
                                             break;
                                         }
-                                        // isFinal = y.round >= ak.getDisziplin(y.disziplin,
-                                        // y.maennlich).getRunden().length;
                                         String runde = " - " + I18n.getRound(y.round, isFinal);
                                         a.setName(aks.getAk(i).getName() + " - " + a.getDisziplin(0, true).getName()
                                                 + runde);
@@ -239,7 +230,6 @@ public class MUploadPlugin extends ANullPlugin {
             return collected;
         }
 
-        double points = results[0].getPoints();
         for (SchwimmerResult<TX> result1 : results) {
             if (!result1.hasKeineWertung()) {
                 List<Result> times = new ArrayList<>();

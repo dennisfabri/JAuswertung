@@ -1,12 +1,18 @@
 package de.df.jauswertung.gui.plugins.dm;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Random;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.gui.plugins.aselection.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.gui.plugins.aselection.AMSelectionPlugin;
+import de.df.jauswertung.gui.plugins.aselection.ISelector;
+import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
-import de.df.jutils.util.RandomUtils;
 
 public class DMSelector<T extends ASchwimmer> implements ISelector<T> {
 
@@ -42,7 +48,7 @@ public class DMSelector<T extends ASchwimmer> implements ISelector<T> {
             }
         }
 
-        Random rng = RandomUtils.getRandomNumberGenerator(RandomUtils.Generators.MersenneTwister);
+        Random rng = RandomUtils.getRandomNumberGenerator();
 
         // Disable selection of at least on first
         int ak = -1;
