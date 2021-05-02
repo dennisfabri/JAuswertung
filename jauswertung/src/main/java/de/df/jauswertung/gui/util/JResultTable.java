@@ -488,7 +488,7 @@ public final class JResultTable extends JGroupableTable {
     public String getChecksum() {
         String[] text = new String[results.length];
         for (int x = 0; x < results.length; x++) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             SchwimmerResult sr = results[x];
 
             String sn = "" + sr.getSchwimmer().getStartnummer();

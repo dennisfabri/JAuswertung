@@ -530,7 +530,7 @@ public class Altersklasse implements Serializable {
             length = Math.max(length, d.getName().length());
         }
         for (int x = 0; x < text.length; x++) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
             {
                 Disziplin d = getDisziplin(x, true);

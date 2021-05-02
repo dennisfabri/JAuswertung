@@ -16,11 +16,11 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jutils.exception.ParserException;
+import de.df.jutils.i18n.EmptyResourceBundle;
 import de.df.jutils.i18n.SafeTextProcessor;
 import de.df.jutils.resourcebundle.IdentityResourceBundle;
 import de.df.jutils.resourcebundle.MultipleResourceBundle;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
-import de.df.jutils.resourcebundle.TableResourceBundle;
 
 /**
  * @author Dennis Fabri
@@ -31,7 +31,7 @@ public final class I18n {
         // Never called
     }
 
-    private static TableResourceBundle fallback    = null;
+    private static ResourceBundle fallback    = null;
     private static SafeTextProcessor   instance    = null;
     private static SafeTextProcessor   disziplinen = null;
 
@@ -88,7 +88,7 @@ public final class I18n {
 
     private static synchronized ResourceBundle getFallbackResourceBundle() {
         if (fallback == null) {
-            fallback = new TableResourceBundle();
+            fallback = new EmptyResourceBundle();
         }
         return fallback;
     }

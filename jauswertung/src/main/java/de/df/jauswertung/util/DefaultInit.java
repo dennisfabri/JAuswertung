@@ -85,9 +85,6 @@ public final class DefaultInit {
                 re.printStackTrace();
             }
         });
-
-        // Set the focus color to our blue
-        InfiniteProgressPanel.setColorFocus(new Color(4, 22, 188));
     }
 
     private static void initFileChooser() {
