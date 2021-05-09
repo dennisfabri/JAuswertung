@@ -25,10 +25,12 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.PenaltyPluginUtils;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.layout.SimpleListBuilder;
 import de.df.jutils.gui.util.ModalFrameUtil;
@@ -139,7 +141,7 @@ public class MPenaltylistPlugin extends ANullPlugin {
         public void update() {
             panel.removeAll();
             SimpleListBuilder sfm = new SimpleListBuilder(panel, new FormLayout("4dlu,fill:0px:grow,4dlu", "4dlu"));
-            JPanel[] panels = PenaltyUtils.getPenalties(core, new PenaltyUtils.PenaltyListener() {
+            JPanel[] panels = PenaltyPluginUtils.getPenalties(core, new PenaltyUIUtils.PenaltyListener() {
                 @SuppressWarnings("unchecked")
                 @Override
                 public void edit(AWettkampf wk, ASchwimmer s, int disziplin) {

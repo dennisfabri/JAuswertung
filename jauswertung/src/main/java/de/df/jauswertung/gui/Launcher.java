@@ -1,6 +1,7 @@
 package de.df.jauswertung.gui;
 
 import de.df.jauswertung.gui.akeditor.JAKsEditor;
+import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.veranstaltung.Veranstaltungswertung;
@@ -113,7 +114,7 @@ public final class Launcher {
         EDTUtils.executeOnEDT(new Runnable() {
             @Override
             public void run() {
-                PenaltyUtils.showPenalties(InputManager.ladeStrafen(null, true));
+                PenaltyUIUtils.showPenalties(InputManager.ladeStrafen(null, true));
             }
         });
     }

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
+import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -42,7 +42,7 @@ public class MStrafenkatalogPlugin extends ANullPlugin {
         menu[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                PenaltyUtils.showPenalties(controller.getWindow(), core.getStrafen());
+                PenaltyUIUtils.showPenalties(controller.getWindow(), core.getStrafen());
 
             }
         });

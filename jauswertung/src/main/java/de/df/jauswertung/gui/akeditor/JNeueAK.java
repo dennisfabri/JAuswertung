@@ -24,6 +24,7 @@ import com.l2fprod.common.buttonbar.JButtonBar;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
@@ -171,7 +172,7 @@ public class JNeueAK extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            result = AltersklassenUtils.getAKs(name);
+            result = AgeGroupIOUtils.getAKs(name);
             einzelak = true;
             dispose();
         }
@@ -187,7 +188,7 @@ public class JNeueAK extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            result = AltersklassenUtils.getAKs(name);
+            result = AgeGroupIOUtils.getAKs(name);
             einzelak = false;
             dispose();
         }

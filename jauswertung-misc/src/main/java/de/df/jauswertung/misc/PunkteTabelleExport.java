@@ -1,6 +1,7 @@
 package de.df.jauswertung.misc;
 
 import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jutils.util.StringTools;
 
@@ -32,8 +33,8 @@ public class PunkteTabelleExport {
     private static String[] namesM2 = new String[] { "AK 15/16", "AK 17/18", "AK Offen" };
 
     public static void main(String[] args) {
-        Regelwerk einzel = AltersklassenUtils.getDefaultAKs(true);
-        Regelwerk mannschaft = AltersklassenUtils.getDefaultAKs(false);
+        Regelwerk einzel = AgeGroupIOUtils.getDefaultAKs(true);
+        Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
         System.out.println("-");
         writeByAgegroup(einzel, idsE1, namesE1);

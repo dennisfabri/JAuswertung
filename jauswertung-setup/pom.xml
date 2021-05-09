@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>de.dennisfabri</groupId>
+		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
 		<version>15.1.2</version>
 	</parent>
@@ -14,14 +14,23 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.dennisfabri</groupId>
+			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-install</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -95,7 +104,7 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>de.dennisfabri</groupId>
+									<groupId>de.dennisfabri.jauswertung</groupId>
 									<artifactId>jauswertung-files</artifactId>
 									<version>${project.version}</version>
 									<classifier>files</classifier>
@@ -119,7 +128,7 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>de.dennisfabri</groupId>
+									<groupId>de.dennisfabri.jauswertung</groupId>
 									<artifactId>jauswertung</artifactId>
 									<version>${project.version}</version>
 									<classifier>site</classifier>
@@ -142,8 +151,8 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>de.dennisfabri</groupId>
-									<artifactId>alphaserver</artifactId>
+									<groupId>de.dennisfabri.alphaserver</groupId>
+									<artifactId>alphaserver-server</artifactId>
 									<version>1.0.0-SNAPSHOT</version>
 									<classifier>files</classifier>
 									<type>zip</type>
@@ -223,7 +232,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>pack-linux-setup</id>
@@ -252,9 +260,9 @@
 						</goals>
 						<configuration>
 							<target>
-							    <move 
-							        file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar" 
-							        tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar"/>
+								<move
+									file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar"
+									tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar" />
 								<delete
 									file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
 								<delete file="${project.build.directory}/sha256sums" />

@@ -1,8 +1,10 @@
 package de.df.jauswertung.misc;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.AltersklassenUtils;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 
 // $rec = array(
 // array("AK 12", -1, array( 31.90, 35.70, 24.30), array( 31.10, 35.10, 23.60), array("50m Hindernis", "50m k. Schwimmen", "50m Flossen")),
@@ -20,8 +22,8 @@ import de.df.jauswertung.util.AltersklassenUtils;
 public class XamarinExport {
 
     public static void main(String[] args) {
-        Regelwerk einzel = AltersklassenUtils.getDefaultAKs(true);
-        Regelwerk mannschaft = AltersklassenUtils.getDefaultAKs(false);
+        Regelwerk einzel = AgeGroupIOUtils.getDefaultAKs(true);
+        Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
         // System.out.println("Einzel");
         write("2020", einzel, "Single", true, true);

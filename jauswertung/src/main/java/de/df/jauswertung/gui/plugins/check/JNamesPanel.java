@@ -251,6 +251,7 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
 
     void Update() {
         TimeMeasurement tm = new TimeMeasurement(System.out, 1);
+        tm.start("Updating");
         updateData();
         tm.finish("updateData");
         parent.updateGUI();

@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.dennisfabri.jauswertung</groupId>
+		<artifactId>jauswertung-project</artifactId>
+		<version>15.1.2</version>
+	</parent>
+	<artifactId>jauswertung-print</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-swing</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-swing</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-print</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.vlsi.mxgraph</groupId>
+			<artifactId>jgraphx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-all</artifactId>
+		</dependency>
+	</dependencies>
+</project>

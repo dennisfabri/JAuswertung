@@ -59,7 +59,6 @@ import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jauswertung.util.vergleicher.SchwimmerStartnummernVergleicher;
-import de.df.jutils.data.Triplet;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIcon;
 import de.df.jutils.gui.JIntegerField;
@@ -75,7 +74,6 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.PanelInfo;
 import de.df.jutils.plugin.UpdateEvent;
-import de.df.jutils.util.Converter;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -84,47 +82,47 @@ import de.df.jutils.util.StringTools;
  */
 public class PHeatInputPlugin extends ANullPlugin {
 
-    private static final String INPUT                = I18n.get("HeatResultInput");
+    private static final String INPUT = I18n.get("HeatResultInput");
 
-    int                         bahnen               = -1;
+    int bahnen = -1;
 
-    JGlassPanel<JPanel>         main                 = null;
+    JGlassPanel<JPanel> main = null;
 
-    private JPanel              panel                = null;
-    private JPanel              heatPanel            = null;
-    JButton                     next                 = null;
-    JButton                     previous             = null;
-    JComboBox<String>           heat                 = null;
-    JLabel                      discipline           = null;
-    JLabel                      agegroup             = null;
+    private JPanel panel = null;
+    private JPanel heatPanel = null;
+    JButton next = null;
+    JButton previous = null;
+    JComboBox<String> heat = null;
+    JLabel discipline = null;
+    JLabel agegroup = null;
 
-    private IHeatInputStrategy  strategy             = null;
+    private IHeatInputStrategy strategy = null;
 
-    private JLabel[]            names                = null;
-    private JLabel[]            organisations        = null;
-    private JLabel[]            agegroups            = null;
-    private JLabel[]            startnumbers         = null;
-    private JIcon[]             icons                = null;
-    JIntegerField[]             inputs               = null;
-    JTimeField[]                times                = null;
-    private JLabel[]            penaltiestext        = null;
-    private JButton[]           penalties            = null;
-    private DocumentListener[]  dl                   = null;
-    HighPointsListener[]        fl                   = null;
+    private JLabel[] names = null;
+    private JLabel[] organisations = null;
+    private JLabel[] agegroups = null;
+    private JLabel[] startnumbers = null;
+    private JIcon[] icons = null;
+    JIntegerField[] inputs = null;
+    JTimeField[] times = null;
+    private JLabel[] penaltiestext = null;
+    private JButton[] penalties = null;
+    private DocumentListener[] dl = null;
+    HighPointsListener[] fl = null;
 
-    private JButton             zieleinlauf          = null;
-    private JButton             zielrichterentscheid = null;
+    private JButton zieleinlauf = null;
+    private JButton zielrichterentscheid = null;
 
-    private NextHeatListener    nextHeatListener     = null;
+    private NextHeatListener nextHeatListener = null;
 
-    ASchwimmer[]                swimmers             = null;
+    ASchwimmer[] swimmers = null;
     @SuppressWarnings("rawtypes")
-    AWettkampf                  wk                   = null;
+    AWettkampf wk = null;
 
-    IPluginManager              controller           = null;
-    CorePlugin                  core                 = null;
-    FEditorPlugin               editor               = null;
-    MZielrichterentscheidPlugin zeplugin             = null;
+    IPluginManager controller = null;
+    CorePlugin core = null;
+    FEditorPlugin editor = null;
+    MZielrichterentscheidPlugin zeplugin = null;
 
     public PHeatInputPlugin() {
         // Nothing to do
@@ -135,7 +133,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         initPanel();
 
-        main = new JGlassPanel<JPanel>(panel);
+        main = new JGlassPanel<>(panel);
         main.setName(INPUT);
 
         JPanel info = new JPanel();
@@ -234,7 +232,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         String agegroupPart = "center:default:grow,4dlu,";
         String heatPart = "right:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu";
 
-        FormLayout layout = new FormLayout(disciplinePart + agegroupPart + heatPart, FormLayoutUtils.createLayoutString(2));
+        FormLayout layout = new FormLayout(disciplinePart + agegroupPart + heatPart,
+                FormLayoutUtils.createLayoutString(2));
 
         layout.setColumnGroup(2, 4, 6);
 
@@ -319,7 +318,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             return;
         }
 
-        boolean byTimesNew = FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getDataType().equals(DataType.TIME);
+        boolean byTimesNew = FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getDataType()
+                .equals(DataType.TIME);
 
         int b = strategy.getBahnen();
 
@@ -604,7 +604,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         if (inputs[index].getText().equals("")) {
             return true;
         }
-        if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index], strategy.getDiscipline(index))) {
+        if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
+                strategy.getDiscipline(index))) {
             inputs[index].requestFocus();
             return false;
         }
@@ -613,9 +614,9 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     private final class HighPointsListener extends FocusAdapter {
 
-        private int    index = 0;
+        private int index = 0;
 
-        private String data  = "";
+        private String data = "";
 
         public HighPointsListener(int x) {
             index = x;
@@ -779,7 +780,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         private void setMeanTime(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, 'm'), '+'))) {
+            if ((zeit.length() == 1)
+                    || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, 'm'), '+'))) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -814,7 +816,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         private void showZieleinlauf(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
+            if ((zeit.length() == 1)
+                    || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -849,8 +852,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                         String x = StringTools.removeAll(inputs[index].getText(), '#');
                         inputs[index].setText(x);
                         updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                                PHeatInputPlugin.this);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                     }
                 });
             } else {
@@ -877,8 +880,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                         String x = StringTools.removeAll(inputs[index].getText(), 'd');
                         inputs[index].setText(x);
                         updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                                PHeatInputPlugin.this);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                     }
                 });
             } else {
@@ -902,8 +905,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                         String x = StringTools.removeAll(inputs[index].getText(), 'w');
                         inputs[index].setText(x);
                         updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                                PHeatInputPlugin.this);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                     }
                 });
             } else {
@@ -927,8 +930,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                         String x = StringTools.removeAll(inputs[index].getText(), 'f');
                         inputs[index].setText(x);
                         updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                                PHeatInputPlugin.this);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                     }
                 });
             } else {
@@ -952,8 +955,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                         String x = StringTools.removeAll(inputs[index].getText(), 'n');
                         inputs[index].setText(x);
                         updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                                PHeatInputPlugin.this);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                     }
                 });
             } else {
@@ -1090,8 +1093,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmers[index], strategy.getDiscipline(index),
-                            PHeatInputPlugin.this);
+                    controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
+                            swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
                 }
             });
         }
@@ -1295,7 +1298,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                     organisations[x].setText(s.getGliederung() + q);
                     agegroups[x].setText(s.getAK().toString() + " " + I18n.geschlechtToString(s));
                     startnumbers[x].setText(StartnumberFormatManager.format(s));
-                    penaltiestext[x].setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(disciplines[x]), s.getAK()));
+                    penaltiestext[x].setText(
+                            PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(disciplines[x]), s.getAK()));
                     icons[x].setVisible(strategy.isTimeLimitBroken(index, x));
                 }
             }
@@ -1330,7 +1334,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                 penaltiestext[lane].setText("");
             } else {
                 ASchwimmer s = swimmers[lane];
-                penaltiestext[lane].setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(disciplines[lane]), s.getAK()));
+                penaltiestext[lane].setText(
+                        PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(disciplines[lane]), s.getAK()));
             }
             updateZieleinlauf(current);
         }
@@ -1343,7 +1348,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             } else {
                 swimmers[lane].setZeit(disciplines[lane], inputs[lane].getInt());
             }
-            controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane], disciplines[lane], PHeatInputPlugin.this);
+            controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane],
+                    disciplines[lane], PHeatInputPlugin.this);
         }
 
         @Override
@@ -1363,7 +1369,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
 
             TimelimitsContainer tlc = s.getWettkampf().getTimelimits();
-            return tlc.isBrokenBy(time, penalty, disziplin, s, wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0);
+            return tlc.isBrokenBy(time, penalty, disziplin, s,
+                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0);
         }
 
         @Override
@@ -1430,7 +1437,20 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     class HeatInputStrategyByHeat<T extends ASchwimmer> implements IHeatInputStrategy {
 
-        private LinkedList<Triplet<String, OWDisziplin<T>, OWLauf<T>>> owlaeufe = null;
+        private class HeatInfo {
+
+            public final String Item1;
+            public final OWDisziplin<T> Item2;
+            public final OWLauf<T> Item3;
+
+            public HeatInfo(String a, OWDisziplin<T> b, OWLauf<T> c) {
+                Item1 = a;
+                Item2 = b;
+                Item3 = c;
+            }
+        }
+        
+        private LinkedList<HeatInfo> owlaeufe = null;
 
         @Override
         public void init() {
@@ -1446,12 +1466,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (index >= owlaeufe.size()) {
                 return 0;
             }
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
-            // OWLauf current = info.Item3;
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
-
-            // String id = "";
-            // OWDisziplin d = wk.getLauflisteOW().getDisziplin(id);
             if (d == null) {
                 return 0;
             }
@@ -1462,7 +1478,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         @Override
         public void heatlistChanged() {
             wk = core.getWettkampf();
-            owlaeufe = new LinkedList<Triplet<String, OWDisziplin<T>, OWLauf<T>>>();
+            owlaeufe = new LinkedList<HeatInfo>();
             OWLaufliste ll = wk.getLauflisteOW();
 
             OWDisziplin<T>[] dx = ll.getDisziplinen();
@@ -1499,20 +1515,17 @@ public class PHeatInputPlugin extends ANullPlugin {
             for (OWDisziplin d : dx) {
                 for (OWLauf l : (LinkedList<OWLauf>) d.getLaeufe()) {
                     int rid = wk.getRegelwerk().getRundenId(d);
-                    String heattext = String.format("%03d-%02d%s", rid, l.getLaufnummer(), Converter.characterString(l.getLaufbuchstabe()));
-                    String name = String.format("%s - %s", heattext, I18n.getDisciplineFullName(wk, l.getDisciplineId()));
-                    Triplet<String, OWDisziplin<T>, OWLauf<T>> t = new Triplet<String, OWDisziplin<T>, OWLauf<T>>(name, d, l);
-                    owlaeufe.add(t);
+                    String heattext = String.format("%03d-%02d%s", rid, l.getLaufnummer(),
+                            StringTools.characterString(l.getLaufbuchstabe()));
+                    String name = String.format("%s - %s", heattext,
+                            I18n.getDisciplineFullName(wk, l.getDisciplineId()));
+                    owlaeufe.add(new HeatInfo(name, d, l));
                 }
             }
 
             int index = heat.getSelectedIndex();
             heat.removeAllItems();
-            Object[] items = new Object[owlaeufe.size()];
-            ListIterator<Triplet<String, OWDisziplin<T>, OWLauf<T>>> li = owlaeufe.listIterator();
-            for (int x = 0; li.hasNext(); x++) {
-                items[x] = li.next().Item1;
-            }
+            Object[] items = owlaeufe.stream().map(l -> l.Item1).toArray();
             heat.setModel(new DefaultComboBoxModel(items));
             if (index != -1) {
                 heat.setSelectedIndex(index);
@@ -1521,14 +1534,9 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
         }
 
-        @SuppressWarnings("rawtypes")
         @Override
         public boolean isEmpty() {
-            wk = core.getWettkampf();
-            // owlaeufe = new LinkedList<Triplet<String, OWDisziplin,
-            // OWLauf>>();
-            OWLaufliste ll = wk.getLauflisteOW();
-            return ll.isEmpty();
+            return core.getWettkampf().getLauflisteOW().isEmpty();
         }
 
         @Override
@@ -1537,9 +1545,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (index < 0) {
                 return;
             }
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
-            OWLauf current = info.Item3;
-            OWDisziplin d = info.Item2;
+            OWLauf current = owlaeufe.get(index).Item3;
+            OWDisziplin d = owlaeufe.get(index).Item2;
 
             ASchwimmer[] values;
 
@@ -1555,11 +1562,9 @@ public class PHeatInputPlugin extends ANullPlugin {
                 }
             }
 
-            // Lauf current = (Lauf)
-            // wk.getLaufliste().getLaufliste().get(index);
             updateZieleinlauf(current);
             for (int x = 0; x < current.getBahnen(); x++) {
-                swimmers[x] = x < values.length ? values[x] : null; // current.getSchwimmer(x);
+                swimmers[x] = x < values.length ? values[x] : null;
                 if (swimmers[x] == null) {
                     inputs[x].setEnabled(false);
                     penalties[x].setEnabled(false);
@@ -1588,7 +1593,8 @@ public class PHeatInputPlugin extends ANullPlugin {
                     organisations[x].setText(s.getGliederung() + q);
                     agegroups[x].setText(I18n.getAgeGroupAsString(s));
                     startnumbers[x].setText(StartnumberFormatManager.format(s));
-                    penaltiestext[x].setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.Id), s.getAK()));
+                    penaltiestext[x]
+                            .setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.Id), s.getAK()));
                     icons[x].setVisible(isTimeLimitBroken(index, x));
                 }
             }
@@ -1597,9 +1603,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         @Override
         public void heatChanged(int index) {
             if (index >= 0) {
-                Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
-                // OWLauf<T> lauf = info.Item3;
-                OWDisziplin<T> d = info.Item2;
+                OWDisziplin<T> d = owlaeufe.get(index).Item2;
 
                 Altersklasse ak = wk.getRegelwerk().getAk(d.akNummer);
                 String disziplin = ak.getDisziplin(d.disziplin, d.maennlich).getName();
@@ -1609,7 +1613,6 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
             previous.setEnabled(index > 0);
             next.setEnabled(index + 1 < heat.getItemCount());
-            // heatlistChanged();
             updatePanel(null);
             updateInputFields(index);
         }
@@ -1617,17 +1620,15 @@ public class PHeatInputPlugin extends ANullPlugin {
         @SuppressWarnings("rawtypes")
         private void updateZieleinlauf(OWLauf l) {
             zieleinlauf.setEnabled(l.alleZeitenEingegeben());
-            // zielrichterentscheid.setEnabled(zeplugin.isZielrichterentscheidEnabled());
             zielrichterentscheid.setEnabled(false);
         }
 
         @Override
         public void updatePenalty(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWLauf<T> current = info.Item3;
             OWDisziplin<T> d = info.Item2;
 
-            // swimmers[lane] = current.getSchwimmer(lane);
             if (swimmers[lane] == null) {
                 penaltiestext[lane].setText("");
             } else {
@@ -1639,9 +1640,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public void changeTime(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
-            // OWLauf<T> current = info.Item3;
-            OWDisziplin<T> d = info.Item2;
+            OWDisziplin<T> d = owlaeufe.get(index).Item2;
 
             if (byTimes) {
                 swimmers[lane].setZeit(d.Id, times[lane].getTimeAsInt());
@@ -1649,12 +1648,13 @@ public class PHeatInputPlugin extends ANullPlugin {
             } else {
                 swimmers[lane].setZeit(d.Id, inputs[lane].getInt());
             }
-            controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane], d.disziplin, PHeatInputPlugin.this);
+            controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane],
+                    d.disziplin, PHeatInputPlugin.this);
         }
 
         @Override
         public boolean isTimeLimitBroken(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
 
             ASchwimmer s = swimmers[lane];
@@ -1671,12 +1671,13 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
 
             TimelimitsContainer tlc = s.getWettkampf().getTimelimits();
-            return tlc.isBrokenBy(time, penalty, disziplin, s, wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), d.round);
+            return tlc.isBrokenBy(time, penalty, disziplin, s,
+                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), d.round);
         }
 
         @Override
         public void addStrafe(int index, int lane, Strafe strafe) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
 
             ASchwimmer t = swimmers[lane];
@@ -1686,7 +1687,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public void setStrafen(int index, int lane, LinkedList<Strafe> strafen) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
 
             ASchwimmer t = swimmers[lane];
@@ -1697,7 +1698,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         @SuppressWarnings("unchecked")
         @Override
         public void runPenaltyEditor(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyEditor(wk, swimmers[lane], d.Id);
         }
@@ -1705,7 +1706,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         @SuppressWarnings("unchecked")
         @Override
         public void runPenaltyPoints(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyPoints(wk, swimmers[lane], d.Id);
         }
@@ -1713,21 +1714,21 @@ public class PHeatInputPlugin extends ANullPlugin {
         @SuppressWarnings("unchecked")
         @Override
         public void runPenaltyCode(int index, int lane) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(index);
+            HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyCode(wk, swimmers[lane], d.Id, wk.getStrafen());
         }
 
         @Override
         public int getDiscipline(int index) {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(heat.getSelectedIndex());
+            HeatInfo info = owlaeufe.get(heat.getSelectedIndex());
             OWDisziplin<T> d = info.Item2;
             return d.disziplin;
         }
 
         @Override
         public void zeigeZieleinlauf() {
-            Triplet<String, OWDisziplin<T>, OWLauf<T>> info = owlaeufe.get(heat.getSelectedIndex());
+            HeatInfo info = owlaeufe.get(heat.getSelectedIndex());
             OWLauf<T> lauf = info.Item3;
             if (!lauf.alleZeitenEingegeben()) {
                 Toolkit.getDefaultToolkit().beep();
@@ -1753,7 +1754,9 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public void runMeanTimeEditor(int index, ISimpleCallback<Boolean> iSimpleCallback) {
-            // editor.runMeanTimeEditor(swimmers[index], strategy.getDiscipline(index), iSimpleCallback);
+            // editor.runMeanTimeEditor(swimmers[index], strategy.getDiscipline(index),
+            // iSimpleCallback);
         }
     }
+    
 }

@@ -17,7 +17,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.AltersklassenUtils;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -135,7 +135,7 @@ public class EmergencyPlugin extends ANullPlugin {
         @SuppressWarnings("rawtypes")
         private void initRecs(AWettkampf wk) {
             String suffix = wk instanceof MannschaftWettkampf ? ".rwm" : ".rwe";
-            Regelwerk aks = AltersklassenUtils.getAKs("DLRG " + jahr + suffix);
+            Regelwerk aks = AgeGroupIOUtils.getAKs("DLRG " + jahr + suffix);
 
             for (int i = 0; i < aks.size(); i++) {
                 Altersklasse ak = aks.getAk(i);

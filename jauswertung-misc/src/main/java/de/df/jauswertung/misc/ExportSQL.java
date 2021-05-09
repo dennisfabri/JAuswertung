@@ -3,6 +3,7 @@ package de.df.jauswertung.misc;
 import java.util.HashSet;
 
 import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.AltersklassenUtils;
 
 public class ExportSQL {
@@ -15,7 +16,7 @@ public class ExportSQL {
     private static HashSet<String> disciplines = new HashSet<String>();
 
     private static void WriteAG(boolean einzel) {
-        Regelwerk rwe = AltersklassenUtils.getDefaultAKs(einzel);
+        Regelwerk rwe = AgeGroupIOUtils.getDefaultAKs(einzel);
 
         for (Altersklasse ak : rwe.getAks()) {
             System.out.format(" INSERT INTO [dbo].[Agegroups] ([Name], [Description], [IsTeam]) VALUES ('%s', NULL, %s);\n", ak.getName(), einzel ? 0 : 1);

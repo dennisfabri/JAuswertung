@@ -23,6 +23,7 @@ import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
@@ -88,7 +89,7 @@ class CompetitionExporter {
     }
 
     private static <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(AWettkampf<T> wk, OWSelection t) {
-        AWettkampf<T> wkx = CompetitionUtils.createCompetitionFor(wk, t);
+        AWettkampf<T> wkx = ResultUtils.createCompetitionFor(wk, t);
         for (int x = 0; x < wkx.getRegelwerk().size(); x++) {
             wkx.getRegelwerk().getAk(x).setHLW(false);
         }

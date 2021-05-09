@@ -251,7 +251,7 @@ public class JNeuerWettkampf extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            result = new EinzelWettkampf(AltersklassenUtils.getAKs(name), InputManager.ladeStrafen(name, true));
+            result = new EinzelWettkampf(AgeGroupIOUtils.getAKs(name), InputManager.ladeStrafen(name, true));
             dispose();
         }
     }
@@ -266,7 +266,7 @@ public class JNeuerWettkampf extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            result = new MannschaftWettkampf(AltersklassenUtils.getAKs(name), InputManager.ladeStrafen(name, false));
+            result = new MannschaftWettkampf(AgeGroupIOUtils.getAKs(name), InputManager.ladeStrafen(name, false));
             dispose();
         }
     }

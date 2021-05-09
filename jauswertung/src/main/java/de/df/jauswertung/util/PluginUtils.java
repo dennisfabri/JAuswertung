@@ -10,21 +10,12 @@ import de.df.jutils.plugin.IPluginManager;
 
 public final class PluginUtils {
 
-    public static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk) {
-        wk.getHLWListe().erzeugen(null);
-        controller.sendDataUpdateEvent("NewZWList", UpdateEventConstants.REASON_ZW_LIST_CHANGED, feature);
-    }
-
-    public static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk, HLWListe.Einteilung[] aufteilung) {
-        wk.getHLWListe().erzeugen(aufteilung);
-        controller.sendDataUpdateEvent("NewZWList", UpdateEventConstants.REASON_ZW_LIST_CHANGED, feature);
-    }
 
     /*
      * (non-Javadoc)
      * @see de.df.jauswertung.gui.beta.plugin.Controller#erzeugeLaufliste()
      */
-    public static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk) {
+    private static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk) {
         wk.getLaufliste().erzeugen();
         controller.sendDataUpdateEvent("NewHeatlist", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, feature);
     }
@@ -33,7 +24,7 @@ public final class PluginUtils {
      * (non-Javadoc)
      * @see de.df.jauswertung.gui.beta.plugin.Controller#erzeugeLaufliste()
      */
-    public static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk,
+    private static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk,
             Laufliste.BlockEinteilung[] data) {
         boolean reordered = wk.getLaufliste().erzeugen(data);
         controller.sendDataUpdateEvent("NewHeatlist", UpdateEventConstants.REASON_LAUF_LIST_CHANGED
@@ -48,7 +39,7 @@ public final class PluginUtils {
      * (non-Javadoc)
      * @see de.df.jauswertung.gui.beta.plugin.Controller#erzeugeLaufliste()
      */
-    public static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk, Laufliste.Einteilung[] data) {
+    private static <T extends ASchwimmer> void erzeugeLaufliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk, Laufliste.Einteilung[] data) {
         boolean reordered = wk.getLaufliste().erzeugen(data);
         controller.sendDataUpdateEvent("NewHeatlist", UpdateEventConstants.REASON_LAUF_LIST_CHANGED
                 | (reordered
@@ -56,6 +47,6 @@ public final class PluginUtils {
                                 | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
                         : UpdateEventConstants.NOTHING),
                 feature);
-    }
+    }    
 
 }

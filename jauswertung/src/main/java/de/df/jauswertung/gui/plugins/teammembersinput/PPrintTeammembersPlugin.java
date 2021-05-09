@@ -16,7 +16,7 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.io.IOUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.plugin.ANullPlugin;
@@ -110,7 +110,7 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
 
     @Override
     public void shutDown() {
-        Utils.writeToPreferences("PrintSettings", PageSetup.getPRASTable());
+        IOUtils.writeToPreferences("PrintSettings", PageSetup.getPRASTable());
         PrintQueue.getInstance().removePrintCallback(printcallback);
     }
 

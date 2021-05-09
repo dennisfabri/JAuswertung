@@ -18,8 +18,9 @@ import de.df.jauswertung.print.TeamnamesRegistrationPrintable;
 import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.PrintableCreator;
+import de.df.jutils.print.api.PrintableCreator;
 
 /**
  * @author Dennis Fabri
@@ -69,12 +70,12 @@ class RegisteredTeamnamesPrinter2 {
     }
 
     void print() {
-        PrintManager.print(getPrintable(), I18n.get("RegisteredTeamnames"), true, controller.getWindow());
+        PrintExecutor.print(getPrintable(), I18n.get("RegisteredTeamnames"), true, controller.getWindow());
     }
 
     void preview() {
         PrintableCreator pc = new MeldelistenPC();
-        PrintManager.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     private final class MeldelistenPC implements PrintableCreator {

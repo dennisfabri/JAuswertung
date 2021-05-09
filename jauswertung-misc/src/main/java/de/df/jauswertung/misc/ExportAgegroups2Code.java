@@ -1,6 +1,7 @@
 package de.df.jauswertung.misc;
 
 import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.AltersklassenUtils;
 
 public class ExportAgegroups2Code {
@@ -11,7 +12,7 @@ public class ExportAgegroups2Code {
     }
 
     private static void WriteAG(boolean einzel) {
-        Regelwerk rwe = AltersklassenUtils.getDefaultAKs(einzel);
+        Regelwerk rwe = AgeGroupIOUtils.getDefaultAKs(einzel);
 
         System.out.format("  Agegroup ag;\n");
         System.out.format("  Discipline d;\n");

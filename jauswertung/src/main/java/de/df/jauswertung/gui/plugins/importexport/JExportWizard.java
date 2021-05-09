@@ -53,7 +53,6 @@ import de.df.jutils.gui.wizard.PageSwitchListener;
 import de.df.jutils.gui.wizard.UpdateListener;
 import de.df.jutils.gui.wizard.WizardInfoPage;
 import de.df.jutils.gui.wizard.WizardOptionPage;
-import de.df.jutils.util.ExceptionUtils;
 import de.df.jutils.util.Feedback;
 
 /**
@@ -187,7 +186,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
                     } else {
                         ex.printStackTrace();
                         DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"),
-                                I18n.get("ExportFailedWith.Note", ExceptionUtils.toString(ex)));
+                                I18n.get("ExportFailedWith.Note", I18n.toString(ex)));
                     }
                 }
                 setText("");

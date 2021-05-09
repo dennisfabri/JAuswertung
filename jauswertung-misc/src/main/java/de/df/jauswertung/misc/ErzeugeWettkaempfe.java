@@ -42,6 +42,7 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
 import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.AltersklassenUtils;
@@ -121,7 +122,7 @@ public final class ErzeugeWettkaempfe {
 
         long time = System.currentTimeMillis();
 
-        EinzelWettkampf ewk = new EinzelWettkampf(AltersklassenUtils.getDefaultAKs(true),
+        EinzelWettkampf ewk = new EinzelWettkampf(AgeGroupIOUtils.getDefaultAKs(true),
                 InputManager.ladeStrafen(null, true));
         // ewk.setLogo(IconManager.getLogoImage());
         int lanes = 6;
@@ -270,7 +271,7 @@ public final class ErzeugeWettkaempfe {
 
         long time = System.currentTimeMillis();
 
-        MannschaftWettkampf mwk = new MannschaftWettkampf(AltersklassenUtils.getDefaultAKs(false),
+        MannschaftWettkampf mwk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false),
                 InputManager.ladeStrafen(null, false));
         // mwk.setLogo(IconManager.getLogoImage());
 

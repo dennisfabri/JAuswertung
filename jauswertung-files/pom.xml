@@ -3,19 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>de.dennisfabri</groupId>
+		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
 		<version>15.1.2</version>
 	</parent>
 	<artifactId>jauswertung-files</artifactId>
 	<name>JAuswertung Files</name>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>pack-files</id>

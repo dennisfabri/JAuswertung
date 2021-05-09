@@ -37,12 +37,13 @@ import de.df.jutils.gui.jtable.JGroupableTable;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.print.EmptyPrintable;
-import de.df.jutils.print.HeaderFooterPrintable;
-import de.df.jutils.print.JTablePrintable;
-import de.df.jutils.print.MultiplePrintable;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.PrintableCreator;
+import de.df.jutils.print.api.PrintableCreator;
+import de.df.jutils.print.printables.EmptyPrintable;
+import de.df.jutils.print.printables.HeaderFooterPrintable;
+import de.df.jutils.print.printables.JTablePrintable;
+import de.df.jutils.print.printables.MultiplePrintable;
 
 class ResultsPrinter implements Printer {
 
@@ -263,7 +264,7 @@ class ResultsPrinter implements Printer {
             DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
             return;
         }
-        PrintManager.print(p, I18n.get("GroupEvaluation"), parent);
+        PrintExecutor.print(p, I18n.get("GroupEvaluation"), parent);
     }
 
     void preview() {
@@ -279,7 +280,7 @@ class ResultsPrinter implements Printer {
             pc = new NormalPrintableCreator();
         }
         parent.setEnabled(true);
-        PrintManager.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.dennisfabri.jauswertung</groupId>
+		<artifactId>jauswertung-project</artifactId>
+		<version>15.1.2</version>
+	</parent>
+	<artifactId>jauswertung-data</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-i18n</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-print</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pmease</groupId>
+			<artifactId>commons.xmt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mpkorstanje</groupId>
+			<artifactId>simmetrics-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.kostaskougios</groupId>
+			<artifactId>cloning</artifactId>
+		</dependency>
+	</dependencies>
+</project>

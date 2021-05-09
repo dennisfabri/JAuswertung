@@ -49,7 +49,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.gui.util.JStartsViewer;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelILS;
@@ -64,8 +64,9 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.PanelInfo;
 import de.df.jutils.plugin.UpdateEvent;
-import de.df.jutils.print.MultiplePrintable;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
+import de.df.jutils.print.printables.MultiplePrintable;
 
 /**
  * @author Dennis Fabri
@@ -205,7 +206,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     if (round < 0) {
                         // Todo
                     } else if (isCompleteDiscipline) {
-                        wkx = CompetitionUtils.generateEinzelwertungswettkampf(wkx, index, maennlich, false);
+                        wkx = ResultUtils.generateEinzelwertungswettkampf(wkx, index, maennlich, false);
                         if (wkx == null) {
                             disableDisplay();
                             return;
@@ -216,7 +217,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     } else {
                         isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
                         OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
-                        wkx = CompetitionUtils.createCompetitionFor(wkx, t);
+                        wkx = ResultUtils.createCompetitionFor(wkx, t);
                         if (wkx == null) {
                             disableDisplay();
                             DialogUtils.inform(getController().getWindow(), I18n.get("RoundNotYetGenerated.Information"),
@@ -282,15 +283,12 @@ public class PResulttablePlugin extends ANullPlugin {
                 }
                 if (isHeatBased()) {
                     if (isPartOnly) {
-                        PrintManager.print(getPrintable(wkx, !isCompleteDiscipline, round, qualification, selection), I18n.get("Result"),
-                                getController().getWindow());
+                        PrintExecutor.print(getPrintable(wkx, !isCompleteDiscipline, round, qualification, selection), I18n.get("Result"), getController().getWindow());
                     } else {
-                        PrintManager.print(getPrintable(wkx, false, 0, 0, selection), I18n.get("Results"), getController().getWindow());
+                        PrintExecutor.print(getPrintable(wkx, false, 0, 0, selection), I18n.get("Results"), getController().getWindow());
                     }
                 } else {
-                    PrintManager.print(
-                            getPrintable(wkx, false, 0, 0, new boolean[][] { { geschlecht.getSelectedIndex() == 0 }, { geschlecht.getSelectedIndex() == 1 } }),
-                            I18n.get("Results"), getController().getWindow());
+                    PrintExecutor.print(getPrintable(wkx, false, 0, 0, new boolean[][] { { geschlecht.getSelectedIndex() == 0 }, { geschlecht.getSelectedIndex() == 1 } }), I18n.get("Results"), getController().getWindow());
                 }
             }
         } finally {

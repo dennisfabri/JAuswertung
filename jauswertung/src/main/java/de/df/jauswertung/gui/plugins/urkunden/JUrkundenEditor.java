@@ -52,24 +52,22 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.JFontDialog;
 import de.df.jauswertung.io.FileFilters;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.GraphUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.gui.border.RulerBorder;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.print.JPrintPreview;
 import de.df.jutils.print.PageSetup;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.PrintableCreator;
+import de.df.jutils.print.api.PrintableCreator;
+import de.df.jutils.print.elements.RulerBorder;
 
 public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
@@ -444,10 +442,12 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         preview.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hashtable<String, Object>[] cells = GraphUtils.collectGraph(graph);
-                JPrintPreview jpp = new JPrintPreview(JUrkundenEditor.this, new DocumentsCreator(cells),
+                PrintExecutor.preview(JUrkundenEditor.this, createGraphDocument(),
                         I18n.get("Document"), IconManager.getIconBundle(), IconManager.getTitleImages());
-                ModalFrameUtil.showAsModal(jpp, JUrkundenEditor.this);
+            }
+
+            private DocumentsCreator createGraphDocument() {
+                return new DocumentsCreator(GraphUtils.collectGraph(graph));
             }
         });
 

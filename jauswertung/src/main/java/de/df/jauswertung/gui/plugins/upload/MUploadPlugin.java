@@ -35,11 +35,11 @@ import de.df.jauswertung.gui.plugins.upload.dto.SexTeam;
 import de.df.jauswertung.gui.plugins.upload.dto.Team;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.ExportManager;
-import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;
-import de.df.jauswertung.util.ergebnis.ResultUtils;
+import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerData;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.plugin.ANullPlugin;
@@ -173,12 +173,12 @@ public class MUploadPlugin extends ANullPlugin {
                             int[] runden = ak.getDisziplin(y.disziplin, y.maennlich).getRunden();
                             boolean isFinal = runden.length <= y.round;
 
-                            AWettkampf<T> wkl = CompetitionUtils.createCompetitionFor(wk,
+                            AWettkampf<T> wkl = ResultUtils.createCompetitionFor(wk,
                                     new OWSelection(wk.getRegelwerk().getAk(y.akNummer), y.akNummer, y.maennlich,
                                             y.disziplin, y.round, isFinal));
 
                             if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
-                                AWettkampf<T> ew = CompetitionUtils.generateEinzelwertungswettkampf(wk, x, false);
+                                AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
                                 if (ew != null) {
                                     for (int i = 0; i < wkl.getRegelwerk().size(); i++) {
                                         Altersklasse a = wkl.getRegelwerk().getAk(i);
@@ -203,7 +203,7 @@ public class MUploadPlugin extends ANullPlugin {
                     }
                 } else {
                     if (aks.getAk(x).hasEinzelwertung()) {
-                        AWettkampf<T> ew = CompetitionUtils.generateEinzelwertungswettkampf(wk, x, false);
+                        AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
                         if (ew != null) {
                             for (int y = 0; y < ew.getRegelwerk().size(); y++) {
                                 Altersklasse a = ew.getRegelwerk().getAk(y);
@@ -225,7 +225,7 @@ public class MUploadPlugin extends ANullPlugin {
 
         List<X> collected = new ArrayList<X>();
 
-        SchwimmerResult<TX>[] results = ResultUtils.getResults(wk, ak, maennlich, null, false);
+        SchwimmerResult<TX>[] results = ResultCalculator.getResults(wk, ak, maennlich, null, false);
         if (results.length == 0) {
             return collected;
         }

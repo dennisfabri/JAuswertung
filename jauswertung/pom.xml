@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.dennisfabri</groupId>
+		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
 		<version>15.1.2</version>
 	</parent>
@@ -21,36 +21,50 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.mpkorstanje</groupId>
-			<artifactId>simmetrics-core</artifactId>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-print</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-heats</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-ares</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-bugreport</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-dp-extensions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-zusatzwertung</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-io</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.pmease</groupId>
-			<artifactId>commons.xmt</artifactId>
+			<groupId>de.dennisfabri.alphaserver</groupId>
+			<artifactId>alphaserver-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-plugin</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>io.github.kostaskougios</groupId>
-			<artifactId>cloning</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.dennisfabri</groupId>
-			<artifactId>alphaserver</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5</artifactId>
 		</dependency>
 
 		<dependency>
@@ -59,30 +73,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-fontchooser</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
 			<artifactId>l2fprod-common-outlookbar</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.lisasp.legacy</groupId>
 			<artifactId>l2fprod-common-buttonbar</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.vlsi.mxgraph</groupId>
-			<artifactId>jgraphx</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>flying-saucer-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-text</artifactId>
 		</dependency>
 
 		<dependency>
@@ -103,12 +98,6 @@
 		<!-- Runtime -->
 
 		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
 			<scope>runtime</scope>
@@ -118,14 +107,6 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Test -->
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -145,7 +126,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.4.1</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -165,7 +145,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.9.1</version>
 				<configuration>
 					<generateReports>true</generateReports>
 					<relativizeDecorationLinks>false</relativizeDecorationLinks>
@@ -198,11 +177,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.1.1</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>pack-site</id>

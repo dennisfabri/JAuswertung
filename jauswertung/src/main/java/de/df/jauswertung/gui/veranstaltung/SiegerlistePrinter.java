@@ -31,11 +31,12 @@ import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.gui.jtable.JPrintTable;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.print.ComponentListPrintable;
-import de.df.jutils.print.EmptyPrintable;
-import de.df.jutils.print.HeaderFooterPrintable;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.PrintableCreator;
+import de.df.jutils.print.api.PrintableCreator;
+import de.df.jutils.print.printables.ComponentListPrintable;
+import de.df.jutils.print.printables.EmptyPrintable;
+import de.df.jutils.print.printables.HeaderFooterPrintable;
 import de.df.jutils.util.StringTools;
 
 class SiegerlistePrinter implements Printer {
@@ -263,14 +264,14 @@ class SiegerlistePrinter implements Printer {
             DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
             return;
         }
-        PrintManager.print(p, I18n.get("GroupEvaluation"), parent);
+        PrintExecutor.print(p, I18n.get("GroupEvaluation"), parent);
     }
 
     void preview() {
         parent.setEnabled(false);
         PrintableCreator pc = new SiegerlistePrintableCreator();
         parent.setEnabled(true);
-        PrintManager.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     Font getSelectedFont() {

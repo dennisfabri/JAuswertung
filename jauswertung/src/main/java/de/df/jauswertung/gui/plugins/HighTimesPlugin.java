@@ -5,6 +5,7 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;
@@ -15,11 +16,10 @@ import de.df.jutils.util.StringTools;
 public class HighTimesPlugin extends ANullPlugin {
 
     private CorePlugin core    = null;
-
-    private boolean    enabled = true;
+    
+    private MOptionenPlugin options = null;
 
     public HighTimesPlugin() {
-        enabled = Utils.getPreferences().getBoolean("NotifyOnHighTimes", true);
     }
 
     @Override
@@ -28,17 +28,13 @@ public class HighTimesPlugin extends ANullPlugin {
         core = (CorePlugin) plugincontroller.getFeature("de.df.jauswertung.core", pluginuid);
     }
 
-    public void setEnabled(boolean e) {
-        enabled = e;
-    }
-
     public boolean isEnabled() {
-        return enabled;
+        return SchwimmerUtils.EnableHighTimesWarning;
     }
 
     @Override
     public void dataUpdated(UpdateEvent due) {
-        if (!enabled) {
+        if (!isEnabled()) {
             return;
         }
         if (!core.getWettkampf().isDLRGBased()) {

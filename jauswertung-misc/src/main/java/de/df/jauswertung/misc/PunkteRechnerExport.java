@@ -1,6 +1,7 @@
 package de.df.jauswertung.misc;
 
 import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.util.AltersklassenUtils;
 
 // $rec = array(
@@ -19,8 +20,8 @@ import de.df.jauswertung.util.AltersklassenUtils;
 public class PunkteRechnerExport {
 
     public static void main(String[] args) {
-        Regelwerk einzel = AltersklassenUtils.getDefaultAKs(true);
-        Regelwerk mannschaft = AltersklassenUtils.getDefaultAKs(false);
+        Regelwerk einzel = AgeGroupIOUtils.getDefaultAKs(true);
+        Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
         int jahr = 2021;
         

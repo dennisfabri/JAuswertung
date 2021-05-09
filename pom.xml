@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.dennisfabri</groupId>
+	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
 	<version>15.1.2</version>
 	<packaging>pom</packaging>
@@ -20,11 +20,12 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
-		<junit.version>4.13.2</junit.version>
-		<poi.version>4.1.2</poi.version>
-		<jersey.version>3.0.1</jersey.version>
+		<junit.version>5.7.1</junit.version>
+		<poi.version>5.0.0</poi.version>
+		<jersey.version>3.0.2</jersey.version>
 		<javafx.version>15.0.1</javafx.version>
 		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
+		<batik.version>1.14</batik.version>
 	</properties>
 
 	<distributionManagement>
@@ -52,6 +53,18 @@
 		<module>jauswertung</module>
 		<module>jauswertung-files</module>
 		<module>jauswertung-misc</module>
+		<module>jauswertung-print</module>
+		<module>jauswertung-data</module>
+		<module>jauswertung-swing</module>
+		<module>jauswertung-plugins-print</module>
+		<module>jauswertung-io</module>
+		<module>jauswertung-plugins-core</module>
+		<module>jauswertung-plugins-editor</module>
+		<module>jauswertung-plugins-heats</module>
+		<module>jauswertung-plugins-zusatzwertung</module>
+		<module>jauswertung-plugins-bugreport</module>
+		<module>jauswertung-ares</module>
+		<module>jauswertung-dp-extensions</module>
 	</modules>
 
 	<profiles>
@@ -66,11 +79,129 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-files</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-io</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-dp-extensions</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-ares</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-bugreport</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-editor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-zusatzwertung</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-heats</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-print</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-misc</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-print</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-swing</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-plugin</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-wizard</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-swing</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-print</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-common</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jutils</groupId>
+				<artifactId>jutils-i18n</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
 				<groupId>com.github.mpkorstanje</groupId>
 				<artifactId>simmetrics-core</artifactId>
 				<version>4.1.2-SNAPSHOT</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-all</artifactId>
+				<version>${batik.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 			<dependency>
 				<groupId>com.pmease</groupId>
 				<artifactId>commons.xmt</artifactId>
@@ -84,8 +215,13 @@
 			</dependency>
 
 			<dependency>
-				<groupId>de.dennisfabri</groupId>
-				<artifactId>alphaserver</artifactId>
+				<groupId>de.dennisfabri.alphaserver</groupId>
+				<artifactId>alphaserver-api</artifactId>
+				<version>${version.alphaserver}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.alphaserver</groupId>
+				<artifactId>alphaserver-server</artifactId>
 				<version>${version.alphaserver}</version>
 			</dependency>
 
@@ -141,7 +277,7 @@
 			<dependency>
 				<groupId>org.xhtmlrenderer</groupId>
 				<artifactId>flying-saucer-core</artifactId>
-				<version>9.1.20</version>
+				<version>9.1.22</version>
 			</dependency>
 
 			<dependency>
@@ -174,6 +310,12 @@
 				<version>3.6.1</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>1.4.16</version>
+			</dependency>
+
 			<!-- Runtime -->
 
 			<dependency>
@@ -191,13 +333,28 @@
 			<!-- Test -->
 
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
 				<version>${junit.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<reporting>
 		<plugins>
@@ -211,6 +368,11 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<plugin>
 					<groupId>org.sonatype.install4j</groupId>
 					<artifactId>install4j-maven-plugin</artifactId>
 					<version>1.1.2</version>
@@ -219,6 +381,25 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>1.4.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.9.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.3.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

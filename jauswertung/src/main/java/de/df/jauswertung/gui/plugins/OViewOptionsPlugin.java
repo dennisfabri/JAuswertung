@@ -56,7 +56,7 @@ public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.O
         Preferences preferences = Utils.getPreferences();
         doublewindowmode = !preferences.getBoolean("WindowMode", JPanelContainer.DOUBLE);
         hlwleftalign = preferences.getBoolean("HHListLeftAlign", false);
-        PrintUtils.compressLists = preferences.getBoolean(COMPRESS_LISTS, true);
+        PrintUtils.setCompressLists(preferences.getBoolean(COMPRESS_LISTS, true));
 
         optionen.addOptionsPlugin(this);
     }
@@ -86,7 +86,7 @@ public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.O
             });
 
             compress = new JCheckBox(I18n.get("CompressLists"));
-            compress.setSelected(PrintUtils.compressLists);
+            compress.setSelected(PrintUtils.getCompressLists());
             compress.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
@@ -107,11 +107,11 @@ public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.O
     public void apply() {
         doublewindowmode = doubleMode.isSelected();
         hlwleftalign = hlwleftalignCheckbox.isSelected();
-        PrintUtils.compressLists = compress.isSelected();
+        PrintUtils.setCompressLists(compress.isSelected());
 
         Utils.getPreferences().putBoolean("WindowMode", !doublewindowmode);
         Utils.getPreferences().putBoolean("HHListLeftAlign", hlwleftalign);
-        Utils.getPreferences().putBoolean(COMPRESS_LISTS, PrintUtils.compressLists);
+        Utils.getPreferences().putBoolean(COMPRESS_LISTS, PrintUtils.getCompressLists());
     }
 
     @Override
@@ -122,8 +122,8 @@ public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.O
         if (hlwleftalign != hlwleftalignCheckbox.isSelected()) {
             hlwleftalignCheckbox.setSelected(hlwleftalign);
         }
-        if (PrintUtils.compressLists != compress.isSelected()) {
-            compress.setSelected(PrintUtils.compressLists);
+        if (PrintUtils.getCompressLists() != compress.isSelected()) {
+            compress.setSelected(PrintUtils.getCompressLists());
         }
     }
 

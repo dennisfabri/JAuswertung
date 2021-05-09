@@ -40,10 +40,10 @@ import de.df.jauswertung.gui.plugins.print.RulebookPrinter;
 import de.df.jauswertung.gui.util.AboutDialogCreator;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.FileFilters;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
-import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
 import de.df.jutils.gui.JGlassFrame;
 import de.df.jutils.gui.border.BorderUtils;
@@ -54,9 +54,9 @@ import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.window.JAboutDialog;
-import de.df.jutils.print.JPrintPreview;
+import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.PrintableCreator;
+import de.df.jutils.print.api.PrintableCreator;
 
 /**
  * @author Dennis Fabri
@@ -117,7 +117,7 @@ public class JAKsEditor extends JGlassFrame {
     }
 
     private JAKsEditor(Window parent, boolean einzel) {
-        this(parent, AltersklassenUtils.getDefaultAKs(einzel), true, einzel, null);
+        this(parent, AgeGroupIOUtils.getDefaultAKs(einzel), true, einzel, null);
     }
 
     private JAKsEditor(Window p, Regelwerk currentAks, boolean hasFullAccess, boolean einzel, boolean[] empty) {
@@ -535,11 +535,11 @@ public class JAKsEditor extends JGlassFrame {
     }
 
     void print() {
-        PrintManager.print(getPrintable(), I18n.get("Rulebook"), this);
+        PrintExecutor.print(getPrintable(), I18n.get("Rulebook"), this);
     }
 
     void preview() {
-        new JPrintPreview(this, new AKPC(), I18n.get("Rulebook"), IconManager.getIconBundle(), IconManager.getTitleImages()).setVisible(true);
+        PrintExecutor.preview(this, new AKPC(),I18n.get("Rulebook"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     Printable getPrintable() {

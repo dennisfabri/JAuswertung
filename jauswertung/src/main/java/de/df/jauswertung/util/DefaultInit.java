@@ -9,7 +9,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.print.PageFormat;
 import java.io.PrintStream;
 import java.text.MessageFormat;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.prefs.Preferences;
@@ -31,6 +31,7 @@ import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.IOUtils;
 import de.df.jutils.io.NullOutputStream;
 import de.df.jutils.print.PageSetup;
 import de.df.jutils.print.PrintManager;
@@ -100,7 +101,7 @@ public final class DefaultInit {
             UIStateManager.setDefaultHandlers(l);
             l = UIStateManager.getDefaultHandlers();
             PrintStream err = System.err;
-            if (l.size() != 5) {
+            if (l.size() != 4) {
                 err.println("Changes in UIStateManager:");
                 li = l.listIterator();
                 while (li.hasNext()) {
@@ -114,10 +115,10 @@ public final class DefaultInit {
 
     @SuppressWarnings({ "unchecked" })
     static void initPrintSetup() {
-        Object o = Utils.readFromPreferences("PrintSettings");
-        Hashtable<String, PageFormat> prasTable = (Hashtable<String, PageFormat>) o;
+        Object o = IOUtils.readFromPreferences("PrintSettings");
+        HashMap<String, PageFormat> prasTable = (HashMap<String, PageFormat>) o;
         if (prasTable == null) {
-            prasTable = new Hashtable<>();
+            prasTable = new HashMap<>();
             prasTable.put(I18n.get("Results"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
             prasTable.put(I18n.get("GroupEvaluation"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
             prasTable.put(I18n.get("Meldezeiten"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
