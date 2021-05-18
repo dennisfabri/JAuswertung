@@ -190,7 +190,7 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
         return left ? validateLeft(row, value) : validateRight(row, value);
     }
 
-    private final class InputValidator extends JIntegerField.Validator {
+    private final class InputValidator implements JIntegerField.Validator {
 
         private int     row;
         private boolean left;

@@ -44,7 +44,7 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.JListUtils;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  */
 class JStrafenkatalogPanel extends JPanel {
 

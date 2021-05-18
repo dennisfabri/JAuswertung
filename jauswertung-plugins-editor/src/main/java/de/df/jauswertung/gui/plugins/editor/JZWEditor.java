@@ -154,7 +154,7 @@ class JZWEditor extends JDialog {
 
         integer = new JDoubleField[schwimmer.getMaximaleHLW()];
         for (int x = 0; x < integer.length; x++) {
-            integer[x] = new JDoubleField(10000, false);
+            integer[x] = new JDoubleField(10000);
             integer[x].setAutoSelectAll(true);
             if (s.getShortname().length() == 0) {
                 integer[x].setSpecialStrings(new String[] { "n", I18n.get("DidNotStartShort") });

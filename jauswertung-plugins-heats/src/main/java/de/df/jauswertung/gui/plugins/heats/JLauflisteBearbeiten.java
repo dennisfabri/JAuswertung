@@ -3,7 +3,7 @@ package de.df.jauswertung.gui.plugins.heats;
 import java.awt.Point;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @since 20. Juli 2001, 15:58
  */
 

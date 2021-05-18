@@ -34,11 +34,27 @@
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-ares</artifactId>
+			<artifactId>jauswertung-plugins-input</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-undoredo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-info</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-tipoftheday</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-plugins-bugreport</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-httpserver</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
@@ -50,13 +66,42 @@
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-teammembersscan</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-file</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-checks</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-ares</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-akeditor</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-veranstaltungswertung</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jteams</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>de.dennisfabri.alphaserver</groupId>
 			<artifactId>alphaserver-server</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>de.dennisfabri.jutils</groupId>
 			<artifactId>jutils-plugin</artifactId>
@@ -67,18 +112,6 @@
 			<artifactId>core</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-totd</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-outlookbar</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-buttonbar</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
@@ -88,11 +121,6 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-jfx</artifactId>
 		</dependency>
 
 		<!-- Runtime -->

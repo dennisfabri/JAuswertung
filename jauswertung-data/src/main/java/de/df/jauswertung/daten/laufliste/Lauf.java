@@ -5,7 +5,7 @@
 package de.df.jauswertung.daten.laufliste;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version 0.1
  */
 

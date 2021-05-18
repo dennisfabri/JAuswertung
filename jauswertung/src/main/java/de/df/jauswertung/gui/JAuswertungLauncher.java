@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.LinkedList;
 import java.util.prefs.Preferences;
 
@@ -22,12 +21,12 @@ import javax.swing.UIManager;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.DefaultInit;
+import de.df.jauswertung.util.PrinterInit;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.awt.ProgressSplashWindow;
 import de.df.jutils.gui.util.DesignInit;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.io.NullOutputStream;
 import de.df.jutils.plugin.JPanelContainer;
 import de.df.jutils.plugin.PluginManager;
 import de.df.jutils.plugin.RemoteAction;
@@ -99,16 +98,13 @@ public final class JAuswertungLauncher {
      * @param args
      */
     public static void main(String[] args) {
-        if (!Utils.isInDevelopmentMode()) {
-            System.setOut(new PrintStream(new NullOutputStream()));
-            System.setErr(System.out);
-        }
-        PrintStream out = System.out;
-        TimeMeasurement tm = new TimeMeasurement(out, 5);
+        DefaultInit.init();
+        
+        TimeMeasurement tm = new TimeMeasurement(System.out, 5);
 
         tm.start("Loading JAuswertung");
 
-        DefaultInit.init();
+        PrinterInit.init();
         DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), Utils.getUIPerformanceMode());
 
         tm.start("Loading Splashscreen");
@@ -130,21 +126,19 @@ public final class JAuswertungLauncher {
             mode = JPanelContainer.SINGLE;
         }
         Preferences prefs = Utils.getPreferences();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                PluginManager japm = new PluginManager("JAuswertung", IconManager.getTitleImages(), tm, splash, prefs.getBoolean("WindowMode", mode),
-                        prefs.getBoolean("ForceSingleInstance", false), "plugins");
-                japm.setVerbose(Utils.isInDevelopmentModeFor("PluginManager"));
-                japm.sendDataUpdateEvent("Init", UpdateEventConstants.REASON_EVERYTHING_CHANGED | UpdateEventConstants.REASON_STARTUP, null);
+        SwingUtilities.invokeLater(() -> {
+            PluginManager japm = new PluginManager("JAuswertung", IconManager.getTitleImages(), tm, splash,
+                    prefs.getBoolean("WindowMode", mode), prefs.getBoolean("ForceSingleInstance", false), "plugins");
+            japm.setVerbose(Utils.isInDevelopmentModeFor("PluginManager"));
+            japm.sendDataUpdateEvent("Init",
+                    UpdateEventConstants.REASON_EVERYTHING_CHANGED | UpdateEventConstants.REASON_STARTUP, null);
 
-                japm.getWindow().setExtendedState(Frame.MAXIMIZED_BOTH);
+            japm.getWindow().setExtendedState(Frame.MAXIMIZED_BOTH);
 
-                UIStateUtils.uistatemanage(japm.getWindow(), "JAuswertungMainWindow");
+            UIStateUtils.uistatemanage(japm.getWindow(), "JAuswertungMainWindow");
 
-                japm.start(actions);
-                EDTUtils.setVisible(splash, false);
-            }
+            japm.start(actions);
+            EDTUtils.setVisible(splash, false);
         });
 
         tm.quit("JAuswertung loaded");

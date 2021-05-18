@@ -4,7 +4,7 @@
 package de.df.jauswertung.exception;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @date 08.01.2005
  */
 public class NotSupportedException extends RuntimeException {

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  */
 public class Strafe implements Serializable {
 

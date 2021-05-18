@@ -56,7 +56,7 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
     private JIntegerField[][]              input;
     private JTimeField[][]                 times;
 
-    public DisciplinesPanel(AWettkampf<T> wk, boolean force) {
+    public DisciplinesPanel(AWettkampf<T> wk) {
         setLayout(cards);
 
         if (wk == null) {
@@ -82,7 +82,7 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
             times[x] = new JTimeField[anzahl];
             for (int y = 0; y < boxes[x].length; y++) {
                 boxes[x][y] = new JCheckBox();
-                input[x][y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, force);
+                input[x][y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME);
                 input[x][y].setValidator(new Validator() {
                     @Override
                     public boolean validate(int value) {

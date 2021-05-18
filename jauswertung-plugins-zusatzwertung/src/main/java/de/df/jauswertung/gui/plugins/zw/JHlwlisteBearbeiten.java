@@ -1,7 +1,7 @@
 package de.df.jauswertung.gui.plugins.zw;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @since 29. Juli 2001, 15:58
  */
 

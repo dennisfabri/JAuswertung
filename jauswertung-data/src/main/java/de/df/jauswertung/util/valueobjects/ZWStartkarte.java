@@ -12,7 +12,7 @@ import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;
 
 /**
- * @author Dennis Mueller @version
+ * @author Dennis Fabri @version
  */
 public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkarte<T>> {
 

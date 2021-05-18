@@ -3,7 +3,7 @@ package de.df.jauswertung.daten;
 /**
  * Konstanten fuer Eintraege von Einstellungen eines Wettkampfs
  * 
- * @author Dennis Mueller
+ * @author Dennis Fabri
  */
 public final class PropertyConstants {
 

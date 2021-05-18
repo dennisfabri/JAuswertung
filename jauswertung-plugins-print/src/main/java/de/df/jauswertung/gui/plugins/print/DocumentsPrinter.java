@@ -19,7 +19,7 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.util.GraphUtils;
+import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;

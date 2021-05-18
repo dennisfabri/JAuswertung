@@ -21,7 +21,7 @@ import de.df.jutils.plugin.PanelInfo;
 import de.df.jutils.plugin.UpdateEvent;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @date 08.06.2005
  */
 public class PZWInputPlugin extends ANullPlugin {

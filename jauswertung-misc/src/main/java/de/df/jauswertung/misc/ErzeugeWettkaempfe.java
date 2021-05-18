@@ -49,7 +49,7 @@ import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.RandomUtils;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  */
 public final class ErzeugeWettkaempfe {
 

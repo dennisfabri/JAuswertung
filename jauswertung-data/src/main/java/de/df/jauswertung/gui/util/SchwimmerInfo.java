@@ -7,7 +7,7 @@ package de.df.jauswertung.gui.util;
 import de.df.jauswertung.daten.ASchwimmer;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  */
 
 public class SchwimmerInfo implements Comparable<SchwimmerInfo> {

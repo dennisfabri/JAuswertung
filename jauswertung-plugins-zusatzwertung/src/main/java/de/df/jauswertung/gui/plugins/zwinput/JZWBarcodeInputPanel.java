@@ -37,9 +37,9 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.JZWStatusPanel;
-import de.df.jauswertung.util.BarcodeUtils;
-import de.df.jauswertung.util.BarcodeUtils.ZWResult;
-import de.df.jauswertung.util.BarcodeUtils.ZWResultType;
+import de.df.jauswertung.print.util.BarcodeUtils;
+import de.df.jauswertung.print.util.BarcodeUtils.ZWResult;
+import de.df.jauswertung.print.util.BarcodeUtils.ZWResultType;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.graphics.ColorUtils;
@@ -54,72 +54,60 @@ import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
+import net.miginfocom.swing.MigLayout;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @date 27.03.2010
  */
 class JZWBarcodeInputPanel extends JPanel {
 
-    // Light
-    // private static final Color YELLOW = new Color(255, 230, 100);
-    // private static final Color RED = new Color(255, 150, 100);
-    // private static final Color GREEN = new Color(176, 255, 124);
+    private static final Color GREEN = new Color(100, 222, 75);
+    private static final Color YELLOW = new Color(255, 210, 50);
+    private static final Color RED = new Color(255, 60, 50);
+    private static final Color ORANGE = ColorUtils.calculateColor(YELLOW, RED, 0.5);
 
-    // Intensive
-    private static final Color     GREEN            = new Color(100, 222, 75);
-    private static final Color     YELLOW           = new Color(255, 210, 50);
-    private static final Color     RED              = new Color(255, 60, 50);
-    private static final Color     ORANGE           = ColorUtils.calculateColor(YELLOW, RED, 0.5);
+    private static final String INPUT = I18n.get("ZWInput");
 
-    private static final String    INPUT            = I18n.get("ZWInput");
+    private final IPluginManager controller;
+    private final CorePlugin core;
+    private final PZWInputPlugin parent;
 
-    final IPluginManager           controller;
-    private final CorePlugin       core;
-    final PZWInputPlugin           parent;
+    private JIntegerField input;
+    private JButton enter;
 
-    JIntegerField                  input;
-    JButton                        enter;
+    private JLabel startnumber;
+    private JLabel name;
+    private JLabel organisation;
+    private JLabel agegroup;
+    private JLabel points;
 
-    private JLabel                 startnumber;
-    private JLabel                 name;
-    private JLabel                 organisation;
-    private JLabel                 agegroup;
-    private JLabel                 points;
+    private JSignal hlwOk;
+    private JSignal hlwDNS;
+    private JSignal hlwNok;
+    private JSignal barcodeError;
 
-    private JSignal                hlwOk;
-    private JSignal                hlwDNS;
-    private JSignal                hlwNok;
-    private JSignal                barcodeError;
+    private JPanel inputPanel = null;
+    private JZWStatusPanel overview = null;
 
-    private JIcon                  appcode;
-    private JLabel                 appcodeSpacer;
-
-    JPanel                         panel            = null;
-    private JPanel                 inputPanel       = null;
-    private JZWStatusPanel         overview         = null;
-
-    private static long            OVERVIEW_REASONS = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
-            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_NEW_WK
-            | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
+    private static long OVERVIEW_REASONS = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
+            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN
+            | UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_PENALTY
+            | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
             | UpdateEventConstants.REASON_SWIMMER_DELETED;
 
-    public JZWBarcodeInputPanel(PZWInputPlugin parent, IPluginManager controller, CorePlugin core) {
+    JZWBarcodeInputPanel(PZWInputPlugin parent, IPluginManager controller, CorePlugin core) {
         this.controller = controller;
         this.core = core;
         this.parent = parent;
         initPanel();
     }
 
-    void prepare() {
-        clear(true);
-    }
-
-    void clear(boolean cleartext) {
+    private void clear(boolean cleartext) {
         clear(cleartext, true);
     }
 
-    void clear(boolean cleartext, boolean requestFocus) {
+    private void clear(boolean cleartext, boolean requestFocus) {
         if (cleartext) {
             input.setText("");
         } else {
@@ -143,27 +131,27 @@ class JZWBarcodeInputPanel extends JPanel {
         barcodeError.setEnabled(false);
     }
 
-    void signalBarcodeError() {
+    private void signalBarcodeError() {
         clear(false);
         barcodeError.setEnabled(true);
     }
 
-    void signalHlwOk() {
+    private void signalHlwOk() {
         clear(true);
         hlwOk.setEnabled(true);
     }
 
-    void signalHlwNok() {
+    private void signalHlwNok() {
         clear(true);
         hlwNok.setEnabled(true);
     }
 
-    void signalHlwDNS() {
+    private void signalHlwDNS() {
         clear(true);
         hlwDNS.setEnabled(true);
     }
 
-    boolean enterValue() {
+    private boolean enterValue() {
         if (input.getText().length() == 0) {
             input.requestFocus();
             return false;
@@ -304,7 +292,7 @@ class JZWBarcodeInputPanel extends JPanel {
         return true;
     }
 
-    void initPanel() {
+    private void initPanel() {
         startnumber = new JLabel();
         name = new JLabel();
         organisation = new JLabel();
@@ -320,12 +308,6 @@ class JZWBarcodeInputPanel extends JPanel {
         hlwNok.setBasecolor(RED);
         barcodeError.setBasecolor(YELLOW);
 
-        appcode = new JIcon();
-        appcode.setBorder(new LineBorder(UIManager.getColor("InternalFrame.activeBorderColor"), 1));
-        appcode.setToolTipText(
-                "<html><p>Mit dem AppCode können Smartphones mit JAuswertung verbunden werden und als Barcodescanner dienen.</p><br/><p>Zur Zeit suche ich noch nach Entwicklern, um die notwendigen Apps umzusetzen. Solltest Du jemanden kennen, der sich in diesem Bereich auskennt, frag ihn doch einfach mal. Ich habe mit Smartphones noch einiges mehr vor.</p></html>");
-        appcode.setVisible(false);
-
         inputPanel = new JPanel();
         input = new JIntegerField(false, true);
         input.addFocusListener(new ResettingFocusAdapter());
@@ -336,21 +318,6 @@ class JZWBarcodeInputPanel extends JPanel {
                     return true;
                 }
                 return BarcodeUtils.checkZWCode(value);
-            }
-        });
-        input.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                appcode.setVisible(false);
-                appcodeSpacer.setVisible(true);
-            }
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                boolean ok = acceptsInput("");
-                appcode.setVisible(ok);
-                appcodeSpacer.setVisible(!ok);
             }
         });
         input.addKeyListener(new KeyAdapter() {
@@ -379,7 +346,8 @@ class JZWBarcodeInputPanel extends JPanel {
             }
         });
 
-        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(10);
         scroller.getHorizontalScrollBar().setUnitIncrement(10);
         scroller.setBorder(null);
@@ -398,18 +366,21 @@ class JZWBarcodeInputPanel extends JPanel {
         overview = new JZWStatusPanel();
         over.add(overview);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
-        setLayout(layout);
-        add(over, CC.xyw(2, 2, 3));
-        add(createInputPanel(), CC.xyw(2, 4, 3));
-        add(createStatusPanel(), CC.xy(2, 6));
-        add(createAppcodePanel(), CC.xy(4, 6));
+        JPanel panel = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu"));
+        panel.add(over, CC.xy(2, 2));
+        panel.add(createInputPanel(), CC.xy(2, 4));
+        panel.add(createStatusPanel(), CC.xy(2, 6));
+
+        setLayout(new MigLayout("", "[fill, grow, ::1200lp]", "[fill]"));
+        add(panel);
 
         clear(true);
     }
 
     private JPanel createInputPanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu");
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));
 
@@ -421,7 +392,8 @@ class JZWBarcodeInputPanel extends JPanel {
     }
 
     private JPanel createStatusPanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,40dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(8));
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,40dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(8));
         layout.setColumnGroups(new int[][] { { 2, 6 } });
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10, 12, 14, 16 } });
         JPanel top = new JPanel(layout);
@@ -443,27 +415,6 @@ class JZWBarcodeInputPanel extends JPanel {
         top.add(organisation, CC.xy(6, 6));
         top.add(agegroup, CC.xy(6, 8));
         top.add(points, CC.xy(6, 10));
-
-        return top;
-    }
-
-    private JPanel createAppcodePanel() {
-        FormLayout layout = new FormLayout("4dlu,center:default:grow,4dlu", "4dlu,center:default:grow,4dlu");
-        JPanel top = new JPanel(layout);
-        top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Appcode")));
-
-        appcodeSpacer = new JLabel();
-        appcodeSpacer.setOpaque(true);
-        appcodeSpacer.setBackground(Color.WHITE);
-        appcodeSpacer.setPreferredSize(new Dimension(200, 200));
-        appcodeSpacer.setMinimumSize(new Dimension(200, 200));
-        appcodeSpacer.setMaximumSize(new Dimension(200, 200));
-        appcodeSpacer.setText(
-                "<html><p>Mit dem AppCode können Smartphones mit JAuswertung verbunden werden und als Barcodescanner dienen.</p><br/><p>Zur Zeit suche ich noch nach Entwicklern, um die notwendigen Apps umzusetzen. Solltest Du jemanden kennen, der sich in diesem Bereich auskennt, frag ihn doch einfach mal. Ich habe mit Smartphones noch einiges mehr vor.</p></html>");
-        appcodeSpacer.setBorder(new CompoundBorder(new LineBorder(UIManager.getColor("InternalFrame.activeBorderColor"), 1), BorderUtils.createSpaceBorder()));
-
-        top.add(appcodeSpacer, CC.xy(2, 2));
-        top.add(appcode, CC.xy(2, 2));
 
         return top;
     }
@@ -501,19 +452,7 @@ class JZWBarcodeInputPanel extends JPanel {
         }
     }
 
-    public boolean input(String path) {
-        if (acceptsInput(path)) {
-            input.setText(path);
-            return enterValue();
-        }
-        return false;
-    }
-
     public boolean acceptsInput(String path) {
         return input.hasFocus();
-    }
-
-    public void setAppcode(Image qrCode) {
-        appcode.setImage(qrCode);
     }
 }

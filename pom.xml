@@ -26,6 +26,7 @@
 		<javafx.version>15.0.1</javafx.version>
 		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
 		<batik.version>1.14</batik.version>
+		<slf4j.version>1.7.30</slf4j.version>
 	</properties>
 
 	<distributionManagement>
@@ -63,8 +64,20 @@
 		<module>jauswertung-plugins-heats</module>
 		<module>jauswertung-plugins-zusatzwertung</module>
 		<module>jauswertung-plugins-bugreport</module>
+		<module>jauswertung-plugins-importexport</module>
+		<module>jauswertung-plugins-teammembersscan</module>
 		<module>jauswertung-ares</module>
 		<module>jauswertung-dp-extensions</module>
+		<module>jteams</module>
+		<module>jauswertung-plugins-info</module>
+		<module>jauswertung-plugins-undoredo</module>
+		<module>jauswertung-plugins-tipoftheday</module>
+		<module>jauswertung-plugins-input</module>
+		<module>jauswertung-akeditor</module>
+		<module>jauswertung-veranstaltungswertung</module>
+		<module>jauswertung-plugins-file</module>
+		<module>jauswertung-plugins-checks</module>
+		<module>jauswertung-plugins-httpserver</module>
 	</modules>
 
 	<profiles>
@@ -80,6 +93,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jteams</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -90,7 +108,17 @@
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-akeditor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-io</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-veranstaltungswertung</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -105,7 +133,52 @@
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-input</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-httpserver</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-teammembersscan</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-checks</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-undoredo</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-tipoftheday</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-file</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-plugins-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-info</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-importexport</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -192,17 +265,6 @@
 				<version>4.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.xmlgraphics</groupId>
-				<artifactId>batik-all</artifactId>
-				<version>${batik.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
 				<groupId>com.pmease</groupId>
 				<artifactId>commons.xmt</artifactId>
 				<version>1.2.1-SNAPSHOT</version>
@@ -229,12 +291,40 @@
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi-scratchpad</artifactId>
 				<version>${poi.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-all</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi-ooxml</artifactId>
 				<version>${poi.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-all</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.google.zxing</groupId>
@@ -316,7 +406,39 @@
 				<version>1.4.16</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+			<dependency>
+				<groupId>uk.org.lidalia</groupId>
+				<artifactId>sysout-over-slf4j</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+
 			<!-- Runtime -->
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.glassfish.jersey.inject</groupId>
@@ -344,6 +466,31 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Runtime -->
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Test -->
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>

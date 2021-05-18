@@ -10,7 +10,7 @@ import java.util.List;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 /**
- * @author Dennis Mueller @version 0.0
+ * @author Dennis Fabri @version 0.0
  */
 public class Mannschaft extends ASchwimmer {
 

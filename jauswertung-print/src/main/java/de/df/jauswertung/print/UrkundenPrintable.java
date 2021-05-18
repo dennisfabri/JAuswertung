@@ -25,7 +25,7 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.GraphUtils;
+import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.Results;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;

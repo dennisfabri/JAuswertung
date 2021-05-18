@@ -17,7 +17,7 @@ import de.df.jutils.util.ArrayUtils;
 import de.df.jutils.util.StringTools;
 
 /**
- * @author Dennis Mueller @version 0.1 @since 9. Februar 2001, 12:10
+ * @author Dennis Fabri @version 0.1 @since 9. Februar 2001, 12:10
  */
 public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable {
 

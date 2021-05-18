@@ -111,7 +111,7 @@ abstract class ALauflistenPrinter implements Printer {
     }
 
     Printable getPrintable(AWettkampf<?>[] wkx, String header, boolean withComments) {
-        ArrayList<Printable> px = new ArrayList<Printable>();
+        ArrayList<Printable> px = new ArrayList<>();
         for (AWettkampf<?> wk : wkx) {
             px.add(getPrintable(wk, header, withComments));
         }

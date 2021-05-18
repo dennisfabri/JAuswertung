@@ -7,7 +7,7 @@ package de.df.jauswertung.daten.laufliste;
 import de.df.jauswertung.daten.ASchwimmer;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version
  */
 public class HLWLauf<T extends ASchwimmer> extends Lauf<T> {

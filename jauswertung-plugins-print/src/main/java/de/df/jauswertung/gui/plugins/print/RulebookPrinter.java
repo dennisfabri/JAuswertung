@@ -80,12 +80,8 @@ public class RulebookPrinter implements Printer {
     }
 
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(getPrintable(core.getWettkampf().getRegelwerk(), false), core.getLastChangedDate(), I18n.get("RulebookSettings"),
+        return PrintManager.getFinalPrintable(new RulebookSettingsPrintable(core.getWettkampf().getRegelwerk(), false), core.getLastChangedDate(), I18n.get("RulebookSettings"),
                 I18n.get("RulebookSettings"));
-    }
-
-    public static <T extends ASchwimmer> Printable getPrintable(Regelwerk aks, boolean header) {
-        return new RulebookSettingsPrintable(aks, header);
     }
 
     final class PrintActionListener implements ActionListener {

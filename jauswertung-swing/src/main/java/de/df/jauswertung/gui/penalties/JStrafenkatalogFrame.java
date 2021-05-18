@@ -21,7 +21,7 @@ import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @since 7. August 2001, 22:01
  */
 class JStrafenkatalogFrame extends JFrame {

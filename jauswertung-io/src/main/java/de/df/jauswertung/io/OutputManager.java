@@ -23,7 +23,7 @@ import de.df.jauswertung.util.Utils;
 import de.df.jutils.data.HashtableUtils;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version
  */
 

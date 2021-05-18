@@ -5,7 +5,7 @@
 package de.df.jauswertung.gui.plugins.editor;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version
  */
 import java.awt.Container;
@@ -87,7 +87,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             I18n.get("Quali.Open"), I18n.get("Quali.NotQualified"), I18n.get("Quali.Qualified"),
             I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker") });
     private JDoubleField[]                           melde1              = new JDoubleField[] {
-            new JDoubleField(false, true), new JDoubleField(false, true) };
+            new JDoubleField(), new JDoubleField() };
     private JCheckBox[]                              protokoll1          = new JCheckBox[] {
             new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "A")),
             new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "B")) };
@@ -146,10 +146,10 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
 
         enableAutoselect();
 
-        geschlecht = new JComboBox<String>(
+        geschlecht = new JComboBox<>(
                 new String[] { I18n.geschlechtToString(rw, false), I18n.geschlechtToString(rw, true) });
 
-        disciplinePanel = new DisciplinesPanel<T>(wk, true);
+        disciplinePanel = new DisciplinesPanel<>(wk);
         disciplineContainer = new JTaskPaneGroup();
         disciplineContainer.setUI(new GradientTaskPaneGroupUI());
         disciplineContainer.setTitle(I18n.get("DisciplineSelectionAndTimes"));

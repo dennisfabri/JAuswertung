@@ -11,7 +11,7 @@ import de.df.jauswertung.util.AltersklassenUtils;
 /**
  * Hauptklasse zur Verwaltung eines EinzelWettkampfes.
  * 
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version 1.0
  */
 public class EinzelWettkampf extends AWettkampf<Teilnehmer> {

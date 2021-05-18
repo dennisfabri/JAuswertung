@@ -5,7 +5,7 @@
 package de.df.jauswertung.gui.util;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version
  */
 public class ZWInfo {

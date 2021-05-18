@@ -2,11 +2,11 @@ package de.df.jauswertung.gui;
 
 import de.df.jauswertung.gui.akeditor.JAKsEditor;
 import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.veranstaltung.Veranstaltungswertung;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.DefaultInit;
+import de.df.jauswertung.util.PrinterInit;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DesignInit;
 import de.df.jutils.gui.util.DialogUtils;
@@ -23,32 +23,37 @@ public final class Launcher {
     }
 
     public static void main(String[] args) {
+
         DefaultInit.init();
+        PrinterInit.init();
         DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), Utils.getUIPerformanceMode());
+
         if ((args != null) && (args.length > 0) && (args[0] != null)) {
             String name = args[0].trim();
             if (name.startsWith("-")) {
-                if ((name.toLowerCase().equals("-einzelak")) || (name.toLowerCase().equals("-ake")) || (name.toLowerCase().equals("-rwe"))) {
+                if (name.equalsIgnoreCase("-einzelak") || name.equalsIgnoreCase("-ake")
+                        || name.equalsIgnoreCase("-rwe")) {
                     launchAKsEditor(true);
                     return;
                 }
-                if (name.toLowerCase().equals("-ak") || name.toLowerCase().equals("-rw")) {
+                if (name.equalsIgnoreCase("-ak") || name.equalsIgnoreCase("-rw")) {
                     launchAKsEditor((args.length > 1 ? args[1] : null));
                     return;
                 }
-                if ((name.toLowerCase().equals("-mannschaftak")) || (name.toLowerCase().equals("-akm")) || (name.toLowerCase().equals("-rwm"))) {
+                if (name.equalsIgnoreCase("-mannschaftak") || name.equalsIgnoreCase("-akm")
+                        || name.equalsIgnoreCase("-rwm")) {
                     launchAKsEditor(false);
                     return;
                 }
-                if ((name.toLowerCase().equals("-strafenkatalog"))) {
+                if ((name.equalsIgnoreCase("-strafenkatalog"))) {
                     launchStrafenkatalog();
                     return;
                 }
-                if ((name.toLowerCase().equals("-veranstaltungswertung"))) {
+                if ((name.equalsIgnoreCase("-veranstaltungswertung"))) {
                     launchVeranstaltungswertung();
                     return;
                 }
-                if ((name.toLowerCase().equals("-alphaserver")) || (name.toLowerCase().equals("-as"))) {
+                if (name.equalsIgnoreCase("-alphaserver") || name.equalsIgnoreCase("-as")) {
                     launchAlphaServer();
                     return;
                 }
@@ -103,91 +108,26 @@ public final class Launcher {
     }
 
     private static void launchAKsEditor(String name) {
-        EDTUtils.executeOnEDT(new JAKsEditorRunnable1(name));
+        EDTUtils.executeOnEDT(() -> new JAKsEditor(name).setVisible(true));
     }
 
     private static void launchAKsEditor(boolean einzel) {
-        EDTUtils.executeOnEDT(new JAKsEditorRunnable2(einzel));
+        EDTUtils.executeOnEDT(() -> new JAKsEditor(einzel).setVisible(true));
     }
 
     private static void launchStrafenkatalog() {
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                PenaltyUIUtils.showPenalties(InputManager.ladeStrafen(null, true));
-            }
-        });
+        EDTUtils.executeOnEDT(() -> PenaltyUIUtils.showPenalties(InputManager.ladeStrafen(null, true)));
     }
 
     private static void launchAlphaServer() {
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                JCollector.run();
-            }
-        });
+        EDTUtils.executeOnEDT(() -> JCollector.run());
     }
 
     private static void launchVeranstaltungswertung() {
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                Veranstaltungswertung.start();
-            }
-        });
+        EDTUtils.executeOnEDT(() -> Veranstaltungswertung.start());
     }
 
-    private static void launchVeranstaltungswertung(String name) {
-        EDTUtils.executeOnEDT(new VeranstaltungswertungRunnable(name));
-    }
-
-    static final class VeranstaltungswertungRunnable implements Runnable {
-
-        private String name;
-
-        public VeranstaltungswertungRunnable(String n) {
-            name = n;
-        }
-
-        @Override
-        public void run() {
-            Veranstaltungswertung.start(name);
-        }
-    }
-
-    static final class JAKsEditorRunnable1 implements Runnable {
-
-        private String name;
-
-        public JAKsEditorRunnable1(String n) {
-            name = n;
-        }
-
-        @Override
-        public void run() {
-            JAKsEditor editor;
-            if (name == null) {
-                editor = new JAKsEditor();
-
-            } else {
-                editor = new JAKsEditor(name);
-            }
-            editor.setVisible(true);
-        }
-    }
-
-    static final class JAKsEditorRunnable2 implements Runnable {
-
-        private boolean einzel;
-
-        public JAKsEditorRunnable2(boolean n) {
-            einzel = n;
-        }
-
-        @Override
-        public void run() {
-            JAKsEditor editor = new JAKsEditor(einzel);
-            editor.setVisible(true);
-        }
+    private static void launchVeranstaltungswertung(String filename) {
+        EDTUtils.executeOnEDT(() -> Veranstaltungswertung.start(filename));
     }
 }

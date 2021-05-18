@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.GraphUtils;
+import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jutils.plugin.IPluginManager;
 
 /**

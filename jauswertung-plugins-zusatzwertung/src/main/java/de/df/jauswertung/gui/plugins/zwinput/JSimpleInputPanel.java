@@ -31,7 +31,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.tasks.JTaskPaneGroup;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.HLWStates;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
@@ -52,54 +51,55 @@ import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
+import net.miginfocom.swing.MigLayout;
 
 /**
- * @author Dennis Mueller @date 27.03.2010
+ * @author Dennis Fabri
+ * @date 27.03.2010
  */
 class JSimpleInputPanel extends JPanel {
 
-    private static final String INPUT             = I18n.get("ZWInput");
+    private static final String INPUT = I18n.get("ZWInput");
 
-    final IPluginManager        controller;
-    private final CorePlugin    core;
-    final PZWInputPlugin        parent;
+    private final IPluginManager controller;
+    private final CorePlugin core;
+    private final PZWInputPlugin parent;
 
-    private JPanel              inputPanel        = null;
-    private JZWStatusPanel      overview          = null;
+    private JPanel inputPanel = null;
+    private JZWStatusPanel overview = null;
 
-    private JComboBox<Integer>  amount            = null;
-    private JButton             more;
-    private MessagePanel        messages;
+    private JComboBox<Integer> amount = null;
+    private JButton more;
+    private MessagePanel messages;
 
-    private JLabel              startnumber;
-    private JLabel              name;
-    private JLabel              gliederung;
-    private JLabel              agegroup;
-    private JLabel              input;
+    private JLabel startnumber;
+    private JLabel name;
+    private JLabel gliederung;
+    private JLabel agegroup;
+    private JLabel input;
 
-    private TimeListener[]      dl                = new TimeListener[0];
-    JWarningTextField[]         startnumbers      = new JWarningTextField[0];
-    JLabel[]                    names             = new JLabel[0];
-    private JLabel[]            gliederungen      = new JLabel[0];
-    private JLabel[]            agegroups         = new JLabel[0];
-    JDoubleField[]              inputs            = new JDoubleField[0];
-    ASchwimmer[]                swimmers          = new ASchwimmer[0];
-    int[]                       indizes           = new int[0];
+    private TimeListener[] dl = new TimeListener[0];
+    private JWarningTextField[] startnumbers = new JWarningTextField[0];
+    private JLabel[] names = new JLabel[0];
+    private JLabel[] gliederungen = new JLabel[0];
+    private JLabel[] agegroups = new JLabel[0];
+    private JDoubleField[] inputs = new JDoubleField[0];
+    private ASchwimmer[] swimmers = new ASchwimmer[0];
+    private int[] indizes = new int[0];
 
-    private boolean[]           statusSN          = new boolean[0];
-    boolean[]                   statusTime        = new boolean[0];
-    boolean[]                   statusZW          = new boolean[0];
+    private boolean[] statusSN = new boolean[0];
+    private boolean[] statusTime = new boolean[0];
+    private boolean[] statusZW = new boolean[0];
 
-    private static long         OVERVIEW_REASONS  = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
-            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_NEW_WK
-            | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
+    private static long OVERVIEW_REASONS = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
+            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN
+            | UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_PENALTY
+            | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
             | UpdateEventConstants.REASON_SWIMMER_DELETED;
 
-    int                         disciplineNumber  = 0;
+    private MoreInputListener moreInputListener = null;
 
-    private MoreInputListener   moreInputListener = null;
-
-    public JSimpleInputPanel(PZWInputPlugin parent, IPluginManager controller, CorePlugin core) {
+    JSimpleInputPanel(PZWInputPlugin parent, IPluginManager controller, CorePlugin core) {
         this.controller = controller;
         this.core = core;
         this.parent = parent;
@@ -116,7 +116,8 @@ class JSimpleInputPanel extends JPanel {
         if (length == names.length) {
             return;
         }
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,"
+                + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1 + length));
         inputPanel.removeAll();
         inputPanel.setLayout(layout);
@@ -180,8 +181,8 @@ class JSimpleInputPanel extends JPanel {
                         if (StringTools.isInteger(value)) {
                             return true;
                         }
-                        AWettkampf wk = core.getWettkampf();
-                        if ((ZWUtils.getZWIndex(wk, value) >= 0) && (ZWUtils.getZWStartnummer(core.getWettkampf(), value) >= 0)) {
+                        if ((ZWUtils.getZWIndex(core.getWettkampf(), value) >= 0)
+                                && (ZWUtils.getZWStartnummer(core.getWettkampf(), value) >= 0)) {
                             return true;
                         }
                         return false;
@@ -198,7 +199,7 @@ class JSimpleInputPanel extends JPanel {
                 gliederungenNew[x] = new JLabel();
                 agegroupsNew[x] = new JLabel();
                 dlNew[x] = new TimeListener(x);
-                inputsNew[x] = new JDoubleField(false, true);
+                inputsNew[x] = new JDoubleField();
                 inputsNew[x].setToolTipText(I18n.getToolTip("ZWPointsInput"));
                 inputsNew[x].addKeyListener(moreInputListener);
                 inputsNew[x].addKeyListener(dlNew[x]);
@@ -260,11 +261,12 @@ class JSimpleInputPanel extends JPanel {
         });
     }
 
-    void initPanel() {
+    private void initPanel() {
         initVariables();
         inputPanel = new ScrollableJPanel();
 
-        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(10);
         scroller.getHorizontalScrollBar().setUnitIncrement(10);
         scroller.setBorder(null);
@@ -290,15 +292,19 @@ class JSimpleInputPanel extends JPanel {
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
         layout.setColumnGroups(new int[][] { { 2, 4 } });
-        setLayout(layout);
-        add(createPropertiesPanel(), CC.xy(2, 2));
-        add(createMessagePanel(), CC.xy(4, 2));
-        add(over, CC.xyw(2, 4, 3));
-        add(in, CC.xyw(2, 6, 3));
+        JPanel panel = new JPanel(layout);
+        panel.add(createPropertiesPanel(), CC.xy(2, 2));
+        panel.add(createMessagePanel(), CC.xy(4, 2));
+        panel.add(over, CC.xyw(2, 4, 3));
+        panel.add(in, CC.xyw(2, 6, 3));
+        
+        setLayout(new MigLayout("", "[fill, grow, ::1200lp]", "[fill]"));
+        add(panel);        
     }
 
     private JPanel createPropertiesPanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu:grow");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu:grow");
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Selection")));
 
@@ -311,7 +317,8 @@ class JSimpleInputPanel extends JPanel {
     }
 
     private JPanel createMessagePanel() {
-        messages = new MessagePanel(I18n.get("ErrorsOccured"), I18n.get("Ok"), new String[] { I18n.get("StartnumbersIncorrect"), I18n.get("ZWIncorrect") });
+        messages = new MessagePanel(I18n.get("ErrorsOccured"), I18n.get("Ok"),
+                new String[] { I18n.get("StartnumbersIncorrect"), I18n.get("ZWIncorrect") });
         messages.setBorder(BorderUtils.createLabeledBorder(I18n.get("Status")));
         return messages;
     }
@@ -326,7 +333,7 @@ class JSimpleInputPanel extends JPanel {
         updateGUI();
     }
 
-    void updateGUI() {
+    private void updateGUI() {
         if (core.getWettkampf().hasHLW()) {
             setEnabled(true);
 
@@ -348,7 +355,7 @@ class JSimpleInputPanel extends JPanel {
         updateRow(index, true);
     }
 
-    synchronized void updateRow(int index, boolean updateInput) {
+    private synchronized void updateRow(int index, boolean updateInput) {
         statusZW[index] = true;
         if (!startnumbers[index].isValidString()) {
             swimmers[index] = null;
@@ -365,10 +372,8 @@ class JSimpleInputPanel extends JPanel {
         ASchwimmer s = null;
         int i = -1;
         if (core != null) {
-            AWettkampf wk = core.getWettkampf();
-
-            int sn = ZWUtils.getZWStartnummer(wk, startnumbers[index].getText());
-            i = ZWUtils.getZWIndex(wk, startnumbers[index].getText());
+            int sn = ZWUtils.getZWStartnummer(core.getWettkampf(), startnumbers[index].getText());
+            i = ZWUtils.getZWIndex(core.getWettkampf(), startnumbers[index].getText());
             if ((sn >= 0) && (i >= 0)) {
                 s = SearchUtils.getSchwimmer(core.getWettkampf(), sn);
             }
@@ -468,7 +473,7 @@ class JSimpleInputPanel extends JPanel {
         updateStatus();
     }
 
-    synchronized void updateZW(int index) {
+    private synchronized void updateZW(int index) {
         statusTime[index] = (inputs[index].isValidDouble() || inputs[index].isSpecialString());
         updateStatus();
     }
@@ -501,18 +506,11 @@ class JSimpleInputPanel extends JPanel {
         more.setEnabled(status == 0);
     }
 
-    void updatePanel() {
-        for (int x = 0; x < names.length; x++) {
-            updateRow(x);
-            updateZW(x);
-        }
-    }
-
-    void updateAmount() {
+    private void updateAmount() {
         updateInputPanel();
     }
 
-    void prepareMoreInput() {
+    private void prepareMoreInput() {
         if (more.isEnabled()) {
             for (int x = 0; x < names.length; x++) {
                 startnumbers[x].setText("");
@@ -533,11 +531,11 @@ class JSimpleInputPanel extends JPanel {
         return 0;
     }
 
-    void nextRow() {
+    private void nextRow() {
         nextRow(currentRow());
     }
 
-    void nextRow(int index) {
+    private void nextRow(int index) {
         index++;
         if (index < inputs.length) {
             startnumbers[index].requestFocus();
@@ -546,7 +544,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    void previousRow(int index) {
+    private void previousRow(int index) {
         index--;
         if (index >= 0) {
             startnumbers[index].requestFocus();
@@ -555,7 +553,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    synchronized void setInput(int x, String value, boolean update) {
+    private synchronized void setInput(int x, String value, boolean update) {
         if (!update) {
             return;
         }
@@ -566,7 +564,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    synchronized void setInput(int x, double value, boolean update) {
+    private synchronized void setInput(int x, double value, boolean update) {
         if (!update) {
             return;
         }
@@ -581,13 +579,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    void prepare() {
-        if (startnumbers.length > 0) {
-            startnumbers[0].requestFocus();
-        }
-    }
-
-    void quickEdit(int index, String value) {
+    private void quickEdit(int index, String value) {
         if (inputs[index].isEnabled()) {
             boolean doit = true;
             if (swimmers[index].hasHLWSet(indizes[index])) {
@@ -596,7 +588,8 @@ class JSimpleInputPanel extends JPanel {
                     String before = "";
                     switch (state) {
                     case ENTERED:
-                        before = I18n.get("PointsPenalty", "" + Math.round(swimmers[index].getHLWPunkte(indizes[index])));
+                        before = I18n.get("PointsPenalty",
+                                "" + Math.round(swimmers[index].getHLWPunkte(indizes[index])));
                         break;
                     case DISQALIFIKATION:
                         before = I18n.get("DisqualificationShort");
@@ -608,7 +601,8 @@ class JSimpleInputPanel extends JPanel {
                         // Nothing to do
                         break;
                     }
-                    doit = DialogUtils.ask(controller.getWindow(), I18n.get("Question.InputAlreadyPresent", before, value),
+                    doit = DialogUtils.ask(controller.getWindow(),
+                            I18n.get("Question.InputAlreadyPresent", before, value),
                             I18n.get("Question.InputAlreadyPresent.Note", before, value));
                 }
             }
@@ -621,14 +615,14 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    final class AmountActionListener implements ActionListener {
+    private final class AmountActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             updateAmount();
         }
     }
 
-    final class TimeListener implements DocumentListener, KeyListener {
+    private final class TimeListener implements DocumentListener, KeyListener {
 
         final int index;
 
@@ -731,13 +725,15 @@ class JSimpleInputPanel extends JPanel {
                         if (inputs[index].isValidDouble()) {
                             swimmers[index].setHLWPunkte(indizes[index], inputs[index].getDouble());
                         } else {
-                            swimmers[index].setHLWState(indizes[index], ZWUtils.getHLWState(swimmers[index].getWettkampf(), zeit));
+                            swimmers[index].setHLWState(indizes[index],
+                                    ZWUtils.getHLWState(swimmers[index].getWettkampf(), zeit));
                         }
                     } else {
                         swimmers[index].setHLWState(indizes[index], HLWStates.NOT_ENTERED);
                     }
                 }
-                controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[index], -1, parent);
+                controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED,
+                        swimmers[index], -1, parent);
             }
         }
 
@@ -861,7 +857,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    final class MoreInputListener extends KeyAdapter {
+    private final class MoreInputListener extends KeyAdapter {
         @Override
         public void keyReleased(KeyEvent e) {
             if (e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
@@ -879,7 +875,7 @@ class JSimpleInputPanel extends JPanel {
         }
     }
 
-    class ScrollableJPanel extends JPanel implements Scrollable {
+    private class ScrollableJPanel extends JPanel implements Scrollable {
 
         private static final long serialVersionUID = 680058034328664232L;
 
@@ -924,7 +920,8 @@ class JSimpleInputPanel extends JPanel {
                         JLabel b = names[1];
                         int diff = b.getY() - a.getY();
 
-                        if (!visibleRect.contains(c.getX(), c.getY()) || !visibleRect.contains(c.getX(), c.getY() + 2 * diff)) {
+                        if (!visibleRect.contains(c.getX(), c.getY())
+                                || !visibleRect.contains(c.getX(), c.getY() + 2 * diff)) {
                             return diff;
                         }
                     } else {
@@ -932,7 +929,8 @@ class JSimpleInputPanel extends JPanel {
                         JLabel b = names[1];
                         int diff = b.getY() - a.getY();
 
-                        if (!visibleRect.contains(c.getX(), c.getY() - diff) || !visibleRect.contains(c.getX(), c.getY() + diff)) {
+                        if (!visibleRect.contains(c.getX(), c.getY() - diff)
+                                || !visibleRect.contains(c.getX(), c.getY() + diff)) {
                             return diff;
                         }
                     }

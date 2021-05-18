@@ -17,6 +17,14 @@
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jteams</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.alphaserver</groupId>
+			<artifactId>alphaserver-server</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

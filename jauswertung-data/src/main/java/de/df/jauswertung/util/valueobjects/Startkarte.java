@@ -11,7 +11,7 @@ import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;
 
 /**
- * @author Dennis Mueller
+ * @author Dennis Fabri
  * @version
  */
 
