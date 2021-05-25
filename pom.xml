@@ -6,7 +6,7 @@
 
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>15.1.2</version>
+	<version>15.2.0</version>
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
@@ -51,33 +51,39 @@
 	</mailingLists>
 
 	<modules>
-		<module>jauswertung</module>
 		<module>jauswertung-files</module>
-		<module>jauswertung-misc</module>
-		<module>jauswertung-print</module>
 		<module>jauswertung-data</module>
 		<module>jauswertung-swing</module>
-		<module>jauswertung-plugins-print</module>
+		<module>jauswertung-print</module>
 		<module>jauswertung-io</module>
+		<module>jauswertung-ares</module>
+
+		<module>jauswertung-dp-extensions</module>
+
+		<module>jauswertung-plugins-info</module>
+		<module>jauswertung-akeditor</module>
+
 		<module>jauswertung-plugins-core</module>
 		<module>jauswertung-plugins-editor</module>
-		<module>jauswertung-plugins-heats</module>
-		<module>jauswertung-plugins-zusatzwertung</module>
-		<module>jauswertung-plugins-bugreport</module>
-		<module>jauswertung-plugins-importexport</module>
-		<module>jauswertung-plugins-teammembersscan</module>
-		<module>jauswertung-ares</module>
-		<module>jauswertung-dp-extensions</module>
-		<module>jteams</module>
-		<module>jauswertung-plugins-info</module>
 		<module>jauswertung-plugins-undoredo</module>
+		<module>jauswertung-plugins-bugreport</module>
 		<module>jauswertung-plugins-tipoftheday</module>
-		<module>jauswertung-plugins-input</module>
-		<module>jauswertung-akeditor</module>
-		<module>jauswertung-veranstaltungswertung</module>
-		<module>jauswertung-plugins-file</module>
 		<module>jauswertung-plugins-checks</module>
+		<module>jauswertung-plugins-file</module>
+		<module>jauswertung-plugins-teammembersscan</module>
+		<module>jauswertung-plugins-zusatzwertung</module>
 		<module>jauswertung-plugins-httpserver</module>
+		<module>jauswertung-plugins-heats</module>
+		<module>jauswertung-plugins-input</module>
+
+		<module>jauswertung-plugins-print</module>
+
+		<module>jauswertung-plugins-importexport</module>
+
+		<module>jauswertung-veranstaltungswertung</module>
+		<module>jteams</module>
+		<module>jauswertung</module>
+		<module>jauswertung-misc</module>
 	</modules>
 
 	<profiles>
@@ -93,128 +99,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jteams</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-files</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-akeditor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-io</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-veranstaltungswertung</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-dp-extensions</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-ares</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-input</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-httpserver</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-teammembersscan</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-checks</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-undoredo</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-tipoftheday</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-file</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-core</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-info</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-importexport</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-bugreport</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-editor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-zusatzwertung</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-heats</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-plugins-print</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-misc</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.dennisfabri.jauswertung</groupId>
-				<artifactId>jauswertung-print</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -225,6 +110,131 @@
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-swing</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-print</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-io</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-ares</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-dp-extensions</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-info</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-akeditor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-editor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-undoredo</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-bugreport</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-tipoftheday</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-checks</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-file</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-teammembersscan</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-zusatzwertung</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-httpserver</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-heats</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-input</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-print</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-importexport</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-veranstaltungswertung</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jteams</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-misc</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-setup</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -334,7 +344,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents.client5</groupId>
 				<artifactId>httpclient5</artifactId>
-				<version>5.0.3</version>
+				<version>5.1</version>
 			</dependency>
 
 			<dependency>
@@ -467,7 +477,7 @@
 
 	<dependencies>
 		<!-- Runtime -->
-		
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
