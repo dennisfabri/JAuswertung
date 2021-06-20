@@ -6,6 +6,8 @@ package de.df.jauswertung.util;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -14,11 +16,23 @@ import org.simmetrics.StringMetric;
 import org.simmetrics.metrics.Jaro;
 
 import com.rits.cloning.Cloner;
+import com.rits.cloning.IDeepCloner;
+import com.rits.cloning.IFastCloner;
 
 import de.df.jutils.gui.util.UIPerformanceMode;
 
 public final class Utils {
 
+    private static final Cloner cloner;
+    
+    static {
+        cloner = new Cloner();
+        cloner.registerFastCloner(Hashtable.class, new FastClonerHashtable());
+        cloner.registerFastCloner(Date.class, new FastClonerDate());
+        
+        cloner.setDumpClonedClasses(true);
+    }
+    
     private Utils() {
         // Hide
     }
@@ -145,12 +159,30 @@ public final class Utils {
         return Preferences.userRoot().node("jauswertung");
     }
 
-
+    
+    private static class FastClonerHashtable implements IFastCloner {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
+            final Hashtable<Object, Object> m = (Hashtable) t;
+            final Hashtable<Object, Object> result = new Hashtable<>();
+            for (final Map.Entry e : m.entrySet()) {
+                result.put(cloner.deepClone(e.getKey(), clones), cloner.deepClone(e.getValue(), clones));
+            }
+            return result;
+        }        
+    }
+    
+    private static class FastClonerDate implements IFastCloner {
+        public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
+            final Date m = (Date) t;
+            return new Date(m.getTime());
+        }        
+    }
+    
     public static <T extends Object> T copy(T t) {
         if (t == null) {
             return null;
         }
-        Cloner cloner = new Cloner();
         return cloner.deepClone(t);
     }
 
