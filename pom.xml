@@ -84,6 +84,7 @@
 		<module>jteams</module>
 		<module>jauswertung</module>
 		<module>jauswertung-misc</module>
+		<module>jauswertung-meldeunterlagen</module>
 	</modules>
 
 	<profiles>
@@ -235,6 +236,11 @@
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-setup</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-meldeunterlagen</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
