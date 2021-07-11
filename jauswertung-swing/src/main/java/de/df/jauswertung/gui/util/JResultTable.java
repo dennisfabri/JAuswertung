@@ -212,7 +212,7 @@ public final class JResultTable extends JGroupableTable {
         if (getSelectedRowCount() == 0) {
             return null;
         }
-        return getSchwimmer(getSelectedRowCount());
+        return getSchwimmer(getSelectedRow());
     }
 
     public int getSelectedDiscipline() {

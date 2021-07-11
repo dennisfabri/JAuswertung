@@ -2,7 +2,7 @@
  * BugReportViewer.java Created on 15. Oktober 2001, 22:45
  */
 
-package de.df.jauswertung.misc;
+package de.df.jauswertung.gui;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -16,6 +16,8 @@ import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.*;
+import de.df.jauswertung.util.DefaultInit;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.*;
 
 /**
@@ -85,6 +87,7 @@ public final class BugReportViewer {
      */
     public static void main(String[] args) {
         try {
+            DefaultInit.init();
             DesignInit.init();
         } catch (Exception e) {
             e.printStackTrace();
