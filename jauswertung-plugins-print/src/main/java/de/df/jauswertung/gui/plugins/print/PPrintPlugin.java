@@ -60,19 +60,19 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 public class PPrintPlugin extends ANullPlugin {
 
-    JPanel               panel     = null;
+    JPanel panel = null;
 
-    private Printer[]    printers;
+    private Printer[] printers;
 
     private JComponent[] panels;
-    private MenuInfo[]   menu;
+    private MenuInfo[] menu;
 
-    private CorePlugin   core      = null;
-    WarningPlugin        warner;
+    private CorePlugin core = null;
+    WarningPlugin warner;
 
-    PanelInfo            panelInfo = null;
+    PanelInfo panelInfo = null;
 
-    PrintCallback        printcallback;
+    PrintCallback printcallback;
 
     public PPrintPlugin() {
         panelInfo = new PanelInfo(I18n.get("Print"), IconManager.getBigIcon("print"), false, true, 2000) {
@@ -118,8 +118,8 @@ public class PPrintPlugin extends ANullPlugin {
     }
 
     void showPrintPanel() {
-        warner.information(getController().getWindow(), I18n.get("Information"), I18n.get("PrintButton.Information"), I18n.get("PrintButton.Note"),
-                "MenuPrint");
+        warner.information(getController().getWindow(), I18n.get("Information"), I18n.get("PrintButton.Information"),
+                I18n.get("PrintButton.Note"), "MenuPrint");
         getController().showPanel(I18n.get("Print"));
     }
 
@@ -147,7 +147,8 @@ public class PPrintPlugin extends ANullPlugin {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(panels.length));
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(panels.length));
         panel.setLayout(layout);
 
         for (int x = 0; x < panels.length; x++) {
@@ -227,7 +228,11 @@ public class PPrintPlugin extends ANullPlugin {
 
     @Override
     public void shutDown() {
-        IOUtils.writeToPreferences("PrintSettings", PageSetup.getPRASTable());
+        try {
+            IOUtils.writeToPreferences("PrintSettings", PageSetup.getPageSettings());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         PrintQueue.getInstance().removePrintCallback(printcallback);
     }
@@ -253,7 +258,8 @@ public class PPrintPlugin extends ANullPlugin {
                     printResults(core.getFilteredWettkampf(), select, true);
                 }
             };
-            JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"), false);
+            JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),
+                    false);
             dialog.setSelected(selected);
             dialog.setDiscipline(JSelectionDialog.AUTO_DISCIPLINES);
             dialog.setVisible(true);
@@ -289,7 +295,8 @@ public class PPrintPlugin extends ANullPlugin {
                     printResults(core.getFilteredWettkampf(), select, true);
                 }
             };
-            JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"), false);
+            JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),
+                    false);
             dialog.setDiscipline(JSelectionDialog.AUTO_DISCIPLINES);
             dialog.setVisible(true);
             return;
@@ -305,9 +312,11 @@ public class PPrintPlugin extends ANullPlugin {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
             // int[] lastcomplete = wk.getLastComplete();
-            ps = PrintUtils.getIntermediateResults(selected, wk, wk.getRegelwerk().getMaxDisciplineCount(), true, true, 0);
+            ps = PrintUtils.getIntermediateResults(selected, wk, wk.getRegelwerk().getMaxDisciplineCount(), true, true,
+                    0);
         }
-        Printable p = PrintManager.getFinalPrintable(new UnterschriftPrintable(new MultiplePrintable(ps)), wk.getLastChangedDate(), true, I18n.get("Results"));
+        Printable p = PrintManager.getFinalPrintable(new UnterschriftPrintable(new MultiplePrintable(ps)),
+                wk.getLastChangedDate(), true, I18n.get("Results"));
         PrintExecutor.print(p, I18n.get("Results"), true, getController().getWindow());
     }
 
@@ -339,7 +348,8 @@ public class PPrintPlugin extends ANullPlugin {
         @Override
         @SuppressWarnings("synthetic-access")
         public void jobStarted(String job, int jobs) {
-            SwingUtilities.invokeLater(new StatusTextChanger(getController().getWindow(), I18n.get("PrintingJobOfJobs", job, jobs)));
+            SwingUtilities.invokeLater(
+                    new StatusTextChanger(getController().getWindow(), I18n.get("PrintingJobOfJobs", job, jobs)));
         }
 
         @Override
@@ -359,7 +369,7 @@ public class PPrintPlugin extends ANullPlugin {
     private final class StatusTextChanger implements Runnable {
 
         private final JPFrame frame;
-        private final String  text;
+        private final String text;
 
         public StatusTextChanger(JPFrame f, String t) {
             frame = f;

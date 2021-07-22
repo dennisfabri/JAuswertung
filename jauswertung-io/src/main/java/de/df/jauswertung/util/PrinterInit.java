@@ -1,34 +1,41 @@
 package de.df.jauswertung.util;
 
 import java.awt.print.PageFormat;
-import java.util.HashMap;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.IOUtils;
+import de.df.jutils.print.PageSetting;
 import de.df.jutils.print.PageSetup;
 
 public class PrinterInit {
-    private PrinterInit() {        
+
+    private PrinterInit() {
     }
 
     public static void init() {
-        initPrintSetup();
+        initializeDefaults();
+        loadFromSettings();
     }
-    
-    @SuppressWarnings({ "unchecked" })
-    private static void initPrintSetup() {
-        Object o = IOUtils.readFromPreferences("PrintSettings");
-        HashMap<String, PageFormat> prasTable = (HashMap<String, PageFormat>) o;
-        if (prasTable == null) {
-            prasTable = new HashMap<>();
-            prasTable.put(I18n.get("Results"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("GroupEvaluation"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("Meldezeiten"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("Laufliste"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("ZWList"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("Disciplines"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
-            prasTable.put(I18n.get("BrokenRecords"), PageSetup.createPageFormat(PageFormat.LANDSCAPE));
+
+    private static void loadFromSettings() {
+        try {
+            Object data = IOUtils.readFromPreferences("PrintSettings");
+            if (data instanceof PageSetting[]) {
+                PageSetting[] pageSettings = (PageSetting[]) data;
+                PageSetup.setPageSettings(pageSettings);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        PageSetup.setPRASTable(prasTable);
-    }    
+    }
+
+    private static void initializeDefaults() {
+        PageSetup.setOrientation(I18n.get("Results"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("GroupEvaluation"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("Meldezeiten"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("Laufliste"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("ZWList"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("Disciplines"), PageFormat.LANDSCAPE);
+        PageSetup.setOrientation(I18n.get("BrokenRecords"), PageFormat.LANDSCAPE);
+    }
 }

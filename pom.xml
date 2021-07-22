@@ -26,7 +26,7 @@
 		<javafx.version>15.0.1</javafx.version>
 		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
 		<batik.version>1.14</batik.version>
-		<slf4j.version>1.7.30</slf4j.version>
+		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
 
 	<distributionManagement>

@@ -110,7 +110,7 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
 
     @Override
     public void shutDown() {
-        IOUtils.writeToPreferences("PrintSettings", PageSetup.getPRASTable());
+        IOUtils.writeToPreferences("PrintSettings", PageSetup.getPageSettings());
         PrintQueue.getInstance().removePrintCallback(printcallback);
     }
 
