@@ -165,7 +165,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     void browseFile() {
         IImporter i = ImportManager.getImporter(format.getSelectedItemname());
         String[] names = null;
-        if (!ImportManager.isMultifileImportAllowed(type.getSelectedIndex())) {
+        if (ImportManager.isMultifileImportAllowed(type.getSelectedIndex())) {
             names = FileChooserUtils.openFiles(JImportWizard.this, new SimpleFileFilter(i.getName(), i.getSuffixes()));
         } else {
             String name = FileChooserUtils.openFile(JImportWizard.this,
