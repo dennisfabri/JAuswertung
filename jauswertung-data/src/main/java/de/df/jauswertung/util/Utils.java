@@ -30,7 +30,7 @@ public final class Utils {
         cloner.registerFastCloner(Hashtable.class, new FastClonerHashtable());
         cloner.registerFastCloner(Date.class, new FastClonerDate());
         
-        cloner.setDumpClonedClasses(true);
+        cloner.setDumpClonedClasses(false);
     }
     
     private Utils() {
