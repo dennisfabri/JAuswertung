@@ -4,21 +4,27 @@
 
 package de.df.jauswertung.gui;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.DefaultInit;
-import de.df.jauswertung.util.Utils;
-import de.df.jutils.gui.util.*;
+import de.df.jutils.gui.util.DesignInit;
+import de.df.jutils.gui.util.DialogUtils;
 
 /**
  * @author Dennis Fabri
@@ -50,16 +56,16 @@ public final class BugReportViewer {
         if (o instanceof AWettkampf) {
             if (o instanceof EinzelWettkampf) {
                 w.print("Einzel: ");
-                OutputManager.speichereWettkampf("../../bug.wk", (EinzelWettkampf) o);
+                OutputManager.speichereWettkampf("../../../../bug.wk", (EinzelWettkampf) o);
 
             }
             if (o instanceof MannschaftWettkampf) {
                 w.print("Mannschaft: ");
-                OutputManager.speichereWettkampf("../../bug.wk", (MannschaftWettkampf) o);
+                OutputManager.speichereWettkampf("../../../../bug.wk", (MannschaftWettkampf) o);
             }
             try {
                 if (((AWettkampf) o).hasSchwimmer()) {
-                    ExportManager.export(ExportManager.RESULTS, "../../results.html", "HTML", (AWettkampf) o, null);
+                    ExportManager.export(ExportManager.RESULTS, "../../../../results.html", "HTML", (AWettkampf) o, null);
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();

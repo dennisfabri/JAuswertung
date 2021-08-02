@@ -242,7 +242,7 @@ public class ResultUtils {
 
         w.enableUpdates();
         if (!w.hasSchwimmer()) {
-            return null;
+            // return null;
         }
 
         LinkedList<Zielrichterentscheid<T>> neuezes = new LinkedList<Zielrichterentscheid<T>>();
@@ -426,18 +426,15 @@ public class ResultUtils {
         } else if (t.round == 0) {
             wk.disableUpdates();
             for (T s : new ArrayList<T>(wk.getSchwimmer())) {
-                if (s.getAKNummer() != t.akNummer) {
-                    wk.removeSchwimmer(s);
-                } else if (s.isMaennlich() != t.male) {
-                    wk.removeSchwimmer(s);
-                } else if (!s.isDisciplineChosen(t.discipline)) {
+                if ((s.getAKNummer() != t.akNummer) || (s.isMaennlich() != t.male)
+                        || (!s.isDisciplineChosen(t.discipline))) {
                     wk.removeSchwimmer(s);
                 }
             }
             wk.enableUpdates();
         } else if (d != null) {
             wk.disableUpdates();
-            HashSet<Integer> sn = new HashSet<Integer>(
+            HashSet<Integer> sn = new HashSet<>(
                     d.getSchwimmer().stream().map(s -> s.getStartnummer()).collect(Collectors.toList()));
             for (T s : wk.getSchwimmer()) {
                 if (!sn.contains(s.getStartnummer())) {

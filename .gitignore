@@ -20,8 +20,5 @@ pom.xml.versionsBackup
 /data/
 
 *.txt.csv
-jauswertung-files/src/bug-autosave.wk
-
-jauswertung-files/src/bug.wk
-
-jauswertung-files/src/results.html
+*.wk
+/*.html

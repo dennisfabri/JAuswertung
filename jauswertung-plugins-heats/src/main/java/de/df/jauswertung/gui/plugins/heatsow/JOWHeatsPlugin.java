@@ -59,22 +59,22 @@ import de.df.jutils.print.printables.MultiplePrintable;
 public class JOWHeatsPlugin extends ANullPlugin {
 
     private static final String ITEM_DEFINE = I18n.get("DefineRounds");
-    private static final String ITEM_NEW    = I18n.get("New");
-    private static final String ITEM_EDIT   = I18n.get("Edit");
-    private static final String ITEM_SHOW   = I18n.get("Show");
+    private static final String ITEM_NEW = I18n.get("New");
+    private static final String ITEM_EDIT = I18n.get("Edit");
+    private static final String ITEM_SHOW = I18n.get("Show");
     private static final String ITEM_DELETE = I18n.get("Delete");
-    private static final String ITEM_MENU   = I18n.get("Laufliste");
-    private static final String MENU        = I18n.get("Edit");
+    private static final String ITEM_MENU = I18n.get("Laufliste");
+    private static final String MENU = I18n.get("Edit");
 
-    CorePlugin                  core        = null;
-    private JMenuItem[]         menu        = null;
-    JButton[]                   buttons     = null;
+    CorePlugin core = null;
+    private JMenuItem[] menu = null;
+    JButton[] buttons = null;
 
-    private JMenuItem           define      = null;
-    private JMenuItem           neu         = null;
-    private JMenuItem           show        = null;
-    private JMenuItem           edit        = null;
-    private JMenuItem           delete      = null;
+    private JMenuItem define = null;
+    private JMenuItem neu = null;
+    private JMenuItem show = null;
+    private JMenuItem edit = null;
+    private JMenuItem delete = null;
 
     // JMenuItem block = null;
 
@@ -135,7 +135,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 if (t) {
                     getController().sendDataUpdateEvent("ChangeRB",
                             UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
-                                    | UpdateEventConstants.REASON_LAUF_LIST_CHANGED | UpdateEventConstants.REASON_POINTS_CHANGED
+                                    | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
+                                    | UpdateEventConstants.REASON_POINTS_CHANGED
                                     | UpdateEventConstants.REASON_SWIMMER_CHANGED,
                             JOWHeatsPlugin.this);
                 }
@@ -156,7 +157,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 }
             }
         };
-        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen", OWUtils.getCurrentRounds(wk), cb);
+        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen",
+                OWUtils.getCurrentRounds(wk), cb);
     }
 
     <T extends ASchwimmer> void loescheLaufliste(OWSelection t) {
@@ -175,15 +177,17 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     AWettkampf<ASchwimmer> wkx = core.getWettkampf();
                     OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
                     if (d == null || d.isEmpty()) {
-                        DialogUtils.inform(getController().getWindow(), "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                                "Wenn diese Meldung erscheint, wenden Sie sich bitte an bugs@dennisfabri.de");
+                        DialogUtils.inform(getController().getWindow(),
+                                "Die Laufliste ist leer und kann nicht bearbeitet werden.",
+                                "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
                         return;
                     }
                     bearbeiteLaufliste(s);
                 }
             }
         };
-        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen", OWUtils.getCurrentRounds(wk), cb);
+        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
+                OWUtils.getCurrentRounds(wk), cb);
     }
 
     private void zeigeLaufliste() {
@@ -197,15 +201,17 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     AWettkampf<ASchwimmer> wkx = core.getWettkampf();
                     OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
                     if (d == null || d.isEmpty()) {
-                        DialogUtils.inform(getController().getWindow(), "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                                "Wenn diese Meldung erscheint, wenden Sie sich bitte an bugs@dennisfabri.de");
+                        DialogUtils.inform(getController().getWindow(),
+                                "Die Laufliste ist leer und kann nicht bearbeitet werden.",
+                                "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
                         return;
                     }
                     zeigeLaufliste(s);
                 }
             }
         };
-        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen", OWUtils.getCreatedRounds(wk, true), cb);
+        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",
+                OWUtils.getCreatedRounds(wk, true), cb);
     }
 
     private <T extends ASchwimmer> void bearbeiteLaufliste(OWSelection t) {
@@ -229,7 +235,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
         AWettkampf<T> wk = createCompetitionFor(t1);
 
         AWettkampf<T> cwk = core.getWettkampf();
-        int qualifiziert = cwk.getRegelwerk().getAk(ows.akNummer).getDisziplin(ows.discipline, ows.male).getRunden()[t1.round];
+        int qualifiziert = cwk.getRegelwerk().getAk(ows.akNummer).getDisziplin(ows.discipline, ows.male)
+                .getRunden()[t1.round];
         OWDisziplin<T> owd = cwk.getLauflisteOW().getDisziplin(ows);
         SchwimmerResult<T>[] result = ResultCalculator.getResults(wk, wk.getRegelwerk().getAk(t1.akNummer), t1.male);
         EDTUtils.waitOnEDT();
@@ -293,7 +300,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 }
             }
         };
-        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen", OWUtils.getCreatableRounds(wk), cb);
+        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
+                OWUtils.getCreatableRounds(wk), cb);
     }
 
     <T extends ASchwimmer> void neueLaufliste(OWSelection t, boolean askForPrint) {
@@ -321,7 +329,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     T ti = SearchUtils.getSchwimmer(wk, tx);
                     if (ti instanceof Mannschaft && disziplin.round > 0) {
                         Mannschaft m = (Mannschaft) ti;
-                        int[] starter = m.getStarter(OWDisziplin.getId(disziplin.akNummer, disziplin.maennlich, disziplin.disziplin, disziplin.round - 1));
+                        int[] starter = m.getStarter(OWDisziplin.getId(disziplin.akNummer, disziplin.maennlich,
+                                disziplin.disziplin, disziplin.round - 1));
                         if (starter == null && disziplin.round == 1) {
                             starter = m.getStarter(disziplin.disziplin);
                         }
@@ -332,7 +341,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
             }
             disziplin.laeufe.add(l);
         }
-        wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER, wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
+        wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER,
+                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
         EditHeatlistUtils.notifyHeatlistChanged(getController(), this);
 
         if (askForPrint) {
@@ -350,16 +360,19 @@ public class JOWHeatsPlugin extends ANullPlugin {
         }
     }
 
-    private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, boolean withComments, boolean withTimes, String title) {
-        Printable p = new SprecherlistePrintable<T>(wk, false, withTimes, PrintUtils.printOmitOrganisationForTeams, withComments,
-                !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
-        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, title), wk.getLastChangedDate(), true, title);
+    private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, boolean withComments,
+            boolean withTimes, String title) {
+        Printable p = new SprecherlistePrintable<T>(wk, false, withTimes, PrintUtils.printOmitOrganisationForTeams,
+                withComments, !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
+        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, title), wk.getLastChangedDate(), true,
+                title);
     }
 
     private static <T extends ASchwimmer> Printable getPrintableRecorder(AWettkampf<T> wk) {
-        Printable p = new RecorderPrintable<T>(wk, false, false, PrintUtils.printOmitOrganisationForTeams, !PrintUtils.printOmitOrganisationForTeams);
-        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, I18n.get("Recorder-Laufliste")), wk.getLastChangedDate(), true,
-                I18n.get("Recorder-Laufliste"));
+        Printable p = new RecorderPrintable<T>(wk, false, false, PrintUtils.printOmitOrganisationForTeams,
+                !PrintUtils.printOmitOrganisationForTeams);
+        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, I18n.get("Recorder-Laufliste")),
+                wk.getLastChangedDate(), true, I18n.get("Recorder-Laufliste"));
     }
 
     private void printOW(OWSelection sel) {
@@ -435,8 +448,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {
@@ -456,8 +469,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
             updateButtons();
             return;
         }
-        long bitmap = REASON_LAUF_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_AKS_CHANGED | REASON_NEW_TN | REASON_SWIMMER_CHANGED
-                | REASON_SWIMMER_DELETED;
+        long bitmap = REASON_LAUF_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_AKS_CHANGED | REASON_NEW_TN
+                | REASON_SWIMMER_CHANGED | REASON_SWIMMER_DELETED;
         if ((due.getChangeReason() & bitmap) > 0) {
             updateButtons();
         }
