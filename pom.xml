@@ -20,10 +20,12 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
+		<jutils.version>16.0.0-SNAPSHOT</jutils.version>
+		<alphaserver.version>16.0.0-SNAPSHOT</alphaserver.version>
+
 		<junit.version>5.7.2</junit.version>
 		<poi.version>5.0.0</poi.version>
 		<jersey.version>3.0.2</jersey.version>
-		<version.alphaserver>1.0.0-SNAPSHOT</version.alphaserver>
 		<batik.version>1.14</batik.version>
 		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
@@ -246,32 +248,32 @@
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-plugin</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-wizard</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-swing</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-print</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-common</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.jutils</groupId>
 				<artifactId>jutils-i18n</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${jutils.version}</version>
 			</dependency>
 
 			<dependency>
@@ -294,12 +296,12 @@
 			<dependency>
 				<groupId>de.dennisfabri.alphaserver</groupId>
 				<artifactId>alphaserver-api</artifactId>
-				<version>${version.alphaserver}</version>
+				<version>${alphaserver.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.dennisfabri.alphaserver</groupId>
 				<artifactId>alphaserver-server</artifactId>
-				<version>${version.alphaserver}</version>
+				<version>${alphaserver.version}</version>
 			</dependency>
 
 			<dependency>
