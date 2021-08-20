@@ -21,6 +21,9 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
@@ -109,34 +112,40 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     public static class Einteilung implements Serializable {
 
-        private final int startgroup;
-        private final boolean male;
-        private int discipline;
+        @XStreamAlias("male")
+        @XStreamAsAttribute
+        private final int first;
+        @XStreamAlias("male")
+        @XStreamAsAttribute
+        private final boolean second;
+        @XStreamAlias("discipline")
+        @XStreamAsAttribute
+        private int third;
         
         public Einteilung() {
             this(0, false, 0);
         }
 
         public Einteilung(int startgroup, boolean male, int discipline) {
-            this.startgroup = startgroup;
-            this.male = male;
-            this.discipline = discipline;
+            this.first = startgroup;
+            this.second = male;
+            this.third = discipline;
         }
 
         public int getStartgruppe() {
-            return startgroup;
+            return first;
         }
 
         public boolean isMaennlich() {
-            return male;
+            return second;
         }
 
         public int getDisziplin() {
-            return discipline;
+            return third;
         }
 
         public void setDisziplin(int d) {
-            this.discipline = d;
+            this.third = d;
         }
     }
 

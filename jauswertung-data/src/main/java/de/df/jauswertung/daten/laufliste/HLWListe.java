@@ -34,29 +34,29 @@ import de.df.jutils.util.Tupel;
 
 public class HLWListe<T extends ASchwimmer> implements Serializable {
 
-    private static final long          serialVersionUID     = -7412435828304184620L;
+    private static final long serialVersionUID = -7412435828304184620L;
 
-    public static final int            REIHENFOLGE_ZUFALL   = 0;
-    public static final int            REIHENFOLGE_EINZELN  = 1;
-    public static final int            REIHENFOLGE_MELDUNG  = 2;
-    public static final int            REIHENFOLGE_GEGEN    = 3;
-    public static final int            REIHENFOLGE_ZUSAMMEN = 4;
+    public static final int REIHENFOLGE_ZUFALL = 0;
+    public static final int REIHENFOLGE_EINZELN = 1;
+    public static final int REIHENFOLGE_MELDUNG = 2;
+    public static final int REIHENFOLGE_GEGEN = 3;
+    public static final int REIHENFOLGE_ZUSAMMEN = 4;
 
-    public static final int            PAUSE_MODE_TIME      = 0;
-    public static final int            PAUSE_MODE_AGEGROUP  = 1;
+    public static final int PAUSE_MODE_TIME = 0;
+    public static final int PAUSE_MODE_AGEGROUP = 1;
 
     // 23:59 = 1439 minutes
-    public static final int            TIME_MAX             = 1439;
-    public static final int            TIME_TAG             = TIME_MAX + 1;
+    public static final int TIME_MAX = 1439;
+    public static final int TIME_TAG = TIME_MAX + 1;
 
-    final AWettkampf<T>                wk;
+    final AWettkampf<T> wk;
 
     LinkedList<LinkedList<HLWLauf<T>>> hlwliste;
-    LinkedList<Time>                   startat;
-    private Einteilung[]               verteilung;
+    LinkedList<Time> startat;
+    private Einteilung[] verteilung;
 
-    private static Random              random               = RandomUtils.getRandomNumberGenerator();
-    private static long                seed                 = random.nextLong();
+    private static Random random = RandomUtils.getRandomNumberGenerator();
+    private static long seed = random.nextLong();
 
     /** Creates new Laufliste */
     public HLWListe(AWettkampf<T> wettkampf) {
@@ -182,7 +182,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             Collections.sort(ll, comparator1);
             break;
         case REIHENFOLGE_MELDUNG:
-            Comparator<ASchwimmer> comparator2 = new Meldesorter(wk.getIntegerProperty(PropertyConstants.ZW_REGISTERED_POINTS_INDEX, 0), false);
+            Comparator<ASchwimmer> comparator2 = new Meldesorter(
+                    wk.getIntegerProperty(PropertyConstants.ZW_REGISTERED_POINTS_INDEX, 0), false);
             Collections.sort(ll, comparator2);
             break;
         case REIHENFOLGE_ZUSAMMEN:
@@ -432,7 +433,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         return pauses;
     }
 
-    public static <T extends ASchwimmer> void verteilen(LinkedList<HLWLauf<T>> hlwliste, LinkedList<T> schwimmer, int puppen) {
+    public static <T extends ASchwimmer> void verteilen(LinkedList<HLWLauf<T>> hlwliste, LinkedList<T> schwimmer,
+            int puppen) {
         if (schwimmer.size() == 0) {
             return;
         }
@@ -815,7 +817,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
     public static class Einteilung implements Serializable {
 
         private final int ak;
-        private final boolean male;        
+        private final boolean male;
+
         public Einteilung() {
             this(0, false);
         }
