@@ -90,7 +90,7 @@ public final class IOUtils {
         if (!xml.startsWith("<?xml")) {
             try {
                 String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-                String xml2 = new String(xml);
+                String xml2 = xml;
                 int index = xml2.indexOf('>');
                 if (index > 0) {
                     StringBuilder sb = new StringBuilder();

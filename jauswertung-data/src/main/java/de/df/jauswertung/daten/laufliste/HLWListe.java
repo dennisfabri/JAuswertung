@@ -22,6 +22,8 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 
+import org.dom4j.Element;
+
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
@@ -836,4 +838,16 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             return male;
         }
     }
+    
+    public static void migrator3(Element node) {
+        for (Element einteilung : node.element("verteilung").elements()) {
+            for (Element entry : einteilung.elements().toArray(Element[]::new)) {
+                if (entry.getName().equals("first")) {
+                    entry.setName("ak");
+                } else if (entry.getName().equals("second")) {
+                    entry.setName("male");
+                }
+            }
+        }
+    }    
 }

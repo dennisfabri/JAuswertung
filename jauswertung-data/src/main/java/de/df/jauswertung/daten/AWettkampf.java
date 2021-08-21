@@ -124,11 +124,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         filterindex = 0;
 
         startnummern = new Startnummern();
-        laufliste = new Laufliste<T>(this);
-        lauflisteow = new OWLaufliste<T>(this);
-        einsprueche = new LinkedList<Einspruch>();
-        schwimmer = new LinkedList<T>();
-        hlwliste = new HLWListe<T>(this);
+        laufliste = new Laufliste<>(this);
+        lauflisteow = new OWLaufliste<>(this);
+        einsprueche = new LinkedList<>();
+        schwimmer = new LinkedList<>();
+        hlwliste = new HLWListe<>(this);
         aks = altersklassen;
         kampfrichter = null;
         zielrichterentscheide = new LinkedList<Zielrichterentscheid<T>>();
@@ -1244,6 +1244,16 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         Regelwerk.migrator2(node.element("aks"));
     }
 
+    @SuppressWarnings("unused")
+    private void migrate3(VersionedDocument dom, Stack<Integer> versions) {
+        migrator3(dom.getRootElement());
+    }
+
+    public static void migrator3(Element node) {
+        Laufliste.migrator3(node.element("laufliste"));
+        // Laufliste.migrator3(node.element("hlwliste"));
+    }
+    
     public boolean HasOpenQualifications() {
         for (T t : schwimmer) {
             if (t.getQualifikation() == Qualifikation.OFFEN) {
