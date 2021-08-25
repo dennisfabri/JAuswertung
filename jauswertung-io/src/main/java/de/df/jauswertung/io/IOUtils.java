@@ -17,12 +17,17 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Collection;
 
 import org.apache.commons.text.StringEscapeUtils;
 
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
+import com.thoughtworks.xstream.security.ArrayTypePermission;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -69,6 +74,9 @@ import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
 import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.util.Utils;
+import de.dm.ares.data.Heat;
+import de.dm.ares.data.Lane;
+import de.dm.ares.data.LaneStatus;
 import de.dm.ares.data.util.XStreamUtil;
 
 /**
@@ -154,6 +162,7 @@ public final class IOUtils {
     public static XStream getXStream() {
         if (instance == null) {
             instance = XStreamUtil.getXStream();
+            setupPermissions(instance);
 
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Startgruppe", Startgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Wertungsgruppe", Wertungsgruppe.class);
@@ -205,7 +214,7 @@ public final class IOUtils {
             instance.alias("Timelimit", Timelimit.class);
             instance.alias("Timelimitchecktype", Timelimitchecktype.class);
             instance.alias("TimelimitsContainer", TimelimitsContainer.class);
-            
+
             instance.alias("OWDisziplin", OWDisziplin.class);
             instance.alias("OWSelection", OWSelection.class);
             instance.alias("OWLauf", OWLauf.class);
@@ -255,6 +264,11 @@ public final class IOUtils {
         }
 
         return instance;
+    }
+
+    private static void setupPermissions(XStream xstream) {
+        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
+        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**" });
     }
 
     private static class StringConverter extends AbstractSingleValueConverter {
@@ -346,7 +360,7 @@ public final class IOUtils {
             }
         }
     }
-    
+
     public static void writeToPreferences(String name, Object data) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         OutputManager.speichereObject(bos, data);
@@ -360,5 +374,5 @@ public final class IOUtils {
         }
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         return InputManager.ladeObject(bis);
-    }    
+    }
 }
