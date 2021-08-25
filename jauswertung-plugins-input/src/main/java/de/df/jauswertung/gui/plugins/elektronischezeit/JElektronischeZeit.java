@@ -22,6 +22,7 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.sources.ITimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.SourcesConfig;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
@@ -79,10 +80,10 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
         switch (SourcesConfig.getSource()) {
         case http:
-            source = new HttpTimesSource(electric);
+            source = new HttpTimesSource();
             break;
         case aresfile:
-            source = new AresfileTimesSource(electric);
+            source = new AresfileTimesSource();
             break;
         default:
             throw new IllegalStateException("Unkown datasource");
@@ -168,10 +169,18 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         }
         super.setVisible(visible);
     }
+    
+    private Heat[] loadHeats() {
+        String address = SourcesConfig.getAddress();
+        if (address.equalsIgnoreCase("dummy") && Utils.isInDevelopmentMode()) {
+            return strategy.generateHeats();
+        }
+        return source.getHeats();
+    }
 
     void update() {
         boolean failed = true;
-        Heat[] heatsnew = source.getHeats();
+        Heat[] heatsnew = loadHeats();
         if (heatsnew != null) {
             for (Heat h : heatsnew) {
                 h.updateTimes(10);

@@ -10,19 +10,10 @@ import de.dm.ares.data.Heat;
 
 public class HttpTimesSource implements ITimesSource {
 
-    // private final MElektronischeZeitPlugin plugin;
-
-    public HttpTimesSource(MElektronischeZeitPlugin parent) {
-        // plugin = parent;
-    }
-
     @Override
     public Heat[] getHeats() {
-        String address = SourcesConfig.getAddress();
-        if (address.equalsIgnoreCase("dummy") && Utils.isInDevelopmentMode()) {
-            // return plugin.generateHeats();
-        }
         try {
+            String address = SourcesConfig.getAddress();
             byte[] data = HttpUtils.download("http://" + address + ":1999/legacy/heats.xml");
             return (Heat[]) InputManager.unserialize(data);
         } catch (IOException e) {

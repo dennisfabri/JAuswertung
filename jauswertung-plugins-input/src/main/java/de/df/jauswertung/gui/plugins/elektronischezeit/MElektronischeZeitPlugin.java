@@ -18,6 +18,7 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
+import de.dm.ares.data.Heat;
 
 public class MElektronischeZeitPlugin extends ANullPlugin {
 
