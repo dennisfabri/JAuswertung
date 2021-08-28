@@ -43,7 +43,7 @@ import de.df.jutils.print.printables.MultiplePrintable;
  * @author Dennis Fabri
  * @date 17.10.2004
  */
-class ResultsPrinter2 implements Printer {
+class ResultsWithDetailedFilterPrinter implements Printer {
 
     CorePlugin                      core          = null;
     IPluginManager                  controller    = null;
@@ -69,7 +69,7 @@ class ResultsPrinter2 implements Printer {
         }
     }
 
-    public ResultsPrinter2(IPluginManager window, CorePlugin plugin, WarningPlugin warn) {
+    public ResultsWithDetailedFilterPrinter(IPluginManager window, CorePlugin plugin, WarningPlugin warn) {
         core = plugin;
         controller = window;
         this.warn = warn;

@@ -17,9 +17,9 @@ import de.df.jutils.plugin.IPluginManager;
  * @author Dennis Fabri
  * @date 17.10.2004
  */
-class DisciplineresultsPrinter extends APerDisciplinePrinter {
+class ResultsPerDisciplinePrinter extends APerDisciplinePrinter {
 
-    public DisciplineresultsPrinter(IPluginManager window, CorePlugin plugin) {
+    public ResultsPerDisciplinePrinter(IPluginManager window, CorePlugin plugin) {
         super(window, plugin, true);
     }
 

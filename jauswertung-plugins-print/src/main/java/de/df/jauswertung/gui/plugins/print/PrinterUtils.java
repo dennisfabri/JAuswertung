@@ -40,8 +40,8 @@ public final class PrinterUtils {
 
         PrinterCollection ergebnisse = new PrinterCollection(I18n.get("Results"));
         ergebnisse.add(new ResultsPrinter(controller, plugin, warn));
-        ergebnisse.add(new ResultsPrinter2(controller, plugin, warn));
-        ergebnisse.add(new DisciplineresultsPrinter(controller, plugin));
+        ergebnisse.add(new ResultsWithDetailedFilterPrinter(controller, plugin, warn));
+        ergebnisse.add(new ResultsPerDisciplinePrinter(controller, plugin));
         // ergebnisse.add(new DisciplineresultsOverAllPrinter(controller,
         // plugin));
         ergebnisse.add(new GesamtwertungPrinter(controller, plugin));

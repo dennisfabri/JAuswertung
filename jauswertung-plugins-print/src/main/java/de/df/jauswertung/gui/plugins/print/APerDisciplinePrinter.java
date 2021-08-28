@@ -46,7 +46,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
 import de.df.jauswertung.io.ExportManager;
-import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
@@ -99,7 +98,7 @@ abstract class APerDisciplinePrinter implements Printer {
         print.addActionListener(new PrintActionListener());
         print.setEnabled(false);
 
-        export = new JButton(I18n.get("Export")); // , IconManager.getSmallIcon("export"));
+        export = new JButton(I18n.get("Export"));
         export.addActionListener(new ExportActionListener());
         export.setEnabled(false);
 
