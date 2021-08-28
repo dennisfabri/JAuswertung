@@ -51,7 +51,7 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
                 }
             }
             if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                return sd1.isWithdraw() ? 1 : -1;
+                // return sd1.isWithdraw() ? 1 : -1;
             }
             return -(sd1.getTime() - sd2.getTime());
         }

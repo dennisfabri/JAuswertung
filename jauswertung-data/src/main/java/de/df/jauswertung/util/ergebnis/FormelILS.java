@@ -52,7 +52,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 }
             }
             if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                return sd1.isWithdraw() ? 1 : -1;
+                // return sd1.isWithdraw() ? 1 : -1;
             }
             return sd1.getTime() - sd2.getTime();
         }
@@ -159,7 +159,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 swimmer[x].setTime(0);
             }
             if (swimmer[x].isWithdraw()) {
-                swimmer[x].setRank(-1);
+                // swimmer[x].setRank(-1);
             }
         }
         for (int y = pos - 1; y < swimmer.length; y++) {

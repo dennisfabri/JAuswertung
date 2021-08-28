@@ -115,7 +115,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 }
             }
             if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                return sd1.isWithdraw() ? 1 : -1;
+                // return sd1.isWithdraw() ? 1 : -1;
             }
             if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
                 return 0;
