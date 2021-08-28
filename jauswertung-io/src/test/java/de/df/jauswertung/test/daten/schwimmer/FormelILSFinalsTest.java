@@ -29,6 +29,7 @@ import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
@@ -40,7 +41,6 @@ import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.jtable.JTableUtils;
-import de.df.jutils.gui.util.EDTUtils;
 
 public class FormelILSFinalsTest {
 
@@ -376,5 +376,4 @@ public class FormelILSFinalsTest {
             assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisGesamt.getResult(x).getSchwimmer().getName());
         }
     }
-
 }

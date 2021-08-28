@@ -13,25 +13,26 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  */
 public class Strafe implements Serializable {
 
-    private static final long  serialVersionUID = -6097335676567287451L;
+    private static final long serialVersionUID = -6097335676567287451L;
 
-    public static final Strafe NICHTS           = new Strafe("", "", Strafarten.NICHTS, 0);
+    public static final Strafe NICHTS = new Strafe("", "", Strafarten.NICHTS, 0);
     public static final Strafe NICHT_ANGETRETEN = new Strafe("", "", Strafarten.NICHT_ANGETRETEN, 0);
     public static final Strafe DISQUALIFIKATION = new Strafe("", "", Strafarten.DISQUALIFIKATION, 0);
-    public static final Strafe AUSSCHLUSS       = new Strafe("", "", Strafarten.AUSSCHLUSS, 0);
+    public static final Strafe AUSSCHLUSS = new Strafe("", "", Strafarten.AUSSCHLUSS, 0);
+    public static final Strafe WITHDRAW = new Strafe("", "WD", Strafarten.NICHTS, 0);
 
     @XStreamAsAttribute
-    private String             name             = "";
+    private String name = "";
     @XStreamAsAttribute
-    private String             shortname        = "";
+    private String shortname = "";
     @XStreamAsAttribute
-    private Strafarten         art;
+    private Strafarten art;
     @XStreamAsAttribute
-    private int                hoehe            = 0;
+    private int hoehe = 0;
 
     @SuppressWarnings("unused")
     @Deprecated
-    private String             durchsage        = "";
+    private String durchsage = "";
 
     public Strafe(Strafe s) {
         if (s == null) {
@@ -253,6 +254,7 @@ public class Strafe implements Serializable {
 
     /*
      * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
