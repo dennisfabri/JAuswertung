@@ -15,15 +15,11 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
 import static org.junit.Assert.assertEquals;
 
-import java.awt.print.Printable;
-import java.text.MessageFormat;
 import java.util.LinkedList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
@@ -33,60 +29,62 @@ import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.printables.MultiplePrintable;
+import de.df.jutils.gui.jtable.JTableUtils;
+import de.df.jutils.gui.util.EDTUtils;
 
 public class FormelILSFinalsTest {
 
     private static final int AnzahlSchwimmer = 20;
 
+    private static final int AnzahlRunden = 2;
     private static final boolean MALE = true;
     private static final int AK = 0;
     private static final int Discipline = 0;
     private static final int Round = 0;
 
     private EinzelWettkampf wk;
-    private Altersklasse ak;
     private OWSelection selectionVorlauf;
     private JResultTable ergebnisVorlauf;
     private OWSelection selectionFinale;
     private JResultTable ergebnisFinale;
+    private JResultTable ergebnisGesamt;
 
     private static SchwimmerResult<Teilnehmer>[] results = null;
 
     @BeforeEach
     void prepare() {
         erstelleWettkampf();
-        schwimmerHinzufuegen();
+        schwimmerHinzufuegen(wk);
 
-        selectionVorlauf = new OWSelection(ak, AK, MALE, Discipline, Round, false);
-        erzeugeLaufliste(selectionVorlauf);
-        trageZeitenEin(selectionVorlauf);
-        ergebnisVorlauf = erstelleErgebnis(selectionVorlauf);
+        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round, false);
+        erzeugeLaufliste(wk, selectionVorlauf);
+        trageZeitenEin(wk, selectionVorlauf);
+        ergebnisVorlauf = erstelleErgebnis(wk, selectionVorlauf);
 
-        selectionFinale = new OWSelection(ak, AK, MALE, Discipline, Round + 1, true);
-        erzeugeLaufliste(selectionFinale);
-        trageZeitenFinaleEin(selectionFinale);
-        ergebnisFinale = erstelleErgebnis(selectionFinale);
+        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1, true);
+        erzeugeLaufliste(wk, selectionFinale);
+        trageZeitenFinaleEin(wk, selectionFinale);
+        ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
+
+        ergebnisGesamt = erstelleGesamtergebnis(wk);
     }
 
     private void erstelleWettkampf() {
         wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/International - Pool.rwe"),
                 InputManager.ladeStrafen("src/test/resources/rulebooks/International - Pool", true));
-        ak = wk.getRegelwerk().getAk(AK);
     }
 
-    private void schwimmerHinzufuegen() {
+    private static void schwimmerHinzufuegen(EinzelWettkampf wk) {
         Altersklasse ak = wk.getRegelwerk().getAk(AK);
         for (int x = 1; x <= AnzahlSchwimmer; x++) {
             Teilnehmer t = wk.createTeilnehmer("Teilnehmer", "" + x, 2000, true, "Test", 0, "");
@@ -95,10 +93,11 @@ public class FormelILSFinalsTest {
             }
             t.setMeldezeit(0, x);
             wk.addSchwimmer(t);
+            assertEquals(x, t.getStartnummer());
         }
     }
 
-    private void erzeugeLaufliste(OWSelection selection) {
+    private static void erzeugeLaufliste(EinzelWettkampf wk, OWSelection selection) {
         Altersklasse ak = wk.getRegelwerk().getAk(AK);
         for (int y = 0; y < ak.getDiszAnzahl(); y++) {
             ak.getDisziplin(y, true).setRunden(new int[] { 16 }, new int[] { 4 * y + 1, 4 * y + 2 });
@@ -128,10 +127,10 @@ public class FormelILSFinalsTest {
         // wk.setProperty(DSM_MODE_DATA, moving.getData());
         wkx.getLaufliste().erzeugen();
 
-        save(wkx, selection);
+        save(wk, wkx, selection);
     }
 
-    private void save(EinzelWettkampf wkx, OWSelection t) {
+    private static void save(EinzelWettkampf wk, EinzelWettkampf wkx, OWSelection t) {
         Laufliste<Teilnehmer> heats = wkx.getLaufliste();
         OWDisziplin<Teilnehmer> disziplin = wk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, t.round);
         if (disziplin == null) {
@@ -153,22 +152,22 @@ public class FormelILSFinalsTest {
                 wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
     }
 
-    private void trageZeitenEin(OWSelection selection) {
+    private static void trageZeitenEin(EinzelWettkampf wk, OWSelection selection) {
         wk.getLauflisteOW().getDisziplin(selection);
         for (int x = 1; x <= AnzahlSchwimmer; x++) {
             SearchUtils.getSchwimmer(wk, x).getEingabe(selection.getId(), true).setZeit(6000 + x);
         }
     }
 
-    private void trageZeitenFinaleEin(OWSelection selection) {
+    private static void trageZeitenFinaleEin(EinzelWettkampf wk, OWSelection selection) {
         wk.getLauflisteOW().getDisziplin(selection);
-        for (int x = 1; x <= AnzahlSchwimmer; x++) {
+        for (int x = 1; x <= 16; x++) {
             SearchUtils.getSchwimmer(wk, x).getEingabe(selection.getId(), true).setZeit(6000 - x);
         }
     }
 
-    private JResultTable erstelleErgebnis(OWSelection t) {
-        EinzelWettkampf wkx = createCompetitionFor(t);
+    private static JResultTable erstelleErgebnis(EinzelWettkampf wk, OWSelection t) {
+        EinzelWettkampf wkx = createCompetitionFor(wk, t);
         boolean[][] selection = new boolean[2][wkx.getRegelwerk().size()];
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < selection[y].length; x++) {
@@ -181,15 +180,93 @@ public class FormelILSFinalsTest {
             qualification = runden[t.round];
         }
 
-        return JResultTable.getResultTable(wk, ak, MALE, false, false, qualification);
+        return JResultTable.getResultTable(wkx, wkx.getRegelwerk().getAk(AK), MALE, false, false, qualification);
     }
 
-    private EinzelWettkampf createCompetitionFor(OWSelection t) {
+    private static EinzelWettkampf createCompetitionFor(EinzelWettkampf wk, OWSelection t) {
         EinzelWettkampf wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wk, t);
         if (!t.isFinal) {
             wkx.getRegelwerk().setFormelID(wk.getDataType() == DataType.RANK ? FormelILSOutdoor.ID : FormelILS.ID);
         }
         return wkx;
+    }
+
+    private static boolean isHeatBased() {
+        return true;
+    }
+
+    private static JResultTable erstelleGesamtergebnis(EinzelWettkampf wk) {
+        boolean isPartOnly = true;
+        int round = 1;
+
+        int index = AK;
+        boolean maennlich = MALE;
+        int discipline = Discipline;
+        EinzelWettkampf wkx = wk;
+        Altersklasse ak = wkx.getRegelwerk().getAk(index);
+        int qualification = 0;
+        boolean isFinal = false;
+        boolean isCompleteDiscipline = false;
+        if (isHeatBased()) {
+            if (!isPartOnly) {
+                ak = wkx.getRegelwerk().getAk(index);
+                if (!ak.hasMehrkampfwertung()) {
+                    wkx = Utils.copy(wk);
+                    wkx.getRegelwerk().setFormelID(FormelILS.ID);
+                    wkx.removeSchwimmer(wkx.getSchwimmer());
+                    ak = wkx.getRegelwerk().getAk(index);
+                }
+            } else {
+                // round = Round;
+                isCompleteDiscipline = round + 1 == AnzahlRunden;
+                if (round < 0) {
+                    // Todo
+                } else if (isCompleteDiscipline) {
+                    wkx = (EinzelWettkampf) ResultUtils.generateEinzelwertungswettkampf(wkx, index, maennlich, false);
+                    if (wkx == null) {
+                        return null;
+                    }
+                    index = discipline;
+                    ak = wkx.getRegelwerk().getAk(discipline);
+                    discipline = 0;
+                } else {
+                    isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
+                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
+                    wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wkx, t);
+                    if (wkx == null) {
+                        return null;
+                    }
+                    if (!isFinal) {
+                        wkx.getRegelwerk().setFormelID(FormelILS.ID);
+                    }
+                    ak = wkx.getRegelwerk().getAk(index);
+                    discipline = 0;
+                    int[] runden = ak.getDisziplin(discipline, maennlich).getRunden();
+                    if (round < runden.length) {
+                        qualification = runden[round];
+                    }
+                }
+            }
+        }
+        JResultTable result = null;
+        int anzahl = ak.getDiszAnzahl();
+        boolean hlw = ak.hasHLW();
+        boolean einzel = wkx instanceof EinzelWettkampf;
+        if ((result == null)
+                || (JResultTable.getColumnCount(anzahl, hlw, einzel, qualification) != result.getColumnCount())) {
+            result = JResultTable.getResultTable(ak, anzahl, hlw, wkx instanceof EinzelWettkampf, false, qualification,
+                    wk.getRegelwerk().getZusatzwertungShort());
+            if (anzahl == 1 && !hlw) {
+                JTableUtils.hideColumnAndRemoveData(result,
+                        JResultTable.PREFIX + JResultTable.D_POINTS_OFFSET + (einzel ? 1 : 0));
+                if (qualification > 0) {
+                    JTableUtils.hideColumnAndRemoveData(result, JResultTable.DIFF_OFFSET + (einzel ? 1 : 0));
+                    JTableUtils.hideColumnAndRemoveData(result, JResultTable.SCORE_OFFSET + (einzel ? 1 : 0));
+                }
+            }
+        }
+        result.updateResult(wkx, ak, maennlich, null, ak.hasHLW(), qualification);
+        return result;
     }
 
     @Test
@@ -237,8 +314,10 @@ public class FormelILSFinalsTest {
 
     @Test
     void ergebnisVorlauf() {
+        assertEquals(AnzahlSchwimmer, ergebnisVorlauf.getRowCount());
+
         for (int x = 0; x < AnzahlSchwimmer; x++) {
-            assertEquals(x + 1, ergebnisVorlauf.getResult(x).getSchwimmer().getStartnummer());
+            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisVorlauf.getResult(x).getSchwimmer().getName());
         }
     }
 
@@ -272,12 +351,29 @@ public class FormelILSFinalsTest {
 
     @Test
     void ergebnisFinale() {
+        assertEquals(16, ergebnisFinale.getRowCount());
 
         for (int x = 0; x < 8; x++) {
-            assertEquals(x + 1, ergebnisFinale.getResult(7 - x).getSchwimmer().getStartnummer());
+            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
         }
         for (int x = 0; x < 8; x++) {
-            assertEquals(x + 9, ergebnisFinale.getResult(15 - x).getSchwimmer().getStartnummer());
+            assertEquals(String.format("Teilnehmer, %d", x + 9), ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
+        }
+    }
+
+    @Test
+    void ergebnisGesamt() {
+        assertEquals(20, ergebnisGesamt.getRowCount());
+
+        for (int x = 0; x < 8; x++) {
+            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisGesamt.getResult(7 - x).getSchwimmer().getName());
+        }
+        for (int x = 0; x < 8; x++) {
+            assertEquals(String.format("Teilnehmer, %d", x + 9), ergebnisGesamt.getResult(15 - x).getSchwimmer().getName());
+        }
+
+        for (int x = 16; x < AnzahlSchwimmer; x++) {
+            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisGesamt.getResult(x).getSchwimmer().getName());
         }
     }
 
