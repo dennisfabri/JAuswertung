@@ -33,6 +33,7 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
@@ -74,6 +75,8 @@ public class FormelILSFinalsWithdrawTest {
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
 
         ergebnisGesamt = erstelleGesamtergebnis(wk);
+        
+        OutputManager.speichereWettkampf("FormelILSFinalsWithdraw.wk", wk);        
     }
 
     private void erstelleWettkampf() {

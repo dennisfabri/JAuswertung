@@ -96,6 +96,11 @@ public final class ResultCalculator {
             schwimmer[y] = new SchwimmerData<T>(swimmer[y], nummer, select[nummer]);
             copy[y] = schwimmer[y];
         }
+        
+        boolean breakpoint = (wk.getSchwimmer().size()==20) && disziplin.getName().equals("Obstacle Swim");
+        if (breakpoint) {
+            int i = 0;
+        }
 
         f.setPoints(wk, copy, disziplin, zes);
         return schwimmer;

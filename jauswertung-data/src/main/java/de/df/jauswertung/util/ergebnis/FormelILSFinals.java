@@ -405,7 +405,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     case NICHT_ANGETRETEN:
                         if (si != null && si.runde > 0) {
                             // sd.overridePenalty(Strafe.NICHTS);
-                            sd.setPoints(0);
+                            // sd.setPoints(0);
                             sd.setTime(0);
                         } else {
                             sd.setRank(-1);
