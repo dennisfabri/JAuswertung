@@ -17,8 +17,11 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Hashtable;
 
 import org.apache.commons.text.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.XStream;
@@ -78,6 +81,9 @@ import de.dm.ares.data.util.XStreamUtil;
  * @author Dennis Fabri @date 22.01.2005
  */
 public final class IOUtils {
+    
+    private static Logger log = LoggerFactory.getLogger(IOUtils.class);
+    
 
     private IOUtils() {
         // Hide constructor
@@ -89,7 +95,10 @@ public final class IOUtils {
 
     static Object fromXML(Reader is) throws IOException {
         VersionedDocument.xstream = getXStream();
-        String xml = readText(is);
+        String xml = readText(is).replace("\n\n", "\n"); 
+        if (xml.startsWith("PK")) {
+            return null;
+        }
         if (!xml.startsWith("<?xml")) {
             try {
                 String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -118,7 +127,7 @@ public final class IOUtils {
                 return o;
             }
         } catch (RuntimeException re) {
-            // re.printStackTrace();
+            re.printStackTrace();
         }
         return VersionedDocument.xstream.fromXML(xml);
     }
@@ -262,8 +271,8 @@ public final class IOUtils {
     }
 
     private static void setupPermissions(XStream xstream) {
-        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
-        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**" });
+        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class});
+        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*", "de.df.jutils.print.PageSetting" });
     }
 
     private static class StringConverter extends AbstractSingleValueConverter {

@@ -66,7 +66,7 @@
     <launcher name="JAuswertung" id="247">
       <executable name="JAuswertung" iconSet="true" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.JAuswertungLauncher" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.gui.JAuswertungLauncher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -84,7 +84,7 @@
     <launcher name="UISettings" id="348">
       <executable name="UISettings" iconSet="true" executableMode="gui" singleInstance="true" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.uisettings.UISettings" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.gui.uisettings.UISettings" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -102,7 +102,7 @@
     <launcher name="JTeams" id="354">
       <executable name="JTeams" iconSet="true" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.JAuswertungTeammembersLauncher" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.gui.JAuswertungTeammembersLauncher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -125,7 +125,7 @@
           <versionLine y="40" text="Version ${compiler:sys.version}" />
         </text>
       </splashScreen>
-      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-as">
+      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn" arguments="-as">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -146,7 +146,7 @@
     <launcher name="Strafenkatalog" id="358">
       <executable name="Strafenkatalog" iconSet="true" executableMode="gui" singleInstance="true" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-strafenkatalog">
+      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn" arguments="-strafenkatalog">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -164,7 +164,7 @@
     <launcher name="Regelwerkseditor" id="359">
       <executable name="Regelwerkseditor" iconSet="true" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-ak">
+      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn" arguments="-ak">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -182,7 +182,7 @@
     <launcher name="Veranstaltungswertung" id="360">
       <executable name="Veranstaltungswertung" iconSet="true" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m" arguments="-veranstaltungswertung">
+      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn" arguments="-veranstaltungswertung">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -200,7 +200,7 @@
     <launcher name="Launcher" id="366" excludeFromMenu="true">
       <executable name="Launcher" iconSet="true" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.gui.Launcher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -218,7 +218,7 @@
     <launcher name="AresWriter" id="476">
       <executable name="AresWriter" iconSet="true" executableDir="." executableMode="gui" singleInstance="true" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.gui.AresLauncher" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.gui.AresLauncher" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -235,7 +235,7 @@
     </launcher>
     <launcher name="alphaserver-cmd" id="1147" excludeFromMenu="true">
       <executable name="alphaserver-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
-      <java mainClass="de.dm.collector.CollectorCmd" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.dm.collector.CollectorCmd" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -253,7 +253,7 @@
     <launcher name="dpsplitter-cmd" id="1153" excludeFromMenu="true">
       <executable name="dpsplitter-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
       <splashScreen bitmapFile="../target/distribution/main/images/logo.png" />
-      <java mainClass="de.df.jauswertung.dp.splitter.DPSplitter" vmParameters="-Xmx1024m -Xms64m">
+      <java mainClass="de.df.jauswertung.dp.splitter.DPSplitter" vmParameters="-Xmx1024m -Xms64m --illegal-access=warn">
         <classPath>
           <scanDirectory location="libs" failOnError="false" />
           <directory location="." failOnError="false" />
@@ -424,6 +424,7 @@ return console.askOkCancel(message, true);
           </screen>
           <screen id="15" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true" rollbackBarrierExitCode="0">
             <actions>
+              <action id="1382" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" actionElevationType="none" rollbackBarrierExitCode="0" />
               <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
               <action id="19" beanClass="com.install4j.runtime.beans.actions.desktop.RegisterAddRemoveAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>

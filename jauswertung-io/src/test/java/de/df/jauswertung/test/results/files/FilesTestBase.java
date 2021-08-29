@@ -1,7 +1,7 @@
 /*
  * Created on 09.06.2005
  */
-package de.df.jauswertung.test.files;
+package de.df.jauswertung.test.results.files;
 
 import java.io.File;
 

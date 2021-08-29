@@ -17,13 +17,15 @@ import java.util.Hashtable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
-import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.Utils;
 
 /**
@@ -31,6 +33,8 @@ import de.df.jauswertung.util.Utils;
  * @date 08.01.2005
  */
 public final class InputManager {
+    
+    private static Logger log = LoggerFactory.getLogger(InputManager.class);
 
     private InputManager() {
         // Hide constructor
@@ -143,6 +147,7 @@ public final class InputManager {
     }
 
     public static synchronized Object ladeObject(String name) {
+        log.debug("Öffne Datei {}", name);
         try {
             // Try to read XML-Data from Zip-File
             FileInputStream zf = new FileInputStream(name);

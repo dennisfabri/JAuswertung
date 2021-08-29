@@ -19,7 +19,7 @@ public final class AgeGroupIOUtils {
     }
 
     public static synchronized Regelwerk ladeAKs(String name) {
-        return AgeGroupInputUtils.ladeAKs(name);
+        return (Regelwerk) InputManager.ladeObject(name);
     }
 
     public static synchronized boolean speichereAKs(String name, Regelwerk aks) {

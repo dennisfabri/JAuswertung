@@ -20,8 +20,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
-		<jutils.version>16.0.0-SNAPSHOT</jutils.version>
-		<alphaserver.version>16.0.0-SNAPSHOT</alphaserver.version>
+		<jutils.version>${project.version}</jutils.version>
+		<alphaserver.version>${project.version}</alphaserver.version>
 
 		<junit.version>5.7.2</junit.version>
 		<poi.version>5.0.0</poi.version>
@@ -516,6 +516,11 @@
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
