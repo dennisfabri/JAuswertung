@@ -1252,4 +1252,8 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public Regelwerk getRegelwerk() {
         return getWettkampf().getRegelwerk();
     }
+
+    public boolean hasWithdrawn(int discipline) {
+        return getStrafen(discipline).stream().anyMatch(s -> s.isWithdraw());
+    }
 }

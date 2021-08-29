@@ -1,4 +1,4 @@
-package de.df.jauswertung.test.daten.schwimmer;
+package de.df.jauswertung.test.results.indoorfinals;
 
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_AAE_FASTEST_HEAT_UNTOUCHED;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_AVOID_ALMOST_EMPTY;
@@ -29,7 +29,6 @@ import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
@@ -39,7 +38,6 @@ import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
-import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.jtable.JTableUtils;
 
 public class FormelILSFinalsTest {
@@ -58,8 +56,6 @@ public class FormelILSFinalsTest {
     private OWSelection selectionFinale;
     private JResultTable ergebnisFinale;
     private JResultTable ergebnisGesamt;
-
-    private static SchwimmerResult<Teilnehmer>[] results = null;
 
     @BeforeEach
     void prepare() {

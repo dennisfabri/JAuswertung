@@ -726,10 +726,16 @@ public final class JResultTable extends JGroupableTable {
                 if (qualification > 0) {
                     int place = results.getPlace(y);
                     Strafe strafe = daten[0].getStrafe();
+                    boolean hasWithdrawn = strafe == null || !strafe.isWithdraw();
                     boolean isQualified = place <= qualification && place > 0 && !results.hasKeineWertung(y)
-                            && !results.isAusserKonkurrenz(y) && daten.length == 1 && (strafe == null || !strafe.isWithdraw());
+                            && !results.isAusserKonkurrenz(y) && daten.length == 1 && hasWithdrawn;
                     if (isQualified) {
                         isQualified = daten[0].getRank() > 0 && daten[0].getTime() > 0;
+                    }
+                    if (!isQualified) {
+                        if (place <= qualification && hasWithdrawn) {
+                            qualification++;
+                        }
                     }
                     String text = isQualified ? "Q" : "   ";
 

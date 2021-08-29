@@ -81,15 +81,18 @@ public class XmlExporter implements IExporter {
         throw new ParserConfigurationException();
     }
 
-    public static <T extends ASchwimmer> Document generateCompetition(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateCompetition(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         throw new ParserConfigurationException();
     }
 
-    public static <T extends ASchwimmer> Document generateResults(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateResults(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         return generateResults(wk, 0);
     }
 
-    public static <T extends ASchwimmer> Document generateResults(AWettkampf<T> wk, int quali) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateResults(AWettkampf<T> wk, int quali)
+            throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
@@ -123,7 +126,8 @@ public class XmlExporter implements IExporter {
         return xmldoc;
     }
 
-    public static <T extends ASchwimmer> Document generateGesamtwertungResults(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateGesamtwertungResults(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
@@ -165,7 +169,8 @@ public class XmlExporter implements IExporter {
         addTitles(xmldoc, wk);
         addInfos(xmldoc);
         Element e = addNames(xmldoc, wk);
-        e.setAttributeNS(null, "agegroup", wk.getRegelwerk().getAk(agegroup).getName() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male));
+        e.setAttributeNS(null, "agegroup",
+                wk.getRegelwerk().getAk(agegroup).getName() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male));
 
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
@@ -181,11 +186,13 @@ public class XmlExporter implements IExporter {
         return xmldoc;
     }
 
-    public static <T extends ASchwimmer> Document generateStartkarten(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateStartkarten(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         throw new ParserConfigurationException();
     }
 
-    public static <T extends ASchwimmer> Document generateRegistration(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateRegistration(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
@@ -201,7 +208,8 @@ public class XmlExporter implements IExporter {
         return xmldoc;
     }
 
-    public static <T extends ASchwimmer> Document generatePenalties(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generatePenalties(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
@@ -233,7 +241,8 @@ public class XmlExporter implements IExporter {
         return xmldoc;
     }
 
-    public static <T extends ASchwimmer> Document generateZipIndex(AWettkampf<T> wk) throws ParserConfigurationException {
+    public static <T extends ASchwimmer> Document generateZipIndex(AWettkampf<T> wk)
+            throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
@@ -273,7 +282,9 @@ public class XmlExporter implements IExporter {
 
     /*
      * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#registration(java.lang.String, de.df.jauswertung.daten.Wettkampf)
+     * 
+     * @see de.df.jauswertung.io.Exporter#registration(java.lang.String,
+     * de.df.jauswertung.daten.Wettkampf)
      */
     @Override
     public <T extends ASchwimmer> boolean registration(OutputStream out, AWettkampf<T> wk, Feedback fb) {
@@ -291,7 +302,9 @@ public class XmlExporter implements IExporter {
 
     /*
      * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#heats(java.lang.String, de.df.jauswertung.daten.Wettkampf)
+     * 
+     * @see de.df.jauswertung.io.Exporter#heats(java.lang.String,
+     * de.df.jauswertung.daten.Wettkampf)
      */
     @Override
     public <T extends ASchwimmer> boolean heats(OutputStream out, AWettkampf<T> wk, Feedback fb) {
@@ -309,7 +322,9 @@ public class XmlExporter implements IExporter {
 
     /*
      * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#hlw(java.lang.String, de.df.jauswertung.daten.Wettkampf)
+     * 
+     * @see de.df.jauswertung.io.Exporter#hlw(java.lang.String,
+     * de.df.jauswertung.daten.Wettkampf)
      */
     @Override
     public <T extends ASchwimmer> boolean zusatzwertung(OutputStream out, AWettkampf<T> wk, Feedback fb) {
@@ -327,7 +342,9 @@ public class XmlExporter implements IExporter {
 
     /*
      * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#results(java.lang.String, de.df.jauswertung.daten.Wettkampf)
+     * 
+     * @see de.df.jauswertung.io.Exporter#results(java.lang.String,
+     * de.df.jauswertung.daten.Wettkampf)
      */
     @Override
     public <T extends ASchwimmer> boolean results(OutputStream out, AWettkampf<T> wk, Feedback fb) {
@@ -345,7 +362,9 @@ public class XmlExporter implements IExporter {
 
     /*
      * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#startkarten(java.lang.String, de.df.jauswertung.daten.Wettkampf)
+     * 
+     * @see de.df.jauswertung.io.Exporter#startkarten(java.lang.String,
+     * de.df.jauswertung.daten.Wettkampf)
      */
     @Override
     public <T extends ASchwimmer> boolean startkarten(OutputStream out, AWettkampf<T> wk, Feedback fb) {
@@ -375,7 +394,8 @@ public class XmlExporter implements IExporter {
         }
     }
 
-    private static <T extends ASchwimmer> Element createAgegroupResults(AWettkampf<T> wk, Document xmldoc, Altersklasse ak, boolean male, int quali) {
+    private static <T extends ASchwimmer> Element createAgegroupResults(AWettkampf<T> wk, Document xmldoc,
+            Altersklasse ak, boolean male, int quali) {
 
         SchwimmerResult<T>[] results = ResultCalculator.getResults(wk, ak, male);
 
@@ -425,8 +445,23 @@ public class XmlExporter implements IExporter {
                 double diff = maxpoints - results[i].getPoints();
 
                 String pointsText = doubleFormat.format(results[i].getPoints());
+
                 if (quali > 0) {
-                    pointsText = rank <= quali ? "Q" : "";
+                    SchwimmerData[] daten = results[i].getResults();
+                    int place = results[i].getPlace();
+                    Strafe strafe = daten[0].getStrafe();
+                    boolean hasWithdrawn = strafe == null || !strafe.isWithdraw();
+                    boolean isQualified = place <= quali && place > 0 && !results[i].hasKeineWertung()
+                            && !results[i].getSchwimmer().isAusserKonkurrenz() && daten.length == 1 && hasWithdrawn;
+                    if (isQualified) {
+                        isQualified = daten[0].getRank() > 0 && daten[0].getTime() > 0;
+                    }
+                    if (!isQualified) {
+                        if (place <= quali && hasWithdrawn) {
+                            quali++;
+                        }
+                    }
+                    pointsText = isQualified ? "Q" : "   ";
                 }
 
                 e.setAttributeNS(null, "points", pointsText);
@@ -445,7 +480,8 @@ public class XmlExporter implements IExporter {
                         dis.setAttributeNS(null, "chosen", "1");
 
                         dis.setAttributeNS(null, "number", integerFormat.format(z + 1));
-                        dis.setAttributeNS(null, "penalty", PenaltyUtils.getPenaltyMediumText(daten[z].getStrafe(), ak));
+                        dis.setAttributeNS(null, "penalty",
+                                PenaltyUtils.getPenaltyMediumText(daten[z].getStrafe(), ak));
                         switch (daten[z].getStrafart()) {
                         case AUSSCHLUSS:
                             dis.setAttributeNS(null, "points", "");
@@ -455,20 +491,23 @@ public class XmlExporter implements IExporter {
                             break;
                         case DISQUALIFIKATION:
                             dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort", integerFormat.format(Math.floor(daten[z].getPoints())));
+                            dis.setAttributeNS(null, "pointsshort",
+                                    integerFormat.format(Math.floor(daten[z].getPoints())));
                             dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
                             dis.setAttributeNS(null, "rank", "");
                             break;
                         case NICHT_ANGETRETEN:
                             dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort", integerFormat.format(Math.floor(daten[z].getPoints())));
+                            dis.setAttributeNS(null, "pointsshort",
+                                    integerFormat.format(Math.floor(daten[z].getPoints())));
 
                             dis.setAttributeNS(null, "time", "");
                             dis.setAttributeNS(null, "rank", "");
                             break;
                         default:
                             dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort", integerFormat.format(Math.floor(daten[z].getPoints())));
+                            dis.setAttributeNS(null, "pointsshort",
+                                    integerFormat.format(Math.floor(daten[z].getPoints())));
                             dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
                             dis.setAttributeNS(null, "rank", integerFormat.format(daten[z].getRank()));
                             break;
@@ -619,7 +658,8 @@ public class XmlExporter implements IExporter {
                 boolean supported = SearchUtils.getSchwimmer(wk, aks.getAk(i), true).size() > 0;
 
                 e.setAttributeNS(null, "malesupported", "" + supported);
-                e.setAttributeNS(null, "malename", aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), true));
+                e.setAttributeNS(null, "malename",
+                        aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), true));
                 if (supported) {
                     e.setAttributeNS(null, "malelink", "male" + i + ".html");
                 }
@@ -627,7 +667,8 @@ public class XmlExporter implements IExporter {
                 supported = SearchUtils.getSchwimmer(wk, aks.getAk(i), false).size() > 0;
 
                 e.setAttributeNS(null, "femalesupported", "" + supported);
-                e.setAttributeNS(null, "femalename", aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
+                e.setAttributeNS(null, "femalename",
+                        aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
                 if (supported) {
                     e.setAttributeNS(null, "femalelink", "female" + i + ".html");
                 }
@@ -670,7 +711,8 @@ public class XmlExporter implements IExporter {
                 f.setAttributeNS(null, "supported", "" + supported);
                 f.setAttributeNS(null, "name", ExportManager.getName(format));
                 if (supported) {
-                    f.setAttributeNS(null, "link", "/export/" + format.replace(" ", "+") + "/" + name + "." + ExportManager.getSuffixes(format)[0]);
+                    f.setAttributeNS(null, "link", "/export/" + format.replace(" ", "+") + "/" + name + "."
+                            + ExportManager.getSuffixes(format)[0]);
                 }
                 e.appendChild(f);
             }
@@ -734,7 +776,8 @@ public class XmlExporter implements IExporter {
             supported = SearchUtils.getSchwimmer(wk, aks.getAk(i), false).size() > 0;
 
             e.setAttributeNS(null, "femalesupported", "" + supported);
-            e.setAttributeNS(null, "femalename", aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
+            e.setAttributeNS(null, "femalename",
+                    aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
             if (supported) {
                 e.setAttributeNS(null, "femalelink", "female" + i + ".html");
             }
@@ -840,8 +883,7 @@ public class XmlExporter implements IExporter {
     /**
      * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei @param wk Wettkampf @return Erfolgsmeldung
+     * @param name Name der Datei @param wk Wettkampf @return Erfolgsmeldung
      */
     @Override
     public synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {

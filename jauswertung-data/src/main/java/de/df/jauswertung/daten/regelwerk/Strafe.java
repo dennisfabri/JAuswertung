@@ -263,7 +263,7 @@ public class Strafe implements Serializable {
     }
 
     public boolean isWithdraw() {
-        return getArt() == Strafarten.NICHTS && "wd".equalsIgnoreCase(shortname);
+        return getArt() == WITHDRAW.getArt() && WITHDRAW.getShortname().equalsIgnoreCase(shortname);
     }
 
     public boolean isDidNotStart() {

@@ -486,6 +486,13 @@ public final class DataTableUtils {
         for (SchwimmerResult<T> result1 : results) {
             if ((!removeUnranked) || (!result1.hasKeineWertung())) {
                 Object[] row = platzToLine(result1, maxdisz, maxteammembers, points, separate, mustShowPoints, qualified);
+                if (qualified > 0) {
+                    boolean isQualified = result1.getPlace() <= qualified;
+                    boolean hasWithdrawn = result1.getStrafe().isWithdraw();
+                    if (isQualified && hasWithdrawn) {
+                        qualified++;
+                    }
+                }
                 result.addLast(row);
             }
         }

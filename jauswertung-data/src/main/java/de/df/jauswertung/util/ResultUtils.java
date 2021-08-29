@@ -81,7 +81,7 @@ public class ResultUtils {
 
     @SuppressWarnings({ "unchecked" })
     private static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampfI(AWettkampf<T> wk, int akn,
-            IncludeSex filter, boolean removeEmpty) {
+            IncludeSex filter, boolean removeEmpty, boolean forQualification) {
         if (wk == null) {
             throw new NullPointerException();
         }
@@ -150,85 +150,85 @@ public class ResultUtils {
         w.disableUpdates();
         for (int z = min; z < max; z++) {
             Results<T> results = new Results<>(ResultCalculator.getResults(wk, ak, z == 1, null, true));
-            // JResultTable jrt = JResultTable.getResultTable(wk, ak, z == 1, false, true,
-            // 0);
             for (int x = 0; x < results.size(); x++) {
                 ASchwimmer s = results.getSchwimmer(x);
-                if ((!removeEmpty) || (!results.hasKeineWertung(x))) {
-                    boolean include = true;
-                    if (ak.hasHLW() && ak.isEinzelwertungHlw()) {
-                        if ((s.getHLWPunkte() <= 0.005) && (s.hasHLWSet())) {
-                            include = false;
-                        }
+                if (removeEmpty && results.hasKeineWertung(x)) {
+                    continue;
+                }
+                if (forQualification && s.hasWithdrawn(0)) {
+                    continue;
+                }
+                boolean include = true;
+                if (ak.hasHLW() && ak.isEinzelwertungHlw()) {
+                    if ((s.getHLWPunkte() <= 0.005) && (s.hasHLWSet())) {
+                        include = false;
                     }
-                    for (int y = 0; y < anzahl; y++) {
-                        if (include) {
-                            if (s.isDisciplineChosen(y)) {
-                                ASchwimmer neu = null;
-                                if (einzel) {
-                                    Teilnehmer t = (Teilnehmer) s;
-                                    neu = ewk.createTeilnehmer(t.getNachname(), t.getVorname(), t.getJahrgang(),
-                                            t.isMaennlich(), t.getGliederung(), y, t.getBemerkung());
-                                } else {
-                                    Mannschaft t = (Mannschaft) s;
-                                    neu = mwk.createMannschaft(t.getName(), t.isMaennlich(), t.getGliederung(), y,
-                                            t.getBemerkung());
-                                    Mannschaft mneu = (Mannschaft) neu;
-                                    for (int i = 0; i < t.getMaxMembers(); i++) {
-                                        t.getMannschaftsmitglied(i).copyTo(mneu.getMannschaftsmitglied(i));
-                                    }
+                }
+                for (int y = 0; y < anzahl; y++) {
+                    if (include) {
+                        if (s.isDisciplineChosen(y)) {
+                            ASchwimmer neu = null;
+                            if (einzel) {
+                                Teilnehmer t = (Teilnehmer) s;
+                                neu = ewk.createTeilnehmer(t.getNachname(), t.getVorname(), t.getJahrgang(),
+                                        t.isMaennlich(), t.getGliederung(), y, t.getBemerkung());
+                            } else {
+                                Mannschaft t = (Mannschaft) s;
+                                neu = mwk.createMannschaft(t.getName(), t.isMaennlich(), t.getGliederung(), y,
+                                        t.getBemerkung());
+                                Mannschaft mneu = (Mannschaft) neu;
+                                for (int i = 0; i < t.getMaxMembers(); i++) {
+                                    t.getMannschaftsmitglied(i).copyTo(mneu.getMannschaftsmitglied(i));
                                 }
+                            }
 
-                                neu.setAusserKonkurrenz(s.isAusserKonkurrenz());
-                                neu.setZeit(0, s.getZeit(y));
-                                neu.setStrafen(0, s.getStrafen(y));
-                                neu.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF,
-                                        s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
-                                neu.setStarter(0, s.getStarter(y));
-                                neu.setBemerkung("" + s.getStartnummer());// StartnumberFormatManager.format(s));
-                                neu.setQualifikationsebene(s.getQualifikationsebene());
-                                neu.setQualifikation(s.getQualifikation());
+                            neu.setAusserKonkurrenz(s.isAusserKonkurrenz());
+                            neu.setZeit(0, s.getZeit(y));
+                            neu.setStrafen(0, s.getStrafen(y));
+                            neu.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                    s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
+                            neu.setStarter(0, s.getStarter(y));
+                            neu.setBemerkung("" + s.getStartnummer());// StartnumberFormatManager.format(s));
+                            neu.setQualifikationsebene(s.getQualifikationsebene());
+                            neu.setQualifikation(s.getQualifikation());
 
-                                w.addSchwimmer(neu);
+                            w.addSchwimmer(neu);
 
-                                if (wk.isHeatBased()) {
-                                    OWLaufliste<T> llow = wk.getLauflisteOW();
-                                    OWLaufliste<T> llNeu = w.getLauflisteOW();
+                            if (wk.isHeatBased()) {
+                                OWLaufliste<T> llow = wk.getLauflisteOW();
+                                OWLaufliste<T> llNeu = w.getLauflisteOW();
 
-                                    for (OWDisziplin<T> owd : llow.getDisziplinen()) {
-                                        if (owd.akNummer == akn && owd.maennlich == s.isMaennlich()
-                                                && owd.disziplin == y) {
+                                for (OWDisziplin<T> owd : llow.getDisziplinen()) {
+                                    if (owd.akNummer == akn && owd.maennlich == s.isMaennlich() && owd.disziplin == y) {
 
-                                            Eingabe e1 = s.getEingabe(owd.Id);
-                                            if (e1 != null) {
-                                                Eingabe e = neu.getEingabe(
-                                                        OWDisziplin.getId(y, s.isMaennlich(), 0, owd.round), true);
-                                                e.setStarter(e1.getStarter());
-                                                e.setZeit(e1.getZeit());
-                                                for (Strafe str : e1.getStrafen()) {
-                                                    e.addStrafe(str);
-                                                }
-                                                OWDisziplin<T> OWDneu = llNeu.getDisziplin(owd.disziplin, z == 1, 0,
-                                                        owd.round);
+                                        Eingabe e1 = s.getEingabe(owd.Id);
+                                        if (e1 != null) {
+                                            Eingabe e = neu.getEingabe(
+                                                    OWDisziplin.getId(y, s.isMaennlich(), 0, owd.round), true);
+                                            e.setStarter(e1.getStarter());
+                                            e.setZeit(e1.getZeit());
+                                            for (Strafe str : e1.getStrafen()) {
+                                                e.addStrafe(str);
+                                            }
+                                            OWDisziplin<T> OWDneu = llNeu.getDisziplin(owd.disziplin, z == 1, 0,
+                                                    owd.round);
 
-                                                boolean found = false;
+                                            boolean found = false;
 
-                                                for (OWLauf<T> lauf : owd.laeufe) {
-                                                    int lane = lauf.GetSchwimmerIndex(s.getStartnummer());
-                                                    if (lane >= 0) {
-                                                        for (OWLauf<T> laufNeu : OWDneu.getLaeufe()) {
-                                                            if (laufNeu.getLaufnummer() == lauf.getLaufnummer()
-                                                                    && laufNeu.getLaufbuchstabe() == lauf
-                                                                            .getLaufbuchstabe()) {
-                                                                found = true;
-                                                                laufNeu.setSchwimmer(lane, (T) neu);
-                                                            }
+                                            for (OWLauf<T> lauf : owd.laeufe) {
+                                                int lane = lauf.GetSchwimmerIndex(s.getStartnummer());
+                                                if (lane >= 0) {
+                                                    for (OWLauf<T> laufNeu : OWDneu.getLaeufe()) {
+                                                        if (laufNeu.getLaufnummer() == lauf.getLaufnummer() && laufNeu
+                                                                .getLaufbuchstabe() == lauf.getLaufbuchstabe()) {
+                                                            found = true;
+                                                            laufNeu.setSchwimmer(lane, (T) neu);
                                                         }
                                                     }
                                                 }
-                                                if (found) {
-                                                    OWDneu.addSchwimmer((T) neu);
-                                                }
+                                            }
+                                            if (found) {
+                                                OWDneu.addSchwimmer((T) neu);
                                             }
                                         }
                                     }
@@ -278,12 +278,18 @@ public class ResultUtils {
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
             boolean maennlich, boolean removeEmpty) {
-        return generateEinzelwertungswettkampfI(wk, akn, maennlich ? IncludeSex.Male : IncludeSex.Female, removeEmpty);
+        return generateEinzelwertungswettkampfI(wk, akn, maennlich ? IncludeSex.Male : IncludeSex.Female, removeEmpty,
+                false);
     }
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
             boolean removeEmpty) {
-        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty);
+        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty, false);
+    }
+
+    public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampfForQualification(AWettkampf<T> wk,
+            int akn, boolean removeEmpty) {
+        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty, true);
     }
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, String wgname,
@@ -319,7 +325,7 @@ public class ResultUtils {
         if (index < 0) {
             return null;
         }
-        return generateEinzelwertungswettkampfI(wk, index, IncludeSex.Both, removeEmpty);
+        return generateEinzelwertungswettkampfI(wk, index, IncludeSex.Both, removeEmpty, false);
     }
 
     public static <T extends ASchwimmer> boolean hasEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
@@ -452,7 +458,7 @@ public class ResultUtils {
             wk1a.getRegelwerk().getAk(t.akNummer).setEinzelwertung(true);
             wk1a.getRegelwerk().getAk(t.akNummer).setChosenDisciplines(1, 1, 1);
             wk1a.getRegelwerk().setFormelID(FormelILS.ID);
-            AWettkampf<T> wk1 = generateEinzelwertungswettkampf(wk1a, t.akNummer, true);
+            AWettkampf<T> wk1 = generateEinzelwertungswettkampfForQualification(wk1a, t.akNummer, true);
             if (wk1 == null) {
                 return null;
             }
