@@ -69,39 +69,38 @@ public final class PrintUtils {
     /**
      * Ergebnisse sind im Protokoll hochkant
      */
-    public static boolean     printProtocolResultsHorizontal = false;
+    public static boolean printProtocolResultsHorizontal = false;
 
-    public static boolean     printEmptyLanes                = true;
+    public static boolean printEmptyLanes = true;
 
-    public static boolean     printEmptyCards                = false;
+    public static boolean printEmptyCards = false;
 
-    public static boolean     printPointsInDisciplineResults = true;
+    public static boolean printPointsInDisciplineResults = true;
 
-    public static boolean     printChecksum                  = true;
+    public static boolean printChecksum = true;
 
-    private static boolean     compressLists                  = true;
+    private static boolean compressLists = true;
 
-    public static boolean     printZWnames                   = false;
+    public static boolean printZWnames = false;
 
-    public static boolean     printOmitOrganisationForTeams  = false;
+    public static boolean printOmitOrganisationForTeams = false;
 
-    public static boolean     printYearOfBirth               = true;
+    public static boolean printYearOfBirth = true;
 
-    public static boolean     printDidNotStart               = true;
+    public static boolean printDidNotStart = true;
 
+    public static BarcodeType barcodeType = BarcodeType.CODE128;
 
-    public static BarcodeType barcodeType                    = BarcodeType.CODE128;
-    
     public static boolean getCompressLists() {
         return compressLists;
     }
-    
+
     public static void setCompressLists(boolean enabled) {
         compressLists = enabled;
         ZWTableCellRenderer.compressLists = enabled;
         SchwimmerDisziplin.compressLists = enabled;
     }
-    
+
     static {
         setCompressLists(true);
     }
@@ -115,21 +114,24 @@ public final class PrintUtils {
         wk = Utils.copy(wk);
         Regelwerk aks = wk.getRegelwerk();
 
-        LinkedList<Printable> ps = new LinkedList<Printable>();
+        LinkedList<Printable> ps = new LinkedList<>();
 
         for (int y = 0; y < aks.size(); y++) {
             Altersklasse ak = aks.getAk(y);
-            for (int a = 0; a < 2; a++) {
-                GetFullPrintable<T> gfp = new GetFullPrintable<T>(wk, ak, a == 1, reducedview, points, qualification);
-                EDTUtils.executeOnEDT(gfp);
-                Printable p = gfp.printable;
-                if (p != null) {
-                    ps.addLast(p);
+            if (ak.hasMehrkampfwertung()) {
+                for (int a = 0; a < 2; a++) {
+                    GetFullPrintable<T> gfp = new GetFullPrintable<T>(wk, ak, a == 1, reducedview, points,
+                            qualification);
+                    EDTUtils.executeOnEDT(gfp);
+                    Printable p = gfp.printable;
+                    if (p != null) {
+                        ps.addLast(p);
+                    }
                 }
             }
         }
-        if (ps.size() == 0) {
-            return null;
+        if (ps.isEmpty()) {
+            return EmptyPrintable.Instance;
         }
         return new MultiplePrintable(ps);
     }
@@ -142,7 +144,7 @@ public final class PrintUtils {
         wk = Utils.copy(wk);
         Regelwerk aks = wk.getRegelwerk();
 
-        LinkedList<Printable> ps = new LinkedList<Printable>();
+        LinkedList<Printable> ps = new LinkedList<>();
 
         for (int y = 0; y < aks.size(); y++) {
             Altersklasse ak = aks.getAk(y);
@@ -206,14 +208,14 @@ public final class PrintUtils {
     private static class GetFullPrintable<T extends ASchwimmer> implements Runnable {
 
         private AWettkampf<T> wk;
-        private Altersklasse  ak;
-        private boolean       male;
-        private boolean       reducedview;
-        private boolean       points;
-        private boolean       checksum;
-        private int           qualification;
+        private Altersklasse ak;
+        private boolean male;
+        private boolean reducedview;
+        private boolean points;
+        private boolean checksum;
+        private int qualification;
 
-        Printable             printable;
+        Printable printable;
 
         public GetFullPrintable(AWettkampf<T> w, Altersklasse a, boolean m, boolean reducedview, boolean points,
                 int qualification) {
@@ -731,10 +733,10 @@ public final class PrintUtils {
 
     private static class LaufInfo<T extends ASchwimmer> {
 
-        private AWettkampf<T>      wk;
-        private String             first       = "";
-        private String             last        = "";
-        private BitSet[]           sgs;
+        private AWettkampf<T> wk;
+        private String first = "";
+        private String last = "";
+        private BitSet[] sgs;
         private LinkedList<String> disziplinen = new LinkedList<String>();
 
         public LaufInfo(AWettkampf<T> wk, Lauf<T> lauf) {

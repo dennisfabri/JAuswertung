@@ -15,7 +15,7 @@ public class ProtocolPrintable<T extends ASchwimmer> extends MultiplePrintable {
         add(RefereesPrintableCreator.createRefereesPrintable(wk));
         add(PrintableCreator.createInfoPagePrintable(wk));
         if (PrintUtils.printProtocolResultsHorizontal) {
-            add(PrintUtils.getResultsPrintable(wk, false, true, false, 0));
+            add(PrintUtils.getNormalResultsPrintable(wk, false, true, 0));
             add(PrintUtils.getWertungsgruppenPrintables(wk, false, 0));
         } else {
             add(new RotatingPrintable(PrintUtils.getNormalResultsPrintable(wk, false, true, 0)));
