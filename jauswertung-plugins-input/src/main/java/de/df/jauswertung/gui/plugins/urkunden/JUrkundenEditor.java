@@ -123,8 +123,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
         pack();
         WindowUtils.setSize(this, 800, 600);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, I18n.get("Documenteditor"));
+        UIStateUtils.uistatemanage(parent, this, I18n.get("Documenteditor"));
     }
 
     @SuppressWarnings({ "unchecked" })

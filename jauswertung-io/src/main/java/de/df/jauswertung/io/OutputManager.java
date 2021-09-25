@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -97,7 +98,7 @@ public final class OutputManager {
 
             // New XML-Save
             zos.putNextEntry(new ZipEntry("data.xml"));
-            OutputStreamWriter osw = new OutputStreamWriter(zos, "Cp1252");
+            OutputStreamWriter osw = new OutputStreamWriter(zos, StandardCharsets.UTF_8);
             IOUtils.toXML(o, osw);
 
             if (extdata != null) {

@@ -54,8 +54,7 @@ class JFontDialog extends JDialog {
         add(cancel, CC.xy(5, 4));
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "FontDialog");
+        UIStateUtils.uistatemanage(parent, this, "FontDialog");
     }
 
     @Override

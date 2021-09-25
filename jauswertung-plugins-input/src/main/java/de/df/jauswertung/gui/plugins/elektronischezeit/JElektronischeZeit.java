@@ -93,7 +93,6 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
         pack();
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        WindowUtils.center(this, parent);
         // setExtendedState(Frame.MAXIMIZED_BOTH);
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override
@@ -113,7 +112,7 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
                 close();
             }
         });
-        UIStateUtils.uistatemanage(this, "JElektronischeZeit");
+        UIStateUtils.uistatemanage(parent, this, "JElektronischeZeit");
         update();
     }
 

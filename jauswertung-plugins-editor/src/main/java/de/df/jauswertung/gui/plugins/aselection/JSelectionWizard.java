@@ -127,8 +127,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         wizard.addListener(this);
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JSelectionWizard");
+        UIStateUtils.uistatemanage(parent, this, "JSelectionWizard");
         pack();
 
         // setResizable(false);

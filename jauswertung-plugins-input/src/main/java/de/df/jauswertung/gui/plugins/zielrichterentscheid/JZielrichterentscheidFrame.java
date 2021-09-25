@@ -76,8 +76,7 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
         initGUI();
         pack();
         setSize(Math.max(getWidth(), 500), Math.max(getHeight(), 400));
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JZielrichterentscheidDialog");
+        UIStateUtils.uistatemanage(parent, this, "JZielrichterentscheidDialog");
     }
 
     private void initGUI() {

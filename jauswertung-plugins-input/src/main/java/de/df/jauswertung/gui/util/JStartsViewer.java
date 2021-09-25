@@ -46,8 +46,7 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
         pack();
         WindowUtils.addEnterAction(this);
         WindowUtils.addEscapeAction(this);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JStartViewer");
+        UIStateUtils.uistatemanage(parent, this, "JStartViewer");
         EDTUtils.pack(this);
     }
 

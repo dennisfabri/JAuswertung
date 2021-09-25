@@ -260,7 +260,7 @@ public final class SchwimmerUtils {
             return null;
         }
         int maxLanes = 0;
-        for (AWettkampf wk : wks) {
+        for (AWettkampf<T> wk : wks) {
             Laufliste<T> ll = wk.getLaufliste();
             if (ll == null) {
                 return null;
@@ -273,19 +273,16 @@ public final class SchwimmerUtils {
 
         LinkedList<Startkarte>[] listen = new LinkedList[maxLanes];
         for (int x = 0; x < listen.length; x++) {
-            listen[x] = new LinkedList<Startkarte>();
+            listen[x] = new LinkedList<>();
         }
 
-        for (AWettkampf wk : wks) {
+        for (AWettkampf<T> wk : wks) {
             Laufliste<T> ll = wk.getLaufliste();
             if (ll == null) {
                 continue;
             }
             LinkedList<Lauf<T>> laufliste = ll.getLaufliste();
-            if (laufliste == null) {
-                continue;
-            }
-            if (laufliste.size() == 0) {
+            if (laufliste == null || laufliste.isEmpty()) {
                 continue;
             }
 
@@ -310,7 +307,7 @@ public final class SchwimmerUtils {
                         listen[x].addLast(new Startkarte(s, roundId, l.getDisznummer(x), l.getName(), x + 1));
                     } else {
                         if (includeEmptyLanes) {
-                            listen[x].addLast(new Startkarte(null, 0, -1, l.getName(), x + 1));
+                            listen[x].addLast(new Startkarte(l, roundId, x + 1));
                         }
                     }
                 }

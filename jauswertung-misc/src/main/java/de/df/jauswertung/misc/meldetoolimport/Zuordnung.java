@@ -2,7 +2,7 @@ package de.df.jauswertung.misc.meldetoolimport;
 
 import java.util.ArrayList;
 
-import de.df.jauswertung.io.IOUtils;
+import de.df.jauswertung.io.TextFileUtils;
 
 public class Zuordnung {
 
@@ -13,7 +13,7 @@ public class Zuordnung {
         Typ = typ;
 
         ArrayList<String> data = new ArrayList<String>();
-        String[] rows = IOUtils.fileToStringArray(file, null, false);
+        String[] rows = TextFileUtils.fileToStringArray(file, null, false);
         for (String row : rows) {
             row = row.trim();
             if (row.length() > 0) {

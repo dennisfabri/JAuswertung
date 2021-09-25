@@ -38,8 +38,7 @@ class JStatisticsFrame extends JGlassFrame {
         init(preparePanels(core));
         pack();
         setSize(Math.max(getWidth(), 800), Math.max(getHeight(), 600));
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JStatisticsFrame");
+        UIStateUtils.uistatemanage(parent, this, "JStatisticsFrame");
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override
             public void run() {

@@ -245,6 +245,9 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     }
 
     private static String createStartnumberString(Startkarte s) {
+        if (s.getStartnummer().isBlank()) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("S# ");
         sb.append(s.getStartnummer());

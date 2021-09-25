@@ -12,7 +12,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Random;
 
-import de.df.jauswertung.io.IOUtils;
+import de.df.jauswertung.io.TextFileUtils;
 import de.df.jauswertung.util.RandomUtils;
 
 public class Namengenerator {
@@ -43,7 +43,7 @@ public class Namengenerator {
     private Hashtable<String, String> gld2lv        = new Hashtable<String, String>();
 
     private String[] readNamen(String date, String[] backup) {
-        return IOUtils.fileToStringArray(dir, date, backup, false);
+        return TextFileUtils.fileToStringArray(dir, date, backup, false);
     }
 
     public String generateVorname(boolean maennlich) {

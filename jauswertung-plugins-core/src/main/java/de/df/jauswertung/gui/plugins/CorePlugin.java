@@ -235,11 +235,7 @@ public class CorePlugin extends AFeature {
                 }
             }
             if (result) {
-                if (s[0] instanceof Mannschaft) {
-                    getController().sendDataUpdateEvent(new UpdateEvent("RemoveTeam", UpdateEventConstants.REASON_SWIMMER_DELETED, s, null, this));
-                } else {
-                    getController().sendDataUpdateEvent(new UpdateEvent("RemovePerson", UpdateEventConstants.REASON_SWIMMER_DELETED, s, null, this));
-                }
+                getController().sendDataUpdateEvent(new UpdateEvent(s[0] instanceof Mannschaft ? "RemoveTeam":"RemovePerson", UpdateEventConstants.REASON_SWIMMER_DELETED, s, null, this));
             }
             return result;
         }

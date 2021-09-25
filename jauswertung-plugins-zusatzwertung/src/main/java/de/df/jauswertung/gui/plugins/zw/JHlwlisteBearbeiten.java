@@ -121,38 +121,39 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long                       serialVersionUID = 3256720697500643376L;
+    private static final long serialVersionUID = 3256720697500643376L;
 
-    AWettkampf<T>                                   wk               = null;
-    boolean                                         darfAendern      = false;
-    Window                                          parent           = null;
+    AWettkampf<T> wk = null;
+    boolean darfAendern = false;
+    Window parent = null;
 
-    JMenuItem                                       entfernen;
+    JMenuItem entfernen;
 
-    private final int                               meldeindex;
+    private final int meldeindex;
 
-    JFittingTable                                   tabelle          = null;
-    JPopupMenu                                      popup            = null;
-    JMenuItem                                       removeHeat       = null;
-    JMenuItem                                       removePause      = null;
-    JMenuItem                                       editPause        = null;
-    private JLabel                                  startnummer      = new JLabel();
-    private JLabel                                  name             = new JLabel();
-    private JLabel                                  gliederung       = new JLabel();
-    private JLabel                                  altersklasse     = new JLabel();
-    private JLabel                                  punkte           = new JLabel();
-    private JLabel                                  bemerkung        = new JLabel();
-    private JLabel                                  ausserk          = new JLabel();
-    JList                                           vergabeliste     = null;
+    JFittingTable tabelle = null;
+    JPopupMenu popup = null;
+    JMenuItem removeHeat = null;
+    JMenuItem removePause = null;
+    JMenuItem editPause = null;
+    private JLabel startnummer = new JLabel();
+    private JLabel name = new JLabel();
+    private JLabel gliederung = new JLabel();
+    private JLabel altersklasse = new JLabel();
+    private JLabel punkte = new JLabel();
+    private JLabel bemerkung = new JLabel();
+    private JLabel ausserk = new JLabel();
+    JList vergabeliste = null;
 
-    T                                               swimmer          = null;
-    private JSplitPane                              splitter         = null;
+    T swimmer = null;
+    private JSplitPane splitter = null;
 
-    private ISimpleCallback<JHlwlisteBearbeiten<T>> callback         = null;
+    private ISimpleCallback<JHlwlisteBearbeiten<T>> callback = null;
 
-    private boolean                                 changed          = false;
+    private boolean changed = false;
 
-    public JHlwlisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean mayChange, ISimpleCallback<JHlwlisteBearbeiten<T>> callback) {
+    public JHlwlisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean mayChange,
+            ISimpleCallback<JHlwlisteBearbeiten<T>> callback) {
         if (wettkampf == null) {
             throw new NullPointerException();
         }
@@ -173,10 +174,9 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
 
         WindowUtils.setSize(this, 800, 600);
         WindowUtils.checkMinimumSize(this);
-        WindowUtils.center(this, parent);
         WindowUtils.maximize(this);
         setSplitter();
-        UIStateUtils.uistatemanage(this, JHlwlisteBearbeiten.class.getName());
+        UIStateUtils.uistatemanage(parent, this, JHlwlisteBearbeiten.class.getName());
     }
 
     // *****************************************************************
@@ -529,7 +529,8 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
         JScrollPane tabelleScroller = new JScrollPane(tabelle);
         tabelleScroller.setBorder(BorderUtils.createLabeledBorder(I18n.get("ZWList")));
 
-        setLayout(new FormLayout("4dlu,0px:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu"));
+        setLayout(new FormLayout("4dlu,0px:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu"));
 
         JPanel infopanel = createInfopanel();
         add(infopanel, CC.xyw(2, 4, 2));
@@ -650,7 +651,8 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     private JPanel createInfopanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 2, 6 }, { 4, 8 } });
 

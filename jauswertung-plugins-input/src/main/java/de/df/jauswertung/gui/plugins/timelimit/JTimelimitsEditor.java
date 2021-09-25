@@ -111,7 +111,6 @@ class JTimelimitsEditor extends JFrame {
         setMinimumSize(new Dimension(600, 400));
 
         pack();
-        WindowUtils.center(this);
         UIStateUtils.uistatemanage(this);
 
         initMenu();

@@ -125,8 +125,7 @@ public class MPenaltylistPlugin extends ANullPlugin {
             parent = owner;
             pack();
             setSize(Math.max(getWidth(), 400), Math.max(getHeight(), 300));
-            WindowUtils.center(this, parent);
-            UIStateUtils.uistatemanage(this, "JPenaltyList");
+            UIStateUtils.uistatemanage(parent, this, "JPenaltyList");
         }
 
         @Override

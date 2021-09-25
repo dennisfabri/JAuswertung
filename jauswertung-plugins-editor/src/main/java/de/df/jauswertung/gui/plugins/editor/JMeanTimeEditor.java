@@ -315,9 +315,8 @@ class JMeanTimeEditor extends JDialog {
         add(bottom, BorderLayout.CENTER);
 
         pack();
-        WindowUtils.center(this, parent);
         setResizable(false);
-        UIStateUtils.uistatemanage(this, "JMeanTimeEditor");
+        UIStateUtils.uistatemanage(parent, this, "JMeanTimeEditor");
         pack();
 
         if (schwimmer.getZeit(disziplin) > 0) {

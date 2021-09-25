@@ -44,8 +44,7 @@ class JSimilarityCheck extends JDialog {
         similar = check(wks);
         init();
         pack();
-        WindowUtils.center(parent);
-        UIStateUtils.uistatemanage(this, "SimilaritiesCheck");
+        UIStateUtils.uistatemanage(parent, this, "SimilaritiesCheck");
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

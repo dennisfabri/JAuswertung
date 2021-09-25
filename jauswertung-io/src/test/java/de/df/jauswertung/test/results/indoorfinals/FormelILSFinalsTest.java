@@ -21,9 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.df.jauswertung.daten.EinzelWettkampf;
-import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
-import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
@@ -36,6 +34,7 @@ import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.data.HeatsUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
@@ -44,6 +43,7 @@ import de.df.jutils.gui.jtable.JTableUtils;
 public class FormelILSFinalsTest {
 
     private static final int AnzahlSchwimmer = 20;
+    private static final int QualiPlaetze = 16;
 
     private static final int AnzahlRunden = 2;
     private static final boolean MALE = true;
@@ -74,8 +74,8 @@ public class FormelILSFinalsTest {
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
 
         ergebnisGesamt = erstelleGesamtergebnis(wk);
-        
-        OutputManager.speichereWettkampf("FormelILSFinals.wk", wk);        
+
+        OutputManager.speichereWettkampf("FormelILSFinals.wk", wk);
     }
 
     private void erstelleWettkampf() {
@@ -99,8 +99,8 @@ public class FormelILSFinalsTest {
     private static void erzeugeLaufliste(EinzelWettkampf wk, OWSelection selection) {
         Altersklasse ak = wk.getRegelwerk().getAk(AK);
         for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-            ak.getDisziplin(y, true).setRunden(new int[] { 16 }, new int[] { 4 * y + 1, 4 * y + 2 });
-            ak.getDisziplin(y, false).setRunden(new int[] { 16 }, new int[] { 4 * y + 3, 4 * y + 4 });
+            ak.getDisziplin(y, true).setRunden(new int[] { QualiPlaetze }, new int[] { 4 * y + 1, 4 * y + 2 });
+            ak.getDisziplin(y, false).setRunden(new int[] { QualiPlaetze }, new int[] { 4 * y + 3, 4 * y + 4 });
         }
 
         EinzelWettkampf wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wk, selection);
@@ -126,29 +126,7 @@ public class FormelILSFinalsTest {
         // wk.setProperty(DSM_MODE_DATA, moving.getData());
         wkx.getLaufliste().erzeugen();
 
-        save(wk, wkx, selection);
-    }
-
-    private static void save(EinzelWettkampf wk, EinzelWettkampf wkx, OWSelection t) {
-        Laufliste<Teilnehmer> heats = wkx.getLaufliste();
-        OWDisziplin<Teilnehmer> disziplin = wk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, t.round);
-        if (disziplin == null) {
-            disziplin = wk.getLauflisteOW().addDisziplin(t.akNummer, t.male, t.discipline, t.round);
-        }
-        disziplin.laeufe.clear();
-        for (Lauf<Teilnehmer> lauf : heats.getLaufliste()) {
-            OWLauf<Teilnehmer> l = new OWLauf<Teilnehmer>(wk, disziplin.Id, lauf);
-            for (int x = 0; x < l.getBahnen(); x++) {
-                Teilnehmer tx = l.getSchwimmer(x);
-                if (tx != null) {
-                    Teilnehmer ti = SearchUtils.getSchwimmer(wk, tx);
-                    disziplin.Schwimmer.add(ti);
-                }
-            }
-            disziplin.laeufe.add(l);
-        }
-        wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER,
-                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
+        HeatsUtils.save(wk, selection, wkx);
     }
 
     private static void trageZeitenEin(EinzelWettkampf wk, OWSelection selection) {
@@ -317,6 +295,7 @@ public class FormelILSFinalsTest {
 
         for (int x = 0; x < AnzahlSchwimmer; x++) {
             assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisVorlauf.getResult(x).getSchwimmer().getName());
+            assertEquals(x < QualiPlaetze ? "Q": "", ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount()-1));
         }
     }
 
@@ -353,10 +332,12 @@ public class FormelILSFinalsTest {
         assertEquals(16, ergebnisFinale.getRowCount());
 
         for (int x = 0; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
+            assertEquals(String.format("Teilnehmer, %d", x + 1),
+                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
         }
         for (int x = 0; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9), ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
+            assertEquals(String.format("Teilnehmer, %d", x + 9),
+                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
         }
     }
 
@@ -365,10 +346,12 @@ public class FormelILSFinalsTest {
         assertEquals(20, ergebnisGesamt.getRowCount());
 
         for (int x = 0; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisGesamt.getResult(7 - x).getSchwimmer().getName());
+            assertEquals(String.format("Teilnehmer, %d", x + 1),
+                    ergebnisGesamt.getResult(7 - x).getSchwimmer().getName());
         }
         for (int x = 0; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9), ergebnisGesamt.getResult(15 - x).getSchwimmer().getName());
+            assertEquals(String.format("Teilnehmer, %d", x + 9),
+                    ergebnisGesamt.getResult(15 - x).getSchwimmer().getName());
         }
 
         for (int x = 16; x < AnzahlSchwimmer; x++) {

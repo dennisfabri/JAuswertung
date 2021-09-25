@@ -67,8 +67,7 @@ class JFilterSelection extends JDialog {
         add(cancel, CC.xy(5, 4));
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "FilterSelection");
+        UIStateUtils.uistatemanage(parent, this, "FilterSelection");
     }
 
     void doOk() {

@@ -85,8 +85,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         addActions();
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JPenaltyEditor");
+        UIStateUtils.uistatemanage(parent, this, "JPenaltyEditor");
     }
 
     public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, String discipline, boolean print) {

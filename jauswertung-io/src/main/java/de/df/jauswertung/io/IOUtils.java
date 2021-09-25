@@ -7,19 +7,17 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Hashtable;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.text.StringEscapeUtils;
+import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,27 +79,37 @@ import de.dm.ares.data.util.XStreamUtil;
  * @author Dennis Fabri @date 22.01.2005
  */
 public final class IOUtils {
-    
+
     private static Logger log = LoggerFactory.getLogger(IOUtils.class);
-    
 
     private IOUtils() {
         // Hide constructor
     }
 
     static Object fromXML(InputStream is) throws IOException {
-        return fromXML(new InputStreamReader(is));
+        byte[] data = is.readAllBytes();
+
+        UniversalDetector detector = new UniversalDetector();
+        detector.handleData(data);
+        detector.dataEnd();
+        String charset = detector.getDetectedCharset();
+        log.debug("Detected charset '{}'", charset);
+
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+                InputStreamReader reader = new InputStreamReader(bis, charset)) {
+            return fromXML(reader, charset);
+        }
     }
 
-    static Object fromXML(Reader is) throws IOException {
+    private static Object fromXML(Reader is, String charset) throws IOException {
         VersionedDocument.xstream = getXStream();
-        String xml = readText(is).replace("\n\n", "\n"); 
+        String xml = readText(is).replace("\n\n", "\n");
         if (xml.startsWith("PK")) {
             return null;
         }
         if (!xml.startsWith("<?xml")) {
             try {
-                String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+                String prefix = "<?xml version=\"1.0\" encoding=\"" + charset + "\"?>\n";
                 String xml2 = xml;
                 int index = xml2.indexOf('>');
                 if (index > 0) {
@@ -145,14 +153,14 @@ public final class IOUtils {
         return text.toString();
     }
 
-    static void writeText(String text, Writer is) throws IOException {
+    private static void writeText(String text, Writer is) throws IOException {
         BufferedWriter br = new BufferedWriter(is);
         br.write(text);
         br.flush();
     }
 
     static void toXML(Object o, OutputStream os) throws IOException {
-        toXML(o, new OutputStreamWriter(os));
+        toXML(o, new OutputStreamWriter(os, StandardCharsets.UTF_8));
     }
 
     static void toXML(Object o, Writer os) throws IOException {
@@ -271,8 +279,9 @@ public final class IOUtils {
     }
 
     private static void setupPermissions(XStream xstream) {
-        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class});
-        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*", "de.df.jutils.print.PageSetting" });
+        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
+        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*",
+                "de.df.jutils.print.PageSetting" });
     }
 
     private static class StringConverter extends AbstractSingleValueConverter {
@@ -295,73 +304,6 @@ public final class IOUtils {
         @Override
         public String toString(Object value) {
             return StringEscapeUtils.escapeXml11(value.toString());
-        }
-    }
-
-    public static boolean StringArrayToFile(String directory, String datei, String[] data) {
-        FileOutputStream fis = null;
-        PrintWriter br = null;
-        try {
-            fis = new FileOutputStream(directory + java.io.File.separator + datei);
-            br = new PrintWriter(new OutputStreamWriter(fis, "Cp1252"));
-            for (String d : data) {
-                br.println(d);
-            }
-            br.close();
-        } catch (Exception ex) {
-            return false;
-        }
-        return true;
-    }
-
-    public static String[] fileToStringArray(String directory, String datei, String[] backup, boolean toLowerCase) {
-        return fileToStringArray(directory + java.io.File.separator + datei, backup, toLowerCase);
-    }
-
-    public static String[] fileToStringArray(String datei, String[] backup, boolean toLowerCase) {
-        java.util.Vector<String> v = new java.util.Vector<String>();
-
-        FileInputStream fis = null;
-        BufferedReader br = null;
-        try {
-            fis = new FileInputStream(datei);
-            br = new BufferedReader(new InputStreamReader(fis, "Cp1252"));
-            String s = br.readLine();
-            while (s != null) {
-                s = s.trim();
-                if (s.length() > 0) {
-                    if (toLowerCase) {
-                        s = s.toLowerCase();
-                    }
-                    v.add(s);
-                }
-                s = br.readLine();
-            }
-            fis.close();
-            Object[] o = v.toArray();
-            String[] strings = new String[o.length];
-            for (int x = 0; x < o.length; x++) {
-                strings[x] = (String) o[x];
-            }
-            return strings;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return backup;
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (Exception io) {
-                // Nothing to do
-            }
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (Exception io) {
-                // Nothing to do
-            }
         }
     }
 

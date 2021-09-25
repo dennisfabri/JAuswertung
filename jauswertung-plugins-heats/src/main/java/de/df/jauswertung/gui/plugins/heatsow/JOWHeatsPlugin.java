@@ -21,12 +21,8 @@ import javax.swing.JSeparator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.UpdateEventConstants;
@@ -41,7 +37,7 @@ import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.RecorderPrintable;
 import de.df.jauswertung.print.SprecherlistePrintable;
 import de.df.jauswertung.util.ResultUtils;
-import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.data.HeatsUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.util.DialogUtils;
@@ -217,12 +213,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private <T extends ASchwimmer> void bearbeiteLaufliste(OWSelection t) {
         updateCompetitors(t);
         AWettkampf<T> wk = createCompetitionFor(t);
-        EditHeatlistUtils.laufliste(getController(), this, wk, true, new ISimpleCallback<AWettkampf<T>>() {
-            @Override
-            public void callback(AWettkampf<T> wkx) {
-                save(t, wkx, false);
-            }
-        });
+        EditHeatlistUtils.laufliste(getController(), this, wk, true, wkx -> save(t, wkx, false));
     }
 
     private <T extends ASchwimmer> void updateCompetitors(OWSelection ows) {
@@ -280,24 +271,16 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     <T extends ASchwimmer> void zeigeLaufliste(OWSelection t) {
         AWettkampf<T> wk = createCompetitionFor(t);
-        EditHeatlistUtils.laufliste(getController(), this, wk, false, new ISimpleCallback<AWettkampf<T>>() {
-            @Override
-            public void callback(AWettkampf<T> wkx) {
-                save(t, wkx, false);
-            }
-        });
+        EditHeatlistUtils.laufliste(getController(), this, wk, false, wkx -> save(t, wkx, false));
     }
 
     private void neueLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-            @Override
-            public void callback(OWSelection[] selection) {
-                if (selection != null) {
-                    boolean askForPrint = selection.length == 1;
-                    for (OWSelection t : selection)
-                        neueLaufliste(t, askForPrint);
-                }
+        ISimpleCallback<OWSelection[]> cb = selection -> {
+            if (selection != null) {
+                boolean askForPrint = selection.length == 1;
+                for (OWSelection t : selection)
+                    neueLaufliste(t, askForPrint);
             }
         };
         OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
@@ -306,7 +289,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     <T extends ASchwimmer> void neueLaufliste(OWSelection t, boolean askForPrint) {
         AWettkampf<T> wk = createCompetitionFor(t);
-        JNewHeatsWizard<?> jnhw = new JNewHeatsWizard<T>(getController().getWindow(), this, wk, true);
+        JNewHeatsWizard<?> jnhw = new JNewHeatsWizard<>(getController().getWindow(), this, wk, true);
         boolean ok = jnhw.start();
         if (ok) {
             save(t, wk, askForPrint);
@@ -314,38 +297,15 @@ public class JOWHeatsPlugin extends ANullPlugin {
     }
 
     private <T extends ASchwimmer> void save(OWSelection t, AWettkampf<T> wkx, boolean askForPrint) {
-        Laufliste<T> heats = wkx.getLaufliste();
-        AWettkampf<T> wk = core.getWettkampf();
-        OWDisziplin<T> disziplin = wk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, t.round);
-        if (disziplin == null) {
-            disziplin = wk.getLauflisteOW().addDisziplin(t.akNummer, t.male, t.discipline, t.round);
-        }
-        disziplin.laeufe.clear();
-        for (Lauf<T> lauf : heats.getLaufliste()) {
-            OWLauf<T> l = new OWLauf<T>(wk, disziplin.Id, lauf);
-            for (int x = 0; x < l.getBahnen(); x++) {
-                T tx = l.getSchwimmer(x);
-                if (tx != null) {
-                    T ti = SearchUtils.getSchwimmer(wk, tx);
-                    if (ti instanceof Mannschaft && disziplin.round > 0) {
-                        Mannschaft m = (Mannschaft) ti;
-                        int[] starter = m.getStarter(OWDisziplin.getId(disziplin.akNummer, disziplin.maennlich,
-                                disziplin.disziplin, disziplin.round - 1));
-                        if (starter == null && disziplin.round == 1) {
-                            starter = m.getStarter(disziplin.disziplin);
-                        }
-                        m.setStarter(disziplin.Id, starter);
-                    }
-                    disziplin.Schwimmer.add(ti);
-                }
-            }
-            disziplin.laeufe.add(l);
-        }
-        wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER,
-                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
+        HeatsUtils.save(core.getWettkampf(), t, wkx);
         EditHeatlistUtils.notifyHeatlistChanged(getController(), this);
 
+        print(askForPrint, t);
+    }
+
+    private <T extends ASchwimmer> void print(boolean askForPrint, OWSelection t) {
         if (askForPrint) {
+            AWettkampf<T> wk = core.getWettkampf();
             if (wk.isOpenWater()) {
                 if (DialogUtils.ask(getController().getWindow(), "Laufliste drucken?",
                         "Sollen die folgenden Listen direkt gedruckt werden?\n2x Kampfrichterliste\n1x Auswerterliste\n1x Meldeergebnis")) {

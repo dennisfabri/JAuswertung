@@ -37,13 +37,13 @@ import de.dm.ares.data.Heat;
 
 class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
 
-    private final AWettkampf<T>                             wk;
-    private final IPluginManager                            controller;
-    private final IPlugin                                   plugin;
+    private final AWettkampf<T> wk;
+    private final IPluginManager controller;
+    private final IPlugin plugin;
 
-    private LinkedList<OWSelection>                         rounds     = new LinkedList<OWSelection>();
-    private Hashtable<String, Tupel<Integer, OWSelection>>  roundsById = new Hashtable<String, Tupel<Integer, OWSelection>>();
-    private Hashtable<Integer, Tupel<OWSelection, Integer>> heatids    = new Hashtable<Integer, Tupel<OWSelection, Integer>>();
+    private LinkedList<OWSelection> rounds = new LinkedList<OWSelection>();
+    private Hashtable<String, Tupel<Integer, OWSelection>> roundsById = new Hashtable<String, Tupel<Integer, OWSelection>>();
+    private Hashtable<Integer, Tupel<OWSelection, Integer>> heatids = new Hashtable<Integer, Tupel<OWSelection, Integer>>();
 
     public ETHeatStrategy(IPluginManager controller, IPlugin plugin, JFrame parent, AWettkampf<T> w) {
         wk = w;
@@ -88,7 +88,8 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
                         if (owd != null && !owd.isEmpty()) {
                             int roundId1 = wk.getRegelwerk().getRundenId(owd);
 
-                            int value = roundId1 > 0 ? roundId1 : 1000 + ((r * rw.size() + x) * maxdisz + d) * 2 + s + 1;
+                            int value = roundId1 > 0 ? roundId1
+                                    : 1000 + ((r * rw.size() + x) * maxdisz + d) * 2 + s + 1;
                             heats.add(new Tupel<Integer, OWSelection>(value, selection));
                         }
                     }
@@ -242,7 +243,8 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, owd.disziplin, plugin);
+                controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, owd.disziplin,
+                        plugin);
             }
         });
     }
@@ -258,7 +260,10 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
 
     @Override
     public int getLanecount() {
-        return wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
+        if (wk == null) {
+            return 0;
+        }
+        return wk.getMaximaleAnzahlBahnen();
     }
 
     @Override
@@ -271,7 +276,8 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         for (int x = 0; x < lauf.getBahnen(); x++) {
             T t = lauf.getSchwimmer(x);
             int time = 0;
-            String penalty = t == null ? "" : PenaltyUtils.getPenaltyShortText(t.getAkkumulierteStrafe(lauf.getDisciplineId()), t.getAK());
+            String penalty = t == null ? ""
+                    : PenaltyUtils.getPenaltyShortText(t.getAkkumulierteStrafe(lauf.getDisciplineId()), t.getAK());
             int disz = wk.getLauflisteOW().getDisziplin(lauf.getDisciplineId()).disziplin;
             Eingabe e = t == null ? null : t.getEingabe(lauf.getDisciplineId());
             if (e != null) {
@@ -285,7 +291,8 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         Disziplin d = ak.getDisziplin(owd.disziplin, owd.maennlich);
         int event = d.getRundenId(owd.round);
         return new HeatInfo(I18n.getAgeGroupAsString(wk.getRegelwerk(), ak, owd.maennlich),
-                d.getName() + " - " + I18n.getRound(owd.round, owd.round == d.getRunden().length), event, lauf.getLaufnummer(), lauf.getLaufbuchstabe(), lis);
+                d.getName() + " - " + I18n.getRound(owd.round, owd.round == d.getRunden().length), event,
+                lauf.getLaufnummer(), lauf.getLaufbuchstabe(), lis);
         // return new HeatInfo(I18n.getAgeGroupAsString(ak, owd.maennlich), d.getName()
         // + " - " + I18n.getRound(owd.round, owd.round == d.getRunden().length),
         // getIndex(owd.Id), lauf.getLaufnummer(), lis);

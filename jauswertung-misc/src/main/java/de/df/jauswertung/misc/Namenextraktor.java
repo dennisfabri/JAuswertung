@@ -93,10 +93,10 @@ public class Namenextraktor {
     }
 
     private static String[] readNamen(String date, String[] backup) {
-        return IOUtils.fileToStringArray("include/main/names", date, backup, false);
+        return TextFileUtils.fileToStringArray("include/main/names", date, backup, false);
     }
 
     private static boolean writeFile(String date, String[] backup) {
-        return IOUtils.StringArrayToFile(".", date, backup);
+        return TextFileUtils.StringArrayToFile(".", date, backup);
     }
 }

@@ -65,8 +65,7 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         init();
         pack();
         setSize(Math.max(getWidth(), 800), Math.max(getHeight(), 600));
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JMissingInputFrame");
+        UIStateUtils.uistatemanage(parent, this, "JMissingInputFrame");
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override
             public void run() {

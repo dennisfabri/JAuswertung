@@ -264,9 +264,8 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         add(bottom, BorderLayout.CENTER);
 
         pack();
-        WindowUtils.center(this, controller.getWindow());
         setResizable(false);
-        UIStateUtils.uistatemanage(this, "JPenaltyPointsAdditor");
+        UIStateUtils.uistatemanage(controller.getWindow(), this, "JPenaltyPointsAdditor");
         pack();
     }
 }

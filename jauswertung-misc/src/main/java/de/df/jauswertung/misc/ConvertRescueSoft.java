@@ -163,7 +163,7 @@ public class ConvertRescueSoft {
     }
 
     public static void WriteFile(String filename, String[] data) {
-        IOUtils.StringArrayToFile("Test", filename, data);
+        TextFileUtils.StringArrayToFile("Test", filename, data);
     }
 
     private static void Add(StringBuilder sb, String text) {

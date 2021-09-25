@@ -372,8 +372,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
 
         Dimension size = getSize();
 
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JSchwimmerEditieren");
+        UIStateUtils.uistatemanage(parent, this, "JSchwimmerEditieren");
 
         setSize(Math.max(size.width, getWidth()), Math.max(size.height, getHeight()));
     }

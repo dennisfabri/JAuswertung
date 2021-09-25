@@ -244,9 +244,8 @@ class JZWEditor extends JDialog {
         add(bottom, BorderLayout.CENTER);
 
         pack();
-        WindowUtils.center(this, parent);
         setResizable(false);
-        UIStateUtils.uistatemanage(this, getClass().toString());
+        UIStateUtils.uistatemanage(parent, this, getClass().toString());
         pack();
     }
 }

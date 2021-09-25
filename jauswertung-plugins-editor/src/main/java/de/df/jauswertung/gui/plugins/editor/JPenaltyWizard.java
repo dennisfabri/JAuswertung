@@ -208,8 +208,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         wizard.addListener(this);
         window.pack();
         window.setResizable(false);
-        WindowUtils.center(window, c.getWindow());
-        UIStateUtils.uistatemanage(window, "PenaltyWizard");
+        UIStateUtils.uistatemanage(c.getWindow(), window, "PenaltyWizard");
         window.pack();
         window.setResizable(false);
     }

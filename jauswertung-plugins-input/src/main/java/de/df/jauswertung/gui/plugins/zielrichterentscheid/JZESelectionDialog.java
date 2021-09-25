@@ -77,8 +77,7 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
 
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JZESelectionDialog");
+        UIStateUtils.uistatemanage(parent, this, "JZESelectionDialog");
     }
 
     @Override

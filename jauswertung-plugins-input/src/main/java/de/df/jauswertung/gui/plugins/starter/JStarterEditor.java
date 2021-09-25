@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import org.lisasp.legacy.uistate.UIStateManager;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -27,6 +25,7 @@ import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.ModalFrameUtil;
+import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 public class JStarterEditor extends JFrame {
@@ -127,8 +126,7 @@ public class JStarterEditor extends JFrame {
         add(tabs, CC.xy(2, 4));
         add(buttons, CC.xy(2, 6, "right,fill"));
         pack();
-        WindowUtils.checkMinimumSize(this);
-        UIStateManager.manage(this);
+        UIStateUtils.uistatemanage(this);
     }
 
     private void doApply() {

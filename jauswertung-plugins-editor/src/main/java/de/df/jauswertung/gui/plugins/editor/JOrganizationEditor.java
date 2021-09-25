@@ -159,9 +159,8 @@ class JOrganizationEditor extends JDialog {
         add(top, BorderLayout.CENTER);
 
         pack();
-        WindowUtils.center(this, controller.getWindow());
         setResizable(false);
-        UIStateUtils.uistatemanage(this, "JOrganizationEditor");
+        UIStateUtils.uistatemanage(controller.getWindow(), this, "JOrganizationEditor");
         pack();
     }
 }

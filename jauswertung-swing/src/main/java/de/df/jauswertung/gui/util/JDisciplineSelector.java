@@ -58,9 +58,7 @@ public class JDisciplineSelector extends JFrame {
         setIconImages(IconManager.getTitleImages());
         buildUI(text, multiselect);
         pack();
-        WindowUtils.center(this);
         setMinimumSize(new Dimension(400, 300));
-        WindowUtils.checkMinimumSize(this);
         UIStateUtils.uistatemanage(this, "JDisciplineSelector");
     }
 

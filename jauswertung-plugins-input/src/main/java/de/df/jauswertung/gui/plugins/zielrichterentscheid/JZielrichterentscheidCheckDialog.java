@@ -76,8 +76,7 @@ class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
         });
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JZielrichterentscheidCheckDialog");
+        UIStateUtils.uistatemanage(parent, this, "JZielrichterentscheidCheckDialog");
     }
 
     private void initGUI() {

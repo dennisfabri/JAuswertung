@@ -131,12 +131,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
 
         wizard.setFinishButtonEnabled(true);
 
-        // setResizable(false);
-
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JNewHeatsWizard");
-        // pack();
+        UIStateUtils.uistatemanage(parent, this, "JNewHeatsWizard");
     }
 
     @Override

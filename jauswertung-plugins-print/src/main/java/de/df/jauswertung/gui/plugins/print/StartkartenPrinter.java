@@ -25,7 +25,6 @@ import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PageMode;
 import de.df.jutils.print.PrintExecutor;
-import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
 /**
@@ -57,7 +56,7 @@ class StartkartenPrinter implements Printer {
 
         etime = new JCheckBox(I18n.get("ElektronischeZeitnahme"));
 
-        pages = new JComboBox<String>(new String[] { "1", "2", "4" });
+        pages = new JComboBox<>(new String[] { "1", "2", "4" });
         pages.setSelectedIndex(2);
 
         panel.add(etime, CC.xy(2, 2));

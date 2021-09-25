@@ -72,9 +72,7 @@ class JSelectionFrame extends JGlassFrame {
 
         setMinimumSize(new Dimension(800, 600));
         pack();
-        WindowUtils.checkMinimumSize(this);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JSelectionFrame");
+        UIStateUtils.uistatemanage(parent, this, "JSelectionFrame");
 
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override

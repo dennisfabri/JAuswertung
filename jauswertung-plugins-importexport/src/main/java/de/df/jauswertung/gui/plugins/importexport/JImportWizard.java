@@ -128,8 +128,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         setIconImage(parent.getIconImage());
         pack();
         setSize(getWidth(), getHeight() + 10);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, JImportWizard.class.getName());
+        UIStateUtils.uistatemanage(parent, this, JImportWizard.class.getName());
         pack();
         setSize(getWidth(), getHeight() + 10);
 

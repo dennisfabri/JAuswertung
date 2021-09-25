@@ -26,7 +26,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.io.IOUtils;
+import de.df.jauswertung.io.TextFileUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.data.HashtableUtils;
@@ -47,9 +47,9 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
     private static final String[] FIRSTNAMES_FEMALE;
 
     static {
-        SURNAMES = IOUtils.fileToStringArray("names", "Nachnamen.txt", new String[0], true);
-        FIRSTNAMES_MALE = IOUtils.fileToStringArray("names", "VornamenM.txt", new String[0], true);
-        FIRSTNAMES_FEMALE = IOUtils.fileToStringArray("names", "VornamenW.txt", new String[0], true);
+        SURNAMES = TextFileUtils.fileToStringArray("names", "Nachnamen.txt", new String[0], true);
+        FIRSTNAMES_MALE = TextFileUtils.fileToStringArray("names", "VornamenM.txt", new String[0], true);
+        FIRSTNAMES_FEMALE = TextFileUtils.fileToStringArray("names", "VornamenW.txt", new String[0], true);
     }
 
     private CorePlugin                      core;

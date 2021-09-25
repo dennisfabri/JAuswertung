@@ -105,7 +105,6 @@ public class JVeranstaltungswertung extends JGlassFrame {
         createMenues();
 
         pack();
-        WindowUtils.center(this);
         UIStateUtils.uistatemanage(this, "Veranstaltungswertung");
 
         vs = new Veranstaltung();

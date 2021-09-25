@@ -5,10 +5,11 @@ import java.util.Hashtable;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 
 public class OWLaufliste<T extends ASchwimmer> implements Serializable {
 
-    final AWettkampf<T>                       wk;
+    final AWettkampf<T> wk;
     private Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<String, OWDisziplin<T>>();
 
     public OWLaufliste(AWettkampf<T> wk) {
@@ -81,5 +82,13 @@ public class OWLaufliste<T extends ASchwimmer> implements Serializable {
             clear();
             return;
         }
+    }
+
+    public int getMaximaleAnzahlBahnen() {
+        int max = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
+        for (OWDisziplin<T> disziplin : disziplinen.values()) {
+            max = Math.max(max, disziplin.getBahnen());
+        }
+        return max;
     }
 }

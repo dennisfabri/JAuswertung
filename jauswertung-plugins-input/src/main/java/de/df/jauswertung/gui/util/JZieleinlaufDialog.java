@@ -107,8 +107,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         pack();
         int width = getWidth();
         int height = getHeight();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "Zieleinlauf");
+        UIStateUtils.uistatemanage(parent, this, "Zieleinlauf");
         setSize(width, height);
         setResizable(false);
     }

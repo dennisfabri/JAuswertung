@@ -137,35 +137,35 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         changedNow();
     }
 
-    private final Regelwerk                     aks;
-    private final Laufliste<T>                  laufliste;
-    private final OWLaufliste<T>                lauflisteow;
-    private final HLWListe<T>                   hlwliste;
-    private final Strafen                       strafen;
-    private final LinkedList<T>                 schwimmer;
+    private final Regelwerk aks;
+    private final Laufliste<T> laufliste;
+    private final OWLaufliste<T> lauflisteow;
+    private final HLWListe<T> hlwliste;
+    private final Strafen strafen;
+    private final LinkedList<T> schwimmer;
     @SuppressWarnings("unused")
-    private final LinkedList<Einspruch>         einsprueche;
-    private final Hashtable<String, Object>     properties;
-    private KampfrichterVerwaltung              kampfrichter;
+    private final LinkedList<Einspruch> einsprueche;
+    private final Hashtable<String, Object> properties;
+    private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
 
-    private Ergebnisfreigabe                    exportfreigabe;
-    private Ergebnisfreigabe                    webfreigabe;
+    private Ergebnisfreigabe exportfreigabe;
+    private Ergebnisfreigabe webfreigabe;
 
-    private PropertyChangeManager               pcManager;
+    private PropertyChangeManager pcManager;
 
-    private TimelimitsContainer                 timelimits;
+    private TimelimitsContainer timelimits;
 
     @SuppressWarnings("unused")
-    private Startnummern                        startnummern;
+    private Startnummern startnummern;
 
-    private Filter[]                            filter;
+    private Filter[] filter;
     @XStreamAsAttribute
-    private int                                 filterindex;
+    private int filterindex;
 
-    private boolean[]                           disciplinesComplete         = new boolean[0];
-    private boolean[][][]                       disciplinesAgeGroupComplete = new boolean[0][0][0];
-    private boolean[][]                         hlwAkComplete               = new boolean[0][0];
+    private boolean[] disciplinesComplete = new boolean[0];
+    private boolean[][][] disciplinesAgeGroupComplete = new boolean[0][0][0];
+    private boolean[][] hlwAkComplete = new boolean[0][0];
 
     public byte[] getLogo() {
         return (byte[]) properties.get(PropertyConstants.LOGO);
@@ -223,7 +223,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return kampfrichter;
     }
 
-    private boolean updatesDisabled     = false;
+    private boolean updatesDisabled = false;
     private boolean changedSinceDisable = false;
 
     public void disableUpdates() {
@@ -464,8 +464,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     // 1. Agegroup
     // 2. Sex
     // 3. discipline
-    private int[]       lastcomplete = null;
-    private boolean[][] empty        = new boolean[0][0];
+    private int[] lastcomplete = null;
+    private boolean[][] empty = new boolean[0][0];
 
     private void updateInputStatus() {
         int amount = aks.size();
@@ -1253,7 +1253,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         Laufliste.migrator3(node.element("laufliste"));
         // Laufliste.migrator3(node.element("hlwliste"));
     }
-    
+
     public boolean HasOpenQualifications() {
         for (T t : schwimmer) {
             if (t.getQualifikation() == Qualifikation.OFFEN) {
@@ -1314,7 +1314,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     @SuppressWarnings("rawtypes")
     public void copyProperties(AWettkampf w) {
-        
+
         for (String key : HashtableUtils.getKeyIterable(properties)) {
             try {
                 w.setProperty(key, Utils.copy(getProperty(key)));
@@ -1329,5 +1329,13 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             timelimits = new TimelimitsContainer();
         }
         return timelimits;
+    }
+
+    public int getMaximaleAnzahlBahnen() {
+        int max = getIntegerProperty(PropertyConstants.HEATS_LANES);
+        if (getLauflisteOW() != null) {
+            max = getLauflisteOW().getMaximaleAnzahlBahnen();
+        }
+        return max;
     }
 }

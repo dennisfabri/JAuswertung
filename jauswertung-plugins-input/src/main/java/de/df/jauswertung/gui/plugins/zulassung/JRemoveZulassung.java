@@ -46,8 +46,7 @@ public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
         add(getButtons(quali[2] + quali[5] + quali[6] > 0), CC.xy(2, 4));
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JRemoveZulassung");
+        UIStateUtils.uistatemanage(parent, this, "JRemoveZulassung");
         pack();
     }
 

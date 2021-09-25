@@ -6,11 +6,7 @@ package de.df.jauswertung.util;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-import java.io.PrintStream;
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
 import javax.swing.RepaintManager;
@@ -18,19 +14,13 @@ import javax.swing.SwingUtilities;
 
 import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
 import org.jdesktop.swinghelper.debug.EventDispatchThreadHangMonitor;
-import org.lisasp.legacy.uistate.UIStateHandler;
-import org.lisasp.legacy.uistate.UIStateManager;
-import org.lisasp.legacy.uistate.handlers.JListStateHandler;
-import org.lisasp.legacy.uistate.handlers.JTabbedPaneStateHandler;
-import org.lisasp.legacy.uistate.handlers.JTableStateHandler;
-import org.lisasp.legacy.uistate.handlers.JTreeStateHandler;
-import org.lisasp.legacy.uistate.handlers.JViewportStateHandler;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.print.PrintManager;
 import skt.swing.scroll.ScrollGestureRecognizer;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
@@ -66,7 +56,7 @@ public final class DefaultInit {
         }
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
 
-        initUIState();
+        UIStateUtils.initUIState();
         initFileChooser();
 
         SwingUtilities.invokeLater(() -> {
@@ -88,33 +78,6 @@ public final class DefaultInit {
                 re.printStackTrace();
             }
         });
-    }
-
-    private static void initUIState() {
-        try {
-            UIStateManager.setPreferences(Preferences.userRoot().node("jauswertung/uistate"));
-            List<UIStateHandler> l = UIStateManager.getDefaultHandlers();
-            ListIterator<UIStateHandler> li = l.listIterator();
-            while (li.hasNext()) {
-                Object o = li.next();
-                if (o instanceof JTreeStateHandler || o instanceof JListStateHandler || o instanceof JTableStateHandler
-                        || o instanceof JViewportStateHandler || o instanceof JTabbedPaneStateHandler) {
-                    li.remove();
-                }
-            }
-            UIStateManager.setDefaultHandlers(l);
-            l = UIStateManager.getDefaultHandlers();
-            PrintStream err = System.err;
-            if (l.size() != 4) {
-                err.println("Changes in UIStateManager:");
-                li = l.listIterator();
-                while (li.hasNext()) {
-                    err.println("  " + li.next());
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     static void initPrintManager() {

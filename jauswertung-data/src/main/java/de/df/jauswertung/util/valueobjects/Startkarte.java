@@ -6,6 +6,7 @@ package de.df.jauswertung.util.valueobjects;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;
@@ -17,16 +18,16 @@ import de.df.jutils.util.StringTools;
 
 public class Startkarte implements Comparable<Startkarte> {
 
-    private final String  ak;
-    private final String  disz;
-    private final String  lauf;
-    private final String  name;
-    private final String  gliederung;
-    private final String  qgld;
-    private final String  bahn;
-    private final String  startnummer;
+    private final String ak;
+    private final String disz;
+    private final String lauf;
+    private final String name;
+    private final String gliederung;
+    private final String qgld;
+    private final String bahn;
+    private final String startnummer;
     private final boolean maennlich;
-    private final int     event;
+    private final int event;
 
     public Startkarte() {
         ak = "";
@@ -53,49 +54,57 @@ public class Startkarte implements Comparable<Startkarte> {
             this.bahn = "" + bahn;
         }
 
-        if (s != null) {
-            ak = s.getAK().toString() + " " + I18n.geschlechtToString(s);
-            String d = s.getAK().getDisziplin(diszNummer, s.isMaennlich()).toString();
-            if (d == null) {
-                disz = "";
-            } else {
-                disz = d;
-            }
-            if (s.getWettkampf().isMultiline() && (s instanceof Mannschaft)) {
-                Mannschaft m = (Mannschaft) s;
-                name = StringTools.shorten(m.getStarterShort(diszNummer, ","), 25, "...");
-            } else {
-                name = s.getName() == null ? "" : s.getName();
-            }
-            if (s.getGliederung() == null) {
-                gliederung = "";
-            } else {
-                gliederung = s.getGliederung();
-            }
-            if (s.getQualifikationsebene() != null) {
-                qgld = s.getQualifikationsebene();
-            } else {
-                qgld = "";
-            }
-            startnummer = StartnumberFormatManager.format(s);
-            maennlich = s.isMaennlich();
-            this.event = event;
-        } else {
-            ak = "";
+        this.event = event;
+
+        ak = s.getAK().toString() + " " + I18n.geschlechtToString(s);
+        String d = s.getAK().getDisziplin(diszNummer, s.isMaennlich()).toString();
+        if (d == null) {
             disz = "";
-            name = "";
-            gliederung = "";
-            startnummer = "";
-            maennlich = false;
-            qgld = "";
-            this.event = 0;
+        } else {
+            disz = d;
         }
+        if (s.getWettkampf().isMultiline() && (s instanceof Mannschaft)) {
+            Mannschaft m = (Mannschaft) s;
+            name = StringTools.shorten(m.getStarterShort(diszNummer, ","), 25, "...");
+        } else {
+            name = s.getName() == null ? "" : s.getName();
+        }
+        if (s.getGliederung() == null) {
+            gliederung = "";
+        } else {
+            gliederung = s.getGliederung();
+        }
+        if (s.getQualifikationsebene() != null) {
+            qgld = s.getQualifikationsebene();
+        } else {
+            qgld = "";
+        }
+        startnummer = StartnumberFormatManager.format(s);
+        maennlich = s.isMaennlich();
+    }
+
+    public Startkarte(Lauf<?> lauf, int event, int bahn) {
+        this.lauf = lauf.getName();
+        if (bahn < 1) {
+            this.bahn = "";
+        } else {
+            this.bahn = "" + bahn;
+        }
+
+        this.event = event;
+        ak = lauf.getAltersklasse(false);
+        disz = lauf.getDisziplin();
+        name = "";
+        gliederung = "";
+        startnummer = "";
+        maennlich = false;
+        qgld = "";
     }
 
     @Override
     public String toString() {
-        return "S#" + startnummer + " - " + name + " - " + gliederung + " Wettkampf " + event + " - Lauf " + lauf + " - Bahn " + bahn + " - " + disz + " - "
-                + ak + (maennlich ? " männlich" : " weiblich");
+        return "S#" + startnummer + " - " + name + " - " + gliederung + " Wettkampf " + event + " - Lauf " + lauf
+                + " - Bahn " + bahn + " - " + disz + " - " + ak + (maennlich ? " männlich" : " weiblich");
     }
 
     public String getAK() {

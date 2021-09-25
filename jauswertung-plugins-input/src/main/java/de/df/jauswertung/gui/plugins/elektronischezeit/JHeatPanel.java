@@ -172,9 +172,6 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 }
             });
             inputs[y].getDocument().addDocumentListener(new TimeListener(y));
-            // inputs[y].addKeyListener(nextHeatListener);
-            // inputs[y].getDocument().addDocumentListener(dl[x]);
-            // inputs[y].addFocusListener(fl[x]);
             inputs[y].setAutoSelectAll(true);
             inputs[y].setHorizontalAlignment(SwingConstants.RIGHT);
 

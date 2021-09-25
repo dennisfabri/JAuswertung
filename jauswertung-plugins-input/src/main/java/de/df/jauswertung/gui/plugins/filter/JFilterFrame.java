@@ -201,8 +201,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
         updateButtons();
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "EditFilters");
+        UIStateUtils.uistatemanage(parent, this, "EditFilters");
     }
 
     private void initPopup() {

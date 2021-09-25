@@ -51,8 +51,7 @@ class JStrafenkatalogDialog extends JDialog {
         initListeners();
 
         WindowUtils.setSize(this, 800, 600);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JStrafenkatalogDialog");
+        UIStateUtils.uistatemanage(parent, this, "JStrafenkatalogDialog");
     }
 
     @Override

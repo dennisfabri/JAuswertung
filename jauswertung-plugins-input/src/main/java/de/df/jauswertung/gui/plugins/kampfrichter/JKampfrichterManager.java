@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 
-import org.lisasp.legacy.uistate.UIStateManager;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -67,8 +66,7 @@ class JKampfrichterManager extends JGlassFrame {
         initMenu();
         pack();
         setSize(Math.max(getWidth(), 800), 600);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JKampfrichterManager");
+        UIStateUtils.uistatemanage(parent,this, "JKampfrichterManager");
 
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override
@@ -123,7 +121,6 @@ class JKampfrichterManager extends JGlassFrame {
 
     @Override
     public void setVisible(boolean v) {
-        UIStateManager.store(this);
         parent.setEnabled(!v);
         super.setVisible(v);
         if (!v) {

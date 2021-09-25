@@ -167,8 +167,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog i
         wizard.setFinishButtonEnabled(true);
 
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JNewHeatsWizard");
+        UIStateUtils.uistatemanage(parent, this, "JNewHeatsWizard");
     }
 
     @Override

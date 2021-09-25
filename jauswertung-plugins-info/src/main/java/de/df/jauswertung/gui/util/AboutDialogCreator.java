@@ -41,8 +41,7 @@ public final class AboutDialogCreator {
         }
 
         JAboutDialog about = new JAboutDialog(parent, I18n.get("About"), IconManager.getLogo(), c);
-        WindowUtils.center(about, parent);
-        UIStateUtils.uistatemanage(about, "JAuswertungAbout");
+        UIStateUtils.uistatemanage(parent, about, "JAuswertungAbout");
         return about;
     }
 

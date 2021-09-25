@@ -58,9 +58,7 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
         buildMenu();
         buildUI(wk);
         pack();
-        WindowUtils.center(this);
         setMinimumSize(new Dimension(400, 300));
-        WindowUtils.checkMinimumSize(this);
         UIStateUtils.uistatemanage(this, "JOWHeatsEditWindow");
     }
 

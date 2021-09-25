@@ -239,9 +239,7 @@ public final class InputManager {
             if ((ze != null) && (!ze.getName().equals("data.xml"))) {
                 return null;
             }
-            BufferedReader ois = new BufferedReader(new InputStreamReader(zis, "Cp1252"));
-            Object o = IOUtils.fromXML(ois);
-            ois.close();
+            Object o = IOUtils.fromXML(zis);
             return o;
         } catch (Exception ef) {
             return null;
@@ -250,11 +248,7 @@ public final class InputManager {
 
     public static synchronized Object ladeUnzippedObject(InputStream is) {
         try {
-            // Try to read XML-Data from file
-            BufferedReader ois = new BufferedReader(new InputStreamReader(is, "Cp1252"));
-            Object o = IOUtils.fromXML(ois);
-            ois.close();
-            return o;
+            return IOUtils.fromXML(is);
         } catch (Exception ef) {
             return null;
         }
@@ -280,8 +274,7 @@ public final class InputManager {
                     byte[] data = bis.toByteArray();
                     result.put(name, data);
                 } else {
-                    BufferedReader ois = new BufferedReader(new InputStreamReader(zis, "Cp1252"));
-                    Object o = IOUtils.fromXML(ois);
+                    Object o = IOUtils.fromXML(zis);
 
                     result.put("data.xml", o);
                 }

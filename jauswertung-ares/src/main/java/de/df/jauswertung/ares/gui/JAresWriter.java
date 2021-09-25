@@ -19,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.lisasp.legacy.uistate.UIStateManager;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -38,7 +37,7 @@ import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.WindowUtils;
+import de.df.jutils.gui.util.UIStateUtils;
 
 public class JAresWriter extends JFrame {
 
@@ -53,8 +52,7 @@ public class JAresWriter extends JFrame {
         setMinimumSize(new Dimension(400, 300));
         this.pack();
         setIconImages(IconManager.getTitleImages());
-        WindowUtils.center(this);
-        UIStateManager.manage(this);
+        UIStateUtils.uistatemanage(this);
     }
 
     private ModifiableListModel<FileLocation> filesmodel;

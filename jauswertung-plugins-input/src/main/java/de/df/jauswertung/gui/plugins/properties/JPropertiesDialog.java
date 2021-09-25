@@ -26,8 +26,7 @@ public final class JPropertiesDialog extends JOptionsDialog {
         setContent(properties);
         pack();
         setSize(Math.max(getWidth(), 650), Math.max(getHeight(), 800));
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JPropertiesDialog");
+        UIStateUtils.uistatemanage(parent, this, "JPropertiesDialog");
     }
 
     @Override

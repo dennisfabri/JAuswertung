@@ -42,8 +42,7 @@ public class JKampfrichterPositionEditor extends JDialog {
         initGUI();
         addActions();
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JKampfrichterPositionEditor");
+        UIStateUtils.uistatemanage(parent, this, "JKampfrichterPositionEditor");
     }
 
     private void addActions() {

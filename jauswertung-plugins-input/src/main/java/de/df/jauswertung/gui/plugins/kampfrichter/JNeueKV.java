@@ -73,8 +73,7 @@ class JNeueKV extends JDialog {
 
         setResizable(false);
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "NeueKampfrichtereinteilung");
+        UIStateUtils.uistatemanage(parent, this, "NeueKampfrichtereinteilung");
         pack();
         setSize(getWidth(), getHeight() + 40);
 

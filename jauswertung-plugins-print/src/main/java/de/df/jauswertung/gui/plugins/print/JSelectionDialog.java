@@ -248,8 +248,7 @@ public class JSelectionDialog {
             refreshDialog();
             dialog.pack();
             if (firstTime) {
-                WindowUtils.center(dialog, parent);
-                UIStateUtils.uistatemanage(dialog, JSelectionDialog.class.getName());
+                UIStateUtils.uistatemanage(parent, dialog, JSelectionDialog.class.getName());
                 dialog.pack();
 
                 firstTime = false;

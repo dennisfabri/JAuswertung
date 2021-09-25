@@ -57,8 +57,7 @@ class JStrafenkatalogFrame extends JFrame {
         initListeners();
 
         WindowUtils.setSize(this, 800, 600);
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JStrafenkatalogFrame");
+        UIStateUtils.uistatemanage(parent, this, "JStrafenkatalogFrame");
     }
 
     @Override

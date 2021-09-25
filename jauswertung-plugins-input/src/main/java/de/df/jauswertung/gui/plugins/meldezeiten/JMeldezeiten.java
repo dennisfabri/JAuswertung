@@ -118,7 +118,6 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
         showZeiten(0, false);
 
         pack();
-        WindowUtils.center(this, parent);
         setExtendedState(Frame.MAXIMIZED_BOTH);
         WindowUtils.addEscapeAction(this);
         WindowUtils.addEnterAction(this, new Runnable() {
@@ -127,7 +126,7 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
                 accept();
             }
         });
-        UIStateUtils.uistatemanage(this, "JMeldezeiten");
+        UIStateUtils.uistatemanage(parent, this, "JMeldezeiten");
     }
 
     private void showZeiten(int ak, boolean male) {
