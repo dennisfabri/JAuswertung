@@ -93,6 +93,10 @@ public final class IOUtils {
         detector.handleData(data);
         detector.dataEnd();
         String charset = detector.getDetectedCharset();
+        if (!StandardCharsets.UTF_8.displayName().equals(charset)) {
+            charset = "Cp1252";
+        }
+        log.debug(StandardCharsets.UTF_8.displayName());
         log.debug("Detected charset '{}'", charset);
 
         try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
@@ -109,7 +113,7 @@ public final class IOUtils {
         }
         if (!xml.startsWith("<?xml")) {
             try {
-                String prefix = "<?xml version=\"1.0\" encoding=\"" + charset + "\"?>\n";
+                String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
                 String xml2 = xml;
                 int index = xml2.indexOf('>');
                 if (index > 0) {

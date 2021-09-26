@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
 
@@ -27,11 +26,21 @@ public class FilesTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "default", "defaultm", "International - Ocean", "International - Ocean Mixed", 
+    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed", 
             "International - Pool", "International - Pool Mixed" })
-    void LadeStrafen(String name) {
+    void LadeStrafenEinzel(String name) {
         String filename = Path + "penalties/" + name;
         Strafen strafen = InputManager.ladeStrafen(filename, true);
+        assertNotNull(strafen);
+        assertTrue(0 < strafen.getKapitel().size());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed", 
+            "International - Pool", "International - Pool Mixed" })
+    void LadeStrafenMannschaft(String name) {
+        String filename = Path + "penalties/" + name;
+        Strafen strafen = InputManager.ladeStrafen(filename, false);
         assertNotNull(strafen);
         assertTrue(0 < strafen.getKapitel().size());
     }

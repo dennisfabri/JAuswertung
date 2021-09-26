@@ -239,8 +239,7 @@ public final class InputManager {
             if ((ze != null) && (!ze.getName().equals("data.xml"))) {
                 return null;
             }
-            Object o = IOUtils.fromXML(zis);
-            return o;
+            return IOUtils.fromXML(zis);
         } catch (Exception ef) {
             return null;
         }
