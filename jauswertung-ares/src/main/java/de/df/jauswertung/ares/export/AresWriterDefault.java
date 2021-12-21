@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -136,8 +137,8 @@ public class AresWriterDefault {
                     // int anschlaege = Math.max(1, laenge2 / 100 / anschlaegeJe100m);
                     int teilnehmer = isMannschaft ? 4 : 1;
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + teilnehmer);
-                    disziplinen.put(d.getName(), id);
-                    System.out.println(id + " -> " + d.getName() + " / " + disziplinen.get(d.getName()));
+                    disziplinen.put(d.getName().trim(), id);
+                    System.out.println(id + " -> " + d.getName() + " / " + disziplinen.get(d.getName().trim()));
                 }
             }
         }
@@ -188,9 +189,9 @@ public class AresWriterDefault {
         ps.println("idStyle;Style;StyleAbrév");
         Enumeration<String> dis = disziplinen.keys();
 
-        Hashtable<Integer, String> reverse = new Hashtable<Integer, String>();
+        HashMap<Integer, String> reverse = new HashMap<>();
 
-        LinkedList<Integer> ids = new LinkedList<Integer>();
+        LinkedList<Integer> ids = new LinkedList<>();
         while (dis.hasMoreElements()) {
             String d = dis.nextElement();
             int id = disziplinen.get(d);
@@ -203,6 +204,11 @@ public class AresWriterDefault {
         for (Integer id : ids) {
             String d = reverse.get(id);
             d = d.replace("\"", "");
+            for (String[] kv : laengen) {
+                if (d.startsWith(kv[0])) {
+                    d = d.replace(kv[0], kv[1]);
+                }
+            }
             String key = "";
             if (d.equalsIgnoreCase("4*25m Rettungsstaffel")) {
                 key = "RE";
@@ -238,6 +244,8 @@ public class AresWriterDefault {
                 key = "HI";
             } else if (d.equalsIgnoreCase("100m Lifesaver")) {
                 key = "LS";
+            } else if (d.equalsIgnoreCase("100m Retten mit Flossen und Gurtretter")) {
+                key = "FG";
             } else if (d.equalsIgnoreCase("100m Kombinierte Rettungsübung")) {
                 key = "KR";
             } else if (d.equalsIgnoreCase("200m Super-Lifesaver")) {
@@ -299,7 +307,7 @@ public class AresWriterDefault {
             // int ak = (lauf.isEmpty() ? 0 : lauf.getSchwimmer().getAKNummer());
             String akmw = (male ? "M" : "W");
 
-            Integer value = disziplinen.get(lauf.getDisziplin());
+            Integer value = disziplinen.get(lauf.getDisziplin().trim());
             if (value == null) {
                 System.out.println("Disziplin \"" + lauf.getDisziplin() + "\" wurde nicht gefunden.");
                 value = 0;
