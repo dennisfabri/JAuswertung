@@ -19,8 +19,8 @@ import de.df.jutils.util.*;
 
 public class RecordsUpdater {
 
-    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2019a.xlsx";
-    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2020.xls";
+    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2021.xlsx";
+    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2022.xls";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
@@ -40,11 +40,11 @@ public class RecordsUpdater {
         // importers.add(new CompetitionImporter("../../dm2013-mannschaft.wk", "DM2013"));
         // importers.add(new CompetitionImporter("../../dm2014-einzel.wk", "DM2014"));
         // importers.add(new CompetitionImporter("../../dm2014-mannschaft.wk", "DM2014"));
-        importers.add(new CompetitionImporter("dsm2019-einzel.wk", "DSM2019"));
-        importers.add(new CompetitionImporter("dsm2019-mannschaft.wk", "DSM2019"));
-        importers.add(new CompetitionImporter("dmm2019-einzel.wk", "DMM2019"));
-        importers.add(new CompetitionImporter("dmm2019-mannschaft.wk", "DMM2019"));
-        importers.add(new WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx", 2018));
+        // importers.add(new CompetitionImporter("dsm2019-einzel.wk", "DSM2019"));
+        // importers.add(new CompetitionImporter("dsm2019-mannschaft.wk", "DSM2019"));
+        importers.add(new CompetitionImporter("dmm2021-einzel.wk", "DMM2021"));
+        importers.add(new CompetitionImporter("dmm2021-mannschaft.wk", "DMM2021"));
+        // importers.add(new WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx", 2018));
 
         for (IImporter importer : importers) {
             importer.execute(records);
@@ -196,7 +196,7 @@ public class RecordsUpdater {
             Object[][] sheet = tables[i];
             boolean team = "Mannschaft".equals(title);
 
-            for (int row = 1; row < sheet.length; row++) {
+            for (int row = 2; row < sheet.length; row++) {
                 String competition = sheet[row][0].toString().trim();
                 String agegroup = sheet[row][1].toString().trim();
                 boolean male = ImportUtils.getMaennlich(sheet[row][2].toString().trim(), 2, row, title, "");

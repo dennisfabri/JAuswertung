@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
-		<version>16.0.2-SNAPSHOT</version>
+		<version>16.0.2</version>
 	</parent>
 	<artifactId>jauswertung-setup</artifactId>
 	<packaging>pom</packaging>
@@ -161,7 +159,7 @@
 								<artifactItem>
 									<groupId>de.dennisfabri.alphaserver</groupId>
 									<artifactId>alphaserver-server</artifactId>
-									<version>1.0.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<classifier>files</classifier>
 									<type>zip</type>
 									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
@@ -268,11 +266,8 @@
 						</goals>
 						<configuration>
 							<target>
-								<move
-									file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar"
-									tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar" />
-								<delete
-									file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
+								<move file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar" tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar" />
+								<delete file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
 								<delete file="${project.build.directory}/sha256sums" />
 								<delete file="${project.build.directory}/output.txt" />
 								<delete file="${project.build.directory}/updates.xml" />

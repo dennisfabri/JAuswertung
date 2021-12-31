@@ -18,7 +18,7 @@ public class CompetitionImporter implements IImporter {
     private final String competition;
 
     public CompetitionImporter(String filename, String competition) {
-        this.filename = "../../required/archive/"+filename;
+        this.filename = "src/test/resources/competitions/"+filename;
         this.competition = competition;
     }
 

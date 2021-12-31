@@ -6,7 +6,7 @@
 
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>16.0.2-SNAPSHOT</version>
+	<version>16.0.2</version>
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>

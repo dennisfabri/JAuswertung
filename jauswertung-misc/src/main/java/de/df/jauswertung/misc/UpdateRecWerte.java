@@ -8,20 +8,25 @@ import de.df.jauswertung.io.*;
 
 public class UpdateRecWerte {
 
+    private static final int YEAR = 2022;
+
+    private static final String PathToCsv = "src\\test\\resources\\rec-werte\\";
+    private static final String PathToRulebook = "..\\jauswertung-files\\src\\main\\resources\\aks\\";
+
     /**
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        recwerte("..\\..\\..\\src\\test\\resources\\rec-werte\\Rec-Werte %s Einzel.csv", "aks\\DLRG %s.rwe", "Regelwerk %s", 2021);
-        recwerte("..\\..\\..\\src\\test\\resources\\rec-werte\\Rec-Werte %s Mannschaft.csv", "aks\\DLRG %s.rwm", "Regelwerk %s",
-                2021);
+        // recwerte(PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG
+        // %s.rwe", "Regelwerk %s", YEAR);
+        recwerte(PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
     }
 
     private static void recwerte(String werte, String regelwerk, String beschreibung, int jahr) throws IOException {
         recwerte(String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
     }
 
-    private static void recwerte(String werte, String regelwerk, String beschreibung) throws IOException {
+    private static void recwerte(String werte, String regelwerk, String beschreibung) {
         System.out.println("Importiere \"" + werte + "\"");
         Regelwerk rw = (Regelwerk) InputManager.ladeObject(regelwerk);
 
@@ -39,15 +44,18 @@ public class UpdateRecWerte {
         for (int x = 1; x < table.length; x++) {
             try {
                 Object[] row = table[x];
-                int index = rw.getIndex(row[1].toString());
-                // System.out.println(row[2].toString() + " -> "+index);
+                String agegroup = fixAgegroupName(row[1]);
+                String discipline = fixDisciplineName(row[2]);
+
+                int index = rw.getIndex(agegroup);
+                // System.out.println(agegroup + "/" + discipline + " -> " + index);
                 Altersklasse ak = rw.getAk(index);
-                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(row[2]);
+                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(discipline);
                 String disziplin = row[3].toString();
                 int zeit = de.df.jauswertung.io.ImportUtils.getTime(row[4]);
                 int dindex = de.df.jauswertung.io.ImportUtils.getDisciplineIndex(ak, disziplin);
                 Disziplin dz = ak.getDisziplin(dindex, maennlich);
-                System.out.println(row[1].toString() + " " + row[2] + " - " + disziplin + " -> " + zeit);
+                System.out.println(agegroup + " " + discipline + " - " + disziplin + " -> " + zeit);
                 dz.setRec(zeit);
             } catch (Exception ex) {
                 System.out.println("Konnte Zeile " + x + " nicht verarbeiten.");
@@ -77,5 +85,13 @@ public class UpdateRecWerte {
         OutputManager.speichereObject(regelwerk, rw);
 
         System.out.println("Fertig");
+    }
+
+    private static String fixDisciplineName(Object disciplineName) {
+        return disciplineName.toString().replace("0 m", "0m").replace("5 m", "5m");
+    }
+
+    private static String fixAgegroupName(Object agegroupName) {
+        return agegroupName.toString().replace("0 m", "0m").replace("5 m", "5m");
     }
 }
