@@ -23,66 +23,56 @@ public class PunkteRechnerExport {
         Regelwerk einzel = AgeGroupIOUtils.getDefaultAKs(true);
         Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
-        int jahr = 2021;
-        
-        // System.out.println("Einzel");
-        write(einzel, jahr, "e");
-        // System.out.println("Mannschaft");
-        write(mannschaft, jahr, "m");
+        int jahr = 2022;
 
-        System.out.println(String.format("$recs[%s] = array(\"e\" => $rec%se, \"m\" => $rec%sm);", jahr, jahr, jahr));
+        // System.out.println("Einzel");
+        System.out.println("  new Year(" + jahr + ", [");
+
+        write(einzel, jahr, "Types.individual");
+        // System.out.println("Mannschaft");
+        write(mannschaft, jahr, "Types.team");
+
+        System.out.println("  ]),");
+        // System.out.println(String.format("$recs[%s] = array(\"e\" => $rec%se, \"m\" => $rec%sm);", jahr, jahr, jahr));
     }
 
     private static void write(Regelwerk aks, int year, String suffix) {
+
         StringBuilder sb = new StringBuilder();
-        sb.append("$rec" + year + suffix + " = array(\n");
         for (int x = 0; x < aks.size(); x++) {
-            // int a = aks.getIndex(ids[x]);
             Altersklasse ak = aks.getAk(x);
 
-            // sb.setLength(0);
-            sb.append("        array(\"");
+            sb.append("    new Agegroup(" + suffix + ", \"");
             sb.append(ak.getName());
             sb.append("\", ");
             if (ak.isDisciplineChoiceAllowed()) {
                 sb.append(ak.getUsedDisciplines());
             } else {
-                sb.append(-1);
+                sb.append(ak.getDiszAnzahl());
             }
-            sb.append(", array(");
+            sb.append(", [\n");
             for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-                sb.append(((double) ak.getDisziplin(y, false).getRec()) / 100);
-                if (y + 1 < ak.getDiszAnzahl()) {
-                    sb.append(", ");
-                }
-            }
-            sb.append("), array(");
-            for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-                sb.append(((double) ak.getDisziplin(y, true).getRec()) / 100);
-                if (y + 1 < ak.getDiszAnzahl()) {
-                    sb.append(", ");
-                }
-            }
-            sb.append("), array(");
-            for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-                sb.append("\"");
+                sb.append("      new Discipline(\"");
                 sb.append(ak.getDisziplin(y, false).getName());
-                sb.append("\"");
-                if (y + 1 < ak.getDiszAnzahl()) {
-                    sb.append(", ");
-                }
+                sb.append("\", [\n");
+                sb.append("        new Record(Sexes.female, ");
+                sb.append(((double) ak.getDisziplin(y, false).getRec()) / 100);
+                sb.append("),\n");
+                sb.append("        new Record(Sexes.male, ");
+                sb.append(((double) ak.getDisziplin(y, true).getRec()) / 100);
+                sb.append("),\n");
+                sb.append("      ]),\n");
             }
-            sb.append(")),\n");
+            sb.append("    ]),\n");
         }
-        sb.append("    );\n");
         String text = sb.toString();
-        text = text.replace("ä", "&auml;");
-        text = text.replace("ö", "&ouml;");
-        text = text.replace("ü", "&uuml;");
-        text = text.replace("Ä", "&Auml;");
-        text = text.replace("Ö", "&Ouml;");
-        text = text.replace("Ü", "&Uuml;");
-        text = text.replace("ß", "&szlig;");
+        //text = text.replace("ä", "&auml;");
+        //text = text.replace("ö", "&ouml;");
+        //text = text.replace("ü", "&uuml;");
+        //text = text.replace("Ä", "&Auml;");
+        //text = text.replace("Ö", "&Ouml;");
+        //text = text.replace("Ü", "&Uuml;");
+        //text = text.replace("ß", "&szlig;");
         System.out.print(text);
     }
 }

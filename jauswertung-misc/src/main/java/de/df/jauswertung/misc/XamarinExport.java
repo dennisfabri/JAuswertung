@@ -26,10 +26,10 @@ public class XamarinExport {
         Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
         // System.out.println("Einzel");
-        write("2020", einzel, "Single", true, true);
+        write("2022", einzel, "Single", true, true);
         // write("2017", einzel, "Single", false);
         // System.out.println("Mannschaft");
-        write("2020", mannschaft, "Team", true, true);
+        write("2022", mannschaft, "Team", true, true);
         // write("2017", mannschaft, "Team", false);
     }
 
