@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="9.0.5" transformSequenceNumber="9">
-  <directoryPresets config="../target" />
-  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shrinkRuntime="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.0.2" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="17" jdkMode="jdk" jdkName="JDK 17">
+  <directoryPresets config="./global.vmoptions" />
+  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shrinkRuntime="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.0.3" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="17" jdkMode="jdk" jdkName="JDK 17">
     <languages>
       <principalLanguage id="de" />
     </languages>
@@ -26,6 +26,7 @@
     </mountPoints>
     <entries>
       <dirEntry mountPoint="58" file="../target/distribution/main" subDirectory="distribute" excludeSuffixes="*.log" />
+      <fileEntry mountPoint="58" file="global.vmoptions" />
       <dirEntry mountPoint="897" file="../target/distribution/windows" subDirectory="windows" />
       <dirEntry mountPoint="1023" file="../target/distribution/linux" subDirectory="linux" />
       <dirEntry mountPoint="1024" file="../target/distribution/macos" subDirectory="macos" />
@@ -77,12 +78,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -106,12 +109,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -135,12 +140,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -172,12 +179,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -201,12 +210,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -230,12 +241,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -259,12 +272,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -288,12 +303,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -317,12 +334,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -344,12 +363,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/alphaserver-16.png" />
@@ -374,12 +395,14 @@
         <content># Enter one VM parameter per line
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xms64m
--Xmx1024m
---add-opens java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-opens java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
---add-exports java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -1067,7 +1090,7 @@ return console.askYesNo(message, true);
         </modules>
       </jreBundle>
     </windows>
-    <macosFolder name="macOS Folder" id="63" customizedId="macos" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
+    <macosFolder name="MacOS" id="63" customizedId="macos" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup" architecture="universal">
       <excludedComponents>
         <component id="899" />
         <component id="1027" />
@@ -1082,7 +1105,7 @@ return console.askYesNo(message, true);
         </modules>
       </jreBundle>
     </macosFolder>
-    <unixInstaller name="Unix Installer" id="64" customizedId="unix" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
+    <unixInstaller name="Unix" id="64" customizedId="unix" mediaFileName="${compiler:sys.shortName}-${compiler:sys.version}-Setup">
       <excludedComponents>
         <component id="899" />
         <component id="1028" />
@@ -1095,7 +1118,7 @@ return console.askYesNo(message, true);
     </unixInstaller>
   </mediaSets>
   <buildIds buildAll="false">
-    <mediaSet refId="583" />
+    <mediaSet refId="63" />
   </buildIds>
   <buildOptions verbose="true" />
 </install4j>
