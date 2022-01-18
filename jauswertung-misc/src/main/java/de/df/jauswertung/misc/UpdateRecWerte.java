@@ -17,8 +17,7 @@ public class UpdateRecWerte {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        // recwerte(PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG
-        // %s.rwe", "Regelwerk %s", YEAR);
+        recwerte(PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG %s.rwe", "Regelwerk %s", YEAR);
         recwerte(PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
     }
 

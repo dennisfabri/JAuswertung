@@ -27,9 +27,9 @@ public class Record implements Serializable {
 
     public boolean update(String newCompetition, int newTime, String newName) {
         setMatched(true);
-        if (newTime >= this.time && this.time > 0) {
+        if (newTime >= this.time && this.time > 0 && !this.name.equalsIgnoreCase("geschätzt")) {
             return false;
-        }
+        }        
         setCompetition(newCompetition);
         setTime(newTime);
         setName(newName);

@@ -53,7 +53,7 @@ public class CompetitionImporter implements IImporter {
                     Collections.sort(swimmer, new ZeitenVergleicher(z));
                     for (ASchwimmer s : swimmer) {
                         Disziplin d = ak.getDisziplin(z, y == 1);
-                        if ((true || s.getZeit(z) < d.getRec()) && (s.getZeit(z) > 0) && !s.getAkkumulierteStrafe(z).isStrafe()) {
+                        if ((s.getZeit(z) > 0) && !s.getAkkumulierteStrafe(z).isStrafe()) {
                             Object[] data = new Object[8];
                             data[0] = s.getName();
                             Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);

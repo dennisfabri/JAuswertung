@@ -19,8 +19,8 @@ import de.df.jutils.util.*;
 
 public class RecordsUpdater {
 
-    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2021.xlsx";
-    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2022.xls";
+    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2022v2.xlsx";
+    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2022v2.xls";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
@@ -42,6 +42,8 @@ public class RecordsUpdater {
         // importers.add(new CompetitionImporter("../../dm2014-mannschaft.wk", "DM2014"));
         // importers.add(new CompetitionImporter("dsm2019-einzel.wk", "DSM2019"));
         // importers.add(new CompetitionImporter("dsm2019-mannschaft.wk", "DSM2019"));
+        // importers.add(new CompetitionImporter("dem2021-einzel.wk", "DEM2021"));
+        // importers.add(new CompetitionImporter("dem2021-mannschaft.wk", "DEM2021"));
         importers.add(new CompetitionImporter("dmm2021-einzel.wk", "DMM2021"));
         importers.add(new CompetitionImporter("dmm2021-mannschaft.wk", "DMM2021"));
         // importers.add(new WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx", 2018));
