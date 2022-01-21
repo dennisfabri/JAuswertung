@@ -13,7 +13,7 @@ import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.util.Feedback;
 
-public class TeammembersExporter implements IExporter {
+public class TeammembersExporter extends EmptyExporter {
 
     @Override
     public boolean isSupported(int type) {
@@ -28,61 +28,6 @@ public class TeammembersExporter implements IExporter {
     @Override
     public String[] getSuffixes() {
         return new String[] { "wkmm" };
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean registration(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heats(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean penalties(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 
     @Override
@@ -110,21 +55,10 @@ public class TeammembersExporter implements IExporter {
             Mannschaftsmitgliedermeldung mm = new Mannschaftsmitgliedermeldung(mwk);
             try {
                 return OutputManager.speichereObject(name, mm);
-                // IOUtils.toXML(mm, name);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return false;
     }
 }

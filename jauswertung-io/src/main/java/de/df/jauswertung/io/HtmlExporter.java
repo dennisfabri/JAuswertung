@@ -20,7 +20,7 @@ import de.df.jutils.util.Feedback;
 /**
  * @author Fabri
  */
-public class HtmlExporter implements IExporter {
+public class HtmlExporter extends EmptyExporter {
 
     @Override
     public String[] getSuffixes() {
@@ -35,9 +35,6 @@ public class HtmlExporter implements IExporter {
     @Override
     public boolean isSupported(int type) {
         switch (type) {
-        // case HEATLIST:
-        // case HLWLIST:
-        // case RESULTS_AG:
         case REGISTRATION:
         case RESULTS:
         case PENALTIES:
@@ -47,11 +44,6 @@ public class HtmlExporter implements IExporter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#registration(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean registration(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         try {
@@ -67,50 +59,6 @@ public class HtmlExporter implements IExporter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#heats(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean heats(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateHeats(wk);
-            fb.showFeedback(I18n.get("WritingHtml"));
-            Transform.writeHtmlDocument(name, "xsl/heats.xsl", d);
-            name.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#hlw(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateZW(wk);
-            fb.showFeedback(I18n.get("WritingHtml"));
-            Transform.writeHtmlDocument(name, "xsl/zw.xsl", d);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#results(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         try {
@@ -126,50 +74,6 @@ public class HtmlExporter implements IExporter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#startkarten(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateStartkarten(wk);
-            fb.showFeedback(I18n.get("WritingHtml"));
-            Transform.writeHtmlDocument(name, "xsl/startkarten.xsl", d);
-            name.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    /**
-     * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
-     * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
-     * @return Erfolgsmeldung
-     */
-    @Override
-    public synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
     @Override
     public <T extends ASchwimmer> boolean penalties(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         try {
@@ -183,30 +87,5 @@ public class HtmlExporter implements IExporter {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean teammembers(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 }

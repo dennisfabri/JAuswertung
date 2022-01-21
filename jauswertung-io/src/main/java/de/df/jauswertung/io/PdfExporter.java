@@ -47,7 +47,7 @@ import de.df.jutils.util.Feedback;
  * @author Dennis Fabri
  * @date 16.01.2005
  */
-public class PdfExporter implements IExporter {
+public class PdfExporter extends EmptyExporter {
 
     @Override
     public String[] getSuffixes() {
@@ -79,11 +79,6 @@ public class PdfExporter implements IExporter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#registration(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean registration(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         LinkedList<T> schwimmer = wk.getSchwimmer();
@@ -100,11 +95,6 @@ public class PdfExporter implements IExporter {
                 true, fb);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#heats(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean heats(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         JTable table = TableHeatUtils.getLaufliste(wk, PrintUtils.printEmptyLanes);
@@ -112,22 +102,12 @@ public class PdfExporter implements IExporter {
                 wk.getLastChangedDate(), I18n.get("Laufliste"), I18n.get("Laufliste")), false, fb);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#hlw(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         Printable p = PrintManager.getPrintable(TableZWUtils.getZWUebersicht(wk), (String) null, JTablePrintable.OPT_ALL, true, true);
         return PdfOutput.write(name, PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("ZWList"), I18n.get("ZWList")), false, fb);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#results(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return PdfOutput.write(name,
@@ -135,11 +115,6 @@ public class PdfExporter implements IExporter {
                 false, fb);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see de.df.jauswertung.io.Exporter#startkarten(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
     @Override
     public <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return PdfOutput.write(name, new StartkartenPrintable(wk, PageMode.FOUR_PER_PAGE, PrintUtils.printEmptyCards, true, 0, 0), true, fb);
@@ -180,11 +155,6 @@ public class PdfExporter implements IExporter {
     }
 
     @Override
-    public <T extends ASchwimmer> boolean teammembers(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
     public <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         ExtendedTableModel[] etm = DataTableUtils.zusatzwertungResults(wk, fb, PrintUtils.printZWnames);
         if (etm == null) {
@@ -202,15 +172,5 @@ public class PdfExporter implements IExporter {
         }
         return PdfOutput.write(name, PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("SchnellsteZeiten"), I18n.get("SchnellsteZeiten")),
                 true, fb);
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 }

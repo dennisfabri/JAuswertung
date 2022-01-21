@@ -55,9 +55,9 @@ import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 
 /**
- * @author Fabri
+ * @author Dennis Fabri
  */
-public class XmlExporter implements IExporter {
+public class XmlExporter extends EmptyExporter {
 
     private static DecimalFormat doubleFormat;
     private static DecimalFormat integerFormat;
@@ -71,19 +71,6 @@ public class XmlExporter implements IExporter {
         integerFormat.setMaximumFractionDigits(0);
         integerFormat.setMinimumFractionDigits(0);
         integerFormat.setDecimalSeparatorAlwaysShown(false);
-    }
-
-    public static <T extends ASchwimmer> Document generateHeats(AWettkampf<T> wk) throws ParserConfigurationException {
-        throw new ParserConfigurationException();
-    }
-
-    public static <T extends ASchwimmer> Document generateZW(AWettkampf<T> wk) throws ParserConfigurationException {
-        throw new ParserConfigurationException();
-    }
-
-    public static <T extends ASchwimmer> Document generateCompetition(AWettkampf<T> wk)
-            throws ParserConfigurationException {
-        throw new ParserConfigurationException();
     }
 
     public static <T extends ASchwimmer> Document generateResults(AWettkampf<T> wk)
@@ -184,11 +171,6 @@ public class XmlExporter implements IExporter {
             competition.appendChild(e);
         }
         return xmldoc;
-    }
-
-    public static <T extends ASchwimmer> Document generateStartkarten(AWettkampf<T> wk)
-            throws ParserConfigurationException {
-        throw new ParserConfigurationException();
     }
 
     public static <T extends ASchwimmer> Document generateRegistration(AWettkampf<T> wk)
@@ -300,77 +282,10 @@ public class XmlExporter implements IExporter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.io.Exporter#heats(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean heats(OutputStream out, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateHeats(wk);
-            fb.showFeedback(I18n.get("WritingXml"));
-            Transform.transformDocument2XML(out, null, d);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.io.Exporter#hlw(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertung(OutputStream out, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateZW(wk);
-            fb.showFeedback(I18n.get("WritingXml"));
-            Transform.transformDocument2XML(out, null, d);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.io.Exporter#results(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
     public <T extends ASchwimmer> boolean results(OutputStream out, AWettkampf<T> wk, Feedback fb) {
         try {
             fb.showFeedback(I18n.get("CollectingData"));
             Document d = XmlExporter.generateResults(wk);
-            fb.showFeedback(I18n.get("WritingXml"));
-            Transform.transformDocument2XML(out, null, d);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.io.Exporter#startkarten(java.lang.String,
-     * de.df.jauswertung.daten.Wettkampf)
-     */
-    @Override
-    public <T extends ASchwimmer> boolean startkarten(OutputStream out, AWettkampf<T> wk, Feedback fb) {
-        try {
-            fb.showFeedback(I18n.get("CollectingData"));
-            Document d = XmlExporter.generateStartkarten(wk);
             fb.showFeedback(I18n.get("WritingXml"));
             Transform.transformDocument2XML(out, null, d);
             return true;
@@ -447,7 +362,7 @@ public class XmlExporter implements IExporter {
                 String pointsText = doubleFormat.format(results[i].getPoints());
 
                 if (quali > 0) {
-                    SchwimmerData[] daten = results[i].getResults();
+                    SchwimmerData<T>[] daten = results[i].getResults();
                     int place = results[i].getPlace();
                     Strafe strafe = daten[0].getStrafe();
                     boolean hasWithdrawn = strafe == null || !strafe.isWithdraw();
@@ -868,50 +783,5 @@ public class XmlExporter implements IExporter {
         e.setAttributeNS(null, "single", wk instanceof EinzelWettkampf ? "true" : "false");
         root.appendChild(e);
         return e;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    /**
-     * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
-     * 
-     * @param name Name der Datei @param wk Wettkampf @return Erfolgsmeldung
-     */
-    @Override
-    public synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean teammembers(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 }

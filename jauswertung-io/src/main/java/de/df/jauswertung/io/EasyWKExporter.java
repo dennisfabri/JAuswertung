@@ -21,7 +21,7 @@ import de.df.jutils.util.Feedback;
  * 
  * @author dennis
  */
-public class EasyWKExporter implements IExporter {
+public class EasyWKExporter extends EmptyExporter {
 
     @Override
     public final boolean isSupported(int type) {
@@ -33,83 +33,9 @@ public class EasyWKExporter implements IExporter {
         }
     }
 
-    @Override
-    public final synchronized <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean registration(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
     private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows, int repeatcols, String competition)
             throws IOException {
         write(name, new ExtendedTableModel[] { tm }, groupsize, repeatrows, repeatcols, competition);
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean heats(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    /**
-     * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
-     * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
-     * @return Erfolgsmeldung
-     */
-    @Override
-    public final synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean penalties(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean teammembers(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 
     @Override
@@ -136,8 +62,6 @@ public class EasyWKExporter implements IExporter {
     private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
             throws IOException {
         CsvUtils.write(name, tms[0]);
-
-        // ExcelWriter.write(name, tms, groupsize, repeatrows, repeatcols, competition);
     }
 
     /*

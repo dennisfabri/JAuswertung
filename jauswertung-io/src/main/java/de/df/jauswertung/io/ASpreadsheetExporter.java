@@ -61,7 +61,7 @@ import de.df.jutils.util.NullFeedback;
  * 
  * @author dennis
  */
-public abstract class ASpreadsheetExporter implements IExporter {
+public abstract class ASpreadsheetExporter extends EmptyExporter {
 
     /**
      * Diese Methode organisiert den Export in Excel-Dateien
@@ -578,16 +578,6 @@ public abstract class ASpreadsheetExporter implements IExporter {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public final <T extends ASchwimmer> boolean penalties(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 
     @Override

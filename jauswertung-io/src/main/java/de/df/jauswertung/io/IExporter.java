@@ -31,6 +31,8 @@ public interface IExporter {
 
     <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
+    <T extends ASchwimmer> boolean zeiten(OutputStream name, AWettkampf<T> wk, Feedback fb);
+
     <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
     <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb);

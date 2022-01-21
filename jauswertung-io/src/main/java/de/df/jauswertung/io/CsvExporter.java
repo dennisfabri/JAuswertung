@@ -36,7 +36,7 @@ import de.df.jutils.util.Feedback;
 /**
  * @author dennis
  */
-public class CsvExporter implements IExporter {
+public class CsvExporter extends EmptyExporter {
 
     public static boolean excelmode = true;
 
@@ -292,16 +292,6 @@ public class CsvExporter implements IExporter {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean penalties(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
     }
 
     @Override
