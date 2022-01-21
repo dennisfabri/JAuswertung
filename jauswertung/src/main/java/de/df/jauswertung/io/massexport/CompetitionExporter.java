@@ -20,6 +20,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.OWUtils;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.util.CompetitionUtils;
@@ -61,16 +62,16 @@ class CompetitionExporter {
                 }
             }
             formats = fx.toArray(new String[fx.size()]);
-            for (int x = 0; x < ExportManager.NAMES.length; x++) {
-                if (ExportManager.isEnabled(wk, x)) {
-                    if (!ExportManager.NAMES[x].equals(I18n.get("Weitermeldung"))) {
+            for (ImportExportTypes type : ImportExportTypes.values()) {
+                if (ExportManager.isEnabled(wk, type)) {
+                    if (!ExportManager.NAMES[type.getValue()].equals(I18n.get("Weitermeldung"))) {
                         for (String format : formats) {
                             if (!("PDF".equals(format) || "Zipped HTML".equals(format))) {
-                                if (ExportManager.isSupported(format, x)) {
-                                    String name = destination + ExportManager.NAMES[x] + "." + ExportManager.getSuffixes(format)[0];
-                                    String tmp = destination + ExportManager.NAMES[x] + "." + ExportManager.getSuffixes(format)[0] + ".tmp";
+                                if (ExportManager.isSupported(format, type)) {
+                                    String name = destination + ExportManager.NAMES[type.getValue()] + "." + ExportManager.getSuffixes(format)[0];
+                                    String tmp = destination + ExportManager.NAMES[type.getValue()] + "." + ExportManager.getSuffixes(format)[0] + ".tmp";
                                     System.out.print(".");
-                                    ExportManager.export(x, tmp, format, wk, nf);
+                                    ExportManager.export(type, tmp, format, wk, nf);
                                     File dest = new File(name);
                                     while (dest.exists()) {
                                         dest.delete();

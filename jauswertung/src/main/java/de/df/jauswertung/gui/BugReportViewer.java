@@ -20,6 +20,7 @@ import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.DefaultInit;
@@ -65,7 +66,7 @@ public final class BugReportViewer {
             }
             try {
                 if (((AWettkampf) o).hasSchwimmer()) {
-                    ExportManager.export(ExportManager.RESULTS, "../../../../results.html", "HTML", (AWettkampf) o, null);
+                    ExportManager.export(ImportExportTypes.RESULTS, "../../../../results.html", "HTML", (AWettkampf) o, null);
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();

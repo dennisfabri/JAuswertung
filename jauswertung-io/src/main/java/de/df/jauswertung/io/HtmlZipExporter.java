@@ -3,9 +3,6 @@
  */
 package de.df.jauswertung.io;
 
-import static de.df.jauswertung.io.ExportManager.REGISTRATION;
-import static de.df.jauswertung.io.ExportManager.RESULTS;
-
 import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -36,7 +33,7 @@ public class HtmlZipExporter extends EmptyExporter {
     }
 
     @Override
-    public boolean isSupported(int type) {
+    public boolean isSupported(ImportExportTypes type) {
         switch (type) {
         // case HEATLIST:
         // case HLWLIST:

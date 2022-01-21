@@ -35,6 +35,7 @@ import de.df.jauswertung.gui.plugins.upload.dto.SexTeam;
 import de.df.jauswertung.gui.plugins.upload.dto.Team;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
@@ -275,7 +276,7 @@ public class MUploadPlugin extends ANullPlugin {
 
     private byte[] createPdf(AWettkampf<?> wk) throws IOException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            boolean result = ExportManager.export("PDF", out, ExportManager.PROTOCOL, wk, null);
+            boolean result = ExportManager.export("PDF", out, ImportExportTypes.PROTOCOL, wk, null);
             if (result) {
                 return out.toByteArray();
             } else {

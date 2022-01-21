@@ -17,11 +17,12 @@ public class ErzeugeExports {
         AWettkampf wk = InputManager.ladeWettkampf("Einzel 1.wk");
         String[] namen = ExportManager.getSupportedFormats();
         for (String aNamen : namen) {
-            for (int y = 0; y < ExportManager.NAMES.length; y++) {
+            for (ImportExportTypes type : ImportExportTypes.values()) {
+                int y = type.getValue();
                 String name = "../../test/" + ExportManager.NAMES[y] + "." + ExportManager.getSuffixes(aNamen)[0];
-                if (ExportManager.isSupported(aNamen, y)) {
+                if (ExportManager.isSupported(aNamen, type)) {
                     try {
-                        ExportManager.export(y, name, aNamen, wk, nf);
+                        ExportManager.export(type, name, aNamen, wk, nf);
                     } catch (Exception e) {
                         // Nothing to do
                     }

@@ -159,12 +159,12 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public boolean isSupported(int type) {
+    public boolean isSupported(ImportExportTypes type) {
         switch (type) {
-        case ImportManager.ZWRESULTS:
-        case ImportManager.REGISTRATION:
-        case ImportManager.TEAMMEMBERS:
-        case ImportManager.REFEREES:
+        case ZW_RESULTS:
+        case REGISTRATION:
+        case TEAMMEMBERS:
+        case REFEREES:
             return true;
         default:
             return false;

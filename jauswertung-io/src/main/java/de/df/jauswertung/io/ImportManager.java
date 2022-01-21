@@ -7,10 +7,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Set;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -33,26 +36,12 @@ import de.df.jutils.util.Tupel;
  */
 public class ImportManager {
 
-    public static final int              NOTHING      = -1;
+    private static ImportManager manager = new ImportManager();
 
-    public static final int              REGISTRATION = 0;
-    public static final int              HEATLIST     = 1;
-    public static final int              ZWLIST       = 2;
-    public static final int              RESULTS      = 3;
-    public static final int              ZWRESULTS    = 4;
-    public static final int              REFEREES     = 5;
-    public static final int              TEAMMEMBERS  = 6;
-    public static final int              HEATTIMES    = 7;
-
-    public static final String[]         NAMES        = new String[] { I18n.get("Registrations"), I18n.get("Laufliste"), I18n.get("ZWList"),
-            I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Referees"), I18n.get("Teammembers"), I18n.get("Heattimes") };
-
-    private static ImportManager         manager      = new ImportManager();
-
-    private Hashtable<String, IImporter> importers;
+    private HashMap<String, IImporter> importers;
 
     public ImportManager() {
-        importers = new Hashtable<String, IImporter>();
+        importers = new HashMap<>();
         put(new CsvImporter());
         put(new ExcelImporter());
         put(new EasyWKImporter());
@@ -111,7 +100,7 @@ public class ImportManager {
         return manager;
     }
 
-    public static <T extends ASchwimmer> boolean isEnabled(AWettkampf<T> wk, int datatype) {
+    public static <T extends ASchwimmer> boolean isEnabled(AWettkampf<T> wk, ImportExportTypes datatype) {
         if (wk == null) {
             return false;
         }
@@ -120,7 +109,7 @@ public class ImportManager {
         }
         switch (datatype) {
         case ZWLIST:
-        case ZWRESULTS:
+        case ZW_RESULTS:
             return (wk.hasHLW());
         case HEATLIST:
         case REGISTRATION:
@@ -137,15 +126,18 @@ public class ImportManager {
         }
     }
 
-    public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is, int datatype, AWettkampf<T> wk, Feedback fb)
-            throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException, IOException {
+    public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
+            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb)
+            throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException,
+            TableEntryException, TableException, IOException {
         return importData(importer, is, datatype, wk, fb, null, "");
     }
 
     @SuppressWarnings({ "unchecked" })
-    public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is, int datatype, AWettkampf<T> wk, Feedback fb, Object data,
-            String filename)
-            throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException, IOException {
+    public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
+            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, Object data, String filename)
+            throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException,
+            TableEntryException, TableException, IOException {
         if (importer == null) {
             throw new NullPointerException();
         }
@@ -174,7 +166,7 @@ public class ImportManager {
             return importer.referees(is, wk, fb);
         case TEAMMEMBERS:
             return importer.teammembers(is, wk, fb);
-        case ZWRESULTS:
+        case ZW_RESULTS:
             return importer.zusatzwertungResults(is, wk, fb);
         case HEATTIMES:
             return importer.heattimes(is, wk, fb);
@@ -183,8 +175,9 @@ public class ImportManager {
         }
     }
 
-    public static <T extends ASchwimmer> Object importData(int datatype, String filename, String format, AWettkampf<T> wk, Feedback fb)
-            throws IOException, NullPointerException, NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException {
+    public static <T extends ASchwimmer> Object importData(ImportExportTypes datatype, String filename, String format,
+            AWettkampf<T> wk, Feedback fb) throws IOException, NullPointerException, NotSupportedException,
+            NotEnabledException, TableFormatException, TableEntryException, TableException {
         IImporter e = getImporter(format);
         if (e == null) {
             throw new NullPointerException();
@@ -202,8 +195,9 @@ public class ImportManager {
         return result;
     }
 
-    public static <T extends ASchwimmer> Object importData(int datatype, String[] filenames, String format, AWettkampf<T> wk, Feedback fb)
-            throws IOException, NullPointerException, NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException {
+    public static <T extends ASchwimmer> Object importData(ImportExportTypes datatype, String[] filenames,
+            String format, AWettkampf<T> wk, Feedback fb) throws IOException, NullPointerException,
+            NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException {
         IImporter e = getImporter(format);
         if (e == null) {
             throw new NullPointerException();
@@ -224,7 +218,8 @@ public class ImportManager {
     }
 
     @SuppressWarnings({ "unchecked" })
-    public static <T extends ASchwimmer> Object finishImport(int datatype, AWettkampf<T> wk, Object data, Feedback fb) {
+    public static <T extends ASchwimmer> Object finishImport(ImportExportTypes datatype, AWettkampf<T> wk, Object data,
+            Feedback fb) {
         if (!isEnabled(wk, datatype)) {
             return null;
         }
@@ -273,7 +268,7 @@ public class ImportManager {
             }
             return true;
         }
-        case ZWRESULTS: {
+        case ZW_RESULTS: {
             Hashtable<Tupel<Integer, Integer>, Double> names = (Hashtable<Tupel<Integer, Integer>, Double>) data;
             Enumeration<Tupel<Integer, Integer>> keys = names.keys();
             while (keys.hasMoreElements()) {
@@ -327,18 +322,18 @@ public class ImportManager {
     }
 
     public static String[] getSupportedFormats() {
-        Enumeration<String> keys = manager.importers.keys();
+        Set<String> keys = manager.importers.keySet();
         String[] types = new String[manager.importers.size()];
         int x = 0;
-        while (keys.hasMoreElements()) {
-            types[x] = keys.nextElement();
+        for (String key : keys) {
+            types[x] = key;
             x++;
         }
         Arrays.sort(types);
         return types;
     }
 
-    public static boolean isSupported(String format, int type) {
+    public static boolean isSupported(String format, ImportExportTypes type) {
         IImporter e = getImporter(format);
         if (e == null) {
             return false;
@@ -346,7 +341,7 @@ public class ImportManager {
         return e.isSupported(type);
     }
 
-    public static boolean isMultifileImportAllowed(int type) {
+    public static boolean isMultifileImportAllowed(ImportExportTypes type) {
         switch (type) {
         case REGISTRATION:
             return true;
@@ -355,14 +350,8 @@ public class ImportManager {
         }
     }
 
-    public static boolean isSupported(int type) {
-        Enumeration<IImporter> en = getInstance().importers.elements();
-        while (en.hasMoreElements()) {
-            IImporter e = en.nextElement();
-            if (e.isSupported(type)) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean isSupported(ImportExportTypes type) {
+        Collection<IImporter> en = getInstance().importers.values();
+        return en.stream().anyMatch(i -> i.isSupported(type));
     }
 }

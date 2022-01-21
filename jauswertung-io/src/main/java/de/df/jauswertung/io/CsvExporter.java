@@ -4,19 +4,6 @@
 
 package de.df.jauswertung.io;
 
-import static de.df.jauswertung.io.ExportManager.BEST_TIMES;
-import static de.df.jauswertung.io.ExportManager.HEATLIST;
-import static de.df.jauswertung.io.ExportManager.HEATS_OVERVIEW;
-import static de.df.jauswertung.io.ExportManager.HEATTIMES;
-import static de.df.jauswertung.io.ExportManager.REFEREES;
-import static de.df.jauswertung.io.ExportManager.REGISTRATION;
-import static de.df.jauswertung.io.ExportManager.RESULTS;
-import static de.df.jauswertung.io.ExportManager.STARTKARTEN;
-import static de.df.jauswertung.io.ExportManager.TEAMMEMBERS;
-import static de.df.jauswertung.io.ExportManager.ZWLIST;
-import static de.df.jauswertung.io.ExportManager.ZW_RESULTS;
-import static de.df.jauswertung.io.ExportManager.ZW_STARTKARTEN;
-
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -252,7 +239,7 @@ public class CsvExporter extends EmptyExporter {
      * @see de.df.jauswertung.io.Exporter#isSupported(int)
      */
     @Override
-    public boolean isSupported(int type) {
+    public boolean isSupported(ImportExportTypes type) {
         switch (type) {
         case HEATLIST:
         case ZWLIST:

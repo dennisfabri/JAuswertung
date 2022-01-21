@@ -8,9 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.ListIterator;
+import java.util.Set;
 
 import javax.swing.JTable;
 
@@ -32,35 +33,18 @@ import de.df.jutils.util.SystemOutFeedback;
  */
 public class ExportManager {
 
-    public static final int              NOTHING        = -1;
+    public static final String[] NAMES = new String[] { I18n.get("Registrations"), I18n.get("Laufliste"),
+            I18n.get("Startkarten"), I18n.get("Heatoverview"), I18n.get("ZWList"), I18n.get("ZWStartkarten"),
+            I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"), I18n.get("Referees"),
+            I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"),
+            I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times") };
 
-    public static final int              REGISTRATION   = 0;
-    public static final int              HEATLIST       = 1;
-    public static final int              STARTKARTEN    = 2;
-    public static final int              HEATS_OVERVIEW = 3;
-    public static final int              ZWLIST         = 4;
-    public static final int              ZW_STARTKARTEN = 5;
-    public static final int              RESULTS        = 6;
-    public static final int              ZW_RESULTS     = 7;
-    public static final int              PROTOCOL       = 8;
-    public static final int              REFEREES       = 9;
-    public static final int              WEITERMELDUNG  = 10;
-    public static final int              PENALTIES      = 11;
-    public static final int              TEAMMEMBERS    = 12;
-    public static final int              BEST_TIMES     = 13;
-    public static final int              HEATTIMES      = 14;
+    private static ExportManager manager = new ExportManager();
 
-    public static final String[]         NAMES          = new String[] { I18n.get("Registrations"), I18n.get("Laufliste"), I18n.get("Startkarten"),
-            I18n.get("Heatoverview"), I18n.get("ZWList"), I18n.get("ZWStartkarten"), I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"),
-            I18n.get("Referees"), I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"), I18n.get("SchnellsteZeiten"),
-            I18n.get("Heattimes") };
-
-    private static ExportManager         manager        = new ExportManager();
-
-    private Hashtable<String, IExporter> exporters;
+    private HashMap<String, IExporter> exporters;
 
     public ExportManager() {
-        exporters = new Hashtable<String, IExporter>();
+        exporters = new HashMap<>();
         put(new HtmlExporter());
         put(new HtmlZipExporter());
         put(new CsvExporter());
@@ -83,7 +67,7 @@ public class ExportManager {
         return manager;
     }
 
-    public static <T extends ASchwimmer> boolean isEnabled(AWettkampf<T> wk, int datatype) {
+    public static <T extends ASchwimmer> boolean isEnabled(AWettkampf<T> wk, ImportExportTypes datatype) {
         if (wk == null) {
             return false;
         }
@@ -130,21 +114,21 @@ public class ExportManager {
         }
     }
 
-    public static <T extends ASchwimmer> boolean export(String format, OutputStream os, int datatype, AWettkampf<T> wk, Feedback fb)
-            throws NullPointerException, NotSupportedException, NotEnabledException {
+    public static <T extends ASchwimmer> boolean export(String format, OutputStream os, ImportExportTypes datatype, AWettkampf<T> wk,
+            Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (format == null) {
             throw new NullPointerException();
         }
         return export(getExporter(format), os, datatype, wk, fb);
     }
 
-    public static <T extends ASchwimmer> boolean export(IExporter ie, OutputStream os, int datatype, AWettkampf<T> wk, Feedback fb)
-            throws NullPointerException, NotSupportedException, NotEnabledException {
+    public static <T extends ASchwimmer> boolean export(IExporter ie, OutputStream os, ImportExportTypes datatype, AWettkampf<T> wk,
+            Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (ie == null) {
             throw new NullPointerException();
         }
         if (!ie.isSupported(datatype)) {
-            if ((datatype != WEITERMELDUNG) || !ie.isSupported(REGISTRATION)) {
+            if ((datatype != ImportExportTypes.WEITERMELDUNG) || !ie.isSupported(ImportExportTypes.REGISTRATION)) {
                 throw new NotSupportedException();
             }
         }
@@ -176,7 +160,8 @@ public class ExportManager {
         case PENALTIES:
             return ie.penalties(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case WEITERMELDUNG:
-            return ie.registration(os, ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(wk), false), fb);
+            return ie.registration(os,
+                    ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(wk), false), fb);
         case TEAMMEMBERS:
             return ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case ZW_RESULTS:
@@ -190,8 +175,8 @@ public class ExportManager {
         }
     }
 
-    public static <T extends ASchwimmer> boolean export(int datatype, String name, String format, AWettkampf<T> wk, Feedback fb)
-            throws IOException, NullPointerException, NotSupportedException, NotEnabledException {
+    public static <T extends ASchwimmer> boolean export(ImportExportTypes datatype, String name, String format, AWettkampf<T> wk,
+            Feedback fb) throws IOException, NullPointerException, NotSupportedException, NotEnabledException {
         boolean result = false;
         OutputStream out = null;
         try {
@@ -214,40 +199,37 @@ public class ExportManager {
     }
 
     public static String[] getSupportedFormats() {
-        Enumeration<String> keys = manager.exporters.keys();
+        Set<String> keys = manager.exporters.keySet();
         String[] types = new String[manager.exporters.size()];
         int x = 0;
-        while (keys.hasMoreElements()) {
-            types[x] = keys.nextElement();
+        for (String key : keys) {
+            types[x] = key;
             x++;
         }
         Arrays.sort(types);
         return types;
     }
 
-    public static boolean isSupported(String format, int type) {
+    public static boolean isSupported(String format, ImportExportTypes type) {
         IExporter e = getExporter(format);
         if (e == null) {
             return false;
         }
-        if (type == WEITERMELDUNG) {
-            type = REGISTRATION;
+        if (type == ImportExportTypes.WEITERMELDUNG) {
+            type = ImportExportTypes.REGISTRATION;
         }
         return e.isSupported(type);
     }
 
-    public static boolean isSupported(int type) {
-        if (type == WEITERMELDUNG) {
-            type = REGISTRATION;
+    public static boolean isSupported(ImportExportTypes type) {
+        if (type == ImportExportTypes.WEITERMELDUNG) {
+            type = ImportExportTypes.REGISTRATION;
         }
-        Enumeration<IExporter> en = getInstance().exporters.elements();
-        while (en.hasMoreElements()) {
-            IExporter e = en.nextElement();
-            if (e.isSupported(type)) {
-                return true;
-            }
-        }
-        return false;
+        return isSupportedI(type);
+    }
+
+    private static boolean isSupportedI(ImportExportTypes type) {
+        return getInstance().exporters.values().stream().anyMatch(e -> e.isSupported(type));
     }
 
     public static String[] getSuffixes(String format) {

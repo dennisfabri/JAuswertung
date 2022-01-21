@@ -3,10 +3,6 @@
  */
 package de.df.jauswertung.io;
 
-import static de.df.jauswertung.io.ExportManager.PENALTIES;
-import static de.df.jauswertung.io.ExportManager.REGISTRATION;
-import static de.df.jauswertung.io.ExportManager.RESULTS;
-
 import java.io.OutputStream;
 
 import org.w3c.dom.Document;
@@ -33,7 +29,7 @@ public class HtmlExporter extends EmptyExporter {
     }
 
     @Override
-    public boolean isSupported(int type) {
+    public boolean isSupported(ImportExportTypes type) {
         switch (type) {
         case REGISTRATION:
         case RESULTS:

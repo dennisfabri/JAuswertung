@@ -34,7 +34,7 @@ public class HttpPostExport {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        ExportManager.export("XML", os, ExportManager.RESULTS, wk, nf);
+        ExportManager.export("XML", os, ImportExportTypes.RESULTS, wk, nf);
 
         String text = new String(os.toByteArray(), "ISO-8859-1");
         text = text.replace("ISO-8859-1", "UTF-8");

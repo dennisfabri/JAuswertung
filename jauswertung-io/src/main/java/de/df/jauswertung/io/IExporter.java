@@ -15,7 +15,7 @@ import de.df.jutils.util.Feedback;
  */
 public interface IExporter {
 
-    boolean isSupported(int type);
+    boolean isSupported(ImportExportTypes type);
 
     String getName();
 

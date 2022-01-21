@@ -46,6 +46,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
@@ -311,7 +312,7 @@ abstract class APerDisciplinePrinter implements Printer {
         AWettkampf wk = createCompetitionFor(t);
         try {
             FileOutputStream os = new FileOutputStream(filename);
-            if (!ExportManager.export("Microsoft Excel", os, ExportManager.RESULTS, wk, null)) {
+            if (!ExportManager.export("Microsoft Excel", os, ImportExportTypes.RESULTS, wk, null)) {
                 DialogUtils.inform(controller.getWindow(), "Fehler", "Fehler beim Speichern", "...");
             }
             os.close();

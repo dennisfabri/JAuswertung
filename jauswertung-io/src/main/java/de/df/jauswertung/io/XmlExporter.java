@@ -7,9 +7,6 @@ import static de.df.jauswertung.daten.PropertyConstants.DATE;
 import static de.df.jauswertung.daten.PropertyConstants.LOCATION;
 import static de.df.jauswertung.daten.PropertyConstants.NAME;
 import static de.df.jauswertung.io.ExportManager.NAMES;
-import static de.df.jauswertung.io.ExportManager.PENALTIES;
-import static de.df.jauswertung.io.ExportManager.REGISTRATION;
-import static de.df.jauswertung.io.ExportManager.RESULTS;
 
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -241,7 +238,7 @@ public class XmlExporter extends EmptyExporter {
     }
 
     @Override
-    public boolean isSupported(int type) {
+    public boolean isSupported(ImportExportTypes type) {
         switch (type) {
         case REGISTRATION:
         case RESULTS:
@@ -608,20 +605,20 @@ public class XmlExporter extends EmptyExporter {
             root.appendChild(e);
         }
 
-        for (int i = 0; i < NAMES.length; i++) {
+        for (ImportExportTypes type : ImportExportTypes.values()) {
             Element e = xmldoc.createElementNS(null, "type");
 
             String name = "";
             try {
-                name = URLEncoder.encode(NAMES[i], "ISO-8859-1");
+                name = URLEncoder.encode(NAMES[type.getValue()], "ISO-8859-1");
             } catch (UnsupportedEncodingException e1) {
                 // try best guess
-                name = URLEncoder.encode(NAMES[i]);
+                name = URLEncoder.encode(NAMES[type.getValue()]);
             }
 
-            e.setAttributeNS(null, "name", NAMES[i]);
+            e.setAttributeNS(null, "name", NAMES[type.getValue()]);
             for (String format : formats) {
-                boolean supported = ExportManager.isSupported(format, i) && ExportManager.isEnabled(wk, i);
+                boolean supported = ExportManager.isSupported(format, type) && ExportManager.isEnabled(wk, type);
                 Element f = xmldoc.createElementNS(null, "format");
                 f.setAttributeNS(null, "supported", "" + supported);
                 f.setAttributeNS(null, "name", ExportManager.getName(format));

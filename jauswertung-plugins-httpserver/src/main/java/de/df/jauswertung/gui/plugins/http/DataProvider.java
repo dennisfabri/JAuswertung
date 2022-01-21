@@ -28,6 +28,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.core.AgegroupResultSelection;
 import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.io.XmlExporter;
 import de.df.jauswertung.print.PrintUtils;
@@ -102,14 +103,8 @@ class DataProvider {
             String prefix = name.substring(0, index).replace("+", " ");
 
             // String[] formats = ExportManager.getSupportedFormats();
-            int type = -1;
-            for (int x = 0; x < NAMES.length; x++) {
-                if (prefix.equals(NAMES[x])) {
-                    type = x;
-                    break;
-                }
-            }
-            if (type >= 0) {
+            ImportExportTypes type = getTypeByPrefix(prefix);
+            if (type != null) {
                 if (ExportManager.isSupported(format, type)) {
                     if (ExportManager.isEnabled(wk, type)) {
                         return true;
@@ -147,6 +142,17 @@ class DataProvider {
 
         System.out.println("Unkown URL: " + name);
         return false;
+    }
+
+    private ImportExportTypes getTypeByPrefix(String prefix) {
+        ImportExportTypes type = null;
+        for (int x = 0; x < NAMES.length; x++) {
+            if (prefix.equals(NAMES[x])) {
+                type = ImportExportTypes.getByValue(x);
+                break;
+            }
+        }
+        return type;
     }
 
     @SuppressWarnings({})
@@ -189,15 +195,8 @@ class DataProvider {
             int index = name.lastIndexOf(".");
             String prefix = name.substring(0, index).replace("+", " ");
 
-            // String[] formats = ExportManager.getSupportedFormats();
-            int type = -1;
-            for (int x = 0; x < NAMES.length; x++) {
-                if (prefix.equals(NAMES[x])) {
-                    type = x;
-                    break;
-                }
-            }
-            if (type >= 0) {
+            ImportExportTypes type = getTypeByPrefix(prefix);
+            if (type != null) {
                 if (ExportManager.isSupported(format, type)) {
                     if (ExportManager.isEnabled(wk, type)) {
                         createExportData(out, wk, type, format);
@@ -325,7 +324,7 @@ class DataProvider {
     }
 
     @SuppressWarnings({})
-    private static void createExportData(OutputStream out, AWettkampf<?> wk, int x, String format) throws IOException {
+    private static void createExportData(OutputStream out, AWettkampf<?> wk, ImportExportTypes x, String format) throws IOException {
         if (!ExportManager.isEnabled(wk, x)) {
             throw new IOException("File not found!");
         }

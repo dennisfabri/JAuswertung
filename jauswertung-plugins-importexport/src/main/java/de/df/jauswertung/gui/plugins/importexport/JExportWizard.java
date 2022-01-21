@@ -37,13 +37,13 @@ import de.df.jauswertung.gui.plugins.bugreport.BugreportPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
 import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -65,17 +65,18 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
      */
     private static final long serialVersionUID = 3545515093153625141L;
 
-    static final String[]     COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"), I18n.get("TeamCompetition") };
-    static final String[]     FORMATS          = ExportManager.getSupportedFormats();
+    static final String[] COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"),
+            I18n.get("TeamCompetition") };
+    static final String[] FORMATS = ExportManager.getSupportedFormats();
 
-    CorePlugin                core             = null;
-    BugreportPlugin           bugreport        = null;
+    CorePlugin core = null;
+    BugreportPlugin bugreport = null;
 
-    JTypeChooser              type             = null;
-    JFormatChooser            format           = null;
-    JFilePanel                file             = null;
-    JResultPanel              result           = null;
-    String                    organisation     = null;
+    JTypeChooser type = null;
+    JFormatChooser format = null;
+    JFilePanel file = null;
+    JResultPanel result = null;
+    String organisation = null;
 
     public JExportWizard(JFrame parent, CorePlugin c, BugreportPlugin br, ImportExportMode mode, String organisation) {
         super(parent, I18n.get("Export"), WizardUIElementsProvider.getInstance(), false);
@@ -178,10 +179,12 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
                     JExportWizard.this.setEnabled(true);
                     Exception ex = ri.getException();
                     if (ex == null) {
-                        DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"), I18n.get("ExportFailed.Note"));
+                        DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"),
+                                I18n.get("ExportFailed.Note"));
                     } else if (ex instanceof IOException) {
                         ex.printStackTrace();
-                        DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ErrorOnFileWrite"), I18n.get("ErrorOnFileWrite.Note"));
+                        DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ErrorOnFileWrite"),
+                                I18n.get("ErrorOnFileWrite.Note"));
                     } else {
                         ex.printStackTrace();
                         DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"),
@@ -206,7 +209,9 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
                 }
             }
         }
-        boolean success = ExportManager.export(type.getSelectedIndex(), file.getText(), FORMATS[format.getSelectedIndex()], wk, new ExportFeedback());
+        ImportExportTypes ioType = ImportExportTypes.getByValue(type.getSelectedIndex());
+        boolean success = ExportManager.export(ioType, file.getText(), FORMATS[format.getSelectedIndex()], wk,
+                new ExportFeedback());
         return (success ? new ResultInfo(ResultType.Success) : new ResultInfo(ResultType.Fail));
     }
 
@@ -225,7 +230,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
         /**
          * @param wc
          * @param title
-         *            @param options @param enabled
+         * @param options @param enabled
          */
         public JTypeChooser(ImportExportMode mode) {
             super(getWizard(), I18n.get("ChooseAType"), I18n.get("Export.ChooseAType.Information"), NAMES);
@@ -238,9 +243,9 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (getWizard().isCurrentPage(this)) {
                 @SuppressWarnings("rawtypes")
                 AWettkampf wk = core.getWettkampf();
-                for (int x = 0; x < NAMES.length; x++) {
-                    boolean enabled = (mode == ImportExportMode.Normal) || (x == ExportManager.TEAMMEMBERS);
-                    setEnabled(x, enabled && ExportManager.isEnabled(wk, x));
+                for (ImportExportTypes type : ImportExportTypes.values()) {
+                    boolean enabled = (mode == ImportExportMode.Normal) || (type == ImportExportTypes.TEAMMEMBERS);
+                    setEnabled(type.getValue(), enabled && ExportManager.isEnabled(wk, type));
                 }
                 update();
             }
@@ -252,7 +257,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
         /**
          * @param wc
          * @param title
-         *            @param options @param enabled
+         * @param options @param enabled
          */
         public JFormatChooser() {
             super(getWizard(), I18n.get("ChooseAFormat"), I18n.get("Export.ChooseAFormat.Information"), FORMATS);
@@ -261,7 +266,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
         @Override
         public void pageSwitch(boolean forward) {
             if (getWizard().isCurrentPage(this)) {
-                int t = type.getSelectedIndex();
+                ImportExportTypes t = ImportExportTypes.getByValue(type.getSelectedIndex());
                 for (int x = 0; x < FORMATS.length; x++) {
                     setEnabled(x, ExportManager.isSupported(FORMATS[x], t));
                 }
@@ -272,7 +277,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     class JFilePanel extends AWizardPage implements UpdateListener, PageSwitchListener {
 
-        JTextField           filename = new JTextField();
+        JTextField filename = new JTextField();
         private final JPanel page;
 
         /**
@@ -282,7 +287,8 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
             super(I18n.get("ChooseAFile"), I18n.get("Export.ChooseAFile.Information"));
             FileAutoCompleter.addFileAutoCompleter(filename);
 
-            page = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu", "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
+            page = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu",
+                    "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
                 private static final long serialVersionUID = 0L;
 
                 @Override

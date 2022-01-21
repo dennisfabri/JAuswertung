@@ -16,8 +16,8 @@ import de.df.jutils.util.Feedback;
 public class TeammembersExporter extends EmptyExporter {
 
     @Override
-    public boolean isSupported(int type) {
-        return type == ExportManager.TEAMMEMBERS;
+    public boolean isSupported(ImportExportTypes type) {
+        return type == ImportExportTypes.TEAMMEMBERS;
     }
 
     @Override

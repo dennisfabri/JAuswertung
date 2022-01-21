@@ -4,8 +4,6 @@
 
 package de.df.jauswertung.io;
 
-import static de.df.jauswertung.io.ExportManager.HEATTIMES;
-
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -24,7 +22,7 @@ import de.df.jutils.util.Feedback;
 public class EasyWKExporter extends EmptyExporter {
 
     @Override
-    public final boolean isSupported(int type) {
+    public final boolean isSupported(ImportExportTypes type) {
         switch (type) {
         case HEATTIMES:
             return true;

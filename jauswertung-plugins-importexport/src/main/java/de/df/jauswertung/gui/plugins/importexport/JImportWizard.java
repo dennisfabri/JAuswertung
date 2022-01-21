@@ -51,7 +51,9 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
+import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.io.IImporter;
+import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.io.ImportManager;
 import de.df.jauswertung.io.TableEntryException;
 import de.df.jauswertung.io.TableException;
@@ -62,7 +64,6 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -164,7 +165,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     void browseFile() {
         IImporter i = ImportManager.getImporter(format.getSelectedItemname());
         String[] names = null;
-        if (ImportManager.isMultifileImportAllowed(type.getSelectedIndex())) {
+        if (ImportManager.isMultifileImportAllowed(ImportExportTypes.getByValue(type.getSelectedIndex()))) {
             names = FileChooserUtils.openFiles(JImportWizard.this, new SimpleFileFilter(i.getName(), i.getSuffixes()));
         } else {
             String name = FileChooserUtils.openFile(JImportWizard.this,
@@ -220,42 +221,42 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     boolean finishImport() {
         Object data = null;
         if (results != null) {
-            data = ImportManager.finishImport(type.getSelectedIndex(), core.getWettkampf(), results,
+            data = ImportManager.finishImport(ImportExportTypes.getByValue(type.getSelectedIndex()), core.getWettkampf(), results,
                     new SystemOutFeedback());
             results = null;
             if (data != null) {
-                switch (type.getSelectedIndex()) {
-                case ImportManager.REGISTRATION:
+                switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
+                case REGISTRATION:
                     controller.sendDataUpdateEvent("Import",
                             UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
                             null, null);
                     break;
-                case ImportManager.HEATLIST:
+                case HEATLIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
                             null);
                     break;
-                case ImportManager.ZWLIST:
+                case ZWLIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_ZW_LIST_CHANGED, data, null,
                             null);
                     break;
-                case ImportManager.HEATTIMES:
-                case ImportManager.RESULTS:
+                case HEATTIMES:
+                case RESULTS:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import",
                             UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data,
                             null, null);
                     break;
-                case ImportManager.REFEREES:
+                case REFEREES:
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
                             null);
                     break;
-                case ImportManager.TEAMMEMBERS:
+                case TEAMMEMBERS:
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
                             null);
                     break;
-                case ImportManager.ZWRESULTS:
+                case ZW_RESULTS:
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null,
                             null);
                     break;
@@ -275,19 +276,19 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         public JTypeChooser(ImportExportMode mode) {
             super(getWizard(), I18n.get("ChooseAType"), I18n.get("Import.ChooseAType.Information"),
-                    ImportManager.NAMES);
+                    ExportManager.NAMES);
             this.mode = mode;
-            for (int x = 0; x < ImportManager.NAMES.length; x++) {
-                boolean enabled = (mode == ImportExportMode.Normal) || (x == ImportManager.TEAMMEMBERS);
-                setEnabled(x, enabled && ImportManager.isEnabled(core.getWettkampf(), x));
+            for (ImportExportTypes t : ImportExportTypes.values()) {
+                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAMMEMBERS);
+                setEnabled(t.getValue(), enabled && ImportManager.isEnabled(core.getWettkampf(), t));
             }
         }
 
         @Override
         public void update() {
-            for (int x = 0; x < ImportManager.NAMES.length; x++) {
-                boolean enabled = (mode == ImportExportMode.Normal) || (x == ImportManager.TEAMMEMBERS);
-                setEnabled(x, enabled && ImportManager.isEnabled(core.getWettkampf(), x));
+            for (ImportExportTypes t : ImportExportTypes.values()) {
+                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAMMEMBERS);
+                setEnabled(t.getValue(), enabled && ImportManager.isEnabled(core.getWettkampf(), t));
             }
             super.update();
         }
@@ -312,7 +313,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (getWizard().isCurrentPage(this)) {
                 String[] names = ImportManager.getSupportedFormats();
                 for (int x = 0; x < names.length; x++) {
-                    setEnabled(x, ImportManager.isSupported(names[x], type.getSelectedIndex()));
+                    setEnabled(x, ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
                 }
             }
             getWizard().notifyUpdate();
@@ -457,7 +458,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (names.length == 0) {
                 return false;
             }
-            if (!ImportManager.isMultifileImportAllowed(type.getSelectedIndex())) {
+            if (!ImportManager.isMultifileImportAllowed(ImportExportTypes.getByValue(type.getSelectedIndex()))) {
                 if (names.length > 1) {
                     return false;
                 }
@@ -591,7 +592,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
                 try {
-                    results = ImportManager.importData(type.getSelectedIndex(), names, format.getSelectedItemname(), wk,
+                    results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names, format.getSelectedItemname(), wk,
                             new Feedback() {
                                 @Override
                                 public void showFeedback(String t) {
@@ -702,8 +703,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             getWizard().setFinishButtonEnabled((results != null) && message);
             if (results != null) {
-                switch (type.getSelectedIndex()) {
-                case ImportManager.REGISTRATION: {
+                switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
+                case REGISTRATION: {
                     @SuppressWarnings("unchecked")
                     LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
                     ListIterator<ASchwimmer> li = r.listIterator();
@@ -719,7 +720,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     amount.setText("" + r.size());
                     break;
                 }
-                case ImportManager.TEAMMEMBERS: {
+                case TEAMMEMBERS: {
                     @SuppressWarnings("unchecked")
                     Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
                     Enumeration<String> sns = names.keys();
@@ -737,7 +738,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     amount.setText("" + r.size());
                     break;
                 }
-                case ImportManager.ZWRESULTS: {
+                case ZW_RESULTS: {
                     @SuppressWarnings("unchecked")
                     Hashtable<Tupel<Integer, Integer>, Double> names = (Hashtable<Tupel<Integer, Integer>, Double>) results;
                     Enumeration<Tupel<Integer, Integer>> sns = names.keys();

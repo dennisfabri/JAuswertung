@@ -59,7 +59,7 @@ public interface IImporter {
     <T extends ASchwimmer> KampfrichterVerwaltung referees(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    boolean isSupported(int type);
+    boolean isSupported(ImportExportTypes type);
 
     String getName();
 
