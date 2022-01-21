@@ -651,16 +651,16 @@ public final class PrintUtils {
                         JResultTable result = JResultTable.getResultTable(w, w.getRegelwerk().getAk(z), y == 1, true,
                                 true, 0);
                         if (result.getRowCount() > 0) {
-                            ASchwimmer s = result.getSchwimmer(0);
+                            ASchwimmer s = result.getResult(0).getSchwimmer();
                             int zeit = s.getZeit(0);
                             StringBuilder name = new StringBuilder(s.getName());
                             StringBuilder gld = new StringBuilder(s.getGliederung());
                             int pos = 1;
-                            while ((pos < result.getRowCount()) && (result.getSchwimmer(pos).getZeit(0) == zeit)) {
+                            while ((pos < result.getRowCount()) && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
                                 name.append(", ");
-                                name.append(result.getSchwimmer(pos).getName());
+                                name.append(result.getResult(pos).getSchwimmer().getName());
                                 gld.append(", ");
-                                gld.append(result.getSchwimmer(pos).getGliederung());
+                                gld.append(result.getResult(pos).getSchwimmer().getGliederung());
                                 pos++;
                             }
                             data[z] = new Object[] { name.toString(), gld.toString(),

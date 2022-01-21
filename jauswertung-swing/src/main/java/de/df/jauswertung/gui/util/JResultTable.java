@@ -193,11 +193,6 @@ public final class JResultTable extends JGroupableTable {
         return einzel;
     }
 
-    @Deprecated
-    public ASchwimmer getSchwimmer(int row) {
-        return results.getResult(row).getSchwimmer();
-    }
-
     @SuppressWarnings("rawtypes")
     public SchwimmerResult getResult(int row) {
         return results.getResult(row);
@@ -212,7 +207,7 @@ public final class JResultTable extends JGroupableTable {
         if (getSelectedRowCount() == 0) {
             return null;
         }
-        return getSchwimmer(getSelectedRow());
+        return results.getResult(getSelectedRow()).getSchwimmer();
     }
 
     public int getSelectedDiscipline() {

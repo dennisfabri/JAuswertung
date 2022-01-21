@@ -130,7 +130,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
                                 // .getName());
                                 JResultTable table = JResultTable.getResultTable(copy, copy.getRegelwerk().getAk(x), y == 1, false, true, 0);
                                 for (int z = 0; z < table.getRowCount(); z++) {
-                                    ASchwimmer s = SearchUtils.getSchwimmer(wk, table.getSchwimmer(z));
+                                    ASchwimmer s = SearchUtils.getSchwimmer(wk, table.getResult(z).getSchwimmer());
                                     if ((s != null) && (s.getMeldepunkte(0) < 0.005) && (table.getPunkte(z) > 0.005)) {
                                         s.setMeldepunkte(0, table.getPunkte(z));
                                         EDTUtils.executeOnEDT(new IncreaseNotifier(x, y));

@@ -89,11 +89,8 @@ class Veranstaltungsutils {
 
                         for (int sex = 0; sex < 2; sex++) {
                             JResultTable rt = JResultTable.getResultTable(wk1, ak1, sex == 1, false, ak1.hasHLW(), 0);
-                            // LinkedList<ASchwimmer> ll = SearchUtils.getSchwimmer(wk1, ak1);
-                            // ListIterator<ASchwimmer> li = ll.listIterator();
                             for (int row = 0; row < rt.getRowCount(); row++) {
-                                // ASchwimmer s = li.next();
-                                ASchwimmer s = rt.getSchwimmer(row);
+                                ASchwimmer s = rt.getResult(row).getSchwimmer();
                                 SchwimmerResult sr = rt.getResult(row);
                                 Mannschaft m = wk.createMannschaft(s.getName(), s.isMaennlich(), s.getGliederungMitQGliederung(), offset, "");
                                 m.setDisciplineChoice(s.getDisciplineChoice());

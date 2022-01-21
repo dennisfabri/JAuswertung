@@ -2017,7 +2017,7 @@ public final class DataTableUtils {
                     for (int z = 0; z < ak.getDiszAnzahl(); z++) {
                         JResultTable result = JResultTable.getResultTable(w, w.getRegelwerk().getAk(z), y == 1, print, true, 0);
                         if (result.getRowCount() > 0) {
-                            ASchwimmer s = result.getSchwimmer(0);
+                            ASchwimmer s = result.getResult(0).getSchwimmer();
                             int zeit = s.getZeit(0);
                             StringBuilder name = new StringBuilder(s.getName());
                             StringBuilder gld = new StringBuilder(s.getGliederung());
@@ -2027,8 +2027,8 @@ public final class DataTableUtils {
                                 gld.append(")");
                             }
                             int pos = 1;
-                            while ((pos < result.getRowCount()) && (result.getSchwimmer(pos).getZeit(0) == zeit)) {
-                                ASchwimmer schwimmer = result.getSchwimmer(pos);
+                            while ((pos < result.getRowCount()) && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
+                                ASchwimmer schwimmer = result.getResult(pos).getSchwimmer();
                                 name.append(", ");
                                 name.append(schwimmer.getName());
                                 gld.append(", ");
@@ -2050,7 +2050,7 @@ public final class DataTableUtils {
                 }
             }
         }
-        if (mp.size() == 0) {
+        if (mp.isEmpty()) {
             return null;
         }
 
