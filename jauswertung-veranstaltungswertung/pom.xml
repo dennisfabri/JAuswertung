@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.dennisfabri.jauswertung</groupId>
     <artifactId>jauswertung-project</artifactId>
-    <version>16.0.3</version>
+    <version>16.0.4</version>
   </parent>
   <artifactId>jauswertung-veranstaltungswertung</artifactId>
   
