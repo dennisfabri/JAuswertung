@@ -32,7 +32,6 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.data.ListUtils;
-import de.df.jutils.util.Tupel;
 
 public class HLWListe<T extends ASchwimmer> implements Serializable {
 
@@ -71,7 +70,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
     }
 
     private static <T extends ASchwimmer> LinkedList<T> vorsortierenVerteilt(AWettkampf<T> wk, LinkedList<T> ll) {
-        if ((ll == null) || (ll.size() == 0)) {
+        if ((ll == null) || ll.isEmpty()) {
             return null;
         }
 

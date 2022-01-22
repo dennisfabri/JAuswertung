@@ -20,10 +20,10 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.util.Feedback;
-import de.df.jutils.util.Tupel;
 
 /**
  * @author Dennis Fabri
@@ -55,7 +55,7 @@ public final class EasyWKImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<Tupel<Integer, Integer>, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }

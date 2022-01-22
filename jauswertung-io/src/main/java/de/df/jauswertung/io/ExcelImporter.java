@@ -18,9 +18,9 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
-import de.df.jutils.util.Tupel;
 
 /**
  * @author Dennis Fabri
@@ -68,7 +68,7 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<Tupel<Integer, Integer>, Double> zusatzwertungResults(InputStream is, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream is, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
 

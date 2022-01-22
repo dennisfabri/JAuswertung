@@ -101,6 +101,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
@@ -111,7 +112,6 @@ import de.df.jutils.io.csv.CsvManager;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
-import de.df.jutils.util.Tupel;
 
 public class ImportUtils {
 
@@ -819,7 +819,7 @@ public class ImportUtils {
         }
     }
 
-    private static <T extends ASchwimmer> Tupel<Integer, Integer> getStartnummerHLW(AWettkampf<T> wk, Object[] data,
+    private static <T extends ASchwimmer> ZWStartnummer getStartnummerHLW(AWettkampf<T> wk, Object[] data,
             int index, int row, String sheet, String file) throws TableEntryException {
         if (index < 0) {
             return null;
@@ -827,17 +827,16 @@ public class ImportUtils {
         if (data[index].toString().trim().length() == 0) {
             return null;
         }
-        if (data[index] instanceof Number) {
-            Number n = (Number) data[index];
-            return new Tupel<Integer, Integer>(n.intValue(), 0);
+        if (data[index] instanceof Number n) {
+            return new ZWStartnummer(n.intValue(), 0);
         }
         try {
             int sn = ZWUtils.getZWStartnummer(wk, data[index].toString());
             if (sn > 0) {
                 int pos = ZWUtils.getZWIndex(wk, data[index].toString());
-                return new Tupel<Integer, Integer>(sn, pos);
+                return new ZWStartnummer(sn, pos);
             }
-            return new Tupel<Integer, Integer>(StartnumberFormatManager.convert(wk, data[index].toString().trim()), 0);
+            return new ZWStartnummer(StartnumberFormatManager.convert(wk, data[index].toString().trim()), 0);
         } catch (RuntimeException re) {
             throw new TableEntryException(
                     I18n.get("WrongEntry", I18n.get("WrongValueForStartnumber", data[index].toString()),
@@ -968,9 +967,9 @@ public class ImportUtils {
         return indizes;
     }
 
-    static <T extends ASchwimmer> Hashtable<Tupel<Integer, Integer>, Double> tablesToZWResult(AWettkampf<T> wk,
-            Feedback fb, String[] sheets, Object[][][] tables, String file) throws TableException, TableEntryException {
-        Hashtable<Tupel<Integer, Integer>, Double> result = new Hashtable<Tupel<Integer, Integer>, Double>();
+    static <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> tablesToZWResult(AWettkampf<T> wk, Feedback fb,
+            String[] sheets, Object[][][] tables, String file) throws TableException, TableEntryException {
+        Hashtable<ZWStartnummer, Double> result = new Hashtable<ZWStartnummer, Double>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
         int valid = 0;
         for (int y = 0; y < tables.length; y++) {
@@ -1018,14 +1017,14 @@ public class ImportUtils {
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
-                Tupel<Integer, Integer> sn = getStartnummerHLW(wk, data[x], indizes[STARTNUMMER], x, sheet, file);
+                ZWStartnummer sn = getStartnummerHLW(wk, data[x], indizes[STARTNUMMER], x, sheet, file);
                 if (sn == null) {
                     fb.showFeedback(I18n.get("StartnumberFormatUnknown", data[x][indizes[STARTNUMMER]],
                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                     throw new TableException(I18n.get("Error.ParseError", data[x][indizes[STARTNUMMER]],
                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])), file, sheet);
                 }
-                ASchwimmer s = SearchUtils.getSchwimmer(wk, sn.getFirst());
+                ASchwimmer s = SearchUtils.getSchwimmer(wk, sn.getStartnummer());
                 if (s == null) {
                     fb.showFeedback(I18n.get("StartnumberNotFound", sn,
                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));

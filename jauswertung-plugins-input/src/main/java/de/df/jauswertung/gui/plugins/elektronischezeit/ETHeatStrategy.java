@@ -16,7 +16,6 @@ import javax.swing.SwingUtilities;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Eingabe;
-import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWLaufliste;
@@ -32,7 +31,6 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.Tupel;
 import de.dm.ares.data.Heat;
 
 class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
@@ -42,8 +40,8 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
     private final IPlugin plugin;
 
     private LinkedList<OWSelection> rounds = new LinkedList<OWSelection>();
-    private Hashtable<String, Tupel<Integer, OWSelection>> roundsById = new Hashtable<String, Tupel<Integer, OWSelection>>();
-    private Hashtable<Integer, Tupel<OWSelection, Integer>> heatids = new Hashtable<Integer, Tupel<OWSelection, Integer>>();
+    private Hashtable<String, IdSelection> roundsById = new Hashtable<String, IdSelection>();
+    private Hashtable<Integer, OWInfo> heatids = new Hashtable<Integer, OWInfo>();
 
     public ETHeatStrategy(IPluginManager controller, IPlugin plugin, JFrame parent, AWettkampf<T> w) {
         wk = w;
@@ -57,7 +55,7 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         if (index < 0) {
             return null;
         }
-        Tupel<OWSelection, Integer> owsi = heatids.get(index);
+        OWInfo owsi = heatids.get(index);
         if (owsi == null) {
             return null;
         }
@@ -66,14 +64,13 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
     }
 
     private void initialize() {
-        LinkedList<Tupel<Integer, OWSelection>> heats = new LinkedList<Tupel<Integer, OWSelection>>();
+        LinkedList<IdSelection> heats = new LinkedList<>();
         rounds.clear();
         roundsById.clear();
         heatids.clear();
 
         OWLaufliste<T> ll = wk.getLauflisteOW();
 
-        // int bahnen = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
         Regelwerk rw = wk.getRegelwerk();
         int maxdisz = rw.getMaxDisciplineCount();
         for (int x = 0; x < rw.size(); x++) {
@@ -86,27 +83,26 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
                         OWSelection selection = new OWSelection(ak, x, s == 1, d, r, r == runden.length);
                         OWDisziplin<T> owd = ll.getDisziplin(selection);
                         if (owd != null && !owd.isEmpty()) {
-                            int roundId1 = wk.getRegelwerk().getRundenId(owd);
+                            int roundId = wk.getRegelwerk().getRundenId(owd);
 
-                            int value = roundId1 > 0 ? roundId1
-                                    : 1000 + ((r * rw.size() + x) * maxdisz + d) * 2 + s + 1;
-                            heats.add(new Tupel<Integer, OWSelection>(value, selection));
+                            int value = roundId > 0 ? roundId : 1000 + ((r * rw.size() + x) * maxdisz + d) * 2 + s + 1;
+                            heats.add(new IdSelection(value, selection));
                         }
                     }
                 }
             }
         }
 
-        Collections.sort(heats, new Comparator<Tupel<Integer, OWSelection>>() {
+        Collections.sort(heats, new Comparator<>() {
 
             @Override
-            public int compare(Tupel<Integer, OWSelection> o1, Tupel<Integer, OWSelection> o2) {
+            public int compare(IdSelection o1, IdSelection o2) {
                 return o1.getFirst() - o2.getFirst();
             }
         });
 
         int index = 0;
-        for (Tupel<Integer, OWSelection> t : heats) {
+        for (IdSelection t : heats) {
             StringBuilder sb = new StringBuilder();
             sb.append(t.getFirst());
             sb.append(": ");
@@ -119,9 +115,64 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
             roundsById.put(ows.getId(), t);
             OWDisziplin<T> owd = wk.getLauflisteOW().getDisziplin(ows);
             for (int x = 0; x < owd.getLaeufe().size(); x++) {
-                heatids.put(index, new Tupel<OWSelection, Integer>(ows, x));
+                heatids.put(index, new OWInfo(ows, x));
                 index++;
             }
+        }
+    }
+
+    private class IdSelection {
+
+        private final int roundId;
+        private final OWSelection selection;
+
+        public IdSelection(int roundId, OWSelection selection) {
+            this.roundId = roundId;
+            this.selection = selection;
+        }
+
+        public OWSelection getSelection() {
+            return selection;
+        }
+
+        public int getRoundId() {
+            return roundId;
+        }
+
+        public OWSelection getSecond() {
+            return getSelection();
+        }
+
+        public int getFirst() {
+            return getRoundId();
+        }
+
+    }
+
+    private class OWInfo {
+
+        private final OWSelection selection;
+        private final int laufIndex;
+
+        public OWInfo(OWSelection selection, int laufIndex) {
+            this.selection = selection;
+            this.laufIndex = laufIndex;
+        }
+
+        public OWSelection getSelection() {
+            return selection;
+        }
+
+        public int getLaufIndex() {
+            return laufIndex;
+        }
+
+        public OWSelection getFirst() {
+            return getSelection();
+        }
+
+        public int getSecond() {
+            return getLaufIndex();
         }
     }
 
@@ -130,7 +181,7 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         if (index < 0) {
             return null;
         }
-        Tupel<OWSelection, Integer> owsi = heatids.get(index);
+        OWInfo owsi = heatids.get(index);
         if (owsi == null) {
             return null;
         }
@@ -240,13 +291,9 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         }
         e.setZeit(timevalue);
         OWDisziplin<T> owd = wk.getLauflisteOW().getDisziplin(lauf.getDisciplineId());
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+        SwingUtilities.invokeLater(() ->
                 controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, owd.disziplin,
-                        plugin);
-            }
-        });
+                        plugin));
     }
 
     @Override

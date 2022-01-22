@@ -58,6 +58,7 @@ import de.df.jauswertung.io.ImportManager;
 import de.df.jauswertung.io.TableEntryException;
 import de.df.jauswertung.io.TableException;
 import de.df.jauswertung.io.TableFormatException;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
 import de.df.jutils.gui.border.ShadowBorder;
@@ -76,7 +77,6 @@ import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 import de.df.jutils.util.SystemOutFeedback;
-import de.df.jutils.util.Tupel;
 
 /**
  * @author Dennis Fabri
@@ -740,11 +740,11 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 }
                 case ZW_RESULTS: {
                     @SuppressWarnings("unchecked")
-                    Hashtable<Tupel<Integer, Integer>, Double> names = (Hashtable<Tupel<Integer, Integer>, Double>) results;
-                    Enumeration<Tupel<Integer, Integer>> sns = names.keys();
+                    Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
+                    Enumeration<ZWStartnummer> sns = names.keys();
                     LinkedList<ASchwimmer> r = new LinkedList<ASchwimmer>();
                     while (sns.hasMoreElements()) {
-                        r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getFirst()));
+                        r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
                     }
                     data.setListData(r.toArray(new ASchwimmer[r.size()]));
                     amount.setText("" + r.size());

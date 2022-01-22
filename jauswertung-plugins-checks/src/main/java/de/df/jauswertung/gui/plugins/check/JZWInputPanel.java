@@ -34,7 +34,6 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.SimpleTableBuilder;
 import de.df.jutils.util.StringTools;
-import de.df.jutils.util.Tupel;
 
 public class JZWInputPanel extends JGlassPanel<JPanel> {
 
@@ -89,7 +88,7 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             swimmers = new ASchwimmer[0];
             return;
         }
-        LinkedList<Tupel<ASchwimmer, Integer>> nohlw = new LinkedList<Tupel<ASchwimmer, Integer>>();
+        LinkedList<SwimmerIndex> nohlw = new LinkedList<>();
 
         LinkedList<ASchwimmer> swimmerlist = wk.getSchwimmer();
         ListIterator<ASchwimmer> li = swimmerlist.listIterator();
@@ -98,11 +97,11 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             if (s.getAK().hasHLW()) {
                 for (int x = 0; x < s.getMaximaleHLW(); x++) {
                     if (!s.hasHLWSet(x)) {
-                        nohlw.addLast(new Tupel<ASchwimmer, Integer>(s, x));
+                        nohlw.addLast(new SwimmerIndex(s, x));
                     } else {
                         long punkte = Math.round(s.getHLWPunkte(x) * 100);
                         if (punkte % 20000 != 0) {
-                            nohlw.addLast(new Tupel<ASchwimmer, Integer>(s, x));
+                            nohlw.addLast(new SwimmerIndex(s, x));
                         }
                     }
                 }
@@ -112,25 +111,25 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
         updateSwimmers(nohlw);
     }
 
-    private void updateSwimmers(LinkedList<Tupel<ASchwimmer, Integer>> nohlw) {
+    private void updateSwimmers(LinkedList<SwimmerIndex> nohlw) {
         sortSwimmers(nohlw);
 
         swimmers = new ASchwimmer[nohlw.size()];
         indizes = new int[nohlw.size()];
         int x = 0;
-        for (Tupel<ASchwimmer, Integer> t : nohlw) {
-            swimmers[x] = t.getFirst();
-            indizes[x] = t.getSecond();
+        for (SwimmerIndex t : nohlw) {
+            swimmers[x] = t.getSwimmer();
+            indizes[x] = t.getIndex();
             x++;
         }
     }
 
-    private static void sortSwimmers(LinkedList<Tupel<ASchwimmer, Integer>> swimmers) {
-        Collections.sort(swimmers, new Comparator<Tupel<ASchwimmer, Integer>>() {
+    private static void sortSwimmers(LinkedList<SwimmerIndex> swimmers) {
+        Collections.sort(swimmers, new Comparator<SwimmerIndex>() {
             @Override
-            public int compare(Tupel<ASchwimmer, Integer> t1, Tupel<ASchwimmer, Integer> t2) {
-                ASchwimmer o1 = t1.getFirst();
-                ASchwimmer o2 = t2.getFirst();
+            public int compare(SwimmerIndex t1, SwimmerIndex t2) {
+                ASchwimmer o1 = t1.getSwimmer();
+                ASchwimmer o2 = t2.getSwimmer();
                 if (o1.getAKNummer() != o2.getAKNummer()) {
                     return o1.getAKNummer() - o2.getAKNummer();
                 }
@@ -220,6 +219,25 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             check(s, x);
         }
     }
+    
+    private static class SwimmerIndex {
+        
+        private final ASchwimmer swimmer;
+        private final int index;
+
+        public SwimmerIndex(ASchwimmer swimmer, int index) {
+            super();
+            this.swimmer = swimmer;
+            this.index = index;
+        }
+
+        public ASchwimmer getSwimmer() {
+            return swimmer;
+        }
+        public int getIndex() {
+            return index;
+        }
+    }
 
     private void check(ASchwimmer s, int pos) {
         boolean remove = false;
@@ -233,23 +251,23 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
         }
 
         if (add) {
-            LinkedList<Tupel<ASchwimmer, Integer>> temp = new LinkedList<Tupel<ASchwimmer, Integer>>();
+            LinkedList<SwimmerIndex> temp = new LinkedList<>();
             for (int x = 0; x < swimmers.length; x++) {
                 if (swimmers[x].equals(s) && (pos == indizes[x])) {
                     return;
                 }
-                temp.addLast(new Tupel<ASchwimmer, Integer>(swimmers[x], indizes[x]));
+                temp.addLast(new SwimmerIndex(swimmers[x], indizes[x]));
             }
-            temp.addLast(new Tupel<ASchwimmer, Integer>(s, pos));
+            temp.addLast(new SwimmerIndex(s, pos));
             updateSwimmers(temp);
         } else if (remove) {
             boolean found = false;
-            LinkedList<Tupel<ASchwimmer, Integer>> temp = new LinkedList<Tupel<ASchwimmer, Integer>>();
+            LinkedList<SwimmerIndex> temp = new LinkedList<SwimmerIndex>();
             for (int x = 0; x < swimmers.length; x++) {
                 if (swimmers[x].equals(s) && (indizes[x] == pos)) {
                     found = true;
                 } else {
-                    temp.addLast(new Tupel<ASchwimmer, Integer>(swimmers[x], indizes[x]));
+                    temp.addLast(new SwimmerIndex(swimmers[x], indizes[x]));
                 }
             }
             if (found) {

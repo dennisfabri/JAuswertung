@@ -26,10 +26,10 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.exception.NotEnabledException;
 import de.df.jauswertung.exception.NotSupportedException;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
-import de.df.jutils.util.Tupel;
 
 /**
  * @author Dennis Fabri @date 08.01.2005
@@ -61,7 +61,6 @@ public class ImportManager {
             if (x > 0) {
                 sb.append(", ");
             }
-            // sb.append(spacer);
             switch (indizes[x]) {
             case ImportConstants.ALTERSKLASSE:
                 sb.append(I18n.get("AgeGroup"));
@@ -269,12 +268,12 @@ public class ImportManager {
             return true;
         }
         case ZW_RESULTS: {
-            Hashtable<Tupel<Integer, Integer>, Double> names = (Hashtable<Tupel<Integer, Integer>, Double>) data;
-            Enumeration<Tupel<Integer, Integer>> keys = names.keys();
+            Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) data;
+            Enumeration<ZWStartnummer> keys = names.keys();
             while (keys.hasMoreElements()) {
-                Tupel<Integer, Integer> key = keys.nextElement();
-                T s = SearchUtils.getSchwimmer(wk, key.getFirst());
-                int index = key.getSecond();
+                ZWStartnummer key = keys.nextElement();
+                T s = SearchUtils.getSchwimmer(wk, key.getStartnummer());
+                int index = key.getIndex();
                 if (s != null) {
                     double value = names.get(key);
                     int v = (int) Math.round(value);

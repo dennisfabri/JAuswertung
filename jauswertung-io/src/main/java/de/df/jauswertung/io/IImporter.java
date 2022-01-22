@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jutils.util.Feedback;
-import de.df.jutils.util.Tupel;
 
 /**
  * Interface zum Import von Daten
@@ -41,7 +41,7 @@ public interface IImporter {
     <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> Hashtable<Tupel<Integer, Integer>, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
+    <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)
