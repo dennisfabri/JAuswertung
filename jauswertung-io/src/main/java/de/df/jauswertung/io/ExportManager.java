@@ -53,6 +53,7 @@ public class ExportManager {
         put(new PdfExporter());
         put(new TeammembersExporter());
         put(new EasyWKExporter());
+        put(new JSONExporter());
     }
 
     public synchronized void put(IExporter e) {
@@ -87,6 +88,7 @@ public class ExportManager {
         case REGISTRATION:
         case RESULTS:
         case BEST_TIMES:
+        case TIMES:
         case WEITERMELDUNG:
             return wk.hasSchwimmer();
         case REFEREES:
@@ -170,6 +172,8 @@ public class ExportManager {
             return ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case HEATTIMES:
             return ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case TIMES:
+            return ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
         default:
             return false;
         }
