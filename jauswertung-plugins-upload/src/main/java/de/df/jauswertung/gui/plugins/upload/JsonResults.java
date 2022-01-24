@@ -1,14 +1,9 @@
 package de.df.jauswertung.gui.plugins.upload;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.JMenuItem;
 
 import org.glassfish.jersey.client.ClientConfig;
 
@@ -25,7 +20,6 @@ import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.upload.dto.CompetitionType;
 import de.df.jauswertung.gui.plugins.upload.dto.Individual;
 import de.df.jauswertung.gui.plugins.upload.dto.Result;
@@ -34,19 +28,12 @@ import de.df.jauswertung.gui.plugins.upload.dto.SexIndividual;
 import de.df.jauswertung.gui.plugins.upload.dto.SexTeam;
 import de.df.jauswertung.gui.plugins.upload.dto.Team;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.ExportManager;
-import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerData;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.plugin.ANullPlugin;
-import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.plugin.MenuInfo;
-import de.df.jutils.plugin.UpdateEvent;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -55,41 +42,8 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-public class MUploadPlugin extends ANullPlugin {
-
-    private MenuInfo[] menues;
-    private CorePlugin core;
-
-    private JMenuItem upload;
-
-    public MUploadPlugin() {
-        upload = new JMenuItem(I18n.get("Upload"));
-        upload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    AWettkampf<?> wk = core.getFilteredWettkampf();
-
-                    String jsonAttachmentId = "e9c3e05a-d44e-4cc8-b9fe-3ee883c24b86";
-                    String pdfAttachmentId = "bd727123-ca9b-4dad-b6ac-911d54b940111d";
-
-                    uploadPdf(pdfAttachmentId, wk);
-                    uploadJson(jsonAttachmentId, wk);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        upload.setToolTipText(I18n.getToolTip("Upload"));
-
-        if (Utils.isInDevelopmentMode()) {
-            menues = new MenuInfo[1];
-            menues[0] = new MenuInfo(I18n.get("Edit"), 500, upload, 976);
-        } else {
-            menues = new MenuInfo[0];
-        }
-    }
-
+public class JsonResults {
+    
     private void uploadJson(String attachmentId, AWettkampf<?> wk) {
         try {
             ResultsDto results = createResults(wk);
@@ -117,10 +71,6 @@ public class MUploadPlugin extends ANullPlugin {
     @FunctionalInterface
     interface CreateCompetitor<T, S> {
         S create(T t, List<Result> results);
-    }
-
-    private ResultsDto createResults(AWettkampf<?> wk) throws IOException {
-        return new ResultsDto(getCompetitionType(wk), createIndividualResults(wk), createTeamResults(wk));
     }
 
     private List<Individual> createIndividualResults(AWettkampf<?> wk) {
@@ -153,6 +103,10 @@ public class MUploadPlugin extends ANullPlugin {
     private Team createTeam(Mannschaft t, List<Result> results) {
         return new Team(t.getName(), new ArrayList<Individual>(), t.isMaennlich() ? SexTeam.MALE : SexTeam.FEMALE,
                 t.getAK().getName(), results);
+    }
+
+    private ResultsDto createResults(AWettkampf<?> wk) throws IOException {
+        return new ResultsDto(getCompetitionType(wk), createIndividualResults(wk), createTeamResults(wk));
     }
 
     private <T extends ASchwimmer, X> List<X> createResults(AWettkampf<T> wk, CreateCompetitor<T, X> creator) {
@@ -250,54 +204,4 @@ public class MUploadPlugin extends ANullPlugin {
         return collected;
     }
 
-    private void uploadPdf(String attachmentId, AWettkampf<?> wk) {
-        try {
-            UploadAttachmentDto pdf = new UploadAttachmentDto(createPdf(wk));
-
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.findAndRegisterModules();
-
-            ClientConfig config = new ClientConfig();
-            config.register(mapper);
-
-            Client client = ClientBuilder.newClient(config);
-            client.register(mapper);
-            WebTarget webTarget = client.target("http://localhost:8080/");
-
-            String path = String.join("/", new String[] { "api", "attachments", attachmentId, "pdf" });
-            WebTarget employeeWebTarget = webTarget.path(path);
-            Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
-            Response response = invocationBuilder.put(Entity.entity(pdf, MediaType.APPLICATION_JSON));
-            System.out.println("Upload: " + response.getStatus() + " " + response.getStatusInfo());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private byte[] createPdf(AWettkampf<?> wk) throws IOException {
-        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            boolean result = ExportManager.export("PDF", out, ImportExportTypes.PROTOCOL, wk, null);
-            if (result) {
-                return out.toByteArray();
-            } else {
-                return new byte[0];
-            }
-        }
-    }
-
-    @Override
-    public void setController(IPluginManager controller, String pluginuid) {
-        super.setController(controller, pluginuid);
-        core = (CorePlugin) controller.getFeature("de.df.jauswertung.core", pluginuid);
-    }
-
-    @Override
-    public MenuInfo[] getMenues() {
-        return menues;
-    }
-
-    @Override
-    public void dataUpdated(UpdateEvent due) {
-        // TODO Auto-generated method stub
-    }
 }

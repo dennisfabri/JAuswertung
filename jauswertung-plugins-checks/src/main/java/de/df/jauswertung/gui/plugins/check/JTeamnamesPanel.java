@@ -6,6 +6,7 @@ package de.df.jauswertung.gui.plugins.check;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -129,7 +130,7 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        List<String> ids = HashtableUtils.getKeys(organizations);
+        List<String> ids = (List<T>) new ArrayList<>(organizations.keySet());
         Collections.sort(ids);
 
         panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));

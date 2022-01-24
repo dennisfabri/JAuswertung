@@ -64,7 +64,6 @@ import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelManager;
-import de.df.jutils.data.HashtableUtils;
 
 /**
  * Diese Klasse verwaltet den Wettkampf.
@@ -840,6 +839,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         if ((getProperty(name) == null) && (value == null)) {
             return;
         }
+        if (value instanceof String text) {
+            value = text.trim();
+        }
         if ((value != null) && (value.equals(getProperty(name)))) {
             return;
         }
@@ -1315,7 +1317,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     @SuppressWarnings("rawtypes")
     public void copyProperties(AWettkampf w) {
 
-        for (String key : HashtableUtils.getKeyIterable(properties)) {
+        for (String key : properties.keySet()) {
             try {
                 w.setProperty(key, Utils.copy(getProperty(key)));
             } catch (Exception ex) {

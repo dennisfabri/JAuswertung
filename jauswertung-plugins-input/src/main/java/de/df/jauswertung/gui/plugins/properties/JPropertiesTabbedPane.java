@@ -12,6 +12,8 @@ import static de.df.jauswertung.daten.PropertyConstants.ELEKTRONISCHE_ZEITNAHME;
 import static de.df.jauswertung.daten.PropertyConstants.END;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import static de.df.jauswertung.daten.PropertyConstants.INFOPAGE;
+import static de.df.jauswertung.daten.PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID;
+import static de.df.jauswertung.daten.PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER;
 import static de.df.jauswertung.daten.PropertyConstants.LENGTH_OF_POOL;
 import static de.df.jauswertung.daten.PropertyConstants.LOCATION;
 import static de.df.jauswertung.daten.PropertyConstants.NAME;
@@ -30,9 +32,7 @@ import static de.df.jauswertung.daten.PropertyConstants.YEAR_OF_COMPETITION;
 
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,7 +49,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -61,8 +60,10 @@ import com.jgoodies.forms.layout.FormLayout;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Wettkampfart;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.util.AuthKeyUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JImagePanel;
 import de.df.jutils.gui.JIntSpinner;
@@ -73,61 +74,58 @@ import de.df.jutils.gui.window.JOptionsDialog;
 
 public final class JPropertiesTabbedPane extends JTabbedPane {
 
-    private static final long       serialVersionUID = 3256442495306316086L;
+    private static final long serialVersionUID = 3256442495306316086L;
+    
+    private AuthKeyUtils authkeys = new AuthKeyUtils();
 
     private JComboBox<Wettkampfart> art;
-    private JWarningTextField       name;
-    private JWarningTextField       shortname;
-    private JTextPane               location;
-    private JTextPane               organizer;
-    private JTextPane               ausrichter;
-    private JWarningTextField       date;
-    private JWarningTextField       begin;
-    private JWarningTextField       end;
-    private JTextPane               competitionOther;
-    private JComboBox<String>       nameregistration;
-    private JComboBox<String>       printNamesInResults;
-    private JComboBox<String>       snformat;
-    private JComboBox<String>       printReferees;
+    private JWarningTextField name;
+    private JWarningTextField shortname;
+    private JTextPane location;
+    private JTextPane organizer;
+    private JTextPane ausrichter;
+    private JWarningTextField date;
+    private JWarningTextField begin;
+    private JWarningTextField end;
+    private JTextPane competitionOther;
+    private JComboBox<String> nameregistration;
+    private JComboBox<String> printNamesInResults;
+    private JComboBox<String> snformat;
+    private JComboBox<String> printReferees;
 
-    private String[]                snformats;
+    private String[] snformats;
 
-    private JComboBox<Integer>      year;
+    private JComboBox<Integer> year;
 
-    private JTextPane               nameOfPool;
-    private JTextPane               depthOfPool;
-    private JWarningTextField       temperatureOfPool;
-    private JWarningTextField       poollength;
-    private JIntSpinner             numberoflanes;
-    private JCheckBox               elektronischeZeitnahme;
-    JTextPane                       manakin;
-    private JTextPane               locationOther;
+    private JTextPane nameOfPool;
+    private JTextPane depthOfPool;
+    private JWarningTextField temperatureOfPool;
+    private JWarningTextField poollength;
+    private JIntSpinner numberoflanes;
+    private JCheckBox elektronischeZeitnahme;
+    JTextPane manakin;
+    private JTextPane locationOther;
 
-    JTextPane                       infopage;
+    JTextPane infopage;
 
-    JImagePanel                     image;
+    JImagePanel image;
 
-    JOptionsDialog                  parent;
+    JOptionsDialog dialog;
 
     @SuppressWarnings("rawtypes")
-    AWettkampf                      wk;
+    AWettkampf wk;
 
     public JPropertiesTabbedPane(JOptionsDialog parent) {
-        this.parent = parent;
+        this.dialog = parent;
     }
 
     private void addChangeListeners() {
-        ItemListener item = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                parent.setChanged(true);
-            }
-        };
+        ItemListener item = e -> dialog.setChanged(true);
 
         DocumentListener doc = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                parent.setChanged(true);
+                dialog.setChanged(true);
             }
 
             @Override
@@ -141,19 +139,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             }
         };
 
-        ChangeListener change = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                parent.setChanged(true);
-            }
-        };
+        ChangeListener change = e -> dialog.setChanged(true);
 
-        ActionListener action = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                parent.setChanged(true);
-            }
-        };
+        ActionListener action = e -> dialog.setChanged(true);
 
         art.addItemListener(item);
         name.getDocument().addDocumentListener(doc);
@@ -183,15 +171,19 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         infopage.getDocument().addDocumentListener(doc);
 
         image.addChangeListener(change);
+
+        edvnumber.getDocument().addDocumentListener(doc);
+        competitionId.getDocument().addDocumentListener(doc);
+        authkey.getDocument().addDocumentListener(doc);
     }
 
     private void setTraversalKeys(JTextPane textArea) {
-        Set<AWTKeyStroke> set = new HashSet<AWTKeyStroke>(
+        Set<AWTKeyStroke> set = new HashSet<>(
                 textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
         set.add(KeyStroke.getKeyStroke("TAB"));
         textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
 
-        set = new HashSet<AWTKeyStroke>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
+        set = new HashSet<>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
         set.add(KeyStroke.getKeyStroke("shift TAB"));
         textArea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
     }
@@ -203,20 +195,20 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     }
 
     private void init() {
-        art = new JComboBox<Wettkampfart>(Wettkampfart.values());
+        art = new JComboBox<>(Wettkampfart.values());
         name = new JWarningTextField();
         shortname = new JWarningTextField();
         location = createTextPane();
         organizer = createTextPane();
         ausrichter = createTextPane();
         date = new JWarningTextField();
-        year = new JComboBox<Integer>(createYears());
+        year = new JComboBox<>(createYears());
         begin = new JWarningTextField();
         end = new JWarningTextField();
         competitionOther = createTextPane();
-        nameregistration = new JComboBox<String>(
+        nameregistration = new JComboBox<>(
                 new String[] { I18n.get("TeammembersNamesOnly"), I18n.get("TeammembersStrict") });
-        printNamesInResults = new JComboBox<String>(
+        printNamesInResults = new JComboBox<>(
                 new String[] { I18n.get("TeamnameOnly"), I18n.get("TeamnameAndMembers") });
 
         snformats = StartnumberFormatManager.getFormats();
@@ -230,7 +222,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         }
         snformat = new JComboBox<>(formats);
 
-        printReferees = new JComboBox<>(new String[] { I18n.get("Standard"), I18n.get("Compact"), I18n.get("VeryCompact") });
+        printReferees = new JComboBox<>(
+                new String[] { I18n.get("Standard"), I18n.get("Compact"), I18n.get("VeryCompact") });
 
         nameOfPool = createTextPane();
         depthOfPool = createTextPane();
@@ -240,12 +233,15 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         elektronischeZeitnahme = new JCheckBox();
         manakin = createTextPane();
         manakin.addMouseListener(new ManakinMouseListener());
-        // phantoms = new JIntSpinner(6, 1, 20);
         locationOther = new JTextPane();
 
         infopage = new JTextPane();
 
         image = new JImagePanel();
+
+        edvnumber = new JWarningTextField();
+        competitionId = new JWarningTextField();
+        authkey = new JWarningTextField();
 
         name.setAutoSelectAll(true);
         shortname.setAutoSelectAll(true);
@@ -254,6 +250,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         end.setAutoSelectAll(true);
         poollength.setAutoSelectAll(true);
         temperatureOfPool.setAutoSelectAll(true);
+        edvnumber.setAutoSelectAll(true);
+        competitionId.setAutoSelectAll(true);
+        authkey.setAutoSelectAll(true);
     }
 
     private Integer[] createYears() {
@@ -312,6 +311,21 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         return p;
     }
 
+    private JWarningTextField edvnumber;
+    private JWarningTextField competitionId;
+    private JWarningTextField authkey;
+
+    private JPanel createISCPanel() {
+        SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);
+
+        sfm.add(I18n.get("EDVNumber"), edvnumber);
+        sfm.add(I18n.get("CompetitionId"), competitionId);
+        sfm.add(I18n.get("ISCUploadAuthKey"), authkey);
+        sfm.addText(I18n.get("ISCUploadAuthKey.Info"));
+
+        return sfm.getPanel();
+    }
+
     private JImagePanel createImagePanel() {
         return image;
     }
@@ -346,6 +360,12 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(INFOPAGE, infopage.getText());
 
             wk.setLogo(image.getImageData());
+
+            wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvnumber.getText());
+            wk.setProperty(ISC_RESULT_UPLOAD_COMPETITION_ID, competitionId.getText());
+
+            authkeys.writeAuthKey(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
+                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText());
         }
     }
 
@@ -355,7 +375,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         }
         // Make sure this happens only once!
         boolean change = false;
-        synchronized (wettkampf) {
+        synchronized (this) {
             if (wk != wettkampf) {
                 change = true;
                 wk = wettkampf;
@@ -369,6 +389,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         addTab(I18n.get("LocationOfCompetition"), createOrtPanel());
         addTab(I18n.get("Infopage"), createInformationPanel());
         addTab(I18n.get("Logo"), createImagePanel());
+        addTab(I18n.get("ISCUpload"), createISCPanel());
 
         if (change) {
             art.setSelectedItem(wk.getProperty(ART_DES_WETTKAMPFS));
@@ -399,21 +420,27 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
             infopage.setText(wk.getStringProperty(INFOPAGE));
 
+            edvnumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
+            competitionId.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID));
+            authkey.setText(authkeys.readAuthKey(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
+                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
+
             try {
                 image.setImageData(wk.getLogo());
             } catch (Exception ex) {
                 image.setImage(null);
-                DialogUtils.warn(parent, I18n.get("ProblemWithImage.Information"), I18n.get("ProblemWithImage"));
+                DialogUtils.warn(dialog, I18n.get("ProblemWithImage.Information"), I18n.get("ProblemWithImage"));
             }
 
-            parent.setChanged(false);
+            dialog.setChanged(false);
         }
     }
+
 
     class ManakinMouseListener extends MouseAdapter {
 
         private ManakinSinglePopup popup1 = new ManakinSinglePopup();
-        private ManakinTeamPopup   popup2 = new ManakinTeamPopup();
+        private ManakinTeamPopup popup2 = new ManakinTeamPopup();
 
         @Override
         public void mousePressed(MouseEvent evt) {
@@ -454,36 +481,11 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             JMenuItem bottomtop = new JMenuItem(I18n.get("ManakinBottomTop"));
             JMenuItem bottombottom = new JMenuItem(I18n.get("ManakinBottomBottom"));
             JMenuItem rescue = new JMenuItem(I18n.get("ManakinCombinedRescue"));
-            toptop.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinTopTopText"));
-                }
-            });
-            topbottom.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinTopBottomText"));
-                }
-            });
-            bottomtop.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinBottomTopText"));
-                }
-            });
-            bottombottom.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinBottomBottomText"));
-                }
-            });
-            rescue.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinCombinedRescueText"));
-                }
-            });
+            toptop.addActionListener(e -> append(manakin, I18n.get("ManakinTopTopText")));
+            topbottom.addActionListener(e -> append(manakin, I18n.get("ManakinTopBottomText")));
+            bottomtop.addActionListener(e -> append(manakin, I18n.get("ManakinBottomTopText")));
+            bottombottom.addActionListener(e -> append(manakin, I18n.get("ManakinBottomBottomText")));
+            rescue.addActionListener(e -> append(manakin, I18n.get("ManakinCombinedRescueText")));
 
             add(toptop);
             add(topbottom);
@@ -499,19 +501,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
         public ManakinTeamPopup() {
             JMenuItem top = new JMenuItem(I18n.get("ManakinTeamTop"));
-            top.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinTeamTopText"));
-                }
-            });
+            top.addActionListener(e -> append(manakin, I18n.get("ManakinTeamTopText")));
             JMenuItem bottom = new JMenuItem(I18n.get("ManakinTeamBottom"));
-            bottom.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    append(manakin, I18n.get("ManakinTeamBottomText"));
-                }
-            });
+            bottom.addActionListener(e -> append(manakin, I18n.get("ManakinTeamBottomText")));
 
             add(top);
             add(bottom);

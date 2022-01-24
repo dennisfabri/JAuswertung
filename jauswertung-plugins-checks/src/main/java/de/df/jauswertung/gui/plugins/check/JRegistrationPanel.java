@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -21,7 +21,6 @@ import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -78,9 +77,9 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        Hashtable<String, LinkedList<ASchwimmer>> table = new Hashtable<String, LinkedList<ASchwimmer>>();
+        HashMap<String, LinkedList<ASchwimmer>> table = new HashMap<>();
 
-        LinkedList<ASchwimmer> nomembers = new LinkedList<ASchwimmer>();
+        LinkedList<ASchwimmer> nomembers = new LinkedList<>();
         {
             for (ASchwimmer s : wk.getSchwimmer()) {
                 String key = s.getName() + "#" + s.getAKNummer() + "#" + s.isMaennlich();
@@ -88,7 +87,7 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
                 if (table.get(key) != null) {
                     ll = table.get(key);
                 } else {
-                    ll = new LinkedList<ASchwimmer>();
+                    ll = new LinkedList<>();
                     table.put(key, ll);
                 }
                 ll.add(s);
@@ -99,7 +98,7 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
             }
         }
 
-        for (String key : HashtableUtils.getKeyIterable(table)) {
+        for (String key : table.keySet()) {
             LinkedList<ASchwimmer> ll = table.get(key);
             if (ll.size() > 1) {
                 for (ASchwimmer s : ll) {

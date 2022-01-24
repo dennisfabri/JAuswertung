@@ -78,8 +78,8 @@
 		<module>jauswertung-plugins-input</module>
 
 		<module>jauswertung-plugins-print</module>
-
 		<module>jauswertung-plugins-importexport</module>
+		<module>jauswertung-plugins-upload</module>
 
 		<module>jauswertung-veranstaltungswertung</module>
 		<module>jteams</module>
@@ -212,6 +212,11 @@
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-plugins-importexport</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-plugins-upload</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

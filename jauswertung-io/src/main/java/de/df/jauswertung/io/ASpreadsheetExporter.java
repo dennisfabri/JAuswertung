@@ -10,7 +10,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 
 import javax.swing.JTable;
@@ -53,10 +52,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     /**
      * Diese Methode organisiert den Export in Excel-Dateien
      * 
-     * @param name
-     *            Name der Datei
-     * @param WK
-     *            Zu exportierender Wettkampf
+     * @param name Name der Datei
+     * @param WK   Zu exportierender Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
@@ -68,10 +65,10 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             fb = new NullFeedback();
         }
         try {
-            LinkedList<ExtendedTableModel[]> tms = new LinkedList<ExtendedTableModel[]>();
-            LinkedList<Integer> repeatRows = new LinkedList<Integer>();
-            LinkedList<Integer> repeatCols = new LinkedList<Integer>();
-            LinkedList<String> titles = new LinkedList<String>();
+            LinkedList<ExtendedTableModel[]> tms = new LinkedList<>();
+            LinkedList<Integer> repeatRows = new LinkedList<>();
+            LinkedList<Integer> repeatCols = new LinkedList<>();
+            LinkedList<String> titles = new LinkedList<>();
 
             Regelwerk aks = wk.getRegelwerk();
 
@@ -81,7 +78,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                 if (ak.hasMehrkampfwertung()) {
                     for (int y = 0; y < 2; y++) {
                         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, y == 1);
-                        if (llak.size() > 0) {
+                        if (!llak.isEmpty()) {
                             page++;
                             fb.showFeedback(I18n.get("PageNr", page));
                             ExtendedTableModel tm = DataTableUtils.results(wk, ak, y == 1, false, 0);
@@ -104,7 +101,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                     if (ak.hasMehrkampfwertung()) {
                         for (int y = 0; y < 2; y++) {
                             LinkedList<T> llak = SearchUtils.getSchwimmer(wkx, ak, y == 1);
-                            if (llak.size() > 0) {
+                            if (!llak.isEmpty()) {
                                 page++;
                                 fb.showFeedback(I18n.get("PageNr", page));
                                 ExtendedTableModel tm = DataTableUtils.results(wkx, ak, y == 1, false, 0);
@@ -233,22 +230,21 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                 }
             }
 
-            write(name, tms.toArray(new ExtendedTableModel[tms.size()][0]), 1, repeatRows.toArray(new Integer[repeatRows.size()]),
+            write(name, tms.toArray(new ExtendedTableModel[tms.size()][0]), 1,
+                    repeatRows.toArray(new Integer[repeatRows.size()]),
                     repeatCols.toArray(new Integer[repeatCols.size()]), titles.toArray(new String[titles.size()]),
                     wk.getStringProperty(PropertyConstants.NAME));
 
             return true;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
+        } catch (RuntimeException | IOException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private <T extends ASchwimmer> int generateEinzelwertung(AWettkampf<T> wk, Feedback fb, LinkedList<ExtendedTableModel[]> tms,
-            LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols, LinkedList<String> titles, Regelwerk aks, int page) {
+    private <T extends ASchwimmer> int generateEinzelwertung(AWettkampf<T> wk, Feedback fb,
+            LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
+            LinkedList<String> titles, Regelwerk aks, int page) {
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
             if (ak.hasEinzelwertung()) {
@@ -256,7 +252,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                     LinkedList<ExtendedTableModel> etm = new LinkedList<ExtendedTableModel>();
                     for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, z == 1);
-                        if ((llak != null) && (llak.size() > 0)) {
+                        if ((llak != null) && (!llak.isEmpty())) {
                             page++;
                             fb.showFeedback(I18n.get("PageNr", page));
                             ExtendedTableModel tm = DataTableUtils.resultsEinzelwertung(wk, ak, z == 1, y, false, 0);
@@ -265,11 +261,12 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                             }
                         }
                     }
-                    if (etm.size() > 0) {
+                    if (!etm.isEmpty()) {
                         tms.addLast(etm.toArray(new ExtendedTableModel[etm.size()]));
                         repeatRows.addLast(1);
                         repeatCols.addLast(3);
-                        titles.addLast(ak.getName() + " " + I18n.geschlechtToShortString(aks, z == 1) + " - Disziplinen");
+                        titles.addLast(
+                                ak.getName() + " " + I18n.geschlechtToShortString(aks, z == 1) + " - Disziplinen");
                     }
                 }
             }
@@ -278,37 +275,35 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends ASchwimmer> int generateRounds(AWettkampf<T> wk, Feedback fb, LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows,
-            LinkedList<Integer> repeatCols, LinkedList<String> titles, int page) {
+    private <T extends ASchwimmer> int generateRounds(AWettkampf<T> wk, Feedback fb,
+            LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
+            LinkedList<String> titles, int page) {
         Regelwerk aks = wk.getRegelwerk();
         for (int akNummer = 0; akNummer < aks.size(); akNummer++) {
             Altersklasse ak = aks.getAk(akNummer);
 
             for (int x = 0; x < 2; x++) {
-                LinkedList<ExtendedTableModel> etm = new LinkedList<ExtendedTableModel>();
+                LinkedList<ExtendedTableModel> etm = new LinkedList<>();
 
                 boolean male = x == 1;
 
                 final int akn = akNummer;
 
                 OWDisziplin<T>[] owds = wk.getLauflisteOW().getDisziplinen();
-                owds = Arrays.asList(owds).stream().filter(y -> y.akNummer == akn && y.maennlich == male).sorted(new Comparator<OWDisziplin<T>>() {
-                    @Override
-                    public int compare(OWDisziplin<T> o1, OWDisziplin<T> o2) {
-                        return (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100;
-                    }
-                }).toArray(OWDisziplin[]::new);
+                owds = Arrays.asList(owds).stream().filter(y -> y.akNummer == akn && y.maennlich == male)
+                        .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100).toArray(OWDisziplin[]::new);
                 for (OWDisziplin<T> owd : owds) {
                     int rounds = ak.getDisziplin(owd.disziplin, owd.maennlich).getRunden().length + 1;
                     boolean isFinal = owd.round + 1 == rounds;
-                    OWSelection ows = new OWSelection(ak, owd.akNummer, owd.maennlich, owd.disziplin, owd.round, isFinal);
+                    OWSelection ows = new OWSelection(ak, owd.akNummer, owd.maennlich, owd.disziplin, owd.round,
+                            isFinal);
                     ExtendedTableModel tm = generateRound(wk, ows, fb);
                     if (tm != null) {
                         etm.add(tm);
                     }
                 }
 
-                if (etm.size() > 0) {
+                if (!etm.isEmpty()) {
                     page++;
                     fb.showFeedback(I18n.get("PageNr", page));
 
@@ -343,10 +338,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             wk.getRegelwerk().setFormelID(FormelILS.ID);
         }
 
-        // result.updateResult(wk, ak, maennlich, null, ak.hasHLW(), qualification);
-
         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, maennlich);
-        if ((llak != null) && (llak.size() > 0)) {
+        if ((llak != null) && (!llak.isEmpty())) {
             ak = wk.getRegelwerk().getAk(ows.akNummer);
             ExtendedTableModel tm = DataTableUtils.results(wk, ak, maennlich, false, qualification);
             if (tm != null) {
@@ -372,7 +365,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
-            ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null, true, fb);
+            ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null,
+                    true, fb);
             if (tm == null) {
                 return false;
             }
@@ -386,15 +380,15 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         }
     }
 
-    private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows, int repeatcols, String competition)
-            throws IOException {
+    private void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows,
+            int repeatcols, String competition) throws IOException {
         write(name, new ExtendedTableModel[] { tm }, groupsize, repeatrows, repeatcols, competition);
     }
 
-    protected abstract <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols,
-            String competition) throws IOException;
+    protected abstract void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows,
+            int repeatcols, String competition) throws IOException;
 
-    protected abstract <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows,
+    protected abstract void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows,
             Integer[] repeatcols, String[] titles, String competition) throws IOException;
 
     @Override
@@ -421,7 +415,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     }
 
     @Override
-    public final <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
+    public final <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk,
+            Feedback fb) {
         if (wk == null) {
             return false;
         }
@@ -479,7 +474,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             }
             tm.setName(I18n.get("Laufliste"));
             tm.setLandscape(true);
-            write(name, tm, wk.getLaufliste().hasMixedHeats() ? 3 : 2, 2, 3, wk.getStringProperty(PropertyConstants.NAME));
+            write(name, tm, wk.getLaufliste().hasMixedHeats() ? 3 : 2, 2, 3,
+                    wk.getStringProperty(PropertyConstants.NAME));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -538,14 +534,13 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     /**
      * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
+     * @param name Name der Datei
+     * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
-    public final synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb) {
+    public final synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk,
+            Feedback fb) {
         if (wk == null) {
             return false;
         }
@@ -581,10 +576,6 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             if (tm[0] == null) {
                 return false;
             }
-            // tm[1] = DataTableUtils.teammemberssingle(wk, fb);
-            // if (tm[1] == null) {
-            // return false;
-            // }
             write(name, tm, 1, 1, 1, wk.getStringProperty(PropertyConstants.NAME));
             return true;
         } catch (Exception e) {

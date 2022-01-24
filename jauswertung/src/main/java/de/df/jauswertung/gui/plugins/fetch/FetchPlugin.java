@@ -45,7 +45,7 @@ public class FetchPlugin extends ANullPlugin {
             item.setAccelerator(I18n.getKeyStroke("FetchCompetition"));
 
             menu = new MenuInfo[1];
-            menu[0] = new MenuInfo(I18n.get("Edit"), 300, item, 998);
+            menu[0] = new MenuInfo(I18n.get("Edit"), 300, item, 1810);
         }
         return menu;
     }

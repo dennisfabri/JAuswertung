@@ -57,7 +57,7 @@ public class MImportExportPlugin extends ANullPlugin {
             throw new NullPointerException("CorePlugin must not be null!");
         }
         bugreport = (BugreportPlugin) c.getFeature("de.df.jauswertung.bugreport", uid);
-        if (core == null) {
+        if (bugreport == null) {
             throw new NullPointerException("BugreportPlugin must not be null!");
         }
 

@@ -18,13 +18,13 @@ import de.df.jutils.gui.jtable.ExtendedTableModel;
 public class ExcelExporter extends ASpreadsheetExporter {
 
     @Override
-    protected <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
+    protected void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
             throws IOException {
         ExcelWriter.write(name, tms, groupsize, repeatrows, repeatcols, competition);
     }
 
     @Override
-    protected <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows, Integer[] repeatcols,
+    protected void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows, Integer[] repeatcols,
             String[] titles, String competition) throws IOException {
         ExcelWriter.write(name, tms, groupsize, repeatrows, repeatcols, titles, competition);
     }

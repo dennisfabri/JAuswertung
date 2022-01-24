@@ -129,7 +129,7 @@ class JNeueKV extends JDialog {
         if (visible) {
             result = null;
         }
-        // parent.setEnabled(!visible);
+        // dialog.setEnabled(!visible);
         super.setVisible(visible);
     }
 

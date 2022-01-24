@@ -22,3 +22,7 @@ pom.xml.versionsBackup
 *.txt.csv
 *.wk
 /*.html
+
+*.vs
+
+jauswertung-misc/src/test/resources/competitions/Ergebnisse.csv

@@ -441,7 +441,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (int x = 0; x < disciplineChoice.length; x++) {
-            if (disciplineChoice[x]) {
+            if (isDisciplineChosen(x)) {
                 if (!first) {
                     sb.append(sep);
                 } else {

@@ -75,4 +75,6 @@ public final class PropertyConstants {
     public static final String RESULT_MULTILINE                  = "ResultMultiline";
     public static final String STARTNUMBERFORMAT                 = "Startnumberformat";
     public static final String PRINT_REFEREES_COMPACT            = "PrintRefereesCompact";
+    public static final String ISC_RESULT_UPLOAD_EDVNUMBER       = "ISCResultUploadEDVNumber";
+    public static final String ISC_RESULT_UPLOAD_COMPETITION_ID  = "ISCResultUploadCompetitionId";
 }

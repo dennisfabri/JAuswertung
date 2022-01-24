@@ -338,7 +338,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // .get(heatnr);
                 // ASchwimmer s = lauf.getSchwimmer(index);
                 // inputs[index].setText(x);
-                // parent.getEditor().runPenaltyPoints(s,
+                // dialog.getEditor().runPenaltyPoints(s,
                 // lauf.getDisznummer(index));
                 // }
                 // });
@@ -366,7 +366,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // .get(heatnr);
                 // ASchwimmer s = lauf.getSchwimmer(index);
                 // inputs[index].setText(x);
-                // parent.getEditor().runPenaltyCode(s,
+                // dialog.getEditor().runPenaltyCode(s,
                 // lauf.getDisznummer(index), wk.getStrafen());
                 // }
                 // });
@@ -394,7 +394,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // Lauf lauf = wk.getLaufliste().getLaufliste()
                 // .get(heatnr);
                 // ASchwimmer s = lauf.getSchwimmer(index);
-                // parent.getEditor().runMeanTimeEditor(s,
+                // dialog.getEditor().runMeanTimeEditor(s,
                 // lauf.getDisznummer(index), null);
                 // }
                 // });

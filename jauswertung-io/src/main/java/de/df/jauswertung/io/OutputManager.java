@@ -21,7 +21,6 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.data.HashtableUtils;
 
 /**
  * @author Dennis Fabri
@@ -102,7 +101,7 @@ public final class OutputManager {
             IOUtils.toXML(o, osw);
 
             if (extdata != null) {
-                for (String key : HashtableUtils.getKeyIterable(extdata)) {
+                for (String key : extdata.keySet()) {
                     byte[] data = extdata.get(key);
                     zos.putNextEntry(new ZipEntry(key.toString()));
                     zos.write(data);

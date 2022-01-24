@@ -106,7 +106,7 @@ class JSimilarityCheck extends JDialog {
         }
         SimpleListBuilder slb = new SimpleListBuilder();
         LinkedList<String> keys = new LinkedList<String>();
-        for (String key : HashtableUtils.getKeyIterable(data)) {
+        for (String key : data.keySet()) {
             keys.add(key);
         }
         Collections.sort(keys);
