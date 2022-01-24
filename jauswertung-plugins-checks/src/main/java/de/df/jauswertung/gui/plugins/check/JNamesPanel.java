@@ -30,7 +30,6 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.TextFileUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;

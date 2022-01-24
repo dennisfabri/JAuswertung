@@ -28,7 +28,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.data.ListUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JTransparentButton;
@@ -144,7 +143,7 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        List<String> ids = (List<T>) new ArrayList<>(similarities.keySet());
+        List<String> ids = new ArrayList<>(similarities.keySet());
         Collections.sort(ids);
 
         panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));
@@ -159,7 +158,6 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
                 name.append(", ");
                 name.append(glds[x]);
             }
-            // dfb.add(new JLabelSeparator(), true);
 
             SimpleTableBuilder dfb = new SimpleTableBuilder(new JPanel(), new boolean[] { true, false }, false);
             for (String gld : glds) {
@@ -171,16 +169,12 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
             }
 
             JPanel p = new JPanel(new BorderLayout());
-            // p.setUI(new GradientTaskPaneGroupUI());
             p.setBorder(BorderUtils.createLabeledBorder(name.toString()));
             p.add(dfb.getPanel(), BorderLayout.CENTER);
-            // p.setExpanded(false);
 
             panel.add(p, CC.xy(2, y));
             y += 2;
         }
-
-        // main.getPanel();
     }
 
     void changeData() {

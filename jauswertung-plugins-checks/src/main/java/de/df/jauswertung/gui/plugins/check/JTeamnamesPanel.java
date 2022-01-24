@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +29,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -40,17 +39,17 @@ import de.df.jutils.util.StringTools;
 
 public class JTeamnamesPanel extends JGlassPanel<JPanel> {
 
-    private static final long               serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin                      core;
-    private FEditorPlugin                   editor;
-    private JMissingInputFrame              parent;
+    private transient CorePlugin core;
+    private transient FEditorPlugin editor;
+    private transient JMissingInputFrame parent;
 
-    private Hashtable<String, ASchwimmer[]> organizations;
+    private HashMap<String, ASchwimmer[]> organizations;
 
-    private JPanel                          panel;
+    private JPanel panel;
 
-    private boolean                         changed          = false;
+    private boolean changed = false;
 
     public JTeamnamesPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -74,7 +73,7 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
         info.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information"), true));
         getGlassPanel().setLayout(new CenterLayout());
         getGlassPanel().add(info);
-        organizations = new Hashtable<String, ASchwimmer[]>();
+        organizations = new HashMap<>();
 
         setEnabled(false);
     }
@@ -93,7 +92,7 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
             // TODO: Check QGld
             LinkedList<ASchwimmer> swimmers = SearchUtils.getSchwimmer(wk, new String[] { gld }, false);
             if ((swimmers != null) && (!swimmers.isEmpty())) {
-                LinkedList<ASchwimmer> result = new LinkedList<ASchwimmer>();
+                LinkedList<ASchwimmer> result = new LinkedList<>();
                 for (ASchwimmer s : swimmers) {
                     if (!fits(s.getName(), gld)) {
                         result.addLast(s);
@@ -116,10 +115,7 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
             return false;
         }
         int index = name.lastIndexOf(" ");
-        if ((gld.length() == index) && (StringTools.isInteger(name.substring(index + 1)))) {
-            return true;
-        }
-        return false;
+        return (gld.length() == index) && (StringTools.isInteger(name.substring(index + 1)));
     }
 
     void updateGUI() {
@@ -130,10 +126,11 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        List<String> ids = (List<T>) new ArrayList<>(organizations.keySet());
+        List<String> ids = new ArrayList<>(organizations.keySet());
         Collections.sort(ids);
 
-        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));
+        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                FormLayoutUtils.createLayoutString(ids.size())));
         int y = 2;
 
         for (String id : ids) {
@@ -141,12 +138,6 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
 
             StringBuilder name = new StringBuilder();
             name.append(id);
-            // name.append(glds[0].getName());
-            // for (int x = 0; x < glds.length; x++) {
-            // name.append(", ");
-            // name.append(glds[x].getName());
-            // }
-            // dfb.add(new JLabelSeparator(), true);
 
             SimpleTableBuilder dfb = new SimpleTableBuilder(new JPanel(), new boolean[] { true, false }, false);
             for (ASchwimmer gld : glds) {
@@ -158,16 +149,12 @@ public class JTeamnamesPanel extends JGlassPanel<JPanel> {
             }
 
             JPanel p = new JPanel(new BorderLayout());
-            // p.setUI(new GradientTaskPaneGroupUI());
             p.setBorder(BorderUtils.createLabeledBorder(name.toString()));
             p.add(dfb.getPanel(), BorderLayout.CENTER);
-            // p.setExpanded(false);
 
             panel.add(p, CC.xy(2, y));
             y += 2;
         }
-
-        // main.getPanel();
     }
 
     void changeData() {

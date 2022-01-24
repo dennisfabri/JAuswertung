@@ -1,9 +1,7 @@
 package de.df.jauswertung.gui.veranstaltung;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -22,16 +20,14 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.Utils;
-import de.df.jutils.data.HashtableUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleListBuilder;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 class JSimilarityCheck extends JDialog {
 
-    private final Hashtable<String, LinkedList<String>>[] similar;
+    private final HashMap<String, LinkedList<String>>[] similar;
     private final String[]                                names;
 
     @SuppressWarnings("rawtypes")
@@ -48,7 +44,7 @@ class JSimilarityCheck extends JDialog {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static Hashtable<String, LinkedList<String>>[] check(AWettkampf[] wks) {
+    private static HashMap<String, LinkedList<String>>[] check(AWettkampf[] wks) {
         LinkedList<String>[] glds = new LinkedList[wks.length];
         String[][] gldslong = new String[wks.length][0];
         for (int x = 0; x < wks.length; x++) {
@@ -74,11 +70,11 @@ class JSimilarityCheck extends JDialog {
             }
         }
 
-        Hashtable<String, LinkedList<String>>[] similar = new Hashtable[wks.length];
+        HashMap<String, LinkedList<String>>[] similar = new HashMap[wks.length];
         for (int x = 0; x < wks.length; x++) {
-            similar[x] = new Hashtable<String, LinkedList<String>>();
+            similar[x] = new HashMap<>();
             for (String gld : glds[x]) {
-                LinkedList<String> alternatives = new LinkedList<String>();
+                LinkedList<String> alternatives = new LinkedList<>();
                 for (int y = 0; y < wks.length; y++) {
                     if (x != y) {
                         for (String alt : gldslong[y]) {
@@ -100,12 +96,12 @@ class JSimilarityCheck extends JDialog {
         return similar;
     }
 
-    private JComponent createPanel(Hashtable<String, LinkedList<String>> data) {
+    private JComponent createPanel(HashMap<String, LinkedList<String>> data) {
         if (data.isEmpty()) {
             return null;
         }
         SimpleListBuilder slb = new SimpleListBuilder();
-        LinkedList<String> keys = new LinkedList<String>();
+        LinkedList<String> keys = new LinkedList<>();
         for (String key : data.keySet()) {
             keys.add(key);
         }
@@ -143,12 +139,7 @@ class JSimilarityCheck extends JDialog {
             add(getNoDataPanel(), CC.xy(2, 2, "center,center"));
         }
         JButton close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
+        close.addActionListener(e -> setVisible(false));
         add(close, CC.xy(2, 4, "right,fill"));
     }
 
