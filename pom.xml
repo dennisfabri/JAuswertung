@@ -29,6 +29,7 @@
 		<javafx.version>17</javafx.version>
 
 		<junit.version>5.8.2</junit.version>
+		<mockito.version>4.2.0</mockito.version>
 	</properties>
 
 	<distributionManagement>
@@ -63,6 +64,8 @@
 
 		<module>jauswertung-plugins-info</module>
 		<module>jauswertung-akeditor</module>
+
+		<module>jauswertung-web</module>
 
 		<module>jauswertung-plugins-core</module>
 		<module>jauswertung-plugins-editor</module>
@@ -127,6 +130,11 @@
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-ares</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-web</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -497,6 +505,11 @@
 				<scope>import</scope>
 			</dependency>
 
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -539,6 +552,11 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

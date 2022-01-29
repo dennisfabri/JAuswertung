@@ -74,16 +74,14 @@ public class JsonResults {
     }
 
     private List<Individual> createIndividualResults(AWettkampf<?> wk) {
-        if (wk instanceof EinzelWettkampf) {
-            EinzelWettkampf ewk = (EinzelWettkampf) wk;
+        if (wk instanceof EinzelWettkampf ewk) {
             return createResults(ewk, (s, r) -> createIndividual(s, r));
         }
         return new ArrayList<>();
     }
 
     private List<Team> createTeamResults(AWettkampf<?> wk) {
-        if (wk instanceof MannschaftWettkampf) {
-            MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
+        if (wk instanceof MannschaftWettkampf mwk) {
             return createResults(mwk, (s, r) -> createTeam(s, r));
         }
         return new ArrayList<>();
@@ -115,7 +113,7 @@ public class JsonResults {
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             LinkedList<T> teilies = SearchUtils.getSchwimmer(wk, aks.getAk(x));
-            if ((teilies != null) && (teilies.size() > 0)) {
+            if ((teilies != null) && (!teilies.isEmpty())) {
                 if (aks.getAk(x).hasMehrkampfwertung()) {
                     results.addAll(altersklasse(wk, aks.getAk(x), false, creator));
                     results.addAll(altersklasse(wk, aks.getAk(x), true, creator));

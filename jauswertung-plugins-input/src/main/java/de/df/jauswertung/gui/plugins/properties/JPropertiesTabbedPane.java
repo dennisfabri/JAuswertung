@@ -63,8 +63,9 @@ import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Wettkampfart;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.AuthKeyUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
+import de.df.jauswertung.web.iscupload.ISCUploadCredentialRepository;
+import de.df.jauswertung.web.iscupload.ISCUploadCredentials;
 import de.df.jutils.gui.JImagePanel;
 import de.df.jutils.gui.JIntSpinner;
 import de.df.jutils.gui.JWarningTextField;
@@ -76,7 +77,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
     private static final long serialVersionUID = 3256442495306316086L;
     
-    private AuthKeyUtils authkeys = new AuthKeyUtils();
+    private ISCUploadCredentialRepository authkeys = new ISCUploadCredentialRepository();
 
     private JComboBox<Wettkampfart> art;
     private JWarningTextField name;
@@ -364,8 +365,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvnumber.getText());
             wk.setProperty(ISC_RESULT_UPLOAD_COMPETITION_ID, competitionId.getText());
 
-            authkeys.writeAuthKey(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
-                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText());
+            authkeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER), wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText()));
         }
     }
 
@@ -422,7 +422,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
             edvnumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
             competitionId.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID));
-            authkey.setText(authkeys.readAuthKey(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
+            authkey.setText(authkeys.getCredentials(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
                     wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
 
             try {

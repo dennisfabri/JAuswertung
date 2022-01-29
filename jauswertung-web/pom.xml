@@ -5,30 +5,17 @@
 		<artifactId>jauswertung-project</artifactId>
 		<version>16.0.4</version>
 	</parent>
-	<artifactId>jauswertung-plugins-upload</artifactId>
+	<artifactId>jauswertung-web</artifactId>
+	<name>jauswertung-web</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-web</artifactId>
+			<artifactId>jauswertung-data</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-plugins-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-plugins-editor</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
+			<artifactId>jauswertung-io</artifactId>
 		</dependency>
 	</dependencies>
 </project>
