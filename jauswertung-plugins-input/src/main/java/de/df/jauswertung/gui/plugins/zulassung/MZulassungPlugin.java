@@ -97,6 +97,6 @@ public class MZulassungPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(I18n.get("Edit"), 500, menu, 93) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("Prepare"), 510, menu, 93) };
     }
 }

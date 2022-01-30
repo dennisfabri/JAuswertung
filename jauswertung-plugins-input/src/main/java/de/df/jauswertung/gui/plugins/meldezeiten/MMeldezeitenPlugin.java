@@ -39,7 +39,7 @@ public class MMeldezeitenPlugin extends ANullPlugin {
                 }
             });
             menu = new MenuInfo[1];
-            menu[0] = new MenuInfo(I18n.get("Edit"), 300, item, 91);
+            menu[0] = new MenuInfo(I18n.get("Prepare"), 510, item, 91);
             dataUpdated(null);
         }
         return menu;

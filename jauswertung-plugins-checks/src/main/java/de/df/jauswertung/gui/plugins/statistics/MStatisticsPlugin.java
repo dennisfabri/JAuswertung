@@ -36,7 +36,7 @@ public class MStatisticsPlugin extends ANullPlugin {
         });
 
         minfo = new MenuInfo[1];
-        minfo[0] = new MenuInfo(I18n.get("Edit"), 500, menu, 4000);
+        minfo[0] = new MenuInfo(I18n.get("Information"), 550, menu, 1010);
     }
 
     void showWindow() {

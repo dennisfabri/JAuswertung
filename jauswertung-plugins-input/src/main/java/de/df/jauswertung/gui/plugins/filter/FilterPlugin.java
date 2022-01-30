@@ -62,7 +62,7 @@ public class FilterPlugin extends ANullPlugin {
         });
 
         mi = new MenuInfo[1];
-        mi[0] = new MenuInfo(I18n.get("Edit"), 150, menu, 5000);
+        mi[0] = new MenuInfo(I18n.get("Execute"), 520, menu, 5000);
     }
 
     private void initButton() {

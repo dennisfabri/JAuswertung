@@ -60,7 +60,7 @@ public class TimeLimitsPlugin extends ANullPlugin {
         menu.add(check);
 
         menues = new MenuInfo[1];
-        menues[0] = new MenuInfo(I18n.get("Edit"), 500, menu, 975);
+        menues[0] = new MenuInfo(I18n.get("Prepare"), 510, menu, 975);
     }
 
     @Override

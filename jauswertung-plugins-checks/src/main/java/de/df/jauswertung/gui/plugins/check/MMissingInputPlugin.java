@@ -56,7 +56,7 @@ public class MMissingInputPlugin extends ANullPlugin {
         menu[0].setAccelerator(I18n.getKeyStroke("checkdata"));
 
         minfo = new MenuInfo[1];
-        minfo[0] = new MenuInfo(I18n.get("Edit"), 500, menu, 2000);
+        minfo[0] = new MenuInfo(I18n.get("Prepare"), 510, menu, 2000);
     }
 
     void showWindow() {

@@ -51,7 +51,7 @@ public class MZielrichterentscheidPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(I18n.get("Edit"), 200, menu, 1000) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("Execute"), 520, menu, 1000) };
     }
 
     @Override

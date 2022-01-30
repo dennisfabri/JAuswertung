@@ -50,7 +50,7 @@ public class MZWPlugin extends ANullPlugin {
     private static final String ITEM_SHOW  = I18n.get("Show");
     private static final String ITEM_BLOCK = I18n.get("Lock");
     private static final String ITEM_MENU  = I18n.get("ZWList");
-    private static final String MENU       = I18n.get("Edit");
+    private static final String MENU       = I18n.get("Prepare");
     private static final String HLW_LIST_LOST;
     private static final String HLW_LIST_LOST_NOTE;
 
@@ -145,7 +145,7 @@ public class MZWPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(MENU, 500, menu, 110) };
+        return new MenuInfo[] { new MenuInfo(MENU, 510, menu, 110) };
     }
 
     @Override
@@ -227,12 +227,7 @@ public class MZWPlugin extends ANullPlugin {
         boolean blocked = (!editable) || block.isSelected();
         ISimpleCallback<JHlwlisteBearbeiten<ASchwimmer>> sc = null;
         if (!blocked) {
-            sc = new ISimpleCallback<JHlwlisteBearbeiten<ASchwimmer>>() {
-                @Override
-                public void callback(JHlwlisteBearbeiten<ASchwimmer> t) {
-                    editCallback(t);
-                }
-            };
+            sc = t -> editCallback(t);
         }
         ModalFrameUtil.showAsModal(new JHlwlisteBearbeiten(getController().getWindow(), core.getWettkampf(), !blocked, sc), getController().getWindow());
     }

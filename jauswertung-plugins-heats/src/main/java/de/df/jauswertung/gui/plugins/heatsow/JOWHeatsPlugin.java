@@ -60,7 +60,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private static final String ITEM_SHOW = I18n.get("Show");
     private static final String ITEM_DELETE = I18n.get("Delete");
     private static final String ITEM_MENU = I18n.get("Laufliste");
-    private static final String MENU = I18n.get("Edit");
+    private static final String MENU = I18n.get("Execute");
 
     CorePlugin core = null;
     private JMenuItem[] menu = null;
@@ -71,8 +71,6 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private JMenuItem show = null;
     private JMenuItem edit = null;
     private JMenuItem delete = null;
-
-    // JMenuItem block = null;
 
     @Override
     public void setController(IPluginManager c, String uid) {
@@ -88,7 +86,6 @@ public class JOWHeatsPlugin extends ANullPlugin {
         buttons = new JButton[1];
         buttons[0] = new JButton(IconManager.getSmallIcon("laufliste"));
         buttons[0].setToolTipText(I18n.getToolTip("EditHeatlist"));
-        // buttons[0].addActionListener(new EditShowActionListener());
     }
 
     private void initMenues() {
@@ -416,7 +413,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
         if (menu == null) {
             return null;
         }
-        return new MenuInfo[] { new MenuInfo(MENU, 500, menu, 101) };
+        return new MenuInfo[] { new MenuInfo(MENU, 520, menu, 101) };
     }
 
     @Override

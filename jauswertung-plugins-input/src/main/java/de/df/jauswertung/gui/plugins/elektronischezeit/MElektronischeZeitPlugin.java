@@ -64,7 +64,7 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
             item.setAccelerator(I18n.getKeyStroke("ElektronischeZeitnahme"));
 
             menu = new MenuInfo[1];
-            menu[0] = new MenuInfo(I18n.get("Edit"), 300, item, 999);
+            menu[0] = new MenuInfo(I18n.get("Execute"), 520, item, 999);
             dataUpdated(null);
         }
         return menu;

@@ -30,7 +30,7 @@ import de.df.jutils.plugin.MenuInfo;
 public class MAltersklassenPlugin extends ANullPlugin {
 
     private static final String AK_STRING     = I18n.get("Rulebook");
-    private static final String EXTRAS_STRING = I18n.get("Edit");
+    private static final String EXTRAS_STRING = I18n.get("Prepare");
 
     IPluginManager              controller;
     CorePlugin                  core;
@@ -53,7 +53,7 @@ public class MAltersklassenPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(EXTRAS_STRING, 500, menu, 970) };
+        return new MenuInfo[] { new MenuInfo(EXTRAS_STRING, 510, menu, 970) };
     }
 
     final class AltersklassenActionListener implements ActionListener {

@@ -44,7 +44,7 @@ public final class MLauflistePlugin extends ANullPlugin {
     private static final String ITEM_SHOW  = I18n.get("Show");
     private static final String ITEM_BLOCK = I18n.get("Lock");
     private static final String ITEM_MENU  = I18n.get("Laufliste");
-    private static final String MENU       = I18n.get("Edit");
+    private static final String MENU       = I18n.get("Prepare");
     private static final String ATTENTION  = I18n.get("Attention");
     private static final String LAUF_LIST_LOST;
     private static final String LAUF_LIST_LOST_NOTE;
@@ -153,7 +153,7 @@ public final class MLauflistePlugin extends ANullPlugin {
      */
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(MENU, 500, menu, 100) };
+        return new MenuInfo[] { new MenuInfo(MENU, 510, menu, 100) };
     }
 
     @Override
@@ -196,7 +196,6 @@ public final class MLauflistePlugin extends ANullPlugin {
         public void actionPerformed(ActionEvent arg0) {
             zeigeLaufliste();
         }
-
     }
 
     class NewActionListener implements ActionListener {
@@ -205,7 +204,6 @@ public final class MLauflistePlugin extends ANullPlugin {
         public void actionPerformed(ActionEvent arg0) {
             neueLaufliste();
         }
-
     }
 
     class BlockActionListener implements ActionListener {

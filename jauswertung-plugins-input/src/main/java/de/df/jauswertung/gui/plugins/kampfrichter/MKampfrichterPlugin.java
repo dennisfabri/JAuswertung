@@ -63,7 +63,7 @@ public class MKampfrichterPlugin extends ANullPlugin {
             menu.add(neu);
             menu.add(edit);
         }
-        return new MenuInfo[] { new MenuInfo(I18n.get("Edit"), 200, menu, 980) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("Prepare"), 510, menu, 980) };
     }
 
     @Override

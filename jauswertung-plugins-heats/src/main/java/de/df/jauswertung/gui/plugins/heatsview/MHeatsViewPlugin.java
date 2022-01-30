@@ -55,6 +55,6 @@ public class MHeatsViewPlugin extends ANullPlugin {
                 }
             });
         }
-        return new MenuInfo[] { new MenuInfo(I18n.get("Edit"), 500, menu, 140) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("Information"), 550, menu, 2000) };
     }
 }

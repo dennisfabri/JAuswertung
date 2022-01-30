@@ -30,7 +30,7 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public abstract class AMSelectionPlugin extends ANullPlugin {
 
-    private static final String          MENU      = I18n.get("Edit");
+    private static final String          MENU      = I18n.get("Execute");
 
     // private String uid = null;
     CorePlugin                           core      = null;
@@ -102,7 +102,7 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(MENU, 200, menu, 991) };
+        return new MenuInfo[] { new MenuInfo(MENU, 520, menu, 991) };
     }
 
     @Override

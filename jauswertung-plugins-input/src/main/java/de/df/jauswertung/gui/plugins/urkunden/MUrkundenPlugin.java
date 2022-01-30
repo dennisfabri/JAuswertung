@@ -47,7 +47,7 @@ public class MUrkundenPlugin extends ANullPlugin {
         menu.add(item2);
 
         menues = new MenuInfo[1];
-        menues[0] = new MenuInfo(I18n.get("Edit"), 300, menu, 3000);
+        menues[0] = new MenuInfo(I18n.get("Execute"), 520, menu, 3000);
     }
 
     @Override

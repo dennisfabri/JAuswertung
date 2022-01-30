@@ -48,7 +48,7 @@ import de.df.jutils.plugin.UpdateEvent;
 public class MPointGuessingPlugin extends ANullPlugin {
 
     private static final String ITEM_STRING = I18n.get("GuessReportedPoints");
-    private static final String MENU_STRING = I18n.get("Edit");
+    private static final String MENU_STRING = I18n.get("Prepare");
 
     private JMenuItem           guess       = new JMenuItem(ITEM_STRING);
 
@@ -171,7 +171,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
      */
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(MENU_STRING, 200, guess, 92) };
+        return new MenuInfo[] { new MenuInfo(MENU_STRING, 510, guess, 92) };
     }
 
     @Override
