@@ -81,7 +81,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
      * 
      * @param sWK
      *            Wettkampf @param sGeschlecht Geschlecht @param sGliederung Name der Gliederung @param ak Nummer der
-     *            Altersklasse @param sBemerkung Bemerkung @param maxhlw Durchzufuehrende HLW (nur fuer die HLW-Liste)
+     *            Altersklasse @param sBemerkung Bemerkung @param maxhlw Durchzufuehrende Zusatzwertung (nur fuer die Zusatzwertung-Liste)
      */
     @SuppressWarnings("rawtypes")
     public ASchwimmer(AWettkampf sWK, boolean sGeschlecht, String sGliederung, int ak, String sBemerkung) {

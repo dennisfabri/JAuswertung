@@ -94,7 +94,7 @@ public class Altersklasse implements Serializable {
      * @param _diszes
      *            Gibt die einzelnen Disziplinen als Array an.
      * @param _hlw
-     *            Gibt an, ob eine HLW durchgefuehrt werden muss oder nicht.
+     *            Gibt an, ob eine Zusatzwertung durchgefuehrt werden muss oder nicht.
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw) {
         setName(aName);
