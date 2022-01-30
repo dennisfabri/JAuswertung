@@ -33,7 +33,7 @@ public class ResultUploader {
 
     public void uploadResultsToISC(AWettkampf<?> wk) {
         if (!isActive) {
-            log.debug("Upload - not active");
+            // Note: No Log-Entry to prevent flooding if inactive
             return;
         }
         if (!isDirty) {
