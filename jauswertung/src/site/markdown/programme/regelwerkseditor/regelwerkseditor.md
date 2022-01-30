@@ -5,9 +5,9 @@ Der Regelwerkseditor dient zum Festlegen der folgenden Punkte:
 - Formel zur Punktevergabe
 - Anzahl und Namen der Alterklassen
 - Anzahl der Disziplinen je Altersklasse (inkl. Festlegung von Rec-Werten und Namen)
-- Durchführung einer HLW
+- Durchführung einer Zusatzwertung
 - Wertung in der Gesamtwertung
-- Einzelwertung ggf. mit HLW (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die HLW bestanden haben)
+- Einzelwertung ggf. mit Zusatzwertung (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die Zusatzwertung bestanden haben)
 - Auswahl von Disziplinen (Teilnehmer müssen nicht alle Disziplinen absolvieren. In diesen Fällen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dürfen.)
 - Bevorzugte Sortiermethode bei der Lauflistenerstellung
 
@@ -26,9 +26,9 @@ Wird der Regelwerkseditor während der Auswertung eines Wettkampfes gestartet, kö
 - Formel zur Punktevergabe
 - Name der Altersklassen
 - Anzahl, Name und Rec-Werte der Disziplinen
-- Teilnahme an der HLW
+- Teilnahme an der Zusatzwertung
 - Wertung in der Gesamtwertung
-- Einzelwertung ggf. mit HLW (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die HLW bestanden haben)
+- Einzelwertung ggf. mit Zusatzwertung (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die Zusatzwertung bestanden haben)
 - Auswahl von Disziplinen (Teilnehmer müssen nicht alle Disziplinen absolvieren. In diesen Fällen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dürfen.)
 - Bevorzugte Sortiermethode bei der Lauflistenerstellung
 

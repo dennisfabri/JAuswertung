@@ -21,7 +21,7 @@ import de.df.jutils.plugin.MenuInfo;
 public class MStrafenkatalogPlugin extends ANullPlugin {
 
     private static final String ITEM = I18n.get("PenaltyCatalog");
-    private static final String MENU = I18n.get("Extras");
+    private static final String MENU = I18n.get("Information");
 
     CorePlugin                  core;
     IPluginManager              controller;
@@ -54,6 +54,6 @@ public class MStrafenkatalogPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(MENU, 900, menu, 600) };
+        return new MenuInfo[] { new MenuInfo(MENU, 550, menu, 1000) };
     }
 }

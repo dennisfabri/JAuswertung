@@ -1,6 +1,4 @@
 # Veranstaltungswertung
-:label veranstaltungswertung
-:anchor veranstaltungswertung
 
 ![Wettkämpfe](veranstaltungswertung-wettkaempfe.png)
 ![Wertung](veranstaltungswertung-gesamtwertung.png)

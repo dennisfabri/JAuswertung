@@ -4,7 +4,7 @@ Kurz vor dem Wettkampf stehen folgende Tätigkeiten an:
 
 - Eingabe bzw. Import der Meldungen
 - Erstellen einer offiziellen Meldeliste
-- Erstellen von Lauf- und HLW-Listen
+- Erstellen von Lauf- und Zusatzwertung-Listen
 - Ausdruck von Unterlagen für Kampfrichter und Betreuer
 
 ## Eingabe bzw. Import der Meldungen
@@ -19,9 +19,9 @@ Wenn Sie die Daten manuell eingeben wollen, so wählen Sie in der linken Knopflei
 
 Nachdem Sie die Eingabe abgeschlossen haben, können Sie über den Menüpunkt "Datei" -> "Exportieren", die Meldeliste in einem Format ihrer Wahl exportieren. Am besten geeignet ist sind zu diesem Zweck die Formate Excel und PDF.
 
-## Erstellen von Lauf- und HLW-Listen
+## Erstellen von Lauf- und Zusatzwertung-Listen
 
-Da die Erstellung von Lauf- und HLW-Listen im wesentlichen gleich funktioniert, soll hier nur die Erstellung von Lauflisten besprochen werden. Über den Menüpunkt "Bearbeiten" -> "Laufliste" -> "Neu" rufen Sie den Assistenten zur Erstellung von Lauflisten auf. Dieser führt Sie schrittweise durch die Erstellung. 
+Da die Erstellung von Lauf- und Zusatzwertung-Listen im wesentlichen gleich funktioniert, soll hier nur die Erstellung von Lauflisten besprochen werden. Über den Menüpunkt "Bearbeiten" -> "Laufliste" -> "Neu" rufen Sie den Assistenten zur Erstellung von Lauflisten auf. Dieser führt Sie schrittweise durch die Erstellung.
 
 Über den Menüpunkt "Bearbeiten" -> "Laufliste" -> "Bearbeiten", können Sie sich das Ergebnis anzeigen lassen und ändern. Dies ist vor allem dann sinnvoll, wenn einige Altersklassen nicht so stark besetzt sind. Sie können hier einzelne Einträge durch Doppelklick entfernen oder via Drag'n'Drop verschieben. Entfernte Einträge werden (genauso wie nach der Erstellung eingegebene Teilnehmer) in der Warteliste aufgeführt und können später wieder in die Laufliste übernommen werden. Sie können also auf diese Weise z.B. Läufe zusammenlegen oder die Zusammenstellung ändern. Ob Sie dabei Altersklassen oder Disziplinen mischen, wird ihnen für jeden Lauf angezeigt:
 
@@ -37,7 +37,7 @@ JAuswertung bietet eine Reihe von Druckmöglichkeiten für unterschiedliche Zielgr
 - Zeitnehmer: Ausgefüllte Startkarten, Bahnenliste (Liste aller Schwimmer einer Bahn)
 - Zieleinlauf: Ausgefüllte Zieleinlaufkarten (Lauf, Wettkampf, Altersklasse und Geschlecht)
 - Sprecher: Sprecherliste (Detailierte Laufliste)
-- HLW-Kampfrichter: Ausgefüllte HLW-Startkarten oder -Checklisten, Puppenliste (Liste aller Teilnehmer an einer Puppe)
+- Zusatzwertung-Kampfrichter: Ausgefüllte Zusatzwertung-Startkarten oder -Checklisten, Bahnenliste (Liste aller Teilnehmer an einer Bahn)
 - Wettkampfleiter, Starter, Wenderichter, ...: Laufübersicht
 - Betreuer und Schwimmer: (kompakte) Laufeinteilung
 

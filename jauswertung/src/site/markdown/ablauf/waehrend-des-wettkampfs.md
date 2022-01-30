@@ -45,6 +45,6 @@ Im Bereich "Ergebnisse" können Sie Ergebnisse und Zwischenergebnisse gedruckt we
 
 **Tipp 2:** Nutzen Sie regelmäßig die Funktion "Bearbeiten" -> "Daten prüfen". Damit können Sie mögliche Fehler bereits früh erkennen.
 
-**Tipp 3:** Die HLW-Punkte werden nur mit den Endergebnissen gedruckt.
+**Tipp 3:** Die Zusatzwertung-Punkte werden nur mit den Endergebnissen gedruckt.
 
 **Tipp 4:** Da mit dem Regelwerk 2007 eine Durchsage von Strafpunkten nicht mehr notwendig ist, kann es sinnvoll sein zusätzlich zu den Ergebnissen eine Strafenliste auszuhängen.

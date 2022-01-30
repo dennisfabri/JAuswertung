@@ -77,7 +77,7 @@ public class MPenaltylistPlugin extends ANullPlugin {
 
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(I18n.get("Information"), 550, item, 1000) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("Information"), 550, item, 1010) };
     }
 
     @Override
