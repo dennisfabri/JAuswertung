@@ -198,16 +198,11 @@ public final class JResultTable extends JGroupableTable {
         return results.getResult(row);
     }
 
-    @Deprecated
-    public double getPunkte(int row) {
-        return results.getResult(row).getPoints();
-    }
-
     public ASchwimmer getSelectedSchwimmer() {
         if (getSelectedRowCount() == 0) {
             return null;
         }
-        return results.getResult(getSelectedRow()).getSchwimmer();
+        return getResult(getSelectedRow()).getSchwimmer();
     }
 
     public int getSelectedDiscipline() {
@@ -367,9 +362,6 @@ public final class JResultTable extends JGroupableTable {
         EDTUtils.executeOnEDT(resultUpdater);
     }
 
-    /**
-     * @param results
-     */
     void updateRowCount(int rows) {
         if (getRowCount() != rows) {
             while (getRowCount() > rows) {

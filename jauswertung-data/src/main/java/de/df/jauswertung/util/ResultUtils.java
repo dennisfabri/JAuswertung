@@ -343,7 +343,7 @@ public class ResultUtils {
                 Results<T> results = new Results<>(ResultCalculator.getResults(wk, ak, z == 1, null, true));
                 // JResultTable jrt = JResultTable.getResultTable(wk, ak, z == 1, false, true,
                 // 0);
-                for (int x = 0; x < results.getRowCount(); x++) {
+                for (int x = 0; x < results.size(); x++) {
                     ASchwimmer s = results.getSchwimmer(x);
                     if (!results.hasKeineWertung(x)) {
                         for (int y = 0; y < anzahl; y++) {

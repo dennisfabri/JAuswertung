@@ -69,7 +69,7 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
 
         LinkedList<String[]> temp = new LinkedList<String[]>();
 
-        for (int x = 0; x < results.getRowCount(); x++) {
+        for (int x = 0; x < results.size(); x++) {
             SchwimmerResult<T> sr = results.getResult(x);
 
             if (sr.getPoints() < 0.005) {

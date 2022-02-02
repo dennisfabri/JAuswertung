@@ -113,7 +113,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         layout = new CardLayout();
         container = new JPanel(layout);
 
-        disciplines = new JList<String>();
+        disciplines = new JList<>();
         disciplines.setMinimumSize(new Dimension(100, 10));
         disciplines.setPreferredSize(new Dimension(100, 10));
         disciplines.setCellRenderer(new DefaultCellRenderer() {

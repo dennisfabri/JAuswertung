@@ -55,6 +55,7 @@ import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.io.IImporter;
 import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.io.ImportManager;
+import de.df.jauswertung.io.ImportUtils;
 import de.df.jauswertung.io.TableEntryException;
 import de.df.jauswertung.io.TableException;
 import de.df.jauswertung.io.TableFormatException;
@@ -611,7 +612,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     if (display) {
                         StringBuilder sb = new StringBuilder();
                         sb.append(I18n.get("TheFollowingRequiredFieldsWereNotFound"));
-                        sb.append(ImportManager.indizesToNames(tfe.getData(), ""));
+                        sb.append(ImportUtils.indizesToNames(tfe.getData(), ""));
                         DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb.toString(),
                                 I18n.get("CheckColumnheaders"));
                     }

@@ -126,13 +126,11 @@ public class MPointGuessingPlugin extends ANullPlugin {
                                 }
                             });
                             if (SearchUtils.hasSchwimmer(copy, copy.getRegelwerk().getAk(x), y == 1)) {
-                                // dialog.setText(copy.getAks().getAk(x)
-                                // .getName());
                                 JResultTable table = JResultTable.getResultTable(copy, copy.getRegelwerk().getAk(x), y == 1, false, true, 0);
                                 for (int z = 0; z < table.getRowCount(); z++) {
                                     ASchwimmer s = SearchUtils.getSchwimmer(wk, table.getResult(z).getSchwimmer());
-                                    if ((s != null) && (s.getMeldepunkte(0) < 0.005) && (table.getPunkte(z) > 0.005)) {
-                                        s.setMeldepunkte(0, table.getPunkte(z));
+                                    if ((s != null) && (s.getMeldepunkte(0) < 0.005) && (table.getResult(z).getPoints() > 0.005)) {
+                                        s.setMeldepunkte(0, table.getResult(z).getPoints());
                                         EDTUtils.executeOnEDT(new IncreaseNotifier(x, y));
                                         changed = true;
                                     }

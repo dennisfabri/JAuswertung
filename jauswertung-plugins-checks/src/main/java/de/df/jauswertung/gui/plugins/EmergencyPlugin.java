@@ -8,7 +8,6 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.emergency.Check;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
 
 public class EmergencyPlugin extends ANullPlugin {
@@ -19,11 +18,6 @@ public class EmergencyPlugin extends ANullPlugin {
     public void setController(IPluginManager plugincontroller, String pluginuid) {
         super.setController(plugincontroller, pluginuid);
         core = (CorePlugin) plugincontroller.getFeature("de.df.jauswertung.core", pluginuid);
-    }
-
-    @Override
-    public MenuInfo[] getMenues() {
-        return null;
     }
 
     @Override

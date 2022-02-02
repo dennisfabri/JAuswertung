@@ -25,7 +25,6 @@ import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.exception.NotEnabledException;
 import de.df.jauswertung.exception.NotSupportedException;
-import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.Feedback;
@@ -52,43 +51,6 @@ public class ImportManager {
             return;
         }
         importers.put(e.getName(), e);
-    }
-
-    public static String indizesToNames(int[] indizes, String spacer) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(spacer);
-        for (int x = 0; x < indizes.length; x++) {
-            if (x > 0) {
-                sb.append(", ");
-            }
-            switch (indizes[x]) {
-            case ImportConstants.ALTERSKLASSE:
-                sb.append(I18n.get("AgeGroup"));
-                break;
-            case ImportConstants.GESCHLECHT:
-                sb.append(I18n.get("Sex"));
-                break;
-            case ImportConstants.GLIEDERUNG:
-                sb.append(I18n.get("Organisation"));
-                break;
-            case ImportConstants.JAHRGANG:
-                sb.append(I18n.get("YearOfBirth"));
-                break;
-            case ImportConstants.NACHNAME:
-                sb.append(I18n.get("FamilyName"));
-                break;
-            case ImportConstants.NAME:
-                sb.append(I18n.get("Name"));
-                break;
-            case ImportConstants.VORNAME:
-                sb.append(I18n.get("FirstName"));
-                break;
-            default:
-                sb.append(I18n.get("UnknownField"));
-                break;
-            }
-        }
-        return sb.toString();
     }
 
     public static IImporter getImporter(String name) {
@@ -181,17 +143,9 @@ public class ImportManager {
         if (e == null) {
             throw new NullPointerException();
         }
-        Object result = null;
-        InputStream out = null;
-        try {
-            out = new FileInputStream(filename);
-            result = importData(e, out, datatype, wk, fb, null, filename);
-        } finally {
-            if (out != null) {
-                out.close();
-            }
+        try (InputStream input = new FileInputStream(filename)) {
+            return importData(e, input, datatype, wk, fb, null, filename);
         }
-        return result;
     }
 
     public static <T extends ASchwimmer> Object importData(ImportExportTypes datatype, String[] filenames,
@@ -203,14 +157,8 @@ public class ImportManager {
         }
         Object result = null;
         for (String filename : filenames) {
-            InputStream out = null;
-            try {
-                out = new FileInputStream(filename);
+            try (InputStream out = new FileInputStream(filename)) {
                 result = importData(e, out, datatype, wk, fb, result, filename);
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
             }
         }
         return result;
@@ -244,8 +192,7 @@ public class ImportManager {
                 int key = Integer.parseInt(id.substring(0, id.length() - 1));
                 char part = id.charAt(id.length() - 1);
                 T s = SearchUtils.getSchwimmer(wk, key);
-                if ((s != null) && (s instanceof Mannschaft)) {
-                    Mannschaft m = (Mannschaft) s;
+                if (s instanceof Mannschaft m) {
                     Mannschaftsmitglied mm = m.getMannschaftsmitglied(at(part));
 
                     String[] info = names.get(id);

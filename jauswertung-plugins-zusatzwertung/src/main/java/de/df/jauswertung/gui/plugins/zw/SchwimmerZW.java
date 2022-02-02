@@ -57,14 +57,6 @@ class SchwimmerZW<T extends ASchwimmer> implements ListRenderDataProvider, Compa
         return swimmer;
     }
 
-    @Deprecated
-    public boolean hasChanged(int amount) {
-        if (swimmer == null) {
-            return false;
-        }
-        return (count != amount);
-    }
-
     public int getCount() {
         return count;
     }

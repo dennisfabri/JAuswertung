@@ -13,7 +13,6 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
@@ -60,13 +59,7 @@ public class MMissingInputPlugin extends ANullPlugin {
     }
 
     void showWindow() {
-        ISimpleCallback<JMissingInputFrame> sc = new ISimpleCallback<JMissingInputFrame>() {
-            @Override
-            public void callback(JMissingInputFrame f) {
-                notifiyChange();
-            }
-        };
-        frame = new JMissingInputFrame(getController().getWindow(), core, editor, sc);
+        frame = new JMissingInputFrame(getController().getWindow(), core, editor, f -> notifiyChange());
         ModalFrameUtil.showAsModal(frame, getController().getWindow());
     }
 

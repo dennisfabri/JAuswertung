@@ -197,7 +197,7 @@ public class JSelectionDialog {
                     enabled = false;
                     JResultTable result = JResultTable.getResultTable(wk, aks.getAk(y), x == 1, true, true, 0);
                     if (result.getRowCount() > 0) {
-                        double points = result.getPunkte(0);
+                        double points = result.getResult(0).getPoints();
                         if (points > 0.005) {
                             enabled = true;
                         }

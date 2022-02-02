@@ -13,6 +13,7 @@ public class Results<T extends ASchwimmer> implements Iterable<SchwimmerResult<T
         this.entries = entries;
     }
 
+    @SuppressWarnings("unchecked")
     public Results() {
         this(new SchwimmerResult[0]);
     }
@@ -25,11 +26,6 @@ public class Results<T extends ASchwimmer> implements Iterable<SchwimmerResult<T
         return entries.length;
     }
     
-    @Deprecated
-    public int getRowCount() {
-        return size();
-    }
-
     public ASchwimmer getSchwimmer(int y) {
         return entries[y].getSchwimmer();
     }

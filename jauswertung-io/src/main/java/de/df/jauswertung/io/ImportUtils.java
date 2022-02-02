@@ -187,7 +187,7 @@ public class ImportUtils {
                 }
             } catch (TableFormatException tfe) {
                 fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportManager.indizesToNames(tfe.getData(), "\t")));
+                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
@@ -1013,7 +1013,7 @@ public class ImportUtils {
                 }
             } catch (TableFormatException tfe) {
                 fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportManager.indizesToNames(tfe.getData(), "\t")));
+                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
@@ -1115,7 +1115,7 @@ public class ImportUtils {
             try {
                 indizes = identifyIndizes(wk, titles, einzel, true, file, sheet);
             } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportManager.indizesToNames(tfe.getData(), "")));
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "")));
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
@@ -1217,7 +1217,7 @@ public class ImportUtils {
                 }
             } catch (TableFormatException tfe) {
                 fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportManager.indizesToNames(tfe.getData(), "\t")));
+                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
 
@@ -2226,6 +2226,43 @@ public class ImportUtils {
             indizes[JAHRGANG12] = x;
             return;
         }
+    }
+
+    public static String indizesToNames(int[] indizes, String spacer) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(spacer);
+        for (int x = 0; x < indizes.length; x++) {
+            if (x > 0) {
+                sb.append(", ");
+            }
+            switch (indizes[x]) {
+            case ImportConstants.ALTERSKLASSE:
+                sb.append(I18n.get("AgeGroup"));
+                break;
+            case ImportConstants.GESCHLECHT:
+                sb.append(I18n.get("Sex"));
+                break;
+            case ImportConstants.GLIEDERUNG:
+                sb.append(I18n.get("Organisation"));
+                break;
+            case ImportConstants.JAHRGANG:
+                sb.append(I18n.get("YearOfBirth"));
+                break;
+            case ImportConstants.NACHNAME:
+                sb.append(I18n.get("FamilyName"));
+                break;
+            case ImportConstants.NAME:
+                sb.append(I18n.get("Name"));
+                break;
+            case ImportConstants.VORNAME:
+                sb.append(I18n.get("FirstName"));
+                break;
+            default:
+                sb.append(I18n.get("UnknownField"));
+                break;
+            }
+        }
+        return sb.toString();
     }
 
 }

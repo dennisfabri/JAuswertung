@@ -7,7 +7,6 @@ package de.df.jauswertung.io;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 
 /**
