@@ -330,8 +330,8 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<Zieleinlaufkarte> karten = new LinkedList<Zieleinlaufkarte>();
-        for (AWettkampf wk : wks) {
+        LinkedList<Zieleinlaufkarte> karten = new LinkedList<>();
+        for (AWettkampf<T> wk : wks) {
             if ((wk == null) || (wk.getLaufliste() == null) || (wk.getLaufliste().getLaufliste() == null)) {
                 continue;
             }

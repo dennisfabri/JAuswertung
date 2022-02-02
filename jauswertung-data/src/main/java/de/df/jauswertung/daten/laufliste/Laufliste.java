@@ -1438,9 +1438,10 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             }
         });
 
+        @SuppressWarnings("unchecked")
         LinkedList<T>[] llx = new LinkedList[amount];
         for (int x = 0; x < llx.length; x++) {
-            llx[x] = new LinkedList<T>();
+            llx[x] = new LinkedList<>();
         }
 
         pos = 0;

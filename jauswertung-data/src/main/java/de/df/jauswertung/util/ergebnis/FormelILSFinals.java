@@ -195,6 +195,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         }
 
         int size = SearchUtils.getSchwimmer(wk, ak, male, disz).size();
+        @SuppressWarnings("unchecked")
         SchwimmerInfo<T>[] infos = new SchwimmerInfo[size];
 
         for (int i = 0; i < swimmer.length; i++) {

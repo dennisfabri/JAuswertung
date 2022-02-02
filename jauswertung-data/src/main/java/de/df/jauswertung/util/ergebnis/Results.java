@@ -46,7 +46,7 @@ public class Results<T extends ASchwimmer> implements Iterable<SchwimmerResult<T
         return getPoints(0) - getPoints(y);
     }
 
-    public SchwimmerData[] getResults(int y) {
+    public SchwimmerData<T>[] getResults(int y) {
         return entries[y].getResults();
     }
 

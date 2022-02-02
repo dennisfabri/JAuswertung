@@ -12,9 +12,8 @@ import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import org.simmetrics.StringMetric;
-import org.simmetrics.metrics.Jaro;
-
+import com.github.mpkorstanje.simmetrics.StringMetric;
+import com.github.mpkorstanje.simmetrics.metrics.Jaro;
 import com.rits.cloning.Cloner;
 import com.rits.cloning.IDeepCloner;
 import com.rits.cloning.IFastCloner;

@@ -24,13 +24,12 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
  */
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
-    @SuppressWarnings("rawtypes")
-    private static final class ILSComparator implements Comparator<SchwimmerData>, Serializable {
+    private static final class ILSComparator<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
 
         private static final long serialVersionUID = -7952635514437923875L;
 
         @Override
-        public int compare(SchwimmerData sd1, SchwimmerData sd2) {
+        public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {
             if (sd1.getStrafart() != sd2.getStrafart()) {
                 if ((sd1.getStrafart() == Strafarten.AUSSCHLUSS)) {
                     return 1;
@@ -60,7 +59,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     public static final String ID = "ILS2004";
 
-    private final Comparator<SchwimmerData> comparator;
+    private final Comparator<SchwimmerData<T>> comparator;
     
     @Override
     public String getID() {
@@ -68,10 +67,10 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     }
 
     public FormelILS() {
-        this(new ILSComparator());
+        this(new ILSComparator<>());
     }
     
-    protected FormelILS(Comparator<SchwimmerData> comparator) {
+    protected FormelILS(Comparator<SchwimmerData<T>> comparator) {
         this.comparator = comparator;
     }
 
@@ -110,11 +109,11 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             return;
         }
 
-        SchwimmerData[] sold = swimmer;
+        SchwimmerData<T>[] sold = swimmer;
         Arrays.sort(sold, comparator);
 
-        LinkedList<SchwimmerData> sd = new LinkedList<SchwimmerData>();
-        LinkedList<SchwimmerData> others = new LinkedList<SchwimmerData>();
+        LinkedList<SchwimmerData<T>> sd = new LinkedList<>();
+        LinkedList<SchwimmerData<T>> others = new LinkedList<>();
         for (SchwimmerData aSwimmer : swimmer) {
             if ((aSwimmer.getTime() == 0) || (aSwimmer.getStrafart() == Strafarten.AUSSCHLUSS)
                     || (aSwimmer.getStrafart() == Strafarten.DISQUALIFIKATION)
@@ -130,7 +129,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 }
             }
         }
-        SchwimmerData[] other = others.toArray(new SchwimmerData[others.size()]);
+        SchwimmerData<T>[] other = others.toArray(new SchwimmerData[others.size()]);
         Arrays.sort(other, comparator);
 
         swimmer = sd.toArray(new SchwimmerData[sd.size()]);

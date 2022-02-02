@@ -23,13 +23,12 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
         return ID;
     }
 
-    @SuppressWarnings("rawtypes")
-    private static final class ILSComparatorSERC implements Comparator<SchwimmerData>, Serializable {
+    private static final class ILSComparatorSERC<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
 
         private static final long serialVersionUID = -7952635514437923875L;
 
         @Override
-        public int compare(SchwimmerData sd1, SchwimmerData sd2) {
+        public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {
             if (sd1.getStrafart() != sd2.getStrafart()) {
                 if ((sd1.getStrafart() == Strafarten.AUSSCHLUSS)) {
                     return 1;
@@ -58,7 +57,7 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
     }
 
     public FormelILSSERC() {
-        super(new ILSComparatorSERC());
+        super(new ILSComparatorSERC<>());
     }
 
     @Override
