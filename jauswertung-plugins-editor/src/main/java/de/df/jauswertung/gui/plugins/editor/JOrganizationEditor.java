@@ -51,7 +51,7 @@ class JOrganizationEditor extends JDialog {
      * This is the default constructor
      */
     public JOrganizationEditor(IPluginManager controller, CorePlugin core, String gld, JFrame parent) {
-        super(parent, I18n.get("TimeInput"), true);
+        super(parent, I18n.get("OrganizationInput"), true);
         this.controller = controller;
         this.core = core;
 
