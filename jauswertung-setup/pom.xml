@@ -159,7 +159,7 @@
 								<artifactItem>
 									<groupId>de.dennisfabri.alphaserver</groupId>
 									<artifactId>alphaserver-server</artifactId>
-									<version>${project.version}</version>
+									<version>${alphaserver.version}</version>
 									<classifier>files</classifier>
 									<type>zip</type>
 									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
