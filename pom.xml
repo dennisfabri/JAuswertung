@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
-	<description></description>
+	<description/>
 	<url>https://github.com/dennisfabri/JAuswertung</url>
 
 	<properties>
@@ -24,7 +24,7 @@
 		<poi.version>5.2.0</poi.version>
 		<jersey.version>3.0.3</jersey.version>
 		<batik.version>1.14</batik.version>
-		<slf4j.version>1.7.33</slf4j.version>
+		<slf4j.version>1.7.35</slf4j.version>
 		<logback.version>1.2.9</logback.version>
 		<javafx.version>17</javafx.version>
 
@@ -50,7 +50,7 @@
 		<url>-</url>
 	</organization>
 
-	<mailingLists></mailingLists>
+	<mailingLists/>
 
 	<modules>
 		<module>jauswertung-files</module>
