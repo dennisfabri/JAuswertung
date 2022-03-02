@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
-	<description></description>
+	<description/>
 	<url>https://github.com/dennisfabri/JAuswertung</url>
 
 	<properties>
@@ -50,7 +50,7 @@
 		<url>-</url>
 	</organization>
 
-	<mailingLists></mailingLists>
+	<mailingLists/>
 
 	<modules>
 		<module>jauswertung-files</module>
