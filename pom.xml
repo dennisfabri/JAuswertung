@@ -22,14 +22,14 @@
 		<alphaserver.version>16.0.4</alphaserver.version>
 
 		<poi.version>5.2.0</poi.version>
-		<jersey.version>3.0.3</jersey.version>
+		<jersey.version>3.0.4</jersey.version>
 		<batik.version>1.14</batik.version>
-		<slf4j.version>1.7.33</slf4j.version>
-		<logback.version>1.2.9</logback.version>
+		<slf4j.version>1.7.36</slf4j.version>
+		<logback.version>1.2.10</logback.version>
 		<javafx.version>17</javafx.version>
 
 		<junit.version>5.8.2</junit.version>
-		<mockito.version>4.2.0</mockito.version>
+		<mockito.version>4.3.1</mockito.version>
 	</properties>
 
 	<distributionManagement>
@@ -369,7 +369,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents.client5</groupId>
 				<artifactId>httpclient5</artifactId>
-				<version>5.1.2</version>
+				<version>5.1.3</version>
 			</dependency>
 
 			<dependency>
