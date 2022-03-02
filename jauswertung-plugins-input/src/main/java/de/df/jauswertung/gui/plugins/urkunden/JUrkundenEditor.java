@@ -70,7 +70,7 @@ import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.elements.RulerBorder;
 
 public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
-
+    
     private static final long serialVersionUID = -523804656941976436L;
 
     private JFrame parent;
@@ -82,7 +82,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
     JPanel inner;
 
     Point clicked;
-
+    
     JPopupMenu menu;
     JMenuItem font;
     JMenuItem delete;

@@ -4,9 +4,7 @@
 package de.df.jauswertung.print.util;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.print.Printable;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -26,6 +24,8 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.UrkundenPrintable;
+import de.df.jauswertung.print.graphics.Dimension;
+import de.df.jauswertung.print.graphics.Point;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.print.PageSetup;
 import de.df.jutils.print.PrintManager;
@@ -33,7 +33,7 @@ import de.df.jutils.print.printables.MultiplePrintable;
 import de.df.jutils.util.StringTools;
 
 public class GraphUtils {
-
+    
     public static <T extends ASchwimmer> Printable getDummyPrintable(Hashtable<String, Object>[] cells) {
         return new UrkundenPrintable<T>(cells);
     }
@@ -45,7 +45,8 @@ public class GraphUtils {
         return (wk.getProperty(PropertyConstants.URKUNDE) != null);
     }
 
-    public static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, boolean[][] selection, boolean einzelwertung) {
+    public static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, boolean[][] selection,
+            boolean einzelwertung) {
         if (einzelwertung) {
             if (wk.getProperty(PropertyConstants.URKUNDE_EINZELWERTUNG) == null) {
                 return null;
@@ -60,14 +61,17 @@ public class GraphUtils {
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 if ((selection == null) || (selection[y][x])) {
-                    mp.add(new UrkundenPrintable<T>(wk, SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1), x, y == 1, einzelwertung));
+                    mp.add(new UrkundenPrintable<T>(wk,
+                            SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1), x, y == 1,
+                            einzelwertung));
                 }
             }
         }
         return mp;
     }
 
-    public static void addTextfield(mxGraph graph, Point offset, Dimension size, String text, Font f, int align, boolean borders) {
+    public static void addTextfield(mxGraph graph, Point offset, Dimension size, String text, Font f, int align,
+            boolean borders) {
         if (f == null) {
             f = PrintManager.getDefaultFont();
         }
@@ -127,7 +131,8 @@ public class GraphUtils {
         style.put(mxConstants.STYLE_ALIGN, a);
     }
 
-    public static mxCell addTextfield(mxGraph graph, double x, double y, double width, double height, String text, boolean borders) {
+    public static mxCell addTextfield(mxGraph graph, double x, double y, double width, double height, String text,
+            boolean borders) {
 
         if (width < 0) {
             x += width;
@@ -357,12 +362,13 @@ public class GraphUtils {
         return sb.toString();
     }
 
-    public static <T extends ASchwimmer> void populateGraph(mxGraph graph, Hashtable<String, Object>[] cells, boolean borders, boolean print) {
+    public static <T extends ASchwimmer> void populateGraph(mxGraph graph, Hashtable<String, Object>[] cells,
+            boolean borders, boolean print) {
         populateGraph(graph, cells, borders, null, null, print);
     }
 
-    public static <T extends ASchwimmer> void populateGraph(mxGraph graph, Hashtable<String, Object>[] cells, boolean borders, String[] ids, String[] values,
-            boolean print) {
+    public static <T extends ASchwimmer> void populateGraph(mxGraph graph, Hashtable<String, Object>[] cells,
+            boolean borders, String[] ids, String[] values, boolean print) {
         if (cells != null) {
             for (Hashtable<String, Object> ht : cells) {
                 String text = (String) ht.get("text");
@@ -370,8 +376,6 @@ public class GraphUtils {
                     for (int x = 0; x < ids.length; x++) {
                         text = StringTools.replaceCaseInsensitive(text, ids[x], values[x]);
                     }
-                    // text = StringEscapeUtils.escapeHtml(text);
-                    // text = text.replace("&lt;br&gt;", "<br>");
                 }
                 String fname = (String) ht.get("fontname");
                 int fstyle = Font.PLAIN;
@@ -392,7 +396,8 @@ public class GraphUtils {
                 } catch (RuntimeException re) {
                     // Nothing to do
                 }
-                addTextfield(graph, (Point) ht.get("offset"), (Dimension) ht.get("size"), text, getFont(fname, fstyle, fsize), align, borders);
+                addTextfield(graph, (Point) ht.get("offset"), (Dimension) ht.get("size"), text,
+                        getFont(fname, fstyle, fsize), align, borders);
             }
         }
     }

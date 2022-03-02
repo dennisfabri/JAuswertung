@@ -31,7 +31,7 @@ import de.df.jauswertung.util.Utils;
  * @date 08.01.2005
  */
 public final class InputManager {
-    
+
     private static Logger log = LoggerFactory.getLogger(InputManager.class);
 
     private InputManager() {
@@ -94,7 +94,7 @@ public final class InputManager {
             return null;
         }
         AWettkampf wk = (AWettkampf) data.get("data.xml");
-        if ((data.get("logo.png") != null) && (data.get("logo.png") instanceof byte[])) {
+        if (data.get("logo.png") instanceof byte[]) {
             wk.setProperty(PropertyConstants.LOGO, data.get("logo.png"));
         }
         return wk;
@@ -107,7 +107,7 @@ public final class InputManager {
             return null;
         }
         AWettkampf wk = (AWettkampf) data.get("data.xml");
-        if ((data.get("logo.png") != null) && (data.get("logo.png") instanceof byte[])) {
+        if (data.get("logo.png") instanceof byte[]) {
             wk.setProperty(PropertyConstants.LOGO, data.get("logo.png"));
         }
         return wk;
@@ -129,17 +129,10 @@ public final class InputManager {
     public static synchronized BugReport ladeBugReport(String name) {
         BugReport br = null;
         try {
-            FileInputStream is = new FileInputStream(name);
-            ObjectInputStream ois = new ObjectInputStream(is);
-            br = (BugReport) ois.readObject();
-            ois.close();
-            is.close();
-            return br;
-        } catch (RuntimeException e) {
-            return (BugReport) ladeObject(name);
-        } catch (IOException e) {
-            return (BugReport) ladeObject(name);
-        } catch (ClassNotFoundException e) {
+            try (FileInputStream is = new FileInputStream(name); ObjectInputStream ois = new ObjectInputStream(is)) {
+                return (BugReport) ois.readObject();
+            }
+        } catch (RuntimeException | IOException | ClassNotFoundException e) {
             return (BugReport) ladeObject(name);
         }
     }
@@ -307,4 +300,4 @@ public final class InputManager {
             return null;
         }
     }
-}
+}

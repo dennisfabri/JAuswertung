@@ -69,6 +69,8 @@ import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
 import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.print.graphics.Dimension;
+import de.df.jauswertung.print.graphics.Point;
 import de.df.jauswertung.util.Utils;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.Lane;
@@ -81,6 +83,8 @@ import de.dm.ares.data.util.XStreamUtil;
 public final class IOUtils {
 
     private static Logger log = LoggerFactory.getLogger(IOUtils.class);
+
+    private static XStream instance = null;
 
     private IOUtils() {
         // Hide constructor
@@ -173,12 +177,13 @@ public final class IOUtils {
         writeText(xml, os);
     }
 
-    private static XStream instance = null;
-
     public static XStream getXStream() {
         if (instance == null) {
             instance = XStreamUtil.getXStream();
             setupPermissions(instance);
+            
+            instance.aliasType("java.awt.Point", Point.class);
+            instance.aliasType("java.awt.Dimension", Dimension.class);
 
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Startgruppe", Startgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Wertungsgruppe", Wertungsgruppe.class);
@@ -254,7 +259,7 @@ public final class IOUtils {
 
             instance.alias("Mannschaftsmitglied", Mannschaftsmitglied.class);
             instance.alias("Mannschaftsmitgliedermeldung", Mannschaftsmitgliedermeldung.class);
-
+            
             instance.useAttributeFor(ASchwimmer.class, "gliederung");
             instance.useAttributeFor(ASchwimmer.class, "maennlich");
             instance.useAttributeFor(ASchwimmer.class, "bemerkung");
@@ -284,7 +289,7 @@ public final class IOUtils {
 
     private static void setupPermissions(XStream xstream) {
         xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
-        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*",
+        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*", "de.df.jauswertung.print.graphics.*",
                 "de.df.jutils.print.PageSetting" });
     }
 
