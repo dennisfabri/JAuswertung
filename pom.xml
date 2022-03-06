@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
-	<description/>
+	<description />
 	<url>https://github.com/dennisfabri/JAuswertung</url>
 
 	<properties>
@@ -21,12 +21,13 @@
 		<jutils.version>16.0.4</jutils.version>
 		<alphaserver.version>16.0.4</alphaserver.version>
 
-		<poi.version>5.2.0</poi.version>
+		<poi.version>5.2.1</poi.version>
 		<jersey.version>3.0.4</jersey.version>
 		<batik.version>1.14</batik.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<javafx.version>17</javafx.version>
+		<jackson.version>2.13.1</jackson.version>
 
 		<junit.version>5.8.2</junit.version>
 		<mockito.version>4.3.1</mockito.version>
@@ -50,7 +51,7 @@
 		<url>-</url>
 	</organization>
 
-	<mailingLists/>
+	<mailingLists />
 
 	<modules>
 		<module>jauswertung-files</module>
@@ -490,7 +491,7 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>
 				<artifactId>jackson-bom</artifactId>
-				<version>2.13.1</version>
+				<version>${jackson.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
