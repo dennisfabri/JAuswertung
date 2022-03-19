@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -155,8 +156,8 @@ public final class IconManager {
             if (id == null) {
                 throw new NullPointerException();
             }
-            String fullname = "/images/" + size + "x" + size + "/" + id;
-            return new ImageIcon(IconManager.class.getResource(fullname));
+            Path filename = Path.of("images", ""+size + "x" + size,id);
+            return new ImageIcon(filename.toString());
         }
     }
 }

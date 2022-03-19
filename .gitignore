@@ -1,7 +1,7 @@
-*/target/
-/target/
+target/
 pom.xml.versionsBackup
 
+bin/
 .project
 .classpath
 .settings
