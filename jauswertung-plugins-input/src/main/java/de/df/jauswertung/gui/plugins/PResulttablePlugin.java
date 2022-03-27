@@ -42,6 +42,8 @@ import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
@@ -728,6 +730,30 @@ public class PResulttablePlugin extends ANullPlugin {
         }
     }
 
+    void withdraw() {
+        ASchwimmer s = getSelectedSwimmer();
+        if (isHeatBased()) {
+            if (disziplin.getSelectedIndex() + 1 == disziplin.getItemCount()) {
+                int diszx = result.getSelectedDiscipline();
+                if (diszx >= 0) {
+                    String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1, diszx, 0);
+                    if (wk.getLauflisteOW().getDisziplin(disz) != null) {
+                        s.addStrafe(disz, new Strafe("", "WD", Strafarten.NICHTS, 0));
+                        sendDataUpdateEvent("Withdraw", UpdateEventConstants.REASON_PENALTY);
+                    }
+                }
+            } else {
+                int round = runde.getSelectedIndex();
+                if (round + 1 == runde.getItemCount()) {
+                    round--;
+                }
+                String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1, disziplin.getSelectedIndex(), round);
+                s.addStrafe(disz, new Strafe("", "WD", Strafarten.NICHTS, 0));
+                sendDataUpdateEvent("Withdraw", UpdateEventConstants.REASON_PENALTY);
+            }
+        }
+    }
+
     private class JEditPopup extends JPopupMenu {
 
         /**
@@ -739,6 +765,7 @@ public class PResulttablePlugin extends ANullPlugin {
         JMenuItem                 delete           = null;
         JMenuItem                 heatsitem        = null;
         JMenuItem                 penalty          = null;
+        JMenuItem                 withdraw  =null;
 
         public JEditPopup() {
             result.addMouseListener(new Listener());
@@ -773,6 +800,13 @@ public class PResulttablePlugin extends ANullPlugin {
                     editPenalty();
                 }
             });
+            withdraw = new JMenuItem(I18n.get("Withdraw"));
+            withdraw.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    withdraw();
+                }
+            });
 
             setLayout(new ListLayout(1));
             add(new JGradientLabel(I18n.get("Information")));
@@ -781,6 +815,7 @@ public class PResulttablePlugin extends ANullPlugin {
             add(edit);
             add(delete);
             add(penalty);
+            add(withdraw);
         }
 
         class Listener extends MouseAdapter {
