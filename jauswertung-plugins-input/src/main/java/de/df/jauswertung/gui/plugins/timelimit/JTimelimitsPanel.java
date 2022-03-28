@@ -1,11 +1,10 @@
 package de.df.jauswertung.gui.plugins.timelimit;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -34,6 +33,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.Excel2007Utils;
 import de.df.jauswertung.io.ExcelReader;
 import de.df.jauswertung.io.ImportUtils;
+import de.df.jauswertung.io.TableFormatException;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
@@ -43,19 +43,21 @@ import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 class JTimelimitsPanel extends JPanel {
 
     private static final String[] TITLES    = new String[] { "Disziplin", "Zeit", "Min (Alter)", "Max (Alter)", "Altersklasse", "Geschlecht" };
 
     private Timelimits            current   = null;
 
-    private JTextField            name      = new JWarningTextField(true, false);
-    private JTextField            shortname = new JWarningTextField(true, false);
-    private JComboBox<String>     limittype = new JComboBox<String>(new String[] { I18n.get("UpperLimit"), I18n.get("LowerLimit") });
+    private final JTextField            name      = new JWarningTextField(true, false);
+    private final JTextField            shortname = new JWarningTextField(true, false);
+    private final JComboBox<String>     limittype = new JComboBox<>(new String[] { I18n.get("UpperLimit"), I18n.get("LowerLimit") });
 
-    private ExtendedTableModel    model     = new ExtendedTableModel(new Object[0][4], new String[] { "Disziplin", "Zeit", "Min (Alter)", "Max (Alter)" });
-    private JTable                table     = new JTable(model);
+    private final ExtendedTableModel    model     = new ExtendedTableModel(new Object[0][4], new String[] { "Disziplin", "Zeit", "Min (Alter)", "Max (Alter)" });
+    private final JTable                table     = new JTable(model);
 
     private JButton               importButton;
     private JButton               exportButton;
@@ -63,10 +65,13 @@ class JTimelimitsPanel extends JPanel {
     private JPanel                panel;
     private JGlassPanel<JPanel>   glass;
 
-    private JFrame                parent;
+    private final JFrame                parent;
+    
+    private final Sex[] sexes;
 
-    JTimelimitsPanel(JFrame parent) {
+    JTimelimitsPanel(JFrame parent, Sex female, Sex male) {
         this.parent = parent;
+        this.sexes = new Sex[] {female, male};
 
         createPanel();
         createGlassPanel();
@@ -120,24 +125,15 @@ class JTimelimitsPanel extends JPanel {
     }
 
     private void createGlassPanel() {
-        glass = new JGlassPanel<JPanel>(panel);
+        glass = new JGlassPanel<>(panel);
     }
 
     private JPanel createButtons() {
         importButton = new JButton(I18n.get("Import"));
-        importButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doImport();
-            }
-        });
+        importButton.addActionListener(e -> doImport());
+
         exportButton = new JButton(I18n.get("Export"));
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doExport();
-            }
-        });
+        exportButton.addActionListener(e -> doExport());
 
         exportButton.setEnabled(false);
 
@@ -195,7 +191,11 @@ class JTimelimitsPanel extends JPanel {
                 current.setLimits(limits);
                 model.setDataVector(toData(limits), TITLES);
             } catch (IOException io) {
-                io.printStackTrace();
+                DialogUtils.warn(parent, "Datei konnte nicht geladen werden.", String.format("Probleme beim Laden der Datei: {}", io.getMessage()));
+                log.info("", io);
+            } catch (TableFormatException e) {
+                DialogUtils.warn(parent, "Das Geschlecht konnte nicht bestimmt werden.", "Für einen Wert in der Spalte 'Geschlecht' konnte kein passender Wert gefunden werden.");
+                log.info("Format Problem:", e);
             }
         }
     }
@@ -211,7 +211,7 @@ class JTimelimitsPanel extends JPanel {
         return lines.toArray(lines.toArray(new Object[lines.size()][0]));
     }
 
-    private Timelimit[] tablesToLimits(Feedback fb, String[] titles, Object[][][] tables) {
+    private Timelimit[] tablesToLimits(Feedback fb, String[] titles, Object[][][] tables) throws TableFormatException{
         LinkedList<Timelimit> limits = new LinkedList<>();
         for (int x = 0; x < titles.length; x++) {
             Collection<Timelimit> tmp = tableToLimits(fb, titles[x], tables[x]);
@@ -225,7 +225,7 @@ class JTimelimitsPanel extends JPanel {
         return limits.toArray(new Timelimit[limits.size()]);
     }
 
-    private Collection<Timelimit> tableToLimits(Feedback fb, String string, Object[][] data) {
+    private Collection<Timelimit> tableToLimits(Feedback fb, String string, Object[][] data) throws TableFormatException{
         LinkedList<Timelimit> limits = new LinkedList<>();
 
         if (getString(data, 0, 0).equals("Disziplin") && getString(data, 1, 0).equals("Zeit") && getString(data, 2, 0).equals("Alter min")
@@ -239,7 +239,7 @@ class JTimelimitsPanel extends JPanel {
                 String agegroup = getString(row, 4);
                 boolean isMale = getSex(row, 5);
                 if (agemin < 0 || agemax < 0) {
-                    return null;
+                    throw new TableFormatException(new int[] {x, 2}, "", "");
                 }
                 limits.add(new Timelimit(disziplin, zeit, agemin, agemax, agegroup, isMale));
             }
@@ -287,9 +287,9 @@ class JTimelimitsPanel extends JPanel {
         }
     }
 
-    private boolean getSex(Object[] row, int x) {
+    private boolean getSex(Object[] row, int x) throws TableFormatException {
         String s = getString(row, x);
-        return s.toLowerCase().equals("m");
+        return Arrays.stream(sexes).filter(sex -> sex.matches(s)).map(sex -> sex.isMale()).findFirst().orElseThrow(() -> new TableFormatException(new int[] {x}, "", ""));
     }
 
     private void doExport() {

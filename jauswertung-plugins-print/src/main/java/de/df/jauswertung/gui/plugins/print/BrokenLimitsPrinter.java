@@ -129,7 +129,7 @@ class BrokenLimitsPrinter implements Printer {
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
-                    LinkedList<String> names = new LinkedList<String>();
+                    LinkedList<String> names = new LinkedList<>();
                     agegroup.removeAllItems();
                     Regelwerk aks = wk.getRegelwerk();
                     for (int x = 0; x < aks.size(); x++) {
@@ -137,8 +137,8 @@ class BrokenLimitsPrinter implements Printer {
                         names.addLast(aks.getAk(x).getName());
                     }
                     names.addLast(I18n.get("All"));
-                    agegroup.setModel(new DefaultComboBoxModel<String>(names.toArray(new String[names.size()])));
-                    if (names.size() == 0) {
+                    agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[names.size()])));
+                    if (names.isEmpty()) {
                         agegroup.addItem(I18n.get("Empty"));
                     }
                     if (agegroup.getSelectedIndex() < 0) {
@@ -240,7 +240,7 @@ class BrokenLimitsPrinter implements Printer {
     JTable getData(AWettkampf<ASchwimmer> wk, int index) {
         TimelimitsContainer tlc = wk.getTimelimits();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         if (tlc != null && !tlc.isEmpty()) {
             int akmin = 0;

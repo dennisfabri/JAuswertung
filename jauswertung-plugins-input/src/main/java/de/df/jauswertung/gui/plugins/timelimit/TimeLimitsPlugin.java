@@ -88,7 +88,10 @@ public class TimeLimitsPlugin extends ANullPlugin {
 
     private void showEditor() {
         AWettkampf<?> wk = core.getWettkampf();
-        JTimelimitsEditor editor = new JTimelimitsEditor(getController().getWindow(), wk.getTimelimits(), callback);
+        Sex female = new Sex(false, wk.getRegelwerk().getTranslation("Female", "Female"), wk.getRegelwerk().getTranslation("female", "female"), wk.getRegelwerk().getTranslation("femaleShort", "f"));
+        Sex male = new Sex(true, wk.getRegelwerk().getTranslation("Male", "Male"), wk.getRegelwerk().getTranslation("male", "male"), wk.getRegelwerk().getTranslation("maleShort", "m"));
+        
+        JTimelimitsEditor editor = new JTimelimitsEditor(getController().getWindow(), wk.getTimelimits(), callback, female, male);
         ModalFrameUtil.showAsModal(editor, getController().getWindow());
     }
 

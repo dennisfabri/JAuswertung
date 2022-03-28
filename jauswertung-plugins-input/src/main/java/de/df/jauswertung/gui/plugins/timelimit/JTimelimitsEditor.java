@@ -48,7 +48,7 @@ class JTimelimitsEditor extends JFrame {
 
     private ISimpleCallback<TimelimitsContainer> callback;
 
-    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, ISimpleCallback<TimelimitsContainer> callback) {
+    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, ISimpleCallback<TimelimitsContainer> callback, Sex female, Sex male) {
         this.parent = parent;
 
         FormLayout layout = new FormLayout("4dlu,fill:max(200dlu;default),4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
@@ -101,7 +101,7 @@ class JTimelimitsEditor extends JFrame {
             }
         });
 
-        panel = new JTimelimitsPanel(this);
+        panel = new JTimelimitsPanel(this, female, male);
 
         add(new JScrollPane(entries), CC.xy(2, 2));
         add(panel, CC.xy(4, 2));
