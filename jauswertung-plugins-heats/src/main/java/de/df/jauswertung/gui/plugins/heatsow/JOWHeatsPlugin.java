@@ -231,11 +231,14 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
         LinkedList<T> gemeldet = owd.getSchwimmer();
         LinkedList<T> aktuell = new LinkedList<>();
-        for (int x = 0; x < Math.min(result.length, qualifiziert); x++) {
+        for (int x = 0; x < result.length; x++) {
             T t = result[x].getSchwimmer();
             Strafe s = t.getAkkumulierteStrafe(0);
             if (!s.isWithdraw() && !s.cancelsPoints()) {
                 aktuell.add(t);
+            }
+            if (aktuell.size() >= qualifiziert) {
+                break;
             }
         }
 
