@@ -4,7 +4,7 @@
 
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>16.1.0</version>
+	<version>16.1.1</version>
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
@@ -28,6 +28,7 @@
 		<logback.version>1.2.10</logback.version>
 		<javafx.version>17</javafx.version>
 		<jackson.version>2.13.1</jackson.version>
+		<lombok.version>1.18.22</lombok.version>
 
 		<junit.version>5.8.2</junit.version>
 		<mockito.version>4.3.1</mockito.version>
@@ -495,6 +496,13 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
+
 
 			<!-- Test -->
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="9.0.6" transformSequenceNumber="9">
   <directoryPresets config="./global.vmoptions" />
-  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shrinkRuntime="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.1.0" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="17" jdkMode="jdk" jdkName="JDK 17">
+  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shrinkRuntime="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.1.1" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="17" jdkMode="jdk" jdkName="JDK 17">
     <languages>
       <principalLanguage id="de" />
     </languages>
