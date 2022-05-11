@@ -3,9 +3,6 @@
  */
 package de.df.jauswertung.test.util;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

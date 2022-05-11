@@ -127,7 +127,6 @@ public final class InputManager {
     }
 
     public static synchronized BugReport ladeBugReport(String name) {
-        BugReport br = null;
         try {
             try (FileInputStream is = new FileInputStream(name); ObjectInputStream ois = new ObjectInputStream(is)) {
                 return (BugReport) ois.readObject();

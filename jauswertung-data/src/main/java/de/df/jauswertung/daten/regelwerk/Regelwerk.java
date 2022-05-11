@@ -263,11 +263,11 @@ public class Regelwerk implements Serializable {
             throw new IllegalArgumentException("Group must not be null!");
         }
         if (wertungsgruppen == null) {
-            wertungsgruppen = new LinkedList<Wertungsgruppe>();
+            wertungsgruppen = new LinkedList<>();
         }
         return wertungsgruppen.remove(gruppe);
     }
-
+    
     public void setSize(int count) {
         if (count == aks.length) {
             return;
