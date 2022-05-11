@@ -21,17 +21,17 @@
 		<jutils.version>16.0.4</jutils.version>
 		<alphaserver.version>16.0.4</alphaserver.version>
 
-		<poi.version>5.2.1</poi.version>
+		<poi.version>5.2.2</poi.version>
 		<jersey.version>3.0.4</jersey.version>
 		<batik.version>1.14</batik.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
 		<javafx.version>17</javafx.version>
-		<jackson.version>2.13.1</jackson.version>
-		<lombok.version>1.18.22</lombok.version>
+		<jackson.version>2.13.2</jackson.version>
+		<lombok.version>1.18.24</lombok.version>
 
 		<junit.version>5.8.2</junit.version>
-		<mockito.version>4.3.1</mockito.version>
+		<mockito.version>4.5.1</mockito.version>
 	</properties>
 
 	<distributionManagement>
@@ -366,7 +366,7 @@
 			<dependency>
 				<groupId>com.google.zxing</groupId>
 				<artifactId>core</artifactId>
-				<version>3.4.1</version>
+				<version>3.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents.client5</groupId>
