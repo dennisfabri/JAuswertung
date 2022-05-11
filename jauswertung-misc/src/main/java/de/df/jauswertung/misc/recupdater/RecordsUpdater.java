@@ -201,7 +201,7 @@ public class RecordsUpdater {
             for (int row = 2; row < sheet.length; row++) {
                 String competition = sheet[row][0].toString().trim();
                 String agegroup = sheet[row][1].toString().trim();
-                boolean male = ImportUtils.getMaennlich(sheet[row][2].toString().trim(), 2, row, title, "");
+                boolean male = ImportUtils.getMaennlich(null, sheet[row][2].toString().trim(), 2, row, title, "");
                 String discipline = sheet[row][3].toString().trim();
                 int time = getTime(sheet[row][4], "", title, row, 4);
                 String name = sheet[row][5].toString().trim();

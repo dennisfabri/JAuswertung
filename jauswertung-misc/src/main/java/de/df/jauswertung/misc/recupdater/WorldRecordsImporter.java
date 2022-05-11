@@ -70,13 +70,10 @@ public class WorldRecordsImporter implements IImporter {
         for (int i = 0; i < titles.length; i++) {
             String title = titles[i];
             Object[][] sheet = tables[i];
-            // boolean team = "Mannschaft".equals(title);
 
             for (int row = 1; row < sheet.length; row++) {
                 String competition = sheet[row][10].toString().trim() + " " + year;
-                // String date = sheet[row][9].toString().trim();
-                // String agegroup = sheet[row][1].toString().trim();
-                boolean male = ImportUtils.getMaennlich(sheet[row][1].toString().trim(), 1, row, title, "");
+                boolean male = ImportUtils.getMaennlich(null, sheet[row][1].toString().trim(), 1, row, title, "");
                 String discipline = sheet[row][2].toString().trim();
                 int time = getTime(sheet[row][3], "", title, row, 4);
 

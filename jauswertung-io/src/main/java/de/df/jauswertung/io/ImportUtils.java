@@ -79,11 +79,15 @@ import static de.df.jauswertung.io.ImportConstants.getRequiredIndizes;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -186,8 +190,7 @@ public class ImportUtils {
                     continue;
                 }
             } catch (TableFormatException tfe) {
-                fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
@@ -225,8 +228,7 @@ public class ImportUtils {
                 }
                 startsak[s.getAKNummer()][s.isMaennlich() ? 1 : 0]++;
 
-                // Mannschaft m = (Mannschaft) s;
-                String[] mm = setMitglied(data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
+                String[] mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
                         indizes[JAHRGANG], x, sheet, file);
 
                 result.put(sntext, mm);
@@ -272,7 +274,7 @@ public class ImportUtils {
             for (int x = 0; x < data.length; x++) {
                 boolean used = false;
                 for (int y = 0; y < indizes.length; y++) {
-                    if ((indizes[y] == x) && required[x]) {
+                    if ((indizes[y] == x) && required[y]) {
                         used = true;
                         break;
                     }
@@ -331,7 +333,7 @@ public class ImportUtils {
                 }
             }
 
-            boolean maennlich = getMaennlich(data[indizes[GESCHLECHT]], indizes[GESCHLECHT], row, sheet, file);
+            boolean maennlich = getMaennlich(wk, data[indizes[GESCHLECHT]], indizes[GESCHLECHT], row, sheet, file);
             String gname = "";
             if (indizes[GLIEDERUNG] >= 0) {
                 gname = data[indizes[GLIEDERUNG]].toString();
@@ -412,50 +414,50 @@ public class ImportUtils {
                 MannschaftWettkampf mwk = (MannschaftWettkampf) w;
                 Mannschaft m = mwk.createMannschaft(name, maennlich, gliederung, ak, bemerkung);
 
-                setMitglied(m.getMannschaftsmitglied(0), data, indizes[VORNAME1], indizes[NACHNAME1],
+                setMitglied(wk, m.getMannschaftsmitglied(0), data, indizes[VORNAME1], indizes[NACHNAME1],
                         indizes[GESCHLECHT1], indizes[JAHRGANG1], row, sheet, file);
                 if (m.getAK().getMaxMembers() > 1) {
-                    setMitglied(m.getMannschaftsmitglied(1), data, indizes[VORNAME2], indizes[NACHNAME2],
+                    setMitglied(wk, m.getMannschaftsmitglied(1), data, indizes[VORNAME2], indizes[NACHNAME2],
                             indizes[GESCHLECHT2], indizes[JAHRGANG2], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 2) {
-                    setMitglied(m.getMannschaftsmitglied(2), data, indizes[VORNAME3], indizes[NACHNAME3],
+                    setMitglied(wk, m.getMannschaftsmitglied(2), data, indizes[VORNAME3], indizes[NACHNAME3],
                             indizes[GESCHLECHT3], indizes[JAHRGANG3], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 3) {
-                    setMitglied(m.getMannschaftsmitglied(3), data, indizes[VORNAME4], indizes[NACHNAME4],
+                    setMitglied(wk, m.getMannschaftsmitglied(3), data, indizes[VORNAME4], indizes[NACHNAME4],
                             indizes[GESCHLECHT4], indizes[JAHRGANG4], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 4) {
-                    setMitglied(m.getMannschaftsmitglied(4), data, indizes[VORNAME5], indizes[NACHNAME5],
+                    setMitglied(wk, m.getMannschaftsmitglied(4), data, indizes[VORNAME5], indizes[NACHNAME5],
                             indizes[GESCHLECHT5], indizes[JAHRGANG5], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 5) {
-                    setMitglied(m.getMannschaftsmitglied(5), data, indizes[VORNAME6], indizes[NACHNAME6],
+                    setMitglied(wk, m.getMannschaftsmitglied(5), data, indizes[VORNAME6], indizes[NACHNAME6],
                             indizes[GESCHLECHT6], indizes[JAHRGANG6], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 6) {
-                    setMitglied(m.getMannschaftsmitglied(6), data, indizes[VORNAME7], indizes[NACHNAME7],
+                    setMitglied(wk, m.getMannschaftsmitglied(6), data, indizes[VORNAME7], indizes[NACHNAME7],
                             indizes[GESCHLECHT7], indizes[JAHRGANG7], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 7) {
-                    setMitglied(m.getMannschaftsmitglied(7), data, indizes[VORNAME8], indizes[NACHNAME8],
+                    setMitglied(wk, m.getMannschaftsmitglied(7), data, indizes[VORNAME8], indizes[NACHNAME8],
                             indizes[GESCHLECHT8], indizes[JAHRGANG8], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 8) {
-                    setMitglied(m.getMannschaftsmitglied(8), data, indizes[VORNAME9], indizes[NACHNAME9],
+                    setMitglied(wk, m.getMannschaftsmitglied(8), data, indizes[VORNAME9], indizes[NACHNAME9],
                             indizes[GESCHLECHT9], indizes[JAHRGANG9], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 9) {
-                    setMitglied(m.getMannschaftsmitglied(9), data, indizes[VORNAME10], indizes[NACHNAME10],
+                    setMitglied(wk, m.getMannschaftsmitglied(9), data, indizes[VORNAME10], indizes[NACHNAME10],
                             indizes[GESCHLECHT10], indizes[JAHRGANG10], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 10) {
-                    setMitglied(m.getMannschaftsmitglied(10), data, indizes[VORNAME11], indizes[NACHNAME11],
+                    setMitglied(wk, m.getMannschaftsmitglied(10), data, indizes[VORNAME11], indizes[NACHNAME11],
                             indizes[GESCHLECHT11], indizes[JAHRGANG11], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 11) {
-                    setMitglied(m.getMannschaftsmitglied(11), data, indizes[VORNAME12], indizes[NACHNAME12],
+                    setMitglied(wk, m.getMannschaftsmitglied(11), data, indizes[VORNAME12], indizes[NACHNAME12],
                             indizes[GESCHLECHT12], indizes[JAHRGANG12], row, sheet, file);
                 }
 
@@ -520,8 +522,8 @@ public class ImportUtils {
         }
     }
 
-    private static String[] setMitglied(Object[] data, int vorname, int nachname, int geschlecht, int jahrgang, int row,
-            String sheet, String file) throws TableEntryException {
+    private static <T extends ASchwimmer> String[] setMitglied(AWettkampf<T> wk, Object[] data, int vorname,
+            int nachname, int geschlecht, int jahrgang, int row, String sheet, String file) throws TableEntryException {
         String[] result = new String[4];
         result[0] = "";
         result[1] = "";
@@ -542,7 +544,7 @@ public class ImportUtils {
                 result[3] = "-";
             } else {
                 try {
-                    result[3] = getMaennlich(g) ? "m" : "f";
+                    result[3] = getMaennlich(wk, g, geschlecht, row, sheet, file) ? "m" : "f";
                 } catch (Exception x) {
                     result[3] = "-";
                 }
@@ -551,8 +553,9 @@ public class ImportUtils {
         return result;
     }
 
-    private static void setMitglied(Mannschaftsmitglied mm, Object[] data, int vorname, int nachname, int geschlecht,
-            int jahrgang, int row, String sheet, String file) throws TableEntryException {
+    private static <T extends ASchwimmer> void setMitglied(AWettkampf<T> wk, Mannschaftsmitglied mm, Object[] data,
+            int vorname, int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
+            throws TableEntryException {
         if (vorname >= 0) {
             mm.setVorname(data[vorname].toString());
         }
@@ -568,7 +571,8 @@ public class ImportUtils {
                 mm.setGeschlecht(Geschlecht.unbekannt);
             } else {
                 try {
-                    mm.setGeschlecht(getMaennlich(g) ? Geschlecht.maennlich : Geschlecht.weiblich);
+                    mm.setGeschlecht(getMaennlich(wk, g, geschlecht, row, sheet, file) ? Geschlecht.maennlich
+                            : Geschlecht.weiblich);
                 } catch (Exception x) {
                     mm.setGeschlecht(Geschlecht.unbekannt);
                 }
@@ -819,8 +823,8 @@ public class ImportUtils {
         }
     }
 
-    private static <T extends ASchwimmer> ZWStartnummer getStartnummerHLW(AWettkampf<T> wk, Object[] data,
-            int index, int row, String sheet, String file) throws TableEntryException {
+    private static <T extends ASchwimmer> ZWStartnummer getStartnummerHLW(AWettkampf<T> wk, Object[] data, int index,
+            int row, String sheet, String file) throws TableEntryException {
         if (index < 0) {
             return null;
         }
@@ -845,77 +849,78 @@ public class ImportUtils {
         }
     }
 
-    public static boolean getMaennlich(Object data) throws Exception {
-        try {
-            return getMaennlich(data, 0, 0, "", "");
-        } catch (Exception ex) {
-            throw new Exception("Invalid input", ex);
+    private static class GenderToBooleanMapper {
+
+        private final GenderIdentifier identifyAsFalse;
+        private final GenderIdentifier identifyAsTrue;
+
+        public GenderToBooleanMapper(GenderIdentifier identifyAsFalse, GenderIdentifier identifyAsTrue) {
+            if (identifyAsFalse == null) {
+                throw new NullPointerException("identifyAsFalse must not be null.");
+            }
+            if (identifyAsTrue == null) {
+                throw new NullPointerException("identifyAsTrue must not be null.");
+            }
+            this.identifyAsFalse = identifyAsFalse;
+            this.identifyAsTrue = identifyAsTrue;
+        }
+
+        boolean matches(Object data, int index, int row, String sheet, String file) throws TableEntryException {
+            if (data instanceof Boolean) {
+                return (Boolean) data;
+            }
+            if (identifyAsFalse.matches(data.toString())) {
+                return false;
+            }
+            if (identifyAsTrue.matches(data.toString())) {
+                return true;
+            }
+            throw new TableEntryException(
+                    I18n.get("Error.SexExpectedButWas", data.toString(), StringTools.getCellName(sheet, row, index)),
+                    file, sheet, row, index);
         }
     }
 
-    public static boolean getMaennlich(Object data, int index, int row, String sheet, String file)
-            throws TableEntryException {
-        if (data instanceof Boolean) {
-            return (Boolean) data;
-        }
-        data = data.toString().toLowerCase();
-        if (data.equals("w")) {
-            return false;
-        }
-        if (data.equals("weiblich")) {
-            return false;
-        }
-        if (data.equals("f")) {
-            return false;
-        }
-        if (data.equals("female")) {
-            return false;
-        }
-        if (data.equals("0")) {
-            return false;
-        }
-        if (data.equals(I18n.get("female"))) {
-            return false;
-        }
-        if (data.equals("w")) {
-            return false;
-        }
-        if (data.equals("weiblich")) {
-            return false;
-        }
-        if (data.equals("weibl.")) {
-            return false;
-        }
-        if (data.equals("false")) {
-            return false;
+    private static class GenderIdentifier {
+
+        private final Set<String> matchingValues;
+
+        public GenderIdentifier(String... matchingValues) {
+            this.matchingValues = Arrays.stream(matchingValues).filter(Objects::nonNull)
+                    .filter(value -> !value.isBlank()).map(value -> value.trim().toLowerCase()).distinct()
+                    .collect(Collectors.toSet());
         }
 
-        if (data.equals("m")) {
-            return true;
+        boolean matches(String input) {
+            return matchingValues.contains(input.toLowerCase());
         }
-        if (data.equals("male")) {
-            return true;
-        }
-        if (data.equals("1")) {
-            return true;
-        }
-        if (data.equals(I18n.get("male"))) {
-            return true;
-        }
-        if (data.equals("m\u00E4nnl.")) {
-            return true;
-        }
-        if (data.equals(I18n.get("true"))) {
-            return true;
-        }
-        throw new TableEntryException(
-                I18n.get("Error.SexExpectedButWas", data.toString(), StringTools.getCellName(sheet, row, index)), file,
-                sheet, row, index);
+    }
+
+    public static <T extends ASchwimmer> boolean getMaennlich(AWettkampf<T> wk, Object data, int index, int row,
+            String sheet, String file)
+            throws TableEntryException {
+        GenderIdentifier female = new GenderIdentifier(
+                "w", "weiblich", "weibl.",
+                "f", "female",
+                "0", "false",
+                I18n.get("female"),
+                wk != null ? wk.getRegelwerk().getTranslation("Female", I18n.get("Female")) : null,
+                wk != null ? wk.getRegelwerk().getTranslation("female", I18n.get("female")) : null,
+                wk != null ? wk.getRegelwerk().getTranslation("femaleShort", I18n.get("femaleShort")) : null);
+        GenderIdentifier male = new GenderIdentifier(
+                "m", "männlich", "männl.",
+                "m", "male",
+                "1", "true",
+                I18n.get("male"),
+                wk != null ? wk.getRegelwerk().getTranslation("Male", I18n.get("Male")) : null,
+                wk != null ? wk.getRegelwerk().getTranslation("male", I18n.get("male")) : null,
+                wk != null ? wk.getRegelwerk().getTranslation("maleShort", I18n.get("maleShort")) : null);
+        return new GenderToBooleanMapper(female, male).matches(data, index, row, sheet, file);
     }
 
     private static <T extends ASchwimmer> int[] identifyIndizes(AWettkampf<T> wk, String[] titles, boolean einzel,
             boolean required, String file, String sheet) throws TableFormatException {
-        LinkedList<Integer> indexlist = new LinkedList<Integer>();
+        LinkedList<Integer> indexlist = new LinkedList<>();
 
         int[] indizes = new int[INDEX_COUNT];
         for (int x = 0; x < indizes.length; x++) {
@@ -957,7 +962,6 @@ public class ImportUtils {
                 }
                 throw new TableFormatException(data, file, sheet);
             }
-            // return null;
         }
         for (int x = 0; x < INDEX_COUNT - 1; x++) {
             if (indizes[x] > indizes[MAX_INDEX]) {
@@ -1012,8 +1016,7 @@ public class ImportUtils {
                     continue;
                 }
             } catch (TableFormatException tfe) {
-                fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
@@ -1216,8 +1219,7 @@ public class ImportUtils {
                     }
                 }
             } catch (TableFormatException tfe) {
-                fb.showFeedback(
-                        I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
                 continue;
             }
 

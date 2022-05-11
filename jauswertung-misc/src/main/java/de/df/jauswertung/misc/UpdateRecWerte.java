@@ -2,9 +2,15 @@ package de.df.jauswertung.misc;
 
 import java.io.IOException;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.CsvUtils;
+import de.df.jauswertung.io.IOUtils;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
 
 public class UpdateRecWerte {
 
@@ -17,15 +23,15 @@ public class UpdateRecWerte {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        recwerte(PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG %s.rwe", "Regelwerk %s", YEAR);
-        recwerte(PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
+        recwerte(null, PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG %s.rwe", "Regelwerk %s", YEAR);
+        recwerte(null, PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
     }
 
-    private static void recwerte(String werte, String regelwerk, String beschreibung, int jahr) throws IOException {
-        recwerte(String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
+    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung, int jahr) throws IOException {
+        recwerte(wk, String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
     }
 
-    private static void recwerte(String werte, String regelwerk, String beschreibung) {
+    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung) {
         System.out.println("Importiere \"" + werte + "\"");
         Regelwerk rw = (Regelwerk) InputManager.ladeObject(regelwerk);
 
@@ -49,7 +55,7 @@ public class UpdateRecWerte {
                 int index = rw.getIndex(agegroup);
                 // System.out.println(agegroup + "/" + discipline + " -> " + index);
                 Altersklasse ak = rw.getAk(index);
-                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(discipline);
+                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(wk, discipline, 2, x, "CSV", werte);
                 String disziplin = row[3].toString();
                 int zeit = de.df.jauswertung.io.ImportUtils.getTime(row[4]);
                 int dindex = de.df.jauswertung.io.ImportUtils.getDisciplineIndex(ak, disziplin);
