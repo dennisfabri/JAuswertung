@@ -25,7 +25,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.util.ZWUtils;
+import de.df.jauswertung.io.util.ZWUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JDoubleField;
 import de.df.jutils.gui.JGlassPanel;

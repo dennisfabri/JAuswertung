@@ -26,7 +26,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.SpreadsheetUtils;
+import de.df.jauswertung.io.util.SpreadsheetUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.gui.jtable.ExtendedTableModel.TitleCell;
 import de.df.jutils.gui.jtable.ExtendedTableModel.TitleRow;

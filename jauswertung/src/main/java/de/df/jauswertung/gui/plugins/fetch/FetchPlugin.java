@@ -10,7 +10,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.util.HttpUtils;
+import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;

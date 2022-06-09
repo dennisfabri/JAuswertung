@@ -1,4 +1,4 @@
-package de.df.jauswertung.util;
+package de.df.jauswertung.io.util;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

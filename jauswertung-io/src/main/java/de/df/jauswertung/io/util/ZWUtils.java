@@ -1,4 +1,4 @@
-package de.df.jauswertung.util;
+package de.df.jauswertung.io.util;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;

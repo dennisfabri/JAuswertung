@@ -105,11 +105,11 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.util.ZWUtils;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jauswertung.util.ZWUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.i18n.EmptyResourceBundle;
 import de.df.jutils.io.csv.CsvManager;
@@ -1960,7 +1960,19 @@ public class ImportUtils {
             indizes[STARTNUMMER] = x;
             return;
         }
+        if (title.equals(I18n.get("StartnumberShort").toLowerCase())) {
+            indizes[STARTNUMMER] = x;
+            return;
+        }
         if (title.equals("s#")) {
+            indizes[STARTNUMMER] = x;
+            return;
+        }
+        if (title.equals("#")) {
+            indizes[STARTNUMMER] = x;
+            return;
+        }
+        if (title.equals("sn")) {
             indizes[STARTNUMMER] = x;
             return;
         }

@@ -1,7 +1,7 @@
 /*
  * Created on 08.01.2005
  */
-package de.df.jauswertung.exception;
+package de.df.jauswertung.io.exception;
 
 /**
  * @author Dennis Fabri

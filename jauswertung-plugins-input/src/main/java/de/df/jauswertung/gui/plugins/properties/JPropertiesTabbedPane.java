@@ -113,6 +113,10 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
     JOptionsDialog dialog;
 
+    private JWarningTextField edvnumber;
+    private JWarningTextField competitionId;
+    private JWarningTextField authkey;
+
     @SuppressWarnings("rawtypes")
     AWettkampf wk;
 
@@ -311,10 +315,6 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         p.add(new JScrollPane(infopage), CC.xy(2, 2));
         return p;
     }
-
-    private JWarningTextField edvnumber;
-    private JWarningTextField competitionId;
-    private JWarningTextField authkey;
 
     private JPanel createISCPanel() {
         SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);

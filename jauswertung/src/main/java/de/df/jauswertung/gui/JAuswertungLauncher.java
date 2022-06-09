@@ -20,8 +20,8 @@ import javax.swing.UIManager;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.util.PrinterInit;
 import de.df.jauswertung.util.DefaultInit;
-import de.df.jauswertung.util.PrinterInit;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.awt.ProgressSplashWindow;
 import de.df.jutils.gui.util.DesignInit;

@@ -15,13 +15,13 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.exception.NotEnabledException;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.AresfileTimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.HttpTimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.ITimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.SourcesConfig;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;

@@ -4,8 +4,9 @@ import java.util.regex.Pattern;
 
 public final class ISCUploadCredentials {
 
-    private Pattern integerPattern = Pattern.compile("^[0-9]*$");
-    private Pattern authPattern = Pattern.compile("^[0-9a-z]{14}\\.[0-9]{8}$");
+    private Pattern edvPattern = Pattern.compile("^[0-9]{6,8}$");
+    private Pattern integerPattern = Pattern.compile("^[0-9]+$");
+    private Pattern authPattern = Pattern.compile("^[0-9a-z]{14}\\.?[0-9]{8}$");
 
     private final String edvnumber;
     private final String wkId;
@@ -34,10 +35,7 @@ public final class ISCUploadCredentials {
     }
 
     private boolean isEDVNumberValid() {
-        if (edvnumber.length() != 7) {
-            return false;
-        }
-        return integerPattern.matcher(edvnumber).matches();
+        return edvPattern.matcher(edvnumber).matches();
     }
 
     private boolean isWkIdValid() {

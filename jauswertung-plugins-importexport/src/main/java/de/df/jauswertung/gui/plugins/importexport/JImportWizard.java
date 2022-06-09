@@ -45,8 +45,6 @@ import com.xduke.xswing.DataTipManager;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.exception.NotEnabledException;
-import de.df.jauswertung.exception.NotSupportedException;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
@@ -59,6 +57,8 @@ import de.df.jauswertung.io.ImportUtils;
 import de.df.jauswertung.io.TableEntryException;
 import de.df.jauswertung.io.TableException;
 import de.df.jauswertung.io.TableFormatException;
+import de.df.jauswertung.io.exception.NotEnabledException;
+import de.df.jauswertung.io.exception.NotSupportedException;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;

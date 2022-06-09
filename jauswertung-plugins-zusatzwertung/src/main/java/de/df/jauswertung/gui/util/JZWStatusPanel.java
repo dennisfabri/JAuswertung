@@ -8,7 +8,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.util.ZWUtils;
+import de.df.jauswertung.io.util.ZWUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JZWStatusPanel extends JPanel {

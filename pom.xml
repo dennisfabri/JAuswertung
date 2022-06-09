@@ -18,8 +18,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
-		<jutils.version>16.0.4</jutils.version>
-		<alphaserver.version>16.0.4</alphaserver.version>
+		<jutils.version>16.1.1</jutils.version>
+		<alphaserver.version>16.1.1</alphaserver.version>
 
 		<poi.version>5.2.2</poi.version>
 		<jersey.version>3.0.4</jersey.version>

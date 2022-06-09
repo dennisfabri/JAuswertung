@@ -29,7 +29,7 @@ import de.df.jauswertung.gui.plugins.core.IWettkampfProvider;
 import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.util.HttpUtils;
+import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;

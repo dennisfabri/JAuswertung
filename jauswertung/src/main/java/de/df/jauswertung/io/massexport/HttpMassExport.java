@@ -7,7 +7,7 @@ import java.io.IOException;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.util.HttpUtils;
+import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jutils.io.FileUtils;
 
 public class HttpMassExport {

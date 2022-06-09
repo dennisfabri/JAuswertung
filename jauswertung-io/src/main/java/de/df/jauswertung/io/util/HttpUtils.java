@@ -1,4 +1,4 @@
-package de.df.jauswertung.util;
+package de.df.jauswertung.io.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

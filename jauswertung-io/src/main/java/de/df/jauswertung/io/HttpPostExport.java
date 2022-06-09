@@ -8,8 +8,8 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jauswertung.util.CompetitionUtils;
-import de.df.jauswertung.util.HttpUtils;
 import de.df.jutils.util.NullFeedback;
 
 public class HttpPostExport {
