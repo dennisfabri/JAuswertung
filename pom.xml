@@ -4,7 +4,7 @@
 
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>16.1.1</version>
+	<version>16.1.2</version>
 	<packaging>pom</packaging>
 
 	<name>JAuswertung</name>
@@ -18,8 +18,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
-		<jutils.version>16.1.1</jutils.version>
-		<alphaserver.version>16.1.1</alphaserver.version>
+		<jutils.version>16.1.2</jutils.version>
+		<alphaserver.version>16.1.2</alphaserver.version>
 
 		<poi.version>5.2.2</poi.version>
 		<jersey.version>3.0.4</jersey.version>
@@ -27,11 +27,11 @@
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
 		<javafx.version>17</javafx.version>
-		<jackson.version>2.13.2</jackson.version>
+		<jackson.version>2.13.3</jackson.version>
 		<lombok.version>1.18.24</lombok.version>
 
 		<junit.version>5.8.2</junit.version>
-		<mockito.version>4.5.1</mockito.version>
+		<mockito.version>4.6.1</mockito.version>
 	</properties>
 
 	<distributionManagement>
