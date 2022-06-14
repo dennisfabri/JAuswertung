@@ -1756,15 +1756,23 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> void identifyIndex(AWettkampf<T> wk, int[] indizes, String title, int x) {
-        if (title.equals(I18n.get("Name").toLowerCase())) {
+        if (title.equalsIgnoreCase(I18n.get("Name").toLowerCase())) {
             indizes[NAME] = x;
             return;
         }
-        if (title.equals(I18n.get("Surname").toLowerCase())) {
+        if (title.equalsIgnoreCase(I18n.get("Surname").toLowerCase())) {
             indizes[NACHNAME] = x;
             return;
         }
-        if (title.equals(I18n.get("FirstName").toLowerCase())) {
+        if (title.equalsIgnoreCase("Lastname")) {
+            indizes[NACHNAME] = x;
+            return;
+        }
+        if (title.equalsIgnoreCase(I18n.get("FirstName"))) {
+            indizes[VORNAME] = x;
+            return;
+        }
+        if (title.equalsIgnoreCase("FirstName")) {
             indizes[VORNAME] = x;
             return;
         }
@@ -1920,6 +1928,10 @@ public class ImportUtils {
             indizes[GESCHLECHT] = x;
             return;
         }
+        if (title.equals("gender".toLowerCase())) {
+            indizes[GESCHLECHT] = x;
+            return;
+        }
         if (title.equals("m/w")) {
             indizes[GESCHLECHT] = x;
             return;
@@ -1929,6 +1941,10 @@ public class ImportUtils {
             return;
         }
         if (title.equals(I18n.get("YearOfBirth").toLowerCase())) {
+            indizes[JAHRGANG] = x;
+            return;
+        }
+        if (title.equals("YearOfBirth".toLowerCase())) {
             indizes[JAHRGANG] = x;
             return;
         }
@@ -1957,6 +1973,10 @@ public class ImportUtils {
             return;
         }
         if (title.equals(I18n.get("Startnumber").toLowerCase())) {
+            indizes[STARTNUMMER] = x;
+            return;
+        }
+        if (title.equalsIgnoreCase("Startnumber")) {
             indizes[STARTNUMMER] = x;
             return;
         }

@@ -250,21 +250,15 @@ public class ImportManager {
         return null;
     }
 
+    private static final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+
     private static int at(char x) {
-        switch (x) {
-        case 'a':
-            return 0;
-        case 'b':
-            return 1;
-        case 'c':
-            return 2;
-        case 'd':
-            return 3;
-        case 'e':
-            return 4;
-        default:
-            throw new IllegalStateException("Expected character between 'a' and 'e' but was '" + x + "'.");
+        for (int i = 0; i < alphabet.length; i++) {
+            if (alphabet[i] == x) {
+                return i;
+            }
         }
+        throw new IllegalStateException("Expected character between 'a' and 'z' but was '" + x + "'.");
     }
 
     public static String[] getSupportedFormats() {
