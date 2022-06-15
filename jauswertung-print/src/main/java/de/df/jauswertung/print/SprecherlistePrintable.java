@@ -173,7 +173,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                         data[0] = StartnumberFormatManager.format(s);
                     }
                     if (m != null) {
-                        if (s.getName().equals(s.getGliederung())) {
+                        if (s.getName().equals(s.getGliederung()) && showOrganisation) {
                             data[1] = m.getStarterShort(lauf.getDisznummer(x), ", ");
                         } else {
                             data[1] = I18n.get("TeamnameMultiline", s.getName(), m.getStarterShort(lauf.getDisznummer(x), ", "));
