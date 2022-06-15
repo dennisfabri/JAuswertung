@@ -36,7 +36,7 @@ public class ExportManager {
             I18n.get("Startkarten"), I18n.get("Heatoverview"), I18n.get("ZWList"), I18n.get("ZWStartkarten"),
             I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"), I18n.get("Referees"),
             I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"),
-            I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate") };
+            I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate"), I18n.get("Starters") };
 
     private static ExportManager manager = new ExportManager();
 

@@ -233,6 +233,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                             null, null);
                     break;
                 case REGISTRATION_UPDATE:
+                case STARTERS:
                     controller.sendDataUpdateEvent("Import",
                             UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
                             null, null);

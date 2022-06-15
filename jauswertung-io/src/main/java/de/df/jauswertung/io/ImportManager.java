@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
+import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.Feedback;
@@ -78,6 +80,7 @@ public class ImportManager {
         case REFEREES:
             return wk.getKampfrichterverwaltung() != null;
         case TEAMMEMBERS:
+        case STARTERS:
             return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
         case HEATTIMES:
             return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
@@ -136,6 +139,8 @@ public class ImportManager {
             return importer.heattimes(is, wk, fb);
         case REGISTRATION_UPDATE:
             return importer.registrationUpdate(is, wk, fb, (LinkedList<T>) data, filename);
+        case STARTERS:
+            return importer.starters(is, wk, fb);
         default:
             return null;
         }
@@ -191,6 +196,12 @@ public class ImportManager {
         }
         case REGISTRATION_UPDATE: {
             if (updateRegistration(wk, (LinkedList<T>) data)) {
+                return true;
+            }
+            break;
+        }
+        case STARTERS: {
+            if (updateStarters(wk, (List<TeamWithStarters>) data)) {
                 return true;
             }
             break;
@@ -259,6 +270,28 @@ public class ImportManager {
         }
 
         return null;
+    }
+
+    private static <T extends ASchwimmer> boolean updateStarters(AWettkampf<T> wk, List<TeamWithStarters> data) {
+        MannschaftWettkampf mwk = (MannschaftWettkampf)wk;
+        for (TeamWithStarters starters : data) {
+            Mannschaft m = SearchUtils.getSchwimmer(mwk, starters.getStartnumber());
+            int disz = findDisciplineIndex(m, starters.getDiscipline());
+            if (disz < 0) {
+                continue;
+            }
+            m.setStarter(disz, starters.getStarters());
+        }
+        return true;
+    }
+
+    private static int findDisciplineIndex(Mannschaft m, String discipline) {
+        for (int x=0;x<m.getAK().getDiszAnzahl();x++) {
+            if (discipline.equalsIgnoreCase(m.getAK().getDisziplin(x, m.isMaennlich()).getName())) {
+                return x;
+            }
+        }
+        return -1;
     }
 
     private static <T extends ASchwimmer> boolean updateRegistration(AWettkampf<T> wk, LinkedList<T> schwimmer) {

@@ -87,8 +87,9 @@ public final class ImportConstants {
     public static final int        VORNAME12         = 69;
     public static final int        GESCHLECHT12      = 70;
     public static final int        JAHRGANG12        = 71;
+    public static final int        DISCIPLINE        = 72;
 
-    public static final int        MAX_INDEX         = 72;
+    public static final int        MAX_INDEX         = 73;
 
     public static final int        INDEX_COUNT       = MAX_INDEX + 1;
 

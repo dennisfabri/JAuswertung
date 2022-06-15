@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -18,6 +19,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
@@ -210,7 +212,12 @@ public final class ExcelImporter implements IImporter {
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
             LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
-        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
 }

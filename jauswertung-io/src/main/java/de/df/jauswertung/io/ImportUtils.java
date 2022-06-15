@@ -5,6 +5,7 @@ import static de.df.jauswertung.io.ImportConstants.AUSSER_KONKURRENZ;
 import static de.df.jauswertung.io.ImportConstants.BEMERKUNG;
 import static de.df.jauswertung.io.ImportConstants.CATEGORY;
 import static de.df.jauswertung.io.ImportConstants.DISCIPLINES;
+import static de.df.jauswertung.io.ImportConstants.DISCIPLINE;
 import static de.df.jauswertung.io.ImportConstants.GESCHLECHT;
 import static de.df.jauswertung.io.ImportConstants.GESCHLECHT1;
 import static de.df.jauswertung.io.ImportConstants.GESCHLECHT10;
@@ -80,10 +81,12 @@ import static de.df.jauswertung.io.ImportConstants.getRequiredIndizesForUpdate;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -111,6 +114,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.util.ZWUtils;
+import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
@@ -125,7 +129,7 @@ import de.df.jutils.util.StringTools;
 public class ImportUtils {
 
     private static Logger log = LoggerFactory.getLogger(ImportUtils.class);
-    
+
     private static final ResourceBundle aknames = getAkNames();
 
     private static ResourceBundle getAkNames() {
@@ -262,6 +266,115 @@ public class ImportUtils {
             throw new TableException(I18n.get("Error.ResultEmpty"), file, null);
         }
         return result;
+    }
+
+    static <T extends ASchwimmer> List<TeamWithStarters> tablesToStarters(AWettkampf<T> wk, Feedback fb,
+            String[] sheets, Object[][][] tables, String file) throws TableEntryException, TableException {
+
+        List<TeamWithStarters> result = new ArrayList<>();
+
+        int valid = 0;
+
+        MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
+
+        for (int y = 0; y < tables.length; y++) {
+            int size = result.size();
+
+            String sheet = sheets[y];
+
+            fb.showFeedback(I18n.get("ImportingSheet", sheet));
+
+            Object[][] data = tables[y];
+            if ((data == null) || (data.length == 0)) {
+                fb.showFeedback(I18n.get("Error.SheetEmpty"));
+                continue;
+            }
+            int length = data[0].length;
+
+            String[] titles = new String[length];
+            for (int x = 0; x < length; x++) {
+                titles[x] = data[0][x].toString();
+            }
+            int[] indizes = null;
+            try {
+                indizes = identifyIndizes(wk, titles, false, false, file, sheet);
+                boolean first = true;
+                StringBuilder text = new StringBuilder();
+                if (indizes[STARTNUMMER] < 0) {
+                    text.append("\t").append(I18n.get("Startnumber"));
+                    first = false;
+                }
+                if (indizes[DISCIPLINE] < 0) {
+                    text.append(first ? "\t" : ", ").append(I18n.get("Discipline"));
+                    first = false;
+                }
+                if (text.length() > 0) {
+                    fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
+                    continue;
+                }
+            } catch (TableFormatException tfe) {
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
+                continue;
+            }
+            for (int x = 1; x < data.length; x++) {
+                int sn = getStartnummer(wk, data[x], indizes[STARTNUMMER], x, sheets[y], file);
+                String discipline = data[x][indizes[DISCIPLINE]] == null ? "" : data[x][indizes[DISCIPLINE]].toString();
+                if (discipline.isBlank()) {
+                    continue;
+                }
+
+                Mannschaft s = SearchUtils.getSchwimmer(mwk, sn);
+                if (s == null) {
+                    fb.showFeedback(I18n.get("StartnumberNotFound", sn,
+                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                    continue;
+                }
+
+                int[] starters = getStarters(data[x], tables[y][0]);
+
+                result.add(new TeamWithStarters(sn, discipline, starters));
+            }
+
+            fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
+
+            valid++;
+        }
+
+        if (valid == 0) {
+            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
+        }
+        fb.showFeedback(I18n.get("ImportFinished"));
+
+        if (result.isEmpty()) {
+            throw new TableException(I18n.get("Error.ResultEmpty"), file, null);
+        }
+        return result;
+    }
+
+    private static int[] getStarters(Object[] data, Object[] objects) {
+        List<String> temp = new ArrayList<>();
+        for (int x = 0; x < 100; x++) {
+
+            String starterX = String.format("starter%d", x + 1);
+
+            for (int i = 0; i < objects.length; i++) {
+                if (objects[i] == null) {
+                    continue;
+                }
+                String title = objects[i].toString().trim().toLowerCase();
+                if (title.equals(starterX)) {
+                    temp.add(data[i] == null ? "" : data[i].toString().trim().toLowerCase());
+                }
+            }
+        }
+        return temp.stream().mapToInt(index -> {
+            try {
+                return Integer.valueOf(index) + 1;
+            } catch (NumberFormatException nfe) {
+                return 0;
+            }
+        }).toArray();
+
     }
 
     private static <T extends ASchwimmer> int getStarts(LinkedList<T> result) {
@@ -528,6 +641,7 @@ public class ImportUtils {
             return null;
         }
     }
+
     @SuppressWarnings({ "unchecked" })
     private static <T extends ASchwimmer> T generateSchwimmerUpdate(Object[] data, int[] indizes, String[] titles,
             AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
@@ -557,14 +671,14 @@ public class ImportUtils {
             }
 
             AWettkampf<T> w = wk;
-            
+
             int sn = getStartnummer(wk, data, indizes[STARTNUMMER], row, sheet, file);
             ASchwimmer as = SearchUtils.getSchwimmer(w, sn);
             if (as == null) {
                 log.info("Not found {}", sn);
                 return null;
             }
-            T updated = (T)Utils.copy(as);
+            T updated = (T) Utils.copy(as);
 
             if (w instanceof EinzelWettkampf) {
                 String vorname = data[indizes[VORNAME]].toString();
@@ -591,37 +705,36 @@ public class ImportUtils {
                 }
             }
 
-
             if (updated instanceof Teilnehmer t) {
                 int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
                 String vorname = data[indizes[VORNAME]].toString();
                 String nachname = data[indizes[NACHNAME]].toString();
-                
+
                 if (jahrgang == t.getJahrgang() && t.getVorname().equals(vorname) && t.getNachname().equals(nachname)) {
-                    //log.info("Equals {}", t);
+                    // log.info("Equals {}", t);
                     return null;
                 }
-                
+
                 t.setJahrgang(jahrgang);
                 t.setVorname(vorname);
                 t.setNachname(nachname);
-                
-                log.info("Updating {}", t);                
+
+                log.info("Updating {}", t);
                 return updated;
-            } 
+            }
 
             if (updated instanceof Mannschaft m) {
                 String name = data[indizes[NAME]].toString();
-                
+
                 if (m.getName().equals(name)) {
-                    //log.info("Equals {}", m);
+                    // log.info("Equals {}", m);
                     return null;
                 }
-                
+
                 m.setName(name);
-                
-                log.info("Updating {}", m);                
-                return updated;                
+
+                log.info("Updating {}", m);
+                return updated;
             }
             log.info("Not Individual or Team");
             return null;
@@ -1263,7 +1376,9 @@ public class ImportUtils {
 
         return result;
     }
-    static <T extends ASchwimmer> LinkedList<T> tablesToRegistrationUpdate(AWettkampf<T> wk, Feedback fb, String[] sheets,
+
+    static <T extends ASchwimmer> LinkedList<T> tablesToRegistrationUpdate(AWettkampf<T> wk, Feedback fb,
+            String[] sheets,
             Object[][][] tables, String file) throws TableException, TableEntryException {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
@@ -2436,6 +2551,14 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "12").toLowerCase())) {
             indizes[JAHRGANG12] = x;
+            return;
+        }
+        if (title.equals(I18n.get("Discipline").toLowerCase())) {
+            indizes[DISCIPLINE] = x;
+            return;
+        }
+        if (title.equals("discipline".toLowerCase())) {
+            indizes[DISCIPLINE] = x;
             return;
         }
     }

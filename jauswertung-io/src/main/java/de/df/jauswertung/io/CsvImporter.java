@@ -10,11 +10,13 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
@@ -172,6 +174,7 @@ public final class CsvImporter implements IImporter {
         case TEAMMEMBERS:
         case REFEREES:
         case REGISTRATION_UPDATE:
+        case STARTERS:
             return true;
         default:
             return false;
@@ -247,4 +250,16 @@ public final class CsvImporter implements IImporter {
         }
         return result;
     }
+
+    @Override
+    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException, TableException, IOException {
+        fb.showFeedback(I18n.get("LoadingFile"));
+        Object[][] data = CsvUtils.read(name);
+        if (data == null) {
+            fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
+            return null;
+        }
+        return ImportUtils.tablesToStarters(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
+   }
 }

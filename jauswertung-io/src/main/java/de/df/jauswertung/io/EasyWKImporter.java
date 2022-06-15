@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -20,6 +21,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
@@ -260,7 +262,12 @@ public final class EasyWKImporter implements IImporter {
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
             LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
-        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
 }
