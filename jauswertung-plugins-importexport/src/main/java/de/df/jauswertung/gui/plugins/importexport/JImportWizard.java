@@ -232,6 +232,11 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                             UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
                             null, null);
                     break;
+                case REGISTRATION_UPDATE:
+                    controller.sendDataUpdateEvent("Import",
+                            UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
+                            null, null);
+                    break;
                 case HEATLIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
@@ -677,7 +682,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
             panel = new JPanel(layout);
             amount = new JLabel();
-            data = new JList<ASchwimmer>();
+            data = new JList<>();
             data.setCellRenderer(new SchwimmerListCellRenderer());
             DataTipManager.get().register(data);
             scroller = new JScrollPane(data);
@@ -717,6 +722,13 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     while (li.hasNext()) {
                         wk.removeSchwimmer(li.next());
                     }
+                    data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                    amount.setText("" + r.size());
+                    break;
+                }
+                case REGISTRATION_UPDATE: {
+                    @SuppressWarnings("unchecked")
+                    LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
                     data.setListData(r.toArray(new ASchwimmer[r.size()]));
                     amount.setText("" + r.size());
                     break;

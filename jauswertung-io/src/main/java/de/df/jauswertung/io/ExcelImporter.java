@@ -205,4 +205,12 @@ public final class ExcelImporter implements IImporter {
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
+
+    @Override
+    public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data, String filename)
+            throws TableFormatException, TableEntryException, TableException, IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

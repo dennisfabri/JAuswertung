@@ -75,6 +75,7 @@ import static de.df.jauswertung.io.ImportConstants.VORNAME8;
 import static de.df.jauswertung.io.ImportConstants.VORNAME9;
 import static de.df.jauswertung.io.ImportConstants.ZW;
 import static de.df.jauswertung.io.ImportConstants.getRequiredIndizes;
+import static de.df.jauswertung.io.ImportConstants.getRequiredIndizesForUpdate;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -89,6 +90,9 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -98,6 +102,7 @@ import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Qualifikation;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
@@ -119,6 +124,8 @@ import de.df.jutils.util.StringTools;
 
 public class ImportUtils {
 
+    private static Logger log = LoggerFactory.getLogger(ImportUtils.class);
+    
     private static final ResourceBundle aknames = getAkNames();
 
     private static ResourceBundle getAkNames() {
@@ -516,6 +523,108 @@ public class ImportUtils {
             s.setQualifikation(quali);
 
             return (T) s;
+        } catch (RuntimeException re) {
+            re.printStackTrace();
+            return null;
+        }
+    }
+    @SuppressWarnings({ "unchecked" })
+    private static <T extends ASchwimmer> T generateSchwimmerUpdate(Object[] data, int[] indizes, String[] titles,
+            AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
+        try {
+            boolean empty = true;
+            boolean[] required = getRequiredIndizesForUpdate(wk instanceof MannschaftWettkampf);
+            for (int x = 0; x < data.length; x++) {
+                boolean used = false;
+                for (int y = 0; y < indizes.length; y++) {
+                    if ((indizes[y] == x) && required[y]) {
+                        used = true;
+                        break;
+                    }
+                }
+                if (used) {
+                    Object aData = data[x];
+                    String temp = aData.toString().trim();
+                    if (temp.length() > 0) {
+                        empty = false;
+                        break;
+                    }
+                }
+            }
+            if (empty) {
+                log.info("Empty");
+                return null;
+            }
+
+            AWettkampf<T> w = wk;
+            
+            int sn = getStartnummer(wk, data, indizes[STARTNUMMER], row, sheet, file);
+            ASchwimmer as = SearchUtils.getSchwimmer(w, sn);
+            if (as == null) {
+                log.info("Not found {}", sn);
+                return null;
+            }
+            T updated = (T)Utils.copy(as);
+
+            if (w instanceof EinzelWettkampf) {
+                String vorname = data[indizes[VORNAME]].toString();
+                if (vorname.equals("")) {
+                    throw new TableEntryException(
+                            I18n.get("MissingEntry", I18n.get("FirstName"),
+                                    StringTools.getCellName(sheet, row, indizes[VORNAME])),
+                            file, sheet, row, indizes[VORNAME]);
+                }
+                String nachname = data[indizes[NACHNAME]].toString();
+                if (nachname.equals("")) {
+                    throw new TableEntryException(
+                            I18n.get("MissingEntry", I18n.get("Surname"),
+                                    StringTools.getCellName(sheet, row, indizes[NACHNAME])),
+                            file, sheet, row, indizes[NACHNAME]);
+                }
+            } else {
+                String name = data[indizes[NAME]].toString();
+                if (name.equals("")) {
+                    throw new TableEntryException(
+                            I18n.get("MissingEntry", I18n.get("Name"),
+                                    StringTools.getCellName(sheet, row, indizes[NAME])),
+                            file, sheet, row, indizes[NAME]);
+                }
+            }
+
+
+            if (updated instanceof Teilnehmer t) {
+                int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
+                String vorname = data[indizes[VORNAME]].toString();
+                String nachname = data[indizes[NACHNAME]].toString();
+                
+                if (jahrgang == t.getJahrgang() && t.getVorname().equals(vorname) && t.getNachname().equals(nachname)) {
+                    //log.info("Equals {}", t);
+                    return null;
+                }
+                
+                t.setJahrgang(jahrgang);
+                t.setVorname(vorname);
+                t.setNachname(nachname);
+                
+                log.info("Updating {}", t);                
+                return updated;
+            } 
+
+            if (updated instanceof Mannschaft m) {
+                String name = data[indizes[NAME]].toString();
+                
+                if (m.getName().equals(name)) {
+                    //log.info("Equals {}", m);
+                    return null;
+                }
+                
+                m.setName(name);
+                
+                log.info("Updating {}", m);                
+                return updated;                
+            }
+            log.info("Not Individual or Team");
+            return null;
         } catch (RuntimeException re) {
             re.printStackTrace();
             return null;
@@ -1123,6 +1232,75 @@ public class ImportUtils {
             }
             for (int x = 1; x < data.length; x++) {
                 T s = generateSchwimmer(data[x], indizes, titles, wk, x, sheet, file);
+                if (s != null) {
+                    startsak[s.getAKNummer()][(s.isMaennlich() ? 1 : 0)] += s.getDisciplineChoiceCount();
+                    result.addLast(s);
+                }
+            }
+
+            fb.showFeedback(I18n.get("ImportedEntries", result.size() - size, getStarts(result) - starts));
+
+            valid++;
+        }
+
+        if (valid == 0) {
+            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
+        } else {
+            fb.showFeedback(I18n.get("ResultsOfImport"));
+            for (int x = 0; x < startsak.length; x++) {
+                if (startsak[x][0] + startsak[x][1] > 0) {
+                    fb.showFeedback(I18n.get("ImportedStarts", wk.getRegelwerk().getAk(x).getName(), startsak[x][0],
+                            startsak[x][1]));
+                }
+            }
+        }
+        fb.showFeedback(I18n.get("ImportFinished"));
+
+        // if (result.size() == 0) {
+        // throw new TableException(I18n.get("Error.ResultEmpty"), file,
+        // null);
+        // }
+
+        return result;
+    }
+    static <T extends ASchwimmer> LinkedList<T> tablesToRegistrationUpdate(AWettkampf<T> wk, Feedback fb, String[] sheets,
+            Object[][][] tables, String file) throws TableException, TableEntryException {
+        @SuppressWarnings("rawtypes")
+        AWettkampf w = wk;
+        boolean einzel = (w instanceof EinzelWettkampf);
+        LinkedList<T> result = new LinkedList<T>();
+        int[][] startsak = new int[wk.getRegelwerk().size()][2];
+
+        int valid = 0;
+
+        for (int y = 0; y < tables.length; y++) {
+            int size = result.size();
+            int starts = getStarts(result);
+
+            String sheet = sheets[y];
+
+            fb.showFeedback(I18n.get("ImportingSheet", sheet));
+
+            Object[][] data = tables[y];
+            if ((data == null) || (data.length == 0)) {
+                fb.showFeedback(I18n.get("Error.SheetEmpty"));
+                continue;
+            }
+            int length = data[0].length;
+
+            String[] titles = new String[length];
+            for (int x = 0; x < length; x++) {
+                titles[x] = data[0][x].toString();
+            }
+            int[] indizes = null;
+            try {
+                indizes = identifyIndizes(wk, titles, einzel, false, file, sheet);
+            } catch (TableFormatException tfe) {
+                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "")));
+                continue;
+            }
+            for (int x = 1; x < data.length; x++) {
+                T s = generateSchwimmerUpdate(data[x], indizes, titles, wk, x, sheet, file);
                 if (s != null) {
                     startsak[s.getAKNummer()][(s.isMaennlich() ? 1 : 0)] += s.getDisciplineChoiceCount();
                     result.addLast(s);

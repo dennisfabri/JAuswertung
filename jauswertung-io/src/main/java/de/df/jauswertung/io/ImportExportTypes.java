@@ -19,7 +19,8 @@ public enum ImportExportTypes {
     TEAMMEMBERS(12),
     BEST_TIMES(13),
     HEATTIMES(14),
-    TIMES(15);
+    TIMES(15),
+    REGISTRATION_UPDATE(16);
 
     
     private final int value;

@@ -38,6 +38,9 @@ public interface IImporter {
     <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
+    <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data, String filename)
+            throws TableFormatException, TableEntryException, TableException, IOException;
+
     <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 

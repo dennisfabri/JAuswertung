@@ -12,6 +12,9 @@ public final class ImportConstants {
     private static final boolean[] REQUIRED_INDIZES_SINGLE;
     private static final boolean[] REQUIRED_INDIZES_TEAM;
 
+    private static final boolean[] REQUIRED_INDIZES_FOR_UPDATE_SINGLE;
+    private static final boolean[] REQUIRED_INDIZES_FOR_UPDATE_TEAM;
+
     public static final int        NAME              = 0;
     public static final int        NACHNAME          = 1;
     public static final int        VORNAME           = 2;
@@ -92,10 +95,15 @@ public final class ImportConstants {
     static {
         REQUIRED_INDIZES_SINGLE = new boolean[INDEX_COUNT];
         REQUIRED_INDIZES_TEAM = new boolean[INDEX_COUNT];
+        REQUIRED_INDIZES_FOR_UPDATE_SINGLE = new boolean[INDEX_COUNT];
+        REQUIRED_INDIZES_FOR_UPDATE_TEAM = new boolean[INDEX_COUNT];
         for (int x = 0; x < INDEX_COUNT; x++) {
             REQUIRED_INDIZES_SINGLE[x] = false;
             REQUIRED_INDIZES_TEAM[x] = false;
+            REQUIRED_INDIZES_FOR_UPDATE_SINGLE[x] = false;
+            REQUIRED_INDIZES_FOR_UPDATE_TEAM[x] = false;
         }
+        
         REQUIRED_INDIZES_SINGLE[GLIEDERUNG] = true;
         REQUIRED_INDIZES_SINGLE[ALTERSKLASSE] = true;
         REQUIRED_INDIZES_SINGLE[GESCHLECHT] = true;
@@ -106,12 +114,26 @@ public final class ImportConstants {
         REQUIRED_INDIZES_TEAM[ALTERSKLASSE] = true;
         REQUIRED_INDIZES_TEAM[GESCHLECHT] = true;
         REQUIRED_INDIZES_TEAM[NAME] = true;
-    }
+
+    
+        REQUIRED_INDIZES_FOR_UPDATE_SINGLE[STARTNUMMER] = true;
+        REQUIRED_INDIZES_FOR_UPDATE_SINGLE[NACHNAME] = true;
+        REQUIRED_INDIZES_FOR_UPDATE_SINGLE[VORNAME] = true;
+
+        REQUIRED_INDIZES_FOR_UPDATE_TEAM[STARTNUMMER] = true;
+        REQUIRED_INDIZES_FOR_UPDATE_TEAM[NAME] = true;
+}
 
     public static boolean[] getRequiredIndizes(boolean team) {
         if (team) {
             return REQUIRED_INDIZES_TEAM;
         }
         return REQUIRED_INDIZES_SINGLE;
+    }
+    public static boolean[] getRequiredIndizesForUpdate(boolean team) {
+        if (team) {
+            return REQUIRED_INDIZES_FOR_UPDATE_TEAM;
+        }
+        return REQUIRED_INDIZES_FOR_UPDATE_SINGLE;
     }
 }

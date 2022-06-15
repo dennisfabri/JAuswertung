@@ -26,9 +26,9 @@ import de.df.jutils.util.StringTools;
  */
 public final class CsvImporter implements IImporter {
 
-    private static final String[] SUFFIXES   = { ".csv" };
+    private static final String[] SUFFIXES = { ".csv" };
 
-    private static final char[]   SEPARATORS = { ',', ',', ';' };
+    private static final char[] SEPARATORS = { ',', ',', ';' };
 
     static {
         NumberFormat nf = NumberFormat.getInstance();
@@ -44,7 +44,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk,
+            Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);
@@ -56,7 +57,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name,
+            AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);
@@ -69,7 +71,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data2, String filename)
+    public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data2, String filename)
             throws TableFormatException, TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -110,7 +113,8 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        LinkedList<T> result = ImportUtils.tablesToRegistration(wk, fb, new String[] { "" }, new Object[][][] { data }, filename);
+        LinkedList<T> result = ImportUtils.tablesToRegistration(wk, fb, new String[] { "" }, new Object[][][] { data },
+                filename);
         if (result == null) {
             return data2;
         }
@@ -131,7 +135,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 
@@ -142,7 +147,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 
@@ -165,6 +171,7 @@ public final class CsvImporter implements IImporter {
         case REGISTRATION:
         case TEAMMEMBERS:
         case REFEREES:
+        case REGISTRATION_UPDATE:
             return true;
         default:
             return false;
@@ -185,5 +192,59 @@ public final class CsvImporter implements IImporter {
     public <T extends ASchwimmer> AWettkampf<T> heattimes(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
+    }
+
+    @Override
+    public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data2, String filename)
+            throws TableFormatException, TableEntryException, TableException {
+        if (filename == null) {
+            filename = "";
+        }
+        filename = filename.trim();
+        fb.showFeedback(I18n.get("LoadingFileWithFilename", filename.length(), filename));
+
+        String[] lines = FileUtils.readTextFile(name);
+        if ((lines == null) || (lines.length <= 1)) {
+            fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
+            return null;
+        }
+        char separator = identifySeparator(lines[0]);
+        Object[][] data = new Object[lines.length][0];
+        int maxline = 0;
+        for (int x = 0; x < lines.length; x++) {
+            String[] line = StringTools.separateCsvLine(lines[x], separator);
+            if (line.length > maxline) {
+                maxline = line.length;
+            }
+            data[x] = new Object[line.length];
+            System.arraycopy(line, 0, data[x], 0, line.length);
+        }
+
+        // Ensure that the last column is always empty.
+        // The last column is reserved for sheet-based agegroup detection
+        // which does not work with csv
+        maxline++;
+
+        for (int x = 0; x < data.length; x++) {
+            if (data[x].length < maxline) {
+                Object[] line = new Object[maxline];
+                System.arraycopy(data[x], 0, line, 0, data[x].length);
+                for (int y = data[x].length; y < line.length; y++) {
+                    line[y] = "";
+                }
+                data[x] = line;
+            }
+        }
+
+        LinkedList<T> result = ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" }, new Object[][][] { data },
+                filename);
+        if (result == null) {
+            return data2;
+        }
+        if (data2 != null) {
+            result.addAll(data2);
+        }
+        return result;
     }
 }

@@ -22,6 +22,7 @@ import de.df.jauswertung.daten.HLWStates;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
@@ -71,17 +72,19 @@ public class ImportManager {
         switch (datatype) {
         case ZWLIST:
         case ZW_RESULTS:
-            return (wk.hasHLW());
-        case HEATLIST:
+            return wk.hasSchwimmer() && wk.hasHLW();
         case REGISTRATION:
-        case RESULTS:
             return true;
         case REFEREES:
-            return (wk.getKampfrichterverwaltung() != null);
+            return wk.getKampfrichterverwaltung() != null;
         case TEAMMEMBERS:
-            return (wk instanceof MannschaftWettkampf);
+            return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
         case HEATTIMES:
-            return wk.isHeatBased() && wk.hasLaufliste();
+            return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
+        case RESULTS:
+        case REGISTRATION_UPDATE:
+        case HEATLIST:
+            return wk.hasSchwimmer();
         default:
             return false;
         }
@@ -131,6 +134,8 @@ public class ImportManager {
             return importer.zusatzwertungResults(is, wk, fb);
         case HEATTIMES:
             return importer.heattimes(is, wk, fb);
+        case REGISTRATION_UPDATE:
+            return importer.registrationUpdate(is, wk, fb, (LinkedList<T>) data, filename);
         default:
             return null;
         }
@@ -180,6 +185,12 @@ public class ImportManager {
                 ok = ok && b;
             }
             if (ok) {
+                return true;
+            }
+            break;
+        }
+        case REGISTRATION_UPDATE: {
+            if (updateRegistration(wk, (LinkedList<T>) data)) {
                 return true;
             }
             break;
@@ -248,6 +259,24 @@ public class ImportManager {
         }
 
         return null;
+    }
+
+    private static <T extends ASchwimmer> boolean updateRegistration(AWettkampf<T> wk, LinkedList<T> schwimmer) {
+        boolean ok = true;
+        schwimmer.forEach(s -> {
+            ASchwimmer as = SearchUtils.getSchwimmer(wk, s.getStartnummer());
+            if (as != null) {
+                if (as instanceof Teilnehmer target && s instanceof Teilnehmer source) {
+                    target.setVorname(source.getVorname());
+                    target.setNachname(source.getNachname());
+                    target.setJahrgang(source.getJahrgang());
+                }
+                if (as instanceof Mannschaft target && s instanceof Mannschaft source) {
+                    target.setName(source.getName());
+                }
+            }
+        });
+        return ok;
     }
 
     private static final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
