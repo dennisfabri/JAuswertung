@@ -32,6 +32,7 @@ import de.df.jauswertung.io.exception.NotSupportedException;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 
@@ -82,14 +83,16 @@ public class ImportManager {
         case REFEREES:
             return wk.getKampfrichterverwaltung() != null;
         case TEAMMEMBERS:
-        case STARTERS:
             return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
+        case STARTERS:
+            return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf && Utils.isInDevelopmentMode();
         case HEATTIMES:
             return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
         case RESULTS:
-        case REGISTRATION_UPDATE:
         case HEATLIST:
             return wk.hasSchwimmer();
+        case REGISTRATION_UPDATE:
+            return wk.hasSchwimmer() && Utils.isInDevelopmentMode();
         default:
             return false;
         }
