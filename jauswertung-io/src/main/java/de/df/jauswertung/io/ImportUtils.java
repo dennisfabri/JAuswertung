@@ -332,7 +332,7 @@ public class ImportUtils {
 
                 int[] starters = getStarters(data[x], tables[y][0]);
 
-                result.add(new TeamWithStarters(sn, discipline, starters));
+                result.add(new TeamWithStarters(sn, discipline,0, starters));
             }
 
             fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
@@ -1312,7 +1312,7 @@ public class ImportUtils {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
         boolean einzel = (w instanceof EinzelWettkampf);
-        LinkedList<T> result = new LinkedList<T>();
+        LinkedList<T> result = new LinkedList<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
         int valid = 0;

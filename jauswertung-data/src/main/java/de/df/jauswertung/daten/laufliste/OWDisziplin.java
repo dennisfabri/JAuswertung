@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.Mannschaft;
 
 public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparable<OWDisziplin<T>> {
 
@@ -84,5 +85,12 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
         diff = round - o.round;
         return (int) Math.signum(diff);
 
+    }
+
+    public boolean contains(T m) {
+        if (laeufe == null) {
+            return false;
+        }
+        return laeufe.stream().anyMatch(l -> l.getAllSchwimmer().stream().anyMatch(s -> s.getStartnummer() == m.getStartnummer()));
     }
 }

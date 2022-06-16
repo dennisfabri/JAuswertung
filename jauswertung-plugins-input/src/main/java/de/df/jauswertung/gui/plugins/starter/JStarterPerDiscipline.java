@@ -87,7 +87,7 @@ public class JStarterPerDiscipline extends JPanel {
         }
 
         for (int x = 1; x <= starter.length; x++) {
-            starter[x - 1] = new JComboBox<String>();
+            starter[x - 1] = new JComboBox<>();
             model[x - 1] = new DefaultComboBoxModel<>(mannschaftsmitglieder);
             starter[x - 1].setModel(model[x - 1]);
             try {

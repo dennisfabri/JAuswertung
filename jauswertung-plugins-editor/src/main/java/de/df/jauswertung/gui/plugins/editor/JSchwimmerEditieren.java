@@ -83,7 +83,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private JWarningTextField                        name                = new JWarningTextField(true, true);
     private JWarningTextField                        vorname             = new JWarningTextField(true, true);
     private JWarningTextField                        qualifikationsebene = new JWarningTextField(false, false);
-    private JComboBox<String>                        quali               = new JComboBox<String>(new String[] {
+    private JComboBox<String>                        quali               = new JComboBox<>(new String[] {
             I18n.get("Quali.Open"), I18n.get("Quali.NotQualified"), I18n.get("Quali.Qualified"),
             I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker") });
     private JDoubleField[]                           melde1              = new JDoubleField[] {
@@ -105,7 +105,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private DisciplinesPanel<T>                      disciplinePanel     = null;
     private JTaskPaneGroup                           disciplineContainer = null;
     private JCheckBox                                ausserkonkurrenz    = new JCheckBox(I18n.get("AusserKonkurrenz"));
-    private JComboBox<String>                        ak                  = new JComboBox<String>();
+    private JComboBox<String>                        ak                  = new JComboBox<>();
 
     private JCheckBox                                startpass           = new JCheckBox(
             I18n.get("Startunterlagenkontrolle"));
@@ -178,7 +178,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
                 membersSurname[x] = new JWarningTextField(false, true);
                 membersSurname[x].setValidator(validator50);
                 membersSurname[x].setAutoSelectAll(true);
-                membersSex[x] = new JComboBox<String>(new String[] { I18n.get("Sex2"), I18n.get("Sex1"), "-" });
+                membersSex[x] = new JComboBox<>(new String[] { I18n.get("Sex2"), I18n.get("Sex1"), "-" });
                 membersYearOfBirth[x] = new JIntegerField(3000, false, true);
                 membersYearOfBirth[x].setAutoSelectAll(true);
 
