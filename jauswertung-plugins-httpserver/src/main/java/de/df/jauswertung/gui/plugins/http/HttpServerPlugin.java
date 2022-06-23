@@ -7,8 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import javax.swing.JToggleButton;
 
@@ -43,20 +51,20 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class HttpServerPlugin extends ANullPlugin {
 
-    private CorePlugin              core;
-    MOptionenPlugin                 optionen;
+    private CorePlugin core;
+    MOptionenPlugin optionen;
 
-    private ButtonInfo[]            quicks;
-    private JToggleButton           button;
+    private ButtonInfo[] quicks;
+    private JToggleButton button;
     private JResultsSelectionButton filter;
-    private HttpOptionsPlugin       httpOptions;
+    private HttpOptionsPlugin httpOptions;
 
-    private int                     port  = 80;
+    private int port = 80;
 
-    private HttpServer   httpServer;
+    private HttpServer httpServer;
 
-    private DataProvider            source;
-    boolean                         state = false;
+    private DataProvider source;
+    boolean state = false;
 
     public HttpServerPlugin() {
         super();
@@ -142,17 +150,19 @@ public class HttpServerPlugin extends ANullPlugin {
     boolean startUp() {
         try {
             state = true;
-            
+
+            DPRequestHandler requestHandler = new DPRequestHandler(getDataProvider());
+
             final SocketConfig socketConfig = SocketConfig.custom()
                     .setSoTimeout(15, TimeUnit.SECONDS)
                     .setTcpNoDelay(true)
                     .build();
-            
-            httpServer = ServerBootstrap.bootstrap()
+
+            ServerBootstrap httpServerBootstrap = ServerBootstrap.bootstrap()
                     .setListenerPort(port)
                     .setSocketConfig(socketConfig)
                     .setExceptionListener(new ExceptionListener() {
-                        
+
                         @Override
                         public void onError(final Exception ex) {
                             ex.printStackTrace();
@@ -170,19 +180,25 @@ public class HttpServerPlugin extends ANullPlugin {
                         }
 
                     })
-                    .register("*", new DPRequestHandler(getDataProvider()))
-                    .create();            
+                    .register("*", requestHandler)
+                    .setCanonicalHostName(InetAddress.getLocalHost().getHostName());
             
+            listInterfaces().forEach(ip -> httpServerBootstrap.registerVirtual(ip, "*", requestHandler));
+            
+            httpServer = httpServerBootstrap.create();
+
             httpServer.start();
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 @Override
                 public void run() {
-                    httpServer.close(CloseMode.GRACEFUL);
+                    if (httpServer != null) {
+                        httpServer.close(CloseMode.GRACEFUL);
+                    }
                 }
             });
-            
+
             httpServer.start();
-            
+
             httpOptions.setEnabled(false);
             filter.setEnabled(source.getExportMode() == ExportMode.Filtered);
             return true;
@@ -197,6 +213,22 @@ public class HttpServerPlugin extends ANullPlugin {
             return false;
         }
     }
+    
+    private static Stream<String> listInterfaces() throws SocketException {
+        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+        return Collections.list(nets).stream().map(net -> displayInterfaceInformation(net)).flatMap(i -> i.stream()).distinct();
+    }
+
+    private static List<String> displayInterfaceInformation(NetworkInterface netint) {
+        List<String> addresses = new ArrayList<>();
+        Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+        for (InetAddress inetAddress : Collections.list(inetAddresses)) {
+            addresses.add(inetAddress.getCanonicalHostName());
+            addresses.add(inetAddress.getHostAddress());
+            addresses.add(inetAddress.getHostName());
+        }
+        return addresses;
+     }
 
     @Override
     public void shutDown() {
