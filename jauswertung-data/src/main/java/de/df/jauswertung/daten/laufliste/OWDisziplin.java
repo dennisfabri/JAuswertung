@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.Mannschaft;
 
 public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparable<OWDisziplin<T>> {
 
@@ -17,9 +16,9 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
     public final int       disziplin;
     public final int       round;
 
-    public HashSet<T>      Schwimmer = new HashSet<T>();
+    public HashSet<T>      Schwimmer = new HashSet<>();
 
-    public List<OWLauf<T>> laeufe    = new ArrayList<OWLauf<T>>();
+    public List<OWLauf<T>> laeufe    = new ArrayList<>();
 
     public static String getId(int akNummer, boolean male, int disziplin, int round) {
         return String.format("%d-%s-%d-%d", akNummer, male ? "m" : "f", disziplin, round);
