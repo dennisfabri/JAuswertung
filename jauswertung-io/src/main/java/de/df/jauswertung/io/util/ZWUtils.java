@@ -11,11 +11,6 @@ import de.df.jutils.util.StringTools;
 
 public class ZWUtils {
 
-    // public static final String[] ABC = new String[] { "a", "b", "c", "d",
-    // "e",
-    // "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
-    // "s", "t", "u", "v", "w", "x", "y", "z" };
-    //
     public static <T extends ASchwimmer> int getZWStartnummer(AWettkampf<T> wk, String sn) {
         if ((sn == null) || (sn.trim().length() == 0)) {
             return -1;
@@ -37,7 +32,7 @@ public class ZWUtils {
         for (int x = 0; x < StringTools.ABC.length; x++) {
             if (last == StringTools.ABC[x]) {
                 if (StringTools.isInteger(sn)) {
-                    return StartnumberFormatManager.convert(wk, sn);
+                    return Integer.parseInt(sn);
                 }
                 return -1;
             }
