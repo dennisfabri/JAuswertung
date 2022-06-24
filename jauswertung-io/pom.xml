@@ -16,6 +16,10 @@
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-print</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-times-extractor</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>

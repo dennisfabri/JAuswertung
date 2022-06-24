@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.util.times.Time;
-import de.df.jauswertung.util.times.TimesExtractor;
+import de.df.jauswertung.timesextractor.Competition;
+import de.df.jauswertung.timesextractor.TimesExtractor;
 import de.df.jutils.util.Feedback;
 
 public class JSONExporter extends EmptyExporter {
@@ -43,9 +43,9 @@ public class JSONExporter extends EmptyExporter {
 
     @Override
     public <T extends ASchwimmer> boolean zeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        Time[] times = new TimesExtractor().getZeiten(wk);
+        Competition competition = new TimesExtractor().getZeiten(wk);
         try {
-            objectMapper.writeValue(name, times);
+            objectMapper.writeValue(name, competition);
             return true;
         } catch (IOException ex) {
             log.debug("Konnte Daten nicht schreiben", ex);

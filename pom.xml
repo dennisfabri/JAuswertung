@@ -62,6 +62,8 @@
 		<module>jauswertung-io</module>
 		<module>jauswertung-ares</module>
 
+		<module>jauswertung-times-extractor</module>
+
 		<module>jauswertung-dp-extensions</module>
 
 		<module>jauswertung-plugins-info</module>
@@ -107,6 +109,11 @@
 			<dependency>
 				<groupId>de.dennisfabri.jauswertung</groupId>
 				<artifactId>jauswertung-files</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.dennisfabri.jauswertung</groupId>
+				<artifactId>jauswertung-times-extractor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.dennisfabri.jauswertung</groupId>
+		<artifactId>jauswertung-project</artifactId>
+		<version>16.1.2</version>
+	</parent>
+	<artifactId>jauswertung-times-extractor</artifactId>
+	<name>jauswertung-times-extractor</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-data</artifactId>
+		</dependency>
+	</dependencies>
+</project>
