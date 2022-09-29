@@ -7,7 +7,7 @@ package de.df.jauswertung.gui;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
@@ -44,9 +44,9 @@ public final class BugReportViewer {
             return;
         }
 
-        if (o instanceof LinkedList) {
-            w.println("LinkedList discovered:");
-            ListIterator li = ((LinkedList) o).listIterator();
+        if (o instanceof List list) {
+            w.println("List discovered:");
+            ListIterator li = list.listIterator();
             while (li.hasNext()) {
                 w.println("Element " + li.nextIndex() + ":");
                 analysiere(li.next(), w);
@@ -54,19 +54,19 @@ public final class BugReportViewer {
             return;
         }
 
-        if (o instanceof AWettkampf) {
-            if (o instanceof EinzelWettkampf) {
+        if (o instanceof AWettkampf wk) {
+            if (wk instanceof EinzelWettkampf ewk) {
                 w.print("Einzel: ");
-                OutputManager.speichereWettkampf("../../../../bug.wk", (EinzelWettkampf) o);
+                OutputManager.speichereWettkampf("../../../../bug.wk", ewk);
 
             }
-            if (o instanceof MannschaftWettkampf) {
+            if (wk instanceof MannschaftWettkampf mwk) {
                 w.print("Mannschaft: ");
-                OutputManager.speichereWettkampf("../../../../bug.wk", (MannschaftWettkampf) o);
+                OutputManager.speichereWettkampf("../../../../bug.wk", mwk);
             }
             try {
-                if (((AWettkampf) o).hasSchwimmer()) {
-                    ExportManager.export(ImportExportTypes.RESULTS, "../../../../results.html", "HTML", (AWettkampf) o, null);
+                if (wk.hasSchwimmer()) {
+                    ExportManager.export(ImportExportTypes.RESULTS, "../../../../results.html", "HTML", wk, null);
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();

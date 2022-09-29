@@ -36,7 +36,7 @@ import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
-public class JVeranstaltungswertung extends JGlassFrame {
+class JVeranstaltungswertung extends JGlassFrame {
 
     private String                       filename     = null;
     boolean                              modified     = false;

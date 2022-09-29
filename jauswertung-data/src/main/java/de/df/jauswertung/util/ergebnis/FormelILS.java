@@ -11,8 +11,10 @@ import java.util.LinkedList;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Eingabe;
 import de.df.jauswertung.daten.HLWStates;
 import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
@@ -24,7 +26,8 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
  */
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
-    private static final class ILSComparator<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
+    private static final class ILSComparator<T extends ASchwimmer>
+            implements Comparator<SchwimmerData<T>>, Serializable {
 
         private static final long serialVersionUID = -7952635514437923875L;
 
@@ -60,7 +63,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     public static final String ID = "ILS2004";
 
     private final Comparator<SchwimmerData<T>> comparator;
-    
+
     @Override
     public String getID() {
         return ID;
@@ -69,7 +72,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     public FormelILS() {
         this(new ILSComparator<>());
     }
-    
+
     protected FormelILS(Comparator<SchwimmerData<T>> comparator) {
         this.comparator = comparator;
     }
@@ -99,8 +102,8 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS ohne Finals";
     }
 
-    private static final double Epsilon = 0.005; 
-    
+    private static final double Epsilon = 0.005;
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
@@ -143,7 +146,8 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 for (int y = pos - 1; y < x; y++) {
                     if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                             || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
-                        swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos, x - pos + 1 - disCounter, Strafe.NICHTS));
+                        swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos, x - pos + 1 - disCounter,
+                                Strafe.NICHTS));
                     }
                 }
                 disCounter = 0;
@@ -164,7 +168,8 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         for (int y = pos - 1; y < swimmer.length; y++) {
             if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                     || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
-                swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos, swimmer.length - pos + 1 - disCounter, Strafe.NICHTS));
+                swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos,
+                        swimmer.length - pos + 1 - disCounter, Strafe.NICHTS));
             }
         }
 
@@ -228,10 +233,26 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 }
             }
 
+            ASchwimmer s = result.getSchwimmer();
+
             double points = 0;
-            int count = result.getSchwimmer().getDisciplineChoiceCount();
-            boolean isOk = (ak.getMinimalChosenDisciplines() <= count) && (ak.getMaximalChosenDisciplines() >= count)
-                    && (count > dns);
+            int count = 0;
+            int chosenAmount = s.getDisciplineChoiceCount();
+            if (s.getAK().isDisciplineChoiceAllowed()) {
+                for (int i = 0; i < s.getAK().getDiszAnzahl(); i++) {
+                    if (s.isDisciplineChosen(i)) {
+                        Eingabe eingabe = s.getEingabe(OWDisziplin.getId(s.getAKNummer(), s.isMaennlich(), i, 0));
+                        if (eingabe == null || eingabe.getStrafen().stream()
+                                .noneMatch(str -> str.getArt() == Strafarten.NICHT_ANGETRETEN)) {
+                            count++;
+                        }
+                    }
+                }
+            } else {
+                count = s.getAK().getDiszAnzahl();
+            }
+            boolean isOk = (ak.getMinimalChosenDisciplines() <= count)
+                    && (ak.getMaximalChosenDisciplines() >= chosenAmount);
             if (isOk || isRealFinal) {
                 // not enough or too many disciplines lead to disqualification
                 Arrays.sort(ps);
@@ -268,28 +289,31 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             Arrays.sort(results, new Comparator<SchwimmerResult>() {
                 @Override
                 public int compare(SchwimmerResult sd1, SchwimmerResult sd2) {
-                    if (sd1.getSchwimmer().isAusserKonkurrenz() == sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
-                        if (points != 0) {
-                            return points;
+                    if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
+                        if (sd1.getSchwimmer().isAusserKonkurrenz()) {
+                            return 1;
                         }
-                        int rank = sd1.getPlace() - sd2.getPlace();
-                        if (rank != 0) {
-                            if (sd1.getPlace() <= 0) {
-                                return 1;
-                            }
-                            if (sd2.getPlace() <= 0) {
-                                return -1;
-                            }
-                            return rank;
+                        if (sd2.getSchwimmer().isAusserKonkurrenz()) {
+                            return -1;
                         }
+                    }
+
+                    int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
+                    if (points != 0) {
+                        return points;
+                    }
+                    int rank = sd1.getPlace() - sd2.getPlace();
+                    if (rank != 0) {
+                        if (sd1.getPlace() <= 0) {
+                            return 1;
+                        }
+                        if (sd2.getPlace() <= 0) {
+                            return -1;
+                        }
+                        return rank;
+                    }
+                    if (sd1.getDnf() != sd2.getDnf()) {
                         return sd1.getDnf() - sd2.getDnf();
-                    }
-                    if (sd1.getSchwimmer().isAusserKonkurrenz()) {
-                        return 1;
-                    }
-                    if (sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        return -1;
                     }
                     if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
                         if (sd1.hasKeineWertung()) {
@@ -300,24 +324,27 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                     return 0;
                 }
             });
-
         } else {
-            Arrays.sort(results, new Comparator<SchwimmerResult>() {
+            Arrays.sort(results, new Comparator<>() {
                 @Override
                 public int compare(SchwimmerResult sd1, SchwimmerResult sd2) {
-                    if (sd1.getSchwimmer().isAusserKonkurrenz() == sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
-                        if (points != 0) {
-                            return points;
+                    if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
+                        if (sd1.getSchwimmer().isAusserKonkurrenz()) {
+                            return 1;
                         }
+                        if (sd2.getSchwimmer().isAusserKonkurrenz()) {
+                            return -1;
+                        }
+                    }
+
+                    int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
+                    if (points != 0) {
+                        return points;
+                    }
+                    if (sd1.getDnf() != sd1.getDnf()) {
                         return sd1.getDnf() - sd2.getDnf();
                     }
-                    if (sd1.getSchwimmer().isAusserKonkurrenz()) {
-                        return 1;
-                    }
-                    if (sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        return -1;
-                    }
+
                     if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
                         if (sd1.hasKeineWertung()) {
                             return 1;
@@ -334,7 +361,9 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                     pos = (x + 1);
                     oldResults = results[x].getPoints() - 0.005;
                 }
-                results[x].setRank(pos);
+                if (!results[x].hasKeineWertung()) {
+                    results[x].setRank(pos);
+                }
             }
         }
         return results;

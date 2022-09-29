@@ -5,7 +5,6 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.LinkedList;
 import java.util.prefs.Preferences;
 
@@ -20,7 +19,6 @@ import de.df.jutils.gui.awt.ProgressSplashWindow;
 import de.df.jutils.gui.util.DesignInit;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.io.NullOutputStream;
 import de.df.jutils.plugin.PluginManager;
 import de.df.jutils.plugin.RemoteAction;
 import de.df.jutils.plugin.UpdateEvent;

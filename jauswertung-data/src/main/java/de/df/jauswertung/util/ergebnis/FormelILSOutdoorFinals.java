@@ -19,9 +19,6 @@ public class FormelILSOutdoorFinals<T extends ASchwimmer> extends FormelILSFinal
         return ID;
     }
 
-    /**
-     * 
-     */
     public FormelILSOutdoorFinals() {
         super();
     }

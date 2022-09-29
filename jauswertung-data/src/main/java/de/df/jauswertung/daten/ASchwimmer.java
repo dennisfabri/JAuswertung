@@ -99,7 +99,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         disciplineChoice = new boolean[0];
         meldezeiten = new int[0];
 
-        allgemeineStrafen = new LinkedList<Strafe>();
+        allgemeineStrafen = new LinkedList<>();
 
         startunterlagen = Startunterlagen.NICHT_PRUEFEN;
 

@@ -1,11 +1,10 @@
 package de.df.jauswertung.gui.veranstaltung;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -57,8 +56,8 @@ class JCompetitionCollector extends JPanel {
         this.parent = parent;
 
         setBorder(BorderUtils.createLabeledBorder(I18n.get("Competitions")));
-        data = new ModifiableListModel<CompetitionContainer>();
-        competitions = new JSmoothList<CompetitionContainer>(data);
+        data = new ModifiableListModel<>();
+        competitions = new JSmoothList<>(data);
         competitions.setCellRenderer(new CompetitionContainerRenderer());
         competitions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scroll = new JScrollPane(competitions);
@@ -74,36 +73,16 @@ class JCompetitionCollector extends JPanel {
     private JPanel getButtons() {
         add = new JTransparentButton(IconManager.getSmallIcon("new"));
         add.setToolTipText(I18n.getToolTip("AddCompetition"));
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addCompetition();
-            }
-        });
+        add.addActionListener(e -> addCompetition());
         edit = new JTransparentButton(IconManager.getSmallIcon("edit"));
         edit.setToolTipText(I18n.getToolTip("Edit"));
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editCompetition();
-            }
-        });
+        edit.addActionListener(e -> editCompetition());
         remove = new JTransparentButton(IconManager.getSmallIcon("delete"));
         remove.setToolTipText(I18n.getToolTip("DeleteCompetition"));
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteCompetition();
-            }
-        });
+        remove.addActionListener(e -> deleteCompetition());
         check = new JTransparentButton(IconManager.getSmallIcon("check"));
         check.setToolTipText(I18n.getToolTip("CheckCompetitionsForSimilarOrganizations"));
-        check.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                check();
-            }
-        });
+        check.addActionListener(e -> check());
 
         FormLayout buttonslayout = new FormLayout("0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu");
         JPanel buttons = new JPanel(buttonslayout);
@@ -116,20 +95,20 @@ class JCompetitionCollector extends JPanel {
         return buttons;
     }
 
-    public void setProperties(Veranstaltung vs) {
+    void setProperties(Veranstaltung vs) {
         setCompetitions(vs.getCompetitions());
     }
 
-    public void getProperties(Veranstaltung vs) {
+    void getProperties(Veranstaltung vs) {
         vs.setCompetitions(getCompetitions());
     }
 
-    public void setCompetitions(LinkedList<CompetitionContainer> container) {
+    private void setCompetitions(List<CompetitionContainer> container) {
         data.removeAll();
         data.addAll(container);
     }
 
-    public LinkedList<CompetitionContainer> getCompetitions() {
+    public List<CompetitionContainer> getCompetitions() {
         return data.getAllElements();
     }
 
@@ -231,9 +210,9 @@ class JCompetitionCollector extends JPanel {
 
     @SuppressWarnings({ "cast", "rawtypes" })
     void check() {
-        LinkedList<CompetitionContainer> containers = getCompetitions();
-        LinkedList<AWettkampf> wks = new LinkedList<AWettkampf>();
-        LinkedList<String> names = new LinkedList<String>();
+        List<CompetitionContainer> containers = getCompetitions();
+        LinkedList<AWettkampf> wks = new LinkedList<>();
+        LinkedList<String> names = new LinkedList<>();
         for (CompetitionContainer c : containers) {
             AWettkampf wk = InputManager.ladeWettkampf(c.getFilename());
             if (wk != null) {
@@ -259,27 +238,12 @@ class JCompetitionCollector extends JPanel {
             file.setText(container.getFilename());
 
             JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ok();
-                }
-            });
+            ok.addActionListener(e -> ok());
             JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-            cancel.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cancel();
-                }
-            });
+            cancel.addActionListener(e -> cancel());
 
             JButton browse = new JButton("...");
-            browse.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    browse();
-                }
-            });
+            browse.addActionListener(e -> browse());
 
             FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu",
                     "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");

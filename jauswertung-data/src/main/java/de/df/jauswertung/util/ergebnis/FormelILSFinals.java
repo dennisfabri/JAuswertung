@@ -7,8 +7,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -31,9 +34,9 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     class ComparatorT implements Comparator<SchwimmerData<T>> {
 
-        private final Hashtable<Integer, SchwimmerInfo<T>> hsi;
+        private final Map<Integer, SchwimmerInfo<T>> hsi;
 
-        public ComparatorT(Hashtable<Integer, SchwimmerInfo<T>> si) {
+        public ComparatorT(Map<Integer, SchwimmerInfo<T>> si) {
             hsi = si;
         }
 
@@ -59,10 +62,10 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     class ComparatorT2 implements Comparator<SchwimmerData<T>> {
 
-        private final Hashtable<Integer, SchwimmerInfo<T>> hsi;
+        private final Map<Integer, SchwimmerInfo<T>> hsi;
         private final ILSComparator                        c = new ILSComparator();
 
-        public ComparatorT2(Hashtable<Integer, SchwimmerInfo<T>> si) {
+        public ComparatorT2(Map<Integer, SchwimmerInfo<T>> si) {
             hsi = si;
         }
 
@@ -155,9 +158,6 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         return ID;
     }
 
-    /**
-     * 
-     */
     public FormelILSFinals() {
         super();
     }
@@ -328,7 +328,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
                 SchwimmerData<T> sd = r[i].getResults()[0];
 
-                SchwimmerInfo<T> si = new SchwimmerInfo<T>();
+                SchwimmerInfo<T> si = new SchwimmerInfo<>();
                 si.schwimmer = SearchUtils.getSchwimmer(wk, r[i].getSchwimmer());
                 si.platz = sd.getRank();
                 si.zeit = sd.getTime();
@@ -368,20 +368,20 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             return;
         }
 
-        Hashtable<Integer, SchwimmerInfo<T>> hsi = new Hashtable<Integer, SchwimmerInfo<T>>();
+        Map<Integer, SchwimmerInfo<T>> hsi = new HashMap<>();
         for (SchwimmerInfo<T> sx : infos) {
             hsi.put(sx.schwimmer.getStartnummer(), sx);
         }
         ComparatorT comp = new ComparatorT(hsi);
         Arrays.sort(swimmer, comp);
 
-        ArrayList<ArrayList<SchwimmerData<T>>> xxl = new ArrayList<ArrayList<SchwimmerData<T>>>();
-        ArrayList<SchwimmerData<T>> current = null;
+        List<List<SchwimmerData<T>>> xxl = new ArrayList<>();
+        List<SchwimmerData<T>> current = null;
         SchwimmerData<T> sdx = null;
 
         for (int x = 0; x < swimmer.length; x++) {
             if (sdx == null || comp.compare(sdx, swimmer[x]) != 0) {
-                current = new ArrayList<SchwimmerData<T>>();
+                current = new ArrayList<>();
                 xxl.add(current);
                 sdx = swimmer[x];
                 current.add(sdx);
@@ -391,7 +391,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         }
 
         int rank = 1;
-        for (ArrayList<SchwimmerData<T>> asd : xxl) {
+        for (List<SchwimmerData<T>> asd : xxl) {
             int amount = asd.size();
             for (SchwimmerData<T> sd : asd) {
                 SchwimmerInfo<T> si = hsi.get(sd.getSchwimmer().getStartnummer());

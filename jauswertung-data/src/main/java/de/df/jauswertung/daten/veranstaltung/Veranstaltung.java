@@ -1,20 +1,22 @@
 package de.df.jauswertung.daten.veranstaltung;
 
 import java.io.Serializable;
-import java.util.Hashtable;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
 import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 
 public class Veranstaltung implements Serializable {
 
-    private Hashtable<String, Object>        properties               = new Hashtable<String, Object>();
-    private LinkedList<CompetitionContainer> competitions             = new LinkedList<CompetitionContainer>();
-    private String                           name                     = "";
-    private String                           titleOrganization        = "";
-    private String                           titleQualifikationsebene = "";
-    private String                           locationAndDate          = "";
+    private Map<String, Object> properties = new HashMap<>();
+    private List<CompetitionContainer> competitions = new ArrayList<>();
+    private String name = "";
+    private String titleOrganization = "";
+    private String titleQualifikationsebene = "";
+    private String locationAndDate = "";
 
     public Veranstaltung() {
         // Nothing to do
@@ -61,12 +63,12 @@ public class Veranstaltung implements Serializable {
         this.titleQualifikationsebene = titleQualifikationsebene;
     }
 
-    public void setCompetitions(LinkedList<CompetitionContainer> competitions) {
-        this.competitions = new LinkedList<CompetitionContainer>(competitions);
+    public void setCompetitions(List<CompetitionContainer> competitions) {
+        this.competitions = new ArrayList<>(competitions);
     }
 
-    public LinkedList<CompetitionContainer> getCompetitions() {
-        return new LinkedList<CompetitionContainer>(competitions);
+    public List<CompetitionContainer> getCompetitions() {
+        return new ArrayList<>(competitions);
     }
 
     public String[] getCompetitionNames() {
@@ -84,8 +86,8 @@ public class Veranstaltung implements Serializable {
         if (o == null) {
             return false;
         }
-        if (o instanceof Boolean) {
-            return (Boolean) o;
+        if (o instanceof Boolean b) {
+            return b;
         }
         return false;
     }

@@ -4,11 +4,6 @@
 
 package de.df.jauswertung.util;
 
-/**
- * @author Dennis Fabri
- */
-
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -33,13 +28,11 @@ import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 
 public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 
-    static final class GesamtwertungSchwimmerComparator implements Comparator<Object>, Serializable {
+    static final class GesamtwertungSchwimmerComparator implements Comparator<Object> {
         @Override
         public int compare(Object o1, Object o2) {
             if ((o1 != null) && (o2 != null)) {
-                if ((o1 instanceof GesamtwertungSchwimmer) && (o2 instanceof GesamtwertungSchwimmer)) {
-                    GesamtwertungSchwimmer sd1 = (GesamtwertungSchwimmer) o1;
-                    GesamtwertungSchwimmer sd2 = (GesamtwertungSchwimmer) o2;
+                if ((o1 instanceof GesamtwertungSchwimmer sd1) && (o2 instanceof GesamtwertungSchwimmer sd2)) {
                     if ((sd1.getAkkumulierteStrafe(0).getArt() == Strafarten.NICHT_ANGETRETEN)
                             && (sd2.getAkkumulierteStrafe(0).getArt() == Strafarten.NICHT_ANGETRETEN)) {
                         return 0;
@@ -62,15 +55,15 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         }
     }
 
-    private static final long               serialVersionUID = 2735741444352316840L;
+    private static final long serialVersionUID = 2735741444352316840L;
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf                      wk;
-    private Regelwerk                       aks;
+    private AWettkampf wk;
+    private Regelwerk aks;
 
     private SchwimmerResult<ASchwimmer>[][] results;
 
-    private GroupEvaluationMode             modus;
+    private GroupEvaluationMode modus;
 
     /** Creates a new instance of Gesamtwertung */
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -84,8 +77,10 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         ListIterator<ASchwimmer> li = wk.getSchwimmer().listIterator();
         while (li.hasNext()) {
             ASchwimmer s = li.next();
-            if (s.isAusserKonkurrenz() || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF).getArt() == Strafarten.AUSSCHLUSS)
-                    || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF).getArt() == Strafarten.DISQUALIFIKATION)) {
+            if (s.isAusserKonkurrenz()
+                    || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF).getArt() == Strafarten.AUSSCHLUSS)
+                    || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF)
+                            .getArt() == Strafarten.DISQUALIFIKATION)) {
                 wk.removeSchwimmer(s);
             }
         }
@@ -165,7 +160,8 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                 for (SchwimmerResult<ASchwimmer> aResult : result) {
                     ASchwimmer s = aResult.getSchwimmer();
                     if (!aResult.hasKeineWertung()) {
-                        Mannschaft m = copywk.createMannschaft(s.getName(), male, s.getGliederungMitQGliederung(), a, "");
+                        Mannschaft m = copywk.createMannschaft(s.getName(), male, s.getGliederungMitQGliederung(), a,
+                                "");
                         if (aResult.getPlace() < 0) {
                             m.addStrafe(0, Strafe.DISQUALIFIKATION);
                         } else {
@@ -175,7 +171,8 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                         case DISQUALIFIKATION:
                         case AUSSCHLUSS:
                         case NICHT_ANGETRETEN:
-                            m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF, s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
+                            m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                    s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
                             break;
                         case NICHTS:
                         case STRAFPUNKTE:
@@ -220,7 +217,8 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                     case DISQUALIFIKATION:
                     case AUSSCHLUSS:
                     case NICHT_ANGETRETEN:
-                        m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF, s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
+                        m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
                         break;
                     case NICHTS:
                     case STRAFPUNKTE:
@@ -259,7 +257,8 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                     case DISQUALIFIKATION:
                     case AUSSCHLUSS:
                     case NICHT_ANGETRETEN:
-                        m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF, s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
+                        m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
                         break;
                     case NICHTS:
                     case STRAFPUNKTE:
@@ -321,34 +320,25 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         }
         double[] points = new double[disz];
 
-        // System.out.println(g);
-
         int found = 0;
         if ((results[aknummer * 2 + (male ? 1 : 0)] != null) && (results[aknummer * 2 + (male ? 1 : 0)].length > 0)) {
             for (SchwimmerResult value : results[aknummer * 2 + (male ? 1 : 0)]) {
-                if (value.getSchwimmer().getGliederungMitQGliederung().equals(g) && !value.getSchwimmer().isAusserKonkurrenz()) {
-                    // System.out.println(" " + value.getSchwimmer().getName());
+                if (value.getSchwimmer().getGliederungMitQGliederung().equals(g)
+                        && !value.getSchwimmer().isAusserKonkurrenz()) {
                     switch (modus) {
                     case BestWithoutBlocking:
                     case Best:
-                        if (found >= 1) {
-                            break;
+                        if (found < 1) {
+                            points[0] += value.getPoints();
                         }
+                        break;
                     case Best4:
-                        if (found >= 4) {
-                            break;
+                        if (found < 4) {
+                            points[0] += value.getPoints();
                         }
+                        break;
                     case All:
                         points[0] += value.getPoints();
-                        // for (int x = 0; x < ak.getDiszAnzahl(); x++) {
-                        // points[x] += value.getResults()[x].getPoints();
-                        // System.out.println(" "+points[x]);
-                        // }
-                        // if (ak.hasHLW()) {
-                        // points[ak.getDiszAnzahl()] += value.getSchwimmer()
-                        // .getHLWPunkte();
-                        // System.out.println(" "+points[ak.getDiszAnzahl()]);
-                        // }
                         break;
                     case BestInDiscipline:
                         for (int x = 0; x < ak.getDiszAnzahl(); x++) {
@@ -378,10 +368,6 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         return gs;
     }
 
-    /**
-     * @param g
-     * @return
-     */
     private GesamtwertungSchwimmer berechneGliederung(String g) {
         GesamtwertungSchwimmer gs = new GesamtwertungSchwimmer(this, g, aks.size());
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {

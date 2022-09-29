@@ -53,7 +53,7 @@ import de.df.jutils.util.StringTools;
  */
 public final class JResultTable extends JGroupableTable {
 
-    public static boolean     printRanksInResults            = false;
+    public static boolean printRanksInResults = false;
 
     /**
      * Comment for <code>serialVersionUID</code>
@@ -427,7 +427,7 @@ public final class JResultTable extends JGroupableTable {
             break;
         }
 
-        if (result.hasKeineWertung()) {
+        if (result.hasKeineWertung() && result.getResults().length == 1) {
             setValueAt("", y, D_RANK_OFFSET + PREFIX + LENGTH * x + offset);
             setValueAt("", y, PREFIX + D_POINTS_OFFSET + LENGTH * x + offset);
         }
@@ -675,7 +675,8 @@ public final class JResultTable extends JGroupableTable {
                 @SuppressWarnings("rawtypes")
                 SchwimmerData[] daten = results.getResults(y);
                 for (int x = 0; x < ak.getDiszAnzahl(); x++) {
-                    updateDiscipline(x, y, daten, offset, results.getSchwimmer(y).isDisciplineChosen(x), results.getResult(y));
+                    updateDiscipline(x, y, daten, offset, results.getSchwimmer(y).isDisciplineChosen(x),
+                            results.getResult(y));
                 }
                 if (ak.hasHLW()) {
                     if (showZW) {

@@ -5,7 +5,7 @@
     <languages>
       <principalLanguage id="de" />
     </languages>
-    <jreBundles jdkProviderId="Adoptium" release="17/jdk-17.0.3+7" />
+    <jreBundles jdkProviderId="JBR" release="17/17.0.4-b469.44" />
   </application>
   <files preserveSymlinks="false">
     <filesets>

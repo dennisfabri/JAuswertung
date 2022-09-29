@@ -1,6 +1,7 @@
 package de.df.jauswertung.gui.veranstaltung;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -16,7 +17,6 @@ import de.df.jauswertung.daten.veranstaltung.CompetitionContainer;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.ergebnis.FormelDirectPoints;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
@@ -82,9 +82,9 @@ class Veranstaltungsutils {
         offset = 0;
         for (AWettkampf wk1 : wks) {
             if (wk1 != null) {
-                Regelwerk a = wk1.getRegelwerk();
-                for (int y = 0; y < a.size(); y++) {
-                    if (SearchUtils.hasSchwimmer(wk1, wk1.getRegelwerk().getAk(y))) {
+                Regelwerk regelwerk = wk1.getRegelwerk();
+                for (int y = 0; y < regelwerk.size(); y++) {
+                    if (SearchUtils.hasSchwimmer(wk1, regelwerk.getAk(y))) {
                         Altersklasse ak1 = aks.getAk(offset);
 
                         for (int sex = 0; sex < 2; sex++) {
@@ -97,7 +97,7 @@ class Veranstaltungsutils {
                                 m.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF, s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
 
                                 for (int z = 0; z < m.getAK().getDiszAnzahl(); z++) {
-                                    LinkedList<Strafe> strafen = new LinkedList<Strafe>();
+                                    LinkedList<Strafe> strafen = new LinkedList<>();
                                     Strafe strafe = sr.getResults()[z].getStrafe();
                                     strafen.add(strafe);
                                     m.setStrafen(z, strafen);
@@ -126,13 +126,11 @@ class Veranstaltungsutils {
         aks.setGesamtwertungSkalieren(vs.getGesamtwertungSkalieren());
         aks.setGesamtwertungsmodus(vs.getGesamtwertungsmodus());
 
-        OutputManager.speichereWettkampf("../../vs.wk", wk);
-
         return wk;
     }
 
     @SuppressWarnings("rawtypes")
-    public static AWettkampf[] getWettkaempfe(LinkedList<CompetitionContainer> lcc) {
+    public static AWettkampf[] getWettkaempfe(List<CompetitionContainer> lcc) {
         AWettkampf[] wks = new AWettkampf[lcc.size()];
         for (int x = 0; x < wks.length; x++) {
             CompetitionContainer cc = lcc.get(x);

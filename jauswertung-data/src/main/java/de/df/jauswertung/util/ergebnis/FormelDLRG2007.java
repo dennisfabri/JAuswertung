@@ -240,7 +240,7 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
 
             ASchwimmer s = result1.getSchwimmer();
             double points = 0;
-            double count = 0;
+            int count = 0;
             if (s.getAK().isDisciplineChoiceAllowed()) {
                 for (int i = 0; i < s.getAK().getDiszAnzahl(); i++) {
                     if (s.isDisciplineChosen(i)) {
