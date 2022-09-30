@@ -21,17 +21,17 @@
 		<jutils.version>16.1.2</jutils.version>
 		<alphaserver.version>16.1.2</alphaserver.version>
 
-		<poi.version>5.2.2</poi.version>
-		<jersey.version>3.0.4</jersey.version>
+		<poi.version>5.2.3</poi.version>
+		<jersey.version>3.0.8</jersey.version>
 		<batik.version>1.14</batik.version>
-		<slf4j.version>1.7.36</slf4j.version>
-		<logback.version>1.2.11</logback.version>
+		<slf4j.version>2.0.3</slf4j.version>
+		<logback.version>1.4.1</logback.version>
 		<javafx.version>17</javafx.version>
-		<jackson.version>2.13.3</jackson.version>
+		<jackson.version>2.13.4</jackson.version>
 		<lombok.version>1.18.24</lombok.version>
 
-		<junit.version>5.8.2</junit.version>
-		<mockito.version>4.6.1</mockito.version>
+		<junit.version>5.9.1</junit.version>
+		<mockito.version>4.8.0</mockito.version>
 	</properties>
 
 	<distributionManagement>
@@ -417,7 +417,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
-				<version>1.9</version>
+				<version>1.10.0</version>
 			</dependency>
 
 			<dependency>
@@ -613,7 +613,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
+					<version>3.0.0-M3</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -634,6 +634,16 @@
 					<artifactId>lombok-maven-plugin</artifactId>
 					<version>1.18.20.0</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M7</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsave-plugin</artifactId>
+					<version>3.0.0-M7</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -648,10 +658,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -698,7 +704,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M3</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -714,6 +719,14 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.11.0</version>
+				<configuration>
+					<rulesUri>file:./version-rules.xml</rulesUri>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
