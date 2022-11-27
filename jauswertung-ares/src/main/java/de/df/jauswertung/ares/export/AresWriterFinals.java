@@ -26,7 +26,10 @@ import de.df.jauswertung.daten.regelwerk.Regelwerk;
 
 public class AresWriterFinals {
 
-    private static final String CHARSET  = "ISO-8859-1";
+    private AresWriterFinals() {
+    }
+
+    private static final String CHARSET = "ISO-8859-1";
     private static final String CHARSET2 = "Cp850";
 
     public static <T extends ASchwimmer> void writeAres(AWettkampf<T>[] wks, String dir) throws IOException {
@@ -96,14 +99,17 @@ public class AresWriterFinals {
         for (int x = 0; x < aks.size(); x++) {
             String ak = aks.getAk(x).getName().toUpperCase().replace("\"", "");
             for (int y = 0; y < 2; y++) {
-                ps.println("\"" + ak + " " + (y == 1 ? aks.getTranslation("maleShort", "m") : aks.getTranslation("femaleShort", "w")) + "\";\""
+                ps.println("\"" + ak + " "
+                        + (y == 1 ? aks.getTranslation("maleShort", "m") : aks.getTranslation("femaleShort", "w"))
+                        + "\";\""
                         + (x * 2 + y + offset) + "\"");
             }
         }
         return aks.size() * 2 + offset;
     }
 
-    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
         // 0; "25 m" ; 25 ;1
@@ -114,7 +120,8 @@ public class AresWriterFinals {
         return disziplinen;
     }
 
-    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen) throws UnsupportedEncodingException {
+    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen)
+            throws UnsupportedEncodingException {
         // 0; "25 m" ; 25 ;1
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
@@ -135,13 +142,17 @@ public class AresWriterFinals {
         }
     }
 
-    private static String[][] shortnames = new String[][] { new String[] { "200m Obstacle Swim", "OS" }, new String[] { "50m Manikin Carry", "MC" },
+    private static String[][] shortnames = new String[][] { new String[] { "200m Obstacle Swim", "OS" },
+            new String[] { "50m Manikin Carry", "MC" },
             new String[] { "100m Manikin Carry with Fins", "MCF" }, new String[] { "100m Rescue Medley", "RM" },
-            new String[] { "100m Manikin Tow with Fins", "MTF" }, new String[] { "200m Super Lifesaver", "SL" }, new String[] { "Line Throw", "LT" },
-            new String[] { "4 x 50m Obstacle Relay", "OR" }, new String[] { "4 x 25m Manikin Relay", "MR" }, new String[] { "4 x 50m Medley Relay", "MR" },
+            new String[] { "100m Manikin Tow with Fins", "MTF" }, new String[] { "200m Super Lifesaver", "SL" },
+            new String[] { "Line Throw", "LT" },
+            new String[] { "4 x 50m Obstacle Relay", "OR" }, new String[] { "4 x 25m Manikin Relay", "MR" },
+            new String[] { "4 x 50m Medley Relay", "MR" },
             new String[] { "4 x 50m Mixed Pool Lifesaver Relay", "MLR" }, };
 
-    private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
+    private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
+            throws UnsupportedEncodingException {
         // idStyle;Style;StyleAbrév
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
@@ -182,7 +193,8 @@ public class AresWriterFinals {
         }
     }
 
-    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os)
+    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks,
+            Hashtable<String, Integer> disziplinen, OutputStream os)
             throws UnsupportedEncodingException {
         // event;round;nbHeat;idLen;idStyle;abCat;date;time
         // 1 ;0 ;1 ;0 ;0 ;"0" ;"04/27/09" ;"00:00" ;
@@ -198,8 +210,8 @@ public class AresWriterFinals {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("event;round;nbHeat;idLen;idStyle;abCat;date;time");
 
-        LinkedList<DisciplineInfo> ll = getRounds(wks);
-        for (DisciplineInfo lx : ll) {
+        LinkedList<DisciplineInfo<T>> ll = getRounds(wks);
+        for (DisciplineInfo<T> lx : ll) {
             AWettkampf<T> wk = lx.getFirst();
             OWDisziplin<T> owd = lx.getSecond();
 
@@ -222,23 +234,24 @@ public class AresWriterFinals {
             int idStyle = idLen;
             String date = "10/18/09";
             String time = "00:00";
-            ps.println("" + id1 + " ;0 ;" + id2 + " ;" + idLen + " ;" + idStyle + " ;\"" + akmw + "\" ;\"" + date + "\" ;\"" + time + "\" ;");
+            ps.println("" + id1 + " ;0 ;" + id2 + " ;" + idLen + " ;" + idStyle + " ;\"" + akmw + "\" ;\"" + date
+                    + "\" ;\"" + time + "\" ;");
         }
     }
-    
-    private static <T extends ASchwimmer> LinkedList<DisciplineInfo> getRounds(AWettkampf<T>[] wks) {
-        LinkedList<DisciplineInfo> ll = new LinkedList<DisciplineInfo>();
+
+    private static <T extends ASchwimmer> LinkedList<DisciplineInfo<T>> getRounds(AWettkampf<T>[] wks) {
+        LinkedList<DisciplineInfo<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             OWLaufliste<T> low = wk.getLauflisteOW();
             for (OWDisziplin<T> dis : low.getDisziplinen()) {
-                ll.add(new DisciplineInfo(wk, dis));
+                ll.add(new DisciplineInfo<>(wk, dis));
             }
         }
 
-        Collections.sort(ll, new Comparator<DisciplineInfo>() {
+        Collections.sort(ll, new Comparator<>() {
 
             @Override
-            public int compare(DisciplineInfo lx1, DisciplineInfo lx2) {
+            public int compare(DisciplineInfo<T> lx1, DisciplineInfo<T> lx2) {
                 AWettkampf<T> wk1 = lx1.getFirst();
                 AWettkampf<T> wk2 = lx2.getFirst();
                 OWDisziplin<T> l1 = lx1.getSecond();
@@ -251,21 +264,21 @@ public class AresWriterFinals {
         return ll;
     }
 
-    private static <T extends ASchwimmer> LinkedList<HeatInfo> getHeats(AWettkampf<T>[] wks) {
-        LinkedList<HeatInfo> ll = new LinkedList<HeatInfo>();
+    private static <T extends ASchwimmer> LinkedList<HeatInfo<T>> getHeats(AWettkampf<T>[] wks) {
+        LinkedList<HeatInfo<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             OWLaufliste<T> low = wk.getLauflisteOW();
             for (OWDisziplin<T> dis : low.getDisziplinen()) {
                 for (OWLauf<T> l : dis.getLaeufe()) {
-                    ll.add(new HeatInfo(wk, dis, l));
+                    ll.add(new HeatInfo<>(wk, dis, l));
                 }
             }
         }
 
-        Collections.sort(ll, new Comparator<HeatInfo>() {
+        Collections.sort(ll, new Comparator<>() {
 
             @Override
-            public int compare(HeatInfo lx1, HeatInfo lx2) {
+            public int compare(HeatInfo<T> lx1, HeatInfo<T> lx2) {
                 AWettkampf<T> wk1 = lx1.getFirst();
                 AWettkampf<T> wk2 = lx2.getFirst();
                 OWDisziplin<T> d1 = lx1.getSecond();
@@ -300,7 +313,8 @@ public class AresWriterFinals {
         }
     }
 
-    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;heat;lane;relais;idBib
         // 4 ;1 ;0 ;1 ;0 ;3 ;
         // 4 ;1 ;0 ;2 ;0 ;106 ;
@@ -312,9 +326,9 @@ public class AresWriterFinals {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("event;round;nbHeat;idLen;idStyle;abCat;date;time");
 
-        LinkedList<HeatInfo> ll = getHeats(wks);
+        LinkedList<HeatInfo<T>> ll = getHeats(wks);
 
-        for (HeatInfo lx : ll) {
+        for (HeatInfo<T> lx : ll) {
             AWettkampf<T> wk = lx.getFirst();
             OWDisziplin<T> owd = lx.getSecond();
             OWLauf<T> lauf = lx.getThird();
@@ -331,13 +345,15 @@ public class AresWriterFinals {
                     String sn = "" + getId(t); // StartnumberFormatManager.format(t);
                     String date = "10/18/09";
                     String time = "00:00";
-                    ps.println("" + id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date + "\" ; \"" + time + "\" ;");
+                    ps.println("" + id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
+                            + "\" ; \"" + time + "\" ;");
                 }
             }
         }
     }
 
-    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os)
+    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen,
+            OutputStream os)
             throws UnsupportedEncodingException {
         // id;event;round ;heat
         // 1 ;1 ;0 ;0 ;
@@ -346,10 +362,10 @@ public class AresWriterFinals {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("id;event;round ;heat");
 
-        LinkedList<HeatInfo> ll = getHeats(wks);
+        LinkedList<HeatInfo<T>> ll = getHeats(wks);
 
         int x = 1;
-        for (HeatInfo lx : ll) {
+        for (HeatInfo<T> lx : ll) {
             AWettkampf<T> wk = lx.getFirst();
             OWDisziplin<T> owd = lx.getSecond();
             OWLauf<T> lauf = lx.getThird();
@@ -362,7 +378,8 @@ public class AresWriterFinals {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // id;bib;lastname;firstname;birthyear;abNat;abCat
         // 1 ;"257" ;"POPOV" ;"Alexander" ;"1971" ;"RUS" ;"M" ;
         PrintStream ps = new PrintStream(os, true, CHARSET);
@@ -391,12 +408,14 @@ public class AresWriterFinals {
     }
 
     private static Hashtable<String, Integer> snMapping = new Hashtable<String, Integer>();
-    private static int                        nextSN    = 1;
+    private static int nextSN = 1;
 
-    private static <T extends ASchwimmer> int writeNames(AWettkampf<T> wk, PrintStream ps, int offset) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> int writeNames(AWettkampf<T> wk, PrintStream ps, int offset)
+            throws UnsupportedEncodingException {
         for (T t : wk.getSchwimmer()) {
             int sn = getId(t);
-            // ps.print("" + StartnumberFormatManager.format(t) + ";\"" + StartnumberFormatManager.format(t) + "\";");
+            // ps.print("" + StartnumberFormatManager.format(t) + ";\"" +
+            // StartnumberFormatManager.format(t) + "\";");
             ps.print("" + sn + ";\"" + sn + "\";");
             if (t instanceof Teilnehmer) {
                 Teilnehmer tn = (Teilnehmer) t;
@@ -407,18 +426,21 @@ public class AresWriterFinals {
             } else {
                 ps.print("\"" + t.getName() + "\";\"\";\"\"");
             }
-            ps.println(";\"" + t.getGliederung() + "\";\"" + (offset + (t.getAKNummer() * 2 + (t.isMaennlich() ? 1 : 0))) + "\"");
+            ps.println(";\"" + t.getGliederung() + "\";\""
+                    + (offset + (t.getAKNummer() * 2 + (t.isMaennlich() ? 1 : 0))) + "\"");
         }
         return wk.getRegelwerk().size() * 2 + offset;
     }
 
-    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idLen;idStyle;idRec;abCat;time;name;date;place");
     }
 
-    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
@@ -426,9 +448,9 @@ public class AresWriterFinals {
         ps.println("event;round;text");
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<DisciplineInfo> ll = getRounds(wks);
+        LinkedList<DisciplineInfo<T>> ll = getRounds(wks);
 
-        for (DisciplineInfo lx : ll) {
+        for (DisciplineInfo<T> lx : ll) {
             AWettkampf<T> wk = lx.getFirst();
             OWDisziplin<T> owd = lx.getSecond();
 
@@ -440,23 +462,25 @@ public class AresWriterFinals {
         }
     }
 
-    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idRound;TITLE;RoundAbrev;roundtext; sequence");
         ps.println("0; \"Lauf\"; \"Lauf\"; \"Lauf\";  \"1\"");
     }
 
-    private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
         PrintStream ps = new PrintStream(os, true, CHARSET2);
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<HeatInfo> ll = getHeats(wks);
+        LinkedList<HeatInfo<T>> ll = getHeats(wks);
 
-        for (HeatInfo lx : ll) {
+        for (HeatInfo<T> lx : ll) {
             AWettkampf<T> wk = lx.getFirst();
             OWDisziplin<T> owd = lx.getSecond();
             OWLauf<T> lauf = lx.getThird();
@@ -540,15 +564,16 @@ public class AresWriterFinals {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNAMs(AWettkampf<T>[] wks, String dir) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNAMs(AWettkampf<T>[] wks, String dir)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<HeatInfo> ll = getHeats(wks);
+        LinkedList<HeatInfo<T>> ll = getHeats(wks);
 
-        for (HeatInfo lx : ll) {
+        for (HeatInfo<T> lx : ll) {
             // AWettkampf<T> wk = lx.getFirst();
             // OWDisziplin<T> owd = lx.getSecond();
             OWLauf<T> lauf = lx.getThird();
@@ -607,47 +632,47 @@ public class AresWriterFinals {
             sb.append(filler);
         }
     }
-    
+
     private static class HeatInfo<T extends ASchwimmer> {
         private final AWettkampf<T> wk;
         private final OWDisziplin<T> discipline;
-        
+
         private final OWLauf<T> heat;
-        
+
         public HeatInfo(AWettkampf<T> wk, OWDisziplin<T> discipline, OWLauf<T> heat) {
             this.wk = wk;
             this.discipline = discipline;
             this.heat = heat;
         }
-        
+
         public AWettkampf<T> getFirst() {
             return wk;
         }
-        
+
         public OWDisziplin<T> getSecond() {
             return discipline;
         }
-        
+
         public OWLauf<T> getThird() {
             return heat;
         }
-    }    
-    
+    }
+
     private static class DisciplineInfo<T extends ASchwimmer> {
         private final AWettkampf<T> wk;
         private final OWDisziplin<T> discipline;
-        
+
         public DisciplineInfo(AWettkampf<T> wk, OWDisziplin<T> discipline) {
             this.wk = wk;
             this.discipline = discipline;
         }
-        
+
         public AWettkampf<T> getFirst() {
             return wk;
         }
-        
+
         public OWDisziplin<T> getSecond() {
             return discipline;
         }
-    }    
+    }
 }
