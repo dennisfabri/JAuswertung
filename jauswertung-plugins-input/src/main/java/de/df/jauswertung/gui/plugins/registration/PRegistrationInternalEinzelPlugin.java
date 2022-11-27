@@ -108,11 +108,11 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         jahrgang = new JIntegerField();
         melde = new JDoubleField();
         bemerkung = new JWarningTextField();
-        gliederung = new JCompletingComboBox<String>(true);
+        gliederung = new JCompletingComboBox<>(true);
         qualiebene = new JWarningTextField();
-        altersklasse = new JComboBox<String>();
-        geschlecht = new JComboBox<String>(new String[] { FEMALE, MALE });
-        ausserkonkurrenz = new JComboBox<String>(new String[] { I18n.get("Normal"), I18n.get("AusserKonkurrenz") });
+        altersklasse = new JComboBox<>();
+        geschlecht = new JComboBox<>(new String[] { FEMALE, MALE });
+        ausserkonkurrenz = new JComboBox<>(new String[] { I18n.get("Normal"), I18n.get("AusserKonkurrenz") });
         ausserkonkurrenz.setSelectedIndex(0);
         hinzu = new JButton(ADD, IconManager.getSmallIcon("add"));
 
@@ -151,16 +151,10 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             }
         });
 
-        altersklasse.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateDisciplines();
-            }
-        });
+        altersklasse.addItemListener(event -> updateDisciplines());
 
         Component c = ComboBoxUtil.getEditorComponent(gliederung);
-        if (c instanceof JTextField) {
-            JTextField jtf = (JTextField) c;
+        if (c instanceof JTextField jtf) {
             jtf.getDocument().addDocumentListener(ul);
         } else {
             gliederung.addActionListener(ul);
@@ -239,7 +233,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             jt.setUI(new GradientTaskPaneGroupUI());
             jt.setTitle(I18n.get("DisciplineSelectionAndTimes"));
             jt.add(disciplines);
-            panel.add(jt, CC.xyw(2, 24, 3, "fill,fill"));
+            panel.add(jt, CC.xyw(4, 24, 1, "fill,fill"));
 
             disciplines.addChangeListener(ul);
 
@@ -304,8 +298,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         }
         if (result) {
             Component c = ComboBoxUtil.getEditorComponent(gliederung);
-            if (c instanceof JTextField) {
-                JTextField jtf = (JTextField) c;
+            if (c instanceof JTextField jtf) {
                 result = jtf.getText().length() > 0;
             } else {
                 result = (gliederung.getSelectedItem() != null) && (gliederung.getSelectedItem().toString().length() > 0);
@@ -346,12 +339,10 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         }
         int jahr = jahrgang.getInt();
 
-        if (sn > 0) {
-            if (SearchUtils.getSchwimmer(ewk, sn) != null) {
-                DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
-                startnummer.requestFocus();
-                return;
-            }
+        if (sn > 0 && SearchUtils.getSchwimmer(ewk, sn) != null) {
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            startnummer.requestFocus();
+            return;
         }
         if (nachname.length() == 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("FamilyNameMustNotBeEmpty"), I18n.get("FamilyNameMustNotBeEmpty.Note"));
@@ -363,12 +354,10 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             vorname.requestFocus();
             return;
         }
-        if (jahr > 0) {
-            if (jahr > Calendar.getInstance().get(Calendar.YEAR)) {
-                jahrgang.requestFocus();
-                DialogUtils.inform(null, WRONG_INPUT, I18n.get("YearOfBirthTooHigh"), I18n.get("YearOfBirthTooHigh.Note"));
-                return;
-            }
+        if (jahr > 0 && jahr > Calendar.getInstance().get(Calendar.YEAR)) {
+            jahrgang.requestFocus();
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("YearOfBirthTooHigh"), I18n.get("YearOfBirthTooHigh.Note"));
+            return;
         }
         if (g.length() == 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"), I18n.get("OrganisationMustNotBeEmpty.Note"));
@@ -384,7 +373,6 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         vorname.setText("");
         jahrgang.setInt(JIntegerField.EMPTY_FIELD);
         bemerkung.setText("");
-        // qualiebene.setText("");
         startnummer.setInt(JIntegerField.EMPTY_FIELD);
         melde.setDouble(JDoubleField.EMPTY_FIELD);
         disciplines.reset();

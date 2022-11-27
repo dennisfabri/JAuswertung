@@ -103,12 +103,12 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         name = new JWarningTextField(true, false);
         melde = new JDoubleField(JDoubleField.EMPTY_FIELD, 10000);
         bemerkung = new JWarningTextField();
-        gliederung = new JCompletingComboBox<String>(true);
+        gliederung = new JCompletingComboBox<>(true);
         qualifikationsebene = new JWarningTextField();
-        altersklasse = new JComboBox<String>();
-        geschlecht = new JComboBox<String>(new String[] { FEMALE, MALE });
+        altersklasse = new JComboBox<>();
+        geschlecht = new JComboBox<>(new String[] { FEMALE, MALE });
         amount = new JIntegerField(JIntegerField.EMPTY_FIELD, 20);
-        ausserkonkurrenz = new JComboBox<String>(new String[] { I18n.get("Normal"), I18n.get("AusserKonkurrenz") });
+        ausserkonkurrenz = new JComboBox<>(new String[] { I18n.get("Normal"), I18n.get("AusserKonkurrenz") });
         ausserkonkurrenz.setSelectedIndex(0);
         hinzu = new JButton(ADD, IconManager.getSmallIcon("add"));
         hinzu2 = new JButton(ADD_MULTI, IconManager.getSmallIcon("add"));
@@ -120,8 +120,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         melde.getDocument().addDocumentListener(ul);
         melde.addActionListener(ul);
         Component c = ComboBoxUtil.getEditorComponent(gliederung);
-        if (c instanceof JTextField) {
-            JTextField jtf = (JTextField) c;
+        if (c instanceof JTextField jtf) {
             jtf.getDocument().addDocumentListener(ul);
         } else {
             gliederung.addActionListener(ul);
@@ -148,12 +147,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         amount.getDocument().addDocumentListener(ul);
         amount.addActionListener(ul);
 
-        altersklasse.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateDisciplines();
-            }
-        });
+        altersklasse.addItemListener(event -> updateDisciplines());
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu," + "fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(15));
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10, 12, 14, 16, 18, 24 }, { 22, 26 } });
@@ -222,7 +216,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             jt.setUI(new GradientTaskPaneGroupUI());
             jt.setTitle(I18n.get("DisciplineSelectionAndTimes"));
             jt.add(disciplines);
-            panel.add(jt, CC.xyw(2, 20, 3, "fill,fill"));
+            panel.add(jt, CC.xyw(4, 20, 1, "fill,fill"));
 
             disciplines.addChangeListener(ul);
 
@@ -284,8 +278,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
 
         if (result) {
             Component c = ComboBoxUtil.getEditorComponent(gliederung);
-            if (c instanceof JTextField) {
-                JTextField jtf = (JTextField) c;
+            if (c instanceof JTextField jtf) {
                 result = jtf.getText().length() > 0;
             } else {
                 result = (gliederung.getSelectedItem() != null) && (gliederung.getSelectedItem().toString().length() > 0);
@@ -371,12 +364,10 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             g = gliederung.getSelectedItem().toString();
         }
 
-        if (sn > 0) {
-            if (SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
-                DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
-                startnummer.requestFocus();
-                return;
-            }
+        if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            startnummer.requestFocus();
+            return;
         }
         if (teamname.length() == 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("NameMustNotBeEmpty"), I18n.get("NameMustNotBeEmpty.Note"));
@@ -396,7 +387,6 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         name.setText("");
         bemerkung.setText("");
         startnummer.setText("");
-        // qualifikationsebene.setText("");
         melde.setText("");
         amount.setText("");
         disciplines.reset();
@@ -413,12 +403,10 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             g = gliederung.getSelectedItem().toString();
         }
 
-        if (sn > 0) {
-            if (SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
-                DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
-                startnummer.requestFocus();
-                return;
-            }
+        if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            startnummer.requestFocus();
+            return;
         }
         if (teamname.length() == 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("NameMustNotBeEmpty"), I18n.get("NameMustNotBeEmpty.Note"));
@@ -451,7 +439,6 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         melde.setDouble(JDoubleField.EMPTY_FIELD);
         amount.setInt(JIntegerField.EMPTY_FIELD);
         disciplines.reset();
-        // qualifikationsebene.setText("");
 
         startnummer.setInt(core.getMannschaftWettkampf().viewNextStartnummer());
         startnummer.requestFocus();
