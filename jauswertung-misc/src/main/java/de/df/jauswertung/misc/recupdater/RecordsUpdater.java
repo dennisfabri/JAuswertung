@@ -19,33 +19,17 @@ import de.df.jutils.util.*;
 
 public class RecordsUpdater {
 
-    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2022v2.xlsx";
-    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2022v2.xls";
+    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2023.xlsx";
+    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2023.xls";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
 
         LinkedList<IImporter> importers = new LinkedList<IImporter>();
-        // importers.add(new CompetitionImporter("../../dm2010-einzel.wk", "DM2010"));
-        // importers.add(new CompetitionImporter("../../dm2010-mannschaft.wk", "DM2010"));
-        // importers.add(new CompetitionImporter("../../dm2011-einzel.wk", "DM2011"));
-        // importers.add(new CompetitionImporter("../../dm2011-mannschaft.wk", "DM2011"));
-        // importers.add(new CompetitionImporter("../../dsm2012_einzel.wk", "DSM2012"));
-        // importers.add(new CompetitionImporter("../../dsm2012_mannschaft.wk", "DSM2012"));
-        // importers.add(new CompetitionImporter("../../dm2012-einzel.wk", "DM2012"));
-        // importers.add(new CompetitionImporter("../../dm2012-mannschaft.wk", "DM2012"));
-        // importers.add(new CompetitionImporter("../../dsm2013 einzel.wk", "DSM2013"));
-        // importers.add(new CompetitionImporter("../../dsm2013 mannschaft.wk", "DSM2013"));
-        // importers.add(new CompetitionImporter("../../dm2013-einzel.wk", "DM2013"));
-        // importers.add(new CompetitionImporter("../../dm2013-mannschaft.wk", "DM2013"));
-        // importers.add(new CompetitionImporter("../../dm2014-einzel.wk", "DM2014"));
-        // importers.add(new CompetitionImporter("../../dm2014-mannschaft.wk", "DM2014"));
-        // importers.add(new CompetitionImporter("dsm2019-einzel.wk", "DSM2019"));
-        // importers.add(new CompetitionImporter("dsm2019-mannschaft.wk", "DSM2019"));
-        // importers.add(new CompetitionImporter("dem2021-einzel.wk", "DEM2021"));
-        // importers.add(new CompetitionImporter("dem2021-mannschaft.wk", "DEM2021"));
-        importers.add(new CompetitionImporter("dmm2021-einzel.wk", "DMM2021"));
-        importers.add(new CompetitionImporter("dmm2021-mannschaft.wk", "DMM2021"));
+        // importers.add(new CompetitionImporter("dem2022-einzel.wk", "DEM2022"));
+        importers.add(new CompetitionImporter("dem2022-mannschaft.wk", "DEM2022"));
+        // importers.add(new CompetitionImporter("dmm2022-einzel.wk", "DMM2022"));
+        // importers.add(new CompetitionImporter("dmm2022-mannschaft.wk", "DMM2022"));
         // importers.add(new WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx", 2018));
 
         for (IImporter importer : importers) {
@@ -70,8 +54,8 @@ public class RecordsUpdater {
     }
 
     private static void writeRecords(Record[] records) throws Exception {
-        LinkedList<Record> single = new LinkedList<Record>();
-        LinkedList<Record> team = new LinkedList<Record>();
+        LinkedList<Record> single = new LinkedList<>();
+        LinkedList<Record> team = new LinkedList<>();
 
         for (Record record : records) {
             if (record.isTeam()) {
@@ -98,11 +82,11 @@ public class RecordsUpdater {
             fb = new NullFeedback();
         }
 
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
-        LinkedList<Object> titles = new LinkedList<Object>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
+        LinkedList<Object> titles = new LinkedList<>();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         titles.addLast("Wettkampf");
         aligns.addLast(SwingConstants.LEFT);
@@ -158,7 +142,8 @@ public class RecordsUpdater {
         return tm;
     }
 
-    private static LinkedList<Record> readRecords(String filename, Feedback fb) throws Exception, TableEntryException, TableException, IOException {
+    private static LinkedList<Record> readRecords(String filename, Feedback fb)
+            throws Exception, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile") + " " + filename);
 
         FileInputStream is = new FileInputStream(filename);
@@ -187,7 +172,8 @@ public class RecordsUpdater {
         }
     }
 
-    private static LinkedList<Record> tablesToRecords(Feedback fb, String[] titles, Object[][][] tables) throws Exception {
+    private static LinkedList<Record> tablesToRecords(Feedback fb, String[] titles, Object[][][] tables)
+            throws Exception {
         LinkedList<Record> records = new LinkedList<Record>();
 
         for (int i = 0; i < titles.length; i++) {

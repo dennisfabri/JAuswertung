@@ -23,13 +23,14 @@ public class Competition {
         }
     }
 
-    public void addTime(String agegroup, String sex, String discipline, int round, boolean isFinal, ValueTypes type, Entry entry) {
-        Event event = new Event(agegroup, sex, discipline, round, isFinal, type);
+    public void addTime(String agegroup, boolean isTeam, String sex, String discipline, int round, boolean isFinal,
+            ValueTypes type, Entry entry) {
+        Event event = new Event(agegroup, isTeam, sex, discipline, round, isFinal, type);
         event.addTime(entry);
 
         addEvent(event);
     }
-    
+
     public Event[] getEvents() {
         return events.toArray(Event[]::new);
     }

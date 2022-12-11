@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class Event {
     private final String agegroup;
+    private final boolean isTeam;
     private final String sex;
     private final String discipline;
     private final int round;

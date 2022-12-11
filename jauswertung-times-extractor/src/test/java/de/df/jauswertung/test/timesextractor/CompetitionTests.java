@@ -9,25 +9,25 @@ import de.df.jauswertung.timesextractor.Event;
 import de.df.jauswertung.timesextractor.ValueTypes;
 
 class CompetitionTests {
-    
+
     @Test
     void createEmptyCompetition() {
         Competition actual = new Competition();
-        
+
         assertEquals("", actual.getName());
     }
 
     @Test
     void createEmptyCompetitionWithName() {
         Competition actual = new Competition("a name");
-        
+
         assertEquals("a name", actual.getName());
     }
 
     @Test
     void addEmptyEvent() {
         Competition actual = new Competition("a name");
-        
-        actual.addEvent(new Event("agegroup", "sex", "discipline",0,true, ValueTypes.TimeInMillis));
+
+        actual.addEvent(new Event("agegroup", true, "sex", "discipline", 0, true, ValueTypes.TimeInMillis));
     }
 }

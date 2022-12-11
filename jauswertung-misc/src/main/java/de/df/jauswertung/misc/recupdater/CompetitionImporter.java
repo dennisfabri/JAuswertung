@@ -1,13 +1,27 @@
 package de.df.jauswertung.misc.recupdater;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.misc.times.Time;
+import de.df.jauswertung.timesextractor.Competition;
+import de.df.jauswertung.timesextractor.Entry;
+import de.df.jauswertung.timesextractor.Event;
+import de.df.jauswertung.timesextractor.TimesExtractor;
+import de.df.jauswertung.timesextractor.ValueTypes;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.vergleicher.ZeitenVergleicher;
 import de.df.jutils.util.StringTools;
@@ -18,7 +32,7 @@ public class CompetitionImporter implements IImporter {
     private final String competition;
 
     public CompetitionImporter(String filename, String competition) {
-        this.filename = "src/test/resources/competitions/"+filename;
+        this.filename = "src/test/resources/competitions/" + filename;
         this.competition = competition;
     }
 
@@ -27,55 +41,48 @@ public class CompetitionImporter implements IImporter {
         System.out.println("Lade Wettkampf " + filename);
         AWettkampf wk = InputManager.ladeWettkampf(filename);
 
-        LinkedList<Record> times = new LinkedList<Record>();
-        for (int ak = 0; ak < wk.getRegelwerk().size(); ak++) {
-            times.addAll(getData(wk, ak));
+        Competition competition = new TimesExtractor().getZeiten(wk);
+
+        List<Time> times = new ArrayList<>();
+        for (Event event : competition.getEvents()) {
+            if (event.getValueType() == ValueTypes.TimeInMillis) {
+                times.addAll(toTimes(event));
+            }
         }
 
         records.update(times);
     }
 
-    LinkedList<Record> getData(AWettkampf<ASchwimmer> wk, int index) {
-        boolean team = ((AWettkampf) wk) instanceof MannschaftWettkampf;
+    private static String[] merge(String[] first, String[] second) {
+        List<String> result = new ArrayList<>();
+        Arrays.stream(first).forEach(e -> result.add(e));
+        Arrays.stream(second).forEach(e -> result.add(e));
+        return result.toArray(String[]::new);
+    }
 
-        int akmin = 0;
-        int akmax = wk.getRegelwerk().size();
-        if ((index >= 0) && (index < wk.getRegelwerk().size())) {
-            akmin = index;
-            akmax = index + 1;
-        }
-        LinkedList<Record> result = new LinkedList<Record>();
-        for (int x = akmin; x < akmax; x++) {
-            Altersklasse ak = wk.getRegelwerk().getAk(x);
-            for (int y = 0; y < 2; y++) {
-                LinkedList<ASchwimmer> swimmer = SearchUtils.getSchwimmer(wk, ak, y == 1);
-                for (int z = 0; z < ak.getDiszAnzahl(); z++) {
-                    Collections.sort(swimmer, new ZeitenVergleicher(z));
-                    for (ASchwimmer s : swimmer) {
-                        Disziplin d = ak.getDisziplin(z, y == 1);
-                        if ((s.getZeit(z) > 0) && !s.getAkkumulierteStrafe(z).isStrafe()) {
-                            Object[] data = new Object[8];
-                            data[0] = s.getName();
-                            Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-                            if (str.isStrafe()) {
-                                data[0] = data[0] + " (" + I18n.getPenaltyShort(str) + ")";
-                            }
-                            data[1] = s.getGliederung();
-                            data[2] = s.getQualifikationsebene();
-                            data[3] = I18n.getAgeGroupAsString(s);
-                            data[4] = StringTools.zeitString(s.getZeit(z));
-                            data[5] = PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(z), ak);
-                            data[6] = d.getName();
-                            data[7] = StringTools.zeitString(d.getRec());
-                            result.addLast(new Record(competition, s.getAK().getName(), s.isMaennlich(), d.getName(), s.getZeit(z), s.getName(), team));
-                            break;
-                        }
-                    }
-                }
+    private static String[] males = { "m", "male", "männlich" };
+    private static String[] females = { "f", "female", "w", "weiblich" };
+
+    private static String[] sexes = merge(males, females);
+
+    private List<Time> toTimes(Event event) {
+
+        List<Time> result = new ArrayList<>();
+        if (isKnownSex(event.getSex())) {
+            boolean male = isMale(event.getSex());
+            for (Entry entry : event.getTimes()) {
+                result.add(new Time(competition, event.isTeam(), entry.getName(), "", entry.getOrganization(),
+                        event.getAgegroup(), male, event.getDiscipline(), entry.getValue() / 10, entry.getPenalties()));
             }
         }
-
         return result;
     }
 
+    private boolean isMale(String sex) {
+        return Arrays.stream(males).anyMatch(s -> s.equals(sex.toLowerCase(Locale.ROOT)));
+    }
+
+    private boolean isKnownSex(String sex) {
+        return Arrays.stream(sexes).anyMatch(s -> s.equals(sex.toLowerCase(Locale.ROOT)));
+    }
 }

@@ -2,6 +2,8 @@ package de.df.jauswertung.misc.recupdater;
 
 import java.util.Collection;
 
+import de.df.jauswertung.misc.times.Time;
+
 public class Records {
 
     private Record[] records;
@@ -14,18 +16,19 @@ public class Records {
         return records;
     }
 
-    public void update(Collection<Record> times) {
+    public void update(Collection<Time> times) {
         System.out.println("Updating records");
-        for (Record time : times) {
+        for (Time time : times) {
+            System.out.println("" + time.toString());
             boolean fitted = false;
             for (Record record : records) {
                 if (record.fits(time)) {
                     fitted = true;
-                    record.update(time.getCompetition(), time.getTime(), time.getName());
+                    record.update(time.competition(), time.timeInHundrets(), time.name());
                     break;
                 }
             }
-            if (!fitted) {
+            if (!fitted && !time.hasRealPenalty()) {
                 System.out.println("Not fitting : " + time);
             }
         }
