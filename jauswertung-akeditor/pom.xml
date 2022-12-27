@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.dennisfabri.jauswertung</groupId>
     <artifactId>jauswertung-project</artifactId>
-    <version>16.1.2</version>
+    <version>16.2.0</version>
   </parent>
   <artifactId>jauswertung-akeditor</artifactId>
   
