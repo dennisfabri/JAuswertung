@@ -12,8 +12,8 @@ Adina
 Adriana
 Aida
 Aileen
-Aimeé
 Aimee
+Aimeé
 Aische
 Aldina
 Alea
@@ -34,10 +34,12 @@ Alisa
 Alischa
 Alisha
 Alissa
+Aliya
+Aliyah
 Aliza
 Alma
+Almuth
 Aloisia
-Amélie
 Amalia
 Amalie
 Amanda
@@ -47,6 +49,7 @@ Amina
 Ammi
 Amtonia
 Amy
+Amélie
 Ana
 Anabel
 Anabell
@@ -72,9 +75,11 @@ Ann-Christin
 Ann-Kathrin
 Ann-Katrin
 Ann-Kristin
+Ann-Marie
 Ann-Sophie
 Anna
 Anna Sophia
+Anna-Fiona
 Anna-Lena
 Anna-Lisa
 Anna-Michelle
@@ -119,10 +124,10 @@ Ariane
 Asli
 Astrid
 Athina
-Aurélie
 Aurelia
 Auri
 Auri-Sophie
+Aurélie
 Aylin
 Aylina
 Ayse
@@ -141,6 +146,7 @@ Becky
 Begüm
 Bele
 Bella
+Benice
 Benita
 Bente
 Berbel
@@ -177,8 +183,6 @@ Bruna
 Brunhilde
 Bruni
 Burcu
-Cécil
-Céline
 Caitlin
 Camila
 Candida
@@ -207,9 +211,9 @@ Cathleen
 Cathrin
 Catrin
 Cecilia
-Celiné
 Celina
 Celine
+Celiné
 Centa
 Ceyda
 Ceylan
@@ -220,6 +224,7 @@ Charlie
 Charlieze
 Charlin
 Charline
+Charlize
 Charlotta
 Charlotte
 Charlyn
@@ -268,10 +273,8 @@ Cosima
 Cristin
 Cristina
 Cythia
-Désirée
-Désireé
-Dörte
-Dörthe
+Cécil
+Céline
 Dafne
 Dagmar
 Dalia
@@ -317,6 +320,10 @@ Dorothea
 Dorothee
 Dunja
 Duygu-Nur
+Désireé
+Désirée
+Dörte
+Dörthe
 Ebba
 Ebru
 Edda
@@ -334,6 +341,7 @@ Ela
 Elaine
 Elena
 Eleonore
+Elin
 Elina
 Elinor
 Elisa
@@ -364,6 +372,7 @@ Emmeline
 Emmie
 Engel
 Enna
+Enne-Lotte
 Enrica
 Erica
 Erika
@@ -392,6 +401,7 @@ Federica
 Felicitas
 Felizitas
 Fenja
+Ferike
 Fina
 Finja
 Finn
@@ -406,6 +416,7 @@ Florentine
 Floretina
 Floretine
 Floretta
+Fotini
 Franca
 Frances
 Francesca
@@ -465,6 +476,7 @@ Gizem
 Gloria
 Godiva
 Gottschlich
+Gracia-Nia
 Grazina
 Greet
 Greta
@@ -606,7 +618,9 @@ Janneke
 Jannemien
 Jannette
 Jannike
+Jantje
 Jaqueline
+Jara
 Jarmila
 Jasmin
 Jasmina
@@ -660,9 +674,9 @@ Josephine
 Josi
 Josita
 Josy
-Joy 
 Joy
 Joyce
+Joy 
 Juana
 Juanita
 Judith
@@ -683,9 +697,6 @@ Jurina
 Justina
 Justine
 Jutta
-Kätchen
-Käte
-Käthemarie
 Kaatje
 Kai
 Kaija
@@ -743,7 +754,6 @@ Kira-Sophie
 Kirsten
 Kirstin
 Kitty
-Kläre
 Klar
 Klara
 Klarina
@@ -753,6 +763,7 @@ Klaudine
 Klementine
 Klothilde
 Kluy
+Kläre
 Konstantine
 Konstanze
 Kora
@@ -773,7 +784,10 @@ Kristine
 Kristy
 Kyra
 Kyrilla
-Lätitia
+Kätchen
+Käte
+Käthe
+Käthemarie
 Laetitia
 Laila
 Lana
@@ -791,6 +805,7 @@ Laurina
 Laviana
 Layla
 Lea
+Lea-Marie
 Lea-Sophie
 Leah
 Leandra
@@ -827,6 +842,7 @@ Lida
 Liddy
 Lidia
 Liene
+Lienna
 Lies
 Liesa
 Liesbeth
@@ -839,6 +855,7 @@ Lil
 Lili
 Lilia
 Lilian
+Liliana
 Liliane
 Lill
 Lilli
@@ -855,6 +872,7 @@ Lindgart
 Lindtraut
 Linette
 Linka
+Linn
 Linnea
 Lioba
 Lis
@@ -901,7 +919,6 @@ Louise
 Lovisa
 Lu
 Luana
-Lucía
 Luchina
 Lucia
 Luciana
@@ -910,12 +927,13 @@ Lucie-Marie
 Lucilla
 Lucretia
 Lucy
+Lucía
 Ludgard
 Ludmilla
 Ludovica
 Ludwiga
-Luisa 
 Luisa
+Luisa 
 Luise
 Lulu
 Luna
@@ -924,8 +942,8 @@ Luzie
 Lydia
 Lynn
 Lys
-Målin
-Maša
+Lysann
+Lätitia
 Madaleine
 Maddalena
 Maddy
@@ -962,6 +980,7 @@ Manja
 Manon
 Manoun
 Manuela
+Manya
 Mara
 Marah
 Maraya
@@ -1056,6 +1075,7 @@ May-Britt
 Maya
 Maybritt
 Mayra
+Maša
 Meg
 Meggy
 Meike
@@ -1132,6 +1152,7 @@ Moyra
 Muriel
 Myriam
 Myrian
+Målin
 Nada
 Nadia
 Nadine
@@ -1169,6 +1190,7 @@ Neta
 Nette
 Netti
 Nicki
+Nicki-Sophie
 Nicola
 Nicole
 Nicolett
@@ -1294,8 +1316,8 @@ Reina
 Reintje
 Renan
 Renate
-Reneé
 Renetta
+Reneé
 Reni
 Renia
 Renke
@@ -1355,7 +1377,6 @@ Runa
 Runhild
 Ruth
 Rutlind
-Sünja
 Sabeth
 Sabina
 Sabine
@@ -1433,6 +1454,7 @@ Sissy
 Sita
 Siv
 Sixta
+Soey
 Sofia
 Sofie
 Solveig
@@ -1480,6 +1502,7 @@ Sylke
 Sylvi
 Sylvia
 Sylvine
+Sünja
 Tabea
 Tabitha
 Tahnee
@@ -1656,7 +1679,6 @@ Yolanthe
 Yvette
 Yvone
 Yvonne
-Zölestine
 Zahra
 Zara
 Zdenka
@@ -1669,9 +1691,10 @@ Zippora
 Ziska
 Zissi
 Zita
-Zoé
 Zoe
 Zoja
 Zora
+Zoé
 Zwanette
 Zwantje
+Zölestine

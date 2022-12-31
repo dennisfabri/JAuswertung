@@ -1,11 +1,3 @@
-Ölfner
-Özarslan
-Özcan
-Özogul
-Öztürk
-Öztas
-Aßmann
-Aßmuth
 Abanuz
 Abegg
 Abel
@@ -46,6 +38,7 @@ Albersmann
 Albrecht
 Albrichs
 Aldenhoven
+Aleksic
 Alfers
 Algra
 Alhashim
@@ -70,16 +63,18 @@ Amend
 Ament
 Amiri
 Ammer
+Amnada
 Amplatz
 Amrhein
 Andersen
 Anderson
 Andich
 Anding
-Andrée
 Andreae
 Andresen
 Andrzejczak
+Andrée
+Anstipp
 Anthes
 Apelt
 Apolte
@@ -91,6 +86,7 @@ Ardissone
 Arends
 Arens
 Aridh
+Arkoumanis
 Arlet
 Arlt
 Armatas
@@ -117,17 +113,11 @@ Attenbury
 Atwell
 Auenmüller
 Auernigg
-auf der Beeck
-Auf der Hacht
-auf der Heyden
-Auf der Hoehe
 Auf Loeckenhoff
-aufm Bemberg
-aufm Flüß
+Auf der Hacht
+Auf der Hoehe
 Aufm Kamp
 Aufm Nieper
-aufm Platz
-aufm Selhof
 Augener
 Aukschlat
 Aulenbrock
@@ -136,6 +126,7 @@ Aumund
 Aust
 Austermann
 Austin
+Austrup
 Autenrieth
 Averdiek
 Averdung
@@ -143,57 +134,12 @@ Averkamp
 Axelson
 Aydin
 Ayers
-Bäßler
-Bäcker
-Bär
-Bärenfänger
-Bärwald
-Bärwinkel
-Bätje
-Bäumer
-Böcher
-Böckelmann
-Böckenholt
-Böcker
-Bödding
-Böddinghaus
-Bödecker
-Böhme
-Böhrs
-Böken
-Böker
-Bömer
-Böninghaus
-Bönisch
-Bönnhoff
-Böpple
-Böschel
-Böttinger
-Bötzel
-Bötzler
-Böwing
-Böwingloh
-Büchner
-Büchsel
-Bücken
-Bücklers
-Bühner
-Bülte
-Bültgerds
-Bünker
-Bünsow
-Bürgel
-Bürger
-Bürhaus
-Bürling
-Büscher
-Büschges
-Büschler
-Büsken
-Büttner
+Aßmann
+Aßmuth
 Baader
 Baans
 Baatz
+Babbel
 Babeler
 Bach
 Bachofner
@@ -209,6 +155,7 @@ Baer
 Baers
 Bahl
 Bahro
+Bailer
 Bailey
 Baird
 Bajram
@@ -246,6 +193,7 @@ Barthel
 Barthels
 Bartoura
 Barucki
+Baschin
 Bastian
 Batzel
 Bauch
@@ -257,6 +205,7 @@ Baum
 Bauman
 Baumann
 Baumer
+Baumers
 Baumgartner
 Baumm
 Baur
@@ -311,6 +260,7 @@ Bengelstorff
 Bengolea
 Benndorf
 Benner
+Bennerscheidt
 Benning
 Bensing
 Bensmann
@@ -335,9 +285,11 @@ Berghaus
 Berghoff
 Berglar
 Bergmann
+Bergner
 Berken
 Berlin
 Berling
+Bermes
 Berneaud
 Berneburg
 Bernecker
@@ -362,6 +314,7 @@ Berthold
 Bertleff
 Bertram
 Bertsch
+Besa
 Bessel
 Bessin
 Besten
@@ -381,6 +334,7 @@ Bido
 Bieber
 Biegel
 Biehl
+Bielarz
 Bieler
 Bielitz
 Bienert
@@ -407,20 +361,19 @@ Bischoff
 Bisgood
 Bisplinghoff
 Bitschinski
+Bitterlich
 Bitters
 Bittighofer
 Bittner
 Bitzan
 Björklund
-Bläß
-Blödorn
-Blömer
 Black
 Blair
 Blalock
 Blanck
 Blank
 Blanz
+Blasberg
 Blechar
 Blecher
 Bleck
@@ -441,14 +394,21 @@ Blum
 Blumberg
 Blume
 Blumer
+Bläß
+Blödorn
+Blömer
+Bober
 Bock
 Bock-Hidalgo
 Bockhorst
 Bockmühl
+Bocknsick
 Bocksnick
 Boclinghaus
+Bodden
 Bode
 Boden
+Bodenburg
 Bodenstein
 Boeckeluehr
 Boecker
@@ -473,6 +433,8 @@ Bohnert
 Bohnhorst
 Bojahr
 Bolckmans
+Boldt
+Bolle
 Bollmann
 Bollnow
 Bols
@@ -498,6 +460,7 @@ Borgo
 Borgstädt
 Borgwardt
 Bories
+Borkenhagen
 Born
 Bornefeld
 Bornemann
@@ -524,24 +487,6 @@ Boyd
 Boyer
 Boyle
 Bozetti
-Brämer
-Bröcher
-Bröcking
-Brögelmann
-Bröhan
-Bröker
-Brönstedt
-Brück
-Brückel
-Brückenberg
-Brückner
-Brüel
-Brügelmann
-Brüggemann
-Brüning
-Brüninghaus
-Brünning
-Braß
 Brach
 Brachhausen
 Bracht
@@ -569,6 +514,7 @@ Braumann
 Braun
 Braus
 Bravin
+Braß
 Brecht
 Bredenbröker
 Bredt
@@ -579,6 +525,7 @@ Breidenbach
 Breithaupt
 Breitsprecher
 Brell
+Brendel
 Brenke
 Brenncke
 Brenneiser
@@ -590,6 +537,7 @@ Bressler
 Bretschneider
 Breuer
 Briant
+Brichta
 Bride
 Brillat
 Brinck
@@ -616,6 +564,7 @@ Brouka
 Brown
 Brownlee
 Broyer
+Broßette
 Bruce
 Bruchhaus
 Bruchhausen
@@ -634,13 +583,30 @@ Bruska
 Bruske
 Brust
 Bryan
+Brämer
+Bröcher
+Bröcking
+Brögelmann
+Bröhan
+Bröker
+Brönstedt
+Brück
+Brückel
+Brückenberg
+Brückner
+Brüel
+Brügelmann
+Brüggemann
+Brüning
+Brüninghaus
+Brünning
 Bubolz
 Buchanan
 Buchgeister
 Buchholz
-Buchmüller
 Buchmann
 Buchmuehlen
+Buchmüller
 Buchner
 Buchwald
 Buck
@@ -680,7 +646,54 @@ Butts
 Butz
 Byers
 Byrum
-Cömert
+Bäcker
+Bär
+Bärenfänger
+Bärwald
+Bärwinkel
+Bätje
+Bäumer
+Bäßler
+Böcher
+Böckelmann
+Böckenholt
+Böcker
+Bödding
+Böddinghaus
+Bödecker
+Böhme
+Böhrs
+Böken
+Böker
+Bömer
+Böninghaus
+Bönisch
+Bönnhoff
+Böpple
+Böschel
+Böttinger
+Bötzel
+Bötzler
+Böwing
+Böwingloh
+Büchner
+Büchsel
+Bücken
+Bücklers
+Bühner
+Bülte
+Bültgerds
+Bünker
+Bünsow
+Bürgel
+Bürger
+Bürhaus
+Bürling
+Büscher
+Büschges
+Büschler
+Büsken
+Büttner
 Caglayan
 Cakir
 Campbell
@@ -818,35 +831,20 @@ Czech
 Czichollas
 Czinke
 Czornikauer
-Döhla
-Döhring
-Dördelmann
-Dörgeloh
-Döring
-Dörken
-Dörmann
-Dörndorfer
-Dörper
-Dümmler
-Dümptmann
-Düpjohann
-Düpmann
-Dürr
-Dürselen
-Düsing
-Düx
-Düzenli
-da Silva Correra
+Cömert
 Daalhaus
 Dahl
 Dahlmann
 Dahm
+Dahn
 Dahrendorf
 Dahrendorff
+Dal
 Dal-Pos
 Daldrup
 Dalen
 Dalhoff
+Daljo
 Dalke
 Dalljo
 Dalmis
@@ -868,18 +866,9 @@ Davids
 Davies
 Davis
 Davison
-de Barros
-de Geer
-de Haen
 De Jesus
-de Martino
-de Precantal
-de Remeux
-de Roer
-de Ruig
-de Weerth
-de West
-de Yturbe
+DeVink
+DeWitt
 Dean
 Debartemeo
 Debbeler
@@ -895,11 +884,11 @@ Deichmann
 Deighton
 Deiley
 Deiner
-del saux
 Delen
 Delgado Pires
 Delitsch
 Delius
+Dellermann
 Demirkaya
 Denazis
 Denfeld
@@ -925,16 +914,14 @@ Dettmann
 Deufel
 Deutgen
 Deveci
-DeVink
 Deviscour
 Dewald
-DeWitt
 Dewolfe
 Dewoody
-Diße
 Dick
+Dicke
 Dickmann
-Dieße
+Didas
 Dieding
 Diegart
 Diegler
@@ -957,6 +944,8 @@ Dierkes
 Diermann
 Diesen
 Dietrick
+Dietze
+Dieße
 Dilbone
 Dillenkofer
 Dillinger
@@ -969,7 +958,8 @@ Distelbeck
 Dittrich
 Dittschar
 Ditzenberger
-Doß
+Diße
+Dluzewski
 Dobrzanski
 Dodger
 Doerth
@@ -993,14 +983,14 @@ Dotterer
 Doutrebande
 Dow
 Downing
-Drümmer
+Doß
 Draaijer
 Draganidu
 Drechsel
-Dreeßen
 Dreeman
 Drees
 Dreesen
+Dreeßen
 Dregger
 Dreher
 Dreier
@@ -1009,6 +999,7 @@ Dresel
 Dressel
 Dresselhaus
 Dreston
+Drews
 Drey
 Dreyer
 Dries
@@ -1018,8 +1009,10 @@ Drost
 Droste
 Drude
 Druegg
+Drumm
 Drupp
 Drysdale
+Drümmer
 Duffy
 Dugan
 Duhme
@@ -1036,8 +1029,28 @@ Dworatzek
 Dyckman
 Dye
 Dyroff
+Dziegielewski
 Dziuron
-Eßmann
+Däbler
+Döhla
+Döhring
+Dördelmann
+Dörgeloh
+Döring
+Dörken
+Dörmann
+Dörndorfer
+Dörper
+Dörr
+Dümmler
+Dümptmann
+Düpjohann
+Düpmann
+Dürr
+Dürselen
+Düsing
+Düx
+Düzenli
 Eakin
 Eakins
 Eakis
@@ -1048,6 +1061,7 @@ Ebeling
 Eberhardt
 Eberharrt
 Eberhart
+Ebert
 Eberwein
 Echert
 Echterhoff
@@ -1109,6 +1123,7 @@ Eling
 Ellenbeck
 Ellenberger
 Eller
+Ellinger
 Ellinghaus
 Elm
 Elsbecker
@@ -1116,6 +1131,7 @@ Elscheid
 Elson
 Elspas-Deckers
 Eltester
+Elwenn
 Emcke
 Emde
 Emery
@@ -1159,16 +1175,19 @@ Erke
 Erkenswyck
 Erlhage
 Ermekeil
+Ermler
 Ernicke
 Ernst
 Eroglu
 Ertel
 Eschels
 Esgen
+Espitalier Botao
 Esser
 Est
 Etienne
 Ettrich
+Eube
 Everhart
 Everling
 Evers
@@ -1178,13 +1197,7 @@ Ewan
 Ewering
 Exner
 Eysert
-Fähnrich
-Fährmann
-Fölling
-Förster
-Füchtner
-Führer
-Füser
+Eßmann
 Faber
 Fabre
 Fabregat
@@ -1194,6 +1207,7 @@ Fahnestock
 Fahrberg
 Falkenberg
 Fandrey
+Fangmann
 Fangmeyer
 Fangohr
 Farnsworth
@@ -1204,6 +1218,7 @@ Faulenbach
 Faust
 Fauth
 Fay
+Fechner
 Feeney
 Fehlenberg
 Fehling
@@ -1212,6 +1227,7 @@ Fehr
 Feiler
 Feine
 Felbrich
+Feld
 Feldeisen
 Feldenheimer
 Feldhaus
@@ -1241,10 +1257,9 @@ Finkenscheid
 Fischer
 Fischer-Rau
 Fisher
-Fitzke
 FitzPatrick
+Fitzke
 Fix
-Flügel
 Flacke
 Flandrian
 Flannery
@@ -1265,6 +1280,8 @@ Flottmann-Schwanke
 Flottmeyer
 Flunkert
 Flynn
+Flödder
+Flügel
 Foerster
 Fogleman
 Foitzik
@@ -1276,11 +1293,8 @@ Forgie
 Formen
 Forsthofer
 Fortmann
+Fortmeier
 Foster
-Fröhleke
-Fröhlen
-Fröhlich
-Fröse
 Frambach
 Franck
 Francke
@@ -1335,8 +1349,10 @@ Frowin
 Fry
 Frye
 Fryman
-Fuß
-Fußberger
+Fröhleke
+Fröhlen
+Fröhlich
+Fröse
 Fuchs
 Fudickar
 Fudikar
@@ -1350,39 +1366,15 @@ Functius
 Funk
 Funke
 Furniss
-Gädke
-Gärtner
-Gätzschmann
-Göbel
-Göcken
-Göhnermeier
-Göke
-Göller
-Gölzner
-Gördes
-Görges
-Görlich
-Götsch
-Götten
-Götting
-Götz
-Götze
-Güçlü
-Güclü
-Gücuk
-Gülcher
-Gülk
-Güllekes
-Gülteckin
-Günaydin
-Gündüz
-Günter
-Günther
-Gürke
-Gütersloh
-Güthoff
-Gütschow
-Güzler
+Fuß
+Fußberger
+Fähnrich
+Fährmann
+Fölling
+Förster
+Füchtner
+Führer
+Füser
 Gacon
 Gaddom
 Gaddum
@@ -1419,19 +1411,21 @@ Gau
 Gaul
 Gauler
 Gauthier
+Gavilan
 Gawronski
 Gayer
 Gazon
-Geßner
 Gealy
 Gebauer
 Gebbe
 Gebhard
 Gebhardt
 Gedikli
+Geerdes
 Geessing
 Gegusch
 Gehling
+Gehre
 Gehring
 Gehrisch
 Geidi
@@ -1448,6 +1442,7 @@ Genius
 Gentz
 Geominy
 Georgi
+Gerdelmann
 Gerfsen
 Gerhardi
 Gerhards
@@ -1464,12 +1459,11 @@ Gesink
 Gessert
 Geue
 Geyer
+Geßner
 Ghost
 Gibau
 Gibson
 Gidion
-Gießbrecht
-Gießel
 Giebener
 Giebner
 Gierlich
@@ -1480,6 +1474,8 @@ Giesen
 Giesing
 Gieske
 Giesler
+Gießbrecht
+Gießel
 Gifford
 Gilardi
 Gilchrist
@@ -1492,7 +1488,6 @@ Gilliland
 Gilmore
 Gilz
 Ginten
-Glünz
 Glanemann
 Glasemann
 Glaser
@@ -1502,15 +1497,18 @@ Glawe-Miersch
 Gleibs
 Gleim
 Glenn
-Glißmann
 Glindemann
+Glißmann
 Glogowski
+Glotzbach
 Glowalla
 Glunz
+Glünz
 Gnad
 Gnadler
 Gobius de Sart
 Goch
+Goedecke
 Goericke
 Goerien
 Goering
@@ -1530,6 +1528,7 @@ Goldenberg
 Goldfuß
 Golembiewski
 Goller
+Gollwitzer
 Golowko
 Gondrum
 Goodrich
@@ -1551,16 +1550,6 @@ Gottschewski
 Gottschlich
 Gottwald
 Gotzens
-Gräb
-Gräwe
-Gröger
-Grübbel
-Grüdl
-Grühl
-Grünberger
-Grünewald
-Grützner
-Graßmann
 Graap
 Grabe
 Grabolle
@@ -1581,6 +1570,7 @@ Grau
 Grauert
 Grawov
 Gray
+Graßmann
 Grebe
 Greef
 Green
@@ -1588,6 +1578,8 @@ Greene
 Greer
 Greger
 Greiner
+Greinert
+Greischel
 Grekov
 Grell
 Greller
@@ -1605,14 +1597,6 @@ Griffith
 Grimm
 Grimmer
 Grindel
-Groß
-Große Brinkhaus
-Große-Cossmann
-Große-Kersting
-Große-Leege
-Großeaschoff
-Großerohde
-Großmann
 Grochtdreis
 Grocke
 Grodde
@@ -1620,6 +1604,7 @@ Grohme
 Groneberg
 Gronow
 Groos
+Groppel
 Gross
 Grossman
 Grote
@@ -1629,6 +1614,14 @@ Grotheer
 Grottendieck
 Grotz
 Grounds
+Groß
+Große Brinkhaus
+Große-Cossmann
+Große-Kersting
+Große-Leege
+Großeaschoff
+Großerohde
+Großmann
 Grube
 Gruber
 Gruening
@@ -1645,10 +1638,20 @@ Grupe
 Gruter
 Gruteser
 Grzyb
+Gräb
+Gräwe
+Gröger
+Grübbel
+Grüdl
+Grühl
+Grünberger
+Grünewald
+Grützner
 Gubala
 Guckert
 Guichot
 Guillaume
+Gulben
 Gulich
 Gully
 Gundlack
@@ -1656,57 +1659,41 @@ Gurner
 Gusinde
 Gustorff
 Gutsche-Krüger
-Häcking
-Häde
-Häger
-Händeler
-Hänel
-Hänisch
-Hänold
-Häntschel
-Härle
-Härtel
-Härter
-Häuser
-Hèquet
-Höbel
-Höchstetter
-Höcker
-Höfer
-Höfig
-Högg
-Höhnerhaus
-Höing
-Höke
-Hölcken
-Hölken
-Höllger
-Hölscher
-Hölterhoff
-Höltz
-Hölzer
-Hönig
-Hörmann
-Hörsting
-Hörstrup
-Hörter
-Hötte
-Hübner
-Hübner-Hecker
-Hübsch
-Hüer
-Hülß
-Hüll
-Hüls
-Hülsenbusch
-Hülsmann
-Hünerbein
-Hünig
-Hüser
-Hüttemann
-Hütter
-Hüttig
-Haaße
+Gädke
+Gärtner
+Gäth
+Gätzschmann
+Göbel
+Göcken
+Göhnermeier
+Göke
+Göller
+Gölzner
+Gördes
+Görgen
+Görges
+Görlich
+Götsch
+Götten
+Götting
+Götz
+Götze
+Güclü
+Gücuk
+Gülcher
+Gülk
+Güllekes
+Gülteckin
+Günaydin
+Gündüz
+Günter
+Günther
+Gürke
+Gütersloh
+Güthoff
+Gütschow
+Güzler
+Güçlü
 Haack
 Haag
 Haan
@@ -1718,9 +1705,11 @@ Haas
 Haase
 Haasen
 Haaser
+Haaße
 Haba
 Habbe
 Habedank
+Habel
 Habermann
 Habibi
 Habrat
@@ -1732,17 +1721,20 @@ Hackenberg
 Hacker
 Hackert
 Hackett
-Hackländer
 Hackl
+Hackländer
 Hackman
+Hackmann
 Hackstein
 Hadekopf
 Hadlich
+Haesser
 Hafner
 Hagan
 Hagbaum
 Hagel
 Hagemann
+Hagemeier
 Hagen
 Hagenau
 Hagenbach
@@ -1787,6 +1779,7 @@ Hanselmann
 Hansen
 Hanso
 Hanswille
+Hanuschek
 Harawira
 Harbach
 Harbers
@@ -1834,6 +1827,7 @@ Haude
 Hauff
 Haun
 Haunert
+Haupert
 Haupt
 Hauptmann
 Hauptvogel
@@ -1849,8 +1843,6 @@ Hawlas
 Hayes
 Haynes
 Hazleton
-Heßler
-Heßmer
 Hearn
 Hebestreit
 Heck
@@ -1865,8 +1857,8 @@ Heegmann
 Heek
 Heeke
 Heemels
-Heethey 
 Heethey
+Heethey 
 Heetmann
 Heft
 Hegel
@@ -1885,6 +1877,7 @@ Heienbrock
 Heier
 Heierhoff
 Heikes
+Heil
 Heilmann
 Heils
 Heimann
@@ -1930,13 +1923,14 @@ Helmchen
 Helmeke
 Helmer
 Helmich
+Helms
 Hely d Oissel
 Hemann
+Hembus
 Hemme
 Hemmer
 Hemmersmeier
 Hemstra
-Henß
 Henckel
 Henderson
 Hengstenberg
@@ -1944,6 +1938,7 @@ Henke
 Henkel
 Hennig
 Henning
+Henninger
 Henrich
 Henry
 Hensches
@@ -1953,6 +1948,7 @@ Henseler
 Hentsches
 Hentschke
 Hentze
+Henß
 Herbort
 Herbrüggen
 Herbst
@@ -1979,6 +1975,7 @@ Hessling
 Hetfeld
 Hettrich
 Hetzel
+Hetzer
 Heuermann
 Heuhaus
 Heukrodt
@@ -1993,7 +1990,8 @@ Heyer-Hillen
 Heyles
 Heynemann
 Heyng
-Hißler
+Heßler
+Heßmer
 Hickman
 Hickmann
 Hickson
@@ -2003,9 +2001,11 @@ Hilb
 Hildebrand
 Hildner
 Hilger
+Hille
 Hillebrand
 Hillen
 Hilliard
+Hillienhoff
 Hilligloh
 Hillmann
 Hilmer
@@ -2016,7 +2016,9 @@ Hilwering
 Hilyard
 Himburg
 Himmel
+Himmrich
 Hinderer
+Hinners
 Hinrichs
 Hinterholzer
 Hipp-Frede
@@ -2031,7 +2033,7 @@ Hissung
 Hitchcock
 Hitscher
 Hitschler
-Hoßbach
+Hißler
 Hobein
 Hobrecker
 Hoche
@@ -2052,6 +2054,7 @@ Hoering
 Hoevelmann
 Hoff
 Hoffboll
+Hoffeins
 Hoffman
 Hoffmann
 Hoffstadt
@@ -2064,6 +2067,7 @@ Hohenhorst
 Hohensee
 Hohn
 Hohoff
+Hois
 Holben
 Hold
 Hole
@@ -2077,8 +2081,8 @@ Holm
 Holman
 Holst
 Holt
-Holthöfer
 Holthausen
+Holthöfer
 Holtman
 Holtsträter
 Holtz
@@ -2090,14 +2094,15 @@ Honeck
 Honold
 Honsberg
 Hood
+Hopp
 Hoppe
 Hoppmann
 Horch
 Horn
 Hornung
 Horsters
-Horsthemke 
 Horsthemke
+Horsthemke 
 Horton
 Hossbach
 Hosty
@@ -2110,6 +2115,7 @@ Howe
 Hower
 Hoyer
 Hoyermann
+Hoßbach
 Hrdina
 Hubbard
 Hubbert
@@ -2123,9 +2129,11 @@ Huebschmann
 Huelsenbeck
 Huelsmann
 Huene
+Huerta
 Huessen
 Hug
 Huisinga
+Huiskens
 Huka
 Hullihen
 Hummer
@@ -2150,6 +2158,62 @@ Huth
 Huthwalker
 Hutten
 Hyska
+Häcking
+Häde
+Häger
+Hämel
+Händeler
+Hänel
+Hänisch
+Hänold
+Häntschel
+Härle
+Härtel
+Härter
+Häuser
+Hèquet
+Höbel
+Höchstetter
+Höcker
+Höfer
+Höfig
+Höft
+Högg
+Höhnerhaus
+Höing
+Höke
+Hölcken
+Hölken
+Höllger
+Hölscher
+Hölterhoff
+Höltz
+Hölzer
+Hölzle
+Hönig
+Hörbelt
+Hörmann
+Hörsch
+Hörsting
+Hörstrup
+Hörter
+Hötte
+Hübner
+Hübner-Hecker
+Hübsch
+Hüer
+Hüll
+Hüls
+Hülsenbusch
+Hülsmann
+Hülß
+Hünerbein
+Hünig
+Hünnebeck
+Hüser
+Hüttemann
+Hütter
+Hüttig
 Iakab
 Ibach
 Ibba
@@ -2158,10 +2222,6 @@ Igelsbruch
 Ihde
 Ihlbrock
 Illies
-im Feld
-im Grossen Haus
-im Weerth
-im werth
 Imel
 Imgram
 Immendorf
@@ -2171,6 +2231,7 @@ Indorf
 Ingenhamm
 Interwies
 Ippolito
+Irbik
 Irmor
 Irwin
 Ischebeck
@@ -2181,15 +2242,6 @@ Isles
 Itter
 Itzigehl
 Iwanowski
-Jäckle
-Jäger
-Jäkle
-Jäschke
-Jörgens
-Jörger
-Jöxen
-Jürgens
-Jürries
 Jackson
 Jackwitz
 Jacobi
@@ -2206,9 +2258,9 @@ Jakob
 Jakobs
 Jakschik
 Jambrovic
+Jami
 Jamison
 Jamro
-Janßen
 Jane
 Janik
 Janke
@@ -2217,6 +2269,7 @@ Jansen
 Janson
 Janssen
 Janzik
+Janßen
 Japing
 Jardon
 Jarguharson
@@ -2250,6 +2303,7 @@ Jones
 Joos
 Jordan
 Jorn
+Joschko
 Jost
 Josten
 Jostkleigrewe
@@ -2265,55 +2319,15 @@ Junker
 Junkes
 Jurnitschek
 Jurochnik
-Käfer
-Kämpfer
-Kämpgen
-Kätzel
-Köcher
-Köchling
-Köferl
-Kögler
-Köhler
-Köhne
-Kölle
-Köller
-Köllner
-Kölpin
-Kölzer
-Könemann
-König
-Königs
-Königsberg
-Köpke
-Köpper
-Köppern
-Köppner
-Körkemeyer
-Körner
-Köster
-Köth
-Kötter
-Köttgen
-Kügelgen
-Kügler
-Kühling
-Kühmstedt
-Kühn
-Kühne
-Kühnel
-Kühnemann
-Kühnen
-Kühnpast
-Kümpel
-Künne
-Künzel
-Küpper
-Küppers
-Küppersbusch
-Kürpick
-Küster
-Kütemann
-Küttner
+Jäckle
+Jäger
+Jäkle
+Jäschke
+Jörgens
+Jörger
+Jöxen
+Jürgens
+Jürries
 Kaczerowski
 Kaddouri
 Kadi
@@ -2322,6 +2336,7 @@ Kahl
 Kahle
 Kahnert
 Kaiser
+Kalbhenn
 Kalckberner
 Kaldasch
 Kaletsch
@@ -2332,6 +2347,7 @@ Kalkmann
 Kallen
 Kallmeier
 Kaltborg
+Kaltenecker
 Kamin
 Kaminski
 Kamp
@@ -2341,6 +2357,7 @@ Kampmann
 Kamps
 Kane
 Kanig
+Kappe
 Kappelmann
 Kappler
 Kapucuoglu
@@ -2366,6 +2383,7 @@ Kasowsky
 Kasper
 Kasperski
 Kassouf
+Kassuba
 Katernberg
 Kather
 Kathol
@@ -2436,6 +2454,8 @@ Kiener
 Kienholz
 Kienitz
 Kierstein
+Kiesel
+Kieser
 Kiesheyer
 Kihm
 Kik
@@ -2444,6 +2464,7 @@ Kilders
 Kilgore
 Kilian
 Kilkowski
+Killer
 Kimberlin
 Kimmig
 Kinch
@@ -2456,16 +2477,15 @@ Kipper
 Kirberg
 Kirchhoff
 Kirchner
-kirkpatrick
 Kirschweng
 Kirst
 Kirstein
 Kisch
+Kissel
 Kissing
+Kitschke
 Kittel
 Kitzmann
-Klüsener
-Klüser
 Kl. Schlarmann
 Klaar
 Klaassen
@@ -2482,7 +2502,6 @@ Kleidon
 Klein
 Klein-Hitpaß
 Kleine
-kleine Schlarmann
 Kleinert
 Kleinetigges
 Kleinpaß
@@ -2516,10 +2535,8 @@ Klukas
 Klus
 Klute
 Kluy
-Knöll
-Knüppe
-Knüver
-Knüwer
+Klüsener
+Klüser
 Knaack
 Knack
 Knakowski
@@ -2530,6 +2547,7 @@ Kneer
 Knefel
 Kneip
 Knerr
+Knetsch
 Kneutzgen
 Knevels
 Knichel
@@ -2551,6 +2569,10 @@ Knorr
 Knowles
 Knuck
 Knussmann
+Knöll
+Knüppe
+Knüver
+Knüwer
 Kobe
 Koblitz
 Koc
@@ -2581,6 +2603,8 @@ Kolewe
 Kolff
 Kollmann
 Kolrep
+Kolthoff
+Komar
 Komberg
 Konersmann
 Konke
@@ -2599,17 +2623,19 @@ Kordt
 Kordys
 Korff
 Korfmacher
-Kortüm
 Korte
 Kortemeier
 Kortemeyer
 Korten
 Kortshagen
 Kortz
+Kortüm
 Koru
+Kosch
 Kosche
 Koschinski
 Koslowski
+Kossler
 Kossorz
 Kostick
 Kostylev
@@ -2621,14 +2647,6 @@ Kovac
 Kovacevic
 Kovacs
 Kowalczyk
-Krämer
-Kröger
-Kröhl
-Kröhler
-Krückemeier
-Krüger
-Krühler
-Krümpelmann
 Kraatz
 Krabb
 Krach
@@ -2646,12 +2664,13 @@ Kranz
 Krasch
 Kraska
 Kratzheller
-Krauß
-Krauße
+Kratzius
 Kraus
 Krause
 Krauser
 Krauss
+Krauß
+Krauße
 Krawehl
 Krawutschke
 Krear
@@ -2665,6 +2684,7 @@ Kreinsen
 Kreisamir
 Kreische
 Krell
+Kremer
 Krenz
 Krenzer
 Kretschmann
@@ -2680,6 +2700,7 @@ Krieger
 Kriegsmann
 Kriese
 Krill
+Krippner
 Krocker
 Kroczek
 Kroeger
@@ -2706,6 +2727,14 @@ Kruse
 Krusemann
 Krusemarck
 Kryszat
+Krämer
+Kröger
+Kröhl
+Kröhler
+Krückemeier
+Krüger
+Krühler
+Krümpelmann
 Kube
 Kubler
 Kuchta
@@ -2730,6 +2759,7 @@ Kuhne
 Kuhrmann
 Kuhrt
 Kujath
+Kukelka
 Kuloge
 Kulzer
 Kumpsthoff
@@ -2752,40 +2782,64 @@ Kutdmann
 Kutzborski
 Kutzer
 Kyllmann
-Länder
-Löbel
-Löer
-Löppenberg
-Lösbrock
-Lübcke
-Lückel
-Lückemeier
-Lückenhaus
-Lüdeke
-Lüdke
-Lüeße
-Lügert
-Lüggert
-Lühl
-Lühr
-Lührmann
-Lütgewitte
-Lüthke
-Lütke-Börding
-Lütkehaus
-Lütkenhorst
-Lütkewitte
-Lüttringhaus
-Lüttringhausen
-Lützelberger
-Lützkendorf
+Käfer
+Kämpfer
+Kämpgen
+Kätzel
+Köcher
+Köchling
+Köferl
+Kögler
+Köhler
+Köhne
+Kölle
+Köller
+Köllner
+Kölpin
+Kölzer
+Könemann
+König
+Königs
+Königsberg
+Köpke
+Köpper
+Köppern
+Köppner
+Körkemeyer
+Körner
+Köster
+Köth
+Kötter
+Köttgen
+Kügelgen
+Kügler
+Kühling
+Kühmstedt
+Kühn
+Kühne
+Kühnel
+Kühnemann
+Kühnen
+Kühnpast
+Kümpel
+Künne
+Künzel
+Küpper
+Küppers
+Küppersbusch
+Kürpick
+Küster
+Kütemann
+Küttner
 Laakmann
 Labensberg
+Labitzke
 Lacy
+Lademann
 Laffrenzen
 Lafontaine
-Lahrkämper
 Lahrkamp
+Lahrkämper
 Lalla
 Lambers
 Lambert
@@ -2807,6 +2861,7 @@ Langenhorst
 Langensiepen
 Langer
 Langewender
+Langguth
 Langhaus
 Langhof
 Langner
@@ -2817,6 +2872,7 @@ Lanius
 Lanlermann
 Lanuschny
 Lanz
+Lappeßen
 Lara Michelle
 Larson
 Laser
@@ -2848,7 +2904,6 @@ Layton
 Lazarevic
 Lazarevj
 Le Riche
-le Tanneux
 Leanza
 Leber
 Lechler
@@ -2877,6 +2932,7 @@ Leimberg
 Leimkühler
 Leinberger
 Leinenbach
+Leineweber
 Leipold
 Leitgeb
 Leitgieb
@@ -2936,12 +2992,13 @@ Lind
 Lindberg
 Lindekens
 Lindenberg
-Lindenbuß
 Lindenbuss
+Lindenbuß
 Linder
 Lindermann
 Lindner
 Lindsay
+Linger
 Linges
 Linkenbach
 Linnemann
@@ -2957,6 +3014,7 @@ Litten
 Ljakov
 Ljunggren
 Lloyd
+Lochmann
 Lockard
 Locke
 Lockmann
@@ -3009,50 +3067,47 @@ Lueg
 Lukei
 Lundberg
 Lunde
+Lundgren
 Luster
 Lutter
 Luttermann
 Lynch
 Lynen
 Lyra-De-Aguiar
-Märcker
-Märker
-Märkisch
-Märtin
-Mäscher
-Mäteling
-Möhle
-Möhlenbeck
-Mölders
-Möllenbeck
-Möllenhoff
-Möller
-Möllers
-Mönch
-Mücher
-Mücke
-Mühlbauer
-Mühlenkamp
-Mühlenkord 
-Mühlenkord
-Mühlenkors
-Mühlenstedt
-Mülders
-Müllenbach
-Müllensiefen
-Müller
-Mümken
-Münch
-Münchenberg
-Mündelein
-Münz
-Münzner
-Maaß
+Länder
+Löbel
+Löer
+Löppenberg
+Lösbrock
+Lübcke
+Lückel
+Lückemeier
+Lückenhaus
+Lüdeke
+Lüdke
+Lüeße
+Lügert
+Lüggert
+Lühl
+Lühr
+Lührmann
+Lütgewitte
+Lüthke
+Lütke-Börding
+Lütkehaus
+Lütkenhorst
+Lütkewitte
+Lüttringhaus
+Lüttringhausen
+Lützelberger
+Lützkendorf
+MC Arthur
 Maag
 Maak
 Maas
-Macartney
+Maaß
 MacCo
+Macartney
 Machatzke
 Machwitz
 Mackensen
@@ -3064,7 +3119,6 @@ Magiera
 Magirus
 Mahlke
 Mahmoudi
-mahnert
 Mahnke
 Maicher
 Maier
@@ -3074,6 +3128,7 @@ Majors
 Malchow
 Maler
 Malkowski
+Malkwoski
 Mallinkrodt
 Mallkowsky
 Mallon
@@ -3115,8 +3170,8 @@ Marquardt
 Marquering
 Marquis
 Marquis de Ganay
-Marré
 Marre
+Marré
 Marsay
 Marschall
 Marshall
@@ -3132,14 +3187,14 @@ Massie
 Massmeier
 Maste
 Masur
-Mathée
 Matheson
+Mathée
 Mattern
 Mattes
-Matthäi
 Matthews
 Matthießen
 Matthis
+Matthäi
 Mattick
 Mattocks
 Mattutat
@@ -3154,7 +3209,7 @@ Maybritt
 Maydell
 Mayer
 Mayer-Amhof
-MC Arthur
+Mayweg
 Mc Grady
 McArel
 McBride
@@ -3163,6 +3218,7 @@ McClain
 McClelland
 McClentic
 McClimons
+McClymont
 McCombs
 McConnell
 McCoy
@@ -3195,7 +3251,6 @@ McNamara
 McNees
 McNeish
 McQuinn
-Meß
 Meadows
 Meals
 Mechsner
@@ -3205,6 +3260,7 @@ Mecking
 Mediaris
 Meermann
 Meermann-Schulte
+Meeske
 Meetz
 Megede
 Mehlhorn
@@ -3241,6 +3297,7 @@ Mense
 Mensendieck
 Mentzler
 Menze
+Merettig
 Merken
 Merrem
 Merriweather
@@ -3252,6 +3309,7 @@ Merz
 Merzhäuser
 Mesch
 Meschiari
+Meselov
 Meske
 Messer
 Messner
@@ -3266,7 +3324,6 @@ Meusel
 Meuser
 Meuters
 Mey
-meyer
 Meyer zu Hörste
 Meyer-Delius
 Meyer-Rinck
@@ -3274,7 +3331,7 @@ Meyers
 Meyfahrt
 Meynen
 Meysers
-Mißmann
+Meß
 Micelotta
 Michalek
 Michalewski
@@ -3286,6 +3343,7 @@ Middendorff
 Middlemas
 Mier
 Mies
+Mihai
 Milde
 Mildenberger
 Mile
@@ -3311,8 +3369,11 @@ Mittag
 Mittelsten Scheid
 Mittelsten Scheidt
 Miville
+Mißmann
+Mlynarczyk
 Mnich
 Mock
+Modder
 Moder
 Modera
 Moderau
@@ -3323,6 +3384,7 @@ Mohn
 Mohr
 Mohren
 Mohrhardt
+Mojzis
 Molinaeus
 Molineus
 Moll
@@ -3343,6 +3405,7 @@ Monzca
 Mook
 Moore
 Moorehouse
+Moormann
 Moosdorf
 Morali
 Moran
@@ -3365,12 +3428,12 @@ Mossburg
 Mosters
 Motel
 Motorny
+Mougoyannis
 Mouhlen
 Moult
 Moyer
 Mozgovoy
 Mozian
-Mußmann
 Muders
 Muellen
 Muellender
@@ -3388,18 +3451,47 @@ Murrin
 Mussel
 Musso
 Mutschler
+Mußmann
 Myers
-Nöldner
-Nöll
-Nöllen
-Nüchter
-Nühse
+Märcker
+Märker
+Märkisch
+Märtin
+Mäscher
+Mäteling
+Möhle
+Möhlenbeck
+Mölders
+Möllenbeck
+Möllenhoff
+Möller
+Möllers
+Mönch
+Mücher
+Mücke
+Mühlbauer
+Mühlenkamp
+Mühlenkord
+Mühlenkord 
+Mühlenkors
+Mühlenstedt
+Mülders
+Müllenbach
+Müllensiefen
+Müller
+Mümken
+Münch
+Münchenberg
+Mündelein
+Münster
+Münz
+Münzner
+NAHMER
 Nachtwey
 Nacken
 Naegelin
 Nagel
 Nagels
-NAHMER
 Nam
 Nancy
 Narjes
@@ -3446,7 +3538,6 @@ Newman
 Newton
 Nichols
 Nickels
-nickhorn
 Nickl
 Nicolaisen
 Niedballa
@@ -3459,15 +3550,16 @@ Niehoff
 Niehues
 Niehus
 Nieke
-Niemöller
 Niemann
 Niemeyer
+Niemöller
 Nienaber
 Nienhaus
 Nier
 Nierhoff
 Nies
 Niestegge
+Niestroj
 Nietzold
 Niggemann
 Nigris
@@ -3478,8 +3570,10 @@ Ninck
 Nippel
 Nissen
 Nitsch
+Nitsche
 Nitz
 Nitze
+Nitzsche
 Niwieara
 Nobbe
 Nobis
@@ -3508,6 +3602,11 @@ Nowak
 Nussbaumer
 Nustedde
 Nymwegen
+Nöldner
+Nöll
+Nöllen
+Nüchter
+Nühse
 O'Casio
 O'Patchen
 Oakes
@@ -3544,11 +3643,11 @@ Oliva
 Oliwa
 Olm
 Onken
-Opätz
 Opfergelt
 Opitz
 Opperbeck
 Oppermann
+Opätz
 Orlov
 Orlow
 Orth
@@ -3568,9 +3667,9 @@ Ostendorp
 Osterhaus
 Osterholt
 Osterkamp
+Ostermeier
 Ostermöller Rosner
 Ostermöller-Rosner
-Ostermeier
 Osterroth
 Osthaus
 Osthoff
@@ -3586,20 +3685,10 @@ Overbeck
 Overberg
 Overhoff
 Overmann
+Overmeyer
 Overweg
 Owens
 Oxenfarth
-Päßler
-Pätzold
-Pérez
-Pöritz
-Pötker
-Pötter
-Pülm
-Püstrow
-Pütter
-Püttmann
-Pütz
 Paas
 Pabel
 Paetow
@@ -3624,6 +3713,7 @@ Pantzlaff
 Panzlaff
 Pape
 Papeljaschky
+Papendick
 Pappert
 Papsdorf
 Paragallo
@@ -3640,6 +3730,7 @@ Passenberg
 Passow
 Pastoors
 Pastor
+Paszt
 Paters
 Patini
 Patterson
@@ -3665,6 +3756,7 @@ Pelzer
 Penner
 Penns
 Pentling
+Penz
 Pereia
 Pereira
 Perger
@@ -3681,8 +3773,6 @@ Petker
 Petrich
 Petruschka
 Petry
-Pfülf
-Pfüller
 Pfannschmidt
 Pfeffer
 Pfefferkorn
@@ -3694,10 +3784,12 @@ Pfieffer
 Pfingsten
 Pfitzmer
 Pfitzner
-Pflüger
 Pfletschinger
 Pflips
+Pflüger
 Pfotenhauer
+Pfülf
+Pfüller
 Philippi
 Philippon
 Philipps
@@ -3707,6 +3799,7 @@ Pianta
 Pickhardt
 Picott
 Piekarski
+Pieke
 Pieper
 Pigorsch
 Pihan
@@ -3730,12 +3823,11 @@ Pisarski
 Pistor
 Pitsch
 Pittman
-Plücker
-Plückthun
 Plaene
 Plagemann
 Plagge
 Plakias
+Platen
 Platzhoff
 Plegge
 Pleines
@@ -3743,6 +3835,9 @@ Pleye
 Ploog
 Plothe
 Plum
+Plücker
+Plückthun
+Podeschwa
 Poggenpohl
 Pohl
 Pohle
@@ -3750,6 +3845,7 @@ Pohlenz
 Pohlhaus
 Pohlman
 Pohlmann
+Pokrandt
 Polcher
 Polkownik
 Pollack
@@ -3768,6 +3864,7 @@ Popke
 Poppe
 Popper
 Poppino
+Porsche
 Porter
 Portnov
 Posselt
@@ -3780,10 +3877,11 @@ Pott
 Potthast
 Powell
 Powes
-Pröbsting
+Poyraz
 Pralow
 Prange
 Prax
+Prehn
 Preilowski
 Preiser-Funke
 Preller
@@ -3806,9 +3904,11 @@ Prophet
 Protzek
 Prudhoe
 Pryzbyl
+Przibilla
 Przibylla
 Przybyl
 Przytulla
+Pröbsting
 Psczolla
 Psiroukis
 Pugg
@@ -3822,6 +3922,17 @@ Purcel
 Puschmann
 Puvogel
 Pyritz
+Pätzold
+Päßler
+Pérez
+Pöritz
+Pötker
+Pötter
+Pülm
+Püstrow
+Pütter
+Püttmann
+Pütz
 Quack
 Quakenbush
 Quandt
@@ -3832,33 +3943,6 @@ Quincke
 Quinke
 Quinn
 Quirno-Lavalle
-Rößler
-Röder
-Röhl
-Röhrig
-Rölle
-Röllinghoff
-Röntgen
-Röse
-Rösemeier
-Rösing
-Rösinger
-Rösler
-Rösner-Thiele
-Rössel
-Röttger
-Röttgers
-Rübel
-Rücker
-Rüdel
-Rüdelstein
-Rühl
-Rühle
-Rüter
-Rüterhenke
-Rütten
-Rütterswarden
-Raßmann
 Raabe
 Rachel
 Radecke
@@ -3870,11 +3954,15 @@ Radtke
 Raffauf
 Raffelt
 Raffenberg
+Raftopoulou
 Rahman
 Rahmatullah
 Rahrratullah
 Rahtgens
 Rakel
+Rama
+Ramackers
+Rammig
 Ramsey
 Randall
 Rank
@@ -3885,6 +3973,7 @@ Rasmussen
 Rassman
 Rassmann
 Rathjen
+Rathsack
 Rating
 Ratjen
 Ratzl
@@ -3898,7 +3987,9 @@ Rautert
 Ravens
 Ray
 Raysor
+Raßmann
 Reater
+Rebone
 Reckert
 Reclik
 Redeker
@@ -3910,12 +4001,12 @@ Reed
 Reese
 Reeves
 Regel
+Regelin
 Rehbach
 Rehberg
 Rehbogen
 Rehfeld
 Rehse
-Reiß
 Reiber
 Reich
 Reiche
@@ -3941,7 +4032,9 @@ Reischauer
 Reiss
 Reiter
 Reith
+Reitkamp
 Reitzki
+Reiß
 Renbach
 Renelt
 Renker
@@ -3962,9 +4055,9 @@ Rettinghaus
 Retzbach
 Retzer
 Retzlaw
-Reuß
 Reusink
 Reuter
+Reuß
 Reynolds
 Reznichenko
 Reznischenko
@@ -3990,6 +4083,7 @@ Riechmann
 Riecke
 Riedel
 Riediger
+Riedrich
 Rieger
 Riehm
 Riekewald
@@ -4019,9 +4113,6 @@ Rittershaus
 Rittershausen
 Rittmüller
 Ritzert
-Roßbach
-Roßberg
-Roüast
 Roberts
 Robertshaw
 Robi
@@ -4036,14 +4127,15 @@ Roddy
 Rodehutskors
 Rodina
 Rodloff
-Roeßiger
 Roeber
 Roehl
 Roemer
 Roer
+Roeßiger
 Rofalski
 Rogan
 Rogers
+Rogge
 Roggenbuck
 Roggenland
 Rogowski
@@ -4058,6 +4150,8 @@ Rokitta
 Roling
 Rolle
 Roller
+Rollet
+Rollett
 Rollmann
 Roloff
 Rolofff
@@ -4094,6 +4188,9 @@ Rotterdam
 Rousseau
 Rowan
 Roytburg
+Roßbach
+Roßberg
+Roüast
 Rubinkovska
 Rubinkovski
 Rubinkowska
@@ -4102,6 +4199,7 @@ Rudel
 Rudenhaus
 Rudlowski
 Rudolph
+Rudorf
 Ruetter
 Ruettgers
 Ruf
@@ -4133,14 +4231,36 @@ Ruten
 Rutz
 Ryall
 Rynkowski
-Söffker
-Söhmisch
-Sörensen
-Söte
-Süßdorf
-Südhoff
-Saß
+Röder
+Röhl
+Röhrig
+Rölle
+Röllinghoff
+Röntgen
+Röse
+Rösemeier
+Rösing
+Rösinger
+Rösler
+Rösner-Thiele
+Rössel
+Röttger
+Röttgers
+Rößler
+Rübel
+Rücker
+Rückert
+Rüdel
+Rüdelstein
+Rühe
+Rühl
+Rühle
+Rüter
+Rüterhenke
+Rütten
+Rütterswarden
 Saal
+Saar
 Sabbo-Golebiowski
 Sachau
 Sachs
@@ -4158,6 +4278,7 @@ Saltzmann
 Sample
 Samulowitz
 Sanader
+Sandau
 Sander
 Sanders
 Sankey
@@ -4174,34 +4295,8 @@ Sauermann
 Sauter
 Sautter
 Sayin
+Saß
 Scanga
-Schäfer
-Schäfers
-Schäpers
-Schätzler
-Schöller
-Schön
-Schöne
-Schönebeck
-Schöneck
-Schöneweiss
-Schönfeld
-Schönhoff
-Schönrock
-Schött
-Schötteler
-Schöwe
-Schüßler
-Schüür-Buntjer
-Schücker
-Schüll
-Schülling
-Schünhof
-Schüring
-Schürkmann
-Schürmann
-Schütz
-Schütze
 Schaaf
 Schaaffhausen
 Schad
@@ -4240,6 +4335,7 @@ Scheid
 Scheidner
 Scheidt
 Scheidtmann
+Scheil
 Scheld
 Schelenhaus
 Schellen
@@ -4268,6 +4364,7 @@ Schigiel
 Schill
 Schiller
 Schilling
+Schillmöller
 Schillo
 Schimansky
 Schimmel
@@ -4279,15 +4376,6 @@ Schippers
 Schirdewahn
 Schirmer
 Schiwek
-Schlöffel
-Schlömer
-Schlörike
-Schlösser
-Schlüßler
-Schlüter
-Schlütermann
-Schlütter
-Schlütz
 Schlak
 Schlechtendahl
 Schlechter
@@ -4311,11 +4399,20 @@ Schliphoeter
 Schlottmann
 Schlueter
 Schlusemann
-Schmölder
+Schlöffel
+Schlömer
+Schlörike
+Schlösser
+Schlüter
+Schlütermann
+Schlütter
+Schlütz
+Schlüßler
 Schmachtenberg
 Schmahl
 Schmalenbach
 Schmalenstroer
+Schmalkoke
 Schmasen
 Schmauß
 Schmedes
@@ -4326,6 +4423,7 @@ Schmeikal
 Schmeing
 Schmelter
 Schmelzer
+Schmidgall
 Schmidt
 Schmidt-Kestner
 Schmidt-Lauer
@@ -4342,7 +4440,7 @@ Schmolling
 Schmuch
 Schmusch
 Schmutzer
-Schnödewind
+Schmölder
 Schnabel
 Schnatmann
 Schneebauer
@@ -4359,6 +4457,7 @@ Schniewied
 Schniewind
 Schnitker
 Schnittker
+Schnödewind
 Schobbe
 Schoder
 Schoebel
@@ -4377,10 +4476,6 @@ Schoppmann
 Schorer
 Schott
 Schotte
-Schräder
-Schröder
-Schröer
-Schröter
 Schrade
 Schrader
 Schragmueller
@@ -4396,7 +4491,10 @@ Schroer
 Schroers
 Schroers ter Meer
 Schroodt
-Schuß
+Schräder
+Schröder
+Schröer
+Schröter
 Schu
 Schubart
 Schubert
@@ -4426,9 +4524,11 @@ Schulze Herringen
 Schulze-Döring
 Schumacher
 Schumann
+Schunke
 Schuppert
 Schuppmann
 Schuster
+Schuß
 Schwaab
 Schwaack
 Schwab
@@ -4448,10 +4548,42 @@ Schweinsberg
 Schweitzer
 Schweizer
 Schwerte
+Schwerter
 Schwiering
+Schwind
 Schwittay
 Schwittek
 Schwyitt
+Schwärter
+Schäfer
+Schäfers
+Schäpers
+Schätzler
+Schöller
+Schön
+Schöne
+Schönebeck
+Schöneck
+Schöneweiss
+Schönfeld
+Schönherr
+Schönhoff
+Schönrock
+Schött
+Schötteler
+Schöttler
+Schöwe
+Schücker
+Schüll
+Schülling
+Schünhof
+Schüring
+Schürkmann
+Schürmann
+Schütz
+Schütze
+Schüßler
+Schüür-Buntjer
 Scofield
 Scott
 Scriverius
@@ -4527,6 +4659,7 @@ Sieber
 Sieberg
 Siebert
 Siegert
+Siegesmund
 Siegler
 Siekaup
 Siemann
@@ -4537,8 +4670,8 @@ Siepermann
 Siering
 Sievers
 Sievert
-Siggemann 
 Siggemann
+Siggemann 
 Siggins
 Sigmar
 Sigmund
@@ -4566,6 +4699,7 @@ Skiba
 Skibbe
 Slaby
 Slamka
+Sliwar
 Sloan
 Sluytermann
 Smeets
@@ -4576,12 +4710,15 @@ Smoczyk
 Snethlage
 Snider
 Snietka
+Snippe
 Snyderwine
 Soberski
 Sobing
+Sobolak
 Soehnen
 Soennecken
 Soens
+Soetbeer
 Soete
 Soffee
 Soffert
@@ -4609,7 +4746,7 @@ Sorowka
 Soult
 Sowa
 Sowash
-Spürck
+Sowinski
 Spaan
 Spaeing
 Spanka
@@ -4627,12 +4764,12 @@ Spengelin
 Spengler
 Spennemann
 Sperrhake
-Spieß
 Spieker
 Spielmanns
 Spies
 Spiess
 Spiethoff
+Spieß
 Spille
 Spindler
 Spitzer
@@ -4643,23 +4780,14 @@ Splithoff
 Spoon
 Spork o. Sportz
 Sporleder
-Sprück
 Sprenger
 Springen
 Springer
-Sproß
 Spross
+Sproß
+Sprück
 Spurrier
-Ständer
-Ständker
-Stöckel
-Stöcker
-Stöckl
-Stöhr
-Stölzel
-Stöppler
-Stövesand
-Stürze
+Spürck
 Staat
 Stabenow
 Stache
@@ -4707,6 +4835,7 @@ Steinbrink
 Steinbronn
 Steiner
 Steineshoff
+Steinfeldt
 Steinhaus
 Steinhausen
 Steinhoff
@@ -4765,8 +4894,6 @@ Stout
 Stover
 Stowe
 Stoyke
-Strötkötter
-Strücker
 Straetemans
 Strahlenbach
 Strangemann
@@ -4774,8 +4901,8 @@ Strangfeld
 Strasmann
 Stratkemper
 Stratkow
-Strauß
 Strauch
+Strauß
 Strebel
 Streit
 Stricker
@@ -4788,6 +4915,7 @@ Strohn
 Strote
 Stroth
 Strothmann
+Strotkoetter
 Strotkötter
 Strotmann
 Strototte
@@ -4795,8 +4923,11 @@ Strottote
 Stroud
 Strube
 Struck
+Struckmeier
 Strugholz
 Struwe
+Strötkötter
+Strücker
 Stuch
 Student
 Stuitgen
@@ -4805,7 +4936,16 @@ Stuppy
 Stursberg
 Stutberg
 Stuth
-Sußmann
+Ständer
+Ständker
+Stöckel
+Stöcker
+Stöckl
+Stöhr
+Stölzel
+Stöppler
+Stövesand
+Stürze
 Suchanek
 Sucker
 Suermondt
@@ -4815,29 +4955,28 @@ Susat
 Sutley
 Sutliff
 Sutton
+Sußmann
 Swank
 Swanson
 Swartz
 Swat
 Sybel
 Syberg
-Syré
 Syren
+Syré
 Szalai
 Szczepanik
 Szczepanski
 Szczesny
 Szorec
-Tölke
-Tönnes
-Tönnesmann
-Tönnies
-Töpperwien
-Tücks
-Tügel
-Tünnerhoff
-Türk
-Tüschen
+Söffker
+Söhmisch
+Sörensen
+Söte
+Südhoff
+Sünnen
+Süßdorf
+THEILE
 Tackett
 Tamer
 Tamer Langen
@@ -4866,8 +5005,6 @@ Tenk
 Tenney
 Tepferd
 Tepper
-ter Huurne
-ter Meer
 Terbuyken
 Terliesner
 Ternes
@@ -4879,19 +5016,16 @@ Teschemacher
 Testrot
 Teuchert-Voigt
 Teufel
-Thölking
-Thümmler
-Thünemann
 Thacker
 Thamm
 Thate
-THEILE
+Thegelkamp
+Theile
 Theis
 Theissen
 Thesing
 Theurer
 Theyson
-Thieß
 Thiede
 Thieker
 Thiel
@@ -4901,24 +5035,25 @@ Thielisch
 Thielke
 Thielmann
 Thiemann
+Thieme
 Thiemig
 Thies
 Thiex
+Thieß
 Thillmann
 Thimlar
 Thissen
 Thoemer
-Thomée
 Thomas
 Thompson
 Thoms
+Thomée
 Thorhauge
 Thorn
 Thorwesten
 Thos
 Threlfall
 Thum
-thum Bemberch
 Thumius
 Thumm
 Thummius
@@ -4926,6 +5061,9 @@ Thurnehsen
 Thurneysen
 Thyes
 Thyret
+Thölking
+Thümmler
+Thünemann
 Tidden
 Tiedemann
 Tiefenbach
@@ -4938,6 +5076,7 @@ Tietze
 Tietzel
 Tileman gen. Schenk
 Tillack
+Tillman
 Tillmanns
 Tilmann
 Tilmges
@@ -4951,6 +5090,7 @@ Titgemeyer
 Titkemeier
 Tittmann
 Titus
+Titze
 Tix
 Tobian
 Toe Poel
@@ -4966,8 +5106,6 @@ Toth
 Toti
 Totzeck
 Totzek
-Tröster
-Trötscher
 Trabert
 Tralau
 Tranholt
@@ -4994,6 +5132,8 @@ Tropp
 Troutman
 True
 Truran
+Tröster
+Trötscher
 Tschernich
 Tubbesing
 Tuchscherer
@@ -5009,6 +5149,17 @@ Tusch
 Twelmeyer
 Twirner
 Tyelmanova
+Tynior
+Tölke
+Tönnes
+Tönnesmann
+Tönnies
+Töpperwien
+Tücks
+Tügel
+Tünnerhoff
+Türk
+Tüschen
 Uboldi de Capei
 Udy
 Uebele
@@ -5016,7 +5167,7 @@ Uebersahl
 Uekötter
 Uellenberg
 Uellickradt
-ufm Bemberg
+Uhl
 Uhlenbrock
 Uhlendahl
 Uhlendrock
@@ -5034,6 +5185,7 @@ Ummen
 Unbekannt
 Uncapher
 Underwood
+Unger
 Ungor
 Unrau
 Unruh
@@ -5043,50 +5195,20 @@ Urbach
 Urlaub
 Urspruch
 Ursruch
-Utermöhl
 Utermann
+Utermöhl
 Utzig
 Uyar
-Vöhler
-Völkel
-Völtz
-Völzing
-Vüllings
 Vaarhoeve
 Vahjen
-vahle
 Vajen
 Vajs
 Vajsov
 Valente
 Valenti
 Valeske
-van Almsick
-van Berendrecht
-van Broich
-van Bynum
-van Calker
+Van Almsick
 Van de Buecken
-van de Loo
-van den Berg
-van den Bogaert
-van der Beeck
-van der Hoek
-van der Linden
-van der Mark
-van der Meij
-van der Vegte
-van Dyck
-van Dyke
-van Erden
-van Erk
-van Haar
-van Hees
-van Holst
-van Os
-van Patten
-van Porten
-van Vliet
 Vanbuel
 Vanderlin
 Vanderwall
@@ -5094,6 +5216,7 @@ Vandeventer
 Vandyke
 Varelmann
 Varnhorst
+Vasic
 Vasto
 Vaughan
 Vaughn
@@ -5103,19 +5226,19 @@ Veit
 Veith
 Velhagen
 Velija
+Veljia
 Veller
 Veltmann
 Venohr
 Vent
 Venter
 Verbruegge
+Verfürth
 Verstege
 Vester
 Vetter
 Vettermann
 Vettweis
-Vièl
-Viél
 Vickers
 Vickie
 Viebahn
@@ -5127,12 +5250,12 @@ Viermann
 Vieweg
 Vigerite
 Villnow
+Vinz
 Visarius
 Vischer
+Vièl
+Viél
 Vlecken
-Voß
-Voßbeck
-Voßhenrich
 Voelker
 Vogan
 Vogel
@@ -5150,187 +5273,16 @@ Volkenborn
 Volkmann
 Vollbach
 Volle
+Vollmann
 Vollmer
 Vollmoeller
 Volmer
 Volpini
 Voltin
 Volz
-vom Bruch
-vom Busch
-vom Draubenthal
-vom Eygen
 Vom Eyser
-vom Gorreshaus
-vom Heidt
-vom Loh
-vom Rath
-vom Scheidt
-vom Schlebusch
-vom Stein
-vom Ufer
-von Ascheberg
-von Asten
-von Auenmüller
-von Bülow
-von Baer
-von Bandel
-von Bauer
-von Baum
-von Beckerath
-von Berkentin
-von Blankensee
-von Boehn
-von Boetzelaer
-von Bohlen
-von Borries
-von Bose
-von Bottlenberg
-von Broich
-von Bronckhorst
-von Bunsen
-von Busse
-von Carlowitz
-von Carnap
-von Ciriacy-Wantrup
-von Cotzhausen
-von Cramon
-von Döllen
-von der Beeck
-von der Brincken
-von der Dunck
-von der Höhe
-von der Hedt
-von der Herberg
-von der Heyde
-von der Heydt
-von der Mark
-von der Marwitz
-von der Ovelgunne
-von der Reith
-von der Scheuren
-von der Steineich
-von der Weiden
-von Doornick
-von Drachenfels
-von Eiken
-von Elberfeld
-von Elseip
 Von Eyl
-von Eynern
-von Falkenhausen
-von Fangen
-von Fersen
-von Flodorf
-von Frowein
-von Gäßler
-von Gaertner
-von Glasenapp
-von Goertzen
-von Griesheim
-von Grumbkow
-von Guionneau
-von Gwinner
-von Gyldenfeldt
-von Häsler
-von Hüchtenbrock
-von Hühnersdorf
-von Hagenow
-von Heimburg
-von Helmolt
-von Herssel
-von Hippel
-von Hohrade
-von Hurter
-von Kügelgen
-von Kap-her
-von Kleist
-von Kleist-Damen
-von Knapp
-von Knappersbusch
-von Knieriem
 Von Kotton
-von Kotzebue
-von Krause-Bendeleben
-von Krockow
-von Krosigk
-von Kummer
-von Laer
-von Lemcke
-von Lingelsheim
-von Linn
-von Loessl
-von Möller
-von Münster
-von Magelmann
-von Malaisé
-von Marcard
-von Massov
-von Meverden
-von Michael
-von Moeller
-von Moerbeck
-von Moers
-von Mom
-von Mosch
-von Mumm
-von Nedden
-von Neukirch
-von Oberschüer
-von Oertzen
-von Osterroth
-von Ostrowski
-von Pelchrzim
-von Plettenberg
-von Puttkamer
-von Redern
-von Rennenkampff
-von Retraedt
-von Retraidt
-von Rhade
-von Rhoden
-von Riesch
-von Riescheidt
-von Rosenkrantz
-von Saldern
-von Salmuth
-von Salzen
-von Sanden
-von Schaaffhausen
-von Schaedtler
-von Schaffhausen
-von Schimpff
-von Schorlemmer
-von Schuengele
-von Schwabach
-von Scleinitz
-von Soden
-von Somnitz
-von Stecher
-von Steinen
-von Studnitz
-von Stumm
-von Stutterheim
-von Syberg
-von Taysen
-von Theinen
-von Ulenbrock
-von Volkershoven
-von Wülfing
-von Wachendorp
-von Walther
-von Werne
-von Withof
-von Witzmann
-von Wolff
-von Wrisberg
-von Wuelfing
-von Zart
-von Zastrow
-von Zeromski
-von Zeschwitz
-von Zezschwitz
-von Zitzewitz
 Vonhoff
 Voorman
 Vorberg
@@ -5343,24 +5295,14 @@ Vorwerk
 Vos
 Voss
 Vossius
-Wölbing
-Wölfer
-Wölk
-Wöllke
-Wördehoff
-Wörther
-Wörz
-Wöste
-Wülffing
-Wülfing
-Wülfingh
-Wüller
-Wüllner
-Würz
-Würzle
-Wüst
-Wüsten
-Wüsthoff
+Voß
+Voßbeck
+Voßhenrich
+Vöhler
+Völkel
+Völtz
+Völzing
+Vüllings
 Wach
 Wachenfeld
 Wachsmuth
@@ -5390,6 +5332,8 @@ Walther
 Wampler
 Wanders
 Wandesleben
+Wandhöfer
+Wang
 Wanner
 Wappner
 Ward
@@ -5398,6 +5342,7 @@ Warkus
 Warmann
 Warneke
 Warner
+Warning
 Wasson
 Watermann
 Waters
@@ -5413,6 +5358,7 @@ Wecker
 Wedderkop
 Wedekind
 Wedel
+Wedi
 Weeren
 Weerth
 Wegele
@@ -5423,12 +5369,6 @@ Wehling
 Wehlitz
 Wehrens
 Wehry
-Weiß
-Weißert
-Weißhuhn
-Weißker
-Weißphal
-Weißschädel
 Weiberg
 Weichhold
 Weickert
@@ -5441,13 +5381,15 @@ Weigel
 Weigelt
 Weigert
 Weigl
+Weihs
 Weiler
 Weiling
 Weimann
 Weimer
 Weinert
-Weingärtner
 Weingarten
+Weingarth
+Weingärtner
 Weinhold
 Weinmann
 Weippert
@@ -5455,8 +5397,15 @@ Weirich
 Weis
 Weischer
 Weise
+Weisheim
 Weiss
 Weissert
+Weiß
+Weißert
+Weißhuhn
+Weißker
+Weißphal
+Weißschädel
 Weknes
 Welch
 Welitz
@@ -5487,6 +5436,7 @@ Werdin
 Werhahn
 Werlich
 Wernecke
+Werneke
 Wernekke
 Werner
 Werth
@@ -5511,6 +5461,7 @@ Weston
 Wetekam
 Wetzel
 Wetzling
+Wetzold
 Wever
 Weyders
 Weyerbusch
@@ -5523,11 +5474,9 @@ Whiteman
 Whitesell
 Whitman
 Whitney
-Wißmann
 Wichelhaus
 Wichelhausen
 Wichers
-wichmann
 Wicht
 Wicker
 Wickert
@@ -5548,7 +5497,6 @@ Wienands
 Wienholdt
 Wienken
 Wies
-wiesbrock
 Wieseler
 Wiesemann-Hesse
 Wiesermann
@@ -5620,6 +5568,7 @@ Wittler
 Wittmann
 Wittmer
 Witzdam
+Wißmann
 Wodausch
 Woelk
 Woerman
@@ -5640,8 +5589,8 @@ Wolfmeier
 Wollanky
 Wolodzko
 Wolst
-Wolters
 Wolter
+Wolters
 Wonsak
 Wood
 Woodall
@@ -5667,6 +5616,7 @@ Wulff
 Wulffers
 Wulkopf
 Wullenkord
+Wunder
 Wunsch
 Wuppermann
 Wurm
@@ -5675,8 +5625,27 @@ Wurzel
 Wuttkowski
 Wyckoff
 Wygant
+Wykhoff
 Wylich
 Wynand
+Wölbing
+Wölfer
+Wölk
+Wöllke
+Wördehoff
+Wörther
+Wörz
+Wöste
+Wülffing
+Wülfing
+Wülfingh
+Wüller
+Wüllner
+Würz
+Würzle
+Wüst
+Wüsten
+Wüsthoff
 Yard
 Yarza Balzer
 Yarza Capitaine
@@ -5687,9 +5656,6 @@ Yildiz
 Yin
 Young
 Yudum
-Zöllner
-Zügel
-Zürcher
 Zabel
 Zachmann
 Zaeltzer
@@ -5709,6 +5675,7 @@ Zdziarstek
 Zech
 Zeidler
 Zeigler
+Zeiler
 Zeissolf
 Zeitz
 Zelic
@@ -5736,6 +5703,7 @@ Zillner
 Zimmerman
 Zimmermann
 Zingler
+Zink
 Zinnram
 Zinram
 Zipfel
@@ -5749,16 +5717,258 @@ Zollikofer
 Zorn
 Zorndorf
 Zschimmer
+Zuber
+Zurhelle
+Zurhellen
+Zurloh
+Zurmühl
+Zweigard
+Zöllner
+Zügel
+Zühlsdorff
+Zürcher
+auf der Beeck
+auf der Heyden
+aufm Bemberg
+aufm Flüß
+aufm Platz
+aufm Selhof
+da Silva Correra
+de Barros
+de Geer
+de Haen
+de Martino
+de Precantal
+de Remeux
+de Roer
+de Ruig
+de Weerth
+de West
+de Yturbe
+del saux
+im Feld
+im Grossen Haus
+im Weerth
+im werth
+kirkpatrick
+kleine Schlarmann
+le Tanneux
+mahnert
+meyer
+nickhorn
+ter Huurne
+ter Meer
+thum Bemberch
+ufm Bemberg
+vahle
+van Almsick
+van Berendrecht
+van Broich
+van Bynum
+van Calker
+van Dyck
+van Dyke
+van Erden
+van Erk
+van Haar
+van Hees
+van Holst
+van Os
+van Patten
+van Porten
+van Vliet
+van de Loo
+van den Berg
+van den Bogaert
+van der Beeck
+van der Hoek
+van der Linden
+van der Mark
+van der Meij
+van der Vegte
+vom Bruch
+vom Busch
+vom Draubenthal
+vom Eygen
+vom Gorreshaus
+vom Heidt
+vom Loh
+vom Rath
+vom Scheidt
+vom Schlebusch
+vom Stein
+vom Ufer
+von Ascheberg
+von Asten
+von Auenmüller
+von Baer
+von Bandel
+von Bauer
+von Baum
+von Beckerath
+von Berkentin
+von Blankensee
+von Boehn
+von Boetzelaer
+von Bohlen
+von Borries
+von Bose
+von Bottlenberg
+von Broich
+von Bronckhorst
+von Bunsen
+von Busse
+von Bülow
+von Carlowitz
+von Carnap
+von Ciriacy-Wantrup
+von Cotzhausen
+von Cramon
+von Doornick
+von Drachenfels
+von Döllen
+von Eiken
+von Elberfeld
+von Elseip
+von Eynern
+von Falkenhausen
+von Fangen
+von Fersen
+von Flodorf
+von Frowein
+von Gaertner
+von Glasenapp
+von Goertzen
+von Griesheim
+von Grumbkow
+von Guionneau
+von Gwinner
+von Gyldenfeldt
+von Gäßler
+von Hagenow
+von Heimburg
+von Helmolt
+von Herssel
+von Hippel
+von Hohrade
+von Hurter
+von Häsler
+von Hüchtenbrock
+von Hühnersdorf
+von Kap-her
+von Kleist
+von Kleist-Damen
+von Knapp
+von Knappersbusch
+von Knieriem
+von Kotzebue
+von Krause-Bendeleben
+von Krockow
+von Krosigk
+von Kummer
+von Kügelgen
+von Laer
+von Lemcke
+von Lingelsheim
+von Linn
+von Loessl
+von Magelmann
+von Malaisé
+von Marcard
+von Massov
+von Meverden
+von Michael
+von Moeller
+von Moerbeck
+von Moers
+von Mom
+von Mosch
+von Mumm
+von Möller
+von Münster
+von Nedden
+von Neukirch
+von Oberschüer
+von Oertzen
+von Osterroth
+von Ostrowski
+von Pelchrzim
+von Plettenberg
+von Puttkamer
+von Redern
+von Rennenkampff
+von Retraedt
+von Retraidt
+von Rhade
+von Rhoden
+von Riesch
+von Riescheidt
+von Rosenkrantz
+von Saldern
+von Salmuth
+von Salzen
+von Sanden
+von Schaaffhausen
+von Schaedtler
+von Schaffhausen
+von Schimpff
+von Schorlemmer
+von Schuengele
+von Schwabach
+von Scleinitz
+von Soden
+von Somnitz
+von Stecher
+von Steinen
+von Studnitz
+von Stumm
+von Stutterheim
+von Syberg
+von Taysen
+von Theinen
+von Ulenbrock
+von Volkershoven
+von Wachendorp
+von Walther
+von Werne
+von Withof
+von Witzmann
+von Wolff
+von Wrisberg
+von Wuelfing
+von Wülfing
+von Zart
+von Zastrow
+von Zeromski
+von Zeschwitz
+von Zezschwitz
+von Zitzewitz
+von der Beeck
+von der Brincken
+von der Dunck
+von der Hedt
+von der Herberg
+von der Heyde
+von der Heydt
+von der Höhe
+von der Mark
+von der Marwitz
+von der Ovelgunne
+von der Reith
+von der Scheuren
+von der Steineich
+von der Weiden
+wichmann
+wiesbrock
 zu Brasel
 zu Brauckenhaus
 zu Carnap
-zu den Dornen
 zu Elsiepen
 zu Hüchtenbrock
 zu Nedden
 zu Riescheid
 zu Syberg
-Zuber
+zu den Dornen
 zum Bimberg
 zum Busch
 zum Loh
@@ -5766,8 +5976,9 @@ zum Stein
 zur Dauben
 zur Linden
 zur Schüren
-Zurhelle
-Zurhellen
-Zurloh
-Zurmühl
-Zweigard
+Ölfner
+Özarslan
+Özcan
+Özogul
+Öztas
+Öztürk
