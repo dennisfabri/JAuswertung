@@ -1,41 +1,44 @@
 package de.df.jauswertung.misc;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.TextFileUtils;
 
 public class Namenextraktor {
 
-    private static String[]           vornamenM    = null;
-    private static String[]           vornamenW    = null;
-    private static String[]           nachnamen    = null;
+    private static Set<String> vornamenM = null;
+    private static Set<String> vornamenW = null;
+    private static Set<String> nachnamen = null;
 
-    private static LinkedList<String> vornamenMNeu = new LinkedList<String>();
-    private static LinkedList<String> vornamenWNeu = new LinkedList<String>();
-    private static LinkedList<String> nachnamenNeu = new LinkedList<String>();
+    private static List<String> vornamenMNeu = new ArrayList<>();
+    private static List<String> vornamenWNeu = new ArrayList<>();
+    private static List<String> nachnamenNeu = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        vornamenM = readNamen("VornamenM.txt", new String[0]);
-        vornamenW = readNamen("VornamenW.txt", new String[0]);
-        nachnamen = readNamen("Nachnamen.txt", new String[0]);
+        vornamenM = readNamen("VornamenM.txt");
+        vornamenW = readNamen("VornamenW.txt");
+        nachnamen = readNamen("Nachnamen.txt");
 
-        System.out.println(vornamenM.length);
+        System.out.println("Vornamen m: " + vornamenM.size());
+        System.out.println("Vornamen w: " + vornamenW.size());
+        System.out.println("Nachnamen: " + nachnamen.size());
 
-        File[] files = new File("data/").listFiles(new FileFilter() {
-
-            @Override
-            public boolean accept(File pathname) {
-                if (pathname.isFile()) {
-                    if (pathname.getAbsolutePath().endsWith(".wk")) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+        File[] files = new File("data/")
+                .listFiles(pathname -> pathname.isFile() && pathname.getAbsolutePath().endsWith(".wk"));
         for (File file : files) {
             try {
                 System.out.println("Lade " + file.getAbsolutePath());
@@ -50,15 +53,15 @@ public class Namenextraktor {
 
         String[] data = vornamenMNeu.toArray(new String[vornamenMNeu.size()]);
         Arrays.sort(data);
-        writeFile("vornamenM.txt", data);
+        writeFile("vornamenM1.txt", data);
 
         data = vornamenWNeu.toArray(new String[vornamenWNeu.size()]);
         Arrays.sort(data);
-        writeFile("vornamenW.txt", data);
+        writeFile("vornamenW1.txt", data);
 
         data = nachnamenNeu.toArray(new String[nachnamenNeu.size()]);
         Arrays.sort(data);
-        writeFile("nachnamen.txt", data);
+        writeFile("nachnamen1.txt", data);
     }
 
     private static void process(AWettkampf<?> wk) {
@@ -67,36 +70,42 @@ public class Namenextraktor {
             for (Teilnehmer t : ewk.getSchwimmer()) {
                 String vorname = t.getVorname();
                 String nachname = t.getNachname();
-                if (t.isMaennlich()) {
-                    if (!contains(vornamenM, vorname) && !vornamenMNeu.contains(vorname) && !contains(nachnamen, vorname)) {
-                        vornamenMNeu.add(vorname);
-                    }
-                } else {
-                    if (!contains(vornamenW, vorname) && !vornamenWNeu.contains(vorname) && !contains(nachnamen, vorname)) {
-                        vornamenWNeu.add(vorname);
+                if (!vorname.contains(" ") && !vorname.contains("?")) {
+                    if (t.isMaennlich()) {
+                        if (!vornamenM.contains(vorname) && !vornamenMNeu.contains(vorname)
+                                && !nachnamen.contains(vorname)) {
+                            vornamenMNeu.add(vorname);
+                        }
+                    } else {
+                        if (!vornamenW.contains(vorname) && !vornamenWNeu.contains(vorname)
+                                && !nachnamen.contains(vorname)) {
+                            vornamenWNeu.add(vorname);
+                        }
                     }
                 }
-                if (!contains(nachnamen, nachname) && !nachnamenNeu.contains(nachname) && !contains(vornamenM, nachname) && !contains(vornamenW, nachname)) {
-                    nachnamenNeu.add(nachname);
+                if (!nachname.contains("?")) {
+                    if (!nachnamen.contains(nachname) && !nachnamenNeu.contains(nachname)
+                            && !vornamenM.contains(nachname)
+                            && !vornamenW.contains(nachname)) {
+                        nachnamenNeu.add(nachname);
+                    }
                 }
             }
         }
     }
 
-    private static boolean contains(String[] data, String text) {
-        for (String d : data) {
-            if (d.equals(text)) {
-                return true;
-            }
+    private static Set<String> readNamen(String name) {
+        try {
+            return new HashSet<>(
+                    Files.readAllLines(Path.of("jauswertung-files", "src", "main", "resources", "names", name),
+                            Charset.forName("Cp1252")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return new HashSet<>();
         }
-        return false;
-    }
-
-    private static String[] readNamen(String date, String[] backup) {
-        return TextFileUtils.fileToStringArray("include/main/names", date, backup, false);
     }
 
     private static boolean writeFile(String date, String[] backup) {
-        return TextFileUtils.StringArrayToFile(".", date, backup);
+        return TextFileUtils.StringArrayToFile("jauswertung-files/src/main/resources/names", date, backup);
     }
 }

@@ -19,6 +19,9 @@ bin/
 
 /data/
 
+~*.xlsx
+~*.docx
+
 *.txt.csv
 *.wk
 /*.html
