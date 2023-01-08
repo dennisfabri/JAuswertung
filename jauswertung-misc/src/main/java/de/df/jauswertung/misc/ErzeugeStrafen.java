@@ -102,11 +102,11 @@ public final class ErzeugeStrafen {
     }
 
     public static void main(String[] args) throws IOException {
-        int jahr = 2021;
+        int jahr = 2023;
 
-        strafen("src/test/files/Strafen/Strafen " + jahr + ".xls", "src/main/files/penalties/default.def",
+        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls", "jauswertung-files/src/main/resources/penalties/default.def",
                 null);
-        strafen("src/test/files/Strafen/Strafen " + jahr + ".xls", "src/main/files/penalties/defaultm.def",
+        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls", "jauswertung-files/src/main/resources/penalties/defaultm.def",
                 teamDefs);
         // strafen("required/Strafen/Strafen International - Pool.xls",
         // "include/main/penalties/International - Pool.def");
