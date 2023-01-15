@@ -28,10 +28,10 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 public class RefereePrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -84,7 +84,8 @@ public class RefereePrinter implements Printer {
 
     @SuppressWarnings({})
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(RefereesPrintableCreator.createRefereesPrintable(core.getWettkampf()), core.getLastChangedDate(), true,
+        return PrintManager.getFinalPrintable(RefereesPrintableCreator.createRefereesPrintable(core.getWettkampf()),
+                core.getLastChangedDate(), true,
                 I18n.get("Referees"));
     }
 
@@ -106,7 +107,8 @@ public class RefereePrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Referees"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Referees"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

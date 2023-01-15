@@ -64,7 +64,9 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         @Override
         public void doOk() {
             schwimmer.addStrafe(disziplin, (Strafe) penalty.getSelectedItem());
-            controller.sendDataUpdateEvent("SetPenalty", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, disziplin,
+            controller.sendDataUpdateEvent("SetPenalty",
+                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer,
+                    disziplin,
                     null);
         }
 
@@ -86,7 +88,9 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         @Override
         public void doOk() {
             schwimmer.addStrafe(id, (Strafe) penalty.getSelectedItem());
-            controller.sendDataUpdateEvent("SetPenalty", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id, null);
+            controller.sendDataUpdateEvent("SetPenalty",
+                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id,
+                    null);
         }
 
         @Override
@@ -103,14 +107,14 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = 3256719580843227188L;
 
-    IPenaltyAdditorStrategy   strategy         = null;
-    final AWettkampf<T>       wk;
-    final T                   schwimmer;
-    JComboBox<Strafe>         penalty          = null;
-    JButton                   ok               = null;
-    final IPluginManager      controller;
+    IPenaltyAdditorStrategy strategy = null;
+    final AWettkampf<T> wk;
+    final T schwimmer;
+    JComboBox<Strafe> penalty = null;
+    JButton ok = null;
+    final IPluginManager controller;
 
-    final LinkedList<Strafe>  penalties;
+    final LinkedList<Strafe> penalties;
 
     private JPenaltyAdditor(IPluginManager controller, AWettkampf<T> wk, T s, Strafen strafen) {
         super(controller.getWindow(), I18n.get("PenaltyPointsInput"), true);
@@ -212,7 +216,8 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         penalty = new JComboBox<Strafe>(penalties.toArray(new Strafe[penalties.size()]));
         penalty.setRenderer(new PenaltyShortTextListRenderer());
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));

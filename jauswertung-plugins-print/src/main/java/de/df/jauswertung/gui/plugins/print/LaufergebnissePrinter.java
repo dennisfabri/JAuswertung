@@ -40,10 +40,10 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 class LaufergebnissePrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -83,6 +83,7 @@ class LaufergebnissePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -92,6 +93,7 @@ class LaufergebnissePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -116,7 +118,8 @@ class LaufergebnissePrinter implements Printer {
     static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk) {
         JTable table = TableHeatUtils.getLaufzeiten(wk, PrintUtils.printEmptyLanes);
         Printable p = PrintManager.getPrintable(table, (String) null, JTablePrintable.OPT_ALL, true, true);
-        return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("Laufzeiten"), I18n.get("Laufzeiten"));
+        return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("Laufzeiten"),
+                I18n.get("Laufzeiten"));
     }
 
     <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(OWSelection t) {
@@ -131,7 +134,8 @@ class LaufergebnissePrinter implements Printer {
             for (OWSelection s : t) {
                 wkx.add(createCompetitionFor(s));
             }
-            PrintExecutor.print(getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()])), I18n.get("Laufzeiten"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()])),
+                    I18n.get("Laufzeiten"), true, controller.getWindow());
         }
 
         @Override
@@ -146,7 +150,8 @@ class LaufergebnissePrinter implements Printer {
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, false), cb);
             } else {
                 PrintExecutor.print(getPrintable(wk), I18n.get("Laufzeiten"), true, controller.getWindow());
@@ -182,14 +187,18 @@ class LaufergebnissePrinter implements Printer {
                             for (OWSelection s : t) {
                                 wkx.add(createCompetitionFor(s));
                             }
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])), I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                            PrintExecutor.preview(controller.getWindow(),
+                                    new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])),
+                                    I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, false), cb);
             } else {
-                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }),
+                        I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

@@ -7,12 +7,12 @@ public final class TableEntryException extends Exception {
 
     private static final long serialVersionUID = -6431012784221130245L;
 
-    private final String      data;
+    private final String data;
 
-    private String            sheet            = null;
-    private String            file             = null;
-    private int               row              = -1;
-    private int               column           = -1;
+    private String sheet = null;
+    private String file = null;
+    private int row = -1;
+    private int column = -1;
 
     public TableEntryException(String d, String file, String sheet, int row, int column) {
         super("Wrong Entry format (" + d + ")!");

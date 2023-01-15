@@ -20,8 +20,8 @@ public class GesamtwertungSchwimmer extends ASchwimmer {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 3688785886313854264L;
-    private double[]          punkte;
-    private Strafarten        misc             = Strafarten.STRAFPUNKTE;
+    private double[] punkte;
+    private Strafarten misc = Strafarten.STRAFPUNKTE;
 
     /** Creates a new instance of GesamtwertungSchwimmer */
     public GesamtwertungSchwimmer(AWettkampf<GesamtwertungSchwimmer> wk, String gliederung, int aks) {

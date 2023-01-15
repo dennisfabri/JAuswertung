@@ -16,12 +16,12 @@ import de.df.jutils.gui.jtable.JTableUtils;
 
 class TableTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T> {
 
-    private static final long       serialVersionUID = -587285451733079256L;
+    private static final long serialVersionUID = -587285451733079256L;
 
-    private int                     row              = -1;
-    private int                     col              = -1;
+    private int row = -1;
+    private int col = -1;
 
-    private AWettkampf<T>           wk;
+    private AWettkampf<T> wk;
     private JLauflisteBearbeiten<T> parent;
 
     TableTransferHandler(JLauflisteBearbeiten<T> lb, AWettkampf<T> w) {
@@ -81,8 +81,8 @@ class TableTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T>
     private static class CleanUpRunnable implements Runnable {
 
         private JTable table;
-        private int    x;
-        private int    y;
+        private int x;
+        private int y;
 
         public CleanUpRunnable(JTable model, int x, int y) {
             this.x = x;

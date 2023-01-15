@@ -6,9 +6,9 @@ public class Kampfrichter implements Serializable {
 
     private static final long serialVersionUID = 5335749933632670503L;
 
-    private String            name;
-    private String            bemerkung;
-    private String            gliederung;
+    private String name;
+    private String bemerkung;
+    private String gliederung;
     private KampfrichterStufe stufe;
 
     public Kampfrichter() {

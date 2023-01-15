@@ -45,7 +45,8 @@ public final class AltersklassenUtils {
         return count;
     }
 
-    private static String[] DISCIPLINE_PREFIXES = new String[] { "1x", "2x", "3x", "4x", "1*", "2*", "3*", "4*", "25m", "50m", "100m", "200m" };
+    private static String[] DISCIPLINE_PREFIXES = new String[] { "1x", "2x", "3x", "4x", "1*", "2*", "3*", "4*", "25m",
+            "50m", "100m", "200m" };
 
     public static <T extends ASchwimmer> int getUniqueDisciplinesCount(AWettkampf<T> wk) {
         Regelwerk aks = wk.getRegelwerk();
@@ -72,7 +73,6 @@ public final class AltersklassenUtils {
         }
         return result.size() + (aks.hasHlw() ? 1 : 0);
     }
-
 
     public static int getAkNummer(final Altersklasse ak, final Regelwerk aks) {
         if (ak == null) {

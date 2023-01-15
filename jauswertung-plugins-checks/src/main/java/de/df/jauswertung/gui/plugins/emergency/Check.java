@@ -23,7 +23,7 @@ public class Check {
     private final IPlugin parent;
     private final IPluginManager controller;
     private final CorePlugin core;
-    
+
     protected String jahr;
     private LinkedList<RecWert> recs = new LinkedList<>();
 
@@ -31,7 +31,7 @@ public class Check {
         parent = emergencyPlugin;
         this.controller = controller;
         this.core = core;
-        
+
         jahr = j;
     }
 
@@ -127,7 +127,7 @@ public class Check {
         }
         return changed;
     }
-    
+
     private Disziplin findeDisziplin(Regelwerk aks, RecWert rec) {
         int index = aks.getIndex(rec.Altersklasse);
         if (index < 0) {
@@ -138,6 +138,6 @@ public class Check {
             return null;
         }
         return ak.getDisziplin(rec.Disziplin, rec.Maennlich);
-        
+
     }
 }

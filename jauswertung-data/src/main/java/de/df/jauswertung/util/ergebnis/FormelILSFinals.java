@@ -63,7 +63,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
     class ComparatorT2 implements Comparator<SchwimmerData<T>> {
 
         private final Map<Integer, SchwimmerInfo<T>> hsi;
-        private final ILSComparator                        c = new ILSComparator();
+        private final ILSComparator c = new ILSComparator();
 
         public ComparatorT2(Map<Integer, SchwimmerInfo<T>> si) {
             hsi = si;
@@ -164,6 +164,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
      */
     @Override
@@ -181,7 +182,8 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS mit Finals";
     }
 
-    private void setPointsDirect(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes, boolean isQualified,
+    private void setPointsDirect(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes, boolean isQualified,
             boolean isFinal, int round) {
         T s = swimmer[0].getSchwimmer();
         Altersklasse ak = s.getAK();
@@ -277,12 +279,14 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     @SuppressWarnings({ "unchecked", "null" })
     @Override
-    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes) {
+    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes) {
         if (swimmer.length == 0) {
             return;
         }
         if (wk.getLauflisteOW().isEmpty() && wk.getLaufliste() != null && !wk.getLaufliste().isEmpty()) {
-            setPointsDirect(wk, swimmer, d, zes, wk.getBooleanProperty("isQualified"), wk.getBooleanProperty("isFinal"), wk.getIntegerProperty("round"));
+            setPointsDirect(wk, swimmer, d, zes, wk.getBooleanProperty("isQualified"), wk.getBooleanProperty("isFinal"),
+                    wk.getIntegerProperty("round"));
             return;
         }
 

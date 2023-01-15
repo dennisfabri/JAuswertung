@@ -22,9 +22,9 @@ public class SchwimmerListCellRenderer implements ListCellRenderer<ASchwimmer> {
 
     private final DefaultListCellRenderer parent;
 
-    private JLabel                        none;
+    private JLabel none;
 
-    private JLabel                        l;
+    private JLabel l;
 
     public SchwimmerListCellRenderer() {
         parent = new DefaultListCellRenderer();
@@ -39,7 +39,8 @@ public class SchwimmerListCellRenderer implements ListCellRenderer<ASchwimmer> {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public Component getListCellRendererComponent(JList list, ASchwimmer value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, ASchwimmer value, int index, boolean isSelected,
+            boolean cellHasFocus) {
         Component c = parent.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         return getListRenderData(value, c.getBackground(), c.getForeground());
     }
@@ -57,7 +58,8 @@ public class SchwimmerListCellRenderer implements ListCellRenderer<ASchwimmer> {
         } else {
             l.setIcon(IconManager.getBigIcon("team"));
         }
-        l.setText(I18n.get("SwimmerID", swimmer.getName(), StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(),
+        l.setText(I18n.get("SwimmerID", swimmer.getName(), StartnumberFormatManager.format(swimmer),
+                swimmer.getAK().getName(),
                 I18n.geschlechtToString(swimmer), swimmer.getGliederungMitQGliederung()));
 
         return l;

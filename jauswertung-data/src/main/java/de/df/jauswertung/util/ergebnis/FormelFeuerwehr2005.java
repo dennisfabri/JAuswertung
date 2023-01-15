@@ -39,7 +39,8 @@ public class FormelFeuerwehr2005<T extends ASchwimmer> implements Formel<T> {
             Teilnehmer t = (Teilnehmer) sd1.getSchwimmer();
             int jahrgang = t.getJahrgang();
             if ((jahrgang > 0) && (d.getRec() > 0)) {
-                int base = t.getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION, Calendar.getInstance().get(Calendar.YEAR));
+                int base = t.getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION,
+                        Calendar.getInstance().get(Calendar.YEAR));
                 double alter = base - jahrgang;
                 if (alter > 28.99) {
                     time1 -= 100.0 * (alter - 29.0) / (1.0 * d.getRec());
@@ -112,6 +113,7 @@ public class FormelFeuerwehr2005<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
      */
     @Override
@@ -169,7 +171,8 @@ public class FormelFeuerwehr2005<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     @SuppressWarnings("rawtypes")
-    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes) {
+    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes) {
         if (swimmer.length == 0) {
             return;
         }
@@ -224,7 +227,8 @@ public class FormelFeuerwehr2005<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     @SuppressWarnings("rawtypes")
-    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak, Hashtable<String, Zielrichterentscheid<T>> zes,
+    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
+            Hashtable<String, Zielrichterentscheid<T>> zes,
             boolean zw) {
         for (SchwimmerResult result : results) {
             SchwimmerData[] daten = result.getResults();

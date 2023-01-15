@@ -7,11 +7,11 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 
 public class Timelimits implements Serializable {
 
-    private String             name      = "";
-    private String             shortname = "";
-    private Timelimitchecktype check     = Timelimitchecktype.UPPER_LIMIT;
+    private String name = "";
+    private String shortname = "";
+    private Timelimitchecktype check = Timelimitchecktype.UPPER_LIMIT;
 
-    private Timelimit[]        limits    = new Timelimit[0];
+    private Timelimit[] limits = new Timelimit[0];
 
     public Timelimits() {
     }

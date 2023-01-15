@@ -27,9 +27,9 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JStatusButton extends JToggleButton {
 
-    final JPopupMenu   dialog;
+    final JPopupMenu dialog;
 
-    final CorePlugin   core;
+    final CorePlugin core;
 
     private JLabel[][] text = new JLabel[0][3];
 
@@ -88,7 +88,8 @@ public class JStatusButton extends JToggleButton {
         JLabel[][] text2 = new JLabel[size + offset][3];
 
         if (text.length < offset) {
-            text2[0] = new JLabel[] { new JLabel(I18n.get("AgeGroup")), new JLabel(I18n.get("female")), new JLabel(I18n.get("male")) };
+            text2[0] = new JLabel[] { new JLabel(I18n.get("AgeGroup")), new JLabel(I18n.get("female")),
+                    new JLabel(I18n.get("male")) };
         } else {
             System.arraycopy(text, 0, text2, 0, offset);
         }
@@ -131,7 +132,8 @@ public class JStatusButton extends JToggleButton {
         text = text2;
 
         dialog.removeAll();
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,center:default,4dlu,center:default,4dlu", FormLayoutUtils.createLayoutString(text2.length));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,center:default,4dlu,center:default,4dlu",
+                FormLayoutUtils.createLayoutString(text2.length));
         layout.setColumnGroups(new int[][] { { 4, 6 } });
         dialog.setLayout(layout);
 
@@ -174,7 +176,8 @@ public class JStatusButton extends JToggleButton {
         int offsety = (height - 4) / 2;
 
         g.setColor(Color.BLACK);
-        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 }, 3);
+        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 },
+                3);
 
         return new ImageIcon(i);
     }

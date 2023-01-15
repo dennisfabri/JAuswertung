@@ -17,12 +17,12 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 public class PenaltyImageListCellRenderer<T> implements ListCellRenderer<T> {
 
     @SuppressWarnings("rawtypes")
-    private ListCellRenderer parent     = new DefaultListCellRenderer();
+    private ListCellRenderer parent = new DefaultListCellRenderer();
 
-    private JLabel           none;
-    private JLabel           image;
+    private JLabel none;
+    private JLabel image;
 
-    private boolean          alwaysDisq = false;
+    private boolean alwaysDisq = false;
 
     public PenaltyImageListCellRenderer() {
         this(false);
@@ -40,7 +40,8 @@ public class PenaltyImageListCellRenderer<T> implements ListCellRenderer<T> {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected,
+            boolean cellHasFocus) {
         @SuppressWarnings("unchecked")
         Component c = parent.getListCellRendererComponent(list, "", index, isSelected, cellHasFocus);
         if (!(value instanceof Strafe)) {
@@ -63,23 +64,28 @@ public class PenaltyImageListCellRenderer<T> implements ListCellRenderer<T> {
         switch (strafe.getArt()) {
         case AUSSCHLUSS:
             image.setIcon(IconManager.getBigIcon("ausschluss"));
-            image.setText(I18n.get("PenaltyDebarment", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
+            image.setText(
+                    I18n.get("PenaltyDebarment", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
             break;
         case NICHT_ANGETRETEN:
             image.setIcon(IconManager.getBigIcon("didnotstart"));
-            image.setText(I18n.get("PenaltyDidNotStart", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
+            image.setText(
+                    I18n.get("PenaltyDidNotStart", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
             break;
         case DISQUALIFIKATION:
             image.setIcon(IconManager.getBigIcon("disqualification"));
-            image.setText(I18n.get("PenaltyDisqualification", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
+            image.setText(I18n.get("PenaltyDisqualification", strafe.getName(), strafe.getShortname(),
+                    strafe.getStrafpunkte()));
             break;
         case STRAFPUNKTE:
             if (strafe.getStrafpunkte() > 0) {
                 image.setIcon(IconManager.getBigIcon("penaltypoints"));
-                image.setText(I18n.get("PenaltyPoints", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
+                image.setText(
+                        I18n.get("PenaltyPoints", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
             } else {
                 image.setIcon(IconManager.getBigIcon("nopoints"));
-                image.setText(I18n.get("PenaltyPoints", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
+                image.setText(
+                        I18n.get("PenaltyPoints", strafe.getName(), strafe.getShortname(), strafe.getStrafpunkte()));
             }
             break;
         default:

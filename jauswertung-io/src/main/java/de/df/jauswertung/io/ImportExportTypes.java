@@ -3,7 +3,7 @@ package de.df.jauswertung.io;
 import java.util.Arrays;
 
 public enum ImportExportTypes {
-    
+
     REGISTRATION(0),
     HEATLIST(1),
     STARTKARTEN(2),
@@ -22,13 +22,13 @@ public enum ImportExportTypes {
     TIMES(15),
     REGISTRATION_UPDATE(16),
     STARTERS(17);
-    
+
     private final int value;
-    
+
     private ImportExportTypes(int value) {
         this.value = value;
     }
-    
+
     public int getValue() {
         return value;
     }

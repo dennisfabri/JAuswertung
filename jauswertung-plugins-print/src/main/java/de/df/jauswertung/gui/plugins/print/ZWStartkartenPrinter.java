@@ -33,9 +33,9 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class ZWStartkartenPrinter implements Printer {
 
-    IPluginManager    controller;
+    IPluginManager controller;
 
-    private JPanel    panel;
+    private JPanel panel;
     private JComboBox pages;
 
     /**
@@ -47,7 +47,8 @@ class ZWStartkartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -67,6 +68,7 @@ class ZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -76,6 +78,7 @@ class ZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -123,7 +126,8 @@ class ZWStartkartenPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("ZWStartkarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("ZWStartkarten"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

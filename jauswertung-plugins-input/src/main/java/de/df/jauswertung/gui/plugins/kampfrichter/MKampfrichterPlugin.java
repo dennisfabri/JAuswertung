@@ -21,9 +21,9 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MKampfrichterPlugin extends ANullPlugin {
 
-    private JMenuItem  neu;
-    private JMenuItem  edit;
-    private JMenu      menu;
+    private JMenuItem neu;
+    private JMenuItem edit;
+    private JMenu menu;
     private CorePlugin core;
 
     public MKampfrichterPlugin() {
@@ -84,7 +84,8 @@ public class MKampfrichterPlugin extends ANullPlugin {
         wk.setKampfrichterverwaltung(nkv.getKampfrichter());
 
         showManager(true);
-        // getController().sendDataUpdateEvent("RefereesChanged", UpdateEventConstants.REASON_REFEREES_CHANGED, null);
+        // getController().sendDataUpdateEvent("RefereesChanged",
+        // UpdateEventConstants.REASON_REFEREES_CHANGED, null);
     }
 
     void showManager(boolean createNew) {

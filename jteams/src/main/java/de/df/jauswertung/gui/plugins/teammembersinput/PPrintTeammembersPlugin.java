@@ -35,11 +35,11 @@ import de.df.jutils.print.PrintQueue;
  */
 public class PPrintTeammembersPlugin extends ANullPlugin {
 
-    private CorePlugin                  core = null;
-    WarningPlugin                       warner;
-    SelectOrganisationPlugin            selectOrganisation;
+    private CorePlugin core = null;
+    WarningPlugin warner;
+    SelectOrganisationPlugin selectOrganisation;
 
-    PrintCallback                       printcallback;
+    PrintCallback printcallback;
 
     private RegisteredTeamnamesPrinter2 teammembersprinter;
 
@@ -50,7 +50,8 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
 
     private void createTeammemberPrinters(IPluginManager controller, CorePlugin plugin, WarningPlugin warn) {
         teammembersprinter = new RegisteredTeamnamesPrinter2(controller, plugin);
-        teammembersprinter.dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED, plugin.getWettkampf(), plugin.getFilteredWettkampf());
+        teammembersprinter.dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED, plugin.getWettkampf(),
+                plugin.getFilteredWettkampf());
         if (selectOrganisation != null) {
             teammembersprinter.setOrganisation(selectOrganisation.getSelectedOrganisation());
         }
@@ -74,7 +75,8 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
 
         core = (CorePlugin) controller.getFeature("de.df.jauswertung.core", pluginuid);
         warner = (WarningPlugin) controller.getFeature("de.df.jauswertung.warning", pluginuid);
-        selectOrganisation = (SelectOrganisationPlugin) controller.getFeature("de.df.jauswertung.selectorganisation", pluginuid);
+        selectOrganisation = (SelectOrganisationPlugin) controller.getFeature("de.df.jauswertung.selectorganisation",
+                pluginuid);
 
         selectOrganisation.addSelectionListener(new ISelectionListener() {
             @Override
@@ -142,7 +144,8 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
         @Override
         @SuppressWarnings("synthetic-access")
         public void jobStarted(String job, int jobs) {
-            SwingUtilities.invokeLater(new StatusTextChanger(getController().getWindow(), I18n.get("PrintingJobOfJobs", job, jobs)));
+            SwingUtilities.invokeLater(
+                    new StatusTextChanger(getController().getWindow(), I18n.get("PrintingJobOfJobs", job, jobs)));
         }
 
         @Override
@@ -162,7 +165,7 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
     private final class StatusTextChanger implements Runnable {
 
         private final JPFrame frame;
-        private final String  text;
+        private final String text;
 
         public StatusTextChanger(JPFrame f, String t) {
             frame = f;

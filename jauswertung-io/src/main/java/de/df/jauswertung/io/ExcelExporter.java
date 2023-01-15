@@ -17,19 +17,22 @@ import de.df.jutils.gui.jtable.ExtendedTableModel;
 public class ExcelExporter extends ASpreadsheetExporter {
 
     @Override
-    protected void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
+    protected void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols,
+            String competition)
             throws IOException {
         ExcelWriter.write(name, tms, groupsize, repeatrows, repeatcols, competition);
     }
 
     @Override
-    protected void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows, Integer[] repeatcols,
+    protected void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows,
+            Integer[] repeatcols,
             String[] titles, String competition) throws IOException {
         ExcelWriter.write(name, tms, groupsize, repeatrows, repeatcols, titles, competition);
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#getType()
      */
     @Override
@@ -39,6 +42,7 @@ public class ExcelExporter extends ASpreadsheetExporter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#getSuffixes()
      */
     @Override

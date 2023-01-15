@@ -85,7 +85,8 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class PSearchPlugin extends ANullPlugin {
 
-    static final String[] IDS    = new String[] { "StartnumberShort", "Name", "Organisation", "Qualifikationsebene", "YearOfBirth", "ReportedPoints", "Comment",
+    static final String[] IDS = new String[] { "StartnumberShort", "Name", "Organisation", "Qualifikationsebene",
+            "YearOfBirth", "ReportedPoints", "Comment",
             "AgeGroup", "Sex", "QualifiedShort", "AusserKonkurrenz" };
 
     static final String[] TITLES = new String[IDS.length];
@@ -100,20 +101,21 @@ public class PSearchPlugin extends ANullPlugin {
         return 4;
     }
 
-    private static final long REASON_UPDATE = REASON_LOAD_WK | REASON_NEW_TN | REASON_NEW_WK | REASON_SWIMMER_DELETED | REASON_SWIMMER_CHANGED
+    private static final long REASON_UPDATE = REASON_LOAD_WK | REASON_NEW_TN | REASON_NEW_WK | REASON_SWIMMER_DELETED
+            | REASON_SWIMMER_CHANGED
             | REASON_GLIEDERUNG_CHANGED;
 
-    JPanel                    panel;
-    JTable                    result;
-    TableSorter               sorter;
+    JPanel panel;
+    JTable result;
+    TableSorter sorter;
 
-    JEditPopup                popup;
+    JEditPopup popup;
 
-    SimpleTableModel          model;
-    private boolean[]         enabledColumns;
-    private JIntegerField     startnummer;
+    SimpleTableModel model;
+    private boolean[] enabledColumns;
+    private JIntegerField startnummer;
     private JWarningTextField name;
-    private JDoubleField      points;
+    private JDoubleField points;
     private JWarningTextField bemerkung;
     private JWarningTextField gliederung;
     private JWarningTextField quali;
@@ -121,16 +123,16 @@ public class PSearchPlugin extends ANullPlugin {
     private JComboBox<String> geschlecht;
     private JComboBox<String> ausserk;
 
-    private JButton           edit;
-    private JButton           togglenames;
-    private JButton           delete;
+    private JButton edit;
+    private JButton togglenames;
+    private JButton delete;
 
     @SuppressWarnings("rawtypes")
-    private LinkedList        elements;
-    CorePlugin                core          = null;
-    FEditorPlugin             editor        = null;
-    StarterPlugin             starter       = null;
-    boolean                   einzel        = true;
+    private LinkedList elements;
+    CorePlugin core = null;
+    FEditorPlugin editor = null;
+    StarterPlugin starter = null;
+    boolean einzel = true;
 
     public PSearchPlugin() {
         super();
@@ -258,7 +260,8 @@ public class PSearchPlugin extends ANullPlugin {
             items = new String[] { I18n.get("female"), I18n.get("male"), I18n.get("All") };
         } else {
             Regelwerk rw = wk.getRegelwerk();
-            items = new String[] { I18n.geschlechtToStringSubject(rw, false), I18n.geschlechtToStringSubject(rw, true), I18n.get("All") };
+            items = new String[] { I18n.geschlechtToStringSubject(rw, false), I18n.geschlechtToStringSubject(rw, true),
+                    I18n.get("All") };
         }
         boolean changed = false;
         if (geschlecht.getModel().getSize() != items.length) {
@@ -282,7 +285,8 @@ public class PSearchPlugin extends ANullPlugin {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     void search() {
         AWettkampf wk = core.getWettkampf();
-        elements = SearchUtils.search(startnummer.getText(), name.getText(), points.getDouble(), bemerkung.getText(), gliederung.getText(), quali.getText(),
+        elements = SearchUtils.search(startnummer.getText(), name.getText(), points.getDouble(), bemerkung.getText(),
+                gliederung.getText(), quali.getText(),
                 altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex(), ausserk.getSelectedIndex(), wk);
         if (result.getRowCount() > elements.size()) {
             while (result.getRowCount() > elements.size()) {
@@ -549,9 +553,13 @@ public class PSearchPlugin extends ANullPlugin {
         ausserk.setSelectedIndex(2);
         ausserk.setToolTipText(I18n.getToolTip("SearchAusserKonkurrenz"));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default:grow," + "fill:default,4dlu,fill:default,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
-                        + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "fill:default:grow,4dlu");
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default:grow,"
+                        + "fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                        + "fill:default:grow,4dlu");
         layout.setRowGroups(new int[][] { { 4, 6, 8, 10, 12, 14, 16, 18, 20 } });
         layout.setColumnGroups(new int[][] { { 7, 9 } });
 
@@ -616,7 +624,8 @@ public class PSearchPlugin extends ANullPlugin {
         });
 
         JPanel p = new JPanel();
-        p.setLayout(new FormLayout("0dlu,fill:default,0dlu,fill:default,0dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
+        p.setLayout(
+                new FormLayout("0dlu,fill:default,0dlu,fill:default,0dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
 
         p.add(edit, CC.xy(2, 2));
         p.add(delete, CC.xy(4, 2));
@@ -699,17 +708,18 @@ public class PSearchPlugin extends ANullPlugin {
 
     @Override
     public PanelInfo[] getPanelInfos() {
-        return new PanelInfo[] { new PanelInfo(I18n.get("Registrations"), IconManager.getBigIcon("meldungen"), true, false, 300) {
+        return new PanelInfo[] {
+                new PanelInfo(I18n.get("Registrations"), IconManager.getBigIcon("meldungen"), true, false, 300) {
 
-            @Override
-            public JPanel getPanelI() {
-                if (panel == null) {
-                    initGUI();
-                    dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED);
-                }
-                return panel;
-            }
-        } };
+                    @Override
+                    public JPanel getPanelI() {
+                        if (panel == null) {
+                            initGUI();
+                            dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED);
+                        }
+                        return panel;
+                    }
+                } };
     }
 
     void bearbeiten() {
@@ -761,16 +771,16 @@ public class PSearchPlugin extends ANullPlugin {
         /**
          * Comment for <code>serialVersionUID</code>
          */
-        private static final long serialVersionUID    = 3256441404417716535L;
+        private static final long serialVersionUID = 3256441404417716535L;
 
-        JMenuItem                 edititem            = null;
-        JMenuItem                 starteritem         = null;
-        JMenuItem                 heatsitem           = null;
-        JMenuItem                 deleteitem          = null;
-        JMenuItem                 penaltyitem         = null;
-        JMenuItem                 toggleitem          = null;
-        JMenuItem                 renameOrganization  = null;
-        JMenuItem                 renameQOrganization = null;
+        JMenuItem edititem = null;
+        JMenuItem starteritem = null;
+        JMenuItem heatsitem = null;
+        JMenuItem deleteitem = null;
+        JMenuItem penaltyitem = null;
+        JMenuItem toggleitem = null;
+        JMenuItem renameOrganization = null;
+        JMenuItem renameQOrganization = null;
 
         public JEditPopup() {
             result.addMouseListener(new Listener());
@@ -873,7 +883,8 @@ public class PSearchPlugin extends ANullPlugin {
                         edititem.setEnabled(enabled);
                         heatsitem.setEnabled(enabled);
                         penaltyitem.setEnabled(enabled);
-                        toggleitem.setEnabled((result.getSelectedRowCount() > 0) && (core.getEinzelWettkampf() != null));
+                        toggleitem
+                                .setEnabled((result.getSelectedRowCount() > 0) && (core.getEinzelWettkampf() != null));
 
                         show(me.getComponent(), me.getX(), me.getY());
                     }
@@ -891,7 +902,7 @@ public class PSearchPlugin extends ANullPlugin {
 
         private static final long serialVersionUID = -2482446706877923019L;
 
-        JMenuItem[]               items            = new JMenuItem[IDS.length];
+        JMenuItem[] items = new JMenuItem[IDS.length];
 
         public JTableHeaderPopup() {
             result.getTableHeader().addMouseListener(new Listener());

@@ -21,18 +21,18 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     private static final long serialVersionUID = 6116586299663275071L;
 
-    public static final int   HLW              = -1;
+    public static final int HLW = -1;
 
-    private ASchwimmer[]      laufteilies      = null;
-    private int[]             diszes           = null;
-    private int               laufnummer       = 0;
-    private int               laufbuchstabe    = 0;
-    private boolean           leftToRight      = false;
+    private ASchwimmer[] laufteilies = null;
+    private int[] diszes = null;
+    private int laufnummer = 0;
+    private int laufbuchstabe = 0;
+    private boolean leftToRight = false;
 
-    private boolean[]         usable           = null;
+    private boolean[] usable = null;
 
-    private boolean           checked          = false;
-    private boolean           retyped          = false;
+    private boolean checked = false;
+    private boolean retyped = false;
 
     public Lauf(int bahnen, int lnummer, int lbuchstabe, boolean[] usable) {
         this(bahnen, lnummer, lbuchstabe);
@@ -409,7 +409,8 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     public boolean join(Lauf<T> l) {
         if (l.diszes.length != diszes.length) {
-            throw new IllegalArgumentException("Unequal lanes: Amount should be " + diszes.length + " but was " + l.diszes.length);
+            throw new IllegalArgumentException(
+                    "Unequal lanes: Amount should be " + diszes.length + " but was " + l.diszes.length);
             // return false;
         }
         boolean[] lanes = null;

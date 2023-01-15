@@ -35,24 +35,24 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class JHeatPresentationFrame extends JFrame {
 
-    private static final long    serialVersionUID = -7816858433328257749L;
+    private static final long serialVersionUID = -7816858433328257749L;
 
-    private int                  counter          = 0;
-    private int                  page             = 0;
+    private int counter = 0;
+    private int page = 0;
 
-    private boolean              mirror           = false;
-    private boolean              blackWhite       = true;
-    private Color                background       = Color.BLACK;
-    private Color                foreground       = Color.WHITE;
+    private boolean mirror = false;
+    private boolean blackWhite = true;
+    private Color background = Color.BLACK;
+    private Color foreground = Color.WHITE;
 
-    private Painter              painter          = null;
+    private Painter painter = null;
 
-    private CompetitionPresenter presenter        = null;
+    private CompetitionPresenter presenter = null;
 
-    private BufferedImage        image            = null;
-    private Component            panel            = null;
+    private BufferedImage image = null;
+    private Component panel = null;
 
-    private int                  rowCount         = 7;
+    private int rowCount = 7;
 
     public JHeatPresentationFrame(JFrame parent, int rowCount, CompetitionPresenter presenter) {
         super("Results");
@@ -220,7 +220,7 @@ public class JHeatPresentationFrame extends JFrame {
     }
 
     private GraphicsDevice screen = null;
-    private final Cursor   cursor = Toolkit.getDefaultToolkit()
+    private final Cursor cursor = Toolkit.getDefaultToolkit()
             .createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(1, 1), "");
 
     private void full(int screenIndex) {

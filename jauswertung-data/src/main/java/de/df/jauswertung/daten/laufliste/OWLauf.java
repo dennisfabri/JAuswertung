@@ -11,10 +11,10 @@ import de.df.jutils.util.StringTools;
 public class OWLauf<T extends ASchwimmer> implements Serializable {
 
     @SuppressWarnings("unchecked")
-    private T[]          schwimmer     = (T[]) new ASchwimmer[0];
+    private T[] schwimmer = (T[]) new ASchwimmer[0];
 
-    private int          laufnummer    = 0;
-    private int          laufbuchstabe = 0;
+    private int laufnummer = 0;
+    private int laufbuchstabe = 0;
     private final String disciplineId;
 
     @SuppressWarnings("unchecked")

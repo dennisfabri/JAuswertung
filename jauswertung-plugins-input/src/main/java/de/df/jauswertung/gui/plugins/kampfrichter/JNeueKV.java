@@ -43,13 +43,13 @@ class JNeueKV extends JDialog {
      */
     private static final long serialVersionUID = 3906935560202105655L;
 
-    private static String[]   einzelNamen      = null;
+    private static String[] einzelNamen = null;
 
-    JButtonBar                einzel           = getEinzelBar();
-    JButton                   cancel           = getCancelButton();
+    JButtonBar einzel = getEinzelBar();
+    JButton cancel = getCancelButton();
 
-    KampfrichterVerwaltung    result           = null;
-    JFrame                    parent           = null;
+    KampfrichterVerwaltung result = null;
+    JFrame parent = null;
 
     static {
         readFilenames();
@@ -62,7 +62,8 @@ class JNeueKV extends JDialog {
         JPanel info = createInfoPanel();
 
         JPanel c = new JPanel();
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
 
         c.setLayout(layout);
         c.add(einzel, CC.xywh(2, 2, 2, 1));
@@ -81,7 +82,8 @@ class JNeueKV extends JDialog {
     }
 
     private JPanel createInfoPanel() {
-        return UIUtils.createHeaderPanel(I18n.get("ChooseRefereePresets.Information"), I18n.get("ChooseRefereePresets.Note"));
+        return UIUtils.createHeaderPanel(I18n.get("ChooseRefereePresets.Information"),
+                I18n.get("ChooseRefereePresets.Note"));
     }
 
     private void addActions() {
@@ -156,7 +158,8 @@ class JNeueKV extends JDialog {
         buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("RefereeDefinitions"), true));
 
         for (String anEinzelNamen : einzelNamen) {
-            JButton aks = new JButton(anEinzelNamen.substring(3, anEinzelNamen.length() - 3), IconManager.getBigIcon("new"));
+            JButton aks = new JButton(anEinzelNamen.substring(3, anEinzelNamen.length() - 3),
+                    IconManager.getBigIcon("new"));
             aks.addActionListener(new ClickEinzelListener(anEinzelNamen));
             buttonBar.add(aks);
         }

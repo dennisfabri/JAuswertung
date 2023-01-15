@@ -54,7 +54,8 @@ abstract class AHeatTransferHandler<T extends ASchwimmer> extends TransferHandle
         }
         try {
             @SuppressWarnings("unchecked")
-            HeatTransferable.DnDContainer<T> dc = ((HeatTransferable.DnDContainer<T>) t.getTransferData(HeatTransferable.getFlavor()));
+            HeatTransferable.DnDContainer<T> dc = ((HeatTransferable.DnDContainer<T>) t
+                    .getTransferData(HeatTransferable.getFlavor()));
             SchwimmerDisziplin<T> sh = dc.data;
             importHeat(c, sh, dc.source);
             dc.destination = c;
@@ -74,7 +75,8 @@ abstract class AHeatTransferHandler<T extends ASchwimmer> extends TransferHandle
         try {
             if (t != null) {
                 @SuppressWarnings("unchecked")
-                HeatTransferable.DnDContainer<T> dc = (HeatTransferable.DnDContainer<T>) t.getTransferData(HeatTransferable.getFlavor());
+                HeatTransferable.DnDContainer<T> dc = (HeatTransferable.DnDContainer<T>) t
+                        .getTransferData(HeatTransferable.getFlavor());
                 cleanup(c, action == DnDConstants.ACTION_MOVE, dc.destination);
             }
         } catch (UnsupportedFlavorException e) {

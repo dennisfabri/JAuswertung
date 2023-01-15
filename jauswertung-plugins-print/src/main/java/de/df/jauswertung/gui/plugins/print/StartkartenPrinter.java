@@ -33,11 +33,11 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class StartkartenPrinter implements Printer {
 
-    IPluginManager            controller;
+    IPluginManager controller;
 
-    private JPanel            panel;
+    private JPanel panel;
     private JComboBox<String> pages;
-    private JCheckBox         etime;
+    private JCheckBox etime;
 
     public StartkartenPrinter(IPluginManager window) {
         controller = window;
@@ -45,7 +45,9 @@ class StartkartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -68,6 +70,7 @@ class StartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -77,6 +80,7 @@ class StartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -120,7 +124,8 @@ class StartkartenPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             PrintableCreator pc = () -> getPrintable();
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Startkarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Startkarten"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

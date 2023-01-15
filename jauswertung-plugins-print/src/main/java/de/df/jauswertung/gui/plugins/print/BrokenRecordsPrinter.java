@@ -58,14 +58,14 @@ import de.df.jutils.util.StringTools;
  */
 class BrokenRecordsPrinter implements Printer {
 
-    CorePlugin                core;
-    private IPluginManager    controller;
+    CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
-    private JLabel            filter;
-    private JLabel            warning;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
+    private JLabel warning;
     private JComboBox<String> agegroup;
     private JComboBox<String> allRecords;
 
@@ -104,7 +104,8 @@ class BrokenRecordsPrinter implements Printer {
             }
         });
 
-        allRecords = new JComboBox<String>(new String[] { I18n.get("BrokenRecords.All"), I18n.get("BrokenRecords.ValidOnly") });
+        allRecords = new JComboBox<String>(
+                new String[] { I18n.get("BrokenRecords.All"), I18n.get("BrokenRecords.ValidOnly") });
         allRecords.addActionListener(new ActionListener() {
 
             @Override
@@ -115,7 +116,9 @@ class BrokenRecordsPrinter implements Printer {
         allRecords.setSelectedIndex(1);
 
         panel = new JPanel(
-                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                new FormLayout(
+                        "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                                + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                         "4dlu,fill:default,4dlu"));
 
         panel.add(filter, CC.xy(2, 2));
@@ -137,7 +140,8 @@ class BrokenRecordsPrinter implements Printer {
                 agegroup.removeAllItems();
                 result = false;
             } else if ((wk != null) && (wk.hasSchwimmer())) {
-                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK
+                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED
+                        | REASON_FILTERS_CHANGED | REASON_LOAD_WK
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
@@ -181,6 +185,7 @@ class BrokenRecordsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -190,6 +195,7 @@ class BrokenRecordsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -256,7 +262,8 @@ class BrokenRecordsPrinter implements Printer {
                             continue;
                         }
                         Disziplin d = ak.getDisziplin(z, y == 1);
-                        if ((s.getZeit(z) < d.getRec()) && (s.getZeit(z) > 0) && (!onlyValid || !s.getAkkumulierteStrafe(z).isStrafe())) {
+                        if ((s.getZeit(z) < d.getRec()) && (s.getZeit(z) > 0)
+                                && (!onlyValid || !s.getAkkumulierteStrafe(z).isStrafe())) {
                             Object[] data = new Object[8];
                             data[0] = s.getName();
                             Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
@@ -280,8 +287,9 @@ class BrokenRecordsPrinter implements Printer {
             }
         }
 
-        TableModel tm = new DefaultTableModel(result.toArray(new Object[result.size()][0]), new Object[] { I18n.get("Name"), I18n.get("Organisation"), "",
-                I18n.get("AgeGroup"), I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Rec-Value") });
+        TableModel tm = new DefaultTableModel(result.toArray(new Object[result.size()][0]),
+                new Object[] { I18n.get("Name"), I18n.get("Organisation"), "",
+                        I18n.get("AgeGroup"), I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Rec-Value") });
         JTable table = new JTable(tm);
         if (PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 1);
@@ -291,7 +299,8 @@ class BrokenRecordsPrinter implements Printer {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     Printable getPrintable(AWettkampf wk, int index) {
-        return new JTablePrintable(getData(wk, index, allRecords.getSelectedIndex() == 1), JTablePrintable.OPT_ALL, true, PrintMode.FIT_WIDTH, true,
+        return new JTablePrintable(getData(wk, index, allRecords.getSelectedIndex() == 1), JTablePrintable.OPT_ALL,
+                true, PrintMode.FIT_WIDTH, true,
                 PrintManager.getFont());
     }
 
@@ -300,7 +309,8 @@ class BrokenRecordsPrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class ListOfMedalsPC implements PrintableCreator {

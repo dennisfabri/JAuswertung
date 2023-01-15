@@ -32,49 +32,48 @@ import de.df.jutils.util.StringTools;
  */
 public class Regelwerk implements Serializable {
 
-    private static final long          serialVersionUID         = -2388841285709038732L;
+    private static final long serialVersionUID = -2388841285709038732L;
 
     /**
      * Enthaelt alle Alterklassen.
      */
-    private Altersklasse[]             aks;
+    private Altersklasse[] aks;
     @XStreamAsAttribute
-    private String                     formel;
+    private String formel;
     @XStreamAsAttribute
-    private String                     beschreibung             = "";
+    private String beschreibung = "";
 
-    private Translation                translations             = new Translation();
-
-    @XStreamAsAttribute
-    private int                        zusatzwertungBasispunkte = 200;
+    private Translation translations = new Translation();
 
     @XStreamAsAttribute
-    private GroupEvaluationMode        gesamtwertungsmodus      = GroupEvaluationMode.All;
-    @XStreamAsAttribute
-    private boolean                    gesamtwertung            = false;
-    @XStreamAsAttribute
-    private boolean                    gesamtwertungHart        = false;
-    @XStreamAsAttribute
-    private Skalierungsmodus           gesamtwertungSkalieren   = Skalierungsmodus.KEINER;
+    private int zusatzwertungBasispunkte = 200;
 
     @XStreamAsAttribute
-    private String                     zusatzwertung            = "Zusatzwertung";
+    private GroupEvaluationMode gesamtwertungsmodus = GroupEvaluationMode.All;
     @XStreamAsAttribute
-    private String                     zusatzwertungKurz        = "ZW";
+    private boolean gesamtwertung = false;
+    @XStreamAsAttribute
+    private boolean gesamtwertungHart = false;
+    @XStreamAsAttribute
+    private Skalierungsmodus gesamtwertungSkalieren = Skalierungsmodus.KEINER;
 
-    private LinkedList<Startgruppe>    startgruppen             = new LinkedList<Startgruppe>();
-    private LinkedList<Wertungsgruppe> wertungsgruppen          = new LinkedList<Wertungsgruppe>();
+    @XStreamAsAttribute
+    private String zusatzwertung = "Zusatzwertung";
+    @XStreamAsAttribute
+    private String zusatzwertungKurz = "ZW";
+
+    private LinkedList<Startgruppe> startgruppen = new LinkedList<Startgruppe>();
+    private LinkedList<Wertungsgruppe> wertungsgruppen = new LinkedList<Wertungsgruppe>();
 
     /**
      * Gibt an, ob es sich um Einzel- oder Mannschaftsaltersklassen handelt.
      */
-    private final boolean              einzel;
+    private final boolean einzel;
 
     /**
      * Creates new Altersklassen
      * 
-     * @param _einzel
-     *            Einzel- oder Mannschaftsaltersklassen
+     * @param _einzel Einzel- oder Mannschaftsaltersklassen
      */
     public Regelwerk(boolean isEinzel, String formel) {
         einzel = isEinzel;
@@ -105,10 +104,8 @@ public class Regelwerk implements Serializable {
     /**
      * Erzeugt "anzahl" neue Altersklassen.
      * 
-     * @param anzahl
-     *            Gibt die Anzahl der zu erzeugenden Altersklassen an.
-     * @param _einzel
-     *            Mannschafts- oder Einzelaltersklassen
+     * @param anzahl  Gibt die Anzahl der zu erzeugenden Altersklassen an.
+     * @param _einzel Mannschafts- oder Einzelaltersklassen
      */
     public Regelwerk(int anzahl, boolean isEinzel, String formel) {
         einzel = isEinzel;
@@ -267,7 +264,7 @@ public class Regelwerk implements Serializable {
         }
         return wertungsgruppen.remove(gruppe);
     }
-    
+
     public void setSize(int count) {
         if (count == aks.length) {
             return;
@@ -456,9 +453,11 @@ public class Regelwerk implements Serializable {
         return getChecksum(aks);
     }
 
-    private static final String[] BASIC_NAMES_JUNIORS = new String[] { "ak12", "ak1112", "ak1314", "ak1516", "ak1718", "akoffen" };
+    private static final String[] BASIC_NAMES_JUNIORS = new String[] { "ak12", "ak1112", "ak1314", "ak1516", "ak1718",
+            "akoffen" };
 
-    private static final String[] BASIC_NAMES_MASTERS = new String[] { "ak25", "ak30", "ak35", "ak45", "ak50", "ak55", "ak60", "ak65", "ak70", "ak75", "ak80",
+    private static final String[] BASIC_NAMES_MASTERS = new String[] { "ak25", "ak30", "ak35", "ak45", "ak50", "ak55",
+            "ak60", "ak65", "ak70", "ak75", "ak80",
             "ak85", "ak90", "ak95", "ak100", "ak120", "ak140", "ak170", "ak200", "ak240", "ak280" };
 
     public String getJuniorsChecksum() {
@@ -475,7 +474,8 @@ public class Regelwerk implements Serializable {
         ListIterator<Altersklasse> li = akx.listIterator();
         while (li.hasNext()) {
             Altersklasse ak = li.next();
-            String name = ak.getName().toLowerCase().replace(" ", "").replace("/", "").replace("&", "").replace("-", "").replace("+", "");
+            String name = ak.getName().toLowerCase().replace(" ", "").replace("/", "").replace("&", "").replace("-", "")
+                    .replace("+", "");
             boolean found = false;
             for (String basicName : aknames) {
                 if (name.equals(basicName)) {

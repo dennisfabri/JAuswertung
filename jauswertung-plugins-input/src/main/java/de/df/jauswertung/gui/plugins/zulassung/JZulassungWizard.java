@@ -63,20 +63,21 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
      */
     private static final long serialVersionUID = 3545515093153625141L;
 
-    static final String[]     COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"), I18n.get("TeamCompetition") };
-    static final String[]     FORMATS          = ExportManager.getSupportedFormats();
+    static final String[] COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"),
+            I18n.get("TeamCompetition") };
+    static final String[] FORMATS = ExportManager.getSupportedFormats();
 
-    CorePlugin                core             = null;
-    IPluginManager            controller       = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
 
-    JKeepQualifiedPanel       keepqualified    = null;
-    JPreferProtocolPanel      protocol         = null;
-    JAmountPanel              amount           = null;
-    JMeldepunktePanel         meldung          = null;
-    JDirektPanel              direct           = null;
-    JHopersPanel              hopers           = null;
-    JResultPanel              result           = null;
-    Zulassung<ASchwimmer>     zulassung;
+    JKeepQualifiedPanel keepqualified = null;
+    JPreferProtocolPanel protocol = null;
+    JAmountPanel amount = null;
+    JMeldepunktePanel meldung = null;
+    JDirektPanel direct = null;
+    JHopersPanel hopers = null;
+    JResultPanel result = null;
+    Zulassung<ASchwimmer> zulassung;
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public JZulassungWizard(JFrame parent, CorePlugin c, IPluginManager con) {
@@ -171,7 +172,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
                     JZulassungWizard.this.setVisible(false);
                 } else {
                     JZulassungWizard.this.setEnabled(true);
-                    DialogUtils.error(JZulassungWizard.this, I18n.get("Error"), I18n.get("ZulassungFailed"), I18n.get("ZulassungFailed.Note"));
+                    DialogUtils.error(JZulassungWizard.this, I18n.get("Error"), I18n.get("ZulassungFailed"),
+                            I18n.get("ZulassungFailed.Note"));
                 }
                 setText("");
             }
@@ -180,7 +182,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
     }
 
     int finishZulassung() {
-        zulassung.calculate(amount.getInts(), direct.getInts(), hopers.getInts(), keepqualified.getKeep(), protocol.getPreferProtocol(),
+        zulassung.calculate(amount.getInts(), direct.getInts(), hopers.getInts(), keepqualified.getKeep(),
+                protocol.getPreferProtocol(),
                 meldung.getSelectedIndex());
         zulassung.execute();
         controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, null, null, null);
@@ -197,13 +200,13 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
 
     class JMuliIntPage extends AWizardPage implements PageSwitchListener {
 
-        private JPanel            panel       = new JPanel();
+        private JPanel panel = new JPanel();
 
-        private JRadioButton      single      = null;
-        private JRadioButton      multi       = null;
+        private JRadioButton single = null;
+        private JRadioButton multi = null;
 
-        private JIntegerField     simpleInput = null;
-        private JIntegerField[][] input       = null;
+        private JIntegerField simpleInput = null;
+        private JIntegerField[][] input = null;
 
         public int[][] getInts() {
             int[][] limits = new int[input.length][2];
@@ -232,7 +235,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
          * @param enabled
          */
         @SuppressWarnings({ "unchecked", "rawtypes" })
-        public JMuliIntPage(String title, String info, int[][] limits, int[][] amounts, String subtitle1, String subtitle2) {
+        public JMuliIntPage(String title, String info, int[][] limits, int[][] amounts, String subtitle1,
+                String subtitle2) {
             super(title, info);
             AWettkampf wk = core.getWettkampf();
 
@@ -347,16 +351,20 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
     class JAmountPanel extends JMuliIntPage {
 
         public JAmountPanel() {
-            super(I18n.get("SetZulassungLimits"), I18n.get("SetZulassungLimits.Information"), core.getWettkampf().getZulassungslimits(),
-                    CompetitionUtils.getSchwimmerAmounts(core.getWettkampf()), I18n.get("Zulassung"), I18n.get("Registration"));
+            super(I18n.get("SetZulassungLimits"), I18n.get("SetZulassungLimits.Information"),
+                    core.getWettkampf().getZulassungslimits(),
+                    CompetitionUtils.getSchwimmerAmounts(core.getWettkampf()), I18n.get("Zulassung"),
+                    I18n.get("Registration"));
         }
     }
 
     class JDirektPanel extends JMuliIntPage {
 
         public JDirektPanel() {
-            super(I18n.get("SetDirektqualifizierte"), I18n.get("SetDirektqualifizierte.Information"), core.getWettkampf().getDirektqualifizierte(),
-                    CompetitionUtils.getQOrganizationAmounts(core.getWettkampf()), I18n.get("Zulassung.QualifiedDirectly"), I18n.get("Qualifikationsebene"));
+            super(I18n.get("SetDirektqualifizierte"), I18n.get("SetDirektqualifizierte.Information"),
+                    core.getWettkampf().getDirektqualifizierte(),
+                    CompetitionUtils.getQOrganizationAmounts(core.getWettkampf()),
+                    I18n.get("Zulassung.QualifiedDirectly"), I18n.get("Qualifikationsebene"));
         }
     }
 
@@ -364,14 +372,15 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
 
         public JHopersPanel() {
             super(I18n.get("SetHopers"), I18n.get("SetHopers.Information"), core.getWettkampf().getNachruecker(),
-                    CompetitionUtils.getSchwimmerAmounts(core.getWettkampf()), I18n.get("Zulassung.Nachruecker"), I18n.get("Registration"));
+                    CompetitionUtils.getSchwimmerAmounts(core.getWettkampf()), I18n.get("Zulassung.Nachruecker"),
+                    I18n.get("Registration"));
         }
     }
 
     private static class JKeepQualifiedPanel extends AWizardPage implements PageSwitchListener {
 
-        private JCheckBox keep  = new JCheckBox();
-        private JPanel    panel = new JPanel();
+        private JCheckBox keep = new JCheckBox();
+        private JPanel panel = new JPanel();
 
         /**
          * @param wc
@@ -382,7 +391,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
         public JKeepQualifiedPanel() {
             super(I18n.get("Zulassung.KeepQualified"), I18n.get("Zulassung.KeepQualified.Information"));
 
-            panel.setLayout(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(1)));
+            panel.setLayout(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    FormLayoutUtils.createLayoutString(1)));
 
             panel.add(keep, CC.xy(2, 2));
             panel.add(new JLabel(I18n.get("Zulassung.KeepQualified")), CC.xy(4, 2));
@@ -406,7 +416,7 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
     class JPreferProtocolPanel extends AWizardPage implements PageSwitchListener {
 
         private JCheckBox preferProtocol = new JCheckBox();
-        private JPanel    panel          = new JPanel();
+        private JPanel panel = new JPanel();
 
         /**
          * @param wc
@@ -421,7 +431,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
             AWettkampf wk = core.getWettkampf();
             preferProtocol.setSelected(wk.getBooleanProperty(PropertyConstants.PREFER_PROTOCOL));
 
-            panel.setLayout(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(1)));
+            panel.setLayout(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    FormLayoutUtils.createLayoutString(1)));
 
             panel.add(preferProtocol, CC.xy(2, 2));
             panel.add(new JLabel(I18n.get("Zulassung.PreferProtocol")), CC.xy(4, 2));
@@ -444,7 +455,7 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
 
     class JResultPanel extends AWizardPage implements UpdateListener, PageSwitchListener {
 
-        private JPanel     panel = new JPanel();
+        private JPanel panel = new JPanel();
         private JLabel[][] zugelassen;
         private JLabel[][] nichtzugelassen;
         private JLabel[][] nachruecker;
@@ -476,8 +487,11 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
                 }
             }
 
-            panel.setLayout(new FormLayout("4dlu,fill:default," + "12dlu,center:default,4dlu,center:default," + "12dlu,center:default,4dlu,center:default,"
-                    + "12dlu,center:default,4dlu,center:default,4dlu", FormLayoutUtils.createLayoutString(count + 2)));
+            panel.setLayout(new FormLayout(
+                    "4dlu,fill:default," + "12dlu,center:default,4dlu,center:default,"
+                            + "12dlu,center:default,4dlu,center:default,"
+                            + "12dlu,center:default,4dlu,center:default,4dlu",
+                    FormLayoutUtils.createLayoutString(count + 2)));
 
             panel.add(new JLabel(I18n.get("Zugelassen")), CC.xyw(4, 2, 3, "center,fill"));
             panel.add(new JLabel(I18n.get("NichtZugelassen")), CC.xyw(8, 2, 3, "center,fill"));
@@ -506,7 +520,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
         @Override
         public void update() {
             if (getWizard().isCurrentPage(this)) {
-                zulassung.calculate(amount.getInts(), direct.getInts(), hopers.getInts(), keepqualified.getKeep(), false, 0);
+                zulassung.calculate(amount.getInts(), direct.getInts(), hopers.getInts(), keepqualified.getKeep(),
+                        false, 0);
                 LinkedList<ASchwimmer>[][] qual = zulassung.getZugelassene();
                 LinkedList<ASchwimmer>[][] nqual = zulassung.getNichtZugelassene();
                 LinkedList<ASchwimmer>[][] disq = zulassung.getGesperrte();
@@ -514,7 +529,8 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
                 for (int x = 0; x < qual.length; x++) {
                     for (int y = 0; y < 2; y++) {
                         zugelassen[x][y].setText("" + qual[x][y].size());
-                        nichtzugelassen[x][y].setText("" + (nqual[x][y].size() + disq[x][y].size() + nach[x][y].size()));
+                        nichtzugelassen[x][y]
+                                .setText("" + (nqual[x][y].size() + disq[x][y].size() + nach[x][y].size()));
                         nachruecker[x][y].setText("" + (nach[x][y].size()));
                     }
                 }
@@ -558,8 +574,10 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
     class JMeldepunktePanel extends WizardOptionPage {
 
         public JMeldepunktePanel() {
-            super(getWizard(), I18n.get("AnouncedPoints"), I18n.get("Zulassung.MeldepunkteInfo"), getOptions(core.getWettkampf()), null,
-                    core.getWettkampf().getIntegerProperty(PropertyConstants.ZULASSUNG_REGISTERED_POINTS_INDEX, 0), null, SwingConstants.TOP);
+            super(getWizard(), I18n.get("AnouncedPoints"), I18n.get("Zulassung.MeldepunkteInfo"),
+                    getOptions(core.getWettkampf()), null,
+                    core.getWettkampf().getIntegerProperty(PropertyConstants.ZULASSUNG_REGISTERED_POINTS_INDEX, 0),
+                    null, SwingConstants.TOP);
         }
     }
 }

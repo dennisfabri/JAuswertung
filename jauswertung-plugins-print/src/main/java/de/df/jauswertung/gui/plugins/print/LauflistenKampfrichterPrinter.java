@@ -19,6 +19,7 @@ class LauflistenKampfrichterPrinter extends ALauflistenPrinter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override

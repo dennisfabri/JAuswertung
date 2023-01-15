@@ -44,15 +44,17 @@ import de.df.jutils.print.printables.EmptyPrintable;
  */
 public class PenaltylistePrinter implements Printer {
 
-    private JSelectionDialog printDialog   = null;
+    private JSelectionDialog printDialog = null;
     private JSelectionDialog previewDialog = null;
 
     @SuppressWarnings("rawtypes")
     private void initDialogs() {
         if (printDialog == null) {
             AWettkampf wk = core.getFilteredWettkampf();
-            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"), JSelectionDialog.MODE_AK_SELECTION);
-            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"), JSelectionDialog.MODE_AK_SELECTION);
+            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"),
+                    JSelectionDialog.MODE_AK_SELECTION);
+            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"),
+                    JSelectionDialog.MODE_AK_SELECTION);
         }
     }
 
@@ -83,20 +85,21 @@ public class PenaltylistePrinter implements Printer {
 
         @Override
         public void print(boolean[][] selected) {
-            PrintExecutor.preview(controller.getWindow(), new PenaltyPC(selected), I18n.get("Penaltylist"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), new PenaltyPC(selected), I18n.get("Penaltylist"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
 
     }
 
-    private CorePlugin        core;
-    private IPluginManager    controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
-    private JLabel            warning;
-    private JLabel            filter;
-    private JCheckBox         kurz;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel warning;
+    private JLabel filter;
+    private JCheckBox kurz;
 
     private JComboBox<String> disziplin;
 
@@ -108,7 +111,8 @@ public class PenaltylistePrinter implements Printer {
 
     private void initGUI() {
         FormLayout layout = new FormLayout(
-                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
@@ -154,6 +158,7 @@ public class PenaltylistePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -163,6 +168,7 @@ public class PenaltylistePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -203,8 +209,10 @@ public class PenaltylistePrinter implements Printer {
         disziplin.setSelectedIndex(index);
     }
 
-    static <T extends ASchwimmer> Printable getPrintable(CorePlugin core, int index, boolean[][] selected, boolean kurz) {
-        JPanel[] panels = PenaltyUIUtils.getPenalties(core.getFilteredWettkampf(), index, selected, !PrintUtils.printDidNotStart, kurz);
+    static <T extends ASchwimmer> Printable getPrintable(CorePlugin core, int index, boolean[][] selected,
+            boolean kurz) {
+        JPanel[] panels = PenaltyUIUtils.getPenalties(core.getFilteredWettkampf(), index, selected,
+                !PrintUtils.printDidNotStart, kurz);
         if (panels == null) {
             return EmptyPrintable.Instance;
         }
@@ -222,11 +230,15 @@ public class PenaltylistePrinter implements Printer {
             p = new ComponentListPrintable2(3, false, cs);
         }
         return PrintManager.getHeaderPrintable(p, I18n.get("Penaltylist")
-                + (core.getWettkampf().getCurrentFilterIndex() > 0 ? " (" + core.getWettkampf().getCurrentFilter().getName() + ")" : ""));
+                + (core.getWettkampf().getCurrentFilterIndex() > 0
+                        ? " (" + core.getWettkampf().getCurrentFilter().getName() + ")"
+                        : ""));
     }
 
     Printable getPrintable(boolean[][] selected) {
-        return PrintManager.getFinalPrintable(getPrintable(core, disziplin.getSelectedIndex(), selected, kurz.isSelected()), core.getLastChangedDate(), true,
+        return PrintManager.getFinalPrintable(
+                getPrintable(core, disziplin.getSelectedIndex(), selected, kurz.isSelected()),
+                core.getLastChangedDate(), true,
                 I18n.get("Penaltylist"));
     }
 

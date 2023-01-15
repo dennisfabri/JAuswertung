@@ -8,7 +8,7 @@ import de.df.jauswertung.daten.laufliste.Lauf;
 
 public class Zieleinlaufkarte {
 
-    private int    event;
+    private int event;
     private String lauf;
     private String disziplin;
     private String startgruppe;

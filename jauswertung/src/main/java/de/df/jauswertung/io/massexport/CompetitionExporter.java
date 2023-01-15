@@ -39,7 +39,7 @@ class CompetitionExporter {
         // TODO Auto-generated constructor stub
     }
 
-    private static DateFormat   df = DateFormat.getTimeInstance();
+    private static DateFormat df = DateFormat.getTimeInstance();
 
     private static NullFeedback nf = new NullFeedback();
 
@@ -48,7 +48,8 @@ class CompetitionExporter {
 
         wk = CompetitionUtils.createCompetitionWithCompleteDisciplines(wk);
 
-        OutputManager.speichereWettkampf(destination + "wettkampf-" + StringTools.getCompactDateTimeString() + ".wk", wk);
+        OutputManager.speichereWettkampf(destination + "wettkampf-" + StringTools.getCompactDateTimeString() + ".wk",
+                wk);
 
         boolean exportAll = formats != null && formats.length > 0;
         if (exportAll) {
@@ -68,8 +69,10 @@ class CompetitionExporter {
                         for (String format : formats) {
                             if (!("PDF".equals(format) || "Zipped HTML".equals(format))) {
                                 if (ExportManager.isSupported(format, type)) {
-                                    String name = destination + ExportManager.NAMES[type.getValue()] + "." + ExportManager.getSuffixes(format)[0];
-                                    String tmp = destination + ExportManager.NAMES[type.getValue()] + "." + ExportManager.getSuffixes(format)[0] + ".tmp";
+                                    String name = destination + ExportManager.NAMES[type.getValue()] + "."
+                                            + ExportManager.getSuffixes(format)[0];
+                                    String tmp = destination + ExportManager.NAMES[type.getValue()] + "."
+                                            + ExportManager.getSuffixes(format)[0] + ".tmp";
                                     System.out.print(".");
                                     ExportManager.export(type, tmp, format, wk, nf);
                                     File dest = new File(name);
@@ -121,7 +124,8 @@ class CompetitionExporter {
         return wkx;
     }
 
-    private static <T extends ASchwimmer> boolean results(String name, AWettkampf<T> wk, Feedback fb, int quali, boolean includeTimes) throws IOException {
+    private static <T extends ASchwimmer> boolean results(String name, AWettkampf<T> wk, Feedback fb, int quali,
+            boolean includeTimes) throws IOException {
         FileOutputStream fos = new FileOutputStream(name);
         try {
             System.out.print(".");
@@ -131,7 +135,8 @@ class CompetitionExporter {
         }
     }
 
-    private static <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb, int quali, boolean includeTimes) {
+    private static <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb, int quali,
+            boolean includeTimes) {
         try {
             fb.showFeedback(I18n.get("CollectingData"));
             Document d = XmlExporter.generateResults(wk, quali);
@@ -160,10 +165,12 @@ class CompetitionExporter {
                 }
             }
             if (hasTimes) {
-                String filename = destination + "Result-" + wkt.getRegelwerk().getAk(0).getName() + "-" + (t.male ? 'm' : 'w') + "-" + (t.isFinal ? 9 : t.round)
+                String filename = destination + "Result-" + wkt.getRegelwerk().getAk(0).getName() + "-"
+                        + (t.male ? 'm' : 'w') + "-" + (t.isFinal ? 9 : t.round)
                         + "-" + wkt.getRegelwerk().getAk(0).getDisziplin(0, t.male).getName() + ".html";
                 filename = filename.replace(" ", "_");
-                int quali = t.isFinal ? 0 : wk.getRegelwerk().getAk(t.akNummer).getDisziplin(t.discipline, t.male).getRunden()[t.round];
+                int quali = t.isFinal ? 0
+                        : wk.getRegelwerk().getAk(t.akNummer).getDisziplin(t.discipline, t.male).getRunden()[t.round];
                 results(filename, wkt, nf, quali, !wk.isOpenWater());
             }
         }

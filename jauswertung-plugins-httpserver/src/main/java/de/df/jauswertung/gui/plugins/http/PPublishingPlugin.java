@@ -29,21 +29,22 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class PPublishingPlugin extends ANullPlugin {
 
-    private CorePlugin       core        = null;
-    private HttpServerPlugin http        = null;
+    private CorePlugin core = null;
+    private HttpServerPlugin http = null;
 
-    private PanelInfo[]      panels      = null;
+    private PanelInfo[] panels = null;
 
-    private JPanel           panel       = null;
+    private JPanel panel = null;
 
-    private JComboBox[][]    disciplines = null;
-    private JButton[][]      publish     = null;
-    private JButton[][]      revoke      = null;
-    private JLabel[][]       status      = null;
+    private JComboBox[][] disciplines = null;
+    private JButton[][] publish = null;
+    private JButton[][] revoke = null;
+    private JLabel[][] status = null;
 
     public PPublishingPlugin() {
         panels = new PanelInfo[1];
-        panels[0] = new PanelInfo(I18n.get("Webpublishing"), IconManager.getBigIcon("webpublishing"), false, true, 3000) {
+        panels[0] = new PanelInfo(I18n.get("Webpublishing"), IconManager.getBigIcon("webpublishing"), false, true,
+                3000) {
             @Override
             public JPanel getPanelI() {
                 return PPublishingPlugin.this.getPanel();
@@ -112,7 +113,8 @@ public class PPublishingPlugin extends ANullPlugin {
             Regelwerk aks = wk.getRegelwerk();
 
             FormLayout layout = new FormLayout(
-                    "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,0px:grow,4dlu",
+                    "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                            + "4dlu,fill:default,0px:grow,4dlu",
                     FormLayoutUtils.createLayoutString(aks.size() * 3));
 
             layout.setColumnGroups(new int[][] { { 6, 8 } });

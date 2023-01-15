@@ -24,6 +24,7 @@ class DocumentsEinzelwertungPrinter extends APerDisciplinePrinter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override

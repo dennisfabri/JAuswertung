@@ -31,8 +31,10 @@ public class UnterschriftPrintable extends ExtendedHeaderFooterPrintable {
     }
 
     private static Component getFooter() {
-        String layout = "0dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow," + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow,"
-                + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow," + "1dlu,fill:default,1dlu,0dlu:grow," + "1dlu,fill:default,1dlu,0dlu:grow,";
+        String layout = "0dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow,"
+                + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow,"
+                + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow," + "1dlu,fill:default,1dlu,0dlu:grow,"
+                + "1dlu,fill:default,1dlu,0dlu:grow,";
         JPanel p = new JPanel(new FormLayout(layout, "4dlu,fill:default,0dlu"));
 
         p.setBackground(Color.WHITE);

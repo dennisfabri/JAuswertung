@@ -28,7 +28,7 @@ import de.df.jutils.gui.util.UIUtils;
 class JSimilarityCheck extends JDialog {
 
     private final HashMap<String, LinkedList<String>>[] similar;
-    private final String[]                                names;
+    private final String[] names;
 
     @SuppressWarnings("rawtypes")
     public JSimilarityCheck(JFrame parent, AWettkampf[] wks, String[] names) {
@@ -123,7 +123,8 @@ class JSimilarityCheck extends JDialog {
         if (similar == null) {
             return;
         }
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         JTabbedPane tabs = new JTabbedPane();

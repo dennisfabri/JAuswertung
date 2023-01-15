@@ -10,9 +10,9 @@ public class Competition implements Serializable {
 
     private static final long serialVersionUID = 5644244152748847085L;
 
-    private List<Competitor>  competitors      = new ArrayList<>();
+    private List<Competitor> competitors = new ArrayList<>();
 
-    private String            name;
+    private String name;
 
     public Competition(String name) {
         this.name = name;

@@ -21,7 +21,7 @@ public class JOverviewPanel extends JGlassPanel<JPanel> {
 
     private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin        core;
+    private CorePlugin core;
 
     public JOverviewPanel(CorePlugin core) {
         super(new JPanel());
@@ -38,7 +38,8 @@ public class JOverviewPanel extends JGlassPanel<JPanel> {
         SimpleListBuilder slb = new SimpleListBuilder(0);
         {
             @SuppressWarnings("unchecked")
-            JComponent p = StatisticsUtils.createStatistics(wk.getSchwimmer(), wk.getRegelwerk(), I18n.get("Overview"), false);
+            JComponent p = StatisticsUtils.createStatistics(wk.getSchwimmer(), wk.getRegelwerk(), I18n.get("Overview"),
+                    false);
             slb.add(p);
         }
 

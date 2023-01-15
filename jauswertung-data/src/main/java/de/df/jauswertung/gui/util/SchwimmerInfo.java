@@ -13,8 +13,8 @@ import de.df.jauswertung.daten.ASchwimmer;
 public class SchwimmerInfo implements Comparable<SchwimmerInfo> {
 
     private final ASchwimmer schwimmer;
-    private final String[]   lauf;
-    private final String[]   bahn;
+    private final String[] lauf;
+    private final String[] bahn;
 
     /** Creates a new instance of SchwimmerInfo */
     public SchwimmerInfo(ASchwimmer s, String[] l) {

@@ -29,18 +29,18 @@ import de.df.jutils.gui.layout.SimpleTableBuilder;
 
 public class JRegistrationPanel extends JGlassPanel<JPanel> {
 
-    private static final long  serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin         core;
-    private FEditorPlugin      editor;
+    private CorePlugin core;
+    private FEditorPlugin editor;
     private JMissingInputFrame parent;
 
-    private ASchwimmer[]       swimmers;
-    private JButton[]          edit;
+    private ASchwimmer[] swimmers;
+    private JButton[] edit;
 
-    private JPanel             panel;
+    private JPanel panel;
 
-    private boolean            changed          = false;
+    private boolean changed = false;
 
     public JRegistrationPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());

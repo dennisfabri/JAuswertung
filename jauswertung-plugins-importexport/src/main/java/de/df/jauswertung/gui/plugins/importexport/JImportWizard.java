@@ -222,7 +222,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     boolean finishImport() {
         Object data = null;
         if (results != null) {
-            data = ImportManager.finishImport(ImportExportTypes.getByValue(type.getSelectedIndex()), core.getWettkampf(), results,
+            data = ImportManager.finishImport(ImportExportTypes.getByValue(type.getSelectedIndex()),
+                    core.getWettkampf(), results,
                     new SystemOutFeedback());
             results = null;
             if (data != null) {
@@ -320,7 +321,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (getWizard().isCurrentPage(this)) {
                 String[] names = ImportManager.getSupportedFormats();
                 for (int x = 0; x < names.length; x++) {
-                    setEnabled(x, ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
+                    setEnabled(x,
+                            ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
                 }
             }
             getWizard().notifyUpdate();
@@ -599,7 +601,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
                 try {
-                    results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names, format.getSelectedItemname(), wk,
+                    results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names,
+                            format.getSelectedItemname(), wk,
                             new Feedback() {
                                 @Override
                                 public void showFeedback(String t) {

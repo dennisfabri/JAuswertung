@@ -254,7 +254,8 @@ public final class SchwimmerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage, boolean includeEmptyLanes, boolean allheats,
+    public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage,
+            boolean includeEmptyLanes, boolean allheats,
             int minheat, int maxheat) {
         if (wks == null) {
             return null;
@@ -324,7 +325,8 @@ public final class SchwimmerUtils {
         return repack(temp, perpage);
     }
 
-    public static <T extends ASchwimmer> LinkedList<Zieleinlaufkarte> toZieleinlauf(AWettkampf<T>[] wks, int perpage, boolean allheats, int minheat,
+    public static <T extends ASchwimmer> LinkedList<Zieleinlaufkarte> toZieleinlauf(AWettkampf<T>[] wks, int perpage,
+            boolean allheats, int minheat,
             int maxheat) {
         if (wks == null || wks.length == 0) {
             return null;
@@ -409,7 +411,8 @@ public final class SchwimmerUtils {
         return ergebnis;
     }
 
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkarten(HLWListe<T> ll, int perpage, boolean allheats, int minheat, int maxheat,
+    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkarten(HLWListe<T> ll, int perpage,
+            boolean allheats, int minheat, int maxheat,
             boolean bylane) {
         if (bylane) {
             return toZWStartkartenByLane(ll, perpage, allheats, minheat, maxheat);
@@ -417,7 +420,8 @@ public final class SchwimmerUtils {
         return toZWStartkartenByHeat(ll, perpage, allheats, minheat, maxheat);
     }
 
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByHeat(HLWListe<T> ll, int perpage, boolean allheats, int minheat,
+    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByHeat(HLWListe<T> ll, int perpage,
+            boolean allheats, int minheat,
             int maxheat) {
         if (ll.isEmpty()) {
             return null;
@@ -473,7 +477,8 @@ public final class SchwimmerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByLane(HLWListe<T> ll, int perpage, boolean allheats, int minheat,
+    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByLane(HLWListe<T> ll, int perpage,
+            boolean allheats, int minheat,
             int maxheat) {
         if (ll.isEmpty()) {
             return null;
@@ -598,7 +603,8 @@ public final class SchwimmerUtils {
         return liste;
     }
 
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklist(HLWListe<T> ll, boolean allheats, int minheat, int maxheat,
+    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklist(HLWListe<T> ll,
+            boolean allheats, int minheat, int maxheat,
             boolean byLane) {
         if (byLane) {
             return toZWStartkartenForChecklistByLane(ll, allheats, minheat, maxheat);
@@ -606,7 +612,8 @@ public final class SchwimmerUtils {
         return toZWStartkartenForChecklistByHeat(ll, allheats, minheat, maxheat);
     }
 
-    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByHeat(HLWListe<T> ll, boolean allheats, int minheat,
+    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByHeat(HLWListe<T> ll,
+            boolean allheats, int minheat,
             int maxheat) {
         if (ll.isEmpty()) {
             return null;
@@ -661,7 +668,8 @@ public final class SchwimmerUtils {
         return liste;
     }
 
-    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByLane(HLWListe<T> ll, boolean allheats, int minheat,
+    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByLane(HLWListe<T> ll,
+            boolean allheats, int minheat,
             int maxheat) {
         if (ll.isEmpty()) {
             return null;
@@ -710,7 +718,7 @@ public final class SchwimmerUtils {
     }
 
     public static boolean EnableHighPointWarning = true;
-    
+
     public static boolean EnableHighTimesWarning = false;
 
     public static boolean checkTimeAndNotify(Window parent, ASchwimmer s, int disz) {
@@ -750,20 +758,23 @@ public final class SchwimmerUtils {
         if (hasSeverePenalty(s, x)) {
             return TimeStatus.NORMAL;
         }
-        return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getZeit(x), s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
+        return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getZeit(x),
+                s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
     }
 
     public static <T extends ASchwimmer> TimeStatus getRegistrationTimeStatus(AWettkampf<T> wk, T s, int x) {
         if (hasSeverePenalty(s, x)) {
             return TimeStatus.NORMAL;
         }
-        return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getMeldezeit(x), s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
+        return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getMeldezeit(x),
+                s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
     }
 
     public static <T extends ASchwimmer> int getTeilgenommeneDisziplinenAnzahl(T s) {
         int count = 0;
         for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
-            if (hasCompleteTime(s, x) && s.isDisciplineChosen(x) && (s.getAkkumulierteStrafe(x).getArt() != Strafarten.NICHT_ANGETRETEN)) {
+            if (hasCompleteTime(s, x) && s.isDisciplineChosen(x)
+                    && (s.getAkkumulierteStrafe(x).getArt() != Strafarten.NICHT_ANGETRETEN)) {
                 count++;
             }
         }

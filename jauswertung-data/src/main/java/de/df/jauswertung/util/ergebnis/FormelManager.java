@@ -17,12 +17,12 @@ import de.df.jauswertung.util.Utils;
  */
 public final class FormelManager {
 
-    private static FormelManager                  instance    = new FormelManager();
+    private static FormelManager instance = new FormelManager();
 
-    private Hashtable<String, Formel<ASchwimmer>> formeln     = new Hashtable<String, Formel<ASchwimmer>>();
+    private Hashtable<String, Formel<ASchwimmer>> formeln = new Hashtable<String, Formel<ASchwimmer>>();
 
-    private LinkedList<Formel<ASchwimmer>>        flist       = new LinkedList<Formel<ASchwimmer>>();
-    private LinkedList<Formel<ASchwimmer>>        publicFlist = new LinkedList<Formel<ASchwimmer>>();
+    private LinkedList<Formel<ASchwimmer>> flist = new LinkedList<Formel<ASchwimmer>>();
+    private LinkedList<Formel<ASchwimmer>> publicFlist = new LinkedList<Formel<ASchwimmer>>();
 
     /**
      * 

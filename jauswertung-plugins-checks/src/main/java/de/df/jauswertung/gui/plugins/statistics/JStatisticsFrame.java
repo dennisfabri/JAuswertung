@@ -27,9 +27,9 @@ class JStatisticsFrame extends JGlassFrame {
 
     private static final long serialVersionUID = -7597461480874952948L;
 
-    private final JFrame      parent;
+    private final JFrame parent;
 
-    private JButton           closebutton;
+    private JButton closebutton;
 
     public JStatisticsFrame(JFrame parent, CorePlugin core) {
         super(I18n.get("Statistics"));
@@ -80,7 +80,8 @@ class JStatisticsFrame extends JGlassFrame {
             tabs.add(p.getName(), p);
         }
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,0dlu,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,0dlu,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(tabs, CC.xyw(2, 2, 3, "fill,fill"));

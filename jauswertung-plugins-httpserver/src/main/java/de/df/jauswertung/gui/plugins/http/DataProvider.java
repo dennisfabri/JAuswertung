@@ -38,8 +38,8 @@ import de.df.jutils.io.Transform;
 
 class DataProvider {
 
-    private CorePlugin                core      = null;
-    private ExportMode                mode;
+    private CorePlugin core = null;
+    private ExportMode mode;
     private AgegroupResultSelection[] selection = new AgegroupResultSelection[0];
 
     public synchronized void setSelection(AgegroupResultSelection[] selection) {
@@ -72,14 +72,16 @@ class DataProvider {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public synchronized boolean knowsFile(String name) {
-        if (name.equals("/favicon.ico") || name.equals("/global/layout/access/style/style.css") || name.equals("/style/custom.css")
+        if (name.equals("/favicon.ico") || name.equals("/global/layout/access/style/style.css")
+                || name.equals("/style/custom.css")
                 || name.equals("/robots.txt") || name.equals("empty.txt")) {
             return true;
         }
 
         AWettkampf wk = core.getWettkampf();
 
-        if (name.startsWith("/images-") && name.substring(12, 13).equals("x") && name.endsWith(".zip") && (name.length() == "/images-0000x0000.zip".length())) {
+        if (name.startsWith("/images-") && name.substring(12, 13).equals("x") && name.endsWith(".zip")
+                && (name.length() == "/images-0000x0000.zip".length())) {
             return true;
         }
 
@@ -156,7 +158,8 @@ class DataProvider {
 
     @SuppressWarnings({})
     public synchronized void sendData(OutputStream out, String name) throws IOException {
-        if (name.equals("/favicon.ico") || name.equals("/global/layout/access/style/style.css") || name.equals("/style/custom.css")
+        if (name.equals("/favicon.ico") || name.equals("/global/layout/access/style/style.css")
+                || name.equals("/style/custom.css")
                 || name.equals("/robots.txt") || name.equals("empty.txt")) {
             return;
         }
@@ -174,7 +177,8 @@ class DataProvider {
             break;
         }
 
-        if (name.startsWith("/images-") && name.substring(12, 13).equals("x") && name.endsWith(".zip") && (name.length() == "/images-0000x0000.zip".length())) {
+        if (name.startsWith("/images-") && name.substring(12, 13).equals("x") && name.endsWith(".zip")
+                && (name.length() == "/images-0000x0000.zip".length())) {
             createImageData(out, name, wk);
             return;
         }
@@ -323,7 +327,8 @@ class DataProvider {
     }
 
     @SuppressWarnings({})
-    private static void createExportData(OutputStream out, AWettkampf<?> wk, ImportExportTypes x, String format) throws IOException {
+    private static void createExportData(OutputStream out, AWettkampf<?> wk, ImportExportTypes x, String format)
+            throws IOException {
         if (!ExportManager.isEnabled(wk, x)) {
             throw new IOException("File not found!");
         }

@@ -62,32 +62,32 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class PRegistrationInternalEinzelPlugin extends AFeature {
 
-    private static final String MALE        = I18n.get("male");
-    private static final String FEMALE      = I18n.get("female");
-    private static final String ADD         = I18n.get("add");
+    private static final String MALE = I18n.get("male");
+    private static final String FEMALE = I18n.get("female");
+    private static final String ADD = I18n.get("add");
     private static final String WRONG_INPUT = I18n.get("WrongInput");
 
-    private CorePlugin          core        = null;
+    private CorePlugin core = null;
 
-    private JPanel              panel;
-    private JIntegerField       startnummer;
-    private JWarningTextField   name;
-    private JWarningTextField   vorname;
-    private JIntegerField       jahrgang;
-    private JDoubleField        melde;
-    private JWarningTextField   bemerkung;
-    private JComboBox<String>   gliederung;
-    private JWarningTextField   qualiebene;
-    private JComboBox<String>   altersklasse;
-    private JComboBox<String>   geschlecht;
-    private JComboBox<String>   ausserkonkurrenz;
+    private JPanel panel;
+    private JIntegerField startnummer;
+    private JWarningTextField name;
+    private JWarningTextField vorname;
+    private JIntegerField jahrgang;
+    private JDoubleField melde;
+    private JWarningTextField bemerkung;
+    private JComboBox<String> gliederung;
+    private JWarningTextField qualiebene;
+    private JComboBox<String> altersklasse;
+    private JComboBox<String> geschlecht;
+    private JComboBox<String> ausserkonkurrenz;
     @SuppressWarnings("rawtypes")
-    private DisciplinesPanel    disciplines;
-    private JTaskPaneGroup      jt;
+    private DisciplinesPanel disciplines;
+    private JTaskPaneGroup jt;
 
-    JButton                     hinzu;
+    JButton hinzu;
 
-    private UpdateListener      ul          = new UpdateListener();
+    private UpdateListener ul = new UpdateListener();
 
     /**
      * This method initializes
@@ -173,7 +173,8 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         geschlecht.addKeyListener(new EnterListener(ausserkonkurrenz));
         ausserkonkurrenz.addKeyListener(new EnterListener(hinzu));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu," + "fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(13));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu," + "fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(13));
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22 } });
         panel = new JPanel(layout);
         panel.setName("einzel");
@@ -292,7 +293,8 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
     }
 
     void updateButtons() {
-        boolean result = startnummer.isValidInt() && (name.getText().length() > 0) && (vorname.getText().length() > 0) && melde.isValidDouble();
+        boolean result = startnummer.isValidInt() && (name.getText().length() > 0) && (vorname.getText().length() > 0)
+                && melde.isValidDouble();
         if (disciplines != null) {
             result = result && disciplines.isInputValid();
         }
@@ -301,7 +303,8 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             if (c instanceof JTextField jtf) {
                 result = jtf.getText().length() > 0;
             } else {
-                result = (gliederung.getSelectedItem() != null) && (gliederung.getSelectedItem().toString().length() > 0);
+                result = (gliederung.getSelectedItem() != null)
+                        && (gliederung.getSelectedItem().toString().length() > 0);
             }
         }
 
@@ -340,17 +343,20 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         int jahr = jahrgang.getInt();
 
         if (sn > 0 && SearchUtils.getSchwimmer(ewk, sn) != null) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
+                    I18n.get("StartnummerAlreadyAssigned.Note"));
             startnummer.requestFocus();
             return;
         }
         if (nachname.length() == 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("FamilyNameMustNotBeEmpty"), I18n.get("FamilyNameMustNotBeEmpty.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("FamilyNameMustNotBeEmpty"),
+                    I18n.get("FamilyNameMustNotBeEmpty.Note"));
             name.requestFocus();
             return;
         }
         if (vname.length() == 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("FirstNameMustNotBeEmpty"), I18n.get("FirstNameMustNotBeEmpty.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("FirstNameMustNotBeEmpty"),
+                    I18n.get("FirstNameMustNotBeEmpty.Note"));
             vorname.requestFocus();
             return;
         }
@@ -360,13 +366,16 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             return;
         }
         if (g.length() == 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"), I18n.get("OrganisationMustNotBeEmpty.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
+                    I18n.get("OrganisationMustNotBeEmpty.Note"));
             gliederung.requestFocus();
             return;
         }
 
-        core.addTeilnehmer(name.getText(), vorname.getText(), jahrgang.getInt(), gliederung.getSelectedItem().toString(), qualiebene.getText(),
-                geschlecht.getSelectedIndex() == 1, altersklasse.getSelectedIndex(), bemerkung.getText(), startnummer.getInt(), melde.getDouble(),
+        core.addTeilnehmer(name.getText(), vorname.getText(), jahrgang.getInt(),
+                gliederung.getSelectedItem().toString(), qualiebene.getText(),
+                geschlecht.getSelectedIndex() == 1, altersklasse.getSelectedIndex(), bemerkung.getText(),
+                startnummer.getInt(), melde.getDouble(),
                 disciplines.getSelection(), disciplines.getMeldezeiten(), ausserkonkurrenz.getSelectedIndex() == 1);
 
         name.setText("");
@@ -423,7 +432,8 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             return;
         }
         int jahr = SchwimmerUtils.ermittleJahrgang(jahrgang.getInt());
-        int base = core.getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION, Calendar.getInstance().get(Calendar.YEAR));
+        int base = core.getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION,
+                Calendar.getInstance().get(Calendar.YEAR));
         int alter = base - jahr;
         Regelwerk aks = core.getWettkampf().getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {

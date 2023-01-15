@@ -21,8 +21,8 @@ import de.df.jutils.gui.layout.SimpleTableLayout;
  */
 class PrinterCollection implements Printer {
 
-    private String              name;
-    private JPanel              panel    = new JPanel(new SimpleTableLayout(1, 5, 5));
+    private String name;
+    private JPanel panel = new JPanel(new SimpleTableLayout(1, 5, 5));
     private LinkedList<Printer> printers = new LinkedList<Printer>();
 
     public PrinterCollection(String name) {
@@ -36,7 +36,8 @@ class PrinterCollection implements Printer {
     public void doLayoutOneColumn() {
         panel.removeAll();
         int x = 0;
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(printers.size() * 2, 1));
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(printers.size() * 2, 1));
         panel.setLayout(layout);
 
         for (Printer p : printers) {
@@ -77,6 +78,7 @@ class PrinterCollection implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getName()
      */
     @Override

@@ -63,7 +63,8 @@ public class MUrkundenPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> void showEditor(boolean einzelwertung) {
-        JUrkundenEditor<T> ue = new JUrkundenEditor<T>(getController().getWindow(), (AWettkampf<T>) core.getWettkampf(), getController(), einzelwertung);
+        JUrkundenEditor<T> ue = new JUrkundenEditor<T>(getController().getWindow(), (AWettkampf<T>) core.getWettkampf(),
+                getController(), einzelwertung);
         ModalFrameUtil.showAsModal(ue, getController().getWindow());
     }
 }

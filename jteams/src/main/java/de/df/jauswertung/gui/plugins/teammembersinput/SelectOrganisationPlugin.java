@@ -20,12 +20,12 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class SelectOrganisationPlugin extends ANullPlugin {
 
-    private CorePlugin                     core;
+    private CorePlugin core;
 
-    private JComponent[]                   buttons;
-    private JLabel                         label     = new JLabel(I18n.get("Organisation"));
-    private JComboBox<String>              selection = new JComboBox<String>();
-    private String[]                       data      = new String[0];
+    private JComponent[] buttons;
+    private JLabel label = new JLabel(I18n.get("Organisation"));
+    private JComboBox<String> selection = new JComboBox<String>();
+    private String[] data = new String[0];
     private LinkedList<ISelectionListener> listeners = new LinkedList<ISelectionListener>();
 
     public void addSelectionListener(ISelectionListener listener) {
@@ -75,9 +75,12 @@ public class SelectOrganisationPlugin extends ANullPlugin {
             return;
         }
         if (due.isReason(
-                UpdateEventConstants.REASON_GLIEDERUNG_CHANGED | UpdateEventConstants.REASON_FILTER_SELECTION | UpdateEventConstants.REASON_FILTERS_CHANGED
-                        | UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN
-                        | UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_SWIMMER_DELETED | UpdateEventConstants.REASON_SWIMMER_CHANGED)) {
+                UpdateEventConstants.REASON_GLIEDERUNG_CHANGED | UpdateEventConstants.REASON_FILTER_SELECTION
+                        | UpdateEventConstants.REASON_FILTERS_CHANGED
+                        | UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_NEW_LOAD_WK
+                        | UpdateEventConstants.REASON_NEW_TN
+                        | UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_SWIMMER_DELETED
+                        | UpdateEventConstants.REASON_SWIMMER_CHANGED)) {
             String gld = (String) selection.getSelectedItem();
             AWettkampf<?> wk = core.getWettkampf();
             LinkedList<String> orgs = wk.getGliederungenMitQGliederung();

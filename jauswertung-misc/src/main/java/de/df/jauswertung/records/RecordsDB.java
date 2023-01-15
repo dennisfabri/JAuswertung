@@ -9,14 +9,14 @@ import de.df.jutils.util.DateUtils;
 
 public class RecordsDB {
 
-    private static final String    BASEDIR     = "src/test/resources/competitions/Rekorde/";
+    private static final String BASEDIR = "src/test/resources/competitions/Rekorde/";
 
-    private LinkedList<Record>     records     = new LinkedList<Record>();
-    private LinkedList<Agegroup>   agegroups   = new LinkedList<Agegroup>();
+    private LinkedList<Record> records = new LinkedList<Record>();
+    private LinkedList<Agegroup> agegroups = new LinkedList<Agegroup>();
     private LinkedList<Discipline> disciplines = new LinkedList<Discipline>();
     private LinkedList<Competitor> competitors = new LinkedList<Competitor>();
-    private LinkedList<Location>   locations   = new LinkedList<Location>();
-    private LinkedList<Club>       clubs       = new LinkedList<Club>();
+    private LinkedList<Location> locations = new LinkedList<Location>();
+    private LinkedList<Club> clubs = new LinkedList<Club>();
 
     public RecordsDB() throws FileNotFoundException {
         Initialize();
@@ -54,7 +54,8 @@ public class RecordsDB {
         Agegroup a = getAgegroup(r.Agegroup);
         int year = DateUtils.getYear(r.Date);
         String competitor = getCompetitor(r.Competitor);
-        System.out.println((r.Agegroup < 6 ? "DM" : "DSM") + year + ";" + a.Name + ";" + (r.Male ? "m" : "w") + ";" + d.Name + ";" + formatTime(r.Time) + ";"
+        System.out.println((r.Agegroup < 6 ? "DM" : "DSM") + year + ";" + a.Name + ";" + (r.Male ? "m" : "w") + ";"
+                + d.Name + ";" + formatTime(r.Time) + ";"
                 + competitor + ";" + (d.Team ? "Mannschaft" : "Einzel"));
     }
 
@@ -193,7 +194,8 @@ public class RecordsDB {
         String day = datepart[2];
 
         return DateUtils.get(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-        // return new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day));
+        // return new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1,
+        // Integer.parseInt(day));
     }
 
     public boolean isRecord(Record record) {
@@ -245,11 +247,16 @@ public class RecordsDB {
         clubs.addLast(c);
     }
 
-    private static String[][] DISCPLINE_MAPPING = new String[][] { { "100m Kombiniertes Retten", "100m Kombinierte Rettungs�bung" },
-            { "4*25m RLB", "4*25m R�ckenlage ohne Armt�tigkeit" }, { "4*50m kleine Rettungsstaffel", "4*50m Rettungsstaffel" },
-            { "200m Super Lifesaver", "200m Super-Lifesaver" }, { "100m Retten mit Flossen und Gurtretter", "100m Lifesaver" },
-            { "100m Retten einer Puppe mit Flossen und Gurtretter", "100m Lifesaver" }, { "50m Retten einer Puppe", "50m Retten" },
-            { "50m Retten einer Puppe mit Flossen", "50m Retten mit Flossen" }, { "100m Retten einer Puppe mit Flossen", "100m Retten mit Flossen" } };
+    private static String[][] DISCPLINE_MAPPING = new String[][] {
+            { "100m Kombiniertes Retten", "100m Kombinierte Rettungs�bung" },
+            { "4*25m RLB", "4*25m R�ckenlage ohne Armt�tigkeit" },
+            { "4*50m kleine Rettungsstaffel", "4*50m Rettungsstaffel" },
+            { "200m Super Lifesaver", "200m Super-Lifesaver" },
+            { "100m Retten mit Flossen und Gurtretter", "100m Lifesaver" },
+            { "100m Retten einer Puppe mit Flossen und Gurtretter", "100m Lifesaver" },
+            { "50m Retten einer Puppe", "50m Retten" },
+            { "50m Retten einer Puppe mit Flossen", "50m Retten mit Flossen" },
+            { "100m Retten einer Puppe mit Flossen", "100m Retten mit Flossen" } };
 
     public int getDisciplineId(String name) {
         for (Discipline a : disciplines) {
@@ -265,12 +272,18 @@ public class RecordsDB {
         return -1;
     }
 
-    private static String[][] CLUB_MAPPING = new String[][] { { "SCW", "Schwerte" }, { "LUK", "Luckenwalde" }, { "GT", "G�tersloh" }, { "LI", "Lichtenberg" },
-            { "ENN", "Ennigerloh" }, { "RWD", "Rheda-Wiedenbr�ck" }, { "MD", "Magdeburg" }, { "EMS", "Emsdetten" }, { "ANK", "Anklam" }, { "ALP", "Alpen" },
-            { "HSK", "Hochsauerlandkreis" }, { "ND", "LV Niedersachsen" }, { "BA", "LV Baden" }, { "WE", "LV Westfalen" }, { "HE", "LV Hessen" },
-            { "NR", "LV Nordrhein" }, { "TH", "LV Th�ringen" }, { "SA", "LV Sachen-Anhalt" }, { "BB", "LV Brandenburg" }, { "BY", "LV Bayern" },
-            { "SH", "LV Schleswig-Holstein" }, { "SR", "LV Saar" }, { "MV", "LV Mecklemburg-Vorpommern" }, { "W�", "LV W�rttemberg" }, { "BE", "LV Berlin" },
-            { "SN", "LV Sachsen" }, { "BS", "LV Braunschweig" }, { "RP", "LV Rheinland-Pfalz" }, { "HBS", "HBS" }, { "AAF", "AAF" }, { "RUE", "RUE" },
+    private static String[][] CLUB_MAPPING = new String[][] { { "SCW", "Schwerte" }, { "LUK", "Luckenwalde" },
+            { "GT", "G�tersloh" }, { "LI", "Lichtenberg" },
+            { "ENN", "Ennigerloh" }, { "RWD", "Rheda-Wiedenbr�ck" }, { "MD", "Magdeburg" }, { "EMS", "Emsdetten" },
+            { "ANK", "Anklam" }, { "ALP", "Alpen" },
+            { "HSK", "Hochsauerlandkreis" }, { "ND", "LV Niedersachsen" }, { "BA", "LV Baden" },
+            { "WE", "LV Westfalen" }, { "HE", "LV Hessen" },
+            { "NR", "LV Nordrhein" }, { "TH", "LV Th�ringen" }, { "SA", "LV Sachen-Anhalt" },
+            { "BB", "LV Brandenburg" }, { "BY", "LV Bayern" },
+            { "SH", "LV Schleswig-Holstein" }, { "SR", "LV Saar" }, { "MV", "LV Mecklemburg-Vorpommern" },
+            { "W�", "LV W�rttemberg" }, { "BE", "LV Berlin" },
+            { "SN", "LV Sachsen" }, { "BS", "LV Braunschweig" }, { "RP", "LV Rheinland-Pfalz" }, { "HBS", "HBS" },
+            { "AAF", "AAF" }, { "RUE", "RUE" },
             { "HST", "HST" }, { "LER", "LER" }, { "OE", "OE" },
 
     };

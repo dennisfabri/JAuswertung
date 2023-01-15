@@ -427,8 +427,7 @@ class JTeammembersBarcodeScanPanel extends JPanel {
     }
 
     void initPanel() {
-        
-        
+
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
         JPanel panel = new JPanel(layout);
@@ -436,7 +435,7 @@ class JTeammembersBarcodeScanPanel extends JPanel {
         panel.add(createInputPanel(), CC.xy(2, 4));
         panel.add(createIdPanel(), CC.xy(4, 4));
         panel.add(createStatusPanel(), CC.xyw(2, 6, 3));
-        
+
         setLayout(new MigLayout("", "[fill, grow, ::1200lp]", "[fill]"));
         add(panel);
 

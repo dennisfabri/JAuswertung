@@ -29,11 +29,11 @@ class JStrafenkatalogFrame extends JFrame {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long    serialVersionUID = 3257285846494558261L;
+    private static final long serialVersionUID = 3257285846494558261L;
 
-    private Window               parent           = null;
-    private JStrafenkatalogPanel panel            = null;
-    private boolean              cancelled        = false;
+    private Window parent = null;
+    private JStrafenkatalogPanel panel = null;
+    private boolean cancelled = false;
 
     public JStrafenkatalogFrame(JFrame p, Strafen s) {
         this(p, null, s);

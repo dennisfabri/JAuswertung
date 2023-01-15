@@ -35,14 +35,15 @@ public class JDisciplineSelector extends JFrame {
 
     private ISimpleCallback<OWSelection[]> callback;
 
-    private final AWettkampf<?>            wk;
-    private final OWSelection[]            data;
+    private final AWettkampf<?> wk;
+    private final OWSelection[] data;
 
-    private JTable                         table;
+    private JTable table;
 
-    private boolean                        cancelled = false;
+    private boolean cancelled = false;
 
-    public JDisciplineSelector(String title, String text, AWettkampf<?> wk, OWSelection[] data, boolean multiselect, ISimpleCallback<OWSelection[]> callback) {
+    public JDisciplineSelector(String title, String text, AWettkampf<?> wk, OWSelection[] data, boolean multiselect,
+            ISimpleCallback<OWSelection[]> callback) {
         this.callback = callback;
         this.wk = wk;
         this.data = Arrays.stream(data).sorted(new Comparator<OWSelection>() {
@@ -65,7 +66,8 @@ public class JDisciplineSelector extends JFrame {
     private void buildUI(String text, boolean multiselect) {
         buildTable(multiselect);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(new JLabel(text), CC.xy(2, 2));
@@ -78,7 +80,8 @@ public class JDisciplineSelector extends JFrame {
             return "" + SearchUtils.getSchwimmer(wk, ow.ak, ow.male, ow.discipline).size();
         }
         try {
-            // OWDisziplin<?> d = wk.getLauflisteOW().getDisziplin(ow.akNummer, ow.male, ow.discipline, ow.round - 1);
+            // OWDisziplin<?> d = wk.getLauflisteOW().getDisziplin(ow.akNummer, ow.male,
+            // ow.discipline, ow.round - 1);
             int[] quali = wk.getRegelwerk().getAk(ow.akNummer).getDisziplin(ow.discipline, ow.male).getRunden();
             return "~" + quali[ow.round - 1];
         } catch (Exception ex) {
@@ -89,10 +92,13 @@ public class JDisciplineSelector extends JFrame {
 
     private void buildTable(boolean multiselect) {
         String[][] tableData = Arrays.asList(data).stream()
-                .map(j -> new String[] { "" + wk.getRegelwerk().getRundenId(j), I18n.getAgeGroupAsString(wk.getRegelwerk(), j.ak, j.male),
-                        j.ak.getDisziplin(j.discipline, j.male).getName(), I18n.getRound(j.round, j.isFinal), getAmount(j) })
+                .map(j -> new String[] { "" + wk.getRegelwerk().getRundenId(j),
+                        I18n.getAgeGroupAsString(wk.getRegelwerk(), j.ak, j.male),
+                        j.ak.getDisziplin(j.discipline, j.male).getName(), I18n.getRound(j.round, j.isFinal),
+                        getAmount(j) })
                 .toArray(j -> new String[data.length][0]);
-        table = new JTable(new SimpleTableModel(tableData, new Object[] { "Id", "Altersklasse", "Disziplin", "Runde", "Anzahl" }));
+        table = new JTable(
+                new SimpleTableModel(tableData, new Object[] { "Id", "Altersklasse", "Disziplin", "Runde", "Anzahl" }));
         if (!multiselect) {
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         } else {
@@ -111,7 +117,8 @@ public class JDisciplineSelector extends JFrame {
     }
 
     private JPanel createButtons() {
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(2, 4, 0), FormLayoutUtils.createLayoutString(1, 4, 0));
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(2, 4, 0),
+                FormLayoutUtils.createLayoutString(1, 4, 0));
         layout.setColumnGroup(2, 4);
         JPanel p = new JPanel(layout);
 

@@ -85,6 +85,7 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
      */
     @Override
@@ -109,7 +110,8 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes) {
+    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes) {
         SchwimmerData[] sold = swimmer;
         Arrays.sort(sold, new DLRGComparator());
 
@@ -117,7 +119,8 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
         LinkedList<SchwimmerData<T>> sd = new LinkedList<SchwimmerData<T>>();
 
         for (SchwimmerData<T> aSwimmer2 : swimmer) {
-            if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS) || (aSwimmer2.getStrafart() == Strafarten.DISQUALIFIKATION)
+            if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS)
+                    || (aSwimmer2.getStrafart() == Strafarten.DISQUALIFIKATION)
                     || (aSwimmer2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
                 // zero.addLast(aSwimmer2);
                 aSwimmer2.setRank(-1);
@@ -199,7 +202,8 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak, Hashtable<String, Zielrichterentscheid<T>> zes,
+    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
+            Hashtable<String, Zielrichterentscheid<T>> zes,
             boolean zw) {
         for (SchwimmerResult result1 : results) {
             SchwimmerData[] daten = result1.getResults();
@@ -364,6 +368,7 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getResult(double, double,
      * double)
      */

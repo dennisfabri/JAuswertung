@@ -41,7 +41,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
 
     private class TeamContainer {
         Mannschaft team;
-        Error      error;
+        Error error;
 
         public TeamContainer(Mannschaft t, Error e) {
             team = t;
@@ -49,20 +49,20 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
         }
     }
 
-    private static final long  serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin         core;
-    private FEditorPlugin      editor;
+    private CorePlugin core;
+    private FEditorPlugin editor;
     private JMissingInputFrame parent;
 
-    private TeamContainer[]    swimmers;
-    private JButton[]          edit;
+    private TeamContainer[] swimmers;
+    private JButton[] edit;
 
-    private JPanel             panel;
+    private JPanel panel;
 
-    private boolean            changed          = false;
+    private boolean changed = false;
 
-    private boolean            strict           = false;
+    private boolean strict = false;
 
     public JMembersInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -147,7 +147,8 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
         setEnabled(swimmers.length > 0);
 
         panel.removeAll();
-        SimpleTableBuilder dfb = new SimpleTableBuilder(panel, new boolean[] { false, true, true, true, true, false, false }, false);
+        SimpleTableBuilder dfb = new SimpleTableBuilder(panel,
+                new boolean[] { false, true, true, true, true, false, false }, false);
         dfb.add(new JLabel(I18n.get("StartnumberShort")), "center,center");
         dfb.add(new JLabel(I18n.get("Name")), "center,center");
         dfb.add(new JLabel(I18n.get("Organisation")), "center,center");

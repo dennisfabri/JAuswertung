@@ -23,15 +23,15 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JOWHeatsDisziplinEditPanel extends JPanel {
 
-    private Disziplin       disziplin;
+    private Disziplin disziplin;
 
-    private int[]           runden;
-    private int[]           rundenIds;
+    private int[] runden;
+    private int[] rundenIds;
 
     private JIntegerField[] input1 = new JIntegerField[0];
     private JIntegerField[] input2 = new JIntegerField[0];
-    private JButton         add;
-    private JButton         remove;
+    private JButton add;
+    private JButton remove;
 
     public JOWHeatsDisziplinEditPanel(Disziplin d, boolean male) {
         setBorder(BorderUtils.createLabeledBorder(d.getName()));
@@ -95,7 +95,8 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
 
     public boolean isInputValid() {
         for (int x = 0; x <= runden.length; x++) {
-            if (!validate(x, x < runden.length ? runden[x] : 1, true) || !validate(x, x < runden.length ? runden[x] : 1, false)) {
+            if (!validate(x, x < runden.length ? runden[x] : 1, true)
+                    || !validate(x, x < runden.length ? runden[x] : 1, false)) {
                 return false;
             }
         }
@@ -192,7 +193,7 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
 
     private final class InputValidator implements JIntegerField.Validator {
 
-        private int     row;
+        private int row;
         private boolean left;
 
         public InputValidator(int x, boolean left) {

@@ -35,22 +35,22 @@ import de.df.jutils.print.PrintManager;
 
 public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
 
-    int                   counter    = 0;
-    int                   index      = 0;
-    int                   page       = 0;
+    int counter = 0;
+    int index = 0;
+    int page = 0;
 
-    boolean               mirror     = false;
-    boolean               blackWhite = true;
-    private Color         background = Color.BLACK;
-    private Color         foreground = Color.WHITE;
+    boolean mirror = false;
+    boolean blackWhite = true;
+    private Color background = Color.BLACK;
+    private Color foreground = Color.WHITE;
 
-    private Painter       painter    = null;
+    private Painter painter = null;
 
-    AWettkampf<T>         wk         = null;
-    BufferStrategy        buffer     = null;
+    AWettkampf<T> wk = null;
+    BufferStrategy buffer = null;
 
-    private Component     panel      = null;
-    private BufferedImage image      = null;
+    private Component panel = null;
+    private BufferedImage image = null;
 
     public JHeatPresentationFrame(JFrame parent, AWettkampf<T> wkx) {
         super(I18n.get("Heatspresentation"));
@@ -228,7 +228,8 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
     }
 
     private GraphicsDevice screen = null;
-    private final Cursor   cursor = Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(1, 1), "");
+    private final Cursor cursor = Toolkit.getDefaultToolkit()
+            .createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(1, 1), "");
 
     private void full(int screenIndex) {
         setVisible(false);
@@ -344,7 +345,8 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                 imagegraphics.transform(mirrorAT);
             }
 
-            imagegraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            imagegraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             if (PrintManager.getFont() != null) {
                 imagegraphics.setFont(PrintManager.getFont());
             }
@@ -378,7 +380,8 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                 imagegraphics.setFont(font.deriveFont(size));
                 fm = imagegraphics.getFontMetrics();
 
-                drawCentered(imagegraphics, name, pwidth, fm.getAscent() + pheight / 10 + (pheight * 9 / 10 - fm.getHeight()) / 2);
+                drawCentered(imagegraphics, name, pwidth,
+                        fm.getAscent() + pheight / 10 + (pheight * 9 / 10 - fm.getHeight()) / 2);
                 break;
             }
             default: {

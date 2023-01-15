@@ -34,12 +34,12 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class SprecherlistePrinter implements Printer {
 
-    CorePlugin                core;
-    IPluginManager            controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
 
     private JComboBox<String> columns;
 
@@ -50,7 +50,9 @@ class SprecherlistePrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -59,7 +61,8 @@ class SprecherlistePrinter implements Printer {
         preview.addActionListener(new PreviewActionListener());
 
         columns = new JComboBox<String>(
-                new String[] { I18n.get("None"), I18n.get("Disciplines"), I18n.get("Meldezeiten"), I18n.get("DisciplinesAndMeldezeiten") });
+                new String[] { I18n.get("None"), I18n.get("Disciplines"), I18n.get("Meldezeiten"),
+                        I18n.get("DisciplinesAndMeldezeiten") });
         columns.setSelectedIndex(3);
 
         print.setEnabled(false);
@@ -89,6 +92,7 @@ class SprecherlistePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -98,6 +102,7 @@ class SprecherlistePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -119,7 +124,8 @@ class SprecherlistePrinter implements Printer {
                 break;
             }
         }
-        return new SprecherlistePrintable<T>(wk, discipline, times, quali, false, !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
+        return new SprecherlistePrintable<T>(wk, discipline, times, quali, false,
+                !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
     }
 
     @SuppressWarnings({})
@@ -127,7 +133,9 @@ class SprecherlistePrinter implements Printer {
         boolean discipline = (columns.getSelectedIndex() % 2 != 0);
         boolean times = (columns.getSelectedIndex() > 1);
         return PrintManager.getFinalPrintable(
-                PrintManager.getHeaderPrintable(getPrintable(core.getWettkampf(), discipline, times), I18n.get("SpeakerHeatList")), core.getLastChangedDate(),
+                PrintManager.getHeaderPrintable(getPrintable(core.getWettkampf(), discipline, times),
+                        I18n.get("SpeakerHeatList")),
+                core.getLastChangedDate(),
                 true, I18n.get("SpeakerHeatList"));
     }
 
@@ -149,7 +157,8 @@ class SprecherlistePrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SpeakerHeatList"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SpeakerHeatList"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

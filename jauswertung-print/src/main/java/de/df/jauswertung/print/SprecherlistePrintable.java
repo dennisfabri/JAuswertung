@@ -35,10 +35,13 @@ import de.df.jutils.util.StringTools;
 
 public final class SprecherlistePrintable<T extends ASchwimmer> extends ComponentPackingPrintable {
 
-    public SprecherlistePrintable(AWettkampf<T> wk, boolean showDisciplines, boolean showTimes, boolean showQuali, boolean showNotes, boolean showOrganisation,
+    public SprecherlistePrintable(AWettkampf<T> wk, boolean showDisciplines, boolean showTimes, boolean showQuali,
+            boolean showNotes, boolean showOrganisation,
             boolean showYearOfBirth) {
-        super(5, 10, false, getPanels(wk, showDisciplines, showTimes, showQuali, showNotes, showOrganisation || wk.isEinzel(), showYearOfBirth && wk.isEinzel(),
-                wk.isMultiline()));
+        super(5, 10, false,
+                getPanels(wk, showDisciplines, showTimes, showQuali, showNotes, showOrganisation || wk.isEinzel(),
+                        showYearOfBirth && wk.isEinzel(),
+                        wk.isMultiline()));
     }
 
     private static boolean sindMannschaftsnamenEindeutig(MannschaftWettkampf mwk) {
@@ -56,7 +59,8 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         return true;
     }
 
-    private static <T extends ASchwimmer> Component[] getPanels(AWettkampf<T> wk, boolean showDisciplines, boolean showTimes, boolean showQuali,
+    private static <T extends ASchwimmer> Component[] getPanels(AWettkampf<T> wk, boolean showDisciplines,
+            boolean showTimes, boolean showQuali,
             boolean showNotes, boolean showOrganisation, boolean showYearOfBirth, boolean isMultiline) {
         if (wk == null) {
             return null;
@@ -85,15 +89,18 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         LinkedList<Component> components = new LinkedList<Component>();
         int index = 0;
         for (Lauf<T> lauf : laufliste) {
-            components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showNotes, showOrganisation, showYearOfBirth, isMultiline,
+            components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showNotes,
+                    showOrganisation, showYearOfBirth, isMultiline,
                     index, laufliste.size()));
             index++;
         }
         return components.toArray(new Component[components.size()]);
     }
 
-    private static <T extends ASchwimmer> JPanel getPanel(AWettkampf<T> wk, Lauf<T> lauf, boolean[] lanes, boolean showDisciplines, boolean showTimes,
-            boolean showQuali, boolean showNotes, boolean showOrganisation, boolean showYearOfBirth, boolean isMultiline, int heatIndex, int amountOfHeats) {
+    private static <T extends ASchwimmer> JPanel getPanel(AWettkampf<T> wk, Lauf<T> lauf, boolean[] lanes,
+            boolean showDisciplines, boolean showTimes,
+            boolean showQuali, boolean showNotes, boolean showOrganisation, boolean showYearOfBirth,
+            boolean isMultiline, int heatIndex, int amountOfHeats) {
         FormLayout layout = new FormLayout("1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu",
                 "1dlu,fill:default,1dlu,fill:default,4dlu");
         JPanel panel = new JPanel(layout);
@@ -108,7 +115,8 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {
-            String heattext = String.format("%03d-%02d%s", id, lauf.getLaufnummer(), StringTools.characterString(lauf.getLaufbuchstabe()));
+            String heattext = String.format("%03d-%02d%s", id, lauf.getLaufnummer(),
+                    StringTools.characterString(lauf.getLaufbuchstabe()));
             disziplin = lauf.getDisziplin() + " - " + I18n.getRound(round, isFinal) + " - " + heattext;
         }
 
@@ -128,7 +136,9 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         panel.add(createLabel(laufname), CC.xy(2, 2));
         panel.add(createLabel(lauf.getStartgruppe(), SwingConstants.CENTER), CC.xy(4, 2));
         panel.add(createLabel(disziplin, SwingConstants.RIGHT), CC.xy(6, 2));
-        panel.add(getTablePanel(lauf, lanes, showDisciplines, showTimes, showQuali, showNotes, showOrganisation, showYearOfBirth, isMultiline, showSN),
+        panel.add(
+                getTablePanel(lauf, lanes, showDisciplines, showTimes, showQuali, showNotes, showOrganisation,
+                        showYearOfBirth, isMultiline, showSN),
                 CC.xyw(2, 4, 5, "fill,fill"));
 
         return panel;
@@ -151,7 +161,8 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
      * @param lauf
      * @return
      */
-    private static <T extends ASchwimmer> JPanel getTablePanel(Lauf<T> lauf, boolean[] lanes, boolean showDisciplines, boolean showTimes, boolean showQuali,
+    private static <T extends ASchwimmer> JPanel getTablePanel(Lauf<T> lauf, boolean[] lanes, boolean showDisciplines,
+            boolean showTimes, boolean showQuali,
             boolean showNotes, boolean showOrganisation, boolean showYearOfBirth, boolean isMultiline, boolean showSN) {
         LinkedList<Object[]> datas = new LinkedList<Object[]>();
         for (int x = 0; x < lauf.getBahnen(); x++) {
@@ -176,7 +187,8 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                         if (s.getName().equals(s.getGliederung()) && showOrganisation) {
                             data[1] = m.getStarterShort(lauf.getDisznummer(x), ", ");
                         } else {
-                            data[1] = I18n.get("TeamnameMultiline", s.getName(), m.getStarterShort(lauf.getDisznummer(x), ", "));
+                            data[1] = I18n.get("TeamnameMultiline", s.getName(),
+                                    m.getStarterShort(lauf.getDisznummer(x), ", "));
                         }
                     } else {
                         data[1] = s.getName();
@@ -189,15 +201,18 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                     }
                     data[4] = ak + " " + I18n.geschlechtToShortString(s);
                     data[5] = t != null ? I18n.yearToShortString(t.getJahrgang()) + " " : "";
-                    data[6] = I18n.getDisziplinShort(s.getAK().getDisziplin(lauf.getDisznummer(x), s.isMaennlich()).toString());
+                    data[6] = I18n.getDisziplinShort(
+                            s.getAK().getDisziplin(lauf.getDisznummer(x), s.isMaennlich()).toString());
                     data[7] = StringTools.zeitString(s.getMeldezeit(lauf.getDisznummer(x)));
                     data[8] = "                ";
                 }
                 datas.addLast(data);
             }
         }
-        Object[] titles = new Object[] { I18n.get("Lane"), I18n.get("Name"), I18n.get("Organisation"), I18n.get("QualifikationsebeneShort"),
-                I18n.get("AgeGroupShort"), I18n.get("YearOfBirthShort"), I18n.get("Discipline", ""), I18n.get("Meldezeit"), I18n.get("Notes") };
+        Object[] titles = new Object[] { I18n.get("Lane"), I18n.get("Name"), I18n.get("Organisation"),
+                I18n.get("QualifikationsebeneShort"),
+                I18n.get("AgeGroupShort"), I18n.get("YearOfBirthShort"), I18n.get("Discipline", ""),
+                I18n.get("Meldezeit"), I18n.get("Notes") };
         JTable table = new JTable(datas.toArray(new Object[datas.size()][0]), titles);
         if (!showNotes) {
             JTableUtils.hideColumnAndRemoveData(table, 8);
@@ -222,8 +237,10 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
             table.setFont(PrintManager.getFont());
         }
         JTableUtils.setPreferredCellWidths(table);
-        JTableUtils.setTableCellRenderer(table, new AlignmentCellRenderer(new int[] { SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT,
-                SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.RIGHT }, SwingConstants.LEFT));
+        JTableUtils.setTableCellRenderer(table,
+                new AlignmentCellRenderer(new int[] { SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT,
+                        SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER, SwingConstants.LEFT,
+                        SwingConstants.RIGHT }, SwingConstants.LEFT));
         JPrintTable.initPrintableJTable(table);
         JTableUtils.setPreferredCellSizes(table);
 

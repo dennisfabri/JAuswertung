@@ -4,12 +4,12 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
 public class SchwimmerInfo<T extends ASchwimmer> implements Comparable<SchwimmerInfo<T>> {
-    public T       schwimmer;
-    public int     runde;
-    public int     platz;
-    public int     lauf;
-    public int     zeit;
-    public Strafe  strafe;
+    public T schwimmer;
+    public int runde;
+    public int platz;
+    public int lauf;
+    public int zeit;
+    public Strafe strafe;
     public boolean isFinal;
 
     @Override

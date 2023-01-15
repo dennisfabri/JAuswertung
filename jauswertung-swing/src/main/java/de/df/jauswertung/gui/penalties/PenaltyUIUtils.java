@@ -63,7 +63,7 @@ public class PenaltyUIUtils {
     static class PenaltyCallback implements IPenaltyCallback {
 
         private boolean called = false;
-        private Strafe  s      = null;
+        private Strafe s = null;
 
         @Override
         public void setStrafe(Strafe s) {
@@ -84,11 +84,13 @@ public class PenaltyUIUtils {
         return getPenalties(wk, -1, null, false, kurz);
     }
 
-    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected, boolean ignoreNA) {
+    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
+            boolean ignoreNA) {
         return getPenalties(wk, index, selected, ignoreNA, false);
     }
 
-    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected, boolean ignoreNA, boolean kurz) {
+    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
+            boolean ignoreNA, boolean kurz) {
         Hashtable<String, JPanel> panels = new Hashtable<String, JPanel>();
         add(panels, wk, index, selected, false, null, ignoreNA, kurz);
 
@@ -111,12 +113,14 @@ public class PenaltyUIUtils {
         return result.toArray(new JPanel[result.size()]);
     }
 
-    public static <T extends ASchwimmer> JPanel[] getPenaltiesShort(AWettkampf<T> wk, int index, boolean[][] selected, boolean ignoreNA) {
+    public static <T extends ASchwimmer> JPanel[] getPenaltiesShort(AWettkampf<T> wk, int index, boolean[][] selected,
+            boolean ignoreNA) {
         return getPenalties(wk, index, selected, ignoreNA, true);
     }
 
     @SuppressWarnings({})
-    public static <T extends ASchwimmer> void add(Hashtable<String, JPanel> panels, AWettkampf<T> wk, int index, boolean[][] selected, boolean border,
+    public static <T extends ASchwimmer> void add(Hashtable<String, JPanel> panels, AWettkampf<T> wk, int index,
+            boolean[][] selected, boolean border,
             PenaltyListener pl, boolean ignoreNA, boolean kurz) {
         if (wk == null) {
             return;
@@ -152,7 +156,8 @@ public class PenaltyUIUtils {
     }
 
     @SuppressWarnings({})
-    private static <T extends ASchwimmer> void add(Hashtable<String, JPanel> panels, AWettkampf<T> wk, int index, T s, boolean border, PenaltyListener pl,
+    private static <T extends ASchwimmer> void add(Hashtable<String, JPanel> panels, AWettkampf<T> wk, int index, T s,
+            boolean border, PenaltyListener pl,
             boolean ignoreNA, boolean kurz) {
 
         Altersklasse ak = s.getAK();
@@ -174,7 +179,8 @@ public class PenaltyUIUtils {
         }
     }
 
-    private static <T extends ASchwimmer> void createPenaltyPanels(Hashtable<String, JPanel> panels, AWettkampf<T> wk, T s, boolean border, PenaltyListener pl,
+    private static <T extends ASchwimmer> void createPenaltyPanels(Hashtable<String, JPanel> panels, AWettkampf<T> wk,
+            T s, boolean border, PenaltyListener pl,
             Altersklasse ak, int discipline, boolean ignoreNA, boolean kurz) {
         if (kurz) {
             createPenaltyPanelsShort(panels, wk, s, border, pl, ak, discipline, ignoreNA);
@@ -183,7 +189,8 @@ public class PenaltyUIUtils {
         }
     }
 
-    private static <T extends ASchwimmer> void createPenaltyPanelsShort(Hashtable<String, JPanel> panels, AWettkampf<T> wk, T s, boolean border,
+    private static <T extends ASchwimmer> void createPenaltyPanelsShort(Hashtable<String, JPanel> panels,
+            AWettkampf<T> wk, T s, boolean border,
             PenaltyListener pl, Altersklasse ak, int discipline, boolean ignoreNA) {
         LinkedList<Strafe> ls = s.getStrafen(discipline);
         ListIterator<Strafe> li = ls.listIterator();
@@ -204,7 +211,8 @@ public class PenaltyUIUtils {
                     sfm.setFont(PrintManager.getFont());
                 }
                 if (lauf != null) {
-                    sfm.addText(I18n.get("Heat") + " " + lauf.getName() + ", " + I18n.get("Lane") + " " + (lauf.getIndex(s, discipline) + 1));
+                    sfm.addText(I18n.get("Heat") + " " + lauf.getName() + ", " + I18n.get("Lane") + " "
+                            + (lauf.getIndex(s, discipline) + 1));
                 }
 
                 String name = s.getName();
@@ -216,7 +224,8 @@ public class PenaltyUIUtils {
                 String akstring = I18n.getAgeGroupAsString(s);
                 String disciplinestring = "";
                 if (discipline != ASchwimmer.DISCIPLINE_NUMBER_SELF) {
-                    disciplinestring = I18n.getDisziplinShort(s.getAK().getDisziplin(discipline, s.isMaennlich()).getName());
+                    disciplinestring = I18n
+                            .getDisziplinShort(s.getAK().getDisziplin(discipline, s.isMaennlich()).getName());
                 } else {
                     disciplinestring = "";
                 }
@@ -233,7 +242,8 @@ public class PenaltyUIUtils {
 
                 if (border) {
                     sfm.setBorder(BorderUtils
-                            .createLabeledBorder(s.getName() + " - " + s.getGliederung() + " - " + s.getAK().toString() + " " + I18n.geschlechtToString(s)));
+                            .createLabeledBorder(s.getName() + " - " + s.getGliederung() + " - " + s.getAK().toString()
+                                    + " " + I18n.geschlechtToString(s)));
                 }
 
                 int laufindex = -1;
@@ -242,7 +252,8 @@ public class PenaltyUIUtils {
                 }
                 int bahnen = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
                 panels.put(getID(laufindex, (lauf != null ? lauf.getIndex(s, discipline) : 0),
-                        (wk.hasLaufliste() ? wk.getLaufliste().getLaufliste().size() : 0), bahnen, s.getName(), s.getStartnummer(), offset, discipline),
+                        (wk.hasLaufliste() ? wk.getLaufliste().getLaufliste().size() : 0), bahnen, s.getName(),
+                        s.getStartnummer(), offset, discipline),
                         sfm.getPanel());
 
                 offset++;
@@ -250,7 +261,8 @@ public class PenaltyUIUtils {
         }
     }
 
-    private static <T extends ASchwimmer> void createPenaltyPanelsLong(Hashtable<String, JPanel> panels, AWettkampf<T> wk, T s, boolean border,
+    private static <T extends ASchwimmer> void createPenaltyPanelsLong(Hashtable<String, JPanel> panels,
+            AWettkampf<T> wk, T s, boolean border,
             PenaltyListener pl, Altersklasse ak, int discipline, boolean ignoreNA) {
         LinkedList<Strafe> ls = s.getStrafen(discipline);
         ListIterator<Strafe> li = ls.listIterator();
@@ -271,13 +283,15 @@ public class PenaltyUIUtils {
                     sfm.setFont(PrintManager.getFont());
                 }
                 if (lauf != null) {
-                    sfm.add(I18n.get("Heat") + " / " + I18n.get("Lane") + ":  ", lauf.getName() + " / " + (lauf.getIndex(s, discipline) + 1));
+                    sfm.add(I18n.get("Heat") + " / " + I18n.get("Lane") + ":  ",
+                            lauf.getName() + " / " + (lauf.getIndex(s, discipline) + 1));
                 }
                 sfm.add(I18n.get("Name") + ":  ", s.getName());
                 sfm.add(I18n.get("Organisation") + ":  ", s.getGliederung());
                 sfm.add(I18n.get("AgeGroup") + ":  ", s.getAK().toString() + " " + I18n.geschlechtToString(s));
                 if (discipline != ASchwimmer.DISCIPLINE_NUMBER_SELF) {
-                    sfm.add(I18n.get("Discipline") + ":  ", s.getAK().getDisziplin(discipline, s.isMaennlich()).getName());
+                    sfm.add(I18n.get("Discipline") + ":  ",
+                            s.getAK().getDisziplin(discipline, s.isMaennlich()).getName());
                 } else {
                     sfm.add(I18n.get("Discipline") + ":  ", "-");
                 }
@@ -293,7 +307,8 @@ public class PenaltyUIUtils {
 
                 if (border) {
                     sfm.setBorder(BorderUtils
-                            .createLabeledBorder(s.getName() + " - " + s.getGliederung() + " - " + s.getAK().toString() + " " + I18n.geschlechtToString(s)));
+                            .createLabeledBorder(s.getName() + " - " + s.getGliederung() + " - " + s.getAK().toString()
+                                    + " " + I18n.geschlechtToString(s)));
                 }
 
                 int laufindex = -1;
@@ -302,7 +317,8 @@ public class PenaltyUIUtils {
                 }
                 int bahnen = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
                 panels.put(getID(laufindex, (lauf != null ? lauf.getIndex(s, discipline) : 0),
-                        (wk.hasLaufliste() ? wk.getLaufliste().getLaufliste().size() : 0), bahnen, s.getName(), s.getStartnummer(), offset, discipline),
+                        (wk.hasLaufliste() ? wk.getLaufliste().getLaufliste().size() : 0), bahnen, s.getName(),
+                        s.getStartnummer(), offset, discipline),
                         sfm.getPanel());
 
                 offset++;
@@ -310,7 +326,8 @@ public class PenaltyUIUtils {
         }
     }
 
-    private static String getID(int laufindex, int bahnindex, int laufanzahl, int bahnenanzahl, String name, int sn, int offset, int discipline) {
+    private static String getID(int laufindex, int bahnindex, int laufanzahl, int bahnenanzahl, String name, int sn,
+            int offset, int discipline) {
         StringBuilder result = new StringBuilder();
         if (laufanzahl > 0) {
             int llength = Math.max(("" + laufanzahl).length(), 2);
@@ -346,7 +363,7 @@ public class PenaltyUIUtils {
     private static final class ShowPenaltiesThread extends Thread {
 
         private JStrafenkatalogDialog sk;
-        private IPenaltyCallback      pc;
+        private IPenaltyCallback pc;
 
         public ShowPenaltiesThread(JStrafenkatalogDialog sk, IPenaltyCallback pc) {
             super("ShowPenaltiesThread");
@@ -378,9 +395,9 @@ public class PenaltyUIUtils {
     private static final class PenaltyActionListener implements ActionListener {
 
         @SuppressWarnings("rawtypes")
-        private final AWettkampf      wettkampf;
-        private final ASchwimmer      schwimmer;
-        private final int             disziplin;
+        private final AWettkampf wettkampf;
+        private final ASchwimmer schwimmer;
+        private final int disziplin;
         private final PenaltyListener listener;
 
         @SuppressWarnings("rawtypes")

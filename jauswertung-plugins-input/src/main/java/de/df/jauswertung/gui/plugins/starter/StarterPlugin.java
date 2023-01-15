@@ -15,7 +15,8 @@ public class StarterPlugin extends AFeature {
 
             @Override
             public void run() {
-                getController().sendDataUpdateEvent("ChangeSwimmer", UpdateEventConstants.REASON_SWIMMER_CHANGED, StarterPlugin.this);
+                getController().sendDataUpdateEvent("ChangeSwimmer", UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                        StarterPlugin.this);
             }
 
         });

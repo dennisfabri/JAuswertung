@@ -76,7 +76,7 @@ import de.df.jutils.gui.window.JOptionsDialog;
 public final class JPropertiesTabbedPane extends JTabbedPane {
 
     private static final long serialVersionUID = 3256442495306316086L;
-    
+
     private ISCUploadCredentialRepository authkeys = new ISCUploadCredentialRepository();
 
     private JComboBox<Wettkampfart> art;
@@ -365,7 +365,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvnumber.getText());
             wk.setProperty(ISC_RESULT_UPLOAD_COMPETITION_ID, competitionId.getText());
 
-            authkeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER), wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText()));
+            authkeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
+                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText()));
         }
     }
 
@@ -435,7 +436,6 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             dialog.setChanged(false);
         }
     }
-
 
     class ManakinMouseListener extends MouseAdapter {
 

@@ -27,16 +27,16 @@ import de.df.jutils.plugin.IPluginManager;
  */
 public class OGeneralOptionsPlugin extends ANullPlugin implements MOptionenPlugin.OptionsPlugin {
 
-    MOptionenPlugin         optionen;
-    private JPanel          panel;
-    private JCheckBox       penaltyCheckbox;
-    private JCheckBox       singleCheckbox;
-    private JCheckBox       hightimesCheckbox;
-    private JCheckBox       lowtimesCheckbox;
+    MOptionenPlugin optionen;
+    private JPanel panel;
+    private JCheckBox penaltyCheckbox;
+    private JCheckBox singleCheckbox;
+    private JCheckBox hightimesCheckbox;
+    private JCheckBox lowtimesCheckbox;
 
-    private boolean         state     = false;
-    private boolean         singlewk  = false;
-    private boolean         hightimes = false;
+    private boolean state = false;
+    private boolean singlewk = false;
+    private boolean hightimes = false;
 
     public OGeneralOptionsPlugin() {
         super();

@@ -27,7 +27,8 @@ class ZielrichterentscheidListCellRenderer extends DefaultListCellRenderer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
         if ((value == null) || (!(value instanceof Zielrichterentscheid))) {
             return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         }
@@ -36,7 +37,9 @@ class ZielrichterentscheidListCellRenderer extends DefaultListCellRenderer {
         ASchwimmer s = ze.getSchwimmer().getFirst();
         LaufInfo li = SchwimmerUtils.getLaufInfo(s.getWettkampf(), s, ze.getDisziplin());
         return super.getListCellRendererComponent(list,
-                I18n.get("ZielrichterentscheidListLabel", li.getLauf(), s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich()), s.getName()), index,
+                I18n.get("ZielrichterentscheidListLabel", li.getLauf(),
+                        s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich()), s.getName()),
+                index,
                 isSelected, cellHasFocus);
     }
 }

@@ -24,12 +24,14 @@ public final class SearchUtils {
         // Hide Constructor
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung, String gliederung, int ak, int sex,
+    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
+            String gliederung, int ak, int sex,
             int ausserk, AWettkampf<T> wk) {
         return search(sn, name, points, bemerkung, gliederung, "", ak, sex, ausserk, wk);
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung, String gliederung, String quali, int ak,
+    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
+            String gliederung, String quali, int ak,
             int sex, int ausserk, AWettkampf<T> wk) {
         if (wk == null) {
             return new LinkedList<T>();
@@ -55,7 +57,8 @@ public final class SearchUtils {
     }
 
     @SuppressWarnings("fallthrough")
-    private static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung, String gliederung, String quali,
+    private static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
+            String gliederung, String quali,
             String ak, int sex, int ausserk, LinkedList<T> menge) {
 
         bemerkung = bemerkung.toLowerCase();
@@ -68,8 +71,10 @@ public final class SearchUtils {
         while (li.hasNext()) {
             ASchwimmer s = li.next();
             if ((("" + s.getStartnummer()).indexOf(sn) == -1) || (s.getName().toLowerCase().indexOf(name) == -1)
-                    || (s.getBemerkung().toLowerCase().indexOf(bemerkung) == -1) || (s.getGliederung().toLowerCase().indexOf(gliederung) == -1)
-                    || (s.getQualifikationsebene().toLowerCase().indexOf(quali) == -1) || (s.getAK().getName().toLowerCase().indexOf(ak) == -1)
+                    || (s.getBemerkung().toLowerCase().indexOf(bemerkung) == -1)
+                    || (s.getGliederung().toLowerCase().indexOf(gliederung) == -1)
+                    || (s.getQualifikationsebene().toLowerCase().indexOf(quali) == -1)
+                    || (s.getAK().getName().toLowerCase().indexOf(ak) == -1)
                     || (points > s.getMeldepunkte(0))) {
                 li.remove();
             } else {
@@ -342,10 +347,8 @@ public final class SearchUtils {
     /**
      * Liefert den Schwimmer mit der entsprechenden Startnummer.
      * 
-     * @param wk
-     *            Wettkampf
-     * @param startnummer
-     *            Die zu suchende Startnummer
+     * @param wk          Wettkampf
+     * @param startnummer Die zu suchende Startnummer
      * @return Liefert den gefundenen Schwimmer oder null
      */
     public static <T extends ASchwimmer> T getSchwimmer(AWettkampf<T> wk, int startnummer) {
@@ -360,10 +363,8 @@ public final class SearchUtils {
     /**
      * Liefert die Schwimmer mit dem gesuchten Namen.
      * 
-     * @param wk
-     *            Wettkampf
-     * @param name
-     *            Name
+     * @param wk   Wettkampf
+     * @param name Name
      * @return Liefert eine Liste der gesuchten Schwimmer.
      */
     public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String name) {
@@ -417,7 +418,8 @@ public final class SearchUtils {
         return !suchen.isEmpty();
     }
 
-    public static <T extends ASchwimmer> boolean hasSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich, int disziplin) {
+    public static <T extends ASchwimmer> boolean hasSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich,
+            int disziplin) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
@@ -425,14 +427,16 @@ public final class SearchUtils {
         return !suchen.isEmpty();
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak,
+            boolean maennlich) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich, int disziplin) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak,
+            boolean maennlich, int disziplin) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
@@ -452,7 +456,8 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String[] gliederungen, boolean mustFitQGld) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String[] gliederungen,
+            boolean mustFitQGld) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         if (mustFitQGld) {
             filtereGliederungenMitQGld(suchen, gliederungen);
@@ -468,7 +473,8 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male, String bemerkung) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male,
+            String bemerkung) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, male);
@@ -476,7 +482,8 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male, int disziplin, int zeit) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male,
+            int disziplin, int zeit) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, male);

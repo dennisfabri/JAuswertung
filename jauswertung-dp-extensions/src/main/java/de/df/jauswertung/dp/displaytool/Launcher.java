@@ -11,7 +11,7 @@ public class Launcher {
 
     private CompetitionPresenter presenter = new CompetitionPresenter();
 
-    private String               filename  = null;
+    private String filename = null;
 
     public void start() {
         presenter.setCompetition(new Competition("DP"));
@@ -33,7 +33,7 @@ public class Launcher {
     public void update() {
         if (filename != null) {
             try {
-                
+
                 Competition c = (Competition) InputManager.ladeObject(filename);
                 if (c != null) {
                     presenter.setCompetition(c);

@@ -25,14 +25,14 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class UIModeWindow extends JFrame {
 
-    private JRadioButton uiDefault  = new JRadioButton("Standard");
-    private JRadioButton uiOpenGL   = new JRadioButton("OpenGL");
+    private JRadioButton uiDefault = new JRadioButton("Standard");
+    private JRadioButton uiOpenGL = new JRadioButton("OpenGL");
     private JRadioButton uiSoftware = new JRadioButton("Software");
 
-    private JButton      ok         = new JButton("Ok");
-    private JButton      cancel     = new JButton("Abbrechen");
+    private JButton ok = new JButton("Ok");
+    private JButton cancel = new JButton("Abbrechen");
 
-    private ButtonGroup  group      = new ButtonGroup();
+    private ButtonGroup group = new ButtonGroup();
 
     public UIModeWindow() {
         prepareUI();
@@ -84,7 +84,8 @@ public class UIModeWindow extends JFrame {
         add(header, CC.xyw(1, 2, 9));
         add(createText("Java nutzt die favorisierte Schnittstelle des Betriebsystems.", true), CC.xyw(2, 6, 7));
         add(createText("Java nutzt die Hardwarebeschleunigung einer Grafikkarte über OpenGL", true), CC.xyw(2, 10, 7));
-        add(createText("Java nutzt die CPU zur Berechnung der Darstellung (sicherste Methode). Diese Option sollte bei Darstellungsfehlern gewählt werden.",
+        add(createText(
+                "Java nutzt die CPU zur Berechnung der Darstellung (sicherste Methode). Diese Option sollte bei Darstellungsfehlern gewählt werden.",
                 true), CC.xyw(2, 14, 7));
 
         add(uiDefault, CC.xyw(2, 4, 7));

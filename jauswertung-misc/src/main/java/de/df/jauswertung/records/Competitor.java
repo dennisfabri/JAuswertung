@@ -2,10 +2,10 @@ package de.df.jauswertung.records;
 
 public class Competitor {
 
-    public final int     Id;
-    public final String  First;
-    public final String  Second;
-    public final int     ClubId;
+    public final int Id;
+    public final String First;
+    public final String Second;
+    public final int ClubId;
     public final boolean Team;
     public final boolean Male;
 

@@ -14,13 +14,13 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 
 class JKampfrichterTeamPanel extends JPanel {
 
-    private static final long           serialVersionUID = -2152155460517268613L;
+    private static final long serialVersionUID = -2152155460517268613L;
 
-    boolean                             changed          = false;
-    private KampfrichterVerwaltung      team;
+    boolean changed = false;
+    private KampfrichterVerwaltung team;
 
-    private JKampfrichterEinheitPanel[] panels           = new JKampfrichterEinheitPanel[0];
-    private JTabbedPane                 tabs             = new JTabbedPane();
+    private JKampfrichterEinheitPanel[] panels = new JKampfrichterEinheitPanel[0];
+    private JTabbedPane tabs = new JTabbedPane();
 
     JKampfrichterTeamPanel(KampfrichterVerwaltung kt) {
         team = kt;
@@ -37,7 +37,8 @@ class JKampfrichterTeamPanel extends JPanel {
             tabs.addTab(team.getEinheit(x).getName(), scr);
         }
 
-        FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default:grow,0dlu", "0dlu,fill:default:grow,0dlu");
+        FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default:grow,0dlu",
+                "0dlu,fill:default:grow,0dlu");
 
         setLayout(layout);
         add(tabs, CC.xyw(2, 2, 3, "fill,fill"));

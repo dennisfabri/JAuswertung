@@ -24,9 +24,9 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class OCSVOptionsPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
-    JPanel          optionsPanel = null;
-    JRadioButton    excel        = null;
-    JRadioButton    correct      = null;
+    JPanel optionsPanel = null;
+    JRadioButton excel = null;
+    JRadioButton correct = null;
 
     MOptionenPlugin options;
 
@@ -51,8 +51,8 @@ public class OCSVOptionsPlugin extends AFeature implements MOptionenPlugin.Optio
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
+     * 
+     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
      */
     @Override
     public synchronized JPanel[] getPanels() {
@@ -101,6 +101,7 @@ public class OCSVOptionsPlugin extends AFeature implements MOptionenPlugin.Optio
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#ok()
      */
     @Override
@@ -115,6 +116,7 @@ public class OCSVOptionsPlugin extends AFeature implements MOptionenPlugin.Optio
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#cancel()
      */
     @Override

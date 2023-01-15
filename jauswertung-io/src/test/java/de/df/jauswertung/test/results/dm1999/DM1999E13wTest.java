@@ -14,14 +14,14 @@ import junit.framework.TestCase;
 
 public class DM1999E13wTest extends TestCase {
 
-    private static EinzelWettkampf               wk      = null;
+    private static EinzelWettkampf wk = null;
 
-    private static final String                  FILE    = "src/test/resources/competitions/dm1999/einzel-ak13w.txt";
-    private static final boolean                 MALE    = false;
-    private static final int                     AK      = 1;
+    private static final String FILE = "src/test/resources/competitions/dm1999/einzel-ak13w.txt";
+    private static final boolean MALE = false;
+    private static final int AK = 1;
 
     private static SchwimmerResult<Teilnehmer>[] results = null;
-    private static Object[][]                    data    = null;
+    private static Object[][] data = null;
 
     public DM1999E13wTest(String x) {
         super(x);

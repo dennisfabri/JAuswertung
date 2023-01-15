@@ -32,13 +32,13 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class StatisticsPrinter implements Printer {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JPanel         panel;
-    private JButton        print;
-    private JButton        preview;
-    private JLabel         filter;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
 
     public StatisticsPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -59,7 +59,8 @@ class StatisticsPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -77,6 +78,7 @@ class StatisticsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -86,6 +88,7 @@ class StatisticsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -100,7 +103,8 @@ class StatisticsPrinter implements Printer {
     }
 
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(new StatisticsPrintable<ASchwimmer>(core.getFilteredWettkampf()), core.getLastChangedDate(),
+        return PrintManager.getFinalPrintable(new StatisticsPrintable<ASchwimmer>(core.getFilteredWettkampf()),
+                core.getLastChangedDate(),
                 I18n.get("Statistics"), I18n.get("Statistics"));
     }
 
@@ -109,7 +113,8 @@ class StatisticsPrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new MeldelistenPC(), I18n.get("Statistics"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new MeldelistenPC(), I18n.get("Statistics"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     private final class MeldelistenPC implements PrintableCreator {

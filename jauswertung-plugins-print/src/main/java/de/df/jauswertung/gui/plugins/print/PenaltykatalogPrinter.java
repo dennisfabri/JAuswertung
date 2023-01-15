@@ -31,10 +31,10 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class PenaltykatalogPrinter implements Printer {
 
-    CorePlugin     core       = null;
+    CorePlugin core = null;
     IPluginManager controller = null;
 
-    private JPanel panel      = null;
+    private JPanel panel = null;
 
     public PenaltykatalogPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -44,7 +44,8 @@ class PenaltykatalogPrinter implements Printer {
 
     private void initGUI() {
 
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu"));
 
         JButton print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
         print.addActionListener(new PrintActionListener());
@@ -58,6 +59,7 @@ class PenaltykatalogPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
 
@@ -68,6 +70,7 @@ class PenaltykatalogPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -87,7 +90,9 @@ class PenaltykatalogPrinter implements Printer {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     static Printable getPrintable(AWettkampf wk, Date date) {
-        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(new PenaltyCatalogPrintable(wk), I18n.get("PenaltyCatalog")), date, true,
+        return PrintManager.getFinalPrintable(
+                PrintManager.getHeaderPrintable(new PenaltyCatalogPrintable(wk), I18n.get("PenaltyCatalog")), date,
+                true,
                 I18n.get("PenaltyCatalog"));
     }
 
@@ -109,7 +114,8 @@ class PenaltykatalogPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("PenaltyCatalog"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("PenaltyCatalog"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

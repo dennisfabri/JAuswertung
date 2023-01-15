@@ -10,7 +10,7 @@ public class TeamWithStarters {
         this.startnumber = startnumber;
         this.discipline = discipline;
         this.round = round;
-        this.starters = starters;        
+        this.starters = starters;
     }
 
     public int getStartnumber() {
@@ -20,7 +20,7 @@ public class TeamWithStarters {
     public String getDiscipline() {
         return discipline;
     }
-    
+
     public int getRound() {
         return round;
     }

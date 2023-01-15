@@ -23,15 +23,15 @@ class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {
 
     private static final long serialVersionUID = -5048680404158227209L;
 
-    private AWettkampf<T>     wk;
-    private Altersklasse      ak;
-    private boolean           male;
+    private AWettkampf<T> wk;
+    private Altersklasse ak;
+    private boolean male;
 
-    private JMeldezeiten<T>   parent;
+    private JMeldezeiten<T> parent;
 
-    ASchwimmer[]              swimmer;
+    ASchwimmer[] swimmer;
     private JIntegerField[][] integer;
-    private JTimeField[][]    times;
+    private JTimeField[][] times;
 
     public JMeldezeitenPanel(JMeldezeiten<T> p, AWettkampf<T> w, Altersklasse a, boolean m) {
         parent = p;
@@ -41,9 +41,11 @@ class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {
 
         int disziplinen = ak.getDiszAnzahl();
 
-        swimmer = SearchUtils.getSchwimmer(wk, ak, male).toArray(new ASchwimmer[SearchUtils.getSchwimmer(wk, ak, male).size()]);
+        swimmer = SearchUtils.getSchwimmer(wk, ak, male)
+                .toArray(new ASchwimmer[SearchUtils.getSchwimmer(wk, ak, male).size()]);
 
-        String horizontal = "4dlu,fill:default,4dlu,fill:default," + FormLayoutUtils.createGrowingLayoutString(disziplinen * 2);
+        String horizontal = "4dlu,fill:default,4dlu,fill:default,"
+                + FormLayoutUtils.createGrowingLayoutString(disziplinen * 2);
 
         int[][] columngroups = new int[2][0];
         columngroups[0] = new int[disziplinen + 1];

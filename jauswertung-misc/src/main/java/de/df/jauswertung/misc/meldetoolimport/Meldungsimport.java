@@ -82,7 +82,8 @@ class Meldungsimport {
             }
 
             data = new Object[groupedRows.size()][0];
-            ArrayList<Hashtable<String, String>>[] values = groupedRows.values().toArray(new ArrayList[groupedRows.size()]);
+            ArrayList<Hashtable<String, String>>[] values = groupedRows.values()
+                    .toArray(new ArrayList[groupedRows.size()]);
             for (int x = 0; x < groupedRows.size(); x++) {
                 data[x] = berechneZeile(values[x], zos, gld, maxMembers);
             }
@@ -134,7 +135,8 @@ class Meldungsimport {
         return gldstr;
     }
 
-    private Object[] berechneZeile(ArrayList<Hashtable<String, String>> members, Zuordnung zos, Gliederungen gld, int maxMembers) {
+    private Object[] berechneZeile(ArrayList<Hashtable<String, String>> members, Zuordnung zos, Gliederungen gld,
+            int maxMembers) {
         @SuppressWarnings("unchecked")
         Mannschaft m = new Mannschaft(members.toArray(new Hashtable[members.size()]));
 

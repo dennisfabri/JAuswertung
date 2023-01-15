@@ -14,7 +14,7 @@ class ListTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T> 
 
     private static final long serialVersionUID = 3373858402029357418L;
 
-    private int               index            = -1;
+    private int index = -1;
 
     // Bundle up the selected items in the list
     // as a single string, for export.
@@ -68,7 +68,7 @@ class ListTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T> 
 
         @SuppressWarnings("rawtypes")
         private HeatListModel model;
-        private int           x;
+        private int x;
 
         @SuppressWarnings("rawtypes")
         public CleanUpRunnable(HeatListModel model, int x) {

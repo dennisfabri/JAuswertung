@@ -6,10 +6,10 @@ public class Competitor implements Serializable, Comparable<Competitor> {
 
     private static final long serialVersionUID = -2493019290606120583L;
 
-    private int               rank;
-    private String            name;
-    private double            points;
-    private double            serc;
+    private int rank;
+    private String name;
+    private double points;
+    private double serc;
 
     public Competitor(String name, double points) {
         this(name, points, 0);

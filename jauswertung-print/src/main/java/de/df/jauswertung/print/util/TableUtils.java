@@ -49,7 +49,8 @@ public final class TableUtils {
                 gth.addColumnGroup(cg);
             }
         }
-        JTableUtils.setTableCellRenderer(t, new AlignmentCellRenderer(new int[] { SwingConstants.RIGHT, SwingConstants.LEFT }, SwingConstants.RIGHT));
+        JTableUtils.setTableCellRenderer(t, new AlignmentCellRenderer(
+                new int[] { SwingConstants.RIGHT, SwingConstants.LEFT }, SwingConstants.RIGHT));
         t.getTableHeader().setReorderingAllowed(false);
 
         return t;
@@ -88,7 +89,8 @@ public final class TableUtils {
             }
         } else {
             if (sexes.length < 2 * max) {
-                throw new RuntimeException("Sexes (" + sexes.length + ") must be at least double the size of max (" + max + ").");
+                throw new RuntimeException(
+                        "Sexes (" + sexes.length + ") must be at least double the size of max (" + max + ").");
             }
             for (int x = 0; x < aks * 2; x++) {
                 titles[3 + x] = sexes[x + 2 * min];
@@ -103,7 +105,8 @@ public final class TableUtils {
      * @param ak
      * @return
      */
-    private static TableModel buildGesamtwertungsergebnis(final GesamtwertungSchwimmer[] teilies, final Regelwerk aks, final Altersklasse ak, boolean nachkomma,
+    private static TableModel buildGesamtwertungsergebnis(final GesamtwertungSchwimmer[] teilies, final Regelwerk aks,
+            final Altersklasse ak, boolean nachkomma,
             String sexes[]) {
         if (ak == null) {
             return null;

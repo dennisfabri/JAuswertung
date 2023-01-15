@@ -27,11 +27,11 @@ public class MUploadPlugin extends ANullPlugin {
     private static final long FIFTEEN_SECOND = 15 * 1000;
 
     private ButtonInfo[] buttons;
-    
+
     private CorePlugin core;
 
     private JToggleButton uploadButton;
-    
+
     private ResultUploader iscResultUploader = new ResultUploader();
 
     private Timer uploadTimer;
@@ -45,7 +45,7 @@ public class MUploadPlugin extends ANullPlugin {
         buttons[0] = new ButtonInfo(uploadButton, 1010);
 
         long period = Utils.isInDevelopmentMode() ? FIFTEEN_SECOND : ONE_MINUTE;
-        
+
         uploadTimer = new Timer("ISC Upload Timer", true);
         uploadTimer.schedule(new TimerTask() {
             @Override

@@ -8,7 +8,7 @@ import org.apache.hc.core5.http.ContentType;
 
 public class DataProducer {
 
-    private final String       name;
+    private final String name;
     private final DataProvider dp;
 
     public DataProducer(DataProvider dp, String target) {

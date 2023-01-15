@@ -16,14 +16,15 @@ public class Teilnehmer extends ASchwimmer {
     private static final long serialVersionUID = -817140386007358149L;
 
     @XStreamAsAttribute
-    private int               jahrgang;
+    private int jahrgang;
     @XStreamAsAttribute
-    private String            vorname;
+    private String vorname;
     @XStreamAsAttribute
-    private String            nachname;
+    private String nachname;
 
     /** Creates new Teilnehmer */
-    Teilnehmer(EinzelWettkampf ewk, String name, String vname, int tJahrgang, boolean geschlecht, String gliederung, int ak, String bemerkung) {
+    Teilnehmer(EinzelWettkampf ewk, String name, String vname, int tJahrgang, boolean geschlecht, String gliederung,
+            int ak, String bemerkung) {
         super(ewk, geschlecht, gliederung, ak, bemerkung);
         setVorname(vname.trim());
         setNachname(name.trim());
@@ -88,7 +89,8 @@ public class Teilnehmer extends ASchwimmer {
     }
 
     public boolean fitsAgeGroup() {
-        int base = getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION, Calendar.getInstance().get(Calendar.YEAR));
+        int base = getWettkampf().getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION,
+                Calendar.getInstance().get(Calendar.YEAR));
         return getAK().fitsYearOfBirth(getJahrgang(), base);
     }
 

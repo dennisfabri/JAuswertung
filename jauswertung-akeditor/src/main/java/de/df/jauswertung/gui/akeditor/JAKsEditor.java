@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.print.Printable;
 import java.util.Date;
+import java.util.function.Consumer;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -50,7 +51,6 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.window.JAboutDialog;
@@ -90,7 +90,7 @@ public class JAKsEditor extends JGlassFrame {
 
     private JTabbedPane tabs;
 
-    private ISimpleCallback<JAKsEditor> callback = null;
+    private Consumer<JAKsEditor> callback = null;
 
     private boolean updating = false;
     private boolean einzel = false;
@@ -159,7 +159,7 @@ public class JAKsEditor extends JGlassFrame {
         getRootPane().getActionMap().put("ESCAPE", escapeAction);
     }
 
-    public void setCallback(ISimpleCallback<JAKsEditor> cb) {
+    public void setCallback(Consumer<JAKsEditor> cb) {
         callback = cb;
     }
 
@@ -558,7 +558,7 @@ public class JAKsEditor extends JGlassFrame {
     public void setVisible(boolean b) {
         super.setVisible(b);
         if (!b && (callback != null)) {
-            SwingUtilities.invokeLater(() -> callback.callback(JAKsEditor.this));
+            SwingUtilities.invokeLater(() -> callback.accept(JAKsEditor.this));
         }
     }
 

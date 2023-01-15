@@ -23,30 +23,29 @@ public interface IImporter {
     /**
      * Importiert aus einer Datei die Meldedaten von Schwimmern.
      * 
-     * @param <T>
-     *            Teilnehmer oder Mannschaft
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Aktueller Wettkampf
+     * @param <T>  Teilnehmer oder Mannschaft
+     * @param name Name der Datei
+     * @param wk   Aktueller Wettkampf
      * @return Liste der importierten Schwimmer
-     * @throws TableFormatException
-     *             Die TableFormatException wird geworfen, wenn noetige
-     *             Informationen im Aufbau der Datei nicht vorgesehen sind.
-     * @throws TableEntryException
-     *             Die TableEntryException wird geworfen, wenn Eintraege ein
-     *             falsches Format aufweisen.
+     * @throws TableFormatException Die TableFormatException wird geworfen, wenn
+     *                              noetige Informationen im Aufbau der Datei nicht
+     *                              vorgesehen sind.
+     * @throws TableEntryException  Die TableEntryException wird geworfen, wenn
+     *                              Eintraege ein falsches Format aufweisen.
      */
-    <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data, String filename)
+    <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data, String filename)
+    <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
+    <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk,
+            Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)

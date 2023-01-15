@@ -43,13 +43,14 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MPenaltylistPlugin extends ANullPlugin {
 
-    public static final long BITMASK = REASON_NEW_WK | REASON_AKS_CHANGED | REASON_LOAD_WK | REASON_GLIEDERUNG_CHANGED | REASON_SWIMMER_CHANGED | REASON_PENALTY
+    public static final long BITMASK = REASON_NEW_WK | REASON_AKS_CHANGED | REASON_LOAD_WK | REASON_GLIEDERUNG_CHANGED
+            | REASON_SWIMMER_CHANGED | REASON_PENALTY
             | REASON_SWIMMER_DELETED;
 
-    JPenaltyList             penalties;
-    CorePlugin               core;
-    FEditorPlugin            edit;
-    private JMenuItem        item;
+    JPenaltyList penalties;
+    CorePlugin core;
+    FEditorPlugin edit;
+    private JMenuItem item;
 
     public MPenaltylistPlugin() {
         item = new JMenuItem(I18n.get("Penaltylist"), IconManager.getSmallIcon("penalty"));
@@ -105,16 +106,17 @@ public class MPenaltylistPlugin extends ANullPlugin {
 
         private static final long serialVersionUID = 8515041458848007238L;
 
-        private final JPanel      panel            = new JPanel();
+        private final JPanel panel = new JPanel();
 
-        private Window            parent;
+        private Window parent;
 
-        private JScrollPane       scroller;
+        private JScrollPane scroller;
 
         public JPenaltyList(JFrame owner) {
             super(I18n.get("Penaltylist"));
             setIconImages(IconManager.getTitleImages());
-            scroller = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            scroller = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             scroller.getVerticalScrollBar().setUnitIncrement(10);
             scroller.getHorizontalScrollBar().setUnitIncrement(10);
             scroller.setBorder(new ShadowBorder());

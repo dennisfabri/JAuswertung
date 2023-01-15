@@ -23,7 +23,8 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
         return ID;
     }
 
-    private static final class ILSComparatorSERC<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
+    private static final class ILSComparatorSERC<T extends ASchwimmer>
+            implements Comparator<SchwimmerData<T>>, Serializable {
 
         private static final long serialVersionUID = -7952635514437923875L;
 

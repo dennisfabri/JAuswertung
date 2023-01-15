@@ -28,15 +28,15 @@ import de.df.jutils.plugin.MenuInfo;
  */
 public class MOptionenPlugin extends ANullPlugin {
 
-    private static final String       ITEM_STRING = I18n.get("Options");
-    private static final String       MENU_STRING = I18n.get("Extras");
+    private static final String ITEM_STRING = I18n.get("Options");
+    private static final String MENU_STRING = I18n.get("Extras");
 
-    private JOptionsDialog            dialog;
-    private JTabbedPane               tabs;
+    private JOptionsDialog dialog;
+    private JTabbedPane tabs;
 
     private LinkedList<OptionsPlugin> plugins;
 
-    private JMenuItem[]               menu;
+    private JMenuItem[] menu;
 
     public MOptionenPlugin() {
         super();
@@ -70,7 +70,8 @@ public class MOptionenPlugin extends ANullPlugin {
                 addOptionsPlugin(li.next());
             }
 
-            dialog = new JOptionsDialog(getController().getWindow(), ITEM_STRING, true, tabs, IconManager.getIconBundle());
+            dialog = new JOptionsDialog(getController().getWindow(), ITEM_STRING, true, tabs,
+                    IconManager.getIconBundle());
             dialog.addOptionsListener(new MainOptionsListener());
             dialog.pack();
             UIStateUtils.uistatemanage(dialog, "OptionsWindow");
@@ -116,8 +117,8 @@ public class MOptionenPlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {

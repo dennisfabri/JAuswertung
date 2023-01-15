@@ -42,17 +42,17 @@ class JKampfrichterManager extends JGlassFrame {
     private static final long serialVersionUID = 7129899504844113383L;
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf        wk;
-    KampfrichterVerwaltung    kv;
+    private AWettkampf wk;
+    KampfrichterVerwaltung kv;
 
-    private boolean           changed          = false;
+    private boolean changed = false;
 
-    private JButton           close;
+    private JButton close;
 
-    JKampfrichterTeamPanel    teams            = null;
+    JKampfrichterTeamPanel teams = null;
 
-    private JFrame            parent;
-    private IPluginManager    controller;
+    private JFrame parent;
+    private IPluginManager controller;
 
     JKampfrichterManager(JFrame parent, CorePlugin core, IPluginManager controller) {
         this.parent = parent;
@@ -66,7 +66,7 @@ class JKampfrichterManager extends JGlassFrame {
         initMenu();
         pack();
         setSize(Math.max(getWidth(), 800), 600);
-        UIStateUtils.uistatemanage(parent,this, "JKampfrichterManager");
+        UIStateUtils.uistatemanage(parent, this, "JKampfrichterManager");
 
         WindowUtils.addEscapeAction(this, new Runnable() {
             @Override
@@ -146,7 +146,8 @@ class JKampfrichterManager extends JGlassFrame {
         if (name != null) {
             KampfrichterVerwaltung neu = InputManager.ladeKampfrichter(name);
             if (neu == null) {
-                DialogUtils.warn(this, I18n.get("OpenFailed"), I18n.get("OpenFailedText", name), I18n.get("OpenFailedText.Note", name));
+                DialogUtils.warn(this, I18n.get("OpenFailed"), I18n.get("OpenFailedText", name),
+                        I18n.get("OpenFailedText.Note", name));
             } else {
                 kv = neu;
                 updateGUI();
@@ -160,7 +161,8 @@ class JKampfrichterManager extends JGlassFrame {
         if (name != null) {
             boolean result = true;
             if (new File(name).exists()) {
-                result = DialogUtils.ask(this, I18n.get("OverwriteFileQuestion", name), I18n.get("OverwriteFileQuestion.Note", name));
+                result = DialogUtils.ask(this, I18n.get("OverwriteFileQuestion", name),
+                        I18n.get("OverwriteFileQuestion.Note", name));
             }
             if (result) {
                 if (hasChanged()) {
@@ -188,7 +190,8 @@ class JKampfrichterManager extends JGlassFrame {
             }
         });
 
-        FormLayout layout = new FormLayout("4dlu,0dlu:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,0dlu:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(close, CC.xy(3, 4));

@@ -44,22 +44,22 @@ class AKsEditorPanel extends JPanel {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long   serialVersionUID = 3257846593079095860L;
+    private static final long serialVersionUID = 3257846593079095860L;
 
-    private JPanel              panel;
+    private JPanel panel;
     ModifiableListModel<String> listmodel;
-    JList<String>               liste;
-    LinkedList<AKEditorPanel>   altersklassen;
-    private int                 insertCount;
-    private JMenuItem           loeschen;
+    JList<String> liste;
+    LinkedList<AKEditorPanel> altersklassen;
+    private int insertCount;
+    private JMenuItem loeschen;
 
-    private JAKsEditor          parent           = null;
-    private boolean             einzel           = false;
+    private JAKsEditor parent = null;
+    private boolean einzel = false;
 
-    private String[]            startgroups;
-    private String[]            resultgroups;
+    private String[] startgroups;
+    private String[] resultgroups;
 
-    private JMenu[]             menu             = null;
+    private JMenu[] menu = null;
 
     public AKsEditorPanel(JAKsEditor parent, Regelwerk currentAks, boolean einzel, boolean[] empty) {
         this.parent = parent;
@@ -106,7 +106,8 @@ class AKsEditorPanel extends JPanel {
         add(panel, BorderLayout.CENTER);
 
         for (int x = 0; x < currentAks.size(); x++) {
-            AKEditorPanel ake = new AKEditorPanel(this, currentAks.getAk(x), einzel, ((empty == null) || empty[x] ? -1 : x), startgroups, resultgroups);
+            AKEditorPanel ake = new AKEditorPanel(this, currentAks.getAk(x), einzel,
+                    ((empty == null) || empty[x] ? -1 : x), startgroups, resultgroups);
             altersklassen.addLast(ake);
             listmodel.addLast(ake.getAKName());
         }
@@ -293,10 +294,10 @@ class AKsEditorPanel extends JPanel {
 
         private static final long serialVersionUID = -3233163270848511987L;
 
-        private final JMenuItem   remove;
-        private final JMenuItem   add;
-        private final JMenuItem   up;
-        private final JMenuItem   down;
+        private final JMenuItem remove;
+        private final JMenuItem add;
+        private final JMenuItem up;
+        private final JMenuItem down;
 
         public AKPopup() {
             remove = new JMenuItem(I18n.get("DeleteAG"), IconManager.getSmallIcon("delete"));

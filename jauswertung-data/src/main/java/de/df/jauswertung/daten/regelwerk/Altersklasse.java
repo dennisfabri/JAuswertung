@@ -25,59 +25,56 @@ import de.df.jutils.util.StringTools;
 
 public class Altersklasse implements Serializable {
 
-    private static final long  serialVersionUID          = -3984390739372155907L;
+    private static final long serialVersionUID = -3984390739372155907L;
 
     @XStreamAsAttribute
-    private String             name;
+    private String name;
     @XStreamAsAttribute
-    private boolean            hlw;
-    private Disziplin[][]      disziplinen;
-    private boolean[]          gesamtwertung             = { true, true };
-    private double[]           minpunkte                 = { 0, 0 };
-    private int[]              alter                     = { 0, 0 };
-    private int[]              alterMannschaft           = { 0, 0 };
+    private boolean hlw;
+    private Disziplin[][] disziplinen;
+    private boolean[] gesamtwertung = { true, true };
+    private double[] minpunkte = { 0, 0 };
+    private int[] alter = { 0, 0 };
+    private int[] alterMannschaft = { 0, 0 };
     @XStreamAsAttribute
-    private boolean            kompakt                   = false;
+    private boolean kompakt = false;
     @XStreamAsAttribute
-    private boolean            diszchoice                = false;
+    private boolean diszchoice = false;
     @XStreamAsAttribute
-    private int                mindisz                   = 1;
+    private int mindisz = 1;
     @XStreamAsAttribute
-    private int                useddisz                  = 1;
+    private int useddisz = 1;
     @XStreamAsAttribute
-    private int                maxdisz                   = 1;
+    private int maxdisz = 1;
     @XStreamAsAttribute
-    private boolean            keineMehrkampfwertung     = false;
+    private boolean keineMehrkampfwertung = false;
     @XStreamAsAttribute
-    private boolean            einzelwertung             = false;
+    private boolean einzelwertung = false;
     @XStreamAsAttribute
-    private boolean            einzelwertunghlw          = false;
+    private boolean einzelwertunghlw = false;
     @XStreamAsAttribute
-    private boolean            strafeIstDisqualifikation = false;
+    private boolean strafeIstDisqualifikation = false;
     @XStreamAsAttribute
-    private int                laufsortierung            = Laufliste.REIHENFOLGE_MELDEZEITEN;
+    private int laufsortierung = Laufliste.REIHENFOLGE_MELDEZEITEN;
     @XStreamAsAttribute
-    private boolean            laufrotation              = true;
+    private boolean laufrotation = true;
     @XStreamAsAttribute
-    private int                minMembers                = 4;
+    private int minMembers = 4;
     @XStreamAsAttribute
-    private int                maxMembers                = 5;
+    private int maxMembers = 5;
     @XStreamAsAttribute
-    private String             startgruppe               = null;
+    private String startgruppe = null;
     @XStreamAsAttribute
-    private String             wertungsgruppe            = null;
+    private String wertungsgruppe = null;
 
-    private InterneStartgruppe interneStartgruppe        = new InterneStartgruppe();
+    private InterneStartgruppe interneStartgruppe = new InterneStartgruppe();
 
     /**
      * Erzeugt eine neue Altersklasse.
      * 
-     * @param _akNummer
-     *            Nummer der Altersklasse
-     * @param _geschlecht
-     *            das Geschlecht
-     * @param einzel
-     *            true wenn es eine EinzelAK ist, sonst false
+     * @param _akNummer   Nummer der Altersklasse
+     * @param _geschlecht das Geschlecht
+     * @param einzel      true wenn es eine EinzelAK ist, sonst false
      */
     Altersklasse(int akNummer) {
         this("", null, false);
@@ -87,14 +84,11 @@ public class Altersklasse implements Serializable {
     /**
      * Erzeugt eine Altersklasse mit selbstdefinierten Werten.
      * 
-     * @param _name
-     *            Gibt den Namen an.
-     * @param _diszAnzahl
-     *            Gibt die Anzahl der Disziplinen an.
-     * @param _diszes
-     *            Gibt die einzelnen Disziplinen als Array an.
-     * @param _hlw
-     *            Gibt an, ob eine Zusatzwertung durchgefuehrt werden muss oder nicht.
+     * @param _name       Gibt den Namen an.
+     * @param _diszAnzahl Gibt die Anzahl der Disziplinen an.
+     * @param _diszes     Gibt die einzelnen Disziplinen als Array an.
+     * @param _hlw        Gibt an, ob eine Zusatzwertung durchgefuehrt werden muss
+     *                    oder nicht.
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw) {
         setName(aName);
@@ -105,16 +99,11 @@ public class Altersklasse implements Serializable {
     /**
      * Erzeugt eine Altersklasse mit selbstdefinierten Werten.
      * 
-     * @param _name
-     *            Gibt den Namen an.
-     * @param _geschlecht
-     *            Gibt das Geschlecht an.
-     * @param _diszAnzahl
-     *            Gibt die Anzahl der Disziplinen an.
-     * @param _diszes
-     *            Gibt die einzelnen Disziplinen als Array an.
-     * @param _hlw
-     *            Gibt an, ob eine HLW durchgefuehrt werden muss oder nicht.
+     * @param _name       Gibt den Namen an.
+     * @param _geschlecht Gibt das Geschlecht an.
+     * @param _diszAnzahl Gibt die Anzahl der Disziplinen an.
+     * @param _diszes     Gibt die einzelnen Disziplinen als Array an.
+     * @param _hlw        Gibt an, ob eine HLW durchgefuehrt werden muss oder nicht.
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw, boolean aKompakt) {
         this(aName, aDiszes, aHlw);
@@ -129,7 +118,8 @@ public class Altersklasse implements Serializable {
     }
 
     /*
-     * public static Altersklasse generateGesamtwertungsAK() { return gesamtwertungAK; }
+     * public static Altersklasse generateGesamtwertungsAK() { return
+     * gesamtwertungAK; }
      */
     private void erzeuge(int akNummer) {
         setName("AK " + (akNummer + 1));
@@ -168,8 +158,7 @@ public class Altersklasse implements Serializable {
     /**
      * Setzt den Namen.
      * 
-     * @param _name
-     *            Dies ist der neue Name.
+     * @param _name Dies ist der neue Name.
      */
     public synchronized void setName(String aName) {
         if (aName == null) {
@@ -189,8 +178,8 @@ public class Altersklasse implements Serializable {
     /**
      * Liefert die entsprechende Disziplin zurueck.
      * 
-     * @param disz
-     *            Gibt die Nummer der Disziplin an. Dabei entspricht 0 der ersten Disziplin.
+     * @param disz Gibt die Nummer der Disziplin an. Dabei entspricht 0 der ersten
+     *             Disziplin.
      * @return Liefert den Rec-Wert
      */
     public Disziplin getDisziplin(int disz, boolean maennlich) {
@@ -229,10 +218,9 @@ public class Altersklasse implements Serializable {
     /**
      * Setzt eine neue Disziplin
      * 
-     * @param dz
-     *            Dies ist der Parameter, der die neue Disziplin enthaelt.
-     * @param disz
-     *            Dies ist die Nummer der Disziplin, die gesetzt werden soll. 0 entspricht der ersten Disziplin
+     * @param dz   Dies ist der Parameter, der die neue Disziplin enthaelt.
+     * @param disz Dies ist die Nummer der Disziplin, die gesetzt werden soll. 0
+     *             entspricht der ersten Disziplin
      */
     public void setDisziplin(Disziplin dz, int disz, boolean maennlich) {
         if ((getDiszAnzahl() > disz) && (0 <= disz) && (dz != null)) {
@@ -252,8 +240,7 @@ public class Altersklasse implements Serializable {
     /**
      * Legt fest, ob eine HLW durchgefuehrt werden muss.
      * 
-     * @param _hlw
-     *            TRUE wenn eine HLW durchgefuehrt werden soll, sonst FALSE.
+     * @param _hlw TRUE wenn eine HLW durchgefuehrt werden soll, sonst FALSE.
      */
     public void setHLW(boolean aHlw) {
         hlw = aHlw;
@@ -272,10 +259,10 @@ public class Altersklasse implements Serializable {
     }
 
     /**
-     * Setzt die Anzahl der Disziplinen neu fest. Die alten Disziplinen werden dabei gel\u00F6scht.
+     * Setzt die Anzahl der Disziplinen neu fest. Die alten Disziplinen werden dabei
+     * gel\u00F6scht.
      * 
-     * @param _diszAnzahl
-     *            Neue Anzahl der Disziplinen.
+     * @param _diszAnzahl Neue Anzahl der Disziplinen.
      */
     public void setDiszAnzahl(int diszAnzahl) {
         if (disziplinen == null) {
@@ -552,7 +539,7 @@ public class Altersklasse implements Serializable {
             sb.append(aText);
             sb.append("|");
         }
-        return StringTools.CRC(sb.toString());
+        return StringTools.crc(sb.toString());
     }
 
     public Startgruppe getInterneStartgruppe() {
@@ -627,7 +614,8 @@ public class Altersklasse implements Serializable {
     protected class InterneStartgruppe extends Startgruppe {
 
         public InterneStartgruppe() {
-            super((Altersklasse.this.getName() == null || Altersklasse.this.getName().length() == 0 ? "-" : Altersklasse.this.getName()));
+            super((Altersklasse.this.getName() == null || Altersklasse.this.getName().length() == 0 ? "-"
+                    : Altersklasse.this.getName()));
         }
 
         @Override

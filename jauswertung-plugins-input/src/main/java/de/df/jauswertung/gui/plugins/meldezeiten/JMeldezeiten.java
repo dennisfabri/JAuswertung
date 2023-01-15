@@ -26,22 +26,22 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JMeldezeiten<T extends ASchwimmer> extends JFrame {
 
-    private static final long                serialVersionUID = -2312160133856798878L;
+    private static final long serialVersionUID = -2312160133856798878L;
 
-    private final AWettkampf<T>              wk;
-    private boolean                          changed          = false;
+    private final AWettkampf<T> wk;
+    private boolean changed = false;
     @SuppressWarnings("rawtypes")
-    private JMeldezeitenPanel[][]            panels;
-    private CardLayout                       cards;
-    private JPanel                           cardpanel;
+    private JMeldezeitenPanel[][] panels;
+    private CardLayout cards;
+    private JPanel cardpanel;
 
-    private JComboBox<String>                agegroups;
-    private JComboBox<String>                sex;
+    private JComboBox<String> agegroups;
+    private JComboBox<String> sex;
 
-    private JButton                          ok;
-    private JButton                          cancel;
+    private JButton ok;
+    private JButton cancel;
 
-    private JFrame                           parent;
+    private JFrame parent;
 
     private ISimpleCallback<JMeldezeiten<T>> callback;
 
@@ -66,7 +66,8 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
             ag[x] = rw.getAk(x).getName();
         }
         agegroups = new JComboBox<String>(ag);
-        sex = new JComboBox<String>(new String[] { I18n.geschlechtToShortString(rw, false), I18n.geschlechtToShortString(rw, true) });
+        sex = new JComboBox<String>(
+                new String[] { I18n.geschlechtToShortString(rw, false), I18n.geschlechtToShortString(rw, true) });
         agegroups.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -102,7 +103,8 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
         buttons.add(cancel, CC.xy(4, 1));
 
         FormLayout layout = new FormLayout(
-                "4dlu,fill:default:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 3, 7 }, { 5, 9 } });
 

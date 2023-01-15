@@ -13,12 +13,12 @@ import de.df.jauswertung.daten.laufliste.HLWLauf;
 
 class TableTransferHandler<T extends ASchwimmer> extends AZWTransferHandler<T> {
 
-    private static final long      serialVersionUID = -587285451733079256L;
+    private static final long serialVersionUID = -587285451733079256L;
 
-    private int                    row              = -1;
-    private int                    col              = -1;
+    private int row = -1;
+    private int col = -1;
 
-    private AWettkampf<T>          wk;
+    private AWettkampf<T> wk;
     private JHlwlisteBearbeiten<T> parent;
 
     TableTransferHandler(JHlwlisteBearbeiten<T> hlw, AWettkampf<T> w) {

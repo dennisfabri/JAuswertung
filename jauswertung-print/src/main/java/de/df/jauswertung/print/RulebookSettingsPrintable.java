@@ -26,7 +26,8 @@ import de.df.jutils.util.StringTools;
 
 public class RulebookSettingsPrintable extends HeaderFooterPrintable {
     public RulebookSettingsPrintable(Regelwerk aks, boolean header) {
-        super(new ComponentListPrintable2(false, generateEntries(aks)), header ? new MessageFormat(I18n.get("RulebookSettings")) : null, null, null);
+        super(new ComponentListPrintable2(false, generateEntries(aks)),
+                header ? new MessageFormat(I18n.get("RulebookSettings")) : null, null, null);
     }
 
     private static Component[] generateEntries(Regelwerk aks) {
@@ -139,7 +140,8 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
 
         if (ak.hasEinzelwertung()) {
             first = false;
-            properties.append(I18n.get("Einzelwertung")).append(ak.isEinzelwertungHlw() ? " " + I18n.get("RequiresZW") : "");
+            properties.append(I18n.get("Einzelwertung"))
+                    .append(ak.isEinzelwertungHlw() ? " " + I18n.get("RequiresZW") : "");
         }
 
         if (gesamtwertung) {

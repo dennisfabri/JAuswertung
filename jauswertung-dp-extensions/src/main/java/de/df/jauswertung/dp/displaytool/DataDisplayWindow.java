@@ -16,7 +16,7 @@ public class DataDisplayWindow extends DisplayToolWindow {
 
     private final Launcher controller;
 
-    private TableModel     tablemodel;
+    private TableModel tablemodel;
 
     public DataDisplayWindow(Launcher dt) {
         controller = dt;
@@ -58,7 +58,7 @@ public class DataDisplayWindow extends DisplayToolWindow {
 
     @Override
     protected void doOpen() {
-        String filename = FileChooserUtils.openFile(getWindow(), 
+        String filename = FileChooserUtils.openFile(getWindow(),
                 new SimpleFileFilter("Competition-Datei", ".competition", ".xml"));
         if (filename != null) {
             controller.setFilename(filename);

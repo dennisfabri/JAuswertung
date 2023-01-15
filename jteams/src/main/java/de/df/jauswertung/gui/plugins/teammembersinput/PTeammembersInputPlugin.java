@@ -27,16 +27,16 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class PTeammembersInputPlugin extends ANullPlugin {
 
-    private static final String      INPUT        = I18n.get("Input");
+    private static final String INPUT = I18n.get("Input");
 
-    IPluginManager                   controller   = null;
-    private CorePlugin               core         = null;
+    IPluginManager controller = null;
+    private CorePlugin core = null;
     private SelectOrganisationPlugin organisation = null;
 
     // JGlassPanel<JPanel> inputbarcode = null;
-    JGlassPanel<JPanel>              inputmanual  = null;
+    JGlassPanel<JPanel> inputmanual = null;
     // JTeammembersBarcodeScanPanel barcode = null;
-    JTeammembersInputPanel           manual       = null;
+    JTeammembersInputPanel manual = null;
 
     public PTeammembersInputPlugin() {
         super();

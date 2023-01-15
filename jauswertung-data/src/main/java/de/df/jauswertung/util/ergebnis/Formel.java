@@ -27,7 +27,9 @@ public interface Formel<T extends ASchwimmer> {
 
     DataType getDataType();
 
-    void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes);
+    void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes);
 
-    SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak, Hashtable<String, Zielrichterentscheid<T>> zes, boolean zw);
+    SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
+            Hashtable<String, Zielrichterentscheid<T>> zes, boolean zw);
 }

@@ -34,16 +34,16 @@ import de.df.jutils.gui.jlist.SortableListModel;
 
 class JFilterPanel<T extends ASchwimmer> extends JPanel {
 
-    private static final long         serialVersionUID = 1149714415412966195L;
+    private static final long serialVersionUID = 1149714415412966195L;
 
-    private JTextField                name;
+    private JTextField name;
 
-    private SortableListModel<String> model            = new SortableListModel<>();
-    private JList                     fi               = new JList(model);
-    private LinkedList<String>        gl               = null;
-    private JButton                   add              = new JTransparentButton(IconManager.getSmallIcon("new"));
-    private JButton                   remove           = new JTransparentButton(IconManager.getSmallIcon("remove"));
-    private JFilterFrame<T>           parent;
+    private SortableListModel<String> model = new SortableListModel<>();
+    private JList fi = new JList(model);
+    private LinkedList<String> gl = null;
+    private JButton add = new JTransparentButton(IconManager.getSmallIcon("new"));
+    private JButton remove = new JTransparentButton(IconManager.getSmallIcon("remove"));
+    private JFilterFrame<T> parent;
 
     public JFilterPanel(JFilterFrame<T> parent, Filter f, String[] n, int index) {
         if (n == null) {
@@ -89,7 +89,8 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
         }
         updateIndex(index);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 6, 8 } });
         setLayout(layout);

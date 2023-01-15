@@ -27,8 +27,8 @@ import de.df.jutils.gui.util.WindowUtils;
 @SuppressWarnings("serial")
 class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
 
-    private JList                   liste  = new JList();
-    private final JFrame            parent;
+    private JList liste = new JList();
+    private final JFrame parent;
     private Zielrichterentscheid<T> result = null;
 
     private JZESelectionDialog(JFrame parent, LinkedList<Zielrichterentscheid<T>> possible) {
@@ -58,7 +58,8 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
             }
         });
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         JScrollPane scr = new JScrollPane(liste);
@@ -124,7 +125,8 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
         return result;
     }
 
-    public static <T extends ASchwimmer> Zielrichterentscheid<T> getZielrichterentscheid(JFrame parent, LinkedList<Zielrichterentscheid<T>> zes) {
+    public static <T extends ASchwimmer> Zielrichterentscheid<T> getZielrichterentscheid(JFrame parent,
+            LinkedList<Zielrichterentscheid<T>> zes) {
         JZESelectionDialog<T> jzes = new JZESelectionDialog<T>(parent, zes);
         jzes.setVisible(true);
         return jzes.getResult();

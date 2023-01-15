@@ -16,7 +16,8 @@ public class JTimeSpacer extends JPanel {
 
     public JTimeSpacer(boolean print) {
         FormLayout layout = new FormLayout(
-                "0dlu,fill:default:grow,1dlu,fill:default," + "1dlu,fill:default:grow,1dlu,fill:default," + "1dlu,fill:default:grow,0dlu",
+                "0dlu,fill:default:grow,1dlu,fill:default," + "1dlu,fill:default:grow,1dlu,fill:default,"
+                        + "1dlu,fill:default:grow,0dlu",
                 "0dlu,fill:default:grow,0dlu");
         layout.setColumnGroups(new int[][] { { 2, 6, 10 }, { 4, 8 } });
         setLayout(layout);

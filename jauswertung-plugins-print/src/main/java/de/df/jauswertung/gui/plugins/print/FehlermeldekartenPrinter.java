@@ -33,9 +33,9 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class FehlermeldekartenPrinter implements Printer {
 
-    IPluginManager    controller;
+    IPluginManager controller;
 
-    private JPanel    panel;
+    private JPanel panel;
     private JComboBox pages;
 
     public FehlermeldekartenPrinter(IPluginManager parent) {
@@ -44,7 +44,8 @@ class FehlermeldekartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -64,6 +65,7 @@ class FehlermeldekartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -73,6 +75,7 @@ class FehlermeldekartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -119,7 +122,8 @@ class FehlermeldekartenPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Fehlermeldekarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Fehlermeldekarten"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

@@ -17,9 +17,9 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class BugreportPlugin extends AFeature {
 
-    CorePlugin core  = null;
-    JFrame     frame = null;
-    JBugReport br    = null;
+    CorePlugin core = null;
+    JFrame frame = null;
+    JBugReport br = null;
 
     public BugreportPlugin() {
         br = new JBugReport(null);
@@ -69,6 +69,7 @@ public class BugreportPlugin extends AFeature {
     }
 
     public void handle(Exception e) {
-        new BugReportExceptionHandler(BugreportPlugin.this, Utils.isInDevelopmentMode()).uncaughtException(Thread.currentThread(), e);
+        new BugReportExceptionHandler(BugreportPlugin.this, Utils.isInDevelopmentMode())
+                .uncaughtException(Thread.currentThread(), e);
     }
 }

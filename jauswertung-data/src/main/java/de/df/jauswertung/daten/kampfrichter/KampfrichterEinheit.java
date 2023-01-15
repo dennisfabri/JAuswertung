@@ -10,11 +10,11 @@ import java.util.ListIterator;
 
 public class KampfrichterEinheit implements Serializable {
 
-    private static final long                           serialVersionUID = -5183109430325434863L;
+    private static final long serialVersionUID = -5183109430325434863L;
 
-    private String                                      name             = "";
-    private LinkedList<KampfrichterPosition>            positionen       = new LinkedList<KampfrichterPosition>();
-    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter     = new Hashtable<String, LinkedList<Kampfrichter>>();
+    private String name = "";
+    private LinkedList<KampfrichterPosition> positionen = new LinkedList<KampfrichterPosition>();
+    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter = new Hashtable<String, LinkedList<Kampfrichter>>();
 
     public KampfrichterEinheit(String name) {
         if (name == null) {

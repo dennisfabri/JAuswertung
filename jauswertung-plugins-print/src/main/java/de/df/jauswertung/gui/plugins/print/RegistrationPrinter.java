@@ -44,18 +44,18 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class RegistrationPrinter implements Printer {
 
-    private CorePlugin        core;
-    private IPluginManager    controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
-    private JLabel            filter;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
     private JComboBox<String> order;
 
-    private JSelectionDialog  einzel     = null;
-    private JSelectionDialog  mannschaft = null;
-    private JSelectionDialog  selection  = null;
+    private JSelectionDialog einzel = null;
+    private JSelectionDialog mannschaft = null;
+    private JSelectionDialog selection = null;
 
     public RegistrationPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -76,11 +76,13 @@ class RegistrationPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        order = new JComboBox<String>(new String[] { I18n.get("Startnumber"), I18n.get("Organisation"), I18n.get("AgeGroup"), I18n.get("Name") });
+        order = new JComboBox<String>(new String[] { I18n.get("Startnumber"), I18n.get("Organisation"),
+                I18n.get("AgeGroup"), I18n.get("Name") });
         order.setSelectedIndex(2);
 
         FormLayout layout = new FormLayout(
-                "0dlu,fill:default,4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                "0dlu,fill:default,4dlu:grow,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
@@ -101,6 +103,7 @@ class RegistrationPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -110,6 +113,7 @@ class RegistrationPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -155,7 +159,8 @@ class RegistrationPrinter implements Printer {
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
             break;
         }
-        return DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.SHORT, selected, false, null);
+        return DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.SHORT, selected, false,
+                null);
     }
 
     private JTable getTable(boolean[] selected) {
@@ -167,14 +172,16 @@ class RegistrationPrinter implements Printer {
 
     Printable getPrintable(boolean[] selected) {
         Printable p = PrintManager.getPrintable(getTable(selected), (String) null, JTablePrintable.OPT_ALL, true, true);
-        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Registrations"), I18n.get("Registrations"));
+        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Registrations"),
+                I18n.get("Registrations"));
     }
 
     void print() {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registrations"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registrations"), true,
+                    controller.getWindow());
         }
     }
 
@@ -197,7 +204,8 @@ class RegistrationPrinter implements Printer {
                 sc.add(I18n.get("Comment"), false);
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
-                einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(), sc.getValues(), false,
+                einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
+                        sc.getValues(), false,
                         IconManager.getIconBundle());
             }
             selection = einzel;
@@ -216,7 +224,8 @@ class RegistrationPrinter implements Printer {
                 sc.add(I18n.get("Comment"), false);
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
-                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(), sc.getValues(), false,
+                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
+                        sc.getValues(), false,
                         IconManager.getIconBundle());
             }
             selection = mannschaft;
@@ -228,7 +237,8 @@ class RegistrationPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldelistenPC(selection.getSelection());
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Registrations"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Registrations"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 

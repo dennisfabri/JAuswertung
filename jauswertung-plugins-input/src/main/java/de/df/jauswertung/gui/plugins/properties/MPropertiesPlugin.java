@@ -29,8 +29,8 @@ public class MPropertiesPlugin extends ANullPlugin {
     static final long BITMASK = REASON_LAUF_LIST_CHANGED | REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED;
     private JMenuItem menu;
     JPropertiesDialog dialog;
-    CorePlugin        core;
-    WarningPlugin     warn;
+    CorePlugin core;
+    WarningPlugin warn;
 
     public MPropertiesPlugin() {
         menu = new JMenuItem(I18n.get("Properties"), IconManager.getSmallIcon("eigenschaften"));
@@ -80,7 +80,8 @@ public class MPropertiesPlugin extends ANullPlugin {
             }
         });
         if (checkListen(core.getWettkampf())) {
-            warn.information(getController().getWindow(), I18n.get("Properties"), I18n.get("PropertiesWarning"), I18n.get("PropertiesWarning.Note"),
+            warn.information(getController().getWindow(), I18n.get("Properties"), I18n.get("PropertiesWarning"),
+                    I18n.get("PropertiesWarning.Note"),
                     "properties");
         }
         dialog.start(core.getWettkampf());

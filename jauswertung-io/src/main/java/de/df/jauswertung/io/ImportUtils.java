@@ -332,7 +332,7 @@ public class ImportUtils {
 
                 int[] starters = getStarters(data[x], tables[y][0]);
 
-                result.add(new TeamWithStarters(sn, discipline,0, starters));
+                result.add(new TeamWithStarters(sn, discipline, 0, starters));
             }
 
             fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
@@ -1777,14 +1777,14 @@ public class ImportUtils {
                     switch (counter) {
                     case 0:
                         // Second test
-                        s[x] = s[x].replaceAll("  ", " ");
+                        s[x] = s[x].replace("  ", " ");
                         break;
                     case 1:
                         // Third test
-                        s[x] = s[x].replaceAll("25 m", "25m");
-                        s[x] = s[x].replaceAll("50 m", "50m");
-                        s[x] = s[x].replaceAll("100 m", "100m");
-                        s[x] = s[x].replaceAll("200 m", "200m");
+                        s[x] = s[x].replace("25 m", "25m");
+                        s[x] = s[x].replace("50 m", "50m");
+                        s[x] = s[x].replace("100 m", "100m");
+                        s[x] = s[x].replace("200 m", "200m");
                         break;
                     default:
                         break;

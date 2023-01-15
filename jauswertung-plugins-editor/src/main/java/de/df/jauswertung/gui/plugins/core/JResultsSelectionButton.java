@@ -31,40 +31,40 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JResultsSelectionButton extends JToggleButton {
 
-    final JPopupMenu         dialog;
+    final JPopupMenu dialog;
 
     final IWettkampfProvider core;
 
-    private JLabel[]         disciplines = new JLabel[0];
+    private JLabel[] disciplines = new JLabel[0];
 
-    private JLabel[]         agegroups   = new JLabel[0];
-    private JLabel[]         sexes       = new JLabel[0];
-    private JLabel[]         parts       = new JLabel[0];
-    private int[]            indizes     = new int[0];
+    private JLabel[] agegroups = new JLabel[0];
+    private JLabel[] sexes = new JLabel[0];
+    private JLabel[] parts = new JLabel[0];
+    private int[] indizes = new int[0];
 
-    private JCheckBox[][]    selection   = new JCheckBox[0][0];
-    private JCheckBox[]      hlw         = new JCheckBox[0];
+    private JCheckBox[][] selection = new JCheckBox[0][0];
+    private JCheckBox[] hlw = new JCheckBox[0];
 
-    private JButton[]        plus        = new JButton[0];
-    private JButton[]        minus       = new JButton[0];
+    private JButton[] plus = new JButton[0];
+    private JButton[] minus = new JButton[0];
 
-    private ActionListener   plusAL      = new ActionListener() {
+    private ActionListener plusAL = new ActionListener() {
 
-                                             @Override
-                                             public void actionPerformed(ActionEvent e) {
-                                                 JButton b = (JButton) (e.getSource());
-                                                 selectColumn(Integer.parseInt(b.getName()));
-                                             }
-                                         };
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton b = (JButton) (e.getSource());
+            selectColumn(Integer.parseInt(b.getName()));
+        }
+    };
 
-    private ActionListener   minusAL     = new ActionListener() {
+    private ActionListener minusAL = new ActionListener() {
 
-                                             @Override
-                                             public void actionPerformed(ActionEvent e) {
-                                                 JButton b = (JButton) (e.getSource());
-                                                 unselectColumn(Integer.parseInt(b.getName()));
-                                             }
-                                         };
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton b = (JButton) (e.getSource());
+            unselectColumn(Integer.parseInt(b.getName()));
+        }
+    };
 
     public JResultsSelectionButton(IWettkampfProvider core) {
         super(createArrow(IconManager.getSmallIcon("finishedinput")));
@@ -164,7 +164,8 @@ public class JResultsSelectionButton extends JToggleButton {
         plus = ToNewArray(plus, parts.length, plusAL);
         minus = ToNewArray(minus, parts.length, minusAL);
 
-        FormLayout layout = new FormLayout(createLayoutString(parts.length), FormLayoutUtils.createLayoutString(diszanzahl + 1 + 3 + 2));
+        FormLayout layout = new FormLayout(createLayoutString(parts.length),
+                FormLayoutUtils.createLayoutString(diszanzahl + 1 + 3 + 2));
         int[][] cgs = new int[1][parts.length];
         for (int x = 0; x < cgs[0].length; x++) {
             cgs[0][x] = 2 + offset * 2 + x * 2;
@@ -313,7 +314,8 @@ public class JResultsSelectionButton extends JToggleButton {
     }
 
     private static Icon createArrow(ImageIcon icon) {
-        BufferedImage i = new BufferedImage(icon.getIconWidth() + 11, Math.max(icon.getIconHeight(), 4), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage i = new BufferedImage(icon.getIconWidth() + 11, Math.max(icon.getIconHeight(), 4),
+                BufferedImage.TYPE_INT_ARGB);
         Graphics g = i.getGraphics();
 
         g.drawImage(icon.getImage(), 0, 0, null);
@@ -322,7 +324,8 @@ public class JResultsSelectionButton extends JToggleButton {
         int offsety = (icon.getIconHeight() - 4) / 2;
 
         g.setColor(Color.BLACK);
-        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 }, 3);
+        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 },
+                3);
 
         return new ImageIcon(i);
     }

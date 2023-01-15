@@ -63,31 +63,33 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long       serialVersionUID = 3545515093153625141L;
+    private static final long serialVersionUID = 3545515093153625141L;
 
-    private static final int        BUILD_IN         = 5;
+    private static final int BUILD_IN = 5;
 
-    static final String[]           COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"), I18n.get("TeamCompetition") };
-    static final String[]           FORMATS          = ExportManager.getSupportedFormats();
+    static final String[] COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"),
+            I18n.get("TeamCompetition") };
+    static final String[] FORMATS = ExportManager.getSupportedFormats();
 
-    final CorePlugin                core;
-    final IPluginManager            controller;
+    final CorePlugin core;
+    final IPluginManager controller;
 
-    final JWizard                   wizard;
-    final JModeChooser              mode;
-    final JAmountChooser            amount;
-    final JOptionsChooser           options;
-    final JMeldepunkteChooser       melde;
-    final JMeldepunkteABPanel       melde2;
+    final JWizard wizard;
+    final JModeChooser mode;
+    final JAmountChooser amount;
+    final JOptionsChooser options;
+    final JMeldepunkteChooser melde;
+    final JMeldepunkteABPanel melde2;
 
-    final String                    meldekey;
+    final String meldekey;
 
-    private final String            i18nprefix;
+    private final String i18nprefix;
     private final AMSelectionPlugin root;
 
-    private Random                  random           = RandomUtils.getRandomNumberGenerator();
+    private Random random = RandomUtils.getRandomNumberGenerator();
 
-    public JSelectionWizard(JFrame parent, AMSelectionPlugin root, CorePlugin c, IPluginManager con, String i18nprefix, String meldekey) {
+    public JSelectionWizard(JFrame parent, AMSelectionPlugin root, CorePlugin c, IPluginManager con, String i18nprefix,
+            String meldekey) {
         super(parent, I18n.get(i18nprefix + ".Title"), WizardUIElementsProvider.getInstance(), false);
         if (c == null) {
             throw new NullPointerException("coreplugin must not be null");
@@ -234,7 +236,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
                         LinkedList<ASchwimmer> liste = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1);
                         if (!liste.isEmpty()) {
                             if (melde.isSelected()) {
-                                SearchUtils.filtereMeldepunkte(liste, melde.getValue(x, y == 1), melde2.getSelectedIndex());
+                                SearchUtils.filtereMeldepunkte(liste, melde.getValue(x, y == 1),
+                                        melde2.getSelectedIndex());
                             }
                             select(liste, amount.getInt(0), melde.isWeighted());
                         }
@@ -252,7 +255,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         // Utils.getPreferences().putBoolean(i18nprefix + ".IncludeNotStarted",
         // options.isSelected(0));
 
-        controller.sendDataUpdateEvent(I18n.get(i18nprefix + ".Event"), UpdateEventConstants.REASON_SWIMMER_CHANGED, null);
+        controller.sendDataUpdateEvent(I18n.get(i18nprefix + ".Event"), UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                null);
 
         return true;
     }
@@ -265,9 +269,9 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
     }
 
     /**
-     * Schwimmer werden gewichted gewählt. Dabei hat der Schwimmer mit der
-     * höchsten Meldepunktzahl ein Gewicht von 1, der 2. ein Gewicht von
-     * (3/4)^1, der 3. ein Gewicht von (3/4)^2, ...
+     * Schwimmer werden gewichted gewählt. Dabei hat der Schwimmer mit der höchsten
+     * Meldepunktzahl ein Gewicht von 1, der 2. ein Gewicht von (3/4)^1, der 3. ein
+     * Gewicht von (3/4)^2, ...
      * 
      * @param swimmer
      * @param anzahl
@@ -400,7 +404,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
          * @param enabled
          */
         public JAmountChooser() {
-            super(wizard, I18n.get("ChooseAnAmount"), I18n.get("ChooseAnAmount.Information"), new String[] { I18n.get("Amount") }, new boolean[] { true },
+            super(wizard, I18n.get("ChooseAnAmount"), I18n.get("ChooseAnAmount.Information"),
+                    new String[] { I18n.get("Amount") }, new boolean[] { true },
                     new int[] { 10 }, new int[] { 1 }, new int[] { 1000 });
         }
 
@@ -425,7 +430,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
          * @param enabled
          */
         public JOptionsChooser() {
-            super(wizard, I18n.get("SelectOptions"), I18n.get("SelectOptions.Information"), new String[] { I18n.get("IncludeNotStarted") },
+            super(wizard, I18n.get("SelectOptions"), I18n.get("SelectOptions.Information"),
+                    new String[] { I18n.get("IncludeNotStarted") },
                     new String[] { I18n.getToolTip("IncludeNotStarted") },
                     new boolean[] { Utils.getPreferences().getBoolean(i18nprefix + ".IncludeNotStarted", true) });
         }
@@ -464,7 +470,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
     class JMeldepunkteABPanel extends WizardOptionPage {
 
         public JMeldepunkteABPanel() {
-            super(wizard, I18n.get("AnouncedPoints"), I18n.get("Selection.MeldepunkteInfo"), getOptions(core.getWettkampf()), null,
+            super(wizard, I18n.get("AnouncedPoints"), I18n.get("Selection.MeldepunkteInfo"),
+                    getOptions(core.getWettkampf()), null,
                     core.getWettkampf().getIntegerProperty(meldekey, 0), null, SwingConstants.TOP);
         }
     }
@@ -483,11 +490,11 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
             }
         }
 
-        private JScrollPane       scroller = new JScrollPane();
+        private JScrollPane scroller = new JScrollPane();
 
-        private JPanel            panel    = new JPanel();
-        private JCheckBox         enable   = new JCheckBox(I18n.get("UseReportedPoints"));
-        private JCheckBox         weighted = new JCheckBox(I18n.get("WeightedDrawing"));
+        private JPanel panel = new JPanel();
+        private JCheckBox enable = new JCheckBox(I18n.get("UseReportedPoints"));
+        private JCheckBox weighted = new JCheckBox(I18n.get("WeightedDrawing"));
         private JIntegerField[][] input;
 
         /**
@@ -525,7 +532,8 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
                     size = x + 1;
                 }
             }
-            FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu",
+            FormLayout layout = new FormLayout(
+                    "4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu",
                     FormLayoutUtils.createLayoutString(3 + size));
             panel.setLayout(layout);
 

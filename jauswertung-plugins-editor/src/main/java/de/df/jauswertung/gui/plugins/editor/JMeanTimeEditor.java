@@ -100,15 +100,15 @@ class JMeanTimeEditor extends JDialog {
     /**
      * 
      */
-    private static final long        serialVersionUID = 3256719580843227188L;
+    private static final long serialVersionUID = 3256719580843227188L;
 
-    ASchwimmer                       schwimmer        = null;
-    int                              disziplin        = 0;
-    JIntegerField[]                  integer          = null;
-    JTimeField[]                     time             = null;
-    JButton                          ok               = null;
-    IPluginManager                   controller       = null;
-    private ISimpleCallback<Boolean> cb               = null;
+    ASchwimmer schwimmer = null;
+    int disziplin = 0;
+    JIntegerField[] integer = null;
+    JTimeField[] time = null;
+    JButton ok = null;
+    IPluginManager controller = null;
+    private ISimpleCallback<Boolean> cb = null;
 
     /**
      * This is the default constructor
@@ -192,7 +192,8 @@ class JMeanTimeEditor extends JDialog {
                 double seconds = max - min;
                 seconds = seconds / 100.0;
 
-                if (!DialogUtils.askAndWarn(this, I18n.get("TimesFarAway", nf.format(seconds)), I18n.get("TimesFarAway.Note", nf.format(seconds)))) {
+                if (!DialogUtils.askAndWarn(this, I18n.get("TimesFarAway", nf.format(seconds)),
+                        I18n.get("TimesFarAway.Note", nf.format(seconds)))) {
                     return;
                 }
             }
@@ -202,7 +203,8 @@ class JMeanTimeEditor extends JDialog {
         if (zeit != meantime) {
             schwimmer.setZeit(disziplin, meantime);
             if (SchwimmerUtils.checkTimeAndNotify(this, schwimmer, disziplin)) {
-                controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, disziplin, null);
+                controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer,
+                        disziplin, null);
             } else {
                 schwimmer.setZeit(disziplin, zeit);
                 integer[0].requestFocus();

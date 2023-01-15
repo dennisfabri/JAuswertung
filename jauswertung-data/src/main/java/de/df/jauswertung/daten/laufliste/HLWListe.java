@@ -837,7 +837,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             return male;
         }
     }
-    
+
     public static void migrator3(Element node) {
         for (Element einteilung : node.element("verteilung").elements()) {
             for (Element entry : einteilung.elements().toArray(Element[]::new)) {
@@ -848,5 +848,5 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                 }
             }
         }
-    }    
+    }
 }

@@ -35,15 +35,15 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class GesamtwertungPrinter implements Printer {
 
-    CorePlugin        core       = null;
-    IPluginManager    controller = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
 
-    private JPanel    panel      = null;
-    private JButton   print      = null;
-    private JButton   preview    = null;
-    private JLabel    warning    = null;
-    private JLabel    filter     = null;
-    private JComboBox type       = null;
+    private JPanel panel = null;
+    private JButton print = null;
+    private JButton preview = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
+    private JComboBox type = null;
 
     public GesamtwertungPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -54,7 +54,8 @@ class GesamtwertungPrinter implements Printer {
     private void initGUI() {
 
         panel = new JPanel(new FormLayout(
-                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default" + ",4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default"
+                        + ",4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu"));
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -92,6 +93,7 @@ class GesamtwertungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
 
@@ -102,6 +104,7 @@ class GesamtwertungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -152,7 +155,8 @@ class GesamtwertungPrinter implements Printer {
                 }
             }
         }
-        return PrintManager.getFinalPrintable(PrintUtils.getGesamtwertungPrintable(wk), core.getLastChangedDate(), true, I18n.get("GroupEvaluation"));
+        return PrintManager.getFinalPrintable(PrintUtils.getGesamtwertungPrintable(wk), core.getLastChangedDate(), true,
+                I18n.get("GroupEvaluation"));
     }
 
     final class PrintActionListener implements ActionListener {
@@ -173,7 +177,8 @@ class GesamtwertungPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

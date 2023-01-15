@@ -12,8 +12,8 @@ public class Filter implements Serializable {
     private static final long serialVersionUID = -3906984074449558946L;
 
     @XStreamAsAttribute
-    private String            name             = "";
-    private String[]          gliederungen     = null;
+    private String name = "";
+    private String[] gliederungen = null;
 
     public Filter() {
         this(null, null);

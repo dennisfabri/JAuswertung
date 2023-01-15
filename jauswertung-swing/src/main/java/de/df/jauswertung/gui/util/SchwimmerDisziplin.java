@@ -20,22 +20,23 @@ import de.df.jutils.gui.renderer.ListRenderDataProvider;
 import de.df.jutils.gui.renderer.TableRenderDataProvider;
 import de.df.jutils.util.StringTools;
 
-public class SchwimmerDisziplin<T extends ASchwimmer> implements TableRenderDataProvider, ListRenderDataProvider, Comparable<SchwimmerDisziplin<T>> {
+public class SchwimmerDisziplin<T extends ASchwimmer>
+        implements TableRenderDataProvider, ListRenderDataProvider, Comparable<SchwimmerDisziplin<T>> {
 
     public static boolean compressLists = true;
-    
-    public static final int MODE_NORMAL                 = 0;
+
+    public static final int MODE_NORMAL = 0;
     public static final int MODE_EXTENDED_BY_DISCIPLINE = 1;
-    public static final int MODE_EXTENDED_BY_AGEGROUP   = 2;
-    public static final int MODE_EXTENDED_BY_SEX        = 4;
+    public static final int MODE_EXTENDED_BY_AGEGROUP = 2;
+    public static final int MODE_EXTENDED_BY_SEX = 4;
 
-    public static final int MODE_FULL                   = 7;
+    public static final int MODE_FULL = 7;
 
-    private final T         swimmer;
-    private final int       discipline;
-    private final int       mode;
+    private final T swimmer;
+    private final int discipline;
+    private final int mode;
 
-    private JLabel          l;
+    private JLabel l;
 
     public SchwimmerDisziplin() {
         this((T) null, -1, MODE_NORMAL);
@@ -162,25 +163,31 @@ public class SchwimmerDisziplin<T extends ASchwimmer> implements TableRenderData
 
         if (name2 != null) {
             text.addLast(
-                    I18n.get("HeatTableLine1a", name1, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine1a", name1, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
             text.addLast(
-                    I18n.get("HeatTableLine1b", name2, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine1b", name2, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
         } else {
             text.addLast(
-                    I18n.get("HeatTableLine1", name1, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine1", name1, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
         }
         if (!name1.contains(swimmer.getGliederung()) && (name2 == null || !name2.contains(swimmer.getGliederung()))) {
             text.addLast(
-                    I18n.get("HeatTableLine2", name1, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine2", name1, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
         }
 
         if (disciplineboolean) {
             text.addLast(
-                    I18n.get("HeatTableLine3", name1, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine3", name1, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
         }
         if (agegroup) {
             text.addLast(
-                    I18n.get("HeatTableLine4", name1, swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer), disz, ext));
+                    I18n.get("HeatTableLine4", name1, swimmer.getGliederung(), swimmer.getAK().getName(),
+                            I18n.geschlechtToShortString(swimmer), disz, ext));
         }
 
         return text.toArray(new String[text.size()]);
@@ -202,8 +209,10 @@ public class SchwimmerDisziplin<T extends ASchwimmer> implements TableRenderData
         } else {
             l.setIcon(IconManager.getBigIcon("team"));
         }
-        l.setText(I18n.get("SwimmerInHeatqueue", swimmer.getName(), swimmer.getAK().getDisziplin(discipline, swimmer.isMaennlich()),
-                StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(), I18n.geschlechtToString(swimmer), swimmer.getGliederung(),
+        l.setText(I18n.get("SwimmerInHeatqueue", swimmer.getName(),
+                swimmer.getAK().getDisziplin(discipline, swimmer.isMaennlich()),
+                StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(), I18n.geschlechtToString(swimmer),
+                swimmer.getGliederung(),
                 getMeldezeit()));
 
         return l;
@@ -215,8 +224,10 @@ public class SchwimmerDisziplin<T extends ASchwimmer> implements TableRenderData
             return I18n.get("Nobody");
         }
         int zahl = discipline;
-        return I18n.get("SwimmerInHeatqueue", swimmer.getName(), swimmer.getAK().getDisziplin(zahl, swimmer.isMaennlich()),
-                StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(), I18n.geschlechtToString(swimmer), swimmer.getGliederung());
+        return I18n.get("SwimmerInHeatqueue", swimmer.getName(),
+                swimmer.getAK().getDisziplin(zahl, swimmer.isMaennlich()),
+                StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(), I18n.geschlechtToString(swimmer),
+                swimmer.getGliederung());
     }
 
     @Override

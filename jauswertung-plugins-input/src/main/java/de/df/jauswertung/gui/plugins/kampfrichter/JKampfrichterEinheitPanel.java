@@ -22,14 +22,14 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 class JKampfrichterEinheitPanel extends JPanel {
 
-    private static final long            serialVersionUID = -1471802559987003688L;
+    private static final long serialVersionUID = -1471802559987003688L;
 
-    boolean                              changed          = false;
-    private KampfrichterEinheit          einheit;
+    boolean changed = false;
+    private KampfrichterEinheit einheit;
 
-    private JKampfrichterPositionPanel[] texts            = null;
+    private JKampfrichterPositionPanel[] texts = null;
 
-    private JButton                      neu;
+    private JButton neu;
 
     public JKampfrichterEinheitPanel(KampfrichterEinheit ke) {
         einheit = ke;
@@ -121,7 +121,8 @@ class JKampfrichterEinheitPanel extends JPanel {
         removeAll();
         setLayout(new FlowLayout());
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(texts.length + 1));
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(texts.length + 1));
 
         setLayout(layout);
         for (int x = 0; x < texts.length; x++) {

@@ -39,16 +39,16 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class Startgroupspanel extends JPanel {
 
-    private ModifiableListModel<Startgruppe> model    = new ModifiableListModel<Startgruppe>();
-    private JList<Startgruppe>               liste    = new JList<Startgruppe>(model);
+    private ModifiableListModel<Startgruppe> model = new ModifiableListModel<Startgruppe>();
+    private JList<Startgruppe> liste = new JList<Startgruppe>(model);
 
-    private JAKsEditor                       parent;
+    private JAKsEditor parent;
 
-    private JButton                          add      = new JTransparentButton(IconManager.getSmallIcon("new"));
-    private JButton                          edit     = new JTransparentButton(IconManager.getSmallIcon("edit"));
-    private JButton                          delete   = new JTransparentButton(IconManager.getSmallIcon("delete"));
+    private JButton add = new JTransparentButton(IconManager.getSmallIcon("new"));
+    private JButton edit = new JTransparentButton(IconManager.getSmallIcon("edit"));
+    private JButton delete = new JTransparentButton(IconManager.getSmallIcon("delete"));
 
-    private boolean                          updating = false;
+    private boolean updating = false;
 
     public Startgroupspanel(JAKsEditor editor) {
         parent = editor;
@@ -91,19 +91,21 @@ public class Startgroupspanel extends JPanel {
 
     private class Editor extends JDialog {
 
-        private Startgruppe       result = null;
+        private Startgruppe result = null;
 
-        private JWarningTextField text   = new JWarningTextField(true, false);
-        private JButton           ok     = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        private JButton           cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
+        private JWarningTextField text = new JWarningTextField(true, false);
+        private JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
+        private JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
         private JComboBox<String> laufsortierung;
-        private JCheckBox         laufrotation;
+        private JCheckBox laufrotation;
 
         public Editor(JFrame parent, Startgruppe initial) {
             super(parent, I18n.get("Startgroup"), true);
 
-            laufsortierung = new JComboBox<String>(new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
-                    I18n.get("SameOrganisationDifferentHeats"), I18n.get("SortByAnouncedPoints"), I18n.get("SortByAnouncedTimes") });
+            laufsortierung = new JComboBox<String>(
+                    new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
+                            I18n.get("SameOrganisationDifferentHeats"), I18n.get("SortByAnouncedPoints"),
+                            I18n.get("SortByAnouncedTimes") });
             laufsortierung.setSelectedIndex(4);
             laufsortierung.setToolTipText(I18n.getToolTip("Laufsortierung"));
             laufsortierung.addItemListener(new ItemListener() {
@@ -126,11 +128,13 @@ public class Startgroupspanel extends JPanel {
                 laufrotation.setSelected(initial.hasLaufrotation());
             }
 
-            JPanel p = new JPanel(new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
+            JPanel p = new JPanel(
+                    new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
             p.add(ok, CC.xy(2, 2));
             p.add(cancel, CC.xy(4, 2));
 
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(4));
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    FormLayoutUtils.createLayoutString(4));
             setLayout(layout);
 
             add(new JLabel(I18n.get("Name")), CC.xy(2, 2));

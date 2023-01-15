@@ -7,8 +7,8 @@ public class KampfrichterPosition implements Serializable {
     private static final long serialVersionUID = -7701938416920708064L;
 
     private KampfrichterStufe minstufe;
-    private String            position;
-    private boolean           required;
+    private String position;
+    private boolean required;
 
     public KampfrichterPosition(String position, KampfrichterStufe stufe) {
         this(position, stufe, true);

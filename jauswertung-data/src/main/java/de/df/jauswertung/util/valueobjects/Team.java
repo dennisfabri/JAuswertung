@@ -16,18 +16,18 @@ import de.df.jutils.util.StringTools;
 
 public class Team {
 
-    private final int          id;
-    private final boolean      male;
-    private final int          ak;
+    private final int id;
+    private final boolean male;
+    private final int ak;
 
-    private final String       teamname;
-    private final String       gliederung;
-    private final String       qualifikationsgliederung;
-    private final String       agegroup;
+    private final String teamname;
+    private final String gliederung;
+    private final String qualifikationsgliederung;
+    private final String agegroup;
 
-    private final String       exportId;
+    private final String exportId;
 
-    private final String       code;
+    private final String code;
 
     private final Teammember[] members;
 
@@ -114,7 +114,7 @@ public class Team {
         sb.append("#");
         sb.append(sb2.toString());
         String fulltext = sb.toString();
-        String crc = StringTools.CRC(fulltext);
+        String crc = StringTools.crc(fulltext);
         sb.append(crc);
 
         String data = sb.toString();
@@ -146,7 +146,7 @@ public class Team {
         sb.append("#");
         sb.append(sb2.toString());
         String fulltext = sb.toString();
-        String crc = StringTools.CRC(fulltext);
+        String crc = StringTools.crc(fulltext);
         sb.append(crc);
 
         String data = sb.toString();
@@ -189,7 +189,7 @@ public class Team {
             sb.append("#");
         }
         String fulltext = sb.toString();
-        String crc = StringTools.CRC(fulltext);
+        String crc = StringTools.crc(fulltext);
         String crcdata = parts[parts.length - 1].trim();
         if (!crc.equals(crcdata)) {
             System.err.println("Checksums do not match: Excepted " + crc + " but was " + crcdata);
@@ -242,7 +242,7 @@ public class Team {
             sb.append("#");
         }
         String fulltext = sb.toString();
-        String crc = StringTools.CRC(fulltext);
+        String crc = StringTools.crc(fulltext);
         String crcdata = parts[parts.length - 1].trim();
         if (!crc.equals(crcdata)) {
             System.err.println("Checksums do not match: Excepted " + crc + " but was " + crcdata);

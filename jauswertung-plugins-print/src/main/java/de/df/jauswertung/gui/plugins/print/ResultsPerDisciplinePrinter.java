@@ -25,6 +25,7 @@ class ResultsPerDisciplinePrinter extends APerDisciplinePrinter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -35,7 +36,8 @@ class ResultsPerDisciplinePrinter extends APerDisciplinePrinter {
     @Override
     @SuppressWarnings("unchecked")
     protected LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification) {
-        return PrintUtils.getFullResultsPrintable(selected, wk, true, PrintUtils.printPointsInDisciplineResults, qualification);
+        return PrintUtils.getFullResultsPrintable(selected, wk, true, PrintUtils.printPointsInDisciplineResults,
+                qualification);
     }
 
     @Override

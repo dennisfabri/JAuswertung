@@ -32,10 +32,10 @@ import de.dm.ares.data.LaneStatus;
 
 class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
-    private final AWettkampf<T>  wk;
-    private final JFrame         parent;
+    private final AWettkampf<T> wk;
+    private final JFrame parent;
     private final IPluginManager controller;
-    private final IPlugin        plugin;
+    private final IPlugin plugin;
 
     public ETDLRGStrategy(IPluginManager controller, IPlugin plugin, JFrame parent, AWettkampf<T> w) {
         wk = w;
@@ -134,7 +134,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
             }
         }
         if (!empty) {
-            boolean b = DialogUtils.ask(parent, I18n.get("Question.OverwriteTimes"), I18n.get("Question.OverwriteTimes.Note"));
+            boolean b = DialogUtils.ask(parent, I18n.get("Question.OverwriteTimes"),
+                    I18n.get("Question.OverwriteTimes.Note"));
             if (!b) {
                 return;
             }
@@ -155,7 +156,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, t, disz, plugin);
+                            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, t,
+                                    disz, plugin);
                         }
                     });
                 } else {
@@ -172,7 +174,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, disz, plugin);
+                            controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, disz,
+                                    plugin);
                         }
                     });
                 }
@@ -192,7 +195,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer, plugin);
+                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                        plugin);
             }
         });
 
@@ -210,7 +214,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer, plugin);
+                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                        plugin);
             }
         });
     }
@@ -227,7 +232,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer, plugin);
+                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                        plugin);
             }
         });
     }
@@ -282,7 +288,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
             }
         }
 
-        HeatInfo heat = new HeatInfo(lauf.getAltersklasse(), lauf.getDisziplin(), 0, lauf.getLaufnummer(), lauf.getLaufbuchstabe(), laneinfos);
+        HeatInfo heat = new HeatInfo(lauf.getAltersklasse(), lauf.getDisziplin(), 0, lauf.getLaufnummer(),
+                lauf.getLaufbuchstabe(), laneinfos);
 
         return heat;
     }

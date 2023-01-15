@@ -34,11 +34,12 @@ import de.df.jutils.print.printables.AComponentMultiOnPagePrintable;
 
 public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
 
-    private static final String[][] text        = new String[][] { { I18n.get("TimeNr", 1) + ":", I18n.get("TimeNr", 2) + ":", I18n.get("TimeNr", 3) + ":" },
+    private static final String[][] text = new String[][] {
+            { I18n.get("TimeNr", 1) + ":", I18n.get("TimeNr", 2) + ":", I18n.get("TimeNr", 3) + ":" },
             { I18n.get("AutomaticTimeSK"), I18n.get("TimeNr", 1) + ":", I18n.get("TimeNr", 2) + ":" } };
 
-    private Startkarte[]            startkarten = null;
-    private boolean                 etime       = true;
+    private Startkarte[] startkarten = null;
+    private boolean etime = true;
 
     public boolean hasEtime() {
         return etime;
@@ -48,15 +49,18 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
         this.etime = etime;
     }
 
-    public StartkartenPrintable(AWettkampf<?> wk, PageMode mode, boolean empty, boolean allHeats, int minHeat, int maxHeat) {
+    public StartkartenPrintable(AWettkampf<?> wk, PageMode mode, boolean empty, boolean allHeats, int minHeat,
+            int maxHeat) {
         this(new AWettkampf[] { wk }, mode, empty, allHeats, minHeat, maxHeat);
     }
 
-    public StartkartenPrintable(AWettkampf<?>[] wks, PageMode mode, boolean empty, boolean allheats, int minheat, int maxheat) {
+    public StartkartenPrintable(AWettkampf<?>[] wks, PageMode mode, boolean empty, boolean allheats, int minheat,
+            int maxheat) {
         super(mode);
         if (wks != null && wks.length > 0) {
             @SuppressWarnings("unchecked")
-            LinkedList<Startkarte> sk = SchwimmerUtils.toStartkarten((AWettkampf[]) wks, getPagesPerPage(), empty, allheats, minheat, maxheat);
+            LinkedList<Startkarte> sk = SchwimmerUtils.toStartkarten((AWettkampf[]) wks, getPagesPerPage(), empty,
+                    allheats, minheat, maxheat);
             if (!sk.isEmpty()) {
                 startkarten = sk.toArray(new Startkarte[sk.size()]);
             } else {
@@ -76,8 +80,9 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     }
 
     static JPanel getPanelI(Startkarte s, boolean etime) {
-        FormLayout layout = new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default,1dlu,fill:default,1dlu,fill:default,"
-                + "1dlu,fill:default,1dlu,fill:default:grow," + "1dlu,fill:default,1dlu,fill:default,0dlu");
+        FormLayout layout = new FormLayout("0dlu,fill:default:grow,0dlu",
+                "0dlu,fill:default,1dlu,fill:default,1dlu,fill:default,"
+                        + "1dlu,fill:default,1dlu,fill:default:grow," + "1dlu,fill:default,1dlu,fill:default,0dlu");
         JPanel panel = new JPanel(layout) {
             private static final long serialVersionUID = 1L;
 
@@ -175,7 +180,8 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     }
 
     private static JPanel createHeader(Startkarte s) {
-        FormLayout layout = new FormLayout("0dlu,fill:default,1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu,fill:default:grow,0dlu",
+        FormLayout layout = new FormLayout(
+                "0dlu,fill:default,1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu,fill:default:grow,0dlu",
                 FormLayoutUtils.createLayoutString(4, 1, 0));
         layout.setColumnGroups(new int[][] { { 4, 8 } });
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8 } });
@@ -228,7 +234,8 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
         StringBuilder sb = new StringBuilder();
         sb.append(s.getName());
         boolean covered = (s.getName().indexOf(s.getGliederung()) >= 0);
-        boolean qgld = (s.getQualifikationsgliederung().length() > 0) && !s.getGliederung().contains(s.getQualifikationsgliederung());
+        boolean qgld = (s.getQualifikationsgliederung().length() > 0)
+                && !s.getGliederung().contains(s.getQualifikationsgliederung());
         if (!covered) {
             sb.append(" - ");
         }

@@ -25,7 +25,7 @@ public class Results<T extends ASchwimmer> implements Iterable<SchwimmerResult<T
     public int size() {
         return entries.length;
     }
-    
+
     public ASchwimmer getSchwimmer(int y) {
         return entries[y].getSchwimmer();
     }

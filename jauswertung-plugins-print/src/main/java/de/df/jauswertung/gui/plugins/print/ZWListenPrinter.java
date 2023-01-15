@@ -32,10 +32,10 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class ZWListenPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -77,6 +77,7 @@ class ZWListenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -86,6 +87,7 @@ class ZWListenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -124,7 +126,8 @@ class ZWListenPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(), I18n.get("ZWList"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(), I18n.get("ZWList"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

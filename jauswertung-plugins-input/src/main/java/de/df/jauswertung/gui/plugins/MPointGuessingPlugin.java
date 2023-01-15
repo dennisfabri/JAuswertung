@@ -50,10 +50,10 @@ public class MPointGuessingPlugin extends ANullPlugin {
     private static final String ITEM_STRING = I18n.get("GuessReportedPoints");
     private static final String MENU_STRING = I18n.get("Prepare");
 
-    private JMenuItem           guess       = new JMenuItem(ITEM_STRING);
+    private JMenuItem guess = new JMenuItem(ITEM_STRING);
 
-    IPluginManager              controller;
-    CorePlugin                  core        = null;
+    IPluginManager controller;
+    CorePlugin core = null;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -72,8 +72,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
         });
     }
 
-    JStatusDialog               dialog = null;
-    SwingWorker<Object, Object> sw     = null;
+    JStatusDialog dialog = null;
+    SwingWorker<Object, Object> sw = null;
 
     void guessPoints() {
         dialog = new JStatusDialog(controller.getWindow(), core.getWettkampf().getRegelwerk());
@@ -126,10 +126,12 @@ public class MPointGuessingPlugin extends ANullPlugin {
                                 }
                             });
                             if (SearchUtils.hasSchwimmer(copy, copy.getRegelwerk().getAk(x), y == 1)) {
-                                JResultTable table = JResultTable.getResultTable(copy, copy.getRegelwerk().getAk(x), y == 1, false, true, 0);
+                                JResultTable table = JResultTable.getResultTable(copy, copy.getRegelwerk().getAk(x),
+                                        y == 1, false, true, 0);
                                 for (int z = 0; z < table.getRowCount(); z++) {
                                     ASchwimmer s = SearchUtils.getSchwimmer(wk, table.getResult(z).getSchwimmer());
-                                    if ((s != null) && (s.getMeldepunkte(0) < 0.005) && (table.getResult(z).getPoints() > 0.005)) {
+                                    if ((s != null) && (s.getMeldepunkte(0) < 0.005)
+                                            && (table.getResult(z).getPoints() > 0.005)) {
                                         s.setMeldepunkte(0, table.getResult(z).getPoints());
                                         EDTUtils.executeOnEDT(new IncreaseNotifier(x, y));
                                         changed = true;
@@ -145,7 +147,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
                                 dialog.finishing();
                             }
                         });
-                        controller.sendDataUpdateEvent("GuessReportedPoints", UpdateEventConstants.REASON_SWIMMER_CHANGED, MPointGuessingPlugin.this);
+                        controller.sendDataUpdateEvent("GuessReportedPoints",
+                                UpdateEventConstants.REASON_SWIMMER_CHANGED, MPointGuessingPlugin.this);
                     }
 
                     return null;
@@ -164,8 +167,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {
@@ -197,12 +200,12 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
         private static final long serialVersionUID = -6267515594453985792L;
 
-        private JLabel[][]        stati;
-        private int[][]           values;
-        private JButton           ok;
-        private JProgressBar      progress;
+        private JLabel[][] stati;
+        private int[][] values;
+        private JButton ok;
+        private JProgressBar progress;
 
-        private JFrame            parent;
+        private JFrame parent;
 
         public JStatusDialog(JFrame parent, Regelwerk aks) {
             super(parent, I18n.get("GuessReportedPoints"), true);
@@ -228,7 +231,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
             progress = new JProgressBar(0, 10);
 
-            FormLayout layout = new FormLayout("4dlu,0dlu:grow,fill:default,20dlu,center:default,8dlu,center:default,0dlu:grow,4dlu",
+            FormLayout layout = new FormLayout(
+                    "4dlu,0dlu:grow,fill:default,20dlu,center:default,8dlu,center:default,0dlu:grow,4dlu",
                     FormLayoutUtils.createLayoutString(anzahl + 2));
             layout.setColumnGroups(new int[][] { { 5, 7 } });
             JPanel p = new JPanel(layout);
@@ -247,7 +251,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
             p.add(ok, CC.xyw(2, 4 + 2 * stati.length, 7, "right,center"));
             p.add(progress, CC.xyw(2, 4 + 2 * stati.length, 7, "fill,center"));
 
-            add(UIUtils.createHeaderPanel(I18n.get("GuessedPoints.Information"), I18n.get("GuessedPoints.Note")), BorderLayout.NORTH);
+            add(UIUtils.createHeaderPanel(I18n.get("GuessedPoints.Information"), I18n.get("GuessedPoints.Note")),
+                    BorderLayout.NORTH);
             add(p, BorderLayout.CENTER);
 
             pack();

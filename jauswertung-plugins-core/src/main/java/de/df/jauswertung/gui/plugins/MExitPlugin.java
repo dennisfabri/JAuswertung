@@ -23,9 +23,9 @@ public class MExitPlugin extends ANullPlugin {
     private static final String ITEM_STRING = I18n.get("Exit");
     private static final String MENU_STRING = I18n.get("File");
 
-    private JMenuItem           exit        = new JMenuItem(ITEM_STRING, IconManager.getSmallIcon("exit"));
+    private JMenuItem exit = new JMenuItem(ITEM_STRING, IconManager.getSmallIcon("exit"));
 
-    IPluginManager              controller;
+    IPluginManager controller;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -46,8 +46,8 @@ public class MExitPlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {

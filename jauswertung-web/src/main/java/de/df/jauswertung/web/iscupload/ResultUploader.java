@@ -40,7 +40,7 @@ public class ResultUploader {
             log.debug("Upload - not dirty");
             return;
         }
-        
+
         try {
             if (wk == null) {
                 log.debug("Upload - no competition");

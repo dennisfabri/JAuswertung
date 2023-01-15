@@ -44,10 +44,8 @@ public class CsvExporter extends EmptyExporter {
     /**
      * Exportiert die Schwimmer eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei
-     * @param WK
-     *            Wettkampf
+     * @param name Name der Datei
+     * @param WK   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
@@ -71,10 +69,8 @@ public class CsvExporter extends EmptyExporter {
     /**
      * Exportiert die Meldeliste eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
+     * @param name Name der Datei
+     * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
@@ -93,7 +89,8 @@ public class CsvExporter extends EmptyExporter {
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
-            ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null, true, fb);
+            ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null,
+                    true, fb);
             if (tm == null) {
                 return false;
             }
@@ -108,10 +105,8 @@ public class CsvExporter extends EmptyExporter {
     /**
      * Exportiert die Laufliste eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
+     * @param name Name der Datei
+     * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
@@ -162,10 +157,8 @@ public class CsvExporter extends EmptyExporter {
     /**
      * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name
-     *            Name der Datei
-     * @param wk
-     *            Wettkampf
+     * @param name Name der Datei
+     * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
@@ -236,6 +229,7 @@ public class CsvExporter extends EmptyExporter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#isSupported(int)
      */
     @Override

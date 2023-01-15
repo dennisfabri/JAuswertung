@@ -57,6 +57,7 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
      */
     @Override
@@ -81,7 +82,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes) {
+    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes) {
         SchwimmerData[] sold = swimmer;
         Arrays.sort(sold, new ILSComparator());
 
@@ -89,7 +91,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
         LinkedList<SchwimmerData> sd = new LinkedList<SchwimmerData>();
         LinkedList<SchwimmerData> others = new LinkedList<SchwimmerData>();
         for (SchwimmerData aSwimmer : swimmer) {
-            if ((aSwimmer.getTime() == 0) || (aSwimmer.getStrafart() == Strafarten.AUSSCHLUSS) || (aSwimmer.getStrafart() == Strafarten.DISQUALIFIKATION)
+            if ((aSwimmer.getTime() == 0) || (aSwimmer.getStrafart() == Strafarten.AUSSCHLUSS)
+                    || (aSwimmer.getStrafart() == Strafarten.DISQUALIFIKATION)
                     || (aSwimmer.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
                 // zero.addLast(aSwimmer);
                 aSwimmer.setRank(-1);
@@ -114,7 +117,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
         for (int x = 0; x < swimmer.length; x++) {
             if (swimmer[x].getTime() > oldResults) {
                 for (int y = pos - 1; y < x; y++) {
-                    if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE) || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
+                    if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
+                            || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                         swimmer[y].setPoints(getPoints(pos, x - pos + 1 - disCounter));
                     }
                 }
@@ -123,13 +127,15 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
                 oldResults = swimmer[x].getTime() + 0.005;
             }
             swimmer[x].setRank(pos);
-            if ((swimmer[x].getStrafart() == Strafarten.NICHT_ANGETRETEN) || (swimmer[x].getStrafart() == Strafarten.DISQUALIFIKATION)
+            if ((swimmer[x].getStrafart() == Strafarten.NICHT_ANGETRETEN)
+                    || (swimmer[x].getStrafart() == Strafarten.DISQUALIFIKATION)
                     || (swimmer[x].getStrafart() == Strafarten.AUSSCHLUSS)) {
                 disCounter++;
             }
         }
         for (int y = pos - 1; y < swimmer.length; y++) {
-            if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE) || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
+            if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
+                    || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                 swimmer[y].setPoints(getPoints(pos, swimmer.length - pos + 1 - disCounter));
             }
         }
@@ -138,7 +144,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
         for (SchwimmerData anOther : other) {
             if (anOther.getTime() > 0) {
                 int y = 0;
-                while ((y < swimmer.length) && (swimmer[y].getTime() < anOther.getTime()) && (swimmer[y].getTime() > 0)) {
+                while ((y < swimmer.length) && (swimmer[y].getTime() < anOther.getTime())
+                        && (swimmer[y].getTime() > 0)) {
                     y++;
                 }
                 if (y == swimmer.length) {
@@ -163,7 +170,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings({ "fallthrough", "rawtypes" })
     @Override
-    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak, Hashtable<String, Zielrichterentscheid<T>> zes,
+    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
+            Hashtable<String, Zielrichterentscheid<T>> zes,
             boolean zw) {
         for (SchwimmerResult result : results) {
             SchwimmerData[] daten = result.getResults();
@@ -185,8 +193,9 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
                 default:
                 }
             }
-            if (na == result.getSchwimmer().getDisciplineChoiceCount() && (!ak.hasHLW() || result.getSchwimmer().getHLWState() == HLWStates.NICHT_ANGETRETEN
-                    || result.getSchwimmer().getHLWState() == HLWStates.NICHT_ANGETRETEN)) {
+            if (na == result.getSchwimmer().getDisciplineChoiceCount()
+                    && (!ak.hasHLW() || result.getSchwimmer().getHLWState() == HLWStates.NICHT_ANGETRETEN
+                            || result.getSchwimmer().getHLWState() == HLWStates.NICHT_ANGETRETEN)) {
                 result.setKeineWertung(true);
             }
 

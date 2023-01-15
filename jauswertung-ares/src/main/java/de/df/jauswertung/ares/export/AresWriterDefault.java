@@ -76,7 +76,8 @@ public class AresWriterDefault {
     }
 
     private static <T extends ASchwimmer> void ensureUniqueStartnumbers(AWettkampf<T>[] wks) {
-        int max = Arrays.stream(wks).map(wk -> wk.getSchwimmer().stream().map(ASchwimmer::getStartnummer).max(Integer::compare))
+        int max = Arrays.stream(wks)
+                .map(wk -> wk.getSchwimmer().stream().map(ASchwimmer::getStartnummer).max(Integer::compare))
                 .map(m -> m.orElse(0)).mapToInt(i -> i).sum();
         for (AWettkampf<T> wk : wks) {
             for (T t : wk.getSchwimmer()) {
@@ -466,7 +467,7 @@ public class AresWriterDefault {
             ps.println(";\"" + (t.isMaennlich() ? "M" : "W") + "\";");
         }
     }
-    
+
     private static String fixName(String name) {
         name = name.trim();
         if (name.startsWith("DLRG LV ")) {

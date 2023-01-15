@@ -20,32 +20,32 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
 
 class JVeranstaltungseinstellungen extends JPanel {
 
-    private JTextField           name;
-    private JTextField           titleG;
-    private JTextField           titleQ;
-    private JTextField           location;
+    private JTextField name;
+    private JTextField titleG;
+    private JTextField titleQ;
+    private JTextField location;
 
-    JCheckBox                    allAGs;
+    JCheckBox allAGs;
 
-    JLabelSeparator              separatorGroupEvaluationMode;
-    JLabelSeparator              separatorPunkteanpassung;
-    JLabelSeparator              separatorVeranstaltung;
-    JLabelSeparator              separatorSonstiges;
+    JLabelSeparator separatorGroupEvaluationMode;
+    JLabelSeparator separatorPunkteanpassung;
+    JLabelSeparator separatorVeranstaltung;
+    JLabelSeparator separatorSonstiges;
 
-    JRadioButton                 allTeams;
-    JRadioButton                 bestTeam;
-    JRadioButton                 best4Teams;
-    JRadioButton                 bestTeamWithoutBlocking;
-    JRadioButton                 bestPerDiscipline;
-    JRadioButton                 internationalPerDiscipline;
+    JRadioButton allTeams;
+    JRadioButton bestTeam;
+    JRadioButton best4Teams;
+    JRadioButton bestTeamWithoutBlocking;
+    JRadioButton bestPerDiscipline;
+    JRadioButton internationalPerDiscipline;
 
-    JRadioButton                 noscale;
-    JRadioButton                 scalePoints;
-    JRadioButton                 internationalScale;
-    JRadioButton                 medaillen;
+    JRadioButton noscale;
+    JRadioButton scalePoints;
+    JRadioButton internationalScale;
+    JRadioButton medaillen;
 
-    private ButtonGroup          groupEvaluationModes;
-    private ButtonGroup          groupScale;
+    private ButtonGroup groupEvaluationModes;
+    private ButtonGroup groupScale;
 
     final JVeranstaltungswertung parent;
 

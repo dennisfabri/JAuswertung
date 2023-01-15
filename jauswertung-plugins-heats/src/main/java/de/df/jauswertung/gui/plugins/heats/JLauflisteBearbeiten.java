@@ -107,40 +107,41 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         }
     }
 
-    private static final long                        serialVersionUID = 4050200860149757749L;
+    private static final long serialVersionUID = 4050200860149757749L;
 
-    AWettkampf<T>                                    wk               = null;
-    boolean                                          darfAendern      = false;
-    private Window                                   parent           = null;
+    AWettkampf<T> wk = null;
+    boolean darfAendern = false;
+    private Window parent = null;
 
-    private final int                                meldeindex;
+    private final int meldeindex;
 
-    JPopupMenu                                       popup            = null;
-    private JMenuItem                                renumberHeats    = null;
-    private JMenuItem                                removeHeat       = null;
-    JList<SchwimmerDisziplin<T>>                     vergabeliste     = null;
+    JPopupMenu popup = null;
+    private JMenuItem renumberHeats = null;
+    private JMenuItem removeHeat = null;
+    JList<SchwimmerDisziplin<T>> vergabeliste = null;
 
-    JMenuItem                                        entfernen        = null;
+    JMenuItem entfernen = null;
 
-    JFittingTable                                    tabelle          = new JFittingTable();
+    JFittingTable tabelle = new JFittingTable();
 
-    private JLabel                                   altersklasse     = new JLabel();
-    private JLabel                                   gliederung       = new JLabel();
-    private JLabel                                   name             = new JLabel();
-    private JLabel                                   startnummer      = new JLabel();
-    private JLabel                                   ausserk          = new JLabel();
-    private JLabel                                   bemerkung        = new JLabel();
-    private JLabel                                   punkte           = new JLabel();
-    private JLabel                                   disziplin        = new JLabel();
+    private JLabel altersklasse = new JLabel();
+    private JLabel gliederung = new JLabel();
+    private JLabel name = new JLabel();
+    private JLabel startnummer = new JLabel();
+    private JLabel ausserk = new JLabel();
+    private JLabel bemerkung = new JLabel();
+    private JLabel punkte = new JLabel();
+    private JLabel disziplin = new JLabel();
 
-    private ISimpleCallback<JLauflisteBearbeiten<T>> callback         = null;
+    private ISimpleCallback<JLauflisteBearbeiten<T>> callback = null;
 
-    T                                                swimmer          = null;
-    private JSplitPane                               splitter         = null;
+    T swimmer = null;
+    private JSplitPane splitter = null;
 
-    private boolean                                  changed          = false;
+    private boolean changed = false;
 
-    public JLauflisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean darfAendern, ISimpleCallback<JLauflisteBearbeiten<T>> callback) {
+    public JLauflisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean darfAendern,
+            ISimpleCallback<JLauflisteBearbeiten<T>> callback) {
         if (wettkampf == null) {
             throw new NullPointerException("Wettkampf<T> must not be null!");
         }
@@ -264,7 +265,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             min = lauf.getLaufnummer() + 1;
         }
 
-        int wert = DialogUtils.askForNumber(this, I18n.get("EnterHeatnumber"), I18n.get("Information.EnterHeatnumber", min), min, min + 1000);
+        int wert = DialogUtils.askForNumber(this, I18n.get("EnterHeatnumber"),
+                I18n.get("Information.EnterHeatnumber", min), min, min + 1000);
         if (wert >= min) {
             wk.getLaufliste().neueNummerierung(y, wert);
             JTableUtils.setPreferredRowHeight(tabelle);
@@ -378,7 +380,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             name.setText(s.getName());
             gliederung.setText(s.getGliederungMitQGliederung());
             altersklasse.setText(s.getAK().toString() + " " + I18n.geschlechtToString(s)
-                    + (s.getAK().getStartgruppe() == null ? "" : " / Startgruppe: " + s.getAK().getStartgruppe()) + (s.isAusserKonkurrenz() ? " (a.K.)" : ""));
+                    + (s.getAK().getStartgruppe() == null ? "" : " / Startgruppe: " + s.getAK().getStartgruppe())
+                    + (s.isAusserKonkurrenz() ? " (a.K.)" : ""));
 
             punkte.setText(StringTools.punkteString(s.getMeldepunkte(meldeindex)));
             bemerkung.setText(s.getBemerkung());
@@ -445,7 +448,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     void vorschau() {
-        PrintExecutor.preview(this, new PPrintableCreator(), I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(this, new PPrintableCreator(), I18n.get("Laufliste"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private void initMenu() {
@@ -560,7 +564,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     private JPanel createInfopanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 2, 6 }, { 4, 8 } });
 
@@ -625,7 +630,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         JScrollPane scroller = new JScrollPane(tabelle);
         scroller.setBorder(BorderUtils.createLabeledBorder(I18n.get("Laufliste")));
 
-        setLayout(new FormLayout("4dlu,0px:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu"));
+        setLayout(new FormLayout("4dlu,0px:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu"));
 
         JPanel infopanel = createInfopanel();
         add(infopanel, CC.xyw(2, 4, 2));
@@ -677,8 +683,10 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         tabelle.setCellSelectionEnabled(true);
         tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabelle.setModel(new HeatTableModel<T>(wk));
-        JTableUtils.setAlignmentRenderer(tabelle, new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT },
-                Utils.getPreferences().getBoolean("HHListLeftAlign", false) ? SwingConstants.LEFT : SwingConstants.CENTER);
+        JTableUtils.setAlignmentRenderer(tabelle,
+                new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT },
+                Utils.getPreferences().getBoolean("HHListLeftAlign", false) ? SwingConstants.LEFT
+                        : SwingConstants.CENTER);
         JTableUtils.setAlternatingTableCellRenderer(tabelle);
         JTableUtils.setPreferredCellWidths(tabelle);
         JTableUtils.setPreferredRowHeight(tabelle);

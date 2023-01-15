@@ -21,8 +21,8 @@ import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 
 public class HeatTableModel<T extends ASchwimmer> implements TableModel {
 
-    private AWettkampf<T>                  wk;
-    private Laufliste<T>                   heats;
+    private AWettkampf<T> wk;
+    private Laufliste<T> heats;
     private LinkedList<TableModelListener> listeners;
 
     public HeatTableModel(AWettkampf<T> wk) {

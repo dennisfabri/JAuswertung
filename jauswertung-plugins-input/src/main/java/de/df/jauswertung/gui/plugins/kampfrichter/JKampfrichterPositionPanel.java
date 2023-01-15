@@ -45,32 +45,32 @@ import de.df.jutils.gui.util.GraphicsUtils;
 
 class JKampfrichterPositionPanel extends JPanel {
 
-    private static final long   serialVersionUID = -2978602096884551760L;
+    private static final long serialVersionUID = -2978602096884551760L;
 
-    private String              position;
+    private String position;
     private KampfrichterEinheit einheit;
 
-    private JPanel              top;
-    private JLabel              title;
+    private JPanel top;
+    private JLabel title;
 
-    JKampfrichterEinheitPanel   parent;
+    JKampfrichterEinheitPanel parent;
 
-    boolean                     changed          = false;
+    boolean changed = false;
 
-    private JWarningTextField[] names            = new JWarningTextField[0];
-    private JWarningTextField[] glds             = new JWarningTextField[0];
-    private JTextPane[]         texts            = new JTextPane[0];
-    private JKariStufenButton[] levels           = new JKariStufenButton[0];
-    private JButton[]           delete           = new JButton[0];
+    private JWarningTextField[] names = new JWarningTextField[0];
+    private JWarningTextField[] glds = new JWarningTextField[0];
+    private JTextPane[] texts = new JTextPane[0];
+    private JKariStufenButton[] levels = new JKariStufenButton[0];
+    private JButton[] delete = new JButton[0];
 
-    private JButton             edit;
-    private JButton             up;
-    private JButton             down;
-    private JButton             neu              = new JTransparentButton(IconManager.getSmallIcon("new"));
+    private JButton edit;
+    private JButton up;
+    private JButton down;
+    private JButton neu = new JTransparentButton(IconManager.getSmallIcon("new"));
 
-    private DocumentListener    documentListener;
-    private ChangeListener      changeListener;
-    private KeyListener         keyListener;
+    private DocumentListener documentListener;
+    private ChangeListener changeListener;
+    private KeyListener keyListener;
 
     public JKampfrichterPositionPanel(JKampfrichterEinheitPanel kep, KampfrichterEinheit ke, String pos) {
         if (pos == null) {
@@ -166,7 +166,8 @@ class JKampfrichterPositionPanel extends JPanel {
     }
 
     private void setTraversalKeys(JTextPane textArea) {
-        Set<AWTKeyStroke> set = new HashSet<AWTKeyStroke>(textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        Set<AWTKeyStroke> set = new HashSet<AWTKeyStroke>(
+                textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
         set.add(KeyStroke.getKeyStroke("TAB"));
         textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
 
@@ -264,7 +265,8 @@ class JKampfrichterPositionPanel extends JPanel {
         };
 
         for (int x = 0; x < karis.length; x++) {
-            createRow(x, karis[x].getName(), karis[x].getGliederung(), karis[x].getBemerkung(), karis[x].getStufe(), karis.length > 1);
+            createRow(x, karis[x].getName(), karis[x].getGliederung(), karis[x].getBemerkung(), karis[x].getStufe(),
+                    karis.length > 1);
         }
 
         createTop();
@@ -306,7 +308,7 @@ class JKampfrichterPositionPanel extends JPanel {
         top = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
-                Color start = ColorUtils.calculateColor(UIManager.getColor("Panel.background"), Color.BLACK, 0.1); //UIManager.getColor("InternalFrame.activeTitleBackground");
+                Color start = ColorUtils.calculateColor(UIManager.getColor("Panel.background"), Color.BLACK, 0.1); // UIManager.getColor("InternalFrame.activeTitleBackground");
                 Color end = UIManager.getColor("InternalFrame.activeTitleGradient");
 
                 if (start == null) {
@@ -368,7 +370,8 @@ class JKampfrichterPositionPanel extends JPanel {
         });
         remove.setToolTipText(I18n.getToolTip("RemoveRefereeposition"));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,1dlu,fill:default,4dlu,fill:default,1dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default:grow,4dlu,fill:default,1dlu,fill:default,4dlu,fill:default,1dlu,fill:default,4dlu",
                 "1dlu,fill:default,1dlu");
         top.setLayout(layout);
 
@@ -384,7 +387,8 @@ class JKampfrichterPositionPanel extends JPanel {
 
     private void buildUI() {
         removeAll();
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu,0px:grow,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu,0px:grow,4dlu,fill:default,4dlu",
                 "0dlu,fill:default,4dlu,fill:default," + FormLayoutUtils.createLayoutString(2 * texts.length));
         layout.setColumnGroups(new int[][] { { 2, 4, 8 } });
         FormLayoutUtils.setRowGroups(layout, 2, 2 * texts.length);
@@ -408,7 +412,8 @@ class JKampfrichterPositionPanel extends JPanel {
         updateUI();
     }
 
-    private void createRow(int x, String name, String gliederung, String bemerkung, KampfrichterStufe stufe, boolean enabled) {
+    private void createRow(int x, String name, String gliederung, String bemerkung, KampfrichterStufe stufe,
+            boolean enabled) {
         names[x] = new JWarningTextField(name);
         names[x].setColumns(20);
         names[x].getDocument().addDocumentListener(documentListener);
@@ -518,7 +523,8 @@ class JKampfrichterPositionPanel extends JPanel {
 
     protected void editPosition() {
         KampfrichterPosition pos = einheit.getPosition(position);
-        new JKampfrichterPositionEditor((JFrame) SwingUtilities.getWindowAncestor(parent), einheit, pos).setVisible(true);
+        new JKampfrichterPositionEditor((JFrame) SwingUtilities.getWindowAncestor(parent), einheit, pos)
+                .setVisible(true);
         position = pos.getPosition();
         setTitle();
     }

@@ -32,26 +32,28 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JTimelimitsEditor extends JFrame {
 
-    private JFrame                               parent;
+    private JFrame parent;
 
-    private JList<Timelimits>                    entries;
-    private ModifiableListModel<Timelimits>      model;
+    private JList<Timelimits> entries;
+    private ModifiableListModel<Timelimits> model;
 
-    private JButton                              ok;
-    private JButton                              cancel;
+    private JButton ok;
+    private JButton cancel;
 
-    private JTimelimitsPanel                     panel;
+    private JTimelimitsPanel panel;
 
-    private JPopupMenu                           menu;
-    private JMenuItem                            add;
-    private JMenuItem                            remove;
+    private JPopupMenu menu;
+    private JMenuItem add;
+    private JMenuItem remove;
 
     private ISimpleCallback<TimelimitsContainer> callback;
 
-    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, ISimpleCallback<TimelimitsContainer> callback, Sex female, Sex male) {
+    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, ISimpleCallback<TimelimitsContainer> callback,
+            Sex female, Sex male) {
         this.parent = parent;
 
-        FormLayout layout = new FormLayout("4dlu,fill:max(200dlu;default),4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:max(200dlu;default),4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         setTitle(I18n.get("Timelimits"));

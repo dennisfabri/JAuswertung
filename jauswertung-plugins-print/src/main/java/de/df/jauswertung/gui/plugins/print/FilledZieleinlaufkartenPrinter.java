@@ -29,7 +29,8 @@ class FilledZieleinlaufkartenPrinter extends AFilledKartenPrinter {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats, int minheat, int maxheat) {
+    protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
+            int minheat, int maxheat) {
         return new ZieleinlaufkartenPrintable(wk, mode, allheats, minheat, maxheat);
     }
 }

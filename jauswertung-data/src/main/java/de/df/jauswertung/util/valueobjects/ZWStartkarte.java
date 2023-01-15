@@ -16,23 +16,23 @@ import de.df.jutils.util.StringTools;
  */
 public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkarte<T>> {
 
-    private final String  ak;
-    private final String  name;
-    private final String  member;
-    private final String  gliederung;
-    private final String  qgliederung;
-    private final String  bahn;
-    private final String  sn;
-    private final int     startnummer;
+    private final String ak;
+    private final String name;
+    private final String member;
+    private final String gliederung;
+    private final String qgliederung;
+    private final String bahn;
+    private final String sn;
+    private final int startnummer;
     private final boolean maennlich;
-    private final Time    zeit;
+    private final Time zeit;
 
-    private final int     bahncode;
+    private final int bahncode;
 
     private final boolean multiple;
-    private final int     zaehler;
+    private final int zaehler;
 
-    private final T       schwimmer;
+    private final T schwimmer;
 
     public ZWStartkarte(T s, Time zeit, int bahn, int zaehler) {
         ak = s.getAK().toString();
@@ -111,7 +111,8 @@ public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkar
 
     @Override
     public String toString() {
-        return "S#" + startnummer + " - " + name + " - " + gliederung + " (" + qgliederung + ")" + " - Uhrzeit " + zeit + " - Bahn " + bahn + " - " + ak
+        return "S#" + startnummer + " - " + name + " - " + gliederung + " (" + qgliederung + ")" + " - Uhrzeit " + zeit
+                + " - Bahn " + bahn + " - " + ak
                 + (maennlich ? " männlich" : " weiblich");
     }
 

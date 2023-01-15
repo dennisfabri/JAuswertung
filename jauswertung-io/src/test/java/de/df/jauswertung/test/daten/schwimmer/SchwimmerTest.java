@@ -10,11 +10,12 @@ import junit.framework.TestCase;
 
 public class SchwimmerTest extends TestCase {
 
-    private Regelwerk           aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm");
-    private MannschaftWettkampf wk  = new MannschaftWettkampf(aks, InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", false));
+    private Regelwerk aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm");
+    private MannschaftWettkampf wk = new MannschaftWettkampf(aks,
+            InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", false));
 
-    private ASchwimmer          s2;
-    private ASchwimmer          s1;
+    private ASchwimmer s2;
+    private ASchwimmer s1;
 
     public SchwimmerTest() {
         super();

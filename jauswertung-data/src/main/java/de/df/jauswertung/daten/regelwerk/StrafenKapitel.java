@@ -17,13 +17,13 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 public class StrafenKapitel implements Serializable {
 
-    private static final long            serialVersionUID = -7264804032680202370L;
+    private static final long serialVersionUID = -7264804032680202370L;
 
     private LinkedList<StrafenParagraph> paragraphen;
     @XStreamAsAttribute
-    private String                       name;
+    private String name;
     @XStreamAsAttribute
-    private String                       kapitel;
+    private String kapitel;
 
     public StrafenKapitel(int kap) {
         paragraphen = new LinkedList<StrafenParagraph>();

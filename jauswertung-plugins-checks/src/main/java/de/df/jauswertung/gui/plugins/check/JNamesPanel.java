@@ -40,7 +40,7 @@ import de.df.jutils.util.TimeMeasurement;
 
 public class JNamesPanel extends JGlassPanel<JPanel> {
 
-    private static final long     serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
     private static final String[] SURNAMES;
     private static final String[] FIRSTNAMES_MALE;
@@ -52,14 +52,14 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         FIRSTNAMES_FEMALE = TextFileUtils.fileToStringArray("names", "VornamenW.txt", new String[0], true);
     }
 
-    private CorePlugin                      core;
-    private FEditorPlugin                   editor;
-    private JMissingInputFrame              parent;
+    private CorePlugin core;
+    private FEditorPlugin editor;
+    private JMissingInputFrame parent;
 
     private Hashtable<String, Teilnehmer[]> organizations;
-    private JPanel                          panel;
+    private JPanel panel;
 
-    private boolean                         changed = false;
+    private boolean changed = false;
 
     public JNamesPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -189,7 +189,8 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
 
         // Class 4 Result:
         // Wir wissen nichts
-        if (!result.FirstnameIsFirstname && !result.FirstnameIsSurname && !result.SurnameIsFirstname && !result.SurnameIsSurname) {
+        if (!result.FirstnameIsFirstname && !result.FirstnameIsSurname && !result.SurnameIsFirstname
+                && !result.SurnameIsSurname) {
             System.out.println("Could not identify nametype: " + nachname + ", " + vorname);
             return true;
         }
@@ -210,7 +211,8 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         List<String> ids = new ArrayList<>(organizations.keySet());
         Collections.sort(ids);
 
-        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));
+        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                FormLayoutUtils.createLayoutString(ids.size())));
         int y = 2;
 
         for (String id : ids) {

@@ -32,11 +32,11 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class PropertiesPrinter implements Printer {
 
-    CorePlugin     core       = null;
+    CorePlugin core = null;
     IPluginManager controller = null;
 
     private JLabel filter;
-    private JPanel panel      = null;
+    private JPanel panel = null;
 
     public PropertiesPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -46,7 +46,8 @@ class PropertiesPrinter implements Printer {
 
     private void initGUI() {
 
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu"));
 
         JButton print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
         print.addActionListener(new PrintActionListener());
@@ -65,6 +66,7 @@ class PropertiesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
 
@@ -75,6 +77,7 @@ class PropertiesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -90,13 +93,16 @@ class PropertiesPrinter implements Printer {
 
     @SuppressWarnings({})
     Printable getPrintable() {
-        return PrintManager.getFinalPrintable(PropertiesTableCreator.getPrintable(core.getWettkampf()), core.getLastChangedDate(),
+        return PrintManager.getFinalPrintable(PropertiesTableCreator.getPrintable(core.getWettkampf()),
+                core.getLastChangedDate(),
                 I18n.get("CompetitionInformation"), I18n.get("CompetitionInformation"));
     }
 
     @SuppressWarnings({ "unchecked" })
     static Printable getPrintable(@SuppressWarnings("rawtypes") AWettkampf wk, Date date) {
-        return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(PropertiesTableCreator.getPrintable(wk), I18n.get("CompetitionInformation")),
+        return PrintManager.getFinalPrintable(
+                PrintManager.getHeaderPrintable(PropertiesTableCreator.getPrintable(wk),
+                        I18n.get("CompetitionInformation")),
                 date, true, I18n.get("CompetitionInformation"));
     }
 
@@ -118,7 +124,8 @@ class PropertiesPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("CompetitionInformation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("CompetitionInformation"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

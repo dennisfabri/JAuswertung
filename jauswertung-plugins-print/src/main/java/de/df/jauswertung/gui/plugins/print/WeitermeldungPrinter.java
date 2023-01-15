@@ -47,18 +47,18 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class WeitermeldungPrinter implements Printer {
 
-    private CorePlugin       core;
-    private IPluginManager   controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel           panel;
-    private JButton          print;
-    private JButton          preview;
-    private JLabel           filter;
-    private JCheckBox        alltimes;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
+    private JCheckBox alltimes;
 
-    private JSelectionDialog einzel     = null;
+    private JSelectionDialog einzel = null;
     private JSelectionDialog mannschaft = null;
-    private JSelectionDialog selection  = null;
+    private JSelectionDialog selection = null;
 
     public WeitermeldungPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -84,7 +84,9 @@ class WeitermeldungPrinter implements Printer {
         alltimes.setSelected(true);
         alltimes.setEnabled(false);
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -104,6 +106,7 @@ class WeitermeldungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -113,6 +116,7 @@ class WeitermeldungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -141,7 +145,8 @@ class WeitermeldungPrinter implements Printer {
                 if ((schwimmer != null) && (schwimmer.size() > 0)) {
                     Collections.sort(schwimmer, new SchwimmerGliederungVergleicher());
                     Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher());
-                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
+                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer,
+                            DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
                     etm.setName(aks.getAk(x).getName() + " " + I18n.geschlechtToString(aks, y == 1));
                     result.addLast(etm);
                 }
@@ -176,7 +181,8 @@ class WeitermeldungPrinter implements Printer {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registration"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registration"), true,
+                    controller.getWindow());
         }
     }
 
@@ -185,18 +191,24 @@ class WeitermeldungPrinter implements Printer {
         if (((AWettkampf) core.getWettkampf()) instanceof EinzelWettkampf) {
             if (einzel == null) {
                 einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"),
-                        new String[] { I18n.get("Startnumber"), I18n.get("FamilyName"), I18n.get("FirstName"), I18n.get("YearOfBirth"),
-                                I18n.get("Organisation"), I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Points"), I18n.get("AusserKonkurrenz"),
+                        new String[] { I18n.get("Startnumber"), I18n.get("FamilyName"), I18n.get("FirstName"),
+                                I18n.get("YearOfBirth"),
+                                I18n.get("Organisation"), I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Points"),
+                                I18n.get("AusserKonkurrenz"),
                                 I18n.get("Comment") },
-                        new boolean[] { false, true, true, true, true, false, false, true, false, false }, false, IconManager.getIconBundle());
+                        new boolean[] { false, true, true, true, true, false, false, true, false, false }, false,
+                        IconManager.getIconBundle());
             }
             selection = einzel;
         } else {
             if (mannschaft == null) {
                 mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"),
-                        new String[] { I18n.get("Startnumber"), I18n.get("Name"), I18n.get("Members"), I18n.get("Organisation"), I18n.get("AgeGroup"),
-                                I18n.get("Sex"), I18n.get("Points"), I18n.get("AusserKonkurrenz"), I18n.get("Comment") },
-                        new boolean[] { false, true, false, true, false, false, true, false, false }, false, IconManager.getIconBundle());
+                        new String[] { I18n.get("Startnumber"), I18n.get("Name"), I18n.get("Members"),
+                                I18n.get("Organisation"), I18n.get("AgeGroup"),
+                                I18n.get("Sex"), I18n.get("Points"), I18n.get("AusserKonkurrenz"),
+                                I18n.get("Comment") },
+                        new boolean[] { false, true, false, true, false, false, true, false, false }, false,
+                        IconManager.getIconBundle());
             }
             selection = mannschaft;
         }
@@ -207,7 +219,8 @@ class WeitermeldungPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldezeitenPC(selection.getSelection());
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 

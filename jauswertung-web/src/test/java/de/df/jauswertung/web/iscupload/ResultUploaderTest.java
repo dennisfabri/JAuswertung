@@ -40,7 +40,7 @@ class ResultUploaderTest {
     @Test
     void test() {
         uploader.uploadResultsToISC(null);
-        
+
         verifyNoMoreInteractions(exporter);
         verifyNoMoreInteractions(repository);
         verifyNoMoreInteractions(httpClient);

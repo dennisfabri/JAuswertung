@@ -65,34 +65,34 @@ class DisziplinenPanel extends JPanel {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long         serialVersionUID = 4050199739180266296L;
+    private static final long serialVersionUID = 4050199739180266296L;
 
-    JLabel                            sex1label        = new JLabel(I18n.get("Sex1"));
-    JLabel                            sex2label        = new JLabel(I18n.get("Sex2"));
+    JLabel sex1label = new JLabel(I18n.get("Sex1"));
+    JLabel sex2label = new JLabel(I18n.get("Sex2"));
 
-    private LinkedList<JTextField>    disziplinen;
+    private LinkedList<JTextField> disziplinen;
 
     private LinkedList<JIntegerField> lengths;
     private LinkedList<JIntegerField> laps;
 
-    private LinkedList<JTimeField>    recwt;
-    private LinkedList<JTimeField>    recmt;
+    private LinkedList<JTimeField> recwt;
+    private LinkedList<JTimeField> recmt;
 
     private LinkedList<JIntegerField> recw;
     private LinkedList<JIntegerField> recm;
 
-    private LinkedList<int[]>         roundsm;
-    private LinkedList<int[]>         roundIdsm;
-    private LinkedList<int[]>         roundsw;
-    private LinkedList<int[]>         roundIdsw;
+    private LinkedList<int[]> roundsm;
+    private LinkedList<int[]> roundIdsm;
+    private LinkedList<int[]> roundsw;
+    private LinkedList<int[]> roundIdsw;
 
-    private int                       count;
+    private int count;
 
-    private JButton                   plusButton;
+    private JButton plusButton;
 
-    private JButton                   minusButton;
+    private JButton minusButton;
 
-    private AKEditorPanel             parent;
+    private AKEditorPanel parent;
 
     public DisziplinenPanel(AKEditorPanel p, Altersklasse aks) {
         parent = p;
@@ -362,7 +362,8 @@ class DisziplinenPanel extends JPanel {
         }
         for (int x = 0; x < count; x++) {
             // TODO: Erweitern der Disziplineneingabe
-            diszs[x] = new Disziplin(namen[x].getText(), recs[x].getTimeAsInt(), laengen[x].getInt(), runden[x].getInt());
+            diszs[x] = new Disziplin(namen[x].getText(), recs[x].getTimeAsInt(), laengen[x].getInt(),
+                    runden[x].getInt());
             diszs[x].setRunden(rounds[x], roundIds[x]);
         }
         return diszs;

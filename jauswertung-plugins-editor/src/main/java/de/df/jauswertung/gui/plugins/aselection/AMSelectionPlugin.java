@@ -30,21 +30,21 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public abstract class AMSelectionPlugin extends ANullPlugin {
 
-    private static final String          MENU      = I18n.get("Execute");
+    private static final String MENU = I18n.get("Execute");
 
     // private String uid = null;
-    CorePlugin                           core      = null;
-    FEditorPlugin                        editor    = null;
+    CorePlugin core = null;
+    FEditorPlugin editor = null;
 
-    private JMenuItem[]                  menu      = null;
+    private JMenuItem[] menu = null;
 
     @SuppressWarnings("rawtypes")
     private static LinkedList<ISelector> selectors = new LinkedList<ISelector>();
 
-    private final String                 i18nprefix;
-    private final String                 meldekey;
+    private final String i18nprefix;
+    private final String meldekey;
 
-    private ISelection                   selection;
+    private ISelection selection;
 
     public AMSelectionPlugin(String i18nprefix, String meldekey, ISelection selection) {
         this.i18nprefix = i18nprefix;
@@ -149,12 +149,14 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
     }
 
     void edit() {
-        JSelectionFrame jsf = new JSelectionFrame(getController().getWindow(), this, core, editor, getController(), i18nprefix, meldekey);
+        JSelectionFrame jsf = new JSelectionFrame(getController().getWindow(), this, core, editor, getController(),
+                i18nprefix, meldekey);
         ModalFrameUtil.showAsModal(jsf, getController().getWindow());
     }
 
     void neu() {
-        JSelectionWizard jsf = new JSelectionWizard(getController().getWindow(), this, core, getController(), i18nprefix, meldekey);
+        JSelectionWizard jsf = new JSelectionWizard(getController().getWindow(), this, core, getController(),
+                i18nprefix, meldekey);
         jsf.start();
         // ModalFrameUtil.showAsModal(jsf, controller.getWindow());
     }

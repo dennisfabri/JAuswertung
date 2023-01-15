@@ -19,7 +19,7 @@ public class MMeldezeitenPlugin extends ANullPlugin {
 
     private CorePlugin core = null;
     private MenuInfo[] menu = null;
-    private JMenuItem  item = null;
+    private JMenuItem item = null;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {

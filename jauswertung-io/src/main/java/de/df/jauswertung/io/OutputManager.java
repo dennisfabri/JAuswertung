@@ -91,7 +91,8 @@ public final class OutputManager {
         return speichereObject(name, o, null);
     }
 
-    public static synchronized boolean speichereObject(OutputStream ostream, Object o, Hashtable<String, byte[]> extdata) {
+    public static synchronized boolean speichereObject(OutputStream ostream, Object o,
+            Hashtable<String, byte[]> extdata) {
         try {
             ZipOutputStream zos = new ZipOutputStream(ostream);
 

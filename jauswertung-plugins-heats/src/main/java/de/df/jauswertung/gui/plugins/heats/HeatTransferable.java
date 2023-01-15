@@ -17,7 +17,7 @@ class HeatTransferable<T extends ASchwimmer> implements Transferable {
 
     private static final DataFlavor FLAVOR;
 
-    private DnDContainer<T>         container;
+    private DnDContainer<T> container;
 
     static {
         DataFlavor flavor = null;
@@ -61,7 +61,7 @@ class HeatTransferable<T extends ASchwimmer> implements Transferable {
         }
 
         public final SchwimmerDisziplin<E> data;
-        public final JComponent            source;
-        public JComponent                  destination = null;
+        public final JComponent source;
+        public JComponent destination = null;
     }
 }

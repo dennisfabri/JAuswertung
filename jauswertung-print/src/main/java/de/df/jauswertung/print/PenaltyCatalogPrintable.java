@@ -54,9 +54,11 @@ public class PenaltyCatalogPrintable<T extends ASchwimmer> extends ComponentList
                     while (penalties.hasNext()) {
                         Strafe s = penalties.next();
 
-                        JPanel px = new JPanel(new FormLayout("0dlu,25dlu,2dlu,fill:default:grow", "0dlu,fill:default,0dlu,fill:default,2dlu"));
+                        JPanel px = new JPanel(new FormLayout("0dlu,25dlu,2dlu,fill:default:grow",
+                                "0dlu,fill:default,0dlu,fill:default,2dlu"));
 
-                        px.add(createLabel(s.getShortname().length() == 0 ? "" : s.getShortname(), 3), CC.xywh(2, 2, 1, 3, "fill,center"));
+                        px.add(createLabel(s.getShortname().length() == 0 ? "" : s.getShortname(), 3),
+                                CC.xywh(2, 2, 1, 3, "fill,center"));
 
                         JTextArea tp = new JTextArea();
                         tp.setText(s.getName());

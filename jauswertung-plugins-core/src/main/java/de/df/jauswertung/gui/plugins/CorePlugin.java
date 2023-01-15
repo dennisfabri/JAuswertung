@@ -44,8 +44,8 @@ public class CorePlugin extends AFeature {
 
     @SuppressWarnings("rawtypes")
     private AWettkampf wk;
-    private String     name;
-    private Filemode   mode = Filemode.Competition;
+    private String name;
+    private Filemode mode = Filemode.Competition;
 
     public CorePlugin() {
         if (Utils.getPreferences().getBoolean("SingleCompetition", false)) {
@@ -60,13 +60,15 @@ public class CorePlugin extends AFeature {
             this.mode = mode;
             switch (mode) {
             case Teammembers:
-                wk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false), InputManager.ladeStrafen(null, false));
+                wk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false),
+                        InputManager.ladeStrafen(null, false));
                 break;
             case Competition:
                 if (Utils.getPreferences().getBoolean("SingleCompetition", false)) {
                     wk = new EinzelWettkampf(AgeGroupIOUtils.getDefaultAKs(true), InputManager.ladeStrafen(null, true));
                 } else {
-                    wk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false), InputManager.ladeStrafen(null, false));
+                    wk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false),
+                            InputManager.ladeStrafen(null, false));
                 }
                 break;
             }
@@ -92,11 +94,16 @@ public class CorePlugin extends AFeature {
             if (neu) {
                 unlock();
                 setFilename(null);
-                getController().sendDataUpdateEvent(reason, UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_FILENAME_CHANGED
-                        | UpdateEventConstants.REASON_FILTER_SELECTION | UpdateEventConstants.REASON_FILTERS_CHANGED, this);
+                getController().sendDataUpdateEvent(reason,
+                        UpdateEventConstants.REASON_NEW_WK | UpdateEventConstants.REASON_FILENAME_CHANGED
+                                | UpdateEventConstants.REASON_FILTER_SELECTION
+                                | UpdateEventConstants.REASON_FILTERS_CHANGED,
+                        this);
             } else {
                 getController().sendDataUpdateEvent(reason,
-                        UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_FILTER_SELECTION | UpdateEventConstants.REASON_FILTERS_CHANGED, this);
+                        UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_FILTER_SELECTION
+                                | UpdateEventConstants.REASON_FILTERS_CHANGED,
+                        this);
             }
         }
     }
@@ -125,7 +132,8 @@ public class CorePlugin extends AFeature {
         return (MannschaftWettkampf) wk;
     }
 
-    public Teilnehmer addTeilnehmer(String nachname, String vorname, int jahrgang, String gliederung, String qualiebene, boolean maennlich, int ak,
+    public Teilnehmer addTeilnehmer(String nachname, String vorname, int jahrgang, String gliederung, String qualiebene,
+            boolean maennlich, int ak,
             String bemerkung, int sn, double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz) {
         EinzelWettkampf ewk = getEinzelWettkampf();
         String g = ewk.getGliederung(gliederung);
@@ -141,38 +149,50 @@ public class CorePlugin extends AFeature {
         tn.setAusserKonkurrenz(ausserkonkurrenz);
         tn.setQualifikationsebene(qualiebene);
         ewk.addSchwimmer(tn);
-        getController().sendDataUpdateEvent("NewPerson", UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, tn, null, this);
+        getController().sendDataUpdateEvent("NewPerson",
+                UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, tn, null, this);
         return tn;
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#getStrafen()
      */
     public Strafen getStrafen() {
         return wk.getStrafen();
     }
 
-    public Mannschaft addMannschaft(String mannschaftsname, String gliederung, String qualiebene, boolean maennlich, int ak, String bemerkung, int sn,
-            double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz, Mannschaftsmitglied[] members) {
-        Mannschaft m = addMannschaftI(mannschaftsname, gliederung, qualiebene, maennlich, ak, bemerkung, sn, punkte, selection, meldezeiten, ausserkonkurrenz,
+    public Mannschaft addMannschaft(String mannschaftsname, String gliederung, String qualiebene, boolean maennlich,
+            int ak, String bemerkung, int sn,
+            double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz,
+            Mannschaftsmitglied[] members) {
+        Mannschaft m = addMannschaftI(mannschaftsname, gliederung, qualiebene, maennlich, ak, bemerkung, sn, punkte,
+                selection, meldezeiten, ausserkonkurrenz,
                 members);
         getController().sendDataUpdateEvent(
-                new UpdateEvent("NewTeam", UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, m, null, this));
+                new UpdateEvent("NewTeam",
+                        UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, m, null,
+                        this));
         return m;
     }
 
-    public void addMannschaften(String mannschaftsname, int amount, String gliederung, String qualiebene, boolean maennlich, int ak, String bemerkung, int sn,
+    public void addMannschaften(String mannschaftsname, int amount, String gliederung, String qualiebene,
+            boolean maennlich, int ak, String bemerkung, int sn,
             double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz) {
         for (int x = 1; x <= amount; x++) {
-            addMannschaftI(mannschaftsname + " " + x, gliederung, qualiebene, maennlich, ak, bemerkung, sn, punkte, selection, meldezeiten, ausserkonkurrenz,
+            addMannschaftI(mannschaftsname + " " + x, gliederung, qualiebene, maennlich, ak, bemerkung, sn, punkte,
+                    selection, meldezeiten, ausserkonkurrenz,
                     null);
         }
-        getController().sendDataUpdateEvent("NewTeam", UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, this);
+        getController().sendDataUpdateEvent("NewTeam",
+                UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, this);
     }
 
-    public Mannschaft addMannschaftI(String mannschaftsname, String gliederung, String qualiebene, boolean maennlich, int ak, String bemerkung, int sn,
-            double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz, Mannschaftsmitglied[] members) {
+    public Mannschaft addMannschaftI(String mannschaftsname, String gliederung, String qualiebene, boolean maennlich,
+            int ak, String bemerkung, int sn,
+            double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz,
+            Mannschaftsmitglied[] members) {
         MannschaftWettkampf mwk = getMannschaftWettkampf();
         String gl = mwk.getGliederung(gliederung);
         Mannschaft mannschaft = mwk.createMannschaft(mannschaftsname, maennlich, gl, ak, bemerkung);
@@ -208,7 +228,8 @@ public class CorePlugin extends AFeature {
             found = found || b;
         }
         if (found) {
-            getController().sendDataUpdateEvent("Import", UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED,
+            getController().sendDataUpdateEvent("Import",
+                    UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED,
                     schwimmer.toArray(), null, this);
         }
     }
@@ -226,7 +247,8 @@ public class CorePlugin extends AFeature {
             }
             text.append("\n");
         }
-        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"), I18n.get("ReallyDeleteMultiple", s.length),
+        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"),
+                I18n.get("ReallyDeleteMultiple", s.length),
                 text.toString())) {
             boolean result = false;
             for (ASchwimmer value : s) {
@@ -235,7 +257,9 @@ public class CorePlugin extends AFeature {
                 }
             }
             if (result) {
-                getController().sendDataUpdateEvent(new UpdateEvent(s[0] instanceof Mannschaft ? "RemoveTeam":"RemovePerson", UpdateEventConstants.REASON_SWIMMER_DELETED, s, null, this));
+                getController()
+                        .sendDataUpdateEvent(new UpdateEvent(s[0] instanceof Mannschaft ? "RemoveTeam" : "RemovePerson",
+                                UpdateEventConstants.REASON_SWIMMER_DELETED, s, null, this));
             }
             return result;
         }
@@ -263,11 +287,13 @@ public class CorePlugin extends AFeature {
     }
 
     public boolean remove(Teilnehmer t) {
-        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"), I18n.get("ReallyDelete", t.getName()),
+        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"),
+                I18n.get("ReallyDelete", t.getName()),
                 I18n.get("ReallyDelete.Note", t.getName()))) {
             boolean result = removeI(t);
             if (result) {
-                getController().sendDataUpdateEvent("Remove", UpdateEventConstants.REASON_SWIMMER_DELETED, t, null, this);
+                getController().sendDataUpdateEvent("Remove", UpdateEventConstants.REASON_SWIMMER_DELETED, t, null,
+                        this);
             }
             return result;
         }
@@ -283,7 +309,8 @@ public class CorePlugin extends AFeature {
     }
 
     public boolean remove(Mannschaft m) {
-        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"), I18n.get("ReallyDelete", m.getName()),
+        if (DialogUtils.askAndWarn(getController().getWindow(), I18n.get("ConfirmationRequired"),
+                I18n.get("ReallyDelete", m.getName()),
                 I18n.get("ReallyDelete.Note", m.getName()))) {
             boolean result = removeI(m);
             if (result) {
@@ -305,6 +332,7 @@ public class CorePlugin extends AFeature {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#load(java.lang.String)
      */
     @SuppressWarnings("rawtypes")
@@ -338,13 +366,16 @@ public class CorePlugin extends AFeature {
         setLock(f);
         wk = w;
         setFilename(filename);
-        getController().sendDataUpdateEvent("Load", UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_FILENAME_CHANGED
-                | UpdateEventConstants.REASON_FILTER_SELECTION | UpdateEventConstants.REASON_FILTERS_CHANGED, this);
+        getController().sendDataUpdateEvent("Load",
+                UpdateEventConstants.REASON_LOAD_WK | UpdateEventConstants.REASON_FILENAME_CHANGED
+                        | UpdateEventConstants.REASON_FILTER_SELECTION | UpdateEventConstants.REASON_FILTERS_CHANGED,
+                this);
         return true;
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#save()
      */
     public boolean save() {
@@ -366,6 +397,7 @@ public class CorePlugin extends AFeature {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#saveAs(java.lang.String)
      */
     public boolean saveCopyAs(String filename) {
@@ -389,6 +421,7 @@ public class CorePlugin extends AFeature {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#saveAs(java.lang.String)
      */
     public boolean saveAs(String filename) {
@@ -420,6 +453,7 @@ public class CorePlugin extends AFeature {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.Controller#getFilename()
      */
     public String getFilename() {

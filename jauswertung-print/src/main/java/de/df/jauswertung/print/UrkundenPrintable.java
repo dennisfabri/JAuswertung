@@ -34,12 +34,14 @@ import de.df.jutils.print.printables.ComponentPagePrintable;
 
 public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
 
-    private static final String[]       IDS = new String[] { "<name>", "<gliederung>", "<altersklasse>", "<geschlecht>", "<platz>", "<punkte>", "<wertung>",
-            "<mitglieder>", "<mitglieder2>", "<zeiten1>", "<zeiten2>", "<h>", "<hh>", "<m>", "<mm>", "<s>", "<ss>", "<s,0>", "<ss,0>", "<s,00>", "<ss,00>" };
+    private static final String[] IDS = new String[] { "<name>", "<gliederung>", "<altersklasse>", "<geschlecht>",
+            "<platz>", "<punkte>", "<wertung>",
+            "<mitglieder>", "<mitglieder2>", "<zeiten1>", "<zeiten2>", "<h>", "<hh>", "<m>", "<mm>", "<s>", "<ss>",
+            "<s,0>", "<ss,0>", "<s,00>", "<ss,00>" };
 
     private Hashtable<String, Object>[] cells;
 
-    private String[][]                  eintraege;
+    private String[][] eintraege;
 
     @SuppressWarnings({ "unchecked" })
     public UrkundenPrintable(Hashtable<String, Object>[] cells) {
@@ -48,24 +50,29 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
         }
         this.cells = cells;
 
-        eintraege = new String[][] { { "Musterstadt 1", "Ortsgruppe Musterstadt", "AK 13/14", "männlich", "3", "1234,56", "",
-                "Max Mustermann, Holger Mustermann, Daniel Mustermann, Hugo Mustermann", "", "1:23,45, 2:34,56", "", "0", "00", "1", "01", "23", "23", "23,5",
-                "23,5", "23,45", "23,45" } };
+        eintraege = new String[][] {
+                { "Musterstadt 1", "Ortsgruppe Musterstadt", "AK 13/14", "männlich", "3", "1234,56", "",
+                        "Max Mustermann, Holger Mustermann, Daniel Mustermann, Hugo Mustermann", "", "1:23,45, 2:34,56",
+                        "", "0", "00", "1", "01", "23", "23", "23,5",
+                        "23,5", "23,45", "23,45" } };
         eintraege[0][8] = eintraege[0][7].replace(", ", "\n");
         eintraege[0][10] = eintraege[0][9].replace(", ", "\n");
     }
 
     @SuppressWarnings({ "unchecked" })
     public UrkundenPrintable(AWettkampf<T> wk, LinkedList<T> swimmers, int ak, boolean sex, boolean einzelwertung) {
-        cells = (Hashtable<String, Object>[]) wk.getProperty((einzelwertung ? PropertyConstants.URKUNDE_EINZELWERTUNG : PropertyConstants.URKUNDE));
+        cells = (Hashtable<String, Object>[]) wk
+                .getProperty((einzelwertung ? PropertyConstants.URKUNDE_EINZELWERTUNG : PropertyConstants.URKUNDE));
 
         NumberFormat df = NumberFormat.getNumberInstance();
         df.setGroupingUsed(false);
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
 
-        Results<T> results = new Results<>(ResultCalculator.getResults(wk, wk.getRegelwerk().getAk(ak), sex, null, true));
-        // JResultTable result = JResultTable.getResultTable(wk, wk.getRegelwerk().getAk(ak), sex, false, true, 0);
+        Results<T> results = new Results<>(
+                ResultCalculator.getResults(wk, wk.getRegelwerk().getAk(ak), sex, null, true));
+        // JResultTable result = JResultTable.getResultTable(wk,
+        // wk.getRegelwerk().getAk(ak), sex, false, true, 0);
 
         LinkedList<String[]> temp = new LinkedList<String[]>();
 
@@ -112,7 +119,8 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
             eintrag[9] = zeiten.replace(";", ", ");
             eintrag[10] = zeiten.replace(";", "\n");
 
-            if ((sr.getSchwimmer().getAK().getDiszAnzahl() == 1) && (sr.getSchwimmer().getAkkumulierteStrafe(0).getArt() != Strafarten.NICHT_ANGETRETEN)) {
+            if ((sr.getSchwimmer().getAK().getDiszAnzahl() == 1)
+                    && (sr.getSchwimmer().getAkkumulierteStrafe(0).getArt() != Strafarten.NICHT_ANGETRETEN)) {
                 int zeit = sr.getSchwimmer().getZeit(0);
                 int h = zeit / 100 / 60 / 60;
                 int m = (zeit / 100 / 60) % 60;
@@ -144,7 +152,7 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
     }
 
     private mxGraph lastgraph = null;
-    private int     lastpage  = -1;
+    private int lastpage = -1;
 
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -153,7 +161,8 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
         }
 
         Graphics2D g2d = (Graphics2D) graphics.create();
-        g2d.setClip((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY(), (int) pageFormat.getImageableWidth(),
+        g2d.setClip((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY(),
+                (int) pageFormat.getImageableWidth(),
                 (int) pageFormat.getImageableHeight());
 
         Paper p = new Paper();

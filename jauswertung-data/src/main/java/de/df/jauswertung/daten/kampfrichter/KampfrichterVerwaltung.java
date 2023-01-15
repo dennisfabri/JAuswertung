@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class KampfrichterVerwaltung implements Serializable {
 
-    private static final long                     serialVersionUID = 126306416716148176L;
+    private static final long serialVersionUID = 126306416716148176L;
 
     private final LinkedList<KampfrichterEinheit> einheiten;
 

@@ -8,7 +8,7 @@ public record Time(String competition, boolean team, String name, String details
         boolean male, String discipline, int timeInHundrets, Penalty[] penalties) {
 
     public boolean hasRealPenalty() {
-        if (penalties == null ) {
+        if (penalties == null) {
             return false;
         }
         return Arrays.stream(penalties).anyMatch(p -> p.isRealPenalty());

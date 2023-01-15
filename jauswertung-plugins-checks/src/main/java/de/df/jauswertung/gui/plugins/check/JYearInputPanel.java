@@ -40,20 +40,20 @@ import de.df.jutils.gui.layout.SimpleTableBuilder;
 
 public class JYearInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long  serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin         core;
-    private FEditorPlugin      editor;
+    private CorePlugin core;
+    private FEditorPlugin editor;
     private JMissingInputFrame parent;
 
-    private Teilnehmer[]       swimmers;
-    JComboBox<String>[]        agegroups;
-    JIntegerField[]            years;
-    private JButton[]          edit;
+    private Teilnehmer[] swimmers;
+    JComboBox<String>[] agegroups;
+    JIntegerField[] years;
+    private JButton[] edit;
 
-    private JPanel             panel;
+    private JPanel panel;
 
-    private boolean            changed          = false;
+    private boolean changed = false;
 
     public JYearInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -139,7 +139,8 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
         setEnabled(swimmers.length > 0);
 
         panel.removeAll();
-        SimpleTableBuilder dfb = new SimpleTableBuilder(panel, new boolean[] { false, true, true, true, true, false, true }, false);
+        SimpleTableBuilder dfb = new SimpleTableBuilder(panel,
+                new boolean[] { false, true, true, true, true, false, true }, false);
         dfb.add(new JLabel(I18n.get("StartnumberShort")), "center,center");
         dfb.add(new JLabel(I18n.get("Name")), "center,center");
         dfb.add(new JLabel(I18n.get("Organisation")), "center,center");
@@ -166,7 +167,8 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
             years[x].setAutoSelectAll(true);
             if (s.getJahrgang() > 0) {
                 years[x].setInt(s.getJahrgang());
-                int ak = s.getWettkampf().getRegelwerk().getAkNachAlter(Calendar.getInstance().get(Calendar.YEAR) - s.getJahrgang());
+                int ak = s.getWettkampf().getRegelwerk()
+                        .getAkNachAlter(Calendar.getInstance().get(Calendar.YEAR) - s.getJahrgang());
                 if (ak >= 0) {
                     proposal = s.getWettkampf().getRegelwerk().getAk(ak).getName();
                 }
@@ -300,7 +302,8 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
                 years[index - 1].requestFocus();
             }
-            if ((index + 1 < years.length) && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
+            if ((index + 1 < years.length)
+                    && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
                 years[index + 1].requestFocus();
             }
         }

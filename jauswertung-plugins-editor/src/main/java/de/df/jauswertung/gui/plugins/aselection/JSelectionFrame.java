@@ -35,25 +35,26 @@ import de.df.jutils.plugin.IPluginManager;
 
 class JSelectionFrame extends JGlassFrame {
 
-    private static final long       serialVersionUID = 3735076099011819345L;
+    private static final long serialVersionUID = 3735076099011819345L;
 
-    private final JFrame            parent;
-    private final CorePlugin        core;
-    private final FEditorPlugin     editor;
-    private final IPluginManager    controller;
+    private final JFrame parent;
+    private final CorePlugin core;
+    private final FEditorPlugin editor;
+    private final IPluginManager controller;
 
-    private final String            meldekey;
+    private final String meldekey;
 
-    private boolean                 changed          = false;
+    private boolean changed = false;
 
-    private JTabbedPane             tabs             = null;
+    private JTabbedPane tabs = null;
     @SuppressWarnings("rawtypes")
-    private JSelectionPanel[]       panels           = null;
+    private JSelectionPanel[] panels = null;
 
-    private final String            i18nprefix;
+    private final String i18nprefix;
     private final AMSelectionPlugin root;
 
-    public JSelectionFrame(JFrame parent, AMSelectionPlugin root, CorePlugin core, FEditorPlugin editor, IPluginManager con, String i18nprefix,
+    public JSelectionFrame(JFrame parent, AMSelectionPlugin root, CorePlugin core, FEditorPlugin editor,
+            IPluginManager con, String i18nprefix,
             String meldekey) {
         super(I18n.get(i18nprefix + ".Title"));
         this.i18nprefix = i18nprefix;
@@ -193,7 +194,8 @@ class JSelectionFrame extends JGlassFrame {
                 }
             }
             if (changed) {
-                controller.sendDataUpdateEvent(I18n.get(i18nprefix + ".Event"), UpdateEventConstants.REASON_SWIMMER_CHANGED, null);
+                controller.sendDataUpdateEvent(I18n.get(i18nprefix + ".Event"),
+                        UpdateEventConstants.REASON_SWIMMER_CHANGED, null);
                 changed = false;
             }
         }

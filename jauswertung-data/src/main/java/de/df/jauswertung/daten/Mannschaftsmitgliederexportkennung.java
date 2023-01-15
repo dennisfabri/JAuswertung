@@ -11,7 +11,7 @@ public class Mannschaftsmitgliederexportkennung implements Serializable {
     @XStreamAsAttribute
     private String id;
     @XStreamAsAttribute
-    private Date   exportedOnDate;
+    private Date exportedOnDate;
 
     public Mannschaftsmitgliederexportkennung(String id) {
         this.id = id;

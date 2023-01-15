@@ -21,12 +21,12 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MZulassungPlugin extends ANullPlugin {
 
-    private JMenu      menu   = new JMenu(I18n.get("Zulassung"));
-    private JMenuItem  neu    = new JMenuItem(I18n.get("New"));
-    private JMenuItem  delete = new JMenuItem(I18n.get("RemoveNonQualified"));
-    private JMenuItem  reset  = new JMenuItem(I18n.get("ResetZulassung"));
+    private JMenu menu = new JMenu(I18n.get("Zulassung"));
+    private JMenuItem neu = new JMenuItem(I18n.get("New"));
+    private JMenuItem delete = new JMenuItem(I18n.get("RemoveNonQualified"));
+    private JMenuItem reset = new JMenuItem(I18n.get("ResetZulassung"));
 
-    private CorePlugin core   = null;
+    private CorePlugin core = null;
 
     public MZulassungPlugin() {
         menu.setEnabled(false);
@@ -55,7 +55,8 @@ public class MZulassungPlugin extends ANullPlugin {
     }
 
     void reset() {
-        if (!DialogUtils.ask(getController().getWindow(), I18n.get("ResetZulassungFrage"), I18n.get("ResetZulassungFrage.Note"))) {
+        if (!DialogUtils.ask(getController().getWindow(), I18n.get("ResetZulassungFrage"),
+                I18n.get("ResetZulassungFrage.Note"))) {
             return;
         }
 

@@ -27,13 +27,13 @@ import de.df.jutils.print.PrintManager;
  */
 public class BugReport implements Serializable {
 
-    private static final long  serialVersionUID = -6433894027809485390L;
+    private static final long serialVersionUID = -6433894027809485390L;
 
-    public static final String NEWLINE          = "\n";
+    public static final String NEWLINE = "\n";
 
-    private String             data             = "";
-    private String             info             = "";
-    private Object             daten            = null;
+    private String data = "";
+    private String info = "";
+    private Object daten = null;
 
     public BugReport() {
     }
@@ -98,17 +98,20 @@ public class BugReport implements Serializable {
                 s.append(NEWLINE);
                 s.append("Memory usage (heap and non heap):");
                 s.append(NEWLINE);
-                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ").append(mem.getUsed()).append(", Commited: ")
+                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ")
+                        .append(mem.getUsed()).append(", Commited: ")
                         .append(mem.getCommitted());
                 s.append(NEWLINE);
                 mem = ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ").append(mem.getUsed()).append(", Commited: ")
+                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ")
+                        .append(mem.getUsed()).append(", Commited: ")
                         .append(mem.getCommitted());
                 s.append(NEWLINE);
                 long memtotal = Runtime.getRuntime().totalMemory();
                 long memfree = Runtime.getRuntime().freeMemory();
                 long memmax = Runtime.getRuntime().maxMemory();
-                s.append("Total mem: ").append(memtotal).append(", Free mem: ").append(memfree).append(", Max mem: ").append(memmax);
+                s.append("Total mem: ").append(memtotal).append(", Free mem: ").append(memfree).append(", Max mem: ")
+                        .append(memmax);
 
             } catch (Error e) {
                 s.append(e.toString());

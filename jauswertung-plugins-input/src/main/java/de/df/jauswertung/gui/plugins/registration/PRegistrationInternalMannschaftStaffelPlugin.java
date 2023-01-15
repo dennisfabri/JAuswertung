@@ -57,34 +57,34 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
 
-    static final String       MALE        = I18n.get("male");
-    static final String       FEMALE      = I18n.get("female");
-    static final String       ADD         = I18n.get("add");
-    static final String       ADD_MULTI   = I18n.get("AddMultiple");
+    static final String MALE = I18n.get("male");
+    static final String FEMALE = I18n.get("female");
+    static final String ADD = I18n.get("add");
+    static final String ADD_MULTI = I18n.get("AddMultiple");
 
-    static final String       WRONG_INPUT = I18n.get("WrongInput");
+    static final String WRONG_INPUT = I18n.get("WrongInput");
 
-    CorePlugin                core        = null;
+    CorePlugin core = null;
 
-    JPanel                    panel;
+    JPanel panel;
 
-    JIntegerField             startnummer;
-    JWarningTextField         name;
-    JDoubleField              melde;
-    JWarningTextField         bemerkung;
-    JComboBox<String>         gliederung;
-    JWarningTextField         qualifikationsebene;
-    JComboBox<String>         altersklasse;
-    JComboBox<String>         geschlecht;
-    JIntegerField             amount;
+    JIntegerField startnummer;
+    JWarningTextField name;
+    JDoubleField melde;
+    JWarningTextField bemerkung;
+    JComboBox<String> gliederung;
+    JWarningTextField qualifikationsebene;
+    JComboBox<String> altersklasse;
+    JComboBox<String> geschlecht;
+    JIntegerField amount;
     private JComboBox<String> ausserkonkurrenz;
     @SuppressWarnings("rawtypes")
-    private DisciplinesPanel  disciplines;
-    private JTaskPaneGroup    jt;
-    JButton                   hinzu;
-    private JButton           hinzu2;
+    private DisciplinesPanel disciplines;
+    private JTaskPaneGroup jt;
+    JButton hinzu;
+    private JButton hinzu2;
 
-    private UpdateListener    ul          = new UpdateListener();
+    private UpdateListener ul = new UpdateListener();
 
     /**
      * This method initializes
@@ -149,7 +149,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
 
         altersklasse.addItemListener(event -> updateDisciplines());
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu," + "fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(15));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu," + "fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(15));
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10, 12, 14, 16, 18, 24 }, { 22, 26 } });
         panel = new JPanel(layout);
         panel.setName("staffel");
@@ -281,7 +282,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             if (c instanceof JTextField jtf) {
                 result = jtf.getText().length() > 0;
             } else {
-                result = (gliederung.getSelectedItem() != null) && (gliederung.getSelectedItem().toString().length() > 0);
+                result = (gliederung.getSelectedItem() != null)
+                        && (gliederung.getSelectedItem().toString().length() > 0);
             }
         }
 
@@ -323,7 +325,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         return panel;
     }
 
-    final class UpdateListener implements ActionListener, DocumentListener, ItemListener, DisciplinesPanel.DataChangeListener {
+    final class UpdateListener
+            implements ActionListener, DocumentListener, ItemListener, DisciplinesPanel.DataChangeListener {
 
         @Override
         public void dataChanged() {
@@ -365,7 +368,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         }
 
         if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
+                    I18n.get("StartnummerAlreadyAssigned.Note"));
             startnummer.requestFocus();
             return;
         }
@@ -375,13 +379,16 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             return;
         }
         if (g.length() == 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"), I18n.get("OrganisationMustNotBeEmpty.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
+                    I18n.get("OrganisationMustNotBeEmpty.Note"));
             gliederung.requestFocus();
             return;
         }
 
-        core.addMannschaft(name.getText(), gliederung.getSelectedItem().toString(), qualifikationsebene.getText(), geschlecht.getSelectedIndex() == 1,
-                altersklasse.getSelectedIndex(), bemerkung.getText(), startnummer.getInt(), melde.getDouble(), disciplines.getSelection(),
+        core.addMannschaft(name.getText(), gliederung.getSelectedItem().toString(), qualifikationsebene.getText(),
+                geschlecht.getSelectedIndex() == 1,
+                altersklasse.getSelectedIndex(), bemerkung.getText(), startnummer.getInt(), melde.getDouble(),
+                disciplines.getSelection(),
                 disciplines.getMeldezeiten(), ausserkonkurrenz.getSelectedIndex() == 1, null);
 
         name.setText("");
@@ -404,7 +411,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         }
 
         if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"), I18n.get("StartnummerAlreadyAssigned.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
+                    I18n.get("StartnummerAlreadyAssigned.Note"));
             startnummer.requestFocus();
             return;
         }
@@ -414,12 +422,14 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             return;
         }
         if (g.length() == 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"), I18n.get("OrganisationMustNotBeEmpty.Note"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
+                    I18n.get("OrganisationMustNotBeEmpty.Note"));
             gliederung.requestFocus();
             return;
         }
         if (amount.getInt() <= 0) {
-            DialogUtils.inform(null, WRONG_INPUT, I18n.get("AmountMustBeBiggerThanZero"), I18n.get("AmountMustBeBiggerThanZero"));
+            DialogUtils.inform(null, WRONG_INPUT, I18n.get("AmountMustBeBiggerThanZero"),
+                    I18n.get("AmountMustBeBiggerThanZero"));
             amount.requestFocus();
             return;
         }
@@ -430,7 +440,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         double punkte = melde.getDouble();
         String quali = qualifikationsebene.getText();
 
-        core.addMannschaften(teamname, amount.getInt(), g, quali, maennlich, ak, b, sn, punkte, disciplines.getSelection(), disciplines.getMeldezeiten(),
+        core.addMannschaften(teamname, amount.getInt(), g, quali, maennlich, ak, b, sn, punkte,
+                disciplines.getSelection(), disciplines.getMeldezeiten(),
                 ausserkonkurrenz.getSelectedIndex() == 1);
 
         name.setText("");

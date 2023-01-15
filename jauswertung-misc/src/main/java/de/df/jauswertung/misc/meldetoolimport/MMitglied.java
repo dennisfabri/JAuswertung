@@ -16,6 +16,7 @@ public class MMitglied {
 
     public String[] toInfo() {
         String x = get("Geschlecht");
-        return new String[] { get("Vorname"), get("Nachname"), Meldungsimport.toJahrgang(get("Geburtstag")), get("Geschlecht").equals("1") ? "f" : "m", };
+        return new String[] { get("Vorname"), get("Nachname"), Meldungsimport.toJahrgang(get("Geburtstag")),
+                get("Geschlecht").equals("1") ? "f" : "m", };
     }
 }

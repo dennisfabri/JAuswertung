@@ -14,15 +14,15 @@ import junit.framework.TestCase;
 
 public class DM08M12wTest extends TestCase {
 
-    private static MannschaftWettkampf           wk      = null;
+    private static MannschaftWettkampf wk = null;
 
     public static final String DIRECTORY = "src/test/resources/competitions/dm08/";
-    private static final String                  FILE    = DIRECTORY + "mannschaft-ak12w.csv";
-    private static final boolean                 MALE    = false;
-    private static final int                     AK      = 0;
+    private static final String FILE = DIRECTORY + "mannschaft-ak12w.csv";
+    private static final boolean MALE = false;
+    private static final int AK = 0;
 
     private static SchwimmerResult<Mannschaft>[] results = null;
-    private static Object[][]                    data    = null;
+    private static Object[][] data = null;
 
     public DM08M12wTest(String x) {
         super(x);

@@ -23,15 +23,15 @@ import de.df.jutils.gui.util.UIPerformanceMode;
 public final class Utils {
 
     private static final Cloner cloner;
-    
+
     static {
         cloner = new Cloner();
         cloner.registerFastCloner(Hashtable.class, new FastClonerHashtable());
         cloner.registerFastCloner(Date.class, new FastClonerDate());
-        
+
         cloner.setDumpClonedClasses(false);
     }
-    
+
     private Utils() {
         // Hide
     }
@@ -158,7 +158,6 @@ public final class Utils {
         return Preferences.userRoot().node("jauswertung");
     }
 
-    
     private static class FastClonerHashtable implements IFastCloner {
         @SuppressWarnings({ "unchecked", "rawtypes" })
         public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
@@ -168,16 +167,16 @@ public final class Utils {
                 result.put(cloner.deepClone(e.getKey(), clones), cloner.deepClone(e.getValue(), clones));
             }
             return result;
-        }        
+        }
     }
-    
+
     private static class FastClonerDate implements IFastCloner {
         public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
             final Date m = (Date) t;
             return new Date(m.getTime());
-        }        
+        }
     }
-    
+
     public static <T extends Object> T copy(T t) {
         if (t == null) {
             return null;

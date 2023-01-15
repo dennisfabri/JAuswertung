@@ -34,12 +34,12 @@ import de.df.jutils.print.printables.ComponentListPrintable;
  */
 class LaufeinteilungKompaktPrinter implements Printer {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JPanel         panel;
-    private JButton        print;
-    private JButton        preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
 
     public LaufeinteilungKompaktPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -75,6 +75,7 @@ class LaufeinteilungKompaktPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -84,6 +85,7 @@ class LaufeinteilungKompaktPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -115,7 +117,8 @@ class LaufeinteilungKompaktPrinter implements Printer {
                 components[x] = p;
             }
             Printable internal = new ComponentListPrintable(components);
-            return PrintManager.getFinalPrintable(internal, core.getLastChangedDate(), I18n.get("Heatarrangement"), I18n.get("Heatarrangement"));
+            return PrintManager.getFinalPrintable(internal, core.getLastChangedDate(), I18n.get("Heatarrangement"),
+                    I18n.get("Heatarrangement"));
         } catch (Exception t) {
             t.printStackTrace();
         }
@@ -136,7 +139,8 @@ class LaufeinteilungKompaktPrinter implements Printer {
                 return getPrintable();
             }
         };
-        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("HeatarrangementCompact"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("HeatarrangementCompact"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     final class PrintActionListener implements ActionListener {

@@ -30,12 +30,12 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class LaufuebersichtPrinter implements Printer {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JPanel         panel;
-    private JButton        print;
-    private JButton        preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
 
     public LaufuebersichtPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -74,6 +74,7 @@ class LaufuebersichtPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -83,6 +84,7 @@ class LaufuebersichtPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -97,7 +99,8 @@ class LaufuebersichtPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        return PrintManager.getFinalPrintable(PrintUtils.getLaufuebersicht(core.getWettkampf()), core.getLastChangedDate(), I18n.get("Heatoverview"),
+        return PrintManager.getFinalPrintable(PrintUtils.getLaufuebersicht(core.getWettkampf()),
+                core.getLastChangedDate(), I18n.get("Heatoverview"),
                 I18n.get("Heatoverview"));
     }
 
@@ -115,7 +118,8 @@ class LaufuebersichtPrinter implements Printer {
                 return getPrintable();
             }
         };
-        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatoverview"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatoverview"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     final class PrintActionListener implements ActionListener {

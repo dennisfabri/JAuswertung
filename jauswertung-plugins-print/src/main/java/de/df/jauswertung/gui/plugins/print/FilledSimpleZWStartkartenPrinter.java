@@ -39,12 +39,12 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class FilledSimpleZWStartkartenPrinter implements Printer {
 
-    CorePlugin        core;
-    IPluginManager    controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel    panel;
-    private JButton   print;
-    private JButton   preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
     private JComboBox pages;
     private JCheckBox fillnames;
 
@@ -55,7 +55,9 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -108,6 +110,7 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -117,6 +120,7 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -132,7 +136,8 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     Printable getPrintable() {
-        return new ZWStartkartenPrintable(core.getWettkampf(), getMode(), fillnames.isVisible() && fillnames.isSelected(), PrintUtils.barcodeType);
+        return new ZWStartkartenPrintable(core.getWettkampf(), getMode(),
+                fillnames.isVisible() && fillnames.isSelected(), PrintUtils.barcodeType);
     }
 
     private PageMode getMode() {
@@ -171,7 +176,8 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
                         return getPrintable();
                     }
                 };
-                PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"),
+                        IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

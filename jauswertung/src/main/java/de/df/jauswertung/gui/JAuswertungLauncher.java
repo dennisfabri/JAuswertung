@@ -99,7 +99,7 @@ public final class JAuswertungLauncher {
      */
     public static void main(String[] args) {
         DefaultInit.init();
-        
+
         TimeMeasurement tm = new TimeMeasurement(System.out, 5);
 
         tm.start("Loading JAuswertung");

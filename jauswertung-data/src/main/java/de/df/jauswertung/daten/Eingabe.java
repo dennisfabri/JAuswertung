@@ -10,8 +10,8 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 public class Eingabe implements Serializable {
 
     @XStreamAsAttribute
-    private int                zeit    = 0;
-    private int[]              starter = null;
+    private int zeit = 0;
+    private int[] starter = null;
     private LinkedList<Strafe> strafen = new LinkedList<Strafe>();
 
     public LinkedList<Strafe> getStrafen() {

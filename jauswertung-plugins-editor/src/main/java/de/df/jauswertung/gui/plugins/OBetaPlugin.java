@@ -20,15 +20,15 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
-    JPanel                           optionsPanel;
+    JPanel optionsPanel;
 
-    JCheckBox                        oldCheckBox;
-    JCheckBox                        betaCheckBox;
+    JCheckBox oldCheckBox;
+    JCheckBox betaCheckBox;
 
-    boolean                          betaEnabled = false;
-    boolean                          oldEnabled  = false;
+    boolean betaEnabled = false;
+    boolean oldEnabled = false;
 
-    MOptionenPlugin                  optionen;
+    MOptionenPlugin optionen;
 
     private LinkedList<BetaListener> betaListeners;
     private LinkedList<BetaListener> oldListeners;
@@ -77,8 +77,8 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
+     * 
+     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
      */
     @Override
     public JPanel[] getPanels() {
@@ -90,6 +90,7 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#ok()
      */
     @Override
@@ -126,6 +127,7 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#cancel()
      */
     @Override

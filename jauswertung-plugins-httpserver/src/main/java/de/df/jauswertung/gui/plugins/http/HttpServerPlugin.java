@@ -182,9 +182,9 @@ public class HttpServerPlugin extends ANullPlugin {
                     })
                     .register("*", requestHandler)
                     .setCanonicalHostName(InetAddress.getLocalHost().getHostName());
-            
+
             listInterfaces().forEach(ip -> httpServerBootstrap.registerVirtual(ip, "*", requestHandler));
-            
+
             httpServer = httpServerBootstrap.create();
 
             httpServer.start();
@@ -213,10 +213,11 @@ public class HttpServerPlugin extends ANullPlugin {
             return false;
         }
     }
-    
+
     private static Stream<String> listInterfaces() throws SocketException {
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-        return Collections.list(nets).stream().map(net -> displayInterfaceInformation(net)).flatMap(i -> i.stream()).distinct();
+        return Collections.list(nets).stream().map(net -> displayInterfaceInformation(net)).flatMap(i -> i.stream())
+                .distinct();
     }
 
     private static List<String> displayInterfaceInformation(NetworkInterface netint) {
@@ -228,7 +229,7 @@ public class HttpServerPlugin extends ANullPlugin {
             addresses.add(inetAddress.getHostName());
         }
         return addresses;
-     }
+    }
 
     @Override
     public void shutDown() {

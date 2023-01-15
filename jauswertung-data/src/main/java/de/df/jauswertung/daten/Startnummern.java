@@ -12,10 +12,10 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 public class Startnummern implements Serializable {
 
-    private static final long   serialVersionUID = 8239945102164481284L;
+    private static final long serialVersionUID = 8239945102164481284L;
 
     @XStreamAsAttribute
-    private int                 min;
+    private int min;
     private LinkedList<Integer> recycler;
 
     public Startnummern() {

@@ -11,7 +11,8 @@ import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.util.LaufInfo;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 
-public final class ZielrichterentscheidVergleicher<T extends ASchwimmer> implements Comparator<Zielrichterentscheid<T>>, Serializable {
+public final class ZielrichterentscheidVergleicher<T extends ASchwimmer>
+        implements Comparator<Zielrichterentscheid<T>>, Serializable {
 
     @Override
     public int compare(Zielrichterentscheid<T> ze1, Zielrichterentscheid<T> ze2) {
@@ -23,7 +24,8 @@ public final class ZielrichterentscheidVergleicher<T extends ASchwimmer> impleme
         String lauf1 = l1.getLauf();
         String lauf2 = l2.getLauf();
 
-        if (Character.isLetter(lauf1.charAt(lauf1.length() - 1)) != Character.isLetter(lauf2.charAt(lauf2.length() - 1))) {
+        if (Character.isLetter(lauf1.charAt(lauf1.length() - 1)) != Character
+                .isLetter(lauf2.charAt(lauf2.length() - 1))) {
             if (Character.isLetter(lauf1.charAt(lauf1.length() - 1))) {
                 lauf1 = lauf1.substring(0, lauf1.length() - 1);
             } else {

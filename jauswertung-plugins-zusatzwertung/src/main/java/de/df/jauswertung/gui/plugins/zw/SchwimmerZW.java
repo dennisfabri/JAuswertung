@@ -21,9 +21,9 @@ import de.df.jutils.gui.util.EDTUtils;
 class SchwimmerZW<T extends ASchwimmer> implements ListRenderDataProvider, Comparable<SchwimmerZW<T>> {
 
     private final T swimmer;
-    private int     count;
+    private int count;
 
-    private JLabel  l;
+    private JLabel l;
 
     public SchwimmerZW() {
         this(null, 0);
@@ -78,10 +78,12 @@ class SchwimmerZW<T extends ASchwimmer> implements ListRenderDataProvider, Compa
             l.setIcon(IconManager.getBigIcon("team"));
         }
         if (swimmer instanceof Mannschaft) {
-            l.setText(I18n.get("SwimmerInZWqueueTeam", swimmer.getName(), count, StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(),
+            l.setText(I18n.get("SwimmerInZWqueueTeam", swimmer.getName(), count,
+                    StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(),
                     I18n.geschlechtToString(swimmer), swimmer.getGliederung()));
         } else {
-            l.setText(I18n.get("SwimmerInZWqueueSingle", swimmer.getName(), count, StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(),
+            l.setText(I18n.get("SwimmerInZWqueueSingle", swimmer.getName(), count,
+                    StartnumberFormatManager.format(swimmer), swimmer.getAK().getName(),
                     I18n.geschlechtToString(swimmer), swimmer.getGliederung()));
         }
 

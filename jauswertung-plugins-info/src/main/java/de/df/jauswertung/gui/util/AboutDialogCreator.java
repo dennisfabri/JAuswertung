@@ -34,8 +34,10 @@ public final class AboutDialogCreator {
         JComponent[] c = null;
         if (Utils.isInDevelopmentMode()) {
             c = new JComponent[] { general, thanks,
-                    JAboutDialog.getSystemInformation(new String[] { I18n.get("Systeminformation"), I18n.get("Property"), I18n.get("Value") }),
-                    JAboutDialog.getUIInformation(new String[] { I18n.get("UIInformation"), I18n.get("Property"), I18n.get("Value") }) };
+                    JAboutDialog.getSystemInformation(
+                            new String[] { I18n.get("Systeminformation"), I18n.get("Property"), I18n.get("Value") }),
+                    JAboutDialog.getUIInformation(
+                            new String[] { I18n.get("UIInformation"), I18n.get("Property"), I18n.get("Value") }) };
         } else {
             c = new JComponent[] { general, thanks };
         }

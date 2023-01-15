@@ -36,8 +36,10 @@ public class PrintableCreator {
 
     public static <T extends ASchwimmer> Printable createZielrichterentscheidPrintable(AWettkampf<T> wk) {
         Printable p = null;
-        ZielrichterentscheidPrintable<T> zep = new ZielrichterentscheidPrintable<>(CompetitionUtils.getFilteredInstance(wk));
-        p = new HeaderFooterPrintable(zep, new MessageFormat(I18n.get("Zielrichterentscheide")), null, PrintManager.getFont());
+        ZielrichterentscheidPrintable<T> zep = new ZielrichterentscheidPrintable<>(
+                CompetitionUtils.getFilteredInstance(wk));
+        p = new HeaderFooterPrintable(zep, new MessageFormat(I18n.get("Zielrichterentscheide")), null,
+                PrintManager.getFont());
         return p;
     }
 
@@ -47,7 +49,7 @@ public class PrintableCreator {
         if (panels == null) {
             return EmptyPrintable.Instance;
         }
-    
+
         Component[] cs = new Component[panels.length];
         for (int x = 0; x < panels.length; x++) {
             panels[x].setOpaque(false);
@@ -61,7 +63,7 @@ public class PrintableCreator {
         } else {
             p = new ComponentListPrintable2(3, false, cs);
         }
-        
+
         return PrintManager.getHeaderPrintable(p, I18n.get("Penaltylist"));
     }
 
@@ -71,7 +73,7 @@ public class PrintableCreator {
             return null;
         }
         return new ComponentListPrintable2(false, tables);
-    
+
     }
 
 }

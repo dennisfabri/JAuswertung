@@ -31,7 +31,7 @@ import de.df.jutils.plugin.IPluginManager;
 public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
 
     private IPluginManager controller;
-    private AWettkampf<T>  wk;
+    private AWettkampf<T> wk;
 
     private JRemoveZulassung(JFrame parent, IPluginManager controller, AWettkampf<T> wk, int[] quali) {
         super(parent, I18n.get("Zulassung"), true);
@@ -51,12 +51,13 @@ public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
     }
 
     private JCheckBox notQualified = new JCheckBox("", true);
-    private JCheckBox nachruecker  = new JCheckBox("", false);
-    private JCheckBox disabled     = new JCheckBox("", true);
+    private JCheckBox nachruecker = new JCheckBox("", false);
+    private JCheckBox disabled = new JCheckBox("", true);
 
     private JPanel getInfo(int[] quali) {
         JPanel p = new JPanel();
-        FormLayout layout = new FormLayout("4dlu,4dlu,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu", FormLayoutUtils.createLayoutString(14));
+        FormLayout layout = new FormLayout("4dlu,4dlu,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu",
+                FormLayoutUtils.createLayoutString(14));
         layout.setRowGroups(new int[][] { { 2, 4, 6, 12, 14, 16, 18, 20, 22, 26 } });
         p.setLayout(layout);
 
@@ -106,7 +107,8 @@ public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
     }
 
     private JPanel getButtons(boolean enabled) {
-        JPanel p = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu", "0dlu,fill:default,4dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu", "0dlu,fill:default,4dlu"));
 
         JButton ok = new JButton(I18n.get("Remove"), IconManager.getSmallIcon("remove"));
         ok.addActionListener(new ActionListener() {

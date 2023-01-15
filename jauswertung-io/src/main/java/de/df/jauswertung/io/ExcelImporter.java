@@ -70,7 +70,8 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream is, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream is,
+            AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
 
@@ -98,7 +99,8 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> LinkedList<T> registration(InputStream is, AWettkampf<T> wk, Feedback fb, LinkedList<T> data2, String filename)
+    public <T extends ASchwimmer> LinkedList<T> registration(InputStream is, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data2, String filename)
             throws IOException, TableFormatException, TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -138,7 +140,8 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 
@@ -149,7 +152,8 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 

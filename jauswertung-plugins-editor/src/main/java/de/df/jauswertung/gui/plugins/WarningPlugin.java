@@ -50,7 +50,8 @@ public class WarningPlugin extends AFeature {
             });
             JCheckBox always = new JCheckBox(I18n.get("DoNotAskAgain"));
 
-            JPanel buttons = new JPanel(new FormLayout("4dlu,fill:default,4dlu:grow,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+            JPanel buttons = new JPanel(
+                    new FormLayout("4dlu,fill:default,4dlu:grow,fill:default,4dlu", "4dlu,fill:default,4dlu"));
 
             buttons.add(always, CC.xy(2, 2));
             buttons.add(ok, CC.xy(4, 2));
@@ -93,7 +94,8 @@ public class WarningPlugin extends AFeature {
             });
             JCheckBox always = new JCheckBox(I18n.get("DoNotAskAgain"));
 
-            JPanel buttons = new JPanel(new FormLayout("4dlu,fill:default,4dlu:grow,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+            JPanel buttons = new JPanel(
+                    new FormLayout("4dlu,fill:default,4dlu:grow,fill:default,4dlu", "4dlu,fill:default,4dlu"));
 
             buttons.add(always, CC.xy(2, 2));
             buttons.add(ok, CC.xy(4, 2));

@@ -291,9 +291,9 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         }
         e.setZeit(timevalue);
         OWDisziplin<T> owd = wk.getLauflisteOW().getDisziplin(lauf.getDisciplineId());
-        SwingUtilities.invokeLater(() ->
-                controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, owd.disziplin,
-                        plugin));
+        SwingUtilities.invokeLater(() -> controller.sendDataUpdateEvent("SetTime",
+                REASON_POINTS_CHANGED | REASON_PENALTY, t, owd.disziplin,
+                plugin));
     }
 
     @Override

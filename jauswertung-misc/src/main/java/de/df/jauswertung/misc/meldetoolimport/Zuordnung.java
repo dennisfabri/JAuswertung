@@ -7,7 +7,7 @@ import de.df.jauswertung.io.TextFileUtils;
 public class Zuordnung {
 
     private Zuordnungstyp Typ;
-    private String[]      Disziplinen;
+    private String[] Disziplinen;
 
     public Zuordnung(String file, Zuordnungstyp typ) {
         Typ = typ;

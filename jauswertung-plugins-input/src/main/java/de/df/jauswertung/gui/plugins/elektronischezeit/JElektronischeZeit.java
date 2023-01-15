@@ -32,23 +32,23 @@ import de.dm.ares.data.Heat;
 
 class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
-    private static final long              serialVersionUID = -2312160133856798878L;
+    private static final long serialVersionUID = -2312160133856798878L;
 
-    private boolean                        changed          = false;
-    private Heat[]                         heats            = null;
+    private boolean changed = false;
+    private Heat[] heats = null;
 
     private final MElektronischeZeitPlugin electric;
-    private ITimesSource                   source           = null;
+    private ITimesSource source = null;
 
-    private JButton                        close;
-    private JButton                        update;
+    private JButton close;
+    private JButton update;
 
-    private JHeatPanel<T>                  heat             = null;
-    private JTimePanel<T>                  time             = null;
+    private JHeatPanel<T> heat = null;
+    private JTimePanel<T> time = null;
 
-    private final JFrame                   parent;
+    private final JFrame parent;
 
-    private IETStrategy                    strategy         = null;
+    private IETStrategy strategy = null;
 
     public IETStrategy getStrategy() {
         return strategy;
@@ -168,7 +168,7 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         }
         super.setVisible(visible);
     }
-    
+
     private Heat[] loadHeats() {
         String address = SourcesConfig.getAddress();
         if (address.equalsIgnoreCase("dummy") && Utils.isInDevelopmentMode()) {

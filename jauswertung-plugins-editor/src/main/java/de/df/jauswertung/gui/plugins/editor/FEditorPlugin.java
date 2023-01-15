@@ -30,12 +30,13 @@ import de.df.jutils.plugin.UpdateEvent;
 public class FEditorPlugin extends AFeature {
 
     private OGeneralOptionsPlugin penaltyPrint = null;
-    private CorePlugin            core         = null;
+    private CorePlugin core = null;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
         super.setController(plugincontroller, pluginuid);
-        penaltyPrint = (OGeneralOptionsPlugin) plugincontroller.getFeature("de.df.jauswertung.generaloptions", pluginuid);
+        penaltyPrint = (OGeneralOptionsPlugin) plugincontroller.getFeature("de.df.jauswertung.generaloptions",
+                pluginuid);
         core = (CorePlugin) plugincontroller.getFeature("de.df.jauswertung.core", pluginuid);
     }
 
@@ -111,12 +112,14 @@ public class FEditorPlugin extends AFeature {
     }
 
     public void edit(JFrame parent, Teilnehmer t, boolean delete) {
-        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent, delete, core);
+        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent,
+                delete, core);
         editAndUpdateSwimmer(t, jte);
     }
 
     public void edit(JDialog parent, Teilnehmer t, boolean delete) {
-        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent, delete, core);
+        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent,
+                delete, core);
         editAndUpdateSwimmer(t, jte);
     }
 
@@ -129,12 +132,14 @@ public class FEditorPlugin extends AFeature {
     }
 
     public void edit(JFrame parent, Mannschaft t, boolean delete) {
-        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(), parent, delete, core);
+        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(),
+                parent, delete, core);
         editAndUpdateTeam(t, jmal);
     }
 
     public void edit(JDialog parent, Mannschaft t, boolean delete) {
-        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(), parent, delete, core);
+        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(),
+                parent, delete, core);
         editAndUpdateTeam(t, jmal);
     }
 
@@ -146,7 +151,8 @@ public class FEditorPlugin extends AFeature {
                 // UpdateEventConstants.REASON_SWIMMER_DELETED, t, null,
                 // this);
             } else {
-                getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, t, null, this);
+                getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, t, null,
+                        this);
             }
         }
     }
@@ -159,7 +165,8 @@ public class FEditorPlugin extends AFeature {
                 // UpdateEventConstants.REASON_SWIMMER_DELETED, t, null,
                 // this);
             } else {
-                getController().sendDataUpdateEvent("ChangeSwimmer", UpdateEventConstants.REASON_SWIMMER_CHANGED, t, null, this);
+                getController().sendDataUpdateEvent("ChangeSwimmer", UpdateEventConstants.REASON_SWIMMER_CHANGED, t,
+                        null, this);
             }
         }
     }
@@ -205,12 +212,14 @@ public class FEditorPlugin extends AFeature {
         if ((s.getAK().getDiszAnzahl() < disz)) {
             disz = s.getAK().getDiszAnzahl();
         }
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz, penaltyPrint.getPrintEnabled());
+        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+                penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
     public <T extends ASchwimmer> void runPenaltyEditor(JFrame parent, AWettkampf<T> wk, T s, String disz) {
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz, penaltyPrint.getPrintEnabled());
+        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+                penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
@@ -218,12 +227,14 @@ public class FEditorPlugin extends AFeature {
         if ((s.getAK().getDiszAnzahl() < disz)) {
             disz = s.getAK().getDiszAnzahl();
         }
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz, penaltyPrint.getPrintEnabled());
+        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+                penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
     public <T extends ASchwimmer> void runPenaltyEditor(JDialog parent, AWettkampf<T> wk, T s, String disz) {
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz, penaltyPrint.getPrintEnabled());
+        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+                penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
@@ -245,11 +256,13 @@ public class FEditorPlugin extends AFeature {
         String value = DialogUtils.showTextDialog(parent, I18n.get("RenameOrganization.Title"),
                 I18n.get("RenameOrganization.Text", t.getGliederungMitQGliederung()), t.getGliederung(), 30);
         if (value != null) {
-            LinkedList<ASchwimmer> list = SearchUtils.getSchwimmer(wk, new String[] { t.getGliederungMitQGliederung() }, true);
+            LinkedList<ASchwimmer> list = SearchUtils.getSchwimmer(wk, new String[] { t.getGliederungMitQGliederung() },
+                    true);
             for (ASchwimmer s : list) {
                 s.setGliederung(value);
             }
-            getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, list, null, this);
+            getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, list, null,
+                    this);
         }
     }
 
@@ -261,7 +274,8 @@ public class FEditorPlugin extends AFeature {
             for (ASchwimmer s : list) {
                 s.setQualifikationsebene(value);
             }
-            getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, list, null, this);
+            getController().sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, list, null,
+                    this);
         }
     }
 }

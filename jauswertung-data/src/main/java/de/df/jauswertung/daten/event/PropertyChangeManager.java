@@ -8,10 +8,10 @@ import java.util.LinkedList;
 
 public class PropertyChangeManager implements Serializable {
 
-    private static final long                  serialVersionUID = 1348391732920349046L;
+    private static final long serialVersionUID = 1348391732920349046L;
 
     private LinkedList<PropertyChangeListener> listeners;
-    private Object                             source;
+    private Object source;
 
     public PropertyChangeManager(Object src) {
         listeners = new LinkedList<PropertyChangeListener>();

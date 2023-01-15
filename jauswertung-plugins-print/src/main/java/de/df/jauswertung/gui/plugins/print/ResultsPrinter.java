@@ -51,27 +51,29 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 class ResultsPrinter implements Printer {
 
-    CorePlugin                core          = null;
-    IPluginManager            controller    = null;
-    WarningPlugin             warn          = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
+    WarningPlugin warn = null;
 
-    private JPanel            panel         = null;
-    private JButton           print         = null;
-    private JButton           preview       = null;
-    private JComboBox<String> diszipline    = null;
-    private JLabel            warning       = null;
-    private JLabel            filter        = null;
-    private JCheckBox         unterschrift  = null;
+    private JPanel panel = null;
+    private JButton print = null;
+    private JButton preview = null;
+    private JComboBox<String> diszipline = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
+    private JCheckBox unterschrift = null;
 
-    private JSelectionDialog  printDialog   = null;
-    private JSelectionDialog  previewDialog = null;
+    private JSelectionDialog printDialog = null;
+    private JSelectionDialog previewDialog = null;
 
     private void initDialogs() {
         if (printDialog == null) {
             @SuppressWarnings("rawtypes")
             AWettkampf wk = core.getFilteredWettkampf();
-            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"), JSelectionDialog.MODE_AK_SELECTION);
-            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"), JSelectionDialog.MODE_AK_SELECTION);
+            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"),
+                    JSelectionDialog.MODE_AK_SELECTION);
+            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"),
+                    JSelectionDialog.MODE_AK_SELECTION);
         }
     }
 
@@ -84,7 +86,9 @@ class ResultsPrinter implements Printer {
 
     private void initGUI() {
         panel = new JPanel(
-                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                new FormLayout(
+                        "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                                + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                         "4dlu,fill:default,4dlu"));
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -135,6 +139,7 @@ class ResultsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -144,6 +149,7 @@ class ResultsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -176,7 +182,8 @@ class ResultsPrinter implements Printer {
                 Regelwerk aks = filteredwk.getRegelwerk();
                 int length = aks.getMaxDisciplineCount();
                 if (length != diszipline.getItemCount() - 1) {
-                    boolean max = (diszipline.getSelectedIndex() == diszipline.getItemCount() - 1) && (diszipline.getItemCount() != 0);
+                    boolean max = (diszipline.getSelectedIndex() == diszipline.getItemCount() - 1)
+                            && (diszipline.getItemCount() != 0);
                     diszipline.removeAllItems();
 
                     diszipline.addItem(I18n.get("Automatic"));
@@ -301,7 +308,8 @@ class ResultsPrinter implements Printer {
     }
 
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Results"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Results"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     void showPreviewSelectionDialog() {
@@ -320,7 +328,8 @@ class ResultsPrinter implements Printer {
         }
 
         if (diszipline.getSelectedIndex() == 0) {
-            warn.information(controller.getWindow(), I18n.get("AutomaticResultsPrinting.Title"), I18n.get("AutomaticResultsPrinting.Text"),
+            warn.information(controller.getWindow(), I18n.get("AutomaticResultsPrinting.Title"),
+                    I18n.get("AutomaticResultsPrinting.Text"),
                     I18n.get("AutomaticResultsPrinting.Note"), "AutomaticResultsPrinting");
         }
 

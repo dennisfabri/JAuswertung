@@ -36,16 +36,17 @@ import de.df.jutils.plugin.UpdateEvent;
 
 class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
 
-    private static final long                   serialVersionUID = -1245349186646716314L;
+    private static final long serialVersionUID = -1245349186646716314L;
 
-    private final JFrame                        parent;
-    private final IPluginManager                controller;
-    private final AWettkampf<T>                 wk;
-    private final Runnable                      next;
+    private final JFrame parent;
+    private final IPluginManager controller;
+    private final AWettkampf<T> wk;
+    private final Runnable next;
 
-    private LinkedList<Zielrichterentscheid<T>> validze          = null;
+    private LinkedList<Zielrichterentscheid<T>> validze = null;
 
-    private JZielrichterentscheidCheckDialog(JFrame parent, IPluginManager manager, AWettkampf<T> wk, Runnable callback) {
+    private JZielrichterentscheidCheckDialog(JFrame parent, IPluginManager manager, AWettkampf<T> wk,
+            Runnable callback) {
         super(parent, I18n.get("Zielrichterentscheid"), true);
         this.parent = parent;
         this.controller = manager;
@@ -136,7 +137,8 @@ class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
 
     void doOk() {
         wk.setZielrichterentscheide(validze);
-        controller.sendDataUpdateEvent(new UpdateEvent("Zielrichterentscheid", UpdateEventConstants.REASON_ZIELRICHTERENTSCHEID_CHANGED, validze, null, null));
+        controller.sendDataUpdateEvent(new UpdateEvent("Zielrichterentscheid",
+                UpdateEventConstants.REASON_ZIELRICHTERENTSCHEID_CHANGED, validze, null, null));
         setVisible(false);
         SwingUtilities.invokeLater(next);
     }
@@ -157,7 +159,8 @@ class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
             callback.run();
             return;
         }
-        JZielrichterentscheidCheckDialog jzcd = new JZielrichterentscheidCheckDialog(controller.getWindow(), controller, wk, callback);
+        JZielrichterentscheidCheckDialog jzcd = new JZielrichterentscheidCheckDialog(controller.getWindow(), controller,
+                wk, callback);
         jzcd.setVisible(true);
     }
 }

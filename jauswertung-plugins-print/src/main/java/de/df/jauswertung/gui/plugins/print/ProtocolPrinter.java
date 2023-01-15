@@ -100,8 +100,9 @@ public class ProtocolPrinter implements Printer {
 
     <T extends ASchwimmer> Printable getPrintable() {
         AWettkampf<T> wk = core.getFilteredWettkampf();
-        return PrintManager.getFinalPrintable(new ProtocolPrintable<>(wk), wk.getLastChangedDate(), new MessageFormat(I18n.get("Protocol")),
-        I18n.get("Protocol"));
+        return PrintManager.getFinalPrintable(new ProtocolPrintable<>(wk), wk.getLastChangedDate(),
+                new MessageFormat(I18n.get("Protocol")),
+                I18n.get("Protocol"));
     }
 
     final class PrintActionListener implements ActionListener {

@@ -92,9 +92,11 @@ class Veranstaltungsutils {
                             for (int row = 0; row < rt.getRowCount(); row++) {
                                 ASchwimmer s = rt.getResult(row).getSchwimmer();
                                 SchwimmerResult sr = rt.getResult(row);
-                                Mannschaft m = wk.createMannschaft(s.getName(), s.isMaennlich(), s.getGliederungMitQGliederung(), offset, "");
+                                Mannschaft m = wk.createMannschaft(s.getName(), s.isMaennlich(),
+                                        s.getGliederungMitQGliederung(), offset, "");
                                 m.setDisciplineChoice(s.getDisciplineChoice());
-                                m.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF, s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
+                                m.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                        s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
 
                                 for (int z = 0; z < m.getAK().getDiszAnzahl(); z++) {
                                     LinkedList<Strafe> strafen = new LinkedList<>();

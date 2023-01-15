@@ -5,12 +5,12 @@ import de.df.jauswertung.gui.util.I18n;
 
 public class LaneInfo {
 
-    private final int    disznummer;
+    private final int disznummer;
     private final String name;
     private final String gliederung;
     private final String agegroup;
     private final String penalty;
-    private final int    time;
+    private final int time;
 
     public LaneInfo(ASchwimmer s, int disznummer, int time, String penalty) {
         this.disznummer = disznummer;

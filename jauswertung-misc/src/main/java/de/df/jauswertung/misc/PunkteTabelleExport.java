@@ -20,16 +20,16 @@ import de.df.jutils.util.StringTools;
 
 public class PunkteTabelleExport {
 
-    private static String[] idsE1   = new String[] {};
+    private static String[] idsE1 = new String[] {};
     private static String[] namesE1 = new String[] {};
 
-    private static String[] idsE2   = new String[] { "AK 12", "AK 13/14", "AK 15/16", "AK 17/18", "AK Offen" };
+    private static String[] idsE2 = new String[] { "AK 12", "AK 13/14", "AK 15/16", "AK 17/18", "AK Offen" };
     private static String[] namesE2 = new String[] { "AK 12", "AK 13/14", "AK 15/16", "AK 17/18", "AK Offen" };
 
-    private static String[] idsM1   = new String[] { "AK 12", "AK 13/14" };
+    private static String[] idsM1 = new String[] { "AK 12", "AK 13/14" };
     private static String[] namesM1 = new String[] { "AK 12", "AK 13/14" };
 
-    private static String[] idsM2   = new String[] { "AK 15/16", "AK 17/18", "AK Offen" };
+    private static String[] idsM2 = new String[] { "AK 15/16", "AK 17/18", "AK Offen" };
     private static String[] namesM2 = new String[] { "AK 15/16", "AK 17/18", "AK Offen" };
 
     public static void main(String[] args) {

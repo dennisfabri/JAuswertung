@@ -36,14 +36,14 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class RegisteredTeamnamesPrinter implements Printer {
 
-    private CorePlugin                   core;
-    private IPluginManager               controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel                       panel;
-    private JButton                      print;
-    private JButton                      preview;
-    private JLabel                       filter;
-    private JComboBox<String>            organisation;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
+    private JComboBox<String> organisation;
     private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
 
     public RegisteredTeamnamesPrinter(IPluginManager window, CorePlugin plugin) {
@@ -164,7 +164,8 @@ class RegisteredTeamnamesPrinter implements Printer {
 
     void preview() {
         PrintableCreator pc = new MeldelistenPC();
-        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class MeldelistenPC implements PrintableCreator {

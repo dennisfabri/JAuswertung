@@ -656,7 +656,8 @@ public final class PrintUtils {
                             StringBuilder name = new StringBuilder(s.getName());
                             StringBuilder gld = new StringBuilder(s.getGliederung());
                             int pos = 1;
-                            while ((pos < result.getRowCount()) && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
+                            while ((pos < result.getRowCount())
+                                    && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
                                 name.append(", ");
                                 name.append(result.getResult(pos).getSchwimmer().getName());
                                 gld.append(", ");

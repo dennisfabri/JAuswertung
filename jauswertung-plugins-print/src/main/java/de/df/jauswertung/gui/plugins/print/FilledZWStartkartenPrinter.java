@@ -40,19 +40,19 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class FilledZWStartkartenPrinter implements Printer {
 
-    CorePlugin        core;
-    IPluginManager    controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel    panel;
-    private JButton   print;
-    private JButton   preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
     private JComboBox pages;
     private JCheckBox fillnames;
     private JComboBox sorting;
 
-    boolean           allheats = true;
-    int               minheat  = 0;
-    int               maxheat  = 0;
+    boolean allheats = true;
+    int minheat = 0;
+    int maxheat = 0;
 
     public FilledZWStartkartenPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -61,7 +61,8 @@ class FilledZWStartkartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,"
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                + "4dlu,fill:default,4dlu,fill:default,4dlu,"
                 + "fill:default,4dlu,fill:default,4dlu", FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -118,6 +119,7 @@ class FilledZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -127,6 +129,7 @@ class FilledZWStartkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -146,7 +149,8 @@ class FilledZWStartkartenPrinter implements Printer {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     Printable getPrintable() {
-        return new ZWStartkartenPrintable(core.getWettkampf(), getMode(), allheats, minheat, maxheat, fillnames.isVisible() && fillnames.isSelected(),
+        return new ZWStartkartenPrintable(core.getWettkampf(), getMode(), allheats, minheat, maxheat,
+                fillnames.isVisible() && fillnames.isSelected(),
                 isSortedByLane(), PrintUtils.barcodeType);
     }
 
@@ -163,7 +167,8 @@ class FilledZWStartkartenPrinter implements Printer {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> boolean askForDetails() {
-        JDetailsDialog<T> details = new JDetailsDialog<T>(controller.getWindow(), (AWettkampf<T>) core.getWettkampf(), I18n.get("ZWStartkarten"), true);
+        JDetailsDialog<T> details = new JDetailsDialog<T>(controller.getWindow(), (AWettkampf<T>) core.getWettkampf(),
+                I18n.get("ZWStartkarten"), true);
         EDTUtils.setVisible(details, true);
         if (details.isOk()) {
             allheats = details.printAllHeats();
@@ -195,7 +200,8 @@ class FilledZWStartkartenPrinter implements Printer {
                         return getPrintable();
                     }
                 };
-                PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"),
+                        IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

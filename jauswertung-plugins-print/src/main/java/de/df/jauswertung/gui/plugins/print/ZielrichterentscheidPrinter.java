@@ -33,13 +33,13 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 public class ZielrichterentscheidPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
-    private JLabel  filter;
+    private JLabel filter;
 
     public ZielrichterentscheidPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -48,7 +48,8 @@ public class ZielrichterentscheidPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -67,6 +68,7 @@ public class ZielrichterentscheidPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -76,6 +78,7 @@ public class ZielrichterentscheidPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -86,7 +89,8 @@ public class ZielrichterentscheidPrinter implements Printer {
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void dataUpdated(UpdateEvent due, AWettkampf wk, AWettkampf filteredwk) {
-        LinkedList<Zielrichterentscheid<ASchwimmer>>[] zes = ZielrichterentscheidUtils.checkZielrichterentscheide(filteredwk);
+        LinkedList<Zielrichterentscheid<ASchwimmer>>[] zes = ZielrichterentscheidUtils
+                .checkZielrichterentscheide(filteredwk);
         boolean b = !zes[0].isEmpty();
         print.setEnabled(b);
         preview.setEnabled(b);
@@ -96,7 +100,9 @@ public class ZielrichterentscheidPrinter implements Printer {
 
     @SuppressWarnings({})
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(de.df.jauswertung.print.PrintableCreator.createZielrichterentscheidPrintable(core.getWettkampf()), core.getLastChangedDate(), true, I18n.get("Zielrichterentscheide"));
+        return PrintManager.getFinalPrintable(
+                de.df.jauswertung.print.PrintableCreator.createZielrichterentscheidPrintable(core.getWettkampf()),
+                core.getLastChangedDate(), true, I18n.get("Zielrichterentscheide"));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -135,7 +141,8 @@ public class ZielrichterentscheidPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zielrichterentscheide"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zielrichterentscheide"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

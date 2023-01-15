@@ -37,19 +37,19 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
-    private JList<String>            aks;
-    private JOWHeatsAKEditPanel[]    panels;
+    private JList<String> aks;
+    private JOWHeatsAKEditPanel[] panels;
 
-    private JButton                  ok;
-    private JButton                  cancel;
+    private JButton ok;
+    private JButton cancel;
 
-    private JMenuBar                 menu;
+    private JMenuBar menu;
 
-    private JScrollPane              right;
+    private JScrollPane right;
 
     private ISimpleCallback<Boolean> callback;
 
-    private boolean                  isOk = false;
+    private boolean isOk = false;
 
     public JOWHeatsEditWindow(AWettkampf<T> wk, ISimpleCallback<Boolean> callback) {
         setTitle(I18n.get("DefineRounds"));
@@ -148,7 +148,8 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
             }
         }
 
-        JPanel panel = new JPanel(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
+        JPanel panel = new JPanel(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
         this.add(panel);
 
         panel.add(pane1, CC.xy(2, 2));
@@ -162,7 +163,8 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
     }
 
     private JPanel createButtons() {
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(2, 4, 0), FormLayoutUtils.createLayoutString(1, 4, 0));
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(2, 4, 0),
+                FormLayoutUtils.createLayoutString(1, 4, 0));
         layout.setColumnGroup(2, 4);
         JPanel p = new JPanel(layout);
 
@@ -210,7 +212,8 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
     private void doOk() {
         if (!isInputOk()) {
-            DialogUtils.warn(this, "Die eingegebenen Daten sind nicht korrekt und können nicht gespeichert werden.", "Bitte korrigieren Sie die Eingabe.");
+            DialogUtils.warn(this, "Die eingegebenen Daten sind nicht korrekt und können nicht gespeichert werden.",
+                    "Bitte korrigieren Sie die Eingabe.");
             return;
         }
         isOk = true;

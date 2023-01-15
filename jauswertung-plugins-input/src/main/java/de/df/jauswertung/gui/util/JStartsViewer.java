@@ -34,8 +34,8 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = -3805525839643937074L;
 
-    private T                 schwimmer;
-    private AWettkampf<T>     wk;
+    private T schwimmer;
+    private AWettkampf<T> wk;
 
     public JStartsViewer(JFrame parent, AWettkampf<T> w, T s) {
         super(parent, I18n.get("HeatsViewer"), true);
@@ -100,7 +100,8 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
         // + I18n.geschlechtToString(schwimmer.isMaennlich())), CC.xyw(2,
         // 4, 5, "center,fill"));
 
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(3), FormLayoutUtils.createLayoutString(anzahl + 2));
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(3),
+                FormLayoutUtils.createLayoutString(anzahl + 2));
 
         FormLayoutUtils.setRowGroups(layout, anzahl + 1);
 
@@ -120,7 +121,8 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
 
         bottom.add(close, CC.xyw(2, 4 + 2 * anzahl + offset, 5, "right,fill"));
 
-        add(UIUtils.createHeaderPanel(schwimmer.getName(), ak.getName() + " " + I18n.geschlechtToString(schwimmer)), BorderLayout.NORTH);
+        add(UIUtils.createHeaderPanel(schwimmer.getName(), ak.getName() + " " + I18n.geschlechtToString(schwimmer)),
+                BorderLayout.NORTH);
         add(bottom, BorderLayout.CENTER);
     }
 

@@ -3,6 +3,9 @@ package de.df.jauswertung.test.files;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -26,7 +29,7 @@ public class FilesTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed", 
+    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed",
             "International - Pool", "International - Pool Mixed" })
     void LadeStrafenEinzel(String name) {
         String filename = Path + "penalties/" + name;
@@ -36,13 +39,15 @@ public class FilesTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed", 
+    @ValueSource(strings = { "default", "International - Ocean", "International - Ocean Mixed",
             "International - Pool", "International - Pool Mixed" })
     void LadeStrafenMannschaft(String name) {
         String filename = Path + "penalties/" + name;
         Strafen strafen = InputManager.ladeStrafen(filename, false);
         assertNotNull(strafen);
         assertTrue(0 < strafen.getKapitel().size());
+
+        List<Integer> is = new ArrayList<>();
     }
 
 }

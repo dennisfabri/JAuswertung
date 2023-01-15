@@ -48,19 +48,20 @@ import de.df.jutils.plugin.IPluginManager;
 
 public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
-    private static final long       serialVersionUID = 3879690726009652858L;
+    private static final long serialVersionUID = 3879690726009652858L;
 
-    final Window                    parent;
-    final T                         swimmer;
-    final boolean                   printpenalties;
-    final IPluginManager            controller;
-    final AWettkampf<T>             wk;
+    final Window parent;
+    final T swimmer;
+    final boolean printpenalties;
+    final IPluginManager controller;
+    final AWettkampf<T> wk;
 
-    private final ArrayList<String> ids              = new ArrayList<String>();
+    private final ArrayList<String> ids = new ArrayList<String>();
 
-    private final JTabbedPane       penaltytabs;
+    private final JTabbedPane penaltytabs;
 
-    public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, int discipline, boolean print) {
+    public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, int discipline,
+            boolean print) {
         this(parent, controller, wk, swimmer, print);
         if (discipline >= 0) {
             penaltytabs.setSelectedIndex(discipline + 1);
@@ -88,7 +89,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         UIStateUtils.uistatemanage(parent, this, "JPenaltyEditor");
     }
 
-    public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, String discipline, boolean print) {
+    public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, String discipline,
+            boolean print) {
         this(parent, controller, wk, swimmer, print);
         if (discipline != null) {
             for (int x = 0; x < ids.size(); x++) {
@@ -104,7 +106,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
     }
 
     private void init(boolean alwaysDisq) {
-        FormLayout layout = new FormLayout("4px,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4px,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(createUserInfo(), CC.xy(2, 2));
@@ -121,7 +124,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         sfm.add(I18n.get("Startnumber"), StartnumberFormatManager.format(swimmer));
         sfm.add(I18n.get("Name"), swimmer.getName());
         sfm.add(I18n.get("Organisation"), swimmer.getGliederung());
-        sfm.add(I18n.get("AgeGroup"), I18n.get("AgeGroupSex", swimmer.getAK().toString(), I18n.geschlechtToString(swimmer)));
+        sfm.add(I18n.get("AgeGroup"),
+                I18n.get("AgeGroupSex", swimmer.getAK().toString(), I18n.geschlechtToString(swimmer)));
 
         p = sfm.getPanel();
 
@@ -208,7 +212,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 return new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties, false);
+                        JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer,
+                                printpenalties, false);
                         npw.setSelectedDisziplin(discipline);
                         npw.start();
                         updatePenalties();
@@ -229,7 +234,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                         int index = penalties.getSelectedIndex();
                         swimmer.removeStrafe(discipline, index);
                         updatePenalties();
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer, discipline, null);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
+                                discipline, null);
                     }
                 };
             }
@@ -246,7 +252,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public void edit() {
-                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties, false);
+                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties,
+                        false);
                 npw.setSelectedDisziplin(discipline);
                 npw.setPenalty(penalties.getSelectedIndex());
                 npw.start();
@@ -292,7 +299,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 return new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties, false);
+                        JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer,
+                                printpenalties, false);
                         npw.setSelectedDisziplin(id);
                         npw.start();
                         updatePenalties();
@@ -302,7 +310,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public void edit() {
-                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties, false);
+                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties,
+                        false);
                 npw.setSelectedDisziplin(id);
                 npw.setPenalty(penalties.getSelectedIndex());
                 npw.start();
@@ -317,7 +326,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                         int index = penalties.getSelectedIndex();
                         swimmer.removeStrafe(id, index);
                         updatePenalties();
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer, id, null);
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
+                                id, null);
                     }
                 };
             }
@@ -356,15 +366,15 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
             }
         }
 
-        private static final long              serialVersionUID = 6959364812083918875L;
+        private static final long serialVersionUID = 6959364812083918875L;
 
         final IPenaltyDisciplineEditorStrategy editor;
 
-        final JList<Strafe>                    penalties        = new JList<Strafe>();
+        final JList<Strafe> penalties = new JList<Strafe>();
 
-        final JButton                          delete           = new JButton(IconManager.getSmallIcon("delete"));
-        final JButton                          edit             = new JButton(IconManager.getSmallIcon("edit"));
-        private final JButton                  add              = new JButton(IconManager.getSmallIcon("new"));
+        final JButton delete = new JButton(IconManager.getSmallIcon("delete"));
+        final JButton edit = new JButton(IconManager.getSmallIcon("edit"));
+        private final JButton add = new JButton(IconManager.getSmallIcon("new"));
 
         JPenaltyDisciplineEditor(int discipline, boolean alwaysDisq) {
             editor = new PenaltyDisciplineEditorByTime(discipline);
@@ -444,7 +454,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
             penalties.setCellRenderer(new PenaltyImageListCellRenderer(alwaysDisq));
             editor.updatePenalties();
 
-            FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+            FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                    "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
             setLayout(layout);
 
             add(tools, CC.xy(2, 2));

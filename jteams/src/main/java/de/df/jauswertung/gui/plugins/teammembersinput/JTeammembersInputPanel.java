@@ -56,36 +56,38 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 class JTeammembersInputPanel extends JPanel {
 
-    private static final String                      INPUT                = I18n.get("Teammembers");
+    private static final String INPUT = I18n.get("Teammembers");
 
-    final IPluginManager                             controller;
-    private final CorePlugin                         core;
-    final PTeammembersInputPlugin                    parent;
+    final IPluginManager controller;
+    private final CorePlugin core;
+    final PTeammembersInputPlugin parent;
 
-    private String                                   selectedOrganisation = null;
+    private String selectedOrganisation = null;
 
-    private JLabel                                   startnumber;
-    private JLabel                                   name;
-    private JLabel                                   organisation;
-    private JLabel                                   agegroup;
+    private JLabel startnumber;
+    private JLabel name;
+    private JLabel organisation;
+    private JLabel agegroup;
 
-    private Mannschaft[]                             teams                = new Mannschaft[0];
-    private JTable                                   teamstable;
-    private DefaultTableModel                        model;
+    private Mannschaft[] teams = new Mannschaft[0];
+    private JTable teamstable;
+    private DefaultTableModel model;
 
-    private JPanel                                   input;
+    private JPanel input;
 
-    private Mannschaft                               selectedTeam;
+    private Mannschaft selectedTeam;
 
-    JPanel                                           panel                = null;
-    private JPanel                                   inputPanel           = null;
-    private JTeammembersStatusPanel                  overview             = null;
+    JPanel panel = null;
+    private JPanel inputPanel = null;
+    private JTeammembersStatusPanel overview = null;
 
-    private static final JWarningTextField.Validator validator            = new Length50Validator();
+    private static final JWarningTextField.Validator validator = new Length50Validator();
 
-    private static long                              OVERVIEW_REASONS     = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
-            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_NEW_WK
-            | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_TEAMASSIGNMENT_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED
+    private static long OVERVIEW_REASONS = UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_LOAD_WK
+            | UpdateEventConstants.REASON_NEW_LOAD_WK | UpdateEventConstants.REASON_NEW_TN
+            | UpdateEventConstants.REASON_NEW_WK
+            | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_TEAMASSIGNMENT_CHANGED
+            | UpdateEventConstants.REASON_SWIMMER_CHANGED
             | UpdateEventConstants.REASON_SWIMMER_DELETED;
 
     public JTeammembersInputPanel(PTeammembersInputPlugin parent, IPluginManager controller, CorePlugin core) {
@@ -102,8 +104,10 @@ class JTeammembersInputPanel extends JPanel {
         } else {
             MannschaftWettkampf mwk = core.getMannschaftWettkampf();
             teams = (Mannschaft[]) SearchUtils
-                    .getSchwimmer(mwk, new String[] { selectedOrganisation }, true).stream().sorted(new CompoundComparator(new SchwimmerAKVergleicher<>(),
-                            new SchwimmerGeschlechtVergleicher<>(), new SchwimmerNameVergleicher<>(), new SchwimmerStartnummernVergleicher<>()))
+                    .getSchwimmer(mwk, new String[] { selectedOrganisation }, true).stream()
+                    .sorted(new CompoundComparator(new SchwimmerAKVergleicher<>(),
+                            new SchwimmerGeschlechtVergleicher<>(), new SchwimmerNameVergleicher<>(),
+                            new SchwimmerStartnummernVergleicher<>()))
                     .toArray(size -> new Mannschaft[size]);
         }
 
@@ -116,12 +120,14 @@ class JTeammembersInputPanel extends JPanel {
             data[x][3] = I18n.geschlechtToShortString(m);
         }
 
-        model = new SimpleTableModel(data, new Object[] { I18n.get("StartnumberShort"), I18n.get("Name"), I18n.get("AgeGroup"), I18n.get("Sex") });
+        model = new SimpleTableModel(data,
+                new Object[] { I18n.get("StartnumberShort"), I18n.get("Name"), I18n.get("AgeGroup"), I18n.get("Sex") });
         teamstable.setModel(model);
     }
 
     private JComponent createTable() {
-        model = new SimpleTableModel(new Object[0][0], new Object[] { I18n.get("StartnumberShort"), I18n.get("Name"), I18n.get("AgeGroup"), I18n.get("Sex") });
+        model = new SimpleTableModel(new Object[0][0],
+                new Object[] { I18n.get("StartnumberShort"), I18n.get("Name"), I18n.get("AgeGroup"), I18n.get("Sex") });
         teamstable = new JTable(model);
         teamstable.getTableHeader().setReorderingAllowed(false);
         teamstable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -171,7 +177,8 @@ class JTeammembersInputPanel extends JPanel {
         JComponent table = createTable();
 
         inputPanel = new JPanel();
-        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(10);
         scroller.getHorizontalScrollBar().setUnitIncrement(10);
         scroller.setBorder(null);
@@ -190,7 +197,8 @@ class JTeammembersInputPanel extends JPanel {
         overview = new JTeammembersStatusPanel();
         over.add(overview);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
         setLayout(layout);
         add(over, CC.xyw(2, 2, 3));
         add(table, CC.xywh(2, 4, 1, 3));
@@ -199,9 +207,9 @@ class JTeammembersInputPanel extends JPanel {
     }
 
     private JWarningTextField[] firstname = new JWarningTextField[0];
-    private JWarningTextField[] lastname  = new JWarningTextField[0];
-    private JIntegerField[]     year      = new JIntegerField[0];
-    private JComboBox<String>[] sex       = new JComboBox[0];
+    private JWarningTextField[] lastname = new JWarningTextField[0];
+    private JIntegerField[] year = new JIntegerField[0];
+    private JComboBox<String>[] sex = new JComboBox[0];
 
     private JPanel createInputPanel() {
         input = new JPanel();
@@ -211,7 +219,8 @@ class JTeammembersInputPanel extends JPanel {
     }
 
     private JPanel createInfoPanel() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(4));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(4));
         layout.setRowGroups(new int[][] { { 2, 4, 6, 8 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Team")));
@@ -401,7 +410,8 @@ class JTeammembersInputPanel extends JPanel {
             mm.setGeschlecht(Geschlecht.unbekannt);
             break;
         }
-        controller.sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, selectedTeam, null, parent);
+        controller.sendDataUpdateEvent("ChangeTeam", UpdateEventConstants.REASON_SWIMMER_CHANGED, selectedTeam, null,
+                parent);
     }
 
     public class InputChangedListener implements DocumentListener, ItemListener {

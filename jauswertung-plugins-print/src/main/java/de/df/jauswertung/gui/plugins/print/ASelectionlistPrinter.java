@@ -49,21 +49,21 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 abstract class ASelectionlistPrinter implements Printer {
 
-    private CorePlugin        core;
-    private IPluginManager    controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private String            title;
-    private ISelection        selector;
+    private String title;
+    private ISelection selector;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
-    private JLabel            filter;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
     private JComboBox<String> order;
 
-    private JSelectionDialog  einzel     = null;
-    private JSelectionDialog  mannschaft = null;
-    private JSelectionDialog  selection  = null;
+    private JSelectionDialog einzel = null;
+    private JSelectionDialog mannschaft = null;
+    private JSelectionDialog selection = null;
 
     public ASelectionlistPrinter(IPluginManager window, CorePlugin plugin, String title, ISelection selector) {
         core = plugin;
@@ -89,10 +89,12 @@ abstract class ASelectionlistPrinter implements Printer {
         filter.setVisible(false);
 
         order = new JComboBox<String>(
-                new String[] { I18n.get("Startnumber"), I18n.get("Organisation"), I18n.get("AgeGroup"), I18n.get("Name"), I18n.get("Heat") });
+                new String[] { I18n.get("Startnumber"), I18n.get("Organisation"), I18n.get("AgeGroup"),
+                        I18n.get("Name"), I18n.get("Heat") });
         order.setSelectedIndex(2);
 
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(5, 4, "4dlu:grow", "4dlu"), FormLayoutUtils.createLayoutString(1));
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(5, 4, "4dlu:grow", "4dlu"),
+                FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -104,6 +106,7 @@ abstract class ASelectionlistPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -113,6 +116,7 @@ abstract class ASelectionlistPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -174,7 +178,8 @@ abstract class ASelectionlistPrinter implements Printer {
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
             break;
         }
-        return DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.SHORT_WITH_TEAMMEMBERS, selected, false, null);
+        return DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.SHORT_WITH_TEAMMEMBERS,
+                selected, false, null);
     }
 
     private JTable getTable() {
@@ -212,7 +217,8 @@ abstract class ASelectionlistPrinter implements Printer {
     void print() {
         if (order.getSelectedIndex() == 4) {
             PrintableCreator pc = new LaufeinteilungPC();
-            PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         } else {
             checkDialog();
             selection.setVisible(true);
@@ -240,7 +246,8 @@ abstract class ASelectionlistPrinter implements Printer {
                 sc.add(I18n.get("Comment"), false);
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
-                einzel = new JSelectionDialog(controller.getWindow(), title, sc.getTexts(), sc.getValues(), false, IconManager.getIconBundle());
+                einzel = new JSelectionDialog(controller.getWindow(), title, sc.getTexts(), sc.getValues(), false,
+                        IconManager.getIconBundle());
             }
             selection = einzel;
         } else {
@@ -259,7 +266,8 @@ abstract class ASelectionlistPrinter implements Printer {
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
                 sc.add(I18n.get("Teammembers"), false);
-                mannschaft = new JSelectionDialog(controller.getWindow(), title, sc.getTexts(), sc.getValues(), false, IconManager.getIconBundle());
+                mannschaft = new JSelectionDialog(controller.getWindow(), title, sc.getTexts(), sc.getValues(), false,
+                        IconManager.getIconBundle());
             }
             selection = mannschaft;
         }
@@ -268,13 +276,15 @@ abstract class ASelectionlistPrinter implements Printer {
     void preview() {
         if (order.getSelectedIndex() == 4) {
             PrintableCreator pc = new LaufeinteilungPC();
-            PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         } else {
             checkDialog();
             selection.setVisible(true);
             if (selection.isAccepted()) {
                 PrintableCreator pc = new MeldelistenPC(selection.getSelection());
-                PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), pc, title, IconManager.getIconBundle(),
+                        IconManager.getTitleImages());
             }
         }
     }

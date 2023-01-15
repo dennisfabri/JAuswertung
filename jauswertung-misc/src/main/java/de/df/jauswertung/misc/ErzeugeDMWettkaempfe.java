@@ -9,7 +9,7 @@ import de.df.jutils.print.PrintManager;
 
 public class ErzeugeDMWettkaempfe {
 
-    private static final String[] FILES     = new String[] { "ak12", "ak13", "ak15", "ak17", "akOffen" };
+    private static final String[] FILES = new String[] { "ak12", "ak13", "ak15", "ak17", "akOffen" };
 
     private static final String[] OLD_FILES = new String[] { "dm1999", "dm00", "dm01", "dm02", "dm03", "dm04" };
 
@@ -18,7 +18,8 @@ public class ErzeugeDMWettkaempfe {
     /**
      * @param args
      */
-    public static void main(String[] args) throws TableFormatException, IOException, TableEntryException, TableException {
+    public static void main(String[] args)
+            throws TableFormatException, IOException, TableEntryException, TableException {
 
         try {
             PrintManager.setFont(new Font("Arial", Font.PLAIN, 8));
@@ -41,7 +42,8 @@ public class ErzeugeDMWettkaempfe {
     }
 
     @SuppressWarnings({ "unchecked" })
-    private static void writeWK(String name, boolean einzel, int jahr) throws TableFormatException, IOException, TableEntryException, TableException {
+    private static void writeWK(String name, boolean einzel, int jahr)
+            throws TableFormatException, IOException, TableEntryException, TableException {
         @SuppressWarnings("rawtypes")
         AWettkampf wk = null;
         String aks = null;
@@ -57,13 +59,16 @@ public class ErzeugeDMWettkaempfe {
             str = "DLRG " + jahr;
         }
         if (einzel) {
-            wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/main/files/aks/" + aks + ".rwe"), InputManager.ladeStrafen(str, true));
+            wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/main/files/aks/" + aks + ".rwe"),
+                    InputManager.ladeStrafen(str, true));
         } else {
-            wk = new MannschaftWettkampf(AgeGroupIOUtils.ladeAKs("src/main/files/aks/" + aks + ".rwm"), InputManager.ladeStrafen(str, false));
+            wk = new MannschaftWettkampf(AgeGroupIOUtils.ladeAKs("src/main/files/aks/" + aks + ".rwm"),
+                    InputManager.ladeStrafen(str, false));
         }
         for (int x = 0; x < FILES.length; x++) {
             for (int y = 0; y < 2; y++) {
-                String file = "src/test/resources/competitions/" + name + "/" + (einzel ? "einzel-" : "mannschaft-") + FILES[x] + (y == 1 ? "m" : "w")
+                String file = "src/test/resources/competitions/" + name + "/" + (einzel ? "einzel-" : "mannschaft-")
+                        + FILES[x] + (y == 1 ? "m" : "w")
                         + (jahr >= 2005 ? ".csv" : ".txt");
                 System.out.println("Reading file: " + file);
                 if (jahr >= 2005) {
@@ -79,8 +84,8 @@ public class ErzeugeDMWettkaempfe {
 
         /*
          * FileOutputStream fos = new FileOutputStream(filename + ".pdf");
-         * ExportManager.export(new PdfExporter(), fos, ExportManager.RESULTS,
-         * wk, null); fos.close();
+         * ExportManager.export(new PdfExporter(), fos, ExportManager.RESULTS, wk,
+         * null); fos.close();
          */
     }
-}
+}

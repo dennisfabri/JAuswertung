@@ -17,13 +17,13 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 public class StrafenParagraph implements Serializable {
 
-    private static final long  serialVersionUID = -4848924575259009244L;
+    private static final long serialVersionUID = -4848924575259009244L;
 
-    private LinkedList<Strafe> strafen          = new LinkedList<Strafe>();
+    private LinkedList<Strafe> strafen = new LinkedList<Strafe>();
     @XStreamAsAttribute
-    private String             name             = "";
+    private String name = "";
     @XStreamAsAttribute
-    private String             par              = "";
+    private String par = "";
 
     public StrafenParagraph(int paragraph) {
         name = "Leer";
@@ -58,6 +58,7 @@ public class StrafenParagraph implements Serializable {
 
     /*
      * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override

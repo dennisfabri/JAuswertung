@@ -10,9 +10,10 @@ import junit.framework.TestCase;
 
 public class TeilnehmerTest extends TestCase {
 
-    private Regelwerk       aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwe");
-    private EinzelWettkampf wk  = new EinzelWettkampf(aks, InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", true));
-    private Teilnehmer      s;
+    private Regelwerk aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwe");
+    private EinzelWettkampf wk = new EinzelWettkampf(aks,
+            InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", true));
+    private Teilnehmer s;
 
     public TeilnehmerTest() {
         super();

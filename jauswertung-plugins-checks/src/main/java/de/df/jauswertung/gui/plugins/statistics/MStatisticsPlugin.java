@@ -19,9 +19,9 @@ import de.df.jutils.plugin.UpdateEvent;
 public class MStatisticsPlugin extends ANullPlugin {
 
     private JMenuItem[] menu;
-    private MenuInfo[]  minfo;
+    private MenuInfo[] minfo;
 
-    private CorePlugin  core;
+    private CorePlugin core;
 
     public MStatisticsPlugin() {
         menu = new JMenuItem[1];
@@ -40,7 +40,8 @@ public class MStatisticsPlugin extends ANullPlugin {
     }
 
     void showWindow() {
-        ModalFrameUtil.showAsModal(new JStatisticsFrame(getController().getWindow(), core), getController().getWindow());
+        ModalFrameUtil.showAsModal(new JStatisticsFrame(getController().getWindow(), core),
+                getController().getWindow());
     }
 
     @Override

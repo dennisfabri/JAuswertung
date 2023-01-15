@@ -45,32 +45,32 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
 
-    private static final long                serialVersionUID = -3625688252323330067L;
+    private static final long serialVersionUID = -3625688252323330067L;
 
-    private AWettkampf<T>                    wk               = null;
+    private AWettkampf<T> wk = null;
 
-    private JPanel                           main;
-    private JList                            list;
-    private ModifiableListModel<String>      model            = new ModifiableListModel<String>();
-    private CardLayout                       cards;
-    private LinkedList<JFilterPanel<T>>      panels           = new LinkedList<JFilterPanel<T>>();
-    private Filter[]                         filters          = null;
-    private String[]                         gliederungen     = null;
+    private JPanel main;
+    private JList list;
+    private ModifiableListModel<String> model = new ModifiableListModel<String>();
+    private CardLayout cards;
+    private LinkedList<JFilterPanel<T>> panels = new LinkedList<JFilterPanel<T>>();
+    private Filter[] filters = null;
+    private String[] gliederungen = null;
 
-    private JButton                          ok               = null;
-    private JButton                          apply            = null;
-    private JButton                          close            = null;
+    private JButton ok = null;
+    private JButton apply = null;
+    private JButton close = null;
 
-    private JPopupMenu                       popup            = null;
-    private JMenuItem                        add              = null;
-    private JMenuItem                        remove           = null;
+    private JPopupMenu popup = null;
+    private JMenuItem add = null;
+    private JMenuItem remove = null;
 
-    private JButton                          addFilter        = null;
-    private JButton                          removeFilter     = null;
+    private JButton addFilter = null;
+    private JButton removeFilter = null;
 
-    private ISimpleCallback<JFilterFrame<T>> callback         = null;
+    private ISimpleCallback<JFilterFrame<T>> callback = null;
 
-    private JFrame                           parent;
+    private JFrame parent;
 
     public JFilterFrame(JFrame parent, AWettkampf<T> w, ISimpleCallback<JFilterFrame<T>> sc) {
         super(I18n.get("EditFilters"));
@@ -151,7 +151,8 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
             }
         });
 
-        JPanel p = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
 
         p.setBorder(BorderUtils.createLabeledBorder(I18n.get("Filter")));
 
@@ -251,7 +252,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
     }
 
     private boolean changed = false;
-    private boolean input   = false;
+    private boolean input = false;
 
     public boolean hasChanged() {
         return changed;

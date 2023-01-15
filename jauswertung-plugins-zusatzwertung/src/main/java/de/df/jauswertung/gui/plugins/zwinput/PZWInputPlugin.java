@@ -26,15 +26,15 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class PZWInputPlugin extends ANullPlugin {
 
-    private static final String INPUT1          = I18n.get("ZWInput");
-    private static final String INPUT2          = I18n.get("ZWBarcodeInput");
+    private static final String INPUT1 = I18n.get("ZWInput");
+    private static final String INPUT2 = I18n.get("ZWBarcodeInput");
 
-    IPluginManager              controller      = null;
-    private CorePlugin          core            = null;
-    JGlassPanel<JPanel>         input1          = null;
-    JGlassPanel<JPanel>         input2          = null;
-    JSimpleInputPanel           simple          = null;
-    JZWBarcodeInputPanel        barcode         = null;
+    IPluginManager controller = null;
+    private CorePlugin core = null;
+    JGlassPanel<JPanel> input1 = null;
+    JGlassPanel<JPanel> input2 = null;
+    JSimpleInputPanel simple = null;
+    JZWBarcodeInputPanel barcode = null;
 
     public PZWInputPlugin() {
         super();

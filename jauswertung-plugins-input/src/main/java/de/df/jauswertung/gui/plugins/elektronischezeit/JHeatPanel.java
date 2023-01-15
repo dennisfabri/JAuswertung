@@ -35,22 +35,22 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
 
     final JElektronischeZeit<T> parent;
 
-    private JLabel              discipline = new JLabel();
-    private JLabel              agegroup   = new JLabel();
+    private JLabel discipline = new JLabel();
+    private JLabel agegroup = new JLabel();
 
-    private JButton             previous   = null;
-    private JButton             next       = null;
-    JComboBox<String>           heat       = null;
+    private JButton previous = null;
+    private JButton next = null;
+    JComboBox<String> heat = null;
 
-    private JTimePanel<T>       time       = null;
+    private JTimePanel<T> time = null;
 
-    JLabel[][]                  heatinfo   = new JLabel[0][0];
-    JTimeField[]                times      = new JTimeField[0];
-    JIntegerField[]             inputs     = new JIntegerField[0];
+    JLabel[][] heatinfo = new JLabel[0][0];
+    JTimeField[] times = new JTimeField[0];
+    JIntegerField[] inputs = new JIntegerField[0];
 
-    boolean                     updating   = true;
+    boolean updating = true;
 
-    private final IETStrategy   strategy;
+    private final IETStrategy strategy;
 
     public JHeatPanel(JElektronischeZeit<T> parent) {
         this.parent = parent;
@@ -61,7 +61,8 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
     }
 
     private void initUI() {
-        FormLayout layout = new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default,4dlu,fill:default:grow,0dlu");
+        FormLayout layout = new FormLayout("0dlu,fill:default:grow,0dlu",
+                "0dlu,fill:default,4dlu,fill:default:grow,0dlu");
         setLayout(layout);
 
         add(createUpper(), CC.xy(2, 2));
@@ -102,7 +103,8 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
             }
         });
 
-        FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu");
+        FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu",
+                "0dlu,fill:default,0dlu");
         JPanel p = new JPanel(layout);
 
         p.add(previous, CC.xy(2, 2));
@@ -113,7 +115,8 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
     }
 
     private JPanel createUpper() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(3));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(3));
         JPanel p = new JPanel(layout);
         p.setBorder(BorderUtils.createLabeledBorder(I18n.get("SelectHeat")));
 
@@ -129,14 +132,16 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
     }
 
     private JPanel createLower() {
-        String[] ids = new String[] { "Lane", "Name", "Organisation", "AgeGroup", "Input", "Time", "Penalty", "", "Lane" };
+        String[] ids = new String[] { "Lane", "Name", "Organisation", "AgeGroup", "Input", "Time", "Penalty", "",
+                "Lane" };
         String[] align = new String[] { "center", "left", "left", "center", "fill", "fill", "fill", "fill", "center" };
         int[] textcolumns = new int[] { 0, 1, 2, 3, 6, 8 };
 
         int lanes = strategy.getLanecount();
         FormLayout layout = new FormLayout(
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu," + "fill:default:grow,4dlu,fill:default:grow,4dlu,"
-                        + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu",
+                        + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,"
+                        + "fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1 + lanes));
         JPanel p = new JPanel(layout);
         p.setBorder(BorderUtils.createLabeledBorder(I18n.get("Heat")));
@@ -411,7 +416,8 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         }
 
         private void showZieleinlauf(int heatnr, int row, String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
+            if ((zeit.length() == 1)
+                    || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {

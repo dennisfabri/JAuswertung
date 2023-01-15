@@ -29,16 +29,16 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = -3176484810610448509L;
 
-    private JRadioButton      all;
-    JRadioButton              selected;
-    JComboBox                 from;
-    JComboBox                 to;
-    private ButtonGroup       bg;
+    private JRadioButton all;
+    JRadioButton selected;
+    JComboBox from;
+    JComboBox to;
+    private ButtonGroup bg;
 
-    JButton                   ok;
-    JButton                   cancel;
+    JButton ok;
+    JButton cancel;
 
-    private boolean           isok             = false;
+    private boolean isok = false;
 
     public JDetailsDialog(JFrame parent, AWettkampf<T> wk, String whattoprint, boolean hlw) {
         super(parent, whattoprint, true);

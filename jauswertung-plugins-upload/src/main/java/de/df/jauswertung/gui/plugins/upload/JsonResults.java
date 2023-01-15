@@ -43,7 +43,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class JsonResults {
-    
+
     private void uploadJson(String attachmentId, AWettkampf<?> wk) {
         try {
             ResultsDto results = createResults(wk);

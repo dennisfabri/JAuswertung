@@ -26,7 +26,7 @@ class JFilterSelection extends JDialog {
 
     private static final long serialVersionUID = -6440431620450596615L;
 
-    private JList<String>     list             = new JList();
+    private JList<String> list = new JList();
 
     public JFilterSelection(JFrame parent, LinkedList<String> names) {
         super(parent, I18n.get("FilterSelection"), true);
@@ -58,7 +58,8 @@ class JFilterSelection extends JDialog {
 
         JScrollPane scroller = new JScrollPane(list);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
 
         setLayout(layout);
 

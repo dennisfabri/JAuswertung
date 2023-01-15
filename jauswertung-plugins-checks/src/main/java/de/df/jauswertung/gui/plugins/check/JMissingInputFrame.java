@@ -33,29 +33,30 @@ import de.df.jutils.plugin.UpdateEvent;
 
 class JMissingInputFrame extends JInfiniteProgressFrame {
 
-    private static final long                   serialVersionUID = -7597461480874952948L;
+    private static final long serialVersionUID = -7597461480874952948L;
 
-    private final CorePlugin                    core;
-    private final FEditorPlugin                 editor;
-    private final JFrame                        parent;
+    private final CorePlugin core;
+    private final FEditorPlugin editor;
+    private final JFrame parent;
 
-    private JInfoPanel                          general;
-    private JZWInputPanel                       hlwpanel;
-    private JTimesInputPanel                    timespanel;
-    private JRegistrationTimesInputPanel        registrationtimespanel;
-    private JYearInputPanel                     yearpanel;
-    private JMembersInputPanel                  memberspanel;
-    private JRegistrationPanel                  registrationpanel;
-    private JOrganizationSimilarityPanel        similaritypanel;
-    private JTeamnamesPanel                     teamnamespanel;
-    private JNamesPanel                         namespanel;
+    private JInfoPanel general;
+    private JZWInputPanel hlwpanel;
+    private JTimesInputPanel timespanel;
+    private JRegistrationTimesInputPanel registrationtimespanel;
+    private JYearInputPanel yearpanel;
+    private JMembersInputPanel memberspanel;
+    private JRegistrationPanel registrationpanel;
+    private JOrganizationSimilarityPanel similaritypanel;
+    private JTeamnamesPanel teamnamespanel;
+    private JNamesPanel namespanel;
 
-    private JButton                             updatebutton;
-    private JButton                             closebutton;
+    private JButton updatebutton;
+    private JButton closebutton;
 
     private ISimpleCallback<JMissingInputFrame> callback;
 
-    public JMissingInputFrame(JFrame parent, CorePlugin core, FEditorPlugin editor, ISimpleCallback<JMissingInputFrame> cb) {
+    public JMissingInputFrame(JFrame parent, CorePlugin core, FEditorPlugin editor,
+            ISimpleCallback<JMissingInputFrame> cb) {
         super(I18n.get("CheckInput"));
         setIconImages(IconManager.getTitleImages());
         this.core = core;
@@ -172,7 +173,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         }
         tabs.addTab(I18n.get("Similarities"), UIUtils.surroundWithScroller(similaritypanel));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 2, 5 } });
         setLayout(layout);
 
@@ -200,7 +202,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
-        InfiniteProgressUtils.setTextAsync(this, I18n.get("Information.CheckingCompetition", I18n.get("AdditionalPoints")));
+        InfiniteProgressUtils.setTextAsync(this,
+                I18n.get("Information.CheckingCompetition", I18n.get("AdditionalPoints")));
         try {
             hlwpanel.updateData();
         } catch (RuntimeException ex) {
@@ -219,7 +222,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
             ex.printStackTrace();
         }
         if (yearpanel != null) {
-            InfiniteProgressUtils.setTextAsync(this, I18n.get("Information.CheckingCompetition", I18n.get("YearOfBirth")));
+            InfiniteProgressUtils.setTextAsync(this,
+                    I18n.get("Information.CheckingCompetition", I18n.get("YearOfBirth")));
             try {
                 yearpanel.updateData();
             } catch (RuntimeException ex) {
@@ -232,13 +236,15 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
                 ex.printStackTrace();
             }
         } else {
-            InfiniteProgressUtils.setTextAsync(this, I18n.get("Information.CheckingCompetition", I18n.get("Teammembers")));
+            InfiniteProgressUtils.setTextAsync(this,
+                    I18n.get("Information.CheckingCompetition", I18n.get("Teammembers")));
             try {
                 memberspanel.updateData();
             } catch (RuntimeException ex) {
                 ex.printStackTrace();
             }
-            InfiniteProgressUtils.setTextAsync(this, I18n.get("Information.CheckingCompetition", I18n.get("Teamnames")));
+            InfiniteProgressUtils.setTextAsync(this,
+                    I18n.get("Information.CheckingCompetition", I18n.get("Teamnames")));
             try {
                 teamnamespanel.updateData();
             } catch (RuntimeException ex) {
@@ -300,24 +306,32 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         boolean t = timespanel.hasChanged();
         boolean y = (yearpanel != null && yearpanel.hasChanged());
         boolean m = (memberspanel != null && memberspanel.hasChanged());
-        boolean r = registrationpanel.hasChanged() || (namespanel != null && namespanel.hasChanged()) || (teamnamespanel != null && teamnamespanel.hasChanged())
+        boolean r = registrationpanel.hasChanged() || (namespanel != null && namespanel.hasChanged())
+                || (teamnamespanel != null && teamnamespanel.hasChanged())
                 || similaritypanel.hasChanged() || registrationtimespanel.hasChanged();
         boolean s = similaritypanel.hasChanged();
         boolean ymrs = y || m || r || s;
         if (h && t && ymrs) {
             return new UpdateEvent("ChangeTimeAndZWAndSwimmer",
-                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED, f);
+                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED
+                            | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                    f);
         }
         if (h && t) {
-            return new UpdateEvent("ChangeTimeAndZW", UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED, f);
+            return new UpdateEvent("ChangeTimeAndZW",
+                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED, f);
         }
         if (t && ymrs) {
             return new UpdateEvent("ChangeTimeAndSwimmer",
-                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED, f);
+                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED
+                            | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                    f);
         }
         if (h && ymrs) {
             return new UpdateEvent("ChangeZWAndSwimmer",
-                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED, f);
+                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED
+                            | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                    f);
         }
         if (ymrs) {
             return new UpdateEvent("ChangePerson", UpdateEventConstants.REASON_SWIMMER_CHANGED, f);
@@ -326,7 +340,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
             return new UpdateEvent("ChangeZW", UpdateEventConstants.REASON_POINTS_CHANGED, f);
         }
         if (t) {
-            return new UpdateEvent("ChangeTime", UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED, f);
+            return new UpdateEvent("ChangeTime",
+                    UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED, f);
         }
         return null;
     }

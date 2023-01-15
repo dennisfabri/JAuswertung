@@ -20,5 +20,5 @@ public class ResultInfo {
     }
 
     private final ResultType result;
-    private final Exception  exception;
+    private final Exception exception;
 }

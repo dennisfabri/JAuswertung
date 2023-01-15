@@ -41,13 +41,13 @@ import de.df.jutils.print.printables.ComponentPagePrintable;
 
 public final class StrafpunktePrintable<T extends ASchwimmer> implements Printable {
 
-    private T             schwimmer     = null;
-    private AWettkampf<T> wettkampf     = null;
+    private T schwimmer = null;
+    private AWettkampf<T> wettkampf = null;
     // private int disziplin = 0;
-    private int           lane          = -1;
-    private String        heat          = null;
-    private Strafe        strafe        = null;
-    private String        disziplintext = "";
+    private int lane = -1;
+    private String heat = null;
+    private Strafe strafe = null;
+    private String disziplintext = "";
 
     public StrafpunktePrintable(AWettkampf<T> wk, T s, int disziplin, Strafe str) {
         wk = Utils.copy(wk);
@@ -115,8 +115,8 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
     }
 
     /**
-     * getPanel() creates a JPanel that includes all data of the penalty and
-     * fields needed for the formal workflow.
+     * getPanel() creates a JPanel that includes all data of the penalty and fields
+     * needed for the formal workflow.
      * 
      * @return returns panel displaying the data
      */
@@ -124,7 +124,9 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
         final int rows = 40;
 
         // Create Layout
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default:grow,4dlu",
                 FormLayoutUtils.createSpacingLayoutString(rows, 2));
 
         layout.setRowGroups(createGroups(rows));

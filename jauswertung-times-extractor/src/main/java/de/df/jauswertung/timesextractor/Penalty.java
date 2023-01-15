@@ -11,5 +11,5 @@ public record Penalty(String name, PenaltyType type, int points) {
         }
         return true;
     }
-    
+
 }

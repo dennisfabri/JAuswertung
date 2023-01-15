@@ -35,13 +35,13 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class MedaillenspiegelPrinter implements Printer {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JPanel         panel;
-    private JButton        print;
-    private JButton        preview;
-    private JLabel         filter;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
 
     public MedaillenspiegelPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -62,7 +62,8 @@ class MedaillenspiegelPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -80,6 +81,7 @@ class MedaillenspiegelPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -89,6 +91,7 @@ class MedaillenspiegelPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -104,9 +107,12 @@ class MedaillenspiegelPrinter implements Printer {
 
     Printable getPrintable() {
         JTable result = new JTable(CompetitionUtils.generateMedaillenspiegel(core.getFilteredWettkampf()));
-        JTableUtils.setAlignmentRenderer(result, new int[] { SwingConstants.RIGHT, SwingConstants.LEFT }, SwingConstants.CENTER);
+        JTableUtils.setAlignmentRenderer(result, new int[] { SwingConstants.RIGHT, SwingConstants.LEFT },
+                SwingConstants.CENTER);
         JTableUtils.setPreferredCellWidths(result);
-        return PrintManager.getFinalPrintable(PrintManager.getPrintable(result, (String) null, JTablePrintable.OPT_ALL, true, true), core.getLastChangedDate(),
+        return PrintManager.getFinalPrintable(
+                PrintManager.getPrintable(result, (String) null, JTablePrintable.OPT_ALL, true, true),
+                core.getLastChangedDate(),
                 getName(), getName());
     }
 
@@ -115,7 +121,8 @@ class MedaillenspiegelPrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new MeldelistenPC(), getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new MeldelistenPC(), getName(), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class MeldelistenPC implements PrintableCreator {

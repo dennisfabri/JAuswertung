@@ -23,10 +23,10 @@ public class MStrafenkatalogPlugin extends ANullPlugin {
     private static final String ITEM = I18n.get("PenaltyCatalog");
     private static final String MENU = I18n.get("Information");
 
-    CorePlugin                  core;
-    IPluginManager              controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JMenuItem[]         menu;
+    private JMenuItem[] menu;
 
     @Override
     public void setController(IPluginManager c, String uid) {
@@ -48,8 +48,8 @@ public class MStrafenkatalogPlugin extends ANullPlugin {
         });
     } /*
        * (non-Javadoc)
-       * @see
-       * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+       * 
+       * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
        */
 
     @Override

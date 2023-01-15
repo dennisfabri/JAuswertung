@@ -15,10 +15,10 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JTeammembersStatusPanel extends JPanel {
 
-    JLabel[][] stati   = new JLabel[0][0];
-    JLabel[]   aknames = new JLabel[0];
-    JLabel[]   texts   = new JLabel[3];
-    JLabel[]   sex     = new JLabel[0];
+    JLabel[][] stati = new JLabel[0][0];
+    JLabel[] aknames = new JLabel[0];
+    JLabel[] texts = new JLabel[3];
+    JLabel[] sex = new JLabel[0];
 
     public JTeammembersStatusPanel() {
         texts[0] = new JLabel(I18n.get("Input.Missing"));
@@ -69,7 +69,8 @@ public class JTeammembersStatusPanel extends JPanel {
 
             removeAll();
 
-            FormLayout layout = new FormLayout("4dlu,fill:default," + FormLayoutUtils.createGrowingLayoutString(2 * size),
+            FormLayout layout = new FormLayout(
+                    "4dlu,fill:default," + FormLayoutUtils.createGrowingLayoutString(2 * size),
                     FormLayoutUtils.createLayoutString(2 + texts.length));
             setLayout(layout);
 

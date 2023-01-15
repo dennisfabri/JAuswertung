@@ -46,17 +46,17 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class RegisteredTimesPrinter implements Printer {
 
-    private CorePlugin       core;
-    private IPluginManager   controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel           panel;
-    private JButton          print;
-    private JButton          preview;
-    private JLabel           filter;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
 
-    private JSelectionDialog einzel     = null;
+    private JSelectionDialog einzel = null;
     private JSelectionDialog mannschaft = null;
-    private JSelectionDialog selection  = null;
+    private JSelectionDialog selection = null;
 
     public RegisteredTimesPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -77,7 +77,8 @@ class RegisteredTimesPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -95,6 +96,7 @@ class RegisteredTimesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -104,6 +106,7 @@ class RegisteredTimesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -131,7 +134,8 @@ class RegisteredTimesPrinter implements Printer {
                 if ((schwimmer != null) && (schwimmer.size() > 0)) {
                     Collections.sort(schwimmer, new SchwimmerGliederungVergleicher<ASchwimmer>());
                     Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher<ASchwimmer>());
-                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
+                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer,
+                            DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
                     etm.setName(aks.getAk(x).getName() + " " + I18n.geschlechtToString(aks, y == 1));
                     result.addLast(etm);
                 }
@@ -159,14 +163,16 @@ class RegisteredTimesPrinter implements Printer {
             names[x] = tables[x].getName();
         }
         Printable p = PrintManager.getPrintable(tables, names, JTablePrintable.OPT_ALL, true, true);
-        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Meldezeiten"), I18n.get("Meldezeiten"));
+        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Meldezeiten"),
+                I18n.get("Meldezeiten"));
     }
 
     void print() {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Meldezeiten"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Meldezeiten"), true,
+                    controller.getWindow());
         }
     }
 
@@ -188,7 +194,8 @@ class RegisteredTimesPrinter implements Printer {
                 sc.add(I18n.get("Comment"), false);
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), true);
-                einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(), sc.getValues(), false,
+                einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
+                        sc.getValues(), false,
                         IconManager.getIconBundle());
             }
             selection = einzel;
@@ -208,7 +215,8 @@ class RegisteredTimesPrinter implements Printer {
                 sc.add(I18n.get("Comment"), false);
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), true);
-                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(), sc.getValues(), false,
+                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
+                        sc.getValues(), false,
                         IconManager.getIconBundle());
             }
             selection = mannschaft;
@@ -220,7 +228,8 @@ class RegisteredTimesPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldezeitenPC(selection.getSelection());
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 

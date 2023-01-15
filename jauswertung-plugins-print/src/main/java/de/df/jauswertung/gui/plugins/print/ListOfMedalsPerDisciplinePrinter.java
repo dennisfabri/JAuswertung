@@ -64,20 +64,20 @@ import de.df.jutils.util.StringTools;
  */
 class ListOfMedalsPerDisciplinePrinter implements Printer {
 
-    CorePlugin                core       = null;
-    IPluginManager            controller = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
 
-    private JPanel            panel      = null;
-    private JButton           print      = null;
-    private JButton           preview    = null;
-    private JComboBox<String> agegroup   = null;
-    private JLabel            warning    = null;
-    private JLabel            filter     = null;
-    private JCheckBox         bigPrint;
+    private JPanel panel = null;
+    private JButton print = null;
+    private JButton preview = null;
+    private JComboBox<String> agegroup = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
+    private JCheckBox bigPrint;
 
-    private int[]             indices    = new int[0];
-    private float             fontscale  = 1.8f;
-    private int               gapscale   = 50;
+    private int[] indices = new int[0];
+    private float fontscale = 1.8f;
+    private int gapscale = 50;
 
     public ListOfMedalsPerDisciplinePrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -117,7 +117,9 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         });
 
         panel = new JPanel(
-                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                new FormLayout(
+                        "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                                + "4dlu,fill:default,4dlu,fill:default,4dlu",
                         "4dlu,fill:default,4dlu"));
 
         panel.add(bigPrint, CC.xy(2, 2));
@@ -139,7 +141,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                 agegroup.removeAllItems();
                 result = false;
             } else if ((wk != null) && (wk.hasSchwimmer())) {
-                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK
+                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED
+                        | REASON_FILTERS_CHANGED | REASON_LOAD_WK
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
@@ -241,6 +244,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -250,6 +254,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -313,9 +318,11 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                         data[z][4] = StringTools.zeitString(result[z].getSchwimmer().getZeit(0)) + "  ";
                     }
                     ExtendedTableModel etm = new ExtendedTableModel(data,
-                            new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ", I18n.get("Time") });
+                            new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ",
+                                    I18n.get("Time") });
                     etm.setColumnAlignments(
-                            new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.RIGHT });
+                            new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT,
+                                    SwingConstants.LEFT, SwingConstants.RIGHT });
                     etm.setName(I18n.getAgeGroupAsString(wk.getRegelwerk(), wk.getRegelwerk().getAk(x), y == 1) + " - "
                             + wk.getRegelwerk().getAk(x).getDisziplin(0, y == 1).getName());
                     results.addLast(etm);
@@ -332,7 +339,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         FormLayout layout = null;
         if (!showOrganisation) {
             layout = new FormLayout(
-                    FormLayoutUtils.createGrowingLayoutString(2, 0) + ",0dlu," + FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount() - 3, 0),
+                    FormLayoutUtils.createGrowingLayoutString(2, 0) + ",0dlu,"
+                            + FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount() - 3, 0),
                     FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
         } else {
             layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount(), 0),
@@ -423,7 +431,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
             Font f = PrintManager.getFont();
             title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
 
-            FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), "0dlu,fill:default,1dlu,fill:default,2dlu");
+            FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                    "0dlu,fill:default,1dlu,fill:default,2dlu");
             JComponent c = new JPanel(layout);
             c.setBackground(Color.WHITE);
             c.setForeground(Color.BLACK);
@@ -441,7 +450,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class ListOfMedalsPC implements PrintableCreator {

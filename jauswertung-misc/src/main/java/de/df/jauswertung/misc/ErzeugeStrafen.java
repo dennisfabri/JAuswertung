@@ -15,7 +15,7 @@ public final class ErzeugeStrafen {
     }
 
     private static class TeamPenaltyDefinition {
-        private final String          code;
+        private final String code;
         private final TeamPenaltyType type;
 
         public TeamPenaltyDefinition(String code, TeamPenaltyType type) {
@@ -104,9 +104,11 @@ public final class ErzeugeStrafen {
     public static void main(String[] args) throws IOException {
         int jahr = 2023;
 
-        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls", "jauswertung-files/src/main/resources/penalties/default.def",
+        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls",
+                "jauswertung-files/src/main/resources/penalties/default.def",
                 null);
-        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls", "jauswertung-files/src/main/resources/penalties/defaultm.def",
+        strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls",
+                "jauswertung-files/src/main/resources/penalties/defaultm.def",
                 teamDefs);
         // strafen("required/Strafen/Strafen International - Pool.xls",
         // "include/main/penalties/International - Pool.def");

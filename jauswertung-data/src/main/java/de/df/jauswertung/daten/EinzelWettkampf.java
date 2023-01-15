@@ -27,15 +27,16 @@ public class EinzelWettkampf extends AWettkampf<Teilnehmer> {
     /**
      * Creates new einzelWettkampf
      * 
-     * @param aks
-     *            Teilnehmende Altersklassen
+     * @param aks Teilnehmende Altersklassen
      */
     public EinzelWettkampf(final Regelwerk aks, final Strafen s) {
         super(AltersklassenUtils.checkAKs(aks, true), s);
     }
 
-    public Teilnehmer createTeilnehmer(String name, String vname, int tJahrgang, boolean geschlecht, String gliederung, int ak, String bemerkung) {
-        return new Teilnehmer(this, name.trim(), vname.trim(), tJahrgang, geschlecht, gliederung.trim(), ak, bemerkung.trim());
+    public Teilnehmer createTeilnehmer(String name, String vname, int tJahrgang, boolean geschlecht, String gliederung,
+            int ak, String bemerkung) {
+        return new Teilnehmer(this, name.trim(), vname.trim(), tJahrgang, geschlecht, gliederung.trim(), ak,
+                bemerkung.trim());
     }
 
     @Override

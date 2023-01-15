@@ -14,7 +14,7 @@ public class HLWLauf<T extends ASchwimmer> extends Lauf<T> {
 
     private static final long serialVersionUID = -5605619617566626988L;
 
-    private Time              name;
+    private Time name;
 
     /** Creates new HLW */
     HLWLauf(int bahnen) {

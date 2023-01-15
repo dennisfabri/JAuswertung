@@ -40,19 +40,19 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 abstract class AFilledKartenPrinter implements Printer {
 
-    CorePlugin                core;
-    IPluginManager            controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
     private JComboBox<String> pages;
 
-    private String            text;
+    private String text;
 
-    private boolean           allheats = true;
-    private int               minheat  = 0;
-    private int               maxheat  = 0;
+    private boolean allheats = true;
+    private int minheat = 0;
+    private int maxheat = 0;
 
     public AFilledKartenPrinter(IPluginManager pm, CorePlugin plugin, String text) {
         core = plugin;
@@ -62,7 +62,8 @@ abstract class AFilledKartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -96,6 +97,7 @@ abstract class AFilledKartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -126,7 +128,8 @@ abstract class AFilledKartenPrinter implements Printer {
     }
 
     @SuppressWarnings({ "hiding", "rawtypes" })
-    protected abstract Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats, int minheat, int maxheat);
+    protected abstract Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
+            int minheat, int maxheat);
 
     <T extends ASchwimmer> boolean askForDetails(AWettkampf<T> wk) {
         JDetailsDialog<T> details = new JDetailsDialog<T>(controller.getWindow(), wk, text, false);
@@ -184,7 +187,8 @@ abstract class AFilledKartenPrinter implements Printer {
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 if (askForDetails(wk)) {
@@ -223,18 +227,22 @@ abstract class AFilledKartenPrinter implements Printer {
                         if (t != null) {
                             AWettkampf[] wkx = createCompetitionFor(t);
                             if (askForDetails(wkx)) {
-                                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text, IconManager.getIconBundle(), IconManager.getTitleImages());
+                                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
+                                        IconManager.getIconBundle(), IconManager.getTitleImages());
                             }
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
-                // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk), I18n.get("Laufzeiten"),
+                // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk),
+                // I18n.get("Laufzeiten"),
                 // IconManager.getIconBundle(), IconManager.getTitleImages());
                 if (askForDetails(wk)) {
-                    PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), text, IconManager.getIconBundle(), IconManager.getTitleImages());
+                    PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), text,
+                            IconManager.getIconBundle(), IconManager.getTitleImages());
                 }
             }
         }

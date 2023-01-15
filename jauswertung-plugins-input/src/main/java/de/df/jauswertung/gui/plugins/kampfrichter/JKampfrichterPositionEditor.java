@@ -26,13 +26,13 @@ import de.df.jutils.gui.util.WindowUtils;
 public class JKampfrichterPositionEditor extends JDialog {
 
     private final KampfrichterPosition position;
-    private final KampfrichterEinheit  einheit;
+    private final KampfrichterEinheit einheit;
 
-    private JWarningTextField          name;
-    private JComboBox<String>          stufe;
+    private JWarningTextField name;
+    private JComboBox<String> stufe;
 
-    private JButton                    ok;
-    private JButton                    close;
+    private JButton ok;
+    private JButton close;
 
     public JKampfrichterPositionEditor(JFrame parent, KampfrichterEinheit einheit, KampfrichterPosition pos) {
         super(parent, I18n.get("Refereeposition"), true);
@@ -70,7 +70,8 @@ public class JKampfrichterPositionEditor extends JDialog {
         stufe = new JComboBox<String>(KampfrichterStufe.getBaseLevels());
         stufe.setSelectedIndex(KampfrichterStufe.getBaseIndex(position.getMinimaleStufe()));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu:grow,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu:grow,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4 } });
         setLayout(layout);
 

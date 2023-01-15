@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Record implements Comparable<Record> {
 
-    public final int     Id;
-    public final Date    Date;
-    public final long    Time;
-    public final int     Discipline;
-    public final int     Agegroup;
+    public final int Id;
+    public final Date Date;
+    public final long Time;
+    public final int Discipline;
+    public final int Agegroup;
     public final boolean Male;
-    public final int     Competitor;
+    public final int Competitor;
 
     public Record(int id, Date date, long time, int discipline, int agegroup, boolean male, int competitor) {
         Id = id;

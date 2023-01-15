@@ -60,14 +60,16 @@ public class FormelDirectPoints<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d, Hashtable<String, Zielrichterentscheid<T>> zes) {
+    public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
+            Hashtable<String, Zielrichterentscheid<T>> zes) {
         SchwimmerData[] sold = swimmer;
         Arrays.sort(sold, new DLRGComparator());
 
         LinkedList<SchwimmerData> sd = new LinkedList<SchwimmerData>();
 
         for (SchwimmerData aSwimmer2 : swimmer) {
-            if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS) || (aSwimmer2.getStrafart() == Strafarten.DISQUALIFIKATION)
+            if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS)
+                    || (aSwimmer2.getStrafart() == Strafarten.DISQUALIFIKATION)
                     || (aSwimmer2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
                 aSwimmer2.setRank(-1);
                 aSwimmer2.setPoints(0.0);
@@ -120,7 +122,8 @@ public class FormelDirectPoints<T extends ASchwimmer> implements Formel<T> {
 
         for (LinkedList<SchwimmerData> liste : table.values()) {
             if (liste.size() > 1) {
-                Zielrichterentscheid<T> ze = zes.get(liste.getFirst().getSchwimmer().getStartnummer() + "x" + d.getName());
+                Zielrichterentscheid<T> ze = zes
+                        .get(liste.getFirst().getSchwimmer().getStartnummer() + "x" + d.getName());
 
                 if (ze != null) {
                     SchwimmerData[] temp = liste.toArray(new SchwimmerData[liste.size()]);
@@ -148,7 +151,8 @@ public class FormelDirectPoints<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     @SuppressWarnings("rawtypes")
-    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak, Hashtable<String, Zielrichterentscheid<T>> zes,
+    public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
+            Hashtable<String, Zielrichterentscheid<T>> zes,
             boolean zw) {
         for (SchwimmerResult result1 : results) {
             SchwimmerData[] daten = result1.getResults();
@@ -315,6 +319,7 @@ public class FormelDirectPoints<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getResult(double, double,
      * double)
      */

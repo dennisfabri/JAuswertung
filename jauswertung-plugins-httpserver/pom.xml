@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.dennisfabri.jauswertung</groupId>
     <artifactId>jauswertung-project</artifactId>
-    <version>16.2.1</version>
+    <version>16.2.2</version>
   </parent>
   <artifactId>jauswertung-plugins-httpserver</artifactId>
   <dependencies>

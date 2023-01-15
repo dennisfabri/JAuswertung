@@ -22,8 +22,8 @@ import de.df.jauswertung.gui.util.I18n;
 class ZWTableModel<T extends ASchwimmer> implements TableModel {
 
     private LinkedList<TableModelListener> listeners;
-    private AWettkampf<T>                  wk;
-    private HLWListe<T>                    hlw;
+    private AWettkampf<T> wk;
+    private HLWListe<T> hlw;
 
     public ZWTableModel(AWettkampf<T> wk) {
         this.wk = wk;
@@ -220,7 +220,8 @@ class ZWTableModel<T extends ASchwimmer> implements TableModel {
     }
 
     protected void fireTableChange(int row, boolean insert) {
-        TableModelEvent tme = new TableModelEvent(this, row, row, 0, (insert ? TableModelEvent.INSERT : TableModelEvent.DELETE));
+        TableModelEvent tme = new TableModelEvent(this, row, row, 0,
+                (insert ? TableModelEvent.INSERT : TableModelEvent.DELETE));
 
         ListIterator<TableModelListener> li = listeners.listIterator();
         while (li.hasNext()) {

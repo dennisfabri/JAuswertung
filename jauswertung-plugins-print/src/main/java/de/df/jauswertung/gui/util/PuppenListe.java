@@ -25,8 +25,8 @@ import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 
 public class PuppenListe<T extends ASchwimmer> {
 
-    private HLWListe<T>    daten = null;
-    private AWettkampf<T>  wk    = null;
+    private HLWListe<T> daten = null;
+    private AWettkampf<T> wk = null;
     private final String[] titel = { I18n.get("Time"), I18n.get("Name"), I18n.get("Organisation"), I18n.get("AgeGroup"),
             "        " + I18n.get("Points") + "        " };
 
@@ -93,7 +93,8 @@ public class PuppenListe<T extends ASchwimmer> {
 
     public JTable toJTable(int puppe) {
         JTable table = new JTable(getTableModel(puppe));
-        JTableUtils.setTableCellRenderer(table, new AlignmentCellRenderer(new int[] { SwingConstants.RIGHT }, SwingConstants.LEFT));
+        JTableUtils.setTableCellRenderer(table,
+                new AlignmentCellRenderer(new int[] { SwingConstants.RIGHT }, SwingConstants.LEFT));
         if (PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 2);
         }

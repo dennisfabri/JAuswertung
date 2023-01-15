@@ -27,7 +27,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
     private final class ZieleinlaufActionListener implements ActionListener {
 
         private ISimpleCallback<Boolean> cb;
-        private boolean                  result;
+        private boolean result;
 
         public ZieleinlaufActionListener(ISimpleCallback<Boolean> cb, boolean result) {
             this.cb = cb;
@@ -43,7 +43,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = 4830320298919358601L;
 
-    private JFrame            parent;
+    private JFrame parent;
 
     public JZieleinlaufDialog(JFrame parent, Lauf<T> lauf, ISimpleCallback<Boolean> cb) {
         super(parent, I18n.get("Zieleinlauf"), true);
@@ -90,7 +90,8 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
             buttons = ok;
         }
 
-        FormLayout layout = new FormLayout("4dlu:grow,center:default,4dlu,center:default,0dlu:grow,4dlu", FormLayoutUtils.createLayoutString(rows + 2));
+        FormLayout layout = new FormLayout("4dlu:grow,center:default,4dlu,center:default,0dlu:grow,4dlu",
+                FormLayoutUtils.createLayoutString(rows + 2));
         setLayout(layout);
 
         add(new JLabel(I18n.get("Rank")), CC.xy(2, 2));

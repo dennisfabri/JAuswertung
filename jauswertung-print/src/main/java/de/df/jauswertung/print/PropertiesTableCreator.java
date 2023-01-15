@@ -104,7 +104,8 @@ public final class PropertiesTableCreator {
             data.addLast(" ");
 
             names.addLast(I18n.get("Rulebook") + ":");
-            data.addLast(I18n.get("RulebookAndYear", FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getName(),
+            data.addLast(I18n.get("RulebookAndYear",
+                    FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getName(),
                     wk.getRegelwerk().getBeschreibung()));
 
             names.addLast(I18n.get("Software") + ":");
@@ -119,7 +120,8 @@ public final class PropertiesTableCreator {
             }
             data.addLast(I18n.getVersion() + " - " + date + I18n.get("ProgramURLInfo") + "");
 
-            return TextTablePrintable.createTable(names.toArray(new String[names.size()]), data.toArray(new String[data.size()]));
+            return TextTablePrintable.createTable(names.toArray(new String[names.size()]),
+                    data.toArray(new String[data.size()]));
         } catch (RuntimeException re) {
             re.printStackTrace();
             return null;

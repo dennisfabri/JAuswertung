@@ -45,11 +45,11 @@ class JZWEditor extends JDialog {
      */
     private static final long serialVersionUID = 3256719580843227188L;
 
-    ASchwimmer                schwimmer        = null;
-    JDoubleField[]            integer          = null;
-    JButton                   ok               = null;
-    IPluginManager            controller       = null;
-    final JFrame              parent;
+    ASchwimmer schwimmer = null;
+    JDoubleField[] integer = null;
+    JButton ok = null;
+    IPluginManager controller = null;
+    final JFrame parent;
 
     /**
      * This is the default constructor
@@ -99,7 +99,8 @@ class JZWEditor extends JDialog {
 
     void doOk() {
         for (int index = 0; index < schwimmer.getMaximaleHLW(); index++) {
-            if ((!integer[index].isValidDouble()) && (integer[index].getText().length() > 0) && (!integer[index].isSpecialString())) {
+            if ((!integer[index].isValidDouble()) && (integer[index].getText().length() > 0)
+                    && (!integer[index].isSpecialString())) {
                 Toolkit.getDefaultToolkit().beep();
                 integer[index].requestFocus();
                 return;
@@ -109,8 +110,10 @@ class JZWEditor extends JDialog {
         for (int index = 0; index < schwimmer.getMaximaleHLW(); index++) {
             if ((!integer[index].isValidDouble()) && (integer[index].getText().length() > 0)) {
                 if (integer[index].isSpecialString()) {
-                    schwimmer.setHLWState(index, ZWUtils.getHLWState(schwimmer.getWettkampf(), integer[index].getText()));
-                    controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, -1, null);
+                    schwimmer.setHLWState(index,
+                            ZWUtils.getHLWState(schwimmer.getWettkampf(), integer[index].getText()));
+                    controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED,
+                            schwimmer, -1, null);
                 }
             } else {
                 if (integer[index].getText().length() == 0) {
@@ -118,7 +121,8 @@ class JZWEditor extends JDialog {
                 } else {
                     schwimmer.setHLWPunkte(index, integer[index].getDouble());
                 }
-                controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, -1, null);
+                controller.sendDataUpdateEvent("ChangeZWPoints", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer,
+                        -1, null);
             }
         }
         setVisible(false);
@@ -212,7 +216,8 @@ class JZWEditor extends JDialog {
             });
         }
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(integer.length + 2));
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(integer.length + 2));
         FormLayoutUtils.setRowGroups(layout, integer.length + 2);
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));
@@ -228,7 +233,8 @@ class JZWEditor extends JDialog {
         top.add(ok, CC.xy(4, integer.length * 2 + 2));
         top.add(cancel, CC.xy(4, integer.length * 2 + 4));
 
-        layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         JPanel bottom = new JPanel(layout);
         bottom.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information")));

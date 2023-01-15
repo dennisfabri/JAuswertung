@@ -41,7 +41,8 @@ import de.df.jutils.print.printables.ComponentListPrintable;
 public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
 
     public TeamnamesRegistrationPrintable(MannschaftWettkampf wk, String gliederung) {
-        this(wk.getStringProperty(PropertyConstants.NAME), wk.getRegelwerk(), getTeams(wk, gliederung), wk.getCurrentTeammembersRegistrationsId());
+        this(wk.getStringProperty(PropertyConstants.NAME), wk.getRegelwerk(), getTeams(wk, gliederung),
+                wk.getCurrentTeammembersRegistrationsId());
     }
 
     private TeamnamesRegistrationPrintable(String title, Regelwerk rw, LinkedList<Mannschaft> teams, String exportId) {
@@ -148,7 +149,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
     }
 
     private static Component createQRCode(String title, Team team) {
-        JPanel p = new JPanel(new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default:grow,0dlu,fill:default,0dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default:grow,0dlu,fill:default,0dlu"));
         p.setOpaque(false);
         p.add(createQRCode(team.getCode()), CC.xy(2, 2));
 
@@ -172,7 +174,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
     }
 
     private static Component createHeader(String title, Regelwerk rw, Team team) {
-        JPanel p = new JPanel(new FormLayout("0dlu,fill:default:grow,4dlu,fill:default:grow,0dlu", FormLayoutUtils.createLayoutString(4)));
+        JPanel p = new JPanel(new FormLayout("0dlu,fill:default:grow,4dlu,fill:default:grow,0dlu",
+                FormLayoutUtils.createLayoutString(4)));
         p.setBackground(Color.WHITE);
         p.setForeground(Color.BLACK);
 
@@ -209,7 +212,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
     }
 
     private static Component createTable(String title, Team team) {
-        String[] titles = new String[] { "#", I18n.get("Surname"), I18n.get("FirstName"), I18n.get("SexShort"), I18n.get("YearOfBirth") };
+        String[] titles = new String[] { "#", I18n.get("Surname"), I18n.get("FirstName"), I18n.get("SexShort"),
+                I18n.get("YearOfBirth") };
 
         Object[][] data = new Object[team.getMemberCount()][0];
 
@@ -232,7 +236,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
         DefaultTableModel tm = new DefaultTableModel(data, titles);
         JTable t = new JTable(tm);
         JTableUtils.setAlignmentRenderer(t,
-                new int[] { SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER, SwingConstants.CENTER },
+                new int[] { SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER,
+                        SwingConstants.CENTER },
                 SwingConstants.LEFT);
         JTableUtils.setPreferredCellSizes(t);
         JPrintTable.initPrintableJTable(t);
@@ -247,7 +252,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
     }
 
     private static Component createFooter(String title, Team team) {
-        JPanel p = new JPanel(new FormLayout("0dlu,fill:default,1dlu,fill:default:grow,4dlu,fill:default,1dlu,fill:default:grow,1dlu,fill:default,0dlu",
+        JPanel p = new JPanel(new FormLayout(
+                "0dlu,fill:default,1dlu,fill:default:grow,4dlu,fill:default,1dlu,fill:default:grow,1dlu,fill:default,0dlu",
                 "8dlu,fill:default,8dlu,fill:default,0dlu"));
         p.setBackground(Color.WHITE);
         p.setForeground(Color.BLACK);
@@ -265,7 +271,8 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
     }
 
     private static Component createYesNo() {
-        JPanel p = new JPanel(new FormLayout("0dlu,center:default:grow,1dlu,center:default:grow,0dlu", "0dlu,fill:default,0dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("0dlu,center:default:grow,1dlu,center:default:grow,0dlu", "0dlu,fill:default,0dlu"));
         p.setBackground(Color.WHITE);
         p.setForeground(Color.BLACK);
 

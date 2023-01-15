@@ -9,9 +9,9 @@ import de.df.jauswertung.daten.PropertyConstants;
 
 public class StartnumberFormatManager {
 
-    private static StartnumberFormatManager             instance = null;
+    private static StartnumberFormatManager instance = null;
 
-    private final Hashtable<String, IStartnumberFormat> formats  = new Hashtable<String, IStartnumberFormat>();
+    private final Hashtable<String, IStartnumberFormat> formats = new Hashtable<String, IStartnumberFormat>();
 
     private StartnumberFormatManager() {
         add(new StartnumberDefault());
@@ -45,7 +45,9 @@ public class StartnumberFormatManager {
     }
 
     public static String format(ASchwimmer swimmer) {
-        return getInstance().format(swimmer.getWettkampf().getStringProperty(PropertyConstants.STARTNUMBERFORMAT, "Default"), swimmer.getStartnummer());
+        return getInstance().format(
+                swimmer.getWettkampf().getStringProperty(PropertyConstants.STARTNUMBERFORMAT, "Default"),
+                swimmer.getStartnummer());
     }
 
     public static <T extends ASchwimmer> int convert(AWettkampf<T> wk, String sn) {

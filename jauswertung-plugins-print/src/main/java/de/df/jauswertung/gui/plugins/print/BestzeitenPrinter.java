@@ -27,10 +27,10 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 public class BestzeitenPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -55,6 +55,7 @@ public class BestzeitenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -64,6 +65,7 @@ public class BestzeitenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -80,7 +82,9 @@ public class BestzeitenPrinter implements Printer {
     }
 
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(de.df.jauswertung.print.PrintableCreator.createBestzeitenPrintable(core.getWettkampf()), core.getLastChangedDate(), I18n.get("SchnellsteZeiten"),
+        return PrintManager.getFinalPrintable(
+                de.df.jauswertung.print.PrintableCreator.createBestzeitenPrintable(core.getWettkampf()),
+                core.getLastChangedDate(), I18n.get("SchnellsteZeiten"),
                 I18n.get("SchnellsteZeiten"));
     }
 
@@ -100,7 +104,8 @@ public class BestzeitenPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SchnellsteZeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SchnellsteZeiten"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

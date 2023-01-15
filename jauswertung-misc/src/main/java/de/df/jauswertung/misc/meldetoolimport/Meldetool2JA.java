@@ -30,8 +30,10 @@ public class Meldetool2JA {
         mi.erstelleMeldung(zpm, gld, directory + "/Meldung Pool Mixed.csv");
     }
 
-    private static String[] filenames = new String[] { "Meldung.csv", "Gliederungen.csv", "Zuordnung Pool Einzel.txt", "Zuordnung Pool Staffel.txt",
-            "Zuordnung Pool Mixed.txt", "Zuordnung OCEAN Einzel.txt", "Zuordnung OCEAN Staffel.txt", "Zuordnung OCEAN Mixed.txt" };
+    private static String[] filenames = new String[] { "Meldung.csv", "Gliederungen.csv", "Zuordnung Pool Einzel.txt",
+            "Zuordnung Pool Staffel.txt",
+            "Zuordnung Pool Mixed.txt", "Zuordnung OCEAN Einzel.txt", "Zuordnung OCEAN Staffel.txt",
+            "Zuordnung OCEAN Mixed.txt" };
 
     private static boolean CheckFiles(String dir) {
         for (String filename : filenames) {

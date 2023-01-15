@@ -13,7 +13,7 @@ import de.dm.collector.AlphaHttpServer;
 
 public class AresWriterBlocks {
 
-    private static final String CHARSET  = "ISO-8859-1";
+    private static final String CHARSET = "ISO-8859-1";
     private static final String CHARSET2 = "Cp850";
 
     public static void main(String[] args) throws IOException {
@@ -129,7 +129,8 @@ public class AresWriterBlocks {
 
     private static int anschlaegeJe100m = 1;
 
-    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
         // 0; "25 m" ; 25 ;1
@@ -140,7 +141,8 @@ public class AresWriterBlocks {
         return disziplinen;
     }
 
-    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen) throws UnsupportedEncodingException {
+    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen)
+            throws UnsupportedEncodingException {
         // 0; "25 m" ; 25 ;1
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
@@ -160,8 +162,10 @@ public class AresWriterBlocks {
         }
     }
 
-    private static String[][] laengen = new String[][] { { "200m", "200m" }, { "200 m", "200m" }, { "100m", "100m" }, { "100 m", "100m" }, { "50m", "50m" },
-            { "50 m", "50m" }, { "25m", "25m" }, { "25 m", "25m" }, { "4*25m", "4*25m" }, { "4*25 m", "4*25m" }, { "4*50m", "4*50m" }, { "4*50 m", "4*50m" } };
+    private static String[][] laengen = new String[][] { { "200m", "200m" }, { "200 m", "200m" }, { "100m", "100m" },
+            { "100 m", "100m" }, { "50m", "50m" },
+            { "50 m", "50m" }, { "25m", "25m" }, { "25 m", "25m" }, { "4*25m", "4*25m" }, { "4*25 m", "4*25m" },
+            { "4*50m", "4*50m" }, { "4*50 m", "4*50m" } };
 
     private static String getLaenge(Disziplin d) {
         String name = d.getName().trim().toLowerCase();
@@ -193,7 +197,8 @@ public class AresWriterBlocks {
         return 0;
     }
 
-    private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
+    private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
+            throws UnsupportedEncodingException {
         // idStyle;Style;StyleAbrév
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
@@ -224,7 +229,8 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os)
+    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks,
+            Hashtable<String, Integer> disziplinen, OutputStream os)
             throws UnsupportedEncodingException {
         // event;round;nbHeat;idLen;idStyle;abCat;date;time
         // 1 ;0 ;1 ;0 ;0 ;"0" ;"04/27/09" ;"00:00" ;
@@ -272,11 +278,13 @@ public class AresWriterBlocks {
             String date = "10/18/09";
             String time = "00:00";
 
-            ps.println("" + id1 + " ;0 ;" + id2 + " ;" + idLen + " ;" + idStyle + " ;\"" + akmw + "\" ;\"" + date + "\" ;\"" + time + "\" ;");
+            ps.println("" + id1 + " ;0 ;" + id2 + " ;" + idLen + " ;" + idStyle + " ;\"" + akmw + "\" ;\"" + date
+                    + "\" ;\"" + time + "\" ;");
         }
     }
 
-    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;heat;lane;relais;idBib
         // 4 ;1 ;0 ;1 ;0 ;3 ;
         // 4 ;1 ;0 ;2 ;0 ;106 ;
@@ -316,13 +324,15 @@ public class AresWriterBlocks {
                     String sn = "" + t.getStartnummer(); // StartnumberFormatManager.format(t);
                     String date = "10/18/09";
                     String time = "00:00";
-                    ps.println("" + id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date + "\" ; \"" + time + "\" ;");
+                    ps.println("" + id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
+                            + "\" ; \"" + time + "\" ;");
                 }
             }
         }
     }
 
-    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os)
+    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen,
+            OutputStream os)
             throws UnsupportedEncodingException {
         // id;event;round ;heat
         // 1 ;1 ;0 ;0 ;
@@ -358,7 +368,8 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // id;bib;lastname;firstname;birthyear;abNat;abCat
         // 1 ;"257" ;"POPOV" ;"Alexander" ;"1971" ;"RUS" ;"M" ;
         PrintStream ps = new PrintStream(os, true, CHARSET);
@@ -368,9 +379,11 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNames(AWettkampf<T> wk, PrintStream ps) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNames(AWettkampf<T> wk, PrintStream ps)
+            throws UnsupportedEncodingException {
         for (T t : wk.getSchwimmer()) {
-            // ps.print("" + StartnumberFormatManager.format(t) + ";\"" + StartnumberFormatManager.format(t) + "\";");
+            // ps.print("" + StartnumberFormatManager.format(t) + ";\"" +
+            // StartnumberFormatManager.format(t) + "\";");
             ps.print("" + t.getStartnummer() + ";\"" + t.getStartnummer() + "\";");
             if (t instanceof Teilnehmer) {
                 Teilnehmer tn = (Teilnehmer) t;
@@ -386,13 +399,15 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idLen;idStyle;idRec;abCat;time;name;date;place");
     }
 
-    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
@@ -425,14 +440,16 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idRound;TITLE;RoundAbrev;roundtext; sequence");
         ps.println("0; \"Lauf\"; \"Lauf\"; \"Lauf\";  \"1\"");
     }
 
-    private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
@@ -533,7 +550,8 @@ public class AresWriterBlocks {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNAMs(AWettkampf<T>[] wks, String dir) throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNAMs(AWettkampf<T>[] wks, String dir)
+            throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 

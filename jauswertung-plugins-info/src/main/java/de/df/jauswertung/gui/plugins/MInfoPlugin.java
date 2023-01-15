@@ -22,10 +22,10 @@ import de.df.jutils.plugin.MenuInfo;
 public class MInfoPlugin extends ANullPlugin {
 
     private static final String QUESTION_STRING = I18n.get("?");
-    private static final String INFO_STRING     = I18n.get("Info");
+    private static final String INFO_STRING = I18n.get("Info");
 
-    private JMenuItem           info;
-    private JAboutDialog        about;
+    private JMenuItem info;
+    private JAboutDialog about;
 
     public MInfoPlugin() {
         info = new JMenuItem(INFO_STRING, IconManager.getSmallIcon("info"));

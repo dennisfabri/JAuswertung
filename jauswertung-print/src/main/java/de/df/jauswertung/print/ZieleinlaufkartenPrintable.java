@@ -34,7 +34,8 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
     public ZieleinlaufkartenPrintable(AWettkampf<T>[] wks, PageMode mode, boolean allheats, int minheat, int maxheat) {
         super(mode);
         if (wks != null && wks.length > 0) {
-            LinkedList<Zieleinlaufkarte> sk = SchwimmerUtils.toZieleinlauf(wks, getPagesPerPage(), allheats, minheat, maxheat);
+            LinkedList<Zieleinlaufkarte> sk = SchwimmerUtils.toZieleinlauf(wks, getPagesPerPage(), allheats, minheat,
+                    maxheat);
             if (!sk.isEmpty()) {
                 karten = sk.toArray(new Zieleinlaufkarte[sk.size()]);
             } else {

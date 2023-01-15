@@ -38,10 +38,10 @@ public class CompetitionContainer implements Serializable {
         return filename;
     }
 
-    //@SuppressWarnings("rawtypes")
-    //public AWettkampf getCompetition() {
-    //    return InputManager.ladeWettkampf(filename);
-    //}
+    // @SuppressWarnings("rawtypes")
+    // public AWettkampf getCompetition() {
+    // return InputManager.ladeWettkampf(filename);
+    // }
 
     public boolean exists() {
         return new File(filename).exists();

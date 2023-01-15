@@ -43,29 +43,29 @@ public class JSelectionDialog {
         void print(boolean[][] selected);
     }
 
-    public static final int      AUTO_DISCIPLINES          = -2;
-    public static final int      ALL_DISCIPLINES           = -3;
+    public static final int AUTO_DISCIPLINES = -2;
+    public static final int ALL_DISCIPLINES = -3;
 
-    private static final int     CONSTANTS_MIN             = -3;
+    private static final int CONSTANTS_MIN = -3;
 
-    public static final boolean  MODE_AK_SELECTION         = false;
-    public static final boolean  MODE_DISCIPLINE_SELECTION = true;
+    public static final boolean MODE_AK_SELECTION = false;
+    public static final boolean MODE_DISCIPLINE_SELECTION = true;
 
-    private JDialog              dialog;
-    private JButton              dialogOk;
-    private JPanel               dialogPanel;
-    private int                  selected                  = 0;
-    private ButtonActionListener bal                       = new ButtonActionListener();
-    private JCheckBox[][]        buttons                   = new JCheckBox[0][0];
+    private JDialog dialog;
+    private JButton dialogOk;
+    private JPanel dialogPanel;
+    private int selected = 0;
+    private ButtonActionListener bal = new ButtonActionListener();
+    private JCheckBox[][] buttons = new JCheckBox[0][0];
     @SuppressWarnings("rawtypes")
-    private AWettkampf           wk;
-    private PrintCallBack        pcb;
-    private JFrame               parent;
-    private JLabel[][]           warning                   = new JLabel[0][0];
-    private boolean[][]          selection                 = null;
-    private int                  discipline                = ALL_DISCIPLINES;
-    private boolean              mode                      = false;
-    private double               minpoints                 = -1;
+    private AWettkampf wk;
+    private PrintCallBack pcb;
+    private JFrame parent;
+    private JLabel[][] warning = new JLabel[0][0];
+    private boolean[][] selection = null;
+    private int discipline = ALL_DISCIPLINES;
+    private boolean mode = false;
+    private double minpoints = -1;
 
     @SuppressWarnings("rawtypes")
     public JSelectionDialog(JFrame window, AWettkampf wk, PrintCallBack printCallBack, String ok, boolean mode) {
@@ -124,7 +124,8 @@ public class JSelectionDialog {
         JButton dialogCancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
         dialogCancel.addActionListener(new CancelPrintActionListener());
 
-        FormLayout layout = new FormLayout("default:grow,fill:default,4dlu,fill:default", "fill:default,4dlu,fill:default");
+        FormLayout layout = new FormLayout("default:grow,fill:default,4dlu,fill:default",
+                "fill:default,4dlu,fill:default");
         layout.setColumnGroups(new int[][] { { 2, 4 } });
         layout.setRowGroups(new int[][] { { 1, 3 } });
 
@@ -159,7 +160,8 @@ public class JSelectionDialog {
         Regelwerk aks = wk.getRegelwerk();
         int amount = aks.size();
 
-        String width = "4dlu,fill:default,8dlu:grow,center:default," + "4dlu,center:default,8dlu:grow,center:default," + "4dlu,center:default,8dlu:grow";
+        String width = "4dlu,fill:default,8dlu:grow,center:default," + "4dlu,center:default,8dlu:grow,center:default,"
+                + "4dlu,center:default,8dlu:grow";
         FormLayout layout = new FormLayout(width, FormLayoutUtils.createLayoutString(amount + 1));
 
         dialogPanel.setLayout(layout);
@@ -338,7 +340,8 @@ public class JSelectionDialog {
 
     public void setDiscipline(int disz) {
         if (disz < CONSTANTS_MIN) {
-            throw new IllegalArgumentException("Discipline must not be lower than " + CONSTANTS_MIN + " but was " + disz + ".");
+            throw new IllegalArgumentException(
+                    "Discipline must not be lower than " + CONSTANTS_MIN + " but was " + disz + ".");
         }
         discipline = disz;
     }

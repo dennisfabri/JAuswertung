@@ -25,12 +25,12 @@ import de.df.jutils.gui.util.AIconBundle;
  */
 public final class IconManager {
 
-    static ResourceBundle            names;
+    static ResourceBundle names;
 
-    private static AIconBundle       icons;
+    private static AIconBundle icons;
 
-    private static ImageIcon         logo;
-    private static ImageIcon[]       titles;
+    private static ImageIcon logo;
+    private static ImageIcon[] titles;
     private static LinkedList<Image> iconimages;
 
     static {
@@ -87,7 +87,8 @@ public final class IconManager {
         if (titles != null) {
             return titles;
         }
-        titles = new ImageIcon[] { getImageIcon("jauswertung-16"), getImageIcon("jauswertung-32"), getImageIcon("jauswertung-48"),
+        titles = new ImageIcon[] { getImageIcon("jauswertung-16"), getImageIcon("jauswertung-32"),
+                getImageIcon("jauswertung-48"),
                 getImageIcon("jauswertung-128"), getImageIcon("jauswertung-256") };
         return titles;
     }
@@ -156,7 +157,7 @@ public final class IconManager {
             if (id == null) {
                 throw new NullPointerException();
             }
-            Path filename = Path.of("images", ""+size + "x" + size,id);
+            Path filename = Path.of("images", "" + size + "x" + size, id);
             return new ImageIcon(filename.toString());
         }
     }

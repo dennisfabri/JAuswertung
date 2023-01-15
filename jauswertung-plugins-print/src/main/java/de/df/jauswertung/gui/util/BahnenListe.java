@@ -27,10 +27,11 @@ import de.df.jutils.util.StringTools;
 
 public class BahnenListe<T extends ASchwimmer> {
 
-    private final Laufliste<T>  daten;
+    private final Laufliste<T> daten;
     private final AWettkampf<T> wk;
 
-    private final String[]      titel = { I18n.get("Heat"), I18n.get("Name"), I18n.get("Organisation"), I18n.get("Discipline"), I18n.get("AgeGroup"),
+    private final String[] titel = { I18n.get("Heat"), I18n.get("Name"), I18n.get("Organisation"),
+            I18n.get("Discipline"), I18n.get("AgeGroup"),
             "        " + I18n.get("Time") + "        " };
 
     /** Creates new BahnenListe */
@@ -77,7 +78,8 @@ public class BahnenListe<T extends ASchwimmer> {
                         if (s.getName().equals(s.getGliederung())) {
                             name = StringTools.shorten(m.getStarterShort(lauf.getDisznummer(x), ", "), 30, "...");
                         } else {
-                            // name = I18n.get("TeamnameMultiline", s.getName(), m.getStarterShort(lauf.getDisznummer(x), ", "));
+                            // name = I18n.get("TeamnameMultiline", s.getName(),
+                            // m.getStarterShort(lauf.getDisznummer(x), ", "));
                             name = s.getName();
                         }
                     } else {
@@ -110,7 +112,8 @@ public class BahnenListe<T extends ASchwimmer> {
 
     public JTable toJTable(int bahn) {
         JTable table = new JTable(getTableModel(bahn));
-        JTableUtils.setTableCellRenderer(table, new AlignmentCellRenderer(new int[] { SwingConstants.CENTER }, SwingConstants.LEFT));
+        JTableUtils.setTableCellRenderer(table,
+                new AlignmentCellRenderer(new int[] { SwingConstants.CENTER }, SwingConstants.LEFT));
 
         if (PrintUtils.printOmitOrganisationForTeams && (wk instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 2);

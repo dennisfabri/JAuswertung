@@ -13,11 +13,11 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class BFinishedInputPlugin extends ANullPlugin {
 
-    private ButtonInfo[]  buttons;
+    private ButtonInfo[] buttons;
     private JStatusButton button;
-    private CorePlugin    core;
+    private CorePlugin core;
 
-    private JLabel        text = new JLabel();
+    private JLabel text = new JLabel();
 
     public BFinishedInputPlugin() {
         // Nothing to do
@@ -40,8 +40,9 @@ public class BFinishedInputPlugin extends ANullPlugin {
             Altersklasse ak = wk.getRegelwerk().getAk(lastcomplete[0]);
             int male = lastcomplete[1];
             int discipline = lastcomplete[2];
-            text.setText(I18n.get("LastComplete", ak.getName(), I18n.geschlechtToShortString(wk.getRegelwerk(), male == 1),
-                    ak.getDisziplin(discipline, male == 1).getName()));
+            text.setText(
+                    I18n.get("LastComplete", ak.getName(), I18n.geschlechtToShortString(wk.getRegelwerk(), male == 1),
+                            ak.getDisziplin(discipline, male == 1).getName()));
         } else {
             text.setText("");
         }

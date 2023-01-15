@@ -33,9 +33,9 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class ZieleinlaufkartenPrinter implements Printer {
 
-    IPluginManager    controller;
+    IPluginManager controller;
 
-    private JPanel    panel;
+    private JPanel panel;
     private JComboBox pages;
 
     public ZieleinlaufkartenPrinter(IPluginManager parent) {
@@ -44,7 +44,8 @@ class ZieleinlaufkartenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -64,6 +65,7 @@ class ZieleinlaufkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -73,6 +75,7 @@ class ZieleinlaufkartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -118,7 +121,8 @@ class ZieleinlaufkartenPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zieleinlaufkarten"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zieleinlaufkarten"),
+                    IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

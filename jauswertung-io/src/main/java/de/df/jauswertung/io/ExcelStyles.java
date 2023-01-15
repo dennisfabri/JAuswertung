@@ -19,8 +19,8 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 public class ExcelStyles {
 
     private Hashtable<String, HSSFCellStyle> styles;
-    private HSSFWorkbook                     wb;
-    private HSSFDataFormat                   dataformat;
+    private HSSFWorkbook wb;
+    private HSSFDataFormat dataformat;
 
     public ExcelStyles(HSSFWorkbook book) {
         wb = book;
@@ -32,7 +32,8 @@ public class ExcelStyles {
         return b ? 1 : 0;
     }
 
-    private HSSFCellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left, boolean colored, HorizontalAlignment align,
+    private HSSFCellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left,
+            boolean colored, HorizontalAlignment align,
             boolean wrap) {
         HSSFCellStyle cellStyle = wb.createCellStyle();
         if (colored) {
@@ -61,7 +62,8 @@ public class ExcelStyles {
         return cellStyle;
     }
 
-    public HSSFCellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored, String format, boolean grouping,
+    public HSSFCellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+            String format, boolean grouping,
             boolean wrap) {
         HorizontalAlignment a = HorizontalAlignment.LEFT;
         switch (align) {
@@ -81,7 +83,8 @@ public class ExcelStyles {
         return getStyle(top, right, bottom, left, colored, format, a, grouping, wrap);
     }
 
-    public HSSFCellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored, String format, HorizontalAlignment align,
+    public HSSFCellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+            String format, HorizontalAlignment align,
             boolean grouping, boolean wrap) {
         StringBuilder sb = new StringBuilder();
         sb.append(booleanToBit(top));
@@ -108,7 +111,8 @@ public class ExcelStyles {
             outerborder = BorderStyle.THIN;
         }
 
-        style = createCellStyle(top ? BorderStyle.THIN : innerborder, right ? BorderStyle.THIN : outerborder, bottom ? BorderStyle.THIN : innerborder,
+        style = createCellStyle(top ? BorderStyle.THIN : innerborder, right ? BorderStyle.THIN : outerborder,
+                bottom ? BorderStyle.THIN : innerborder,
                 left ? BorderStyle.THIN : outerborder, colored, align, wrap);
         if (format != null) {
             style.setDataFormat(dataformat.getFormat(format));

@@ -45,12 +45,12 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class MZWPlugin extends ANullPlugin {
 
-    private static final String ITEM_NEW   = I18n.get("New");
-    private static final String ITEM_EDIT  = I18n.get("Edit");
-    private static final String ITEM_SHOW  = I18n.get("Show");
+    private static final String ITEM_NEW = I18n.get("New");
+    private static final String ITEM_EDIT = I18n.get("Edit");
+    private static final String ITEM_SHOW = I18n.get("Show");
     private static final String ITEM_BLOCK = I18n.get("Lock");
-    private static final String ITEM_MENU  = I18n.get("ZWList");
-    private static final String MENU       = I18n.get("Prepare");
+    private static final String ITEM_MENU = I18n.get("ZWList");
+    private static final String MENU = I18n.get("Prepare");
     private static final String HLW_LIST_LOST;
     private static final String HLW_LIST_LOST_NOTE;
 
@@ -59,15 +59,15 @@ public class MZWPlugin extends ANullPlugin {
         HLW_LIST_LOST_NOTE = I18n.get("ZWListWillBeLostContinue.Note");
     }
 
-    CorePlugin          core    = null;
+    CorePlugin core = null;
 
-    private JMenuItem[] menu    = null;
-    JButton[]           buttons = null;
+    private JMenuItem[] menu = null;
+    JButton[] buttons = null;
 
-    private JMenuItem   neu     = null;
-    private JMenuItem   show    = null;
-    private JMenuItem   edit    = null;
-    JMenuItem           block   = null;
+    private JMenuItem neu = null;
+    private JMenuItem show = null;
+    private JMenuItem edit = null;
+    JMenuItem block = null;
 
     public MZWPlugin() {
         menu = getMenuItems();
@@ -162,7 +162,8 @@ public class MZWPlugin extends ANullPlugin {
             updateButtons();
             return;
         }
-        long bitmap = REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_NEW_TN | REASON_AKS_CHANGED | REASON_SWIMMER_CHANGED | REASON_SWIMMER_DELETED;
+        long bitmap = REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_NEW_TN | REASON_AKS_CHANGED
+                | REASON_SWIMMER_CHANGED | REASON_SWIMMER_DELETED;
         if ((due.getChangeReason() & bitmap) > 0) {
             updateButtons();
         }
@@ -219,7 +220,8 @@ public class MZWPlugin extends ANullPlugin {
             buttons[0].setToolTipText(I18n.getToolTip("EditZWList"));
         }
 
-        getController().sendDataUpdateEvent("ChangeProperties", UpdateEventConstants.REASON_PROPERTIES_CHANGED, MZWPlugin.this);
+        getController().sendDataUpdateEvent("ChangeProperties", UpdateEventConstants.REASON_PROPERTIES_CHANGED,
+                MZWPlugin.this);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -229,7 +231,9 @@ public class MZWPlugin extends ANullPlugin {
         if (!blocked) {
             sc = t -> editCallback(t);
         }
-        ModalFrameUtil.showAsModal(new JHlwlisteBearbeiten(getController().getWindow(), core.getWettkampf(), !blocked, sc), getController().getWindow());
+        ModalFrameUtil.showAsModal(
+                new JHlwlisteBearbeiten(getController().getWindow(), core.getWettkampf(), !blocked, sc),
+                getController().getWindow());
     }
 
     @SuppressWarnings("rawtypes")
@@ -256,16 +260,19 @@ public class MZWPlugin extends ANullPlugin {
 
     void editCallback(JHlwlisteBearbeiten<ASchwimmer> t) {
         if (t.isChanged()) {
-            getController().sendDataUpdateEvent("ChangeZW", UpdateEventConstants.REASON_ZW_LIST_CHANGED, MZWPlugin.this);
+            getController().sendDataUpdateEvent("ChangeZW", UpdateEventConstants.REASON_ZW_LIST_CHANGED,
+                    MZWPlugin.this);
         }
     }
 
-    private static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk) {
+    private static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature,
+            AWettkampf<T> wk) {
         wk.getHLWListe().erzeugen(null);
         controller.sendDataUpdateEvent("NewZWList", UpdateEventConstants.REASON_ZW_LIST_CHANGED, feature);
     }
 
-    private static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature, AWettkampf<T> wk, HLWListe.Einteilung[] aufteilung) {
+    private static <T extends ASchwimmer> void erzeugeHlwliste(IPluginManager controller, IFeature feature,
+            AWettkampf<T> wk, HLWListe.Einteilung[] aufteilung) {
         wk.getHLWListe().erzeugen(aufteilung);
         controller.sendDataUpdateEvent("NewZWList", UpdateEventConstants.REASON_ZW_LIST_CHANGED, feature);
     }

@@ -23,9 +23,9 @@ class AKsGeneralPanel extends JPanel {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 3257288011191498036L;
-    private JWarningTextField description      = null;
+    private JWarningTextField description = null;
 
-    JAKsEditor                options          = null;
+    JAKsEditor options = null;
 
     public AKsGeneralPanel(JAKsEditor jod) {
         initFormeln();

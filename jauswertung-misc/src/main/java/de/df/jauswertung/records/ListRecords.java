@@ -12,15 +12,22 @@ import de.df.jauswertung.util.SearchUtils;
 
 public class ListRecords {
 
-    public static String[] FILES     = { "dm1999", "dm2000", "dm2001", "dm2002", "dm2003", "dm2004", "dm2005", "dm2006", "dm2007", "dm2008", "dm2009", "dm2010",
+    public static String[] FILES = { "dm1999", "dm2000", "dm2001", "dm2002", "dm2003", "dm2004", "dm2005", "dm2006",
+            "dm2007", "dm2008", "dm2009", "dm2010",
             "dm2011", "dsm2011" };
-    public static String[] LOCATIONS = { "Bad Nauheim", "Halle/Saale", "Itzehoe", "Uelzen", "Braunschweig", "Paderborn", "Wetzlar", "Wuppertal", "Duisburg",
+    public static String[] LOCATIONS = { "Bad Nauheim", "Halle/Saale", "Itzehoe", "Uelzen", "Braunschweig", "Paderborn",
+            "Wetzlar", "Wuppertal", "Duisburg",
             "Paderborn", "Itzehoe", "Heidenheim", "Bremen", "Geislingen" };
-    public static Date[][] DATES     = { { getDate(1999, 10, 9), getDate(1999, 10, 8) }, { getDate(2000, 10, 28), getDate(2000, 10, 28) },
-            { getDate(2001, 10, 27), getDate(2001, 10, 26) }, { getDate(2002, 10, 4), getDate(2002, 10, 5) }, { getDate(2003, 10, 3), getDate(2003, 10, 4) },
-            { getDate(2004, 10, 23), getDate(2004, 10, 22) }, { getDate(2005, 10, 22), getDate(2005, 10, 22) }, { getDate(2006, 10, 7), getDate(2006, 10, 6) },
-            { getDate(2007, 9, 23), getDate(2007, 9, 22) }, { getDate(2008, 10, 4), getDate(2008, 10, 3) }, { getDate(2009, 10, 4), getDate(2009, 10, 3) },
-            { getDate(2010, 10, 4), getDate(2010, 10, 3) }, { getDate(2011, 10, 22), getDate(2010, 10, 21) }, { getDate(2011, 3, 11), getDate(2011, 3, 12) } };
+    public static Date[][] DATES = { { getDate(1999, 10, 9), getDate(1999, 10, 8) },
+            { getDate(2000, 10, 28), getDate(2000, 10, 28) },
+            { getDate(2001, 10, 27), getDate(2001, 10, 26) }, { getDate(2002, 10, 4), getDate(2002, 10, 5) },
+            { getDate(2003, 10, 3), getDate(2003, 10, 4) },
+            { getDate(2004, 10, 23), getDate(2004, 10, 22) }, { getDate(2005, 10, 22), getDate(2005, 10, 22) },
+            { getDate(2006, 10, 7), getDate(2006, 10, 6) },
+            { getDate(2007, 9, 23), getDate(2007, 9, 22) }, { getDate(2008, 10, 4), getDate(2008, 10, 3) },
+            { getDate(2009, 10, 4), getDate(2009, 10, 3) },
+            { getDate(2010, 10, 4), getDate(2010, 10, 3) }, { getDate(2011, 10, 22), getDate(2010, 10, 21) },
+            { getDate(2011, 3, 11), getDate(2011, 3, 12) } };
 
     @SuppressWarnings("deprecation")
     private static Date getDate(int y, int m, int d) {
@@ -34,7 +41,8 @@ public class ListRecords {
         RecordsDB records = new RecordsDB();
         for (int x = 0; x < FILES.length; x++) {
             for (int y = 0; y < 2; y++) {
-                listRecords(records, "src/test/resources/competitions/results/" + FILES[x] + "-" + (y == 1 ? "einzel" : "mannschaft") + ".wk", DATES[x][y], LOCATIONS[x]);
+                listRecords(records, "src/test/resources/competitions/results/" + FILES[x] + "-"
+                        + (y == 1 ? "einzel" : "mannschaft") + ".wk", DATES[x][y], LOCATIONS[x]);
             }
         }
         System.out.println("");
@@ -120,8 +128,10 @@ public class ListRecords {
                                         second = best.getName();
                                     }
                                     int id = records.getNextRecordId();
-                                    Record r = new Record(id, date, time, records.getDisciplineId(ak.getDisziplin(y, i == 1).getName()),
-                                            records.getAgegroupId(ak.getName()), i == 1, records.getCompetitorId(first, second, i == 1));
+                                    Record r = new Record(id, date, time,
+                                            records.getDisciplineId(ak.getDisziplin(y, i == 1).getName()),
+                                            records.getAgegroupId(ak.getName()), i == 1,
+                                            records.getCompetitorId(first, second, i == 1));
                                     if (records.isRecord(r)) {
                                         // System.out.print("+");
                                         printRecord(id, best, y, date, location, records);
@@ -132,7 +142,8 @@ public class ListRecords {
                                         // location, records);
                                     }
                                 } else {
-                                    System.out.println("No result found for " + ak.getName() + " " + (i == 1 ? "male" : "female") + " in "
+                                    System.out.println("No result found for " + ak.getName() + " "
+                                            + (i == 1 ? "male" : "female") + " in "
                                             + ak.getDisziplin(y, i == 1).getName());
                                 }
                             }
@@ -145,12 +156,14 @@ public class ListRecords {
         }
     }
 
-    private static void printRecord(int recordId, ASchwimmer s, int discipline, Date date, String location, RecordsDB records) {
+    private static void printRecord(int recordId, ASchwimmer s, int discipline, Date date, String location,
+            RecordsDB records) {
         int clubId;
         {
             int id = records.getClubId(s.getGliederung());
             if (id <= 0) {
-                System.out.println("  insert into club values (\"" + 0 + "\", \"" + s.getGliederung() + "\", \"1\"); -- Club for " + s.getName());
+                System.out.println("  insert into club values (\"" + 0 + "\", \"" + s.getGliederung()
+                        + "\", \"1\"); -- Club for " + s.getName());
                 Club c = new Club(10000, s.getGliederung());
                 records.addClub(c);
             }
@@ -182,7 +195,8 @@ public class ListRecords {
                 compId = records.getNextCompetitorId();
                 System.out.println(
                         "  INSERT INTO `competitor`(`ID_Comp`, `team`, `Familyname`, `Surname`, `Birth`, `Gender`, `nation_id`, `federation_id`, `club_id`) "
-                                + "\n                   VALUES (" + compId + ", " + (team ? "'1'" : "'0'") + ",'" + second + "','" + first + "',NULL,'" + gender
+                                + "\n                   VALUES (" + compId + ", " + (team ? "'1'" : "'0'") + ",'"
+                                + second + "','" + first + "',NULL,'" + gender
                                 + "',12,1," + clubId + ");");
                 Competitor c = new Competitor(compId, first, second, 1, s instanceof Mannschaft, s.isMaennlich());
                 records.addCompetitor(c);
@@ -213,7 +227,8 @@ public class ListRecords {
 
         String query = "INSERT INTO `record`(`ID_Rec`, `recordtime`, `event_id`, `recorddate`, `venue_id`, `ID_Comp`, `age_group`, `gender`, `worldRecord`, `euroRecord`, `asiaRecord`, `africaRecord`, `americanRecord`)";
         query += " VALUES\n      ";
-        query += "(" + recordId + "," + zeit + "," + eventId + ",'" + rdate + "'," + venueId + "," + compId + "," + agegroupId + ",'"
+        query += "(" + recordId + "," + zeit + "," + eventId + ",'" + rdate + "'," + venueId + "," + compId + ","
+                + agegroupId + ",'"
                 + (s.isMaennlich() ? 'm' : 'f') + "','1','0','0','0','0');";
         if (true)
             System.out.println(query);

@@ -264,7 +264,7 @@ public final class ZWStartkartenPrintable<T extends ASchwimmer> extends ACompone
         JPanel panel = new JSpecialPanel(layout);
 
         panel.add(new JLabel(String.format(" %s ", I18n.get("yes"))), CC.xy(2, 2, "center,center"));
-        panel.add(new JLabel(String.format(" %s ",I18n.get("no"))), CC.xy(6, 2, "center,center"));
+        panel.add(new JLabel(String.format(" %s ", I18n.get("no"))), CC.xy(6, 2, "center,center"));
 
         panel.add(yes, CC.xy(2, 4));
         panel.add(new JRotatingLabel(I18n.get("Question.Short.Passed")), CC.xy(4, 4, "center,center"));

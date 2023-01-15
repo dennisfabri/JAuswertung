@@ -89,8 +89,7 @@ public final class BugReportViewer {
     }
 
     /**
-     * @param args
-     *            the command line arguments
+     * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
@@ -124,7 +123,8 @@ public final class BugReportViewer {
                     analysiere(br.getDaten(), pw);
                     pw.close();
                 } catch (Exception e) {
-                    DialogUtils.showException(null, null, I18n.get("AnExceptionOcurred"), I18n.get("AnExceptionOcurred.Note"), e);
+                    DialogUtils.showException(null, null, I18n.get("AnExceptionOcurred"),
+                            I18n.get("AnExceptionOcurred.Note"), e);
                     e.printStackTrace();
                 }
             } else {

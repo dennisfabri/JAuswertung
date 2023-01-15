@@ -41,10 +41,10 @@ import de.df.jutils.util.StringTools;
 
 class SiegerlistePrinter implements Printer {
 
-    private JButton              resultpreview;
-    private JButton              resultprint;
-    JComboBox<String>            resultmodus;
-    private JPanel               panel;
+    private JButton resultpreview;
+    private JButton resultprint;
+    JComboBox<String> resultmodus;
+    private JPanel panel;
 
     final JVeranstaltungswertung parent;
 
@@ -70,8 +70,9 @@ class SiegerlistePrinter implements Printer {
         });
         resultmodus = new JComboBox<String>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
 
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
-                FormLayoutUtils.createLayoutString(1, 4, 0)));
+        panel = new JPanel(
+                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                        FormLayoutUtils.createLayoutString(1, 4, 0)));
 
         panel.add(new JLabel(I18n.get("Print.WertungNach")), CC.xy(2, 2));
         panel.add(resultmodus, CC.xy(4, 2));
@@ -110,7 +111,8 @@ class SiegerlistePrinter implements Printer {
                 data[z][1] = " " + schwimmer[z].getName() + " ";
                 data[z][2] = StringTools.punkteString(schwimmer[z].getPunkte(), false) + "  ";
             }
-            ExtendedTableModel etm = new ExtendedTableModel(data, new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Points") });
+            ExtendedTableModel etm = new ExtendedTableModel(data,
+                    new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Points") });
             etm.setColumnAlignments(new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.RIGHT });
             JComponent parts = getResults(etm);
 
@@ -206,7 +208,8 @@ class SiegerlistePrinter implements Printer {
         JLabel title = new JLabel(etm.getName());
         title.setFont(PrintManager.getFont());
 
-        FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), "0dlu,fill:default,1dlu,fill:default,2dlu");
+        FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                "0dlu,fill:default,1dlu,fill:default,2dlu");
         JComponent c = new JPanel(layout);
         c.setBackground(Color.WHITE);
         c.setForeground(Color.BLACK);
@@ -221,7 +224,8 @@ class SiegerlistePrinter implements Printer {
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        return getPrintable(vs, Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen), title, getSelectedFont());
+        return getPrintable(vs, Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen), title,
+                getSelectedFont());
     }
 
     @SuppressWarnings("rawtypes")
@@ -271,7 +275,8 @@ class SiegerlistePrinter implements Printer {
         parent.setEnabled(false);
         PrintableCreator pc = new SiegerlistePrintableCreator();
         parent.setEnabled(true);
-        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     Font getSelectedFont() {
@@ -285,10 +290,10 @@ class SiegerlistePrinter implements Printer {
     private final class SiegerlistePrintableCreator implements PrintableCreator {
 
         @SuppressWarnings("rawtypes")
-        private final AWettkampf    wk;
+        private final AWettkampf wk;
         private final Veranstaltung vs;
-        private final String        t;
-        private final Font          f;
+        private final String t;
+        private final Font f;
 
         public SiegerlistePrintableCreator() {
             long start = System.currentTimeMillis();

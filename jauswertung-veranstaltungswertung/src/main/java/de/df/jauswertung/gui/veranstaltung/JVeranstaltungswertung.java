@@ -38,28 +38,28 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JVeranstaltungswertung extends JGlassFrame {
 
-    private String                       filename     = null;
-    boolean                              modified     = false;
+    private String filename = null;
+    boolean modified = false;
 
-    private SimpleFileFilter             ff           = new SimpleFileFilter(I18n.get("Veranstaltung"), "vs");
+    private SimpleFileFilter ff = new SimpleFileFilter(I18n.get("Veranstaltung"), "vs");
 
-    CardLayout                           cards        = new CardLayout();
-    JPanel                               panels       = new JPanel();
+    CardLayout cards = new CardLayout();
+    JPanel panels = new JPanel();
 
-    private JMenuBar                     menu;
-    private JMenu                        file;
-    private JMenuItem                    neu;
-    private JMenuItem                    open;
-    private JMenuItem                    save;
-    private JMenuItem                    saveas;
-    private JMenuItem                    quit;
+    private JMenuBar menu;
+    private JMenu file;
+    private JMenuItem neu;
+    private JMenuItem open;
+    private JMenuItem save;
+    private JMenuItem saveas;
+    private JMenuItem quit;
 
-    private Veranstaltung                vs;
+    private Veranstaltung vs;
 
-    private JCompetitionCollector        competitions = new JCompetitionCollector(this);
-    private JVeranstaltungseinstellungen properties   = new JVeranstaltungseinstellungen(this);
-    private JVeranstaltungsausgabe       output       = new JVeranstaltungsausgabe(this);
-    private JVeranstaltungsschriftart    font         = new JVeranstaltungsschriftart(this);
+    private JCompetitionCollector competitions = new JCompetitionCollector(this);
+    private JVeranstaltungseinstellungen properties = new JVeranstaltungseinstellungen(this);
+    private JVeranstaltungsausgabe output = new JVeranstaltungsausgabe(this);
+    private JVeranstaltungsschriftart font = new JVeranstaltungsschriftart(this);
 
     public JVeranstaltungswertung() {
         super(I18n.get("Veranstaltungswertung"));
@@ -208,7 +208,8 @@ class JVeranstaltungswertung extends JGlassFrame {
             updateUI();
             modified = false;
         } else {
-            DialogUtils.error(this, I18n.get("OpenFailed"), I18n.get("OpenFailedText", this.filename), I18n.get("OpenFailedText.Note", this.filename));
+            DialogUtils.error(this, I18n.get("OpenFailed"), I18n.get("OpenFailedText", this.filename),
+                    I18n.get("OpenFailedText.Note", this.filename));
         }
     }
 
@@ -239,7 +240,8 @@ class JVeranstaltungswertung extends JGlassFrame {
         updateVeranstaltung();
         boolean result = OutputManager.speichereObject(name, vs);
         if (!result) {
-            DialogUtils.error(this, I18n.get("SaveFailed"), I18n.get("SaveFailedText", filename), I18n.get("SaveFailed.Note", filename));
+            DialogUtils.error(this, I18n.get("SaveFailed"), I18n.get("SaveFailedText", filename),
+                    I18n.get("SaveFailed.Note", filename));
         } else {
             filename = name;
             modified = false;

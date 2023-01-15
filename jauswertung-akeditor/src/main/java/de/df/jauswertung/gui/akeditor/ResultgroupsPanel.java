@@ -38,16 +38,16 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class ResultgroupsPanel extends JPanel {
 
-    private ModifiableListModel<Wertungsgruppe> model    = new ModifiableListModel<Wertungsgruppe>();
-    private JList<Wertungsgruppe>               liste    = new JList<Wertungsgruppe>(model);
+    private ModifiableListModel<Wertungsgruppe> model = new ModifiableListModel<Wertungsgruppe>();
+    private JList<Wertungsgruppe> liste = new JList<Wertungsgruppe>(model);
 
-    private JAKsEditor                          parent;
+    private JAKsEditor parent;
 
-    private JButton                             add      = new JTransparentButton(IconManager.getSmallIcon("new"));
-    private JButton                             edit     = new JTransparentButton(IconManager.getSmallIcon("edit"));
-    private JButton                             delete   = new JTransparentButton(IconManager.getSmallIcon("delete"));
+    private JButton add = new JTransparentButton(IconManager.getSmallIcon("new"));
+    private JButton edit = new JTransparentButton(IconManager.getSmallIcon("edit"));
+    private JButton delete = new JTransparentButton(IconManager.getSmallIcon("delete"));
 
-    private boolean                             updating = false;
+    private boolean updating = false;
 
     public ResultgroupsPanel(JAKsEditor editor) {
         parent = editor;
@@ -91,15 +91,15 @@ public class ResultgroupsPanel extends JPanel {
 
     private class Editor extends JDialog {
 
-        private Wertungsgruppe    result        = null;
+        private Wertungsgruppe result = null;
 
-        private JCheckBox         disziplin     = new JCheckBox();
-        private JCheckBox         mehrkampf     = new JCheckBox();
-        private JCheckBox         requiresZW    = new JCheckBox();
-        private JCheckBox         penaltyIsDisq = new JCheckBox();
-        private JWarningTextField text          = new JWarningTextField(true, false);
-        private JButton           ok            = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        private JButton           cancel        = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
+        private JCheckBox disziplin = new JCheckBox();
+        private JCheckBox mehrkampf = new JCheckBox();
+        private JCheckBox requiresZW = new JCheckBox();
+        private JCheckBox penaltyIsDisq = new JCheckBox();
+        private JWarningTextField text = new JWarningTextField(true, false);
+        private JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
+        private JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
 
         public Editor(JFrame parent, Wertungsgruppe initial) {
             super(parent, I18n.get("Resultgroup"), true);
@@ -122,10 +122,12 @@ public class ResultgroupsPanel extends JPanel {
 
             text.setColumns(24);
 
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(6));
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    FormLayoutUtils.createLayoutString(6));
             setLayout(layout);
 
-            JPanel p = new JPanel(new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
+            JPanel p = new JPanel(
+                    new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
             p.add(ok, CC.xy(2, 2));
             p.add(cancel, CC.xy(4, 2));
 

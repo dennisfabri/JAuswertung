@@ -72,51 +72,51 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long                        serialVersionUID    = 4049357534697435955L;
+    private static final long serialVersionUID = 4049357534697435955L;
 
-    private static final JWarningTextField.Validator validator50         = new Length50Validator();
+    private static final JWarningTextField.Validator validator50 = new Length50Validator();
 
-    private JIntegerField                            jahrgang            = new JIntegerField(false, true);
+    private JIntegerField jahrgang = new JIntegerField(false, true);
 
-    private JIntegerField                            startnummer         = new JIntegerField(true, true);
+    private JIntegerField startnummer = new JIntegerField(true, true);
 
-    private JWarningTextField                        name                = new JWarningTextField(true, true);
-    private JWarningTextField                        vorname             = new JWarningTextField(true, true);
-    private JWarningTextField                        qualifikationsebene = new JWarningTextField(false, false);
-    private JComboBox<String>                        quali               = new JComboBox<>(new String[] {
+    private JWarningTextField name = new JWarningTextField(true, true);
+    private JWarningTextField vorname = new JWarningTextField(true, true);
+    private JWarningTextField qualifikationsebene = new JWarningTextField(false, false);
+    private JComboBox<String> quali = new JComboBox<>(new String[] {
             I18n.get("Quali.Open"), I18n.get("Quali.NotQualified"), I18n.get("Quali.Qualified"),
             I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker") });
-    private JDoubleField[]                           melde1              = new JDoubleField[] {
+    private JDoubleField[] melde1 = new JDoubleField[] {
             new JDoubleField(), new JDoubleField() };
-    private JCheckBox[]                              protokoll1          = new JCheckBox[] {
+    private JCheckBox[] protokoll1 = new JCheckBox[] {
             new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "A")),
             new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "B")) };
-    private JWarningTextField                        bemerkung           = new JWarningTextField(false, false);
-    private JComboBox<String>                        geschlecht;
+    private JWarningTextField bemerkung = new JWarningTextField(false, false);
+    private JComboBox<String> geschlecht;
 
-    private JPanel                                   members             = new JPanel();
-    private JWarningTextField[]                      membersFirstname    = new JWarningTextField[0];
-    private JWarningTextField[]                      membersSurname      = new JWarningTextField[0];
+    private JPanel members = new JPanel();
+    private JWarningTextField[] membersFirstname = new JWarningTextField[0];
+    private JWarningTextField[] membersSurname = new JWarningTextField[0];
     @SuppressWarnings({ "unchecked", "cast" })
-    private JComboBox<String>[]                      membersSex          = (JComboBox<String>[]) new JComboBox[0];
-    private JIntegerField[]                          membersYearOfBirth  = new JIntegerField[0];
+    private JComboBox<String>[] membersSex = (JComboBox<String>[]) new JComboBox[0];
+    private JIntegerField[] membersYearOfBirth = new JIntegerField[0];
 
-    private JWarningTextField                        gliederung          = new JWarningTextField(true, true);
-    private DisciplinesPanel<T>                      disciplinePanel     = null;
-    private JTaskPaneGroup                           disciplineContainer = null;
-    private JCheckBox                                ausserkonkurrenz    = new JCheckBox(I18n.get("AusserKonkurrenz"));
-    private JComboBox<String>                        ak                  = new JComboBox<>();
+    private JWarningTextField gliederung = new JWarningTextField(true, true);
+    private DisciplinesPanel<T> disciplinePanel = null;
+    private JTaskPaneGroup disciplineContainer = null;
+    private JCheckBox ausserkonkurrenz = new JCheckBox(I18n.get("AusserKonkurrenz"));
+    private JComboBox<String> ak = new JComboBox<>();
 
-    private JCheckBox                                startpass           = new JCheckBox(
+    private JCheckBox startpass = new JCheckBox(
             I18n.get("Startunterlagenkontrolle"));
 
-    private AWettkampf<T>                            wk                  = null;
-    private T                                        schwimmer           = null;
+    private AWettkampf<T> wk = null;
+    private T schwimmer = null;
 
-    private Window                                   parent              = null;
-    private CorePlugin                               core                = null;
+    private Window parent = null;
+    private CorePlugin core = null;
 
-    private boolean                                  changed             = false;
+    private boolean changed = false;
 
     public JSchwimmerEditieren(T swimmer, AWettkampf<T> wettkampf, JFrame parent, boolean delete, CorePlugin core) {
         super(parent, true);

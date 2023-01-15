@@ -20,14 +20,14 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
 class AKsSexesPanel extends JPanel {
 
     private JWarningTextField sex1NameSubject = null;
-    private JWarningTextField sex1Name        = null;
-    private JWarningTextField sex1Short       = null;
+    private JWarningTextField sex1Name = null;
+    private JWarningTextField sex1Short = null;
 
     private JWarningTextField sex2NameSubject = null;
-    private JWarningTextField sex2Name        = null;
-    private JWarningTextField sex2Short       = null;
+    private JWarningTextField sex2Name = null;
+    private JWarningTextField sex2Short = null;
 
-    JAKsEditor                options         = null;
+    JAKsEditor options = null;
 
     public AKsSexesPanel(JAKsEditor jod) {
         initFormeln();

@@ -39,42 +39,46 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
 
 public class JInfoPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID     = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin        core;
+    private CorePlugin core;
 
-    private JPanel            panel;
+    private JPanel panel;
 
-    private JLabel[]          infos;
-    private boolean[]         state;
-    private Object[]          text;
+    private JLabel[] infos;
+    private boolean[] state;
+    private Object[] text;
 
-    private static final int  INPUT_COMPLETE_TIMES = 0;
-    private static final int  INPUT_HIGH_TIMES     = 1;
-    private static final int  INPUT_LOW_TIMES      = 2;
-    private static final int  INPUT_HLW_COMPLETE   = 3;
-    private static final int  INPUT_HLW_VALUES     = 4;
-    private static final int  LISTS_HEATS_ALL      = 5;
-    private static final int  LISTS_HEATS_MIXED    = 6;
-    private static final int  LISTS_HLW_ALL        = 7;
-    private static final int  OPT_YEAR_OF_BIRTH    = 8;
-    private static final int  OPT_TEAMMEMBERS      = 9;
-    private static final int  REG_NAMES            = 10;
-    private static final int  REG_DISCIPLINES      = 11;
-    private static final int  REG_STARTPASS        = 12;
-    private static final int  REF_INPUT_COMPLETE   = 13;
-    private static final int  REF_AMOUNT           = 14;
-    private static final int  REF_INPUT_LEVEL      = 15;
-    private static final int  ZRENTSCHEID          = 16;
+    private static final int INPUT_COMPLETE_TIMES = 0;
+    private static final int INPUT_HIGH_TIMES = 1;
+    private static final int INPUT_LOW_TIMES = 2;
+    private static final int INPUT_HLW_COMPLETE = 3;
+    private static final int INPUT_HLW_VALUES = 4;
+    private static final int LISTS_HEATS_ALL = 5;
+    private static final int LISTS_HEATS_MIXED = 6;
+    private static final int LISTS_HLW_ALL = 7;
+    private static final int OPT_YEAR_OF_BIRTH = 8;
+    private static final int OPT_TEAMMEMBERS = 9;
+    private static final int REG_NAMES = 10;
+    private static final int REG_DISCIPLINES = 11;
+    private static final int REG_STARTPASS = 12;
+    private static final int REF_INPUT_COMPLETE = 13;
+    private static final int REF_AMOUNT = 14;
+    private static final int REF_INPUT_LEVEL = 15;
+    private static final int ZRENTSCHEID = 16;
 
-    private static final int  AMOUNT               = 17;
+    private static final int AMOUNT = 17;
 
-    private static boolean[]  IS_ERROR             = new boolean[] { true, false, false, true, false, false, false, false, false, false, true, true, false,
+    private static boolean[] IS_ERROR = new boolean[] { true, false, false, true, false, false, false, false, false,
+            false, true, true, false,
             true, true, false, true };
 
-    private static String[]   I18N                 = new String[] { "ChecksTimes", "ChecksHighTimes", "ChecksLowTimes", "ChecksZWComplete", "ChecksZWValues",
-            "ChecksHeatsComplete", "ChecksMixedHeats", "ChecksZWList", "ChecksYearOfBirth", "ChecksTeamMembers", "ChecksNames", "ChecksDisciplines",
-            "ChecksStartunterlagen", "ChecksRefereesComplete", "ChecksRefereesAmount", "ChecksRefereesLevel", "ChecksZielrichterentscheide" };
+    private static String[] I18N = new String[] { "ChecksTimes", "ChecksHighTimes", "ChecksLowTimes",
+            "ChecksZWComplete", "ChecksZWValues",
+            "ChecksHeatsComplete", "ChecksMixedHeats", "ChecksZWList", "ChecksYearOfBirth", "ChecksTeamMembers",
+            "ChecksNames", "ChecksDisciplines",
+            "ChecksStartunterlagen", "ChecksRefereesComplete", "ChecksRefereesAmount", "ChecksRefereesLevel",
+            "ChecksZielrichterentscheide" };
 
     public JInfoPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -473,10 +477,13 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
         }
     }
 
-    private static final String[] REFEREES        = new String[] { "Veranstaltungsleiter", "Veranstaltungssprecher", "Protokollführer", "Leiter",
-            "Schiedsrichter", "Wettkampfleiter", "Starter", "Auswerter", "Zeitnehmerobmann", "Zeitnehmer", "Wenderichter", "Schwimmrichter", "Zielrichter" };
+    private static final String[] REFEREES = new String[] { "Veranstaltungsleiter", "Veranstaltungssprecher",
+            "Protokollführer", "Leiter",
+            "Schiedsrichter", "Wettkampfleiter", "Starter", "Auswerter", "Zeitnehmerobmann", "Zeitnehmer",
+            "Wenderichter", "Schwimmrichter", "Zielrichter" };
 
-    public static final int[][]   REFEREES_AMOUNT = new int[][] { { 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 0, 0, 1 }, { 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, -1, 2, 3 },
+    public static final int[][] REFEREES_AMOUNT = new int[][] { { 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 0, 0, 1 },
+            { 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, -1, 2, 3 },
             { 1, 1, 1, 1, 2, -1, 1, 1, 1, -1, -1, -1, 3 } };
 
     private static Icon getIcon(boolean isError, boolean state) {

@@ -25,7 +25,7 @@ public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<
     public String getDescription() {
         return "Diese Formel entspricht den Regelwerken der DLRG seit 2007 mit einer Erweiterung für Finals";
     }
-    
+
     public static final String ID = "DLRG2007Finals";
 
     @Override
@@ -35,6 +35,7 @@ public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.daten.regelwerk.Formel#getResult(double, double,
      * double)
      */
@@ -67,5 +68,5 @@ public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<
             ergebnis = 0.0;
         }
         return ergebnis;
-    }    
+    }
 }

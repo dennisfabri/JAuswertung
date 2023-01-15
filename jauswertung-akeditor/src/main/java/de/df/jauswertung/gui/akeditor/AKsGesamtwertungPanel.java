@@ -31,26 +31,26 @@ class AKsGesamtwertungPanel extends JPanel {
      */
     private static final long serialVersionUID = 3257288011191498036L;
 
-    JCheckBox                 groupEvaluation;
-    JCheckBox                 allAGs;
-    JRadioButton              allTeams;
-    JRadioButton              bestTeam;
-    JRadioButton              best4Teams;
-    JRadioButton              bestTeamWithoutBlocking;
-    JRadioButton              bestPerDiscipline;
-    JRadioButton              internationalPerDiscipline;
-    JLabelSeparator           labelSeparator;
+    JCheckBox groupEvaluation;
+    JCheckBox allAGs;
+    JRadioButton allTeams;
+    JRadioButton bestTeam;
+    JRadioButton best4Teams;
+    JRadioButton bestTeamWithoutBlocking;
+    JRadioButton bestPerDiscipline;
+    JRadioButton internationalPerDiscipline;
+    JLabelSeparator labelSeparator;
 
-    JLabelSeparator           punkteanpassung;
-    JRadioButton              noscale;
-    JRadioButton              scalePoints;
-    JRadioButton              internationalScale;
-    JRadioButton              medaillen;
+    JLabelSeparator punkteanpassung;
+    JRadioButton noscale;
+    JRadioButton scalePoints;
+    JRadioButton internationalScale;
+    JRadioButton medaillen;
 
-    private ButtonGroup       groupEvaluationModes;
-    private ButtonGroup       groupScale;
+    private ButtonGroup groupEvaluationModes;
+    private ButtonGroup groupScale;
 
-    JAKsEditor                parent           = null;
+    JAKsEditor parent = null;
 
     public AKsGesamtwertungPanel(JAKsEditor jod) {
         initFormeln();

@@ -34,13 +34,13 @@ class HttpOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
     }
 
     private JPanel panel;
-    JIntegerField  portField;
-    JCheckBox      defaultPort;
+    JIntegerField portField;
+    JCheckBox defaultPort;
 
-    JRadioButton   exportEverything;
-    JRadioButton   exportOnlyComplete;
-    JRadioButton   exportFiltered;
-    ButtonGroup    exportGroup;
+    JRadioButton exportEverything;
+    JRadioButton exportOnlyComplete;
+    JRadioButton exportFiltered;
+    ButtonGroup exportGroup;
 
     @Override
     public boolean isOk() {
@@ -96,7 +96,8 @@ class HttpOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
     @Override
     public JPanel[] getPanels() {
         if (panel == null) {
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu", FormLayoutUtils.createLayoutString(5));
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu",
+                    FormLayoutUtils.createLayoutString(5));
 
             panel = new JPanel(layout);
             panel.setName(I18n.get("HttpServer"));

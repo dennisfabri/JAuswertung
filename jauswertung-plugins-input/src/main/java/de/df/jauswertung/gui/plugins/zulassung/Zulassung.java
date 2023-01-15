@@ -105,23 +105,23 @@ public class Zulassung<T extends ASchwimmer> {
         }
     }
 
-    private LinkedList<T>[][]    direkt                                  = null;
-    private LinkedList<T>[][]    gesetzt                                 = null;
-    private LinkedList<T>[][]    punkte                                  = null;
-    private LinkedList<T>[][]    nichtzugelassen                         = null;
-    private LinkedList<T>[][]    gesperrt                                = null;
-    private LinkedList<T>[][]    nachruecker                             = null;
+    private LinkedList<T>[][] direkt = null;
+    private LinkedList<T>[][] gesetzt = null;
+    private LinkedList<T>[][] punkte = null;
+    private LinkedList<T>[][] nichtzugelassen = null;
+    private LinkedList<T>[][] gesperrt = null;
+    private LinkedList<T>[][] nachruecker = null;
 
-    private LinkedList<T>[][]    zugelassen                              = null;
+    private LinkedList<T>[][] zugelassen = null;
 
-    private final AWettkampf<T>  wk;
-    private final Regelwerk      aks;
+    private final AWettkampf<T> wk;
+    private final Regelwerk aks;
 
-    private int[][]              limits                                  = null;
-    private int[][]              direct                                  = null;
-    private int[][]              hopers                                  = null;
-    private boolean              preferProtocol                          = false;
-    private int                  meldeindex                              = 0;
+    private int[][] limits = null;
+    private int[][] direct = null;
+    private int[][] hopers = null;
+    private boolean preferProtocol = false;
+    private int meldeindex = 0;
 
     private static final boolean removeDisabledBeforeDirectQualification = false;
 
@@ -173,7 +173,8 @@ public class Zulassung<T extends ASchwimmer> {
     }
 
     @SuppressWarnings("unchecked")
-    public void calculate(int[][] _limits, int[][] _direct, int[][] _hopers, boolean _keep, boolean _preferProtocol, int _meldeindex) {
+    public void calculate(int[][] _limits, int[][] _direct, int[][] _hopers, boolean _keep, boolean _preferProtocol,
+            int _meldeindex) {
         this.limits = _limits;
         this.direct = _direct;
         this.preferProtocol = _preferProtocol;

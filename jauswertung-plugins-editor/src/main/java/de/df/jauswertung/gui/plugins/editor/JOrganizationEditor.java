@@ -38,14 +38,14 @@ class JOrganizationEditor extends JDialog {
      */
     private static final long serialVersionUID = 3256719580843227188L;
 
-    JWarningTextField         value            = null;
-    JButton                   ok               = null;
+    JWarningTextField value = null;
+    JButton ok = null;
 
-    final IPluginManager      controller;
-    final CorePlugin          core;
-    final String              gld;
+    final IPluginManager controller;
+    final CorePlugin core;
+    final String gld;
 
-    boolean                   changed          = false;
+    boolean changed = false;
 
     /**
      * This is the default constructor
@@ -95,7 +95,8 @@ class JOrganizationEditor extends JDialog {
                 for (ASchwimmer a : s) {
                     a.setGliederung(value.getText());
                 }
-                controller.sendDataUpdateEvent("ChangeOrganization", UpdateEventConstants.REASON_SWIMMER_CHANGED, null, null, null);
+                controller.sendDataUpdateEvent("ChangeOrganization", UpdateEventConstants.REASON_SWIMMER_CHANGED, null,
+                        null, null);
                 changed = true;
             } else {
                 changed = false;
@@ -143,7 +144,8 @@ class JOrganizationEditor extends JDialog {
         buttons.add(ok, CC.xy(2, 1));
         buttons.add(cancel, CC.xy(4, 1));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));

@@ -58,32 +58,32 @@ import de.df.jutils.util.StringTools;
 
 public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long     serialVersionUID = 1973322987330030590L;
+    private static final long serialVersionUID = 1973322987330030590L;
 
-    private CorePlugin            core;
-    private FEditorPlugin         editor;
-    private JMissingInputFrame    parent;
+    private CorePlugin core;
+    private FEditorPlugin editor;
+    private JMissingInputFrame parent;
 
-    ASchwimmer[][]                swimmers         = new ASchwimmer[0][0];
-    StatusDetail[][]              stati            = new StatusDetail[0][0];
+    ASchwimmer[][] swimmers = new ASchwimmer[0][0];
+    StatusDetail[][] stati = new StatusDetail[0][0];
 
     private JGlassPanel<JPanel>[] panels;
-    JIntegerField[][]             input;
-    private JTimeField[][]        time;
-    private JButton[][]           penalty;
-    private JLabel[][]            penaltytext;
-    private JLabel[][]            recs;
-    private JButton[][]           edit;
-    private JLabel[][]            signal;
-    private JLabel[][]            discipline;
+    JIntegerField[][] input;
+    private JTimeField[][] time;
+    private JButton[][] penalty;
+    private JLabel[][] penaltytext;
+    private JLabel[][] recs;
+    private JButton[][] edit;
+    private JLabel[][] signal;
+    private JLabel[][] discipline;
 
-    JList<String>                 disciplines;
-    JPanel                        container;
-    CardLayout                    layout;
+    JList<String> disciplines;
+    JPanel container;
+    CardLayout layout;
 
-    private JPanel                panel;
+    private JPanel panel;
 
-    private boolean               changed          = false;
+    private boolean changed = false;
 
     public JTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -124,7 +124,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
             @SuppressWarnings("rawtypes")
             @Override
-            public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3, boolean arg4) {
+            public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
+                    boolean arg4) {
                 Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
                 if (c instanceof JComponent) {
                     JComponent jc = (JComponent) c;
@@ -310,7 +311,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             JPanel p = panels[x].getComponent();
             FormLayout formlayout = new FormLayout(
                     "4dlu,right:default,4dlu,fill:default:grow," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
-                            + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
+                            + "4dlu,fill:default:grow,4dlu,fill:default,"
+                            + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
                             + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                     FormLayoutUtils.createLayoutString(swimmers[x].length + 1));
             p.setLayout(formlayout);
@@ -351,7 +353,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                     if (swimmers[x][y].getZeit(x) > 0) {
                         time[x][y].setTimeAsInt(swimmers[x][y].getZeit(x));
                     }
-                    penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x), swimmers[x][y].getAK()));
+                    penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x),
+                            swimmers[x][y].getAK()));
                     Disziplin disziplin = swimmers[x][y].getAK().getDisziplin(x, swimmers[x][y].isMaennlich());
                     recs[x][y].setText(StringTools.zeitString(disziplin.getRec()));
                     discipline[x][y].setText(disziplin.getName());
@@ -416,7 +419,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         changed = true;
         for (int x = 0; x < swimmers.length; x++) {
             for (int y = 0; y < swimmers[x].length; y++) {
-                penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x), swimmers[x][y].getAK()));
+                penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x),
+                        swimmers[x][y].getAK()));
             }
         }
     }
@@ -531,7 +535,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         private final int index;
         private final int disz;
 
-        private String    data = "";
+        private String data = "";
 
         public HighPointsListener(int x, int y) {
             this.disz = x;
@@ -547,7 +551,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                 return;
             }
             data = input[disz][index].getText();
-            if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JTimesInputPanel.this), swimmers[disz][index], disz)) {
+            if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JTimesInputPanel.this),
+                    swimmers[disz][index], disz)) {
                 input[disz][index].requestFocus();
             }
         }
@@ -584,7 +589,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
                 input[disziplin][index - 1].requestFocus();
             }
-            if ((index + 1 < input[disziplin].length) && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
+            if ((index + 1 < input[disziplin].length)
+                    && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
                 input[disziplin][index + 1].requestFocus();
             }
         }

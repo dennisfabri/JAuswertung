@@ -291,7 +291,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
 
                 OWDisziplin<T>[] owds = wk.getLauflisteOW().getDisziplinen();
                 owds = Arrays.asList(owds).stream().filter(y -> y.akNummer == akn && y.maennlich == male)
-                        .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100).toArray(OWDisziplin[]::new);
+                        .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100)
+                        .toArray(OWDisziplin[]::new);
                 for (OWDisziplin<T> owd : owds) {
                     int rounds = ak.getDisziplin(owd.disziplin, owd.maennlich).getRunden().length + 1;
                     boolean isFinal = owd.round + 1 == rounds;

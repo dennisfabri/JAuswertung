@@ -6,20 +6,24 @@ import de.df.jauswertung.daten.AWettkampf;
 
 final class BugReportExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private static final String[] IGNORE_CLASSES  = new String[] { "com.xduke.xswing", "javax.help.MergeHelpUtilities", "sun.awt.shell.Win32ShellFolder2" };
+    private static final String[] IGNORE_CLASSES = new String[] { "com.xduke.xswing", "javax.help.MergeHelpUtilities",
+            "sun.awt.shell.Win32ShellFolder2" };
 
     private static final String[] IGNORE_PACKAGES = new String[] { "com.sun.java.swing.plaf" };
 
-    private static final String[] IGNORE_METHODS  = new String[] { "shouldIgnore", "putClientProperty", "getLocationOnScreen_NoTreeLock" };
+    private static final String[] IGNORE_METHODS = new String[] { "shouldIgnore", "putClientProperty",
+            "getLocationOnScreen_NoTreeLock" };
 
-    private static final String[] IGNORE_MESSAGES = new String[] { "sun.awt.image.BufImgSurfaceData cannot be cast to sun.java2d.xr.XRSurfaceData",
-            "component must be showing on the screen to determine its location", "Substance delegate used when Substance is not the current LAF" };
+    private static final String[] IGNORE_MESSAGES = new String[] {
+            "sun.awt.image.BufImgSurfaceData cannot be cast to sun.java2d.xr.XRSurfaceData",
+            "component must be showing on the screen to determine its location",
+            "Substance delegate used when Substance is not the current LAF" };
 
     /**
      * 
      */
     private final BugreportPlugin bugreportPlugin;
-    private boolean               debug           = false;
+    private boolean debug = false;
 
     public BugReportExceptionHandler(BugreportPlugin bugreportPlugin, boolean debug) {
         this.bugreportPlugin = bugreportPlugin;

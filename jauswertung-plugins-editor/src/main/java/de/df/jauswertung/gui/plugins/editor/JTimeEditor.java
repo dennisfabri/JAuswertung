@@ -38,12 +38,12 @@ class JTimeEditor extends JDialog {
      */
     private static final long serialVersionUID = 3256719580843227188L;
 
-    ASchwimmer                schwimmer        = null;
-    int                       disziplin        = 0;
-    JIntegerField             integer          = null;
-    JTimeField                time             = null;
-    JButton                   ok               = null;
-    IPluginManager            controller       = null;
+    ASchwimmer schwimmer = null;
+    int disziplin = 0;
+    JIntegerField integer = null;
+    JTimeField time = null;
+    JButton ok = null;
+    IPluginManager controller = null;
 
     /**
      * This is the default constructor
@@ -87,7 +87,8 @@ class JTimeEditor extends JDialog {
             if (zeit != time.getTimeAsInt()) {
                 schwimmer.setZeit(disziplin, time.getTimeAsInt());
                 if (SchwimmerUtils.checkTimeAndNotify(this, schwimmer, disziplin)) {
-                    controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, disziplin, null);
+                    controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer,
+                            disziplin, null);
                     setVisible(false);
                 } else {
                     schwimmer.setZeit(disziplin, zeit);
@@ -170,7 +171,8 @@ class JTimeEditor extends JDialog {
         buttons.add(ok, CC.xy(2, 1));
         buttons.add(cancel, CC.xy(4, 1));
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));
@@ -203,7 +205,7 @@ class JTimeEditor extends JDialog {
 
         pack();
         setResizable(false);
-        UIStateUtils.uistatemanage(controller.getWindow(),this, "JTimeEditor");
+        UIStateUtils.uistatemanage(controller.getWindow(), this, "JTimeEditor");
         pack();
     }
 }

@@ -39,7 +39,8 @@ public class LimitsCheck {
                             OWDisziplin<T>[] dx = wk.getLauflisteOW().getDisziplinen();
                             for (OWDisziplin<T> d : dx) {
                                 if (s.hasInput(d.Id)) {
-                                    if (tc.isBrokenBy(s.getZeit(d.Id), s.getAkkumulierteStrafe(d.Id), ak.getDisziplin(d.disziplin, d.maennlich).getName(), s,
+                                    if (tc.isBrokenBy(s.getZeit(d.Id), s.getAkkumulierteStrafe(d.Id),
+                                            ak.getDisziplin(d.disziplin, d.maennlich).getName(), s,
                                             wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), d.round)) {
                                         return true;
                                     }

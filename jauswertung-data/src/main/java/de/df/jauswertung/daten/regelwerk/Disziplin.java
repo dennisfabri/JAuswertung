@@ -21,20 +21,19 @@ public class Disziplin implements Serializable {
     private static final long serialVersionUID = 3831806024414464536L;
 
     @XStreamAsAttribute
-    private String            name             = "";
+    private String name = "";
     @XStreamAsAttribute
-    private int               rec              = 1;
+    private int rec = 1;
     @XStreamAsAttribute
-    private int               laenge           = 50;
+    private int laenge = 50;
     @XStreamAsAttribute
-    private int               laps             = 0;
+    private int laps = 0;
 
     /**
-     * Qualifikanten pro Runde
-     * Finals werden nicht mitgezaehlt
+     * Qualifikanten pro Runde Finals werden nicht mitgezaehlt
      **/
-    private int[]             runden           = new int[0];
-    private int[]             rundenIds        = new int[0];
+    private int[] runden = new int[0];
+    private int[] rundenIds = new int[0];
 
     /**
      * Erzeugt eine leere Disziplin.
@@ -50,10 +49,8 @@ public class Disziplin implements Serializable {
     /**
      * Creates new Disziplin
      * 
-     * @param _name
-     *            Enthaelt den Namen der Disziplin
-     * @param _rec
-     *            Enthaelt den zugehoerigen rec-Wert
+     * @param _name Enthaelt den Namen der Disziplin
+     * @param _rec  Enthaelt den zugehoerigen rec-Wert
      */
     public Disziplin(String disziplinName, int recwert, int laenge, int runden) {
         setRec(recwert);
@@ -85,8 +82,7 @@ public class Disziplin implements Serializable {
     /**
      * Setzt einen neuen Rec-Wert
      * 
-     * @param _rec
-     *            Enthaelt den zu setzenden Rec-Wert
+     * @param _rec Enthaelt den zu setzenden Rec-Wert
      */
     public synchronized void setRec(int rek) {
         rec = rek;
@@ -104,8 +100,7 @@ public class Disziplin implements Serializable {
     /**
      * Setzt einen neuen Namen.
      * 
-     * @param _name
-     *            Enthaelt den zu setzenden Namen.
+     * @param _name Enthaelt den zu setzenden Namen.
      */
     public synchronized void setName(String n) {
         if (n == null) {

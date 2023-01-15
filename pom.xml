@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>16.2.1</version>
+	<version>16.2.2</version>
 	<packaging>pom</packaging>
 	<name>JAuswertung</name>
 	<description />
@@ -13,8 +13,8 @@
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<jutils.version>16.2.0</jutils.version>
-		<alphaserver.version>16.2.0</alphaserver.version>
+		<jutils.version>16.2.2</jutils.version>
+		<alphaserver.version>16.2.2</alphaserver.version>
 		<poi.version>5.2.3</poi.version>
 		<jersey.version>3.1.0</jersey.version>
 		<batik.version>1.14</batik.version>

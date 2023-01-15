@@ -23,8 +23,8 @@ import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 
 public final class ZWTableCellRenderer extends AlignmentCellRenderer {
 
-    public static boolean compressLists = true; 
-    
+    public static boolean compressLists = true;
+
     private boolean border = true;
 
     public ZWTableCellRenderer() {
@@ -33,7 +33,8 @@ public final class ZWTableCellRenderer extends AlignmentCellRenderer {
 
     public ZWTableCellRenderer(boolean border) {
         super(new int[] { SwingConstants.RIGHT, SwingConstants.LEFT },
-                Utils.getPreferences().getBoolean("HHListLeftAlign", false) ? SwingConstants.LEFT : SwingConstants.CENTER);
+                Utils.getPreferences().getBoolean("HHListLeftAlign", false) ? SwingConstants.LEFT
+                        : SwingConstants.CENTER);
         this.border = border;
     }
 
@@ -58,16 +59,20 @@ public final class ZWTableCellRenderer extends AlignmentCellRenderer {
             return new String[] { " ", " " };
         }
         return new String[] {
-                I18n.get("ZWTableLine1", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer),
+                I18n.get("ZWTableLine1", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(),
+                        I18n.geschlechtToShortString(swimmer),
                         StartnumberFormatManager.format(swimmer)),
-                I18n.get("ZWTableLine2", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer),
+                I18n.get("ZWTableLine2", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(),
+                        I18n.geschlechtToShortString(swimmer),
                         StartnumberFormatManager.format(swimmer)),
-                I18n.get("ZWTableLine3", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(), I18n.geschlechtToShortString(swimmer),
+                I18n.get("ZWTableLine3", swimmer.getName(), swimmer.getGliederung(), swimmer.getAK().getName(),
+                        I18n.geschlechtToShortString(swimmer),
                         StartnumberFormatManager.format(swimmer)) };
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable t, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable t, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column) {
         ASchwimmer s = null;
         if (value instanceof ASchwimmer) {
             s = (ASchwimmer) value;
@@ -84,7 +89,8 @@ public final class ZWTableCellRenderer extends AlignmentCellRenderer {
             }
             if (border) {
                 jc.setBorder(new CompoundBorder(
-                        new ExtendedLineBorder(Color.BLACK, 0, 0, (row + 1 < t.getRowCount() ? 1 : 0), (column + 1 < t.getColumnCount() ? 1 : 0)),
+                        new ExtendedLineBorder(Color.BLACK, 0, 0, (row + 1 < t.getRowCount() ? 1 : 0),
+                                (column + 1 < t.getColumnCount() ? 1 : 0)),
                         new EmptyBorder(0, 1, 0, 1)));
             }
             jc.setOpaque(true);

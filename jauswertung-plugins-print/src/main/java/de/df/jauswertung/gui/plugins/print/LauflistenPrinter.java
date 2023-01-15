@@ -40,10 +40,10 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 class LauflistenPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -83,6 +83,7 @@ class LauflistenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -92,6 +93,7 @@ class LauflistenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -135,7 +137,8 @@ class LauflistenPrinter implements Printer {
             for (OWSelection s : t) {
                 wkx.add(createCompetitionFor(s));
             }
-            PrintExecutor.print(getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()])), I18n.get("Laufliste"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()])),
+                    I18n.get("Laufliste"), true, controller.getWindow());
         }
 
         @Override
@@ -150,7 +153,8 @@ class LauflistenPrinter implements Printer {
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.print(getPrintable(), I18n.get("Laufliste"), true, controller.getWindow());
@@ -186,14 +190,18 @@ class LauflistenPrinter implements Printer {
                             for (OWSelection s : t) {
                                 wkx.add(createCompetitionFor(s));
                             }
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])), I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                            PrintExecutor.preview(controller.getWindow(),
+                                    new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])),
+                                    I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
                         }
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen", "Laufliste zum Drucken auswählen",
+                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                        "Laufliste zum Drucken auswählen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
-                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }),
+                        I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

@@ -50,20 +50,20 @@ public class JNeuerWettkampf extends JDialog {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long serialVersionUID  = 3906935560202105655L;
+    private static final long serialVersionUID = 3906935560202105655L;
 
-    private static String[]   einzelNamen       = null;
-    private static String[]   mannschaftNamen   = null;
-    private static String[]   einzelTooltip     = null;
-    private static String[]   mannschaftTooltip = null;
+    private static String[] einzelNamen = null;
+    private static String[] mannschaftNamen = null;
+    private static String[] einzelTooltip = null;
+    private static String[] mannschaftTooltip = null;
 
-    JButtonBar                einzel            = getEinzelBar();
-    JButtonBar                staffel           = getMannschaftStaffelBar();
-    JButton                   cancel            = getCancelButton();
+    JButtonBar einzel = getEinzelBar();
+    JButtonBar staffel = getMannschaftStaffelBar();
+    JButton cancel = getCancelButton();
 
     @SuppressWarnings("rawtypes")
-    AWettkampf                result            = null;
-    JFrame                    parent            = null;
+    AWettkampf result = null;
+    JFrame parent = null;
 
     static {
         readFilenames();
@@ -208,7 +208,8 @@ public class JNeuerWettkampf extends JDialog {
         buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions"), true));
 
         for (int x = 0; x < mannschaftNamen.length; x++) {
-            JButton aks = new JButton(mannschaftNamen[x].substring(0, mannschaftNamen[x].length() - 4), IconManager.getBigIcon("new"));
+            JButton aks = new JButton(mannschaftNamen[x].substring(0, mannschaftNamen[x].length() - 4),
+                    IconManager.getBigIcon("new"));
             aks.setToolTipText(mannschaftTooltip[x]);
             aks.addActionListener(new ClickMannschaftActionListener(mannschaftNamen[x]));
             buttonBar.add(aks);
@@ -228,7 +229,8 @@ public class JNeuerWettkampf extends JDialog {
         buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions"), true));
 
         for (int x = 0; x < einzelNamen.length; x++) {
-            JButton aks = new JButton(einzelNamen[x].substring(0, einzelNamen[x].length() - 4), IconManager.getBigIcon("new"));
+            JButton aks = new JButton(einzelNamen[x].substring(0, einzelNamen[x].length() - 4),
+                    IconManager.getBigIcon("new"));
             aks.setToolTipText(einzelTooltip[x]);
             aks.addActionListener(new ClickEinzelListener(einzelNamen[x]));
             buttonBar.add(aks);
@@ -272,10 +274,10 @@ public class JNeuerWettkampf extends JDialog {
 
     private class ClickCustomActionListener implements ActionListener {
 
-        public static final int TYPE_EINZEL  = 0;
+        public static final int TYPE_EINZEL = 0;
         public static final int TYPE_STAFFEL = 2;
 
-        private int             type         = 0;
+        private int type = 0;
 
         public ClickCustomActionListener(int t) {
             type = t;
@@ -286,7 +288,7 @@ public class JNeuerWettkampf extends JDialog {
             SimpleFileFilter ff = null;
             switch (type) {
             case TYPE_STAFFEL:
-                ff = FileFilters.FF_RULEBOOKS_TEAM ;
+                ff = FileFilters.FF_RULEBOOKS_TEAM;
                 break;
             default:
                 ff = FileFilters.FF_RULEBOOKS_SINGLE;
@@ -308,7 +310,8 @@ public class JNeuerWettkampf extends JDialog {
                     }
                     dispose();
                 } else {
-                    DialogUtils.error(parent, I18n.get("Error"), I18n.get("OpenFailedText", name), I18n.get("OpenFailed.Note", name));
+                    DialogUtils.error(parent, I18n.get("Error"), I18n.get("OpenFailedText", name),
+                            I18n.get("OpenFailed.Note", name));
                 }
             }
         }

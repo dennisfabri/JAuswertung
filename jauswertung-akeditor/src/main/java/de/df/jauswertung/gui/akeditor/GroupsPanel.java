@@ -10,7 +10,7 @@ import de.df.jutils.gui.border.BorderUtils;
 class GroupsPanel extends JPanel {
 
     private ResultgroupsPanel resultgroups;
-    private Startgroupspanel  startgroups;
+    private Startgroupspanel startgroups;
 
     public GroupsPanel(JAKsEditor parent) {
         resultgroups = new ResultgroupsPanel(parent);

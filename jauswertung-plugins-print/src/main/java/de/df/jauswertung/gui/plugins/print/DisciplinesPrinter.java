@@ -31,10 +31,10 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 public class DisciplinesPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
@@ -59,6 +59,7 @@ public class DisciplinesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -68,6 +69,7 @@ public class DisciplinesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -82,7 +84,8 @@ public class DisciplinesPrinter implements Printer {
     }
 
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(getPrintable(core.getWettkampf().getRegelwerk()), core.getLastChangedDate(), I18n.get("Disciplines"),
+        return PrintManager.getFinalPrintable(getPrintable(core.getWettkampf().getRegelwerk()),
+                core.getLastChangedDate(), I18n.get("Disciplines"),
                 I18n.get("Disciplines"));
     }
 
@@ -109,7 +112,8 @@ public class DisciplinesPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Disciplines"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Disciplines"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

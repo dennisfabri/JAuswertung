@@ -240,7 +240,8 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        LinkedList<T> result = ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" }, new Object[][][] { data },
+        LinkedList<T> result = ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" },
+                new Object[][][] { data },
                 filename);
         if (result == null) {
             return data2;
@@ -261,5 +262,5 @@ public final class CsvImporter implements IImporter {
             return null;
         }
         return ImportUtils.tablesToStarters(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
-   }
+    }
 }

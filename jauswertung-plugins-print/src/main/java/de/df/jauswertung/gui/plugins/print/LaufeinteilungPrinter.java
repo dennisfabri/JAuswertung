@@ -41,14 +41,14 @@ import de.df.jutils.print.printables.JTablePrintable;
  */
 class LaufeinteilungPrinter implements Printer {
 
-    private CorePlugin        core;
-    private IPluginManager    controller;
+    private CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
     private JComboBox<String> selection;
-    private JCheckBox         hlw;
+    private JCheckBox hlw;
 
     public LaufeinteilungPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -65,11 +65,14 @@ class LaufeinteilungPrinter implements Printer {
         preview.addActionListener(new PreviewActionListener());
         preview.setEnabled(false);
 
-        selection = new JComboBox<String>(new String[] { I18n.get("Heats"), I18n.get("AgeGroups"), I18n.get("Organization"), I18n.get("Compact") });
+        selection = new JComboBox<String>(new String[] { I18n.get("Heats"), I18n.get("AgeGroups"),
+                I18n.get("Organization"), I18n.get("Compact") });
 
         hlw = new JCheckBox(I18n.get("PrintLaufeinteilungIncludeZW"));
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
@@ -93,6 +96,7 @@ class LaufeinteilungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -102,6 +106,7 @@ class LaufeinteilungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -138,7 +143,8 @@ class LaufeinteilungPrinter implements Printer {
                 }
                 TableModel tm = tables[x].getModel();
                 if (tm instanceof ExtendedTableModel) {
-                    titles[x] = PrintUtils.createHeaderPanel(wk.getRegelwerk(), wk.getRegelwerk().getAk(ak), male == 1, false, true);
+                    titles[x] = PrintUtils.createHeaderPanel(wk.getRegelwerk(), wk.getRegelwerk().getAk(ak), male == 1,
+                            false, true);
                 } else {
                     titles[x] = null;
                 }
@@ -187,7 +193,8 @@ class LaufeinteilungPrinter implements Printer {
             break;
         }
         }
-        return PrintManager.getFinalPrintable(internal, core.getLastChangedDate(), I18n.get("Heatarrangement"), I18n.get("Heatarrangement"));
+        return PrintManager.getFinalPrintable(internal, core.getLastChangedDate(), I18n.get("Heatarrangement"),
+                I18n.get("Heatarrangement"));
     }
 
     /**
@@ -204,7 +211,8 @@ class LaufeinteilungPrinter implements Printer {
                 return getPrintable();
             }
         };
-        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatarrangement"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatarrangement"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     final class PrintActionListener implements ActionListener {

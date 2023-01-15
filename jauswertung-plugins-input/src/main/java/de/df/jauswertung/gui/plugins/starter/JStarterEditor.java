@@ -36,15 +36,15 @@ public class JStarterEditor extends JFrame {
         ModalFrameUtil.showAsModal(se, parent);
     }
 
-    private final Mannschaft                 mannschaft;
-    private final MannschaftWettkampf        wk;
-    private final boolean                    heatBased;
+    private final Mannschaft mannschaft;
+    private final MannschaftWettkampf wk;
+    private final boolean heatBased;
 
-    private final JLabel                     name        = new JLabel();
-    private final JLabel                     gliederung  = new JLabel();
-    private final JTabbedPane                tabs        = new JTabbedPane();
+    private final JLabel name = new JLabel();
+    private final JLabel gliederung = new JLabel();
+    private final JTabbedPane tabs = new JTabbedPane();
 
-    private final Runnable                   onFinish;
+    private final Runnable onFinish;
 
     private ArrayList<JStarterPerDiscipline> disciplines = new ArrayList<>();
 
@@ -84,7 +84,8 @@ public class JStarterEditor extends JFrame {
                 }
             }
             for (OWDisziplin<Mannschaft> dx : dis) {
-                if (dx.getSchwimmer() != null && SearchUtils.hasSchwimmer(dx.getSchwimmer(), mannschaft.getStartnummer())) {
+                if (dx.getSchwimmer() != null
+                        && SearchUtils.hasSchwimmer(dx.getSchwimmer(), mannschaft.getStartnummer())) {
                     Eingabe e = mannschaft.getEingabe(dx.Id, true);
                     if (e != null) {
                         JStarterPerDiscipline d = new JStarterPerDiscipline(m, dx);
@@ -121,7 +122,8 @@ public class JStarterEditor extends JFrame {
         buttons.add(ok, CC.xy(2, 2));
         buttons.add(cancel, CC.xy(4, 2));
 
-        setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
+        setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu"));
         add(sfb.getPanel(), CC.xy(2, 2));
         add(tabs, CC.xy(2, 4));
         add(buttons, CC.xy(2, 6, "right,fill"));

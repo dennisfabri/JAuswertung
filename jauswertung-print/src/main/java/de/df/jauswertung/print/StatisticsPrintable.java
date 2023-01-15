@@ -21,8 +21,10 @@ public class StatisticsPrintable<T extends ASchwimmer> extends MultiplePrintable
         super(preparePrintables(wk));
     }
 
-    private static <T extends ASchwimmer> Printable createStatisticsPage(LinkedList<T> swimmer, Regelwerk aks, String title) {
-        return new ComponentListPrintable2(false, StatisticsUtils.createStatistics(swimmer, aks, title, true), StatisticsUtils.getStarts(swimmer, aks, true));
+    private static <T extends ASchwimmer> Printable createStatisticsPage(LinkedList<T> swimmer, Regelwerk aks,
+            String title) {
+        return new ComponentListPrintable2(false, StatisticsUtils.createStatistics(swimmer, aks, title, true),
+                StatisticsUtils.getStarts(swimmer, aks, true));
     }
 
     private static <T extends ASchwimmer> Printable createOverviewLVPage(AWettkampf<T> wk, String title) {
@@ -83,7 +85,8 @@ public class StatisticsPrintable<T extends ASchwimmer> extends MultiplePrintable
         }
         String[] gliederungen = g.toArray(new String[g.size()]);
         for (String aGliederungen : gliederungen) {
-            p = createStatisticsPage(SearchUtils.getSchwimmer(wk, new String[] { aGliederungen }, true), wk.getRegelwerk(), aGliederungen);
+            p = createStatisticsPage(SearchUtils.getSchwimmer(wk, new String[] { aGliederungen }, true),
+                    wk.getRegelwerk(), aGliederungen);
             if (p != null) {
                 printables.addLast(p);
             }

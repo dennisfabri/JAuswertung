@@ -48,7 +48,8 @@ public class TimesExporter {
         }
 
         if (timestamp.length() == "01.01.2000".length()) {
-            timestamp = String.format("%s-%s-%s", timestamp.substring(6, 10), timestamp.substring(0, 2), timestamp.substring(3, 5));
+            timestamp = String.format("%s-%s-%s", timestamp.substring(6, 10), timestamp.substring(0, 2),
+                    timestamp.substring(3, 5));
         }
 
         for (ASchwimmer s : wk1.getSchwimmer()) {
@@ -61,8 +62,10 @@ public class TimesExporter {
                     if (str.isStrafe()) {
                         strafe = PenaltyUtils.getPenaltyShortText(str, ak);
                     }
-                    System.out.println(String.format("EXECUTE [dbo].[StoreTime] '%s',%s,'%s','%s',%s,'%s',%s,'%s','%s','%s','%s'", ak.getName(),
-                            (s instanceof Mannschaft) ? 1 : 0, ak.getDisziplin(x, s.isMaennlich()), s.getName(), s.isMaennlich() ? 1 : 0, s.getBemerkung(),
+                    System.out.println(String.format(
+                            "EXECUTE [dbo].[StoreTime] '%s',%s,'%s','%s',%s,'%s',%s,'%s','%s','%s','%s'", ak.getName(),
+                            (s instanceof Mannschaft) ? 1 : 0, ak.getDisziplin(x, s.isMaennlich()), s.getName(),
+                            s.isMaennlich() ? 1 : 0, s.getBemerkung(),
                             zeit, strafe, timestamp, s.getGliederungMitQGliederung(), title, "xxxx"));
                 }
             }

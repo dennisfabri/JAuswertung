@@ -25,21 +25,21 @@ import de.dm.ares.data.Heat;
 
 class JTimePanel<T extends ASchwimmer> extends JPanel {
 
-    private HeatMatchingMode            directMatching = HeatMatchingMode.Heat2Competition;
+    private HeatMatchingMode directMatching = HeatMatchingMode.Heat2Competition;
 
-    private final JHeatPanel<T>         heat;
+    private final JHeatPanel<T> heat;
     private final JElektronischeZeit<T> parent;
-    private int                         lanesamount    = 0;
+    private int lanesamount = 0;
 
-    private JPanel                      upper, lower;
-    private JButton                     previous;
-    private JButton                     next;
-    private JComboBox<String>           current;
-    private JButton                     enter;
+    private JPanel upper, lower;
+    private JButton previous;
+    private JButton next;
+    private JComboBox<String> current;
+    private JButton enter;
 
-    private JLabel[]                    lanes;
-    private JComboBox<String>[]         times;
-    private JComboBox<String>[]         penalty;
+    private JLabel[] lanes;
+    private JComboBox<String>[] times;
+    private JComboBox<String>[] penalty;
 
     public JTimePanel(JElektronischeZeit<T> parent, JHeatPanel<T> heat) {
         setBorder(BorderUtils.createLabeledBorder(I18n.get("ElektronischeZeitnahme")));

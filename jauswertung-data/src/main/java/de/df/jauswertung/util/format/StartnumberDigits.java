@@ -7,7 +7,7 @@ public class StartnumberDigits implements IStartnumberFormat {
         return id;
     }
 
-    private final int    limit;
+    private final int limit;
     private final String id;
 
     StartnumberDigits(int digits) {

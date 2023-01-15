@@ -22,11 +22,11 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MZielrichterentscheidPlugin extends ANullPlugin {
 
-    static final long          BITMASK = REASON_LAUF_LIST_CHANGED | REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED;
-    private JMenuItem          menu;
+    static final long BITMASK = REASON_LAUF_LIST_CHANGED | REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED;
+    private JMenuItem menu;
     @SuppressWarnings("rawtypes")
     JZielrichterentscheidFrame dialog;
-    CorePlugin                 core;
+    CorePlugin core;
 
     public MZielrichterentscheidPlugin() {
         menu = new JMenuItem(I18n.get("Zielrichterentscheid"));
@@ -74,7 +74,8 @@ public class MZielrichterentscheidPlugin extends ANullPlugin {
                         public void apply() {
                             super.apply();
                             getController().sendDataUpdateEvent(new UpdateEvent("Zielrichterentscheid",
-                                    UpdateEventConstants.REASON_ZIELRICHTERENTSCHEID_CHANGED | UpdateEventConstants.REASON_POINTS_CHANGED,
+                                    UpdateEventConstants.REASON_ZIELRICHTERENTSCHEID_CHANGED
+                                            | UpdateEventConstants.REASON_POINTS_CHANGED,
                                     MZielrichterentscheidPlugin.this));
                         }
                     };

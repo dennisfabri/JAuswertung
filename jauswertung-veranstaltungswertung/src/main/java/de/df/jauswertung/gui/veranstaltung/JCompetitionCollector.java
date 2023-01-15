@@ -40,17 +40,17 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JCompetitionCollector extends JPanel {
 
-    static final SimpleFileFilter             wkff = new SimpleFileFilter(I18n.get("Competition"), "wk");
+    static final SimpleFileFilter wkff = new SimpleFileFilter(I18n.get("Competition"), "wk");
 
-    JSmoothList<CompetitionContainer>         competitions;
+    JSmoothList<CompetitionContainer> competitions;
     ModifiableListModel<CompetitionContainer> data;
 
-    private JTransparentButton                add;
-    private JTransparentButton                edit;
-    private JTransparentButton                remove;
-    private JTransparentButton                check;
+    private JTransparentButton add;
+    private JTransparentButton edit;
+    private JTransparentButton remove;
+    private JTransparentButton check;
 
-    JFrame                                    parent;
+    JFrame parent;
 
     public JCompetitionCollector(JFrame parent) {
         this.parent = parent;
@@ -63,7 +63,8 @@ class JCompetitionCollector extends JPanel {
         JScrollPane scroll = new JScrollPane(competitions);
         scroll.setBorder(new ShadowBorder());
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
         setLayout(layout);
 
         add(getButtons(), CC.xy(2, 2));
@@ -84,7 +85,9 @@ class JCompetitionCollector extends JPanel {
         check.setToolTipText(I18n.getToolTip("CheckCompetitionsForSimilarOrganizations"));
         check.addActionListener(e -> check());
 
-        FormLayout buttonslayout = new FormLayout("0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu");
+        FormLayout buttonslayout = new FormLayout(
+                "0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu",
+                "0dlu,fill:default,0dlu");
         JPanel buttons = new JPanel(buttonslayout);
 
         buttons.add(add, CC.xy(2, 2));
@@ -124,7 +127,8 @@ class JCompetitionCollector extends JPanel {
             file = new JLabel();
             image = new JLabel();
 
-            panel = new JPanel(new FormLayout("1dlu,fill:default,1dlu,fill:default:grow", "1dlu,fill:default,1dlu,fill:default,1dlu"));
+            panel = new JPanel(new FormLayout("1dlu,fill:default,1dlu,fill:default:grow",
+                    "1dlu,fill:default,1dlu,fill:default,1dlu"));
             panel.add(image, CC.xywh(2, 2, 1, 3, "fill,fill"));
             panel.add(name, CC.xy(4, 2));
             panel.add(file, CC.xy(4, 4));
@@ -132,7 +136,8 @@ class JCompetitionCollector extends JPanel {
         }
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+                boolean cellHasFocus) {
             Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (!(value instanceof CompetitionContainer)) {
                 return c;
@@ -220,14 +225,15 @@ class JCompetitionCollector extends JPanel {
                 names.addLast(c.getName());
             }
         }
-        new JSimilarityCheck(parent, (AWettkampf[]) wks.toArray(new AWettkampf[wks.size()]), (String[]) names.toArray(new String[names.size()]))
-                .setVisible(true);
+        new JSimilarityCheck(parent, (AWettkampf[]) wks.toArray(new AWettkampf[wks.size()]),
+                (String[]) names.toArray(new String[names.size()]))
+                        .setVisible(true);
     }
 
     private class JCompetitionEditor extends JDialog {
 
-        private JTextField                 name = new JWarningTextField();
-        private JTextField                 file = new JWarningTextField();
+        private JTextField name = new JWarningTextField();
+        private JTextField file = new JWarningTextField();
         private final CompetitionContainer container;
 
         public JCompetitionEditor(int index) {
@@ -255,7 +261,8 @@ class JCompetitionCollector extends JPanel {
             add(file, CC.xy(4, 4));
             add(browse, CC.xy(6, 4));
 
-            FormLayout layout2 = new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu");
+            FormLayout layout2 = new FormLayout("0dlu:grow,fill:default,4dlu,fill:default,0dlu",
+                    "0dlu,fill:default,0dlu");
             JPanel buttons = new JPanel(layout2);
             buttons.add(ok, CC.xy(2, 2));
             buttons.add(cancel, CC.xy(4, 2));

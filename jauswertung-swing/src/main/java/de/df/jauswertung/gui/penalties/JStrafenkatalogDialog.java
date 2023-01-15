@@ -28,11 +28,11 @@ class JStrafenkatalogDialog extends JDialog {
     /**
      * Comment for <code>serialVersionUID</code>
      */
-    private static final long    serialVersionUID = 3257285846494558261L;
+    private static final long serialVersionUID = 3257285846494558261L;
 
-    private Window               parent           = null;
-    private JStrafenkatalogPanel panel            = null;
-    private boolean              cancelled        = false;
+    private Window parent = null;
+    private JStrafenkatalogPanel panel = null;
+    private boolean cancelled = false;
 
     public JStrafenkatalogDialog(JDialog p, Strafe str, Strafen s) {
         super(p, I18n.get("PenaltyCatalog"), true);

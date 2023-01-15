@@ -42,7 +42,8 @@ public final class RefereesTableVeryCompactCreator {
                     for (String position : positionen) {
                         KampfrichterPosition kp = ke.getPosition(position);
                         String stufe = KampfrichterEinheit.stufeToText(kp.getMinimaleStufe(), false);
-                        String header = I18n.get("RefereePositionAndLevel", position, stufe, kp.getMinimaleStufe() == KampfrichterStufe.KEINE ? 0 : 1);
+                        String header = I18n.get("RefereePositionAndLevel", position, stufe,
+                                kp.getMinimaleStufe() == KampfrichterStufe.KEINE ? 0 : 1);
                         sb.append("<p>" + toHtml(header) + "</p>");
                         for (Kampfrichter kr : ke.getKampfrichter(position)) {
                             StringBuilder sx = new StringBuilder();

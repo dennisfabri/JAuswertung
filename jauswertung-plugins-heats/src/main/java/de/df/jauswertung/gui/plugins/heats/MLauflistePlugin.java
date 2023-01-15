@@ -39,13 +39,13 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public final class MLauflistePlugin extends ANullPlugin {
 
-    private static final String ITEM_NEW   = I18n.get("New");
-    private static final String ITEM_EDIT  = I18n.get("Edit");
-    private static final String ITEM_SHOW  = I18n.get("Show");
+    private static final String ITEM_NEW = I18n.get("New");
+    private static final String ITEM_EDIT = I18n.get("Edit");
+    private static final String ITEM_SHOW = I18n.get("Show");
     private static final String ITEM_BLOCK = I18n.get("Lock");
-    private static final String ITEM_MENU  = I18n.get("Laufliste");
-    private static final String MENU       = I18n.get("Prepare");
-    private static final String ATTENTION  = I18n.get("Attention");
+    private static final String ITEM_MENU = I18n.get("Laufliste");
+    private static final String MENU = I18n.get("Prepare");
+    private static final String ATTENTION = I18n.get("Attention");
     private static final String LAUF_LIST_LOST;
     private static final String LAUF_LIST_LOST_NOTE;
 
@@ -54,14 +54,14 @@ public final class MLauflistePlugin extends ANullPlugin {
         LAUF_LIST_LOST_NOTE = I18n.get("LaufListWillBeLostContinue.Note");
     }
 
-    CorePlugin          core    = null;
-    private JMenuItem[] menu    = null;
-    JButton[]           buttons = null;
+    CorePlugin core = null;
+    private JMenuItem[] menu = null;
+    JButton[] buttons = null;
 
-    private JMenuItem   neu     = null;
-    private JMenuItem   show    = null;
-    private JMenuItem   edit    = null;
-    JMenuItem           block   = null;
+    private JMenuItem neu = null;
+    private JMenuItem show = null;
+    private JMenuItem edit = null;
+    JMenuItem block = null;
 
     @Override
     public void setController(IPluginManager c, String uid) {
@@ -142,14 +142,15 @@ public final class MLauflistePlugin extends ANullPlugin {
         if (wk.isHeatBased()) {
             setButtons(true, false, false);
         } else {
-            setButtons(wk.hasSchwimmer(), (wk.getLaufliste().getLaufliste() != null) && (wk.getLaufliste().getLaufliste().size() > 0), true);
+            setButtons(wk.hasSchwimmer(),
+                    (wk.getLaufliste().getLaufliste() != null) && (wk.getLaufliste().getLaufliste().size() > 0), true);
         }
     }
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
+     * 
+     * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {
@@ -170,7 +171,8 @@ public final class MLauflistePlugin extends ANullPlugin {
             updateButtons();
             return;
         }
-        long bitmap = REASON_LAUF_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_AKS_CHANGED | REASON_NEW_TN | REASON_SWIMMER_CHANGED
+        long bitmap = REASON_LAUF_LIST_CHANGED | REASON_PROPERTIES_CHANGED | REASON_AKS_CHANGED | REASON_NEW_TN
+                | REASON_SWIMMER_CHANGED
                 | REASON_SWIMMER_DELETED;
         if ((due.getChangeReason() & bitmap) > 0) {
             updateButtons();

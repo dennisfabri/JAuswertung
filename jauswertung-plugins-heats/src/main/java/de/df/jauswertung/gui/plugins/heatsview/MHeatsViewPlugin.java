@@ -17,8 +17,8 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MHeatsViewPlugin extends ANullPlugin {
 
-    CorePlugin        core;
-    WarningPlugin     warner;
+    CorePlugin core;
+    WarningPlugin warner;
     private JMenuItem menu;
 
     @Override
@@ -37,7 +37,8 @@ public class MHeatsViewPlugin extends ANullPlugin {
     }
 
     void showHeatView() {
-        warner.information(getController().getWindow(), I18n.get("Heatspresentation"), I18n.get("ShowHeats.Text"), I18n.get("ShowHeats.Note"), "ShowHeatsInfo");
+        warner.information(getController().getWindow(), I18n.get("Heatspresentation"), I18n.get("ShowHeats.Text"),
+                I18n.get("ShowHeats.Note"), "ShowHeatsInfo");
         JHeatPresentationFrame.start(getController().getWindow(), core.getWettkampf());
     }
 

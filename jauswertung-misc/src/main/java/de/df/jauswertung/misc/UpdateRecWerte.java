@@ -27,7 +27,8 @@ public class UpdateRecWerte {
         recwerte(null, PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
     }
 
-    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung, int jahr) throws IOException {
+    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung, int jahr)
+            throws IOException {
         recwerte(wk, String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
     }
 

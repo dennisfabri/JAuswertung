@@ -64,14 +64,14 @@ class ETimeOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
         parent = ServerPlugin;
     }
 
-    private JPanel    panel;
+    private JPanel panel;
 
     JWarningTextField address;
     JWarningTextField aresfile;
 
-    JRadioButton      as;
-    JRadioButton      af;
-    ButtonGroup       bg;
+    JRadioButton as;
+    JRadioButton af;
+    ButtonGroup bg;
 
     @Override
     public boolean isOk() {
@@ -130,7 +130,8 @@ class ETimeOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
             updateButtons();
             updateTextFields();
 
-            FormLayout layout = new FormLayout("4dlu,4dlu,4dlu,fill:default,4dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(4));
+            FormLayout layout = new FormLayout("4dlu,4dlu,4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    FormLayoutUtils.createLayoutString(4));
             panel = new JPanel(layout);
             panel.setName(I18n.get("ElektronischeZeitnahme"));
             panel.setToolTipText(I18n.getToolTip("ElektronischeZeitnahme"));

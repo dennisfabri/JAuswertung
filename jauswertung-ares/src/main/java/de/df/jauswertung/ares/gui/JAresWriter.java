@@ -56,12 +56,12 @@ public class JAresWriter extends JFrame {
     }
 
     private ModifiableListModel<FileLocation> filesmodel;
-    private JList<FileLocation>               files;
-    private JTextField                        directory;
-    private JButton                           add;
-    private JButton                           remove;
-    private JButton                           export;
-    private JButton                           close;
+    private JList<FileLocation> files;
+    private JTextField directory;
+    private JButton add;
+    private JButton remove;
+    private JButton export;
+    private JButton close;
 
     private void initComponents() {
         filesmodel = new ModifiableListModel<>();
@@ -76,7 +76,8 @@ public class JAresWriter extends JFrame {
     }
 
     private void initUI() {
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu",
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { new int[] { 8, 10 } });
         setLayout(layout);
@@ -176,14 +177,16 @@ public class JAresWriter extends JFrame {
                 String filename = filesmodel.getElementAt(x).getFilename();
                 wks[x] = InputManager.ladeWettkampf(filename);
                 if (wks[x] == null) {
-                    DialogUtils.warn(this, I18n.get("CouldNotOpenFile", filename), I18n.get("CouldNotOpenFile.Note", filename));
+                    DialogUtils.warn(this, I18n.get("CouldNotOpenFile", filename),
+                            I18n.get("CouldNotOpenFile.Note", filename));
                     return;
                 }
             }
             writeAres(wks, dir);
         } catch (Exception ex) {
             ex.printStackTrace();
-            DialogUtils.showException(this, I18n.get("Error"), I18n.get("ExceptionDuringExport"), I18n.get("ExceptionDuringExport.Note"), ex);
+            DialogUtils.showException(this, I18n.get("Error"), I18n.get("ExceptionDuringExport"),
+                    I18n.get("ExceptionDuringExport.Note"), ex);
             return;
         }
         DialogUtils.inform(this, I18n.get("ExportSuccessfull", dir), I18n.get("ExportSuccessfull.Note", dir));

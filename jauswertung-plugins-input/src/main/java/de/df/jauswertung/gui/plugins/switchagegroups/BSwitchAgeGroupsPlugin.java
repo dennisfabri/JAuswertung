@@ -22,10 +22,10 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class BSwitchAgeGroupsPlugin extends ANullPlugin {
 
-    private final ButtonInfo     bi;
-    private final JButton        button;
+    private final ButtonInfo bi;
+    private final JButton button;
 
-    private CorePlugin           core    = null;
+    private CorePlugin core = null;
 
     private final static boolean ENABLED = Utils.isInDevelopmentModeFor("SwitchAgeGroups");
 
@@ -82,7 +82,8 @@ public class BSwitchAgeGroupsPlugin extends ANullPlugin {
                     sb.append("\n").append(t.getName()).append(" (").append(t.getBemerkung()).append(")");
                 }
 
-                DialogUtils.wichtigeMeldung(getController().getWindow(), I18n.get("Error.NotAllSwimmersCouldBeChanged", sb.toString()));
+                DialogUtils.wichtigeMeldung(getController().getWindow(),
+                        I18n.get("Error.NotAllSwimmersCouldBeChanged", sb.toString()));
             }
         } else {
             DialogUtils.wichtigeMeldung(getController().getWindow(), I18n.get("Info.NoSwimmersHaveBeenChanged"));

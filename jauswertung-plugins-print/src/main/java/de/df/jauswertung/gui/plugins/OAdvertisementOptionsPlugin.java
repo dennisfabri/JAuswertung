@@ -33,22 +33,22 @@ import de.df.jutils.print.PrintManager;
 
 public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MOptionenPlugin.OptionsPlugin {
 
-    MOptionenPlugin   optionen = null;
+    MOptionenPlugin optionen = null;
 
-    private JPanel    panel    = null;
+    private JPanel panel = null;
 
-    JCheckBox         enabled;
-    boolean           oldstate = true;
+    JCheckBox enabled;
+    boolean oldstate = true;
 
     JWarningTextField ptop;
     JWarningTextField pbottom;
     JWarningTextField ltop;
     JWarningTextField lbottom;
 
-    JButton           ptopfile;
-    JButton           pbottomfile;
-    JButton           ltopfile;
-    JButton           lbottomfile;
+    JButton ptopfile;
+    JButton pbottomfile;
+    JButton ltopfile;
+    JButton lbottomfile;
 
     public OAdvertisementOptionsPlugin() {
         // Nothing to do
@@ -98,10 +98,14 @@ public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MO
                 // Nothing to do
             }
 
-            PrintManager.registerAds(iptop, ipbottom, iltop, ilbottom, I18n.get("Results"), I18n.get("DisciplineOverAllAgeGroups"), I18n.get("Einzelwertung"),
-                    I18n.get("GroupEvaluation"), I18n.get("ZWList"), I18n.get("ZWResults"), I18n.get("Heatarrangement"), I18n.get("Laufliste"),
-                    I18n.get("Heatoverview"), I18n.get("ListOfMedals"), I18n.get("Registrations"), I18n.get("Meldezeiten"), I18n.get("Penaltylist"),
-                    I18n.get("Startunterlagenkontrolle"), I18n.get("Statistics"), I18n.get("TeamGroupEvaluation"), I18n.get("TeamResults"),
+            PrintManager.registerAds(iptop, ipbottom, iltop, ilbottom, I18n.get("Results"),
+                    I18n.get("DisciplineOverAllAgeGroups"), I18n.get("Einzelwertung"),
+                    I18n.get("GroupEvaluation"), I18n.get("ZWList"), I18n.get("ZWResults"), I18n.get("Heatarrangement"),
+                    I18n.get("Laufliste"),
+                    I18n.get("Heatoverview"), I18n.get("ListOfMedals"), I18n.get("Registrations"),
+                    I18n.get("Meldezeiten"), I18n.get("Penaltylist"),
+                    I18n.get("Startunterlagenkontrolle"), I18n.get("Statistics"), I18n.get("TeamGroupEvaluation"),
+                    I18n.get("TeamResults"),
                     I18n.get("Registration"), I18n.get("Disciplines"));
         } else {
             PrintManager.registerAds(null, null, null, null);
@@ -178,7 +182,8 @@ public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MO
     private JComponent getButtons(JTextField jtf, JButton file) {
         file.addActionListener(new FileActionListener(jtf));
 
-        JPanel p = new JPanel(new FormLayout("0dlu,fill:default:grow,0dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("0dlu,fill:default:grow,0dlu,fill:default,0dlu", "0dlu,fill:default,0dlu"));
         p.add(jtf, CC.xy(2, 2));
         p.add(file, CC.xy(4, 2));
         return p;

@@ -14,12 +14,12 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  */
 public class Mannschaft extends ASchwimmer {
 
-    private static final long     serialVersionUID = 3944924584522943400L;
+    private static final long serialVersionUID = 3944924584522943400L;
 
     @XStreamAsAttribute
-    private String                name             = "";
+    private String name = "";
     @XStreamAsAttribute
-    private String                mitglieder       = "";
+    private String mitglieder = "";
     private Mannschaftsmitglied[] mitglieder2;
 
     /** Creates new Mannschaft */

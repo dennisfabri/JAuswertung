@@ -13,10 +13,10 @@ import de.df.jutils.gui.window.JOptionsDialog;
 
 public final class JPropertiesDialog extends JOptionsDialog {
 
-    private static final long   serialVersionUID = 4051325639070265655L;
+    private static final long serialVersionUID = 4051325639070265655L;
 
     final JPropertiesTabbedPane properties;
-    private final JFrame        parent;
+    private final JFrame parent;
 
     public JPropertiesDialog(JFrame parent) {
         super(parent, I18n.get("Properties"), true, IconManager.getIconBundle());

@@ -60,7 +60,9 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
             if (strafe > 0) {
                 schwimmer.addStrafe(disziplin, new Strafe(strafe));
             }
-            controller.sendDataUpdateEvent("SetPenalty", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, disziplin,
+            controller.sendDataUpdateEvent("SetPenalty",
+                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer,
+                    disziplin,
                     null);
         }
 
@@ -87,7 +89,9 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
             if (strafe > 0) {
                 schwimmer.addStrafe(id, new Strafe(strafe));
             }
-            controller.sendDataUpdateEvent("SetPenalty", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id, null);
+            controller.sendDataUpdateEvent("SetPenalty",
+                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id,
+                    null);
         }
 
         @Override
@@ -107,12 +111,12 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
      */
     private static final long serialVersionUID = 3256719580843227188L;
 
-    IPenaltyPointsStrategy    strategy;
-    final AWettkampf<T>       wk;
-    final T                   schwimmer;
-    JIntegerField             integer          = null;
-    JButton                   ok               = null;
-    final IPluginManager      controller;
+    IPenaltyPointsStrategy strategy;
+    final AWettkampf<T> wk;
+    final T schwimmer;
+    JIntegerField integer = null;
+    JButton ok = null;
+    final IPluginManager controller;
 
     private JPenaltyPointsAdditor(IPluginManager controller, AWettkampf<T> wk, T s) {
         super(controller.getWindow(), I18n.get("PenaltyPointsInput"), true);
@@ -233,7 +237,8 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
             }
         });
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));

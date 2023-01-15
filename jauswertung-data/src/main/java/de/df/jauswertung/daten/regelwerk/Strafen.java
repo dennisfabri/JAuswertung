@@ -19,7 +19,7 @@ import de.df.jauswertung.gui.penalties.PenaltyUtils;
 
 public final class Strafen implements Serializable {
 
-    private static final long          serialVersionUID = 1664311476306024507L;
+    private static final long serialVersionUID = 1664311476306024507L;
 
     private LinkedList<StrafenKapitel> strafen;
 
@@ -68,19 +68,20 @@ public final class Strafen implements Serializable {
         Collections.sort(ps, new Comparator<Strafe>() {
             @Override
             public int compare(Strafe o1, Strafe o2) {
-                return PenaltyUtils.getPenaltyShortText(o1, null).compareToIgnoreCase(PenaltyUtils.getPenaltyShortText(o2, null));
+                return PenaltyUtils.getPenaltyShortText(o1, null)
+                        .compareToIgnoreCase(PenaltyUtils.getPenaltyShortText(o2, null));
             }
         });
 
         return ps;
     }
 
-    private static final String[] dnsNames     = new String[] { "DNS", "D.N.S.", "n.a." };
-    private static final String[] dnfNames     = new String[] { "DNF", "D.N.F.", "S1" };
-    private static final String[] wdNames      = new String[] { "WD", "Withdraw" };
+    private static final String[] dnsNames = new String[] { "DNS", "D.N.S.", "n.a." };
+    private static final String[] dnfNames = new String[] { "DNF", "D.N.F.", "S1" };
+    private static final String[] wdNames = new String[] { "WD", "Withdraw" };
 
-    private static final Strafe   DIDNOTFINISH = new Strafe("Did not finish", "DNF", Strafarten.DISQUALIFIKATION, 0);
-    private static final Strafe   WITHDRAW     = new Strafe("Withdraw", "WD", Strafarten.NICHTS, 0);
+    private static final Strafe DIDNOTFINISH = new Strafe("Did not finish", "DNF", Strafarten.DISQUALIFIKATION, 0);
+    private static final Strafe WITHDRAW = new Strafe("Withdraw", "WD", Strafarten.NICHTS, 0);
 
     public Strafe getNichtAngetreten() {
         for (String na : dnsNames) {

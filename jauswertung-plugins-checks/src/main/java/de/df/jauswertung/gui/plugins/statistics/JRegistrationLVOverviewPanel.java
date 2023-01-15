@@ -20,7 +20,7 @@ public class JRegistrationLVOverviewPanel extends JGlassPanel<JPanel> {
 
     private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin        core;
+    private CorePlugin core;
 
     public JRegistrationLVOverviewPanel(CorePlugin core) {
         super(new JPanel());

@@ -57,30 +57,30 @@ import de.df.jutils.util.StringTools;
 
 public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long     serialVersionUID = 1973322987330030590L;
+    private static final long serialVersionUID = 1973322987330030590L;
 
-    private CorePlugin            core;
-    private FEditorPlugin         editor;
-    private JMissingInputFrame    parent;
+    private CorePlugin core;
+    private FEditorPlugin editor;
+    private JMissingInputFrame parent;
 
-    ASchwimmer[][]                swimmers         = new ASchwimmer[0][0];
-    StatusDetail[][]              stati            = new StatusDetail[0][0];
+    ASchwimmer[][] swimmers = new ASchwimmer[0][0];
+    StatusDetail[][] stati = new StatusDetail[0][0];
 
     private JGlassPanel<JPanel>[] panels;
-    JIntegerField[][]             input;
-    private JTimeField[][]        time;
-    private JLabel[][]            recs;
-    private JButton[][]           edit;
-    private JLabel[][]            signal;
-    private JLabel[][]            discipline;
+    JIntegerField[][] input;
+    private JTimeField[][] time;
+    private JLabel[][] recs;
+    private JButton[][] edit;
+    private JLabel[][] signal;
+    private JLabel[][] discipline;
 
-    JList<String>                 disciplines;
-    JPanel                        container;
-    CardLayout                    layout;
+    JList<String> disciplines;
+    JPanel container;
+    CardLayout layout;
 
-    private JPanel                panel;
+    private JPanel panel;
 
-    private boolean               changed          = false;
+    private boolean changed = false;
 
     public JRegistrationTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -119,7 +119,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         disciplines.setCellRenderer(new DefaultCellRenderer() {
             @SuppressWarnings("rawtypes")
             @Override
-            public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3, boolean arg4) {
+            public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
+                    boolean arg4) {
                 Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
                 if (c instanceof JComponent) {
                     JComponent jc = (JComponent) c;
@@ -295,9 +296,12 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             discipline[x] = new JLabel[swimmers[x].length];
 
             JPanel p = panels[x].getComponent();
-            FormLayout formlayout = new FormLayout("4dlu,right:default,4dlu,fill:default:grow," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
-                    + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
-                    + "4dlu,fill:default,4dlu,fill:default,4dlu", FormLayoutUtils.createLayoutString(swimmers[x].length + 1));
+            FormLayout formlayout = new FormLayout(
+                    "4dlu,right:default,4dlu,fill:default:grow," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
+                            + "4dlu,fill:default:grow,4dlu,fill:default,"
+                            + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
+                            + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                    FormLayoutUtils.createLayoutString(swimmers[x].length + 1));
             p.setLayout(formlayout);
             p.add(new JLabel(I18n.get("StartnumberShort")), CC.xy(2, 2, "center,center"));
             p.add(new JLabel(I18n.get("Name")), CC.xy(4, 2, "center,center"));
@@ -479,7 +483,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         private final int index;
         private final int disz;
 
-        private String    data = "";
+        private String data = "";
 
         public HighPointsListener(int x, int y) {
             this.disz = x;
@@ -495,7 +499,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
                 return;
             }
             data = input[disz][index].getText();
-            if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JRegistrationTimesInputPanel.this), swimmers[disz][index], disz)) {
+            if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JRegistrationTimesInputPanel.this),
+                    swimmers[disz][index], disz)) {
                 input[disz][index].requestFocus();
             }
         }
@@ -532,7 +537,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
                 input[disziplin][index - 1].requestFocus();
             }
-            if ((index + 1 < input[disziplin].length) && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
+            if ((index + 1 < input[disziplin].length)
+                    && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
                 input[disziplin][index + 1].requestFocus();
             }
         }

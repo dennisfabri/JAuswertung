@@ -29,8 +29,8 @@ import de.df.jutils.plugin.UpdateEvent;
 public class MTipOfTheDayPlugin extends ANullPlugin {
 
     private JTipOfTheDay tips = null;
-    JDialog              dialog;
-    private JMenuItem    item = new JMenuItem(I18n.get("Tips"));
+    JDialog dialog;
+    private JMenuItem item = new JMenuItem(I18n.get("Tips"));
 
     public MTipOfTheDayPlugin() {
         item.setToolTipText(I18n.getToolTip("TipOfTheDay"));
@@ -49,7 +49,8 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
 
     private synchronized JTipOfTheDay getTips() {
         if (tips == null) {
-            String[] text = FileUtils.readTextFile(I18nUtils.getLocalizedFile(Utils.getUserDir() + "tips" + File.separator + "tips.txt"), "Cp1252");
+            String[] text = FileUtils.readTextFile(
+                    I18nUtils.getLocalizedFile(Utils.getUserDir() + "tips" + File.separator + "tips.txt"), "Cp1252");
 
             DefaultTip[] tiptext = new DefaultTip[text.length];
             for (int x = 0; x < tiptext.length; x++) {

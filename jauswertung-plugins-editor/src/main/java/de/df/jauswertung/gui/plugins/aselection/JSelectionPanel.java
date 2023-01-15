@@ -43,20 +43,20 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
         }
     }
 
-    private boolean                 changed          = false;
+    private boolean changed = false;
 
-    private static final long       serialVersionUID = 3735076099011819345L;
+    private static final long serialVersionUID = 3735076099011819345L;
 
     private final AMSelectionPlugin root;
-    private final JFrame            parent;
-    private final FEditorPlugin     editor;
+    private final JFrame parent;
+    private final FEditorPlugin editor;
 
-    private T[]                     swimmers         = null;
+    private T[] swimmers = null;
 
-    private JRadioButton[]          yes              = null;
-    private JRadioButton[]          no               = null;
-    private JButton[]               penalty          = null;
-    private JLabel[]                penaltytext      = null;
+    private JRadioButton[] yes = null;
+    private JRadioButton[] no = null;
+    private JButton[] penalty = null;
+    private JLabel[] penaltytext = null;
 
     public JSelectionPanel(JFrame parent, AMSelectionPlugin root, FEditorPlugin editor, LinkedList<ASchwimmer> s) {
         this.parent = parent;
@@ -81,8 +81,11 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
         penaltytext = new JLabel[swimmers.length];
         penalty = new JButton[swimmers.length];
 
-        FormLayout layout = new FormLayout("4dlu,fill:default," + "4dlu,fill:default:grow,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default,"
-                + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu", FormLayoutUtils.createLayoutString(swimmers.length + 2 + 2));
+        FormLayout layout = new FormLayout(
+                "4dlu,fill:default," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
+                        + "4dlu,fill:default,4dlu,fill:default,"
+                        + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+                FormLayoutUtils.createLayoutString(swimmers.length + 2 + 2));
         layout.setColumnGroups(new int[][] { { 10, 12, 14, 16 } });
 
         setLayout(layout);
@@ -132,7 +135,8 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
             no[x].addActionListener(buttonAL);
 
             penaltytext[x] = new JLabel();
-            penaltytext[x].setText(PenaltyUtils.getPenaltyShortText(swimmers[x].getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF), swimmers[x].getAK()));
+            penaltytext[x].setText(PenaltyUtils.getPenaltyShortText(
+                    swimmers[x].getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF), swimmers[x].getAK()));
             penalty[x] = new JButton(I18n.get("Penalty"));
             penalty[x].addActionListener(new PenaltyListener(x));
 
@@ -189,7 +193,8 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
 
     void editPenalties(int x) {
         editor.runPenaltyEditor(parent, swimmers[x].getWettkampf(), swimmers[x]);
-        penaltytext[x].setText(PenaltyUtils.getPenaltyShortText(swimmers[x].getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF), swimmers[x].getAK()));
+        penaltytext[x].setText(PenaltyUtils.getPenaltyShortText(
+                swimmers[x].getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF), swimmers[x].getAK()));
     }
 
     void setChanged() {

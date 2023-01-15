@@ -11,9 +11,9 @@ public class Time implements Comparable<Time>, Serializable {
 
     private static final long serialVersionUID = -6335301709914650979L;
 
-    int                       hour;
-    int                       minute;
-    int                       second;
+    int hour;
+    int minute;
+    int second;
 
     public Time(int minutes) {
         this(minutes / 60, minutes % 60);

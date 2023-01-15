@@ -10,15 +10,15 @@ import de.df.jauswertung.daten.ASchwimmer;
 
 public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparable<OWDisziplin<T>> {
 
-    public final String    Id;
-    public final int       akNummer;
-    public final boolean   maennlich;
-    public final int       disziplin;
-    public final int       round;
+    public final String Id;
+    public final int akNummer;
+    public final boolean maennlich;
+    public final int disziplin;
+    public final int round;
 
-    public HashSet<T>      Schwimmer = new HashSet<>();
+    public HashSet<T> Schwimmer = new HashSet<>();
 
-    public List<OWLauf<T>> laeufe    = new ArrayList<>();
+    public List<OWLauf<T>> laeufe = new ArrayList<>();
 
     public static String getId(int akNummer, boolean male, int disziplin, int round) {
         return String.format("%d-%s-%d-%d", akNummer, male ? "m" : "f", disziplin, round);
@@ -90,6 +90,7 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
         if (laeufe == null) {
             return false;
         }
-        return laeufe.stream().anyMatch(l -> l.getAllSchwimmer().stream().anyMatch(s -> s.getStartnummer() == m.getStartnummer()));
+        return laeufe.stream()
+                .anyMatch(l -> l.getAllSchwimmer().stream().anyMatch(s -> s.getStartnummer() == m.getStartnummer()));
     }
 }

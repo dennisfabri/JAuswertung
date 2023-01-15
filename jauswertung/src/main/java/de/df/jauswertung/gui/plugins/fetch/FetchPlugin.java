@@ -18,12 +18,12 @@ import de.df.jutils.plugin.MenuInfo;
 
 public class FetchPlugin extends ANullPlugin {
 
-    private CorePlugin core    = null;
+    private CorePlugin core = null;
 
-    private MenuInfo[] menu    = null;
-    private JMenuItem  item    = null;
+    private MenuInfo[] menu = null;
+    private JMenuItem item = null;
 
-    private String     lastURL = "";
+    private String lastURL = "";
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -51,7 +51,8 @@ public class FetchPlugin extends ANullPlugin {
     }
 
     private void showWindow() {
-        String text = DialogUtils.showTextDialog(getController().getWindow(), I18n.get("FetchCompetition"), I18n.get("Server"), lastURL);
+        String text = DialogUtils.showTextDialog(getController().getWindow(), I18n.get("FetchCompetition"),
+                I18n.get("Server"), lastURL);
         if (text == null) {
             return;
         }

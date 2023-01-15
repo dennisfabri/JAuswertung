@@ -22,13 +22,13 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MMissingInputPlugin extends ANullPlugin {
 
-    private JMenuItem[]        menu;
-    private MenuInfo[]         minfo;
+    private JMenuItem[] menu;
+    private MenuInfo[] minfo;
 
-    private JButton            button;
+    private JButton button;
 
-    private CorePlugin         core;
-    private FEditorPlugin      editor;
+    private CorePlugin core;
+    private FEditorPlugin editor;
 
     private JMissingInputFrame frame = null;
 

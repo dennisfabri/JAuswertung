@@ -25,17 +25,17 @@ import de.df.jutils.plugin.JPanelContainer;
  */
 public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.OptionsPlugin {
 
-    private static final String COMPRESS_LISTS   = "CompressLists";
+    private static final String COMPRESS_LISTS = "CompressLists";
 
-    MOptionenPlugin             optionen;
+    MOptionenPlugin optionen;
 
-    private JPanel              panel;
-    private JCheckBox           hlwleftalignCheckbox;
-    private JCheckBox           doubleMode;
-    private JCheckBox           compress         = null;
+    private JPanel panel;
+    private JCheckBox hlwleftalignCheckbox;
+    private JCheckBox doubleMode;
+    private JCheckBox compress = null;
 
-    private boolean             doublewindowmode = false;
-    private boolean             hlwleftalign     = false;
+    private boolean doublewindowmode = false;
+    private boolean hlwleftalign = false;
 
     public OViewOptionsPlugin() {
         super();

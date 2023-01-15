@@ -10,14 +10,16 @@ import de.df.jutils.plugin.IPluginManager;
 
 public class EditHeatlistUtils {
 
-    private static final class EditFinishedListener<T extends ASchwimmer> implements ISimpleCallback<JLauflisteBearbeiten<T>> {
+    private static final class EditFinishedListener<T extends ASchwimmer>
+            implements ISimpleCallback<JLauflisteBearbeiten<T>> {
 
-        private final IPluginManager                 controller;
-        private final IFeature                       plugin;
-        private final AWettkampf<T>                  wk;
+        private final IPluginManager controller;
+        private final IFeature plugin;
+        private final AWettkampf<T> wk;
         private final ISimpleCallback<AWettkampf<T>> callback;
 
-        public EditFinishedListener(IPluginManager controller, IFeature plugin, AWettkampf<T> wk, ISimpleCallback<AWettkampf<T>> callback) {
+        public EditFinishedListener(IPluginManager controller, IFeature plugin, AWettkampf<T> wk,
+                ISimpleCallback<AWettkampf<T>> callback) {
             this.controller = controller;
             this.plugin = plugin;
             this.wk = wk;
@@ -35,13 +37,15 @@ public class EditHeatlistUtils {
         }
     }
 
-    public static <T extends ASchwimmer> void laufliste(IPluginManager controller, IFeature plugin, AWettkampf<T> wk, boolean editable,
+    public static <T extends ASchwimmer> void laufliste(IPluginManager controller, IFeature plugin, AWettkampf<T> wk,
+            boolean editable,
             ISimpleCallback<AWettkampf<T>> callback) {
         ISimpleCallback<JLauflisteBearbeiten<T>> sc = null;
         if (editable) {
             sc = new EditFinishedListener<T>(controller, plugin, wk, callback);
         }
-        ModalFrameUtil.showAsModal(new JLauflisteBearbeiten<T>(controller.getWindow(), wk, editable, sc), controller.getWindow());
+        ModalFrameUtil.showAsModal(new JLauflisteBearbeiten<T>(controller.getWindow(), wk, editable, sc),
+                controller.getWindow());
     }
 
     public static void notifyHeatlistChanged(IPluginManager controller, IFeature plugin) {

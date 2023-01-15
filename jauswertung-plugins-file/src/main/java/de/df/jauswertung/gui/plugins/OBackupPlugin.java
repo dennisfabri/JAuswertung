@@ -33,18 +33,18 @@ import de.df.jutils.util.StringTools;
 
 public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
-    private boolean           enabled;
-    private String            directory;
-    int                       intervall;
+    private boolean enabled;
+    private String directory;
+    int intervall;
 
-    private JPanel            optionsPanel;
-    private JCheckBox         backup;
+    private JPanel optionsPanel;
+    private JCheckBox backup;
     private JWarningTextField dir;
-    private JIntSpinner       time;
-    private JButton           dots;
+    private JIntSpinner time;
+    private JButton dots;
 
-    MOptionenPlugin           optionen;
-    CorePlugin                core;
+    MOptionenPlugin optionen;
+    CorePlugin core;
 
     public OBackupPlugin() {
         // Nothing to do
@@ -75,8 +75,8 @@ public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPl
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
+     * 
+     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
      */
     @Override
     public JPanel[] getPanels() {
@@ -238,14 +238,14 @@ public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPl
         }
     }
 
-    boolean run      = true;
+    boolean run = true;
     boolean finished = true;
 
     private class TimedBackup extends Thread {
 
         // 1 Minute = 1000 * 60
         private final static long DELAY = 1000 * 60;
-        private long              last  = System.currentTimeMillis();
+        private long last = System.currentTimeMillis();
 
         public TimedBackup() {
             setName("OBackupPlugin$AutomaticSave");

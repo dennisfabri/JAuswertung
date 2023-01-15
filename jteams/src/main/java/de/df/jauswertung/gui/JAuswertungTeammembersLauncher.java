@@ -88,10 +88,12 @@ public final class JAuswertungTeammembersLauncher {
 
         UpdateEvent.installReasonChecker(new JAuswertungReasonChecker());
         Preferences prefs = Utils.getPreferences();
-        PluginManager japm = new PluginManager("JTeams", IconManager.getTitleImages(), tm, splash, true, prefs.getBoolean("ForceSingleInstance", false),
+        PluginManager japm = new PluginManager("JTeams", IconManager.getTitleImages(), tm, splash, true,
+                prefs.getBoolean("ForceSingleInstance", false),
                 "plugins-mmm");
         japm.setVerbose(Utils.isInDevelopmentModeFor("PluginManager"));
-        japm.sendDataUpdateEvent("Init", UpdateEventConstants.REASON_EVERYTHING_CHANGED | UpdateEventConstants.REASON_STARTUP, null);
+        japm.sendDataUpdateEvent("Init",
+                UpdateEventConstants.REASON_EVERYTHING_CHANGED | UpdateEventConstants.REASON_STARTUP, null);
 
         japm.getWindow().setExtendedState(Frame.MAXIMIZED_BOTH);
         UIStateUtils.uistatemanage(japm.getWindow(), "JAuswertungTeammembersWindow");

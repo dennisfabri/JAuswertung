@@ -15,7 +15,8 @@ import de.df.jauswertung.util.Utils;
 
 public class ResultSelectionUtils {
 
-    public static <T extends ASchwimmer> boolean IsCompleteSelection(AWettkampf<T> wk, AgegroupResultSelection[] selection) {
+    public static <T extends ASchwimmer> boolean IsCompleteSelection(AWettkampf<T> wk,
+            AgegroupResultSelection[] selection) {
         if (selection == null || selection.length == 0) {
             return false;
         }
@@ -96,7 +97,8 @@ public class ResultSelectionUtils {
         return wk;
     }
 
-    public static <T extends ASchwimmer> AWettkampf<T> getResultWettkampf(AWettkampf<T> wk, AgegroupResultSelection[] selection) {
+    public static <T extends ASchwimmer> AWettkampf<T> getResultWettkampf(AWettkampf<T> wk,
+            AgegroupResultSelection[] selection) {
         wk = Utils.copy(wk);
         Regelwerk aks = wk.getRegelwerk();
         AgegroupResultSelection[][] temp = new AgegroupResultSelection[aks.size()][2];

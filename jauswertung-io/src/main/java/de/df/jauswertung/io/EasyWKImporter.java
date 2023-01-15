@@ -33,9 +33,9 @@ import de.df.jutils.util.Feedback;
  */
 public final class EasyWKImporter implements IImporter {
 
-    private static final String[] SUFFIXES   = { ".csv" };
+    private static final String[] SUFFIXES = { ".csv" };
 
-    private static final char[]   SEPARATORS = { ',', ',', ';' };
+    private static final char[] SEPARATORS = { ',', ',', ';' };
 
     static {
         NumberFormat nf = NumberFormat.getInstance();
@@ -51,19 +51,22 @@ public final class EasyWKImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk,
+            Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name,
+            AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
 
     @Override
-    public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb, LinkedList<T> data2, String filename)
+    public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
+            LinkedList<T> data2, String filename)
             throws TableFormatException, TableEntryException, TableException {
         return null;
     }
@@ -79,7 +82,8 @@ public final class EasyWKImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 
@@ -90,7 +94,8 @@ public final class EasyWKImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb) throws TableFormatException, TableEntryException {
+    public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException {
         return null;
     }
 
@@ -121,9 +126,9 @@ public final class EasyWKImporter implements IImporter {
     }
 
     private static int IndexCompetitionNumber = 0;
-    private static int IndexStartnumber       = 1;
-    private static int IndexTime              = 2;
-    private static int IndexStatus            = 3;
+    private static int IndexStartnumber = 1;
+    private static int IndexTime = 2;
+    private static int IndexStatus = 3;
 
     private static int[] identifyIndizes(Object[] titles) {
         int[] indizes = new int[4];
@@ -193,7 +198,8 @@ public final class EasyWKImporter implements IImporter {
                                     case NICHTS: {
                                         T t = SearchUtils.getSchwimmer(wk, startnumber);
                                         try {
-                                            fb.showFeedback(t.getName() + " in Wettkampf " + compnrText + ": " + timeText + " (" + statusText + ")");
+                                            fb.showFeedback(t.getName() + " in Wettkampf " + compnrText + ": "
+                                                    + timeText + " (" + statusText + ")");
                                         } catch (Exception ex) {
                                             ex.printStackTrace();
                                         }

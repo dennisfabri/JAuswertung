@@ -42,16 +42,15 @@ public final class CompetitionUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    public final static SchwimmerStartnummernVergleicher VERGLEICHER_STARTNUMMER  = new SchwimmerStartnummernVergleicher();
+    public final static SchwimmerStartnummernVergleicher VERGLEICHER_STARTNUMMER = new SchwimmerStartnummernVergleicher();
     @SuppressWarnings("rawtypes")
-    public final static SchwimmerAKVergleicher           VERGLEICHER_ALTERSKLASSE = new SchwimmerAKVergleicher();
+    public final static SchwimmerAKVergleicher VERGLEICHER_ALTERSKLASSE = new SchwimmerAKVergleicher();
     @SuppressWarnings("rawtypes")
-    public final static SchwimmerGliederungVergleicher   VERGLEICHER_GLIEDERUNG   = new SchwimmerGliederungVergleicher();
+    public final static SchwimmerGliederungVergleicher VERGLEICHER_GLIEDERUNG = new SchwimmerGliederungVergleicher();
     @SuppressWarnings("rawtypes")
-    public final static SchwimmerMeldepunkteVergleicher  VERGLEICHER_MELDEPUNKTE  = new SchwimmerMeldepunkteVergleicher();
+    public final static SchwimmerMeldepunkteVergleicher VERGLEICHER_MELDEPUNKTE = new SchwimmerMeldepunkteVergleicher();
     @SuppressWarnings("rawtypes")
-    public final static SchwimmerNameVergleicher         VERGLEICHER_NAME         = new SchwimmerNameVergleicher();
-
+    public final static SchwimmerNameVergleicher VERGLEICHER_NAME = new SchwimmerNameVergleicher();
 
     public static <T extends ASchwimmer> AWettkampf<T> getFilteredInstance(AWettkampf<T> wk) {
         Filter f = wk.getCurrentFilter();
@@ -74,7 +73,8 @@ public final class CompetitionUtils {
                 }
             }
         }
-        LinkedList<T> swimmer = SearchUtils.getSchwimmer(w, gliederungen.toArray(new String[gliederungen.size()]), true);
+        LinkedList<T> swimmer = SearchUtils.getSchwimmer(w, gliederungen.toArray(new String[gliederungen.size()]),
+                true);
         if (swimmer.isEmpty()) {
             return w;
         }
@@ -168,10 +168,11 @@ public final class CompetitionUtils {
     @SuppressWarnings("serial")
     static class MedalTableModel extends AbstractTableModel {
 
-        private static String[] titles = new String[] { I18n.get("Rank"), I18n.get("Organisation"), "  " + I18n.get("Gold") + "  ",
+        private static String[] titles = new String[] { I18n.get("Rank"), I18n.get("Organisation"),
+                "  " + I18n.get("Gold") + "  ",
                 "  " + I18n.get("Silver") + "  ", "  " + I18n.get("Bronze") + "  " };
 
-        private final Medal[]   medals;
+        private final Medal[] medals;
 
         @Override
         public String getColumnName(int column) {
@@ -218,9 +219,9 @@ public final class CompetitionUtils {
     static class Medal implements Comparable<Medal> {
 
         private String name;
-        private int[]  medals;
-        private int    points;
-        private int    rank;
+        private int[] medals;
+        private int points;
+        private int rank;
 
         public Medal(String name, int[] medals) {
             this.name = name;
@@ -279,7 +280,7 @@ public final class CompetitionUtils {
     private static class Result implements Comparable<Result> {
 
         private final double punkte;
-        private final int    time;
+        private final int time;
         private final Strafe strafe;
 
         public Result(double p, int t, Strafe s) {
@@ -326,7 +327,8 @@ public final class CompetitionUtils {
      * @param max
      * @return
      */
-    public static <T extends ASchwimmer> MannschaftWettkampf generateTeamCompetition(AWettkampf<T> wk, int min, int max) {
+    public static <T extends ASchwimmer> MannschaftWettkampf generateTeamCompetition(AWettkampf<T> wk, int min,
+            int max) {
         if (min <= 0) {
             throw new IllegalArgumentException("Min must not be lower than or equal to 0.");
         }
@@ -396,7 +398,8 @@ public final class CompetitionUtils {
                     }
                     if (penalty) {
                         if (m.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF).size() == 0) {
-                            m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF, new Strafe(I18n.get("MixedAgegroups"), "GA", Strafarten.DISQUALIFIKATION, 0));
+                            m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
+                                    new Strafe(I18n.get("MixedAgegroups"), "GA", Strafarten.DISQUALIFIKATION, 0));
                         }
                     }
                 }
@@ -441,7 +444,8 @@ public final class CompetitionUtils {
                         }
                         m.setZeit(i, (int) Math.round((double) m.getZeit(i) / (double) min));
                     } else {
-                        m.addStrafe(i, new Strafe(I18n.get("NotEnoughValidTimes"), "GZ", Strafarten.NICHT_ANGETRETEN, 0));
+                        m.addStrafe(i,
+                                new Strafe(I18n.get("NotEnoughValidTimes"), "GZ", Strafarten.NICHT_ANGETRETEN, 0));
                     }
                 }
 
@@ -456,7 +460,8 @@ public final class CompetitionUtils {
         return generateWertungsgruppenwettkampf(wk, false);
     }
 
-    public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk, boolean nurMehrkampf) {
+    public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk,
+            boolean nurMehrkampf) {
         AWettkampf<T> wkx = Utils.copy(wk);
         Wertungsgruppe[] wgs = wkx.getRegelwerk().getWertungsgruppen(nurMehrkampf);
         if (wgs.length <= 0) {
@@ -471,7 +476,8 @@ public final class CompetitionUtils {
 
         wk.disableUpdates();
         for (Altersklasse ak : wkx.getRegelwerk().getAks()) {
-            if ((ak.getWertungsgruppe() == null) || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
+            if ((ak.getWertungsgruppe() == null)
+                    || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
                 wkx.removeSchwimmer(SearchUtils.getSchwimmer(wkx, ak));
             }
         }
@@ -638,7 +644,6 @@ public final class CompetitionUtils {
         }
         return true;
     }
-
 
     public static <T extends ASchwimmer> int[] getStarter(T s, int akNummer, boolean male, int discipline, int round) {
         if (round == 0) {

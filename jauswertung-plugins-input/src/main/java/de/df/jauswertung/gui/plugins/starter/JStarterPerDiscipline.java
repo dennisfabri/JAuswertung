@@ -16,18 +16,18 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
 
 public class JStarterPerDiscipline extends JPanel {
 
-    private final Mannschaft               schwimmer;
-    private final OWDisziplin<Mannschaft>  disziplin;
-    private final Eingabe                  eingabe;
-    private final int                      disz;
+    private final Mannschaft schwimmer;
+    private final OWDisziplin<Mannschaft> disziplin;
+    private final Eingabe eingabe;
+    private final int disz;
 
-    private String[]                       mannschaftsmitglieder;
+    private String[] mannschaftsmitglieder;
 
     @SuppressWarnings("unchecked")
-    private final JComboBox<String>[]      starter = new JComboBox[4];
+    private final JComboBox<String>[] starter = new JComboBox[4];
     @SuppressWarnings("unchecked")
-    private DefaultComboBoxModel<String>[] model   = new DefaultComboBoxModel[4];
-    private JLabel                         title   = new JLabel();
+    private DefaultComboBoxModel<String>[] model = new DefaultComboBoxModel[4];
+    private JLabel title = new JLabel();
 
     public JStarterPerDiscipline(Mannschaft s, int disz) {
         schwimmer = s;

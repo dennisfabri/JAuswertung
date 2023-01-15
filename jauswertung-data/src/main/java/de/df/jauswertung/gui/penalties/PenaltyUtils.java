@@ -112,8 +112,6 @@ public final class PenaltyUtils {
         return false;
     }
 
-
-
     public static String getPenaltyText(Strafe s, Altersklasse ak) {
         if (s == null) {
             return "";

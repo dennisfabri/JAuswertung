@@ -181,7 +181,7 @@ public final class IOUtils {
         if (instance == null) {
             instance = XStreamUtil.getXStream();
             setupPermissions(instance);
-            
+
             instance.aliasType("java.awt.Point", Point.class);
             instance.aliasType("java.awt.Dimension", Dimension.class);
 
@@ -259,7 +259,7 @@ public final class IOUtils {
 
             instance.alias("Mannschaftsmitglied", Mannschaftsmitglied.class);
             instance.alias("Mannschaftsmitgliedermeldung", Mannschaftsmitgliedermeldung.class);
-            
+
             instance.useAttributeFor(ASchwimmer.class, "gliederung");
             instance.useAttributeFor(ASchwimmer.class, "maennlich");
             instance.useAttributeFor(ASchwimmer.class, "bemerkung");
@@ -289,7 +289,8 @@ public final class IOUtils {
 
     private static void setupPermissions(XStream xstream) {
         xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
-        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*", "de.df.jauswertung.print.graphics.*",
+        xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*",
+                "de.df.jauswertung.print.graphics.*",
                 "de.df.jutils.print.PageSetting" });
     }
 

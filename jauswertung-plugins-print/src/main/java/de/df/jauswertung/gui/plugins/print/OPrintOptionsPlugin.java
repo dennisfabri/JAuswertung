@@ -41,44 +41,45 @@ import de.df.jutils.print.PrintManager;
 
 public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
-    private static final String RESULTS_KEY                  = "ResultsHorizontalInPrototcol";
-    private static final String EMPTY_LANES_KEY              = "PrintEmptyLanes";
-    private static final String EMPTY_CARDS_KEY              = "PrintEmptyCards";
+    private static final String RESULTS_KEY = "ResultsHorizontalInPrototcol";
+    private static final String EMPTY_LANES_KEY = "PrintEmptyLanes";
+    private static final String EMPTY_CARDS_KEY = "PrintEmptyCards";
     private static final String POINTS_IN_DISCIPLINE_RESULTS = "PrintPointsInDisciplineResults";
-    private static final String CHECKSUM                     = "PrintChecksum";
-    private static final String ROWMARKER                    = "PrintRowMarker";
-    private static final String PRINT_DNS                    = "PrintDidNotStart";
-    private static final String PRINT_RANKS                  = "PrintRanksInResults";
-    private static final String PRINT_HLW_NAMES              = "PrintZWnames";
-    private static final String OMIT_ORGANISATION_FOR_TEAM   = "PrintOmitOrganisationForTeams";
+    private static final String CHECKSUM = "PrintChecksum";
+    private static final String ROWMARKER = "PrintRowMarker";
+    private static final String PRINT_DNS = "PrintDidNotStart";
+    private static final String PRINT_RANKS = "PrintRanksInResults";
+    private static final String PRINT_HLW_NAMES = "PrintZWnames";
+    private static final String OMIT_ORGANISATION_FOR_TEAM = "PrintOmitOrganisationForTeams";
 
-    JFontChooser                fontChooser                  = null;
-    JPanel                      fontPanel                    = null;
+    JFontChooser fontChooser = null;
+    JPanel fontPanel = null;
 
-    JCheckBox                   results                      = null;
-    JCheckBox                   emptylanes                   = null;
-    JCheckBox                   emptycards                   = null;
-    JCheckBox                   points                       = null;
-    JCheckBox                   checksum                     = null;
-    JCheckBox                   printdns                     = null;
-    JCheckBox                   printranks                   = null;
-    JCheckBox                   hlwNames                     = null;
-    JCheckBox                   omitOrganisationForTeams     = null;
+    JCheckBox results = null;
+    JCheckBox emptylanes = null;
+    JCheckBox emptycards = null;
+    JCheckBox points = null;
+    JCheckBox checksum = null;
+    JCheckBox printdns = null;
+    JCheckBox printranks = null;
+    JCheckBox hlwNames = null;
+    JCheckBox omitOrganisationForTeams = null;
 
-    JLabel                      rowmarkercolor               = null;
-    BufferedImage               rowmarkerimage               = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
-    ImageIcon                   rowmarkericon                = new ImageIcon(rowmarkerimage);
-    JSlider                     rowmarker                    = null;
+    JLabel rowmarkercolor = null;
+    BufferedImage rowmarkerimage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
+    ImageIcon rowmarkericon = new ImageIcon(rowmarkerimage);
+    JSlider rowmarker = null;
 
-    JPanel                      printPanel                   = null;
+    JPanel printPanel = null;
 
-    MOptionenPlugin             options;
+    MOptionenPlugin options;
 
     public OPrintOptionsPlugin() {
         PrintUtils.printProtocolResultsHorizontal = Utils.getPreferences().getBoolean(RESULTS_KEY, false);
         PrintUtils.printEmptyLanes = Utils.getPreferences().getBoolean(EMPTY_LANES_KEY, true);
         PrintUtils.printEmptyCards = Utils.getPreferences().getBoolean(EMPTY_CARDS_KEY, false);
-        PrintUtils.printPointsInDisciplineResults = Utils.getPreferences().getBoolean(POINTS_IN_DISCIPLINE_RESULTS, true);
+        PrintUtils.printPointsInDisciplineResults = Utils.getPreferences().getBoolean(POINTS_IN_DISCIPLINE_RESULTS,
+                true);
         PrintUtils.printChecksum = Utils.getPreferences().getBoolean(CHECKSUM, true);
         PrintUtils.printDidNotStart = Utils.getPreferences().getBoolean(PRINT_DNS, false);
         JResultTable.printRanksInResults = Utils.getPreferences().getBoolean(PRINT_RANKS, false);
@@ -102,8 +103,8 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
 
     /*
      * (non-Javadoc)
-     * @see
-     * de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
+     * 
+     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
      */
     @Override
     public synchronized JPanel[] getPanels() {
@@ -114,12 +115,13 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
 
                 fontChooser = new JFontChooser();
                 fontChooser.setSelectedFont(PrintManager.getFont());
-                fontChooser.addPropertyChangeListener(JFontChooser.SELECTED_FONT_CHANGED_KEY, new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent evt) {
-                        options.notifyChange();
-                    }
-                });
+                fontChooser.addPropertyChangeListener(JFontChooser.SELECTED_FONT_CHANGED_KEY,
+                        new PropertyChangeListener() {
+                            @Override
+                            public void propertyChange(PropertyChangeEvent evt) {
+                                options.notifyChange();
+                            }
+                        });
                 JScrollPane scroll = new JScrollPane(fontChooser);
                 scroll.setBorder(null);
                 fontPanel.add(scroll, CC.xy(2, 2));
@@ -264,6 +266,7 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#ok()
      */
     @Override
@@ -295,6 +298,7 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#cancel()
      */
     @Override

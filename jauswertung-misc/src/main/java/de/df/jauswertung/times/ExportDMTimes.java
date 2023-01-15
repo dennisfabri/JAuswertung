@@ -27,7 +27,8 @@ public class ExportDMTimes {
                 if (s instanceof Mannschaft) {
                     entryname = String.format("%s (%s)", s.getName(), I18n.getAgeGroupAsStringShort(s));
                 }
-                System.out.format("  e = new Entry() { Name = \"%s\", Organization = \"%s\", Competition = c };\n", entryname, s.getGliederungMitQGliederung());
+                System.out.format("  e = new Entry() { Name = \"%s\", Organization = \"%s\", Competition = c };\n",
+                        entryname, s.getGliederungMitQGliederung());
                 System.out.format("  uow.Entries.Add(e);\n");
                 for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                     if (s.isDisciplineChosen(x) && s.getAkkumulierteStrafe(x).getArt() != Strafarten.NICHT_ANGETRETEN) {
@@ -35,7 +36,8 @@ public class ExportDMTimes {
                         String penalty = I18n.getPenaltyShort(s.getAkkumulierteStrafe(x));
                         System.out.format(
                                 "  t = new Time() { DisciplineId = GetDisciplineId(uow, \"%s\", %s, \"%s\"), Value = %s, Penalty = \"%s\", Moment = GetDate(\"%s\") };\n",
-                                s.getAK().getName(), s instanceof Mannschaft, s.getAK().getDisziplin(x, true).getName(), time, penalty, datum);
+                                s.getAK().getName(), s instanceof Mannschaft, s.getAK().getDisziplin(x, true).getName(),
+                                time, penalty, datum);
                         System.out.format("  if (t.DisciplineId > 0) { uow.Times.Add(t); }\n");
                     }
                 }

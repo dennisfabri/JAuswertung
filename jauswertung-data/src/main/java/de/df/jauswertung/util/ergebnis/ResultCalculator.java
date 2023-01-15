@@ -24,16 +24,19 @@ public final class ResultCalculator {
         // Not used
     }
 
-    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, Altersklasse ak, boolean maennlich) {
+    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, Altersklasse ak,
+            boolean maennlich) {
         return getResults(wk, ak, maennlich, null, true);
     }
 
-    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, Altersklasse ak, boolean maennlich, boolean[] select, boolean zw) {
+    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, Altersklasse ak,
+            boolean maennlich, boolean[] select, boolean zw) {
         return getResults(wk, SearchUtils.getSchwimmer(wk, ak, maennlich), ak, maennlich, select, zw);
     }
 
     @SuppressWarnings({ "unchecked" })
-    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, LinkedList<T> swimmers, Altersklasse ak, boolean maennlich,
+    public static <T extends ASchwimmer> SchwimmerResult<T>[] getResults(AWettkampf<T> wk, LinkedList<T> swimmers,
+            Altersklasse ak, boolean maennlich,
             boolean[] select, boolean zw) {
         if (select == null) {
             select = new boolean[ak.getDiszAnzahl()];
@@ -42,7 +45,8 @@ public final class ResultCalculator {
         Formel<T> formel = FormelManager.getInstance().get(wk.getRegelwerk().getFormelID());
 
         wk.check();
-        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>(wk.getZielrichterentscheide());
+        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>(
+                wk.getZielrichterentscheide());
 
         ListIterator<Zielrichterentscheid<T>> li = zes.listIterator();
         Hashtable<String, Zielrichterentscheid<T>> zetable = new Hashtable<String, Zielrichterentscheid<T>>();
@@ -51,7 +55,8 @@ public final class ResultCalculator {
             if (ze.isValid()) {
                 LinkedList<T> zeSchwimmer = ze.getSchwimmer();
                 ASchwimmer t = zeSchwimmer.getFirst();
-                LinkedList<T> zSchwimmer = SearchUtils.getSchwimmer(wk, t.getAK(), t.isMaennlich(), ze.getDisziplin(), ze.getZeit());
+                LinkedList<T> zSchwimmer = SearchUtils.getSchwimmer(wk, t.getAK(), t.isMaennlich(), ze.getDisziplin(),
+                        ze.getZeit());
                 if (zSchwimmer.size() == zeSchwimmer.size()) {
                     boolean check = true;
                     for (T s : zSchwimmer) {
@@ -62,7 +67,8 @@ public final class ResultCalculator {
                     }
                     if (check) {
                         for (ASchwimmer s : zeSchwimmer) {
-                            zetable.put(s.getStartnummer() + "x" + s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich()).getName(), ze);
+                            zetable.put(s.getStartnummer() + "x"
+                                    + s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich()).getName(), ze);
                         }
                     }
                 }
@@ -85,7 +91,8 @@ public final class ResultCalculator {
         return formel.toResults(results, wk, ak, zetable, zw);
     }
 
-    private static <T extends ASchwimmer> SchwimmerData<T>[] toResult(AWettkampf<T> wk, T[] swimmer, Disziplin disziplin, int nummer, Formel<T> f,
+    private static <T extends ASchwimmer> SchwimmerData<T>[] toResult(AWettkampf<T> wk, T[] swimmer,
+            Disziplin disziplin, int nummer, Formel<T> f,
             boolean[] select, Hashtable<String, Zielrichterentscheid<T>> zes) {
         @SuppressWarnings("unchecked")
         SchwimmerData<T>[] schwimmer = new SchwimmerData[swimmer.length];
@@ -96,7 +103,7 @@ public final class ResultCalculator {
             schwimmer[y] = new SchwimmerData<>(swimmer[y], nummer, select[nummer]);
             copy[y] = schwimmer[y];
         }
-        
+
         f.setPoints(wk, copy, disziplin, zes);
         return schwimmer;
     }

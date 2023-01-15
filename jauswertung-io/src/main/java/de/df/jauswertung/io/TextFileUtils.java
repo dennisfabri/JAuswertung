@@ -15,7 +15,7 @@ public class TextFileUtils {
 
     public static String[] fileToStringArray(String datei, String[] backup, boolean toLowerCase) {
         java.util.Vector<String> v = new java.util.Vector<String>();
-    
+
         FileInputStream fis = null;
         BufferedReader br = null;
         try {

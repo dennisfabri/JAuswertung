@@ -13,7 +13,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 class ZWTransferable<T extends ASchwimmer> implements Transferable {
 
     private static final DataFlavor FLAVOR;
-    private T                       data;
+    private T data;
 
     static {
         DataFlavor flavor = null;

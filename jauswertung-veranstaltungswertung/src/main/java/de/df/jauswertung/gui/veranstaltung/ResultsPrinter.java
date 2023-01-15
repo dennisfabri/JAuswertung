@@ -47,11 +47,11 @@ import de.df.jutils.print.printables.MultiplePrintable;
 
 class ResultsPrinter implements Printer {
 
-    private JButton              resultpreview;
-    private JButton              resultprint;
-    JComboBox<String>            resultmodus;
-    JCheckBox                    resultcompact;
-    private JPanel               panel;
+    private JButton resultpreview;
+    private JButton resultprint;
+    JComboBox<String> resultmodus;
+    JCheckBox resultcompact;
+    private JPanel panel;
 
     final JVeranstaltungswertung parent;
 
@@ -81,7 +81,8 @@ class ResultsPrinter implements Printer {
 
         resultmodus = new JComboBox<String>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
 
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+        panel = new JPanel(new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1, 4, 0)));
 
         panel.add(resultcompact, CC.xy(2, 2));
@@ -92,7 +93,8 @@ class ResultsPrinter implements Printer {
     }
 
     @SuppressWarnings({ "unchecked", "null", "rawtypes" })
-    public static <T extends ASchwimmer> Printable getGesamtwertungPrintable(AWettkampf<T> wk, Veranstaltung vs, boolean gliederung) {
+    public static <T extends ASchwimmer> Printable getGesamtwertungPrintable(AWettkampf<T> wk, Veranstaltung vs,
+            boolean gliederung) {
 
         AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
         String[] nx = vs.getCompetitionNames();
@@ -170,7 +172,8 @@ class ResultsPrinter implements Printer {
             }
         }
 
-        JTableUtils.setAlignmentRenderer(t, new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.RIGHT }, SwingConstants.RIGHT);
+        JTableUtils.setAlignmentRenderer(t,
+                new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.RIGHT }, SwingConstants.RIGHT);
 
         return PrintManager.getPrintable(t, "", JTablePrintable.OPT_ALL, true, true);
     }
@@ -186,7 +189,8 @@ class ResultsPrinter implements Printer {
     }
 
     @SuppressWarnings({ "unchecked" })
-    static Printable getPrintableCompact(Veranstaltung vs, @SuppressWarnings("rawtypes") AWettkampf wk, String title, Font f) {
+    static Printable getPrintableCompact(Veranstaltung vs, @SuppressWarnings("rawtypes") AWettkampf wk, String title,
+            Font f) {
         if (f != null) {
             PrintManager.setFont(f);
         }
@@ -280,7 +284,8 @@ class ResultsPrinter implements Printer {
             pc = new NormalPrintableCreator();
         }
         parent.setEnabled(true);
-        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -327,10 +332,10 @@ class ResultsPrinter implements Printer {
     private final class CompactPrintableCreator implements PrintableCreator {
 
         @SuppressWarnings("rawtypes")
-        private final AWettkampf    wk;
+        private final AWettkampf wk;
         private final Veranstaltung vs;
-        private final String        t;
-        private final Font          f;
+        private final String t;
+        private final Font f;
 
         public CompactPrintableCreator() {
             long start = System.currentTimeMillis();

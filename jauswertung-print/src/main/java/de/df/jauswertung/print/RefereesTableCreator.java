@@ -50,7 +50,7 @@ public final class RefereesTableCreator {
                         } else {
                             names.addLast(" ");
                         }
-                        
+
                         StringBuilder content = new StringBuilder();
                         content.append(contents[y][1]);
                         if (contents[y][2].length() > 0) {

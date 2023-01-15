@@ -31,7 +31,7 @@ public class JKariStufenButton extends JPanel {
 
     private final class StufenChangeListener implements ChangeListener, ItemListener, ActionListener {
 
-        private final int               index;
+        private final int index;
         private final KampfrichterStufe kstufe;
 
         public StufenChangeListener(int x, KampfrichterStufe k) {
@@ -66,12 +66,12 @@ public class JKariStufenButton extends JPanel {
 
     private static final long serialVersionUID = 7825192585994417930L;
 
-    JToggleButton             level            = null;
-    JPopupMenu                dialog           = null;
+    JToggleButton level = null;
+    JPopupMenu dialog = null;
 
-    JCheckBox[]               levels           = null;
+    JCheckBox[] levels = null;
 
-    KampfrichterStufe         stufe            = KampfrichterStufe.KEINE;
+    KampfrichterStufe stufe = KampfrichterStufe.KEINE;
 
     public JKariStufenButton() {
         this(KampfrichterStufe.KEINE);
@@ -126,7 +126,8 @@ public class JKariStufenButton extends JPanel {
         levels[4].addActionListener(new StufenChangeListener(4, KampfrichterStufe.D12));
         levels[5].addActionListener(new StufenChangeListener(5, KampfrichterStufe.F1D3));
 
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(3), FormLayoutUtils.createLayoutString(3));
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(3),
+                FormLayoutUtils.createLayoutString(3));
         layout.setColumnGroups(new int[][] { { 2, 4, 6 } });
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         dialog.setLayout(layout);

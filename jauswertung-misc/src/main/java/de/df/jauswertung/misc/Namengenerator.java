@@ -17,30 +17,36 @@ import de.df.jauswertung.util.RandomUtils;
 
 public class Namengenerator {
 
-    private static Random             zufall        = RandomUtils.getRandomNumberGenerator();
+    private static Random zufall = RandomUtils.getRandomNumberGenerator();
 
-    private static String[]           vornamenM2    = { "Dennis", "Dirk", "Christian", "Holger", "David", "Stefan", "Carsten", "Sven", "Kai", "Matthias",
-            "Christoph", "Daniel", "Markus", "Maik", "Martin", "Maximilian", "Marius", "Andreas", "Alexander", "Timo", "Andreas", "Thomas", "Jens", "Pascal",
+    private static String[] vornamenM2 = { "Dennis", "Dirk", "Christian", "Holger", "David", "Stefan", "Carsten",
+            "Sven", "Kai", "Matthias",
+            "Christoph", "Daniel", "Markus", "Maik", "Martin", "Maximilian", "Marius", "Andreas", "Alexander", "Timo",
+            "Andreas", "Thomas", "Jens", "Pascal",
             "Benjamin" };
-    private static String[]           vornamenW2    = { "Anke", "Stefanie", "Bianca", "Susanne", "Christina", "Marina", "Andrea", "Julia", "Mareike", "Sandra",
-            "Christine", "Anna", "Marie", "Sophie", "Maria", "Janine", "Jasmin", "Astrid", "Sabrina", "Nadja", "Gina", "Angela", "Lisa", "Karin", "Alexandra",
+    private static String[] vornamenW2 = { "Anke", "Stefanie", "Bianca", "Susanne", "Christina", "Marina", "Andrea",
+            "Julia", "Mareike", "Sandra",
+            "Christine", "Anna", "Marie", "Sophie", "Maria", "Janine", "Jasmin", "Astrid", "Sabrina", "Nadja", "Gina",
+            "Angela", "Lisa", "Karin", "Alexandra",
             "Eva", "Melanie", "Carolin", "Regina", "Daniela" };
-    private static String[]           nachnamen2    = { "Fabri", "Meier", "Schulz", "Meyer", "Schmidt", "Spicker", "Schwert", "David", "Lange", "Himmel",
+    private static String[] nachnamen2 = { "Fabri", "Meier", "Schulz", "Meyer", "Schmidt", "Spicker", "Schwert",
+            "David", "Lange", "Himmel",
             "Ullrich", "Wahl", "Wagner", "Nitsche", "Fuchs", "Peters", "Kersting", "Langer", "Schneider", "Lindner" };
-    private static String[]           gliederungen2 = { "Gelsenkirchen", "Dortmund", "Schwerte", "Bochum", "M\u00FCnster", "M\u00FCnchen", "Hamburg",
+    private static String[] gliederungen2 = { "Gelsenkirchen", "Dortmund", "Schwerte", "Bochum", "M\u00FCnster",
+            "M\u00FCnchen", "Hamburg",
             "Hannover", "Essen", "Lippstadt", "Recklinghausen", "Borken" };
 
-    private static String[]           lvs2          = { "BY", "NR", "SH", "WE" };
+    private static String[] lvs2 = { "BY", "NR", "SH", "WE" };
 
-    private String                    dir           = "required";
+    private String dir = "required";
 
-    private String[]                  vornamenM     = null;
-    private String[]                  vornamenW     = null;
-    private String[]                  nachnamen     = null;
-    private String[]                  gliederungen  = null;
-    private String[]                  lvs           = null;
+    private String[] vornamenM = null;
+    private String[] vornamenW = null;
+    private String[] nachnamen = null;
+    private String[] gliederungen = null;
+    private String[] lvs = null;
 
-    private Hashtable<String, String> gld2lv        = new Hashtable<String, String>();
+    private Hashtable<String, String> gld2lv = new Hashtable<String, String>();
 
     private String[] readNamen(String date, String[] backup) {
         return TextFileUtils.fileToStringArray(dir, date, backup, false);

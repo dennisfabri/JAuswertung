@@ -48,6 +48,7 @@ public class HtmlZipExporter extends EmptyExporter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#registration(java.lang.String,
      * de.df.jauswertung.daten.Wettkampf)
      */
@@ -75,6 +76,7 @@ public class HtmlZipExporter extends EmptyExporter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#results(java.lang.String,
      * de.df.jauswertung.daten.Wettkampf)
      */

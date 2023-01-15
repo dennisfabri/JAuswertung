@@ -27,14 +27,14 @@ import de.df.jutils.gui.util.UIUtils;
 
 public class JOrganizationDetailPanel extends JGlassPanel<JPanel> {
 
-    private static final long             serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private Hashtable<String, JComponent> presentation     = new Hashtable<String, JComponent>();
-    private CardLayout                    cards            = new CardLayout();
-    private JPanel                        view             = new JPanel(cards);
+    private Hashtable<String, JComponent> presentation = new Hashtable<String, JComponent>();
+    private CardLayout cards = new CardLayout();
+    private JPanel view = new JPanel(cards);
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf                    wk;
+    private AWettkampf wk;
 
     public JOrganizationDetailPanel(CorePlugin core) {
         super(new JPanel());
@@ -68,7 +68,8 @@ public class JOrganizationDetailPanel extends JGlassPanel<JPanel> {
             box.setEnabled(false);
         }
 
-        JPanel p = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu:grow", "4dlu,fill:default,4dlu"));
+        JPanel p = new JPanel(
+                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu:grow", "4dlu,fill:default,4dlu"));
         p.add(new JLabel(I18n.get("Organization")), CC.xy(2, 2));
         p.add(box, CC.xy(4, 2));
 

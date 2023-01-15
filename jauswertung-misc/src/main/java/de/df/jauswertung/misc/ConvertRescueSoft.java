@@ -13,17 +13,21 @@ import de.df.jutils.util.StringTools;
 
 public class ConvertRescueSoft {
 
-    public static final int      maxTeammembers        = 6;
+    public static final int maxTeammembers = 6;
 
-    public static final String[] PoolSingleEvents      = new String[] { "200m Obstacle Swim", "100m Manikin Carry with Fins", "100m Manikin Tow with Fins",
+    public static final String[] PoolSingleEvents = new String[] { "200m Obstacle Swim", "100m Manikin Carry with Fins",
+            "100m Manikin Tow with Fins",
             "100m Rescue Medley", "50m Manikin Carry", "200m Super Lifesaver" };
 
-    public static final String[] PoolTeamEvents        = new String[] { "4 x 25m Manikin Relay", "4 x 50m Obstacle Relay", "4 x 50m Medley Relay",
+    public static final String[] PoolTeamEvents = new String[] { "4 x 25m Manikin Relay", "4 x 50m Obstacle Relay",
+            "4 x 50m Medley Relay",
             "Line Throw" };
 
-    public static final String[] OpenwaterSingleEvents = new String[] { "Surf Race", "Board Race", "Surf Ski Race", "Oceanman", "Beach Flags", "Beach Sprint" };
+    public static final String[] OpenwaterSingleEvents = new String[] { "Surf Race", "Board Race", "Surf Ski Race",
+            "Oceanman", "Beach Flags", "Beach Sprint" };
 
-    public static final String[] OpenwaterTeamEvents   = new String[] { "Rescue Tube Rescue", "Board Rescue", "Oceanmen Relay", "Beach Sprint Relay" };
+    public static final String[] OpenwaterTeamEvents = new String[] { "Rescue Tube Rescue", "Board Rescue",
+            "Oceanmen Relay", "Beach Sprint Relay" };
 
     public static class ExcelData {
 
@@ -32,31 +36,31 @@ public class ConvertRescueSoft {
             this.tables = tables;
         }
 
-        public final String[]     titles;
+        public final String[] titles;
         public final Object[][][] tables;
     }
 
     public static class Swimmer {
-        public String   Firstname;
-        public String   Lastname;
-        public String   Organization;
-        public int      YearOfBirth;
-        public String   Startnumber;
-        public String   Sex;
-        public String   Agegroup;
+        public String Firstname;
+        public String Lastname;
+        public String Organization;
+        public int YearOfBirth;
+        public String Startnumber;
+        public String Sex;
+        public String Agegroup;
 
-        public String[] RegistrationTimesPoolSingle      = new String[PoolSingleEvents.length];
-        public String[] RegistrationTimesPoolTeam        = new String[PoolTeamEvents.length];
-        public int[]    PositionPoolTeam                 = new int[PoolTeamEvents.length];
+        public String[] RegistrationTimesPoolSingle = new String[PoolSingleEvents.length];
+        public String[] RegistrationTimesPoolTeam = new String[PoolTeamEvents.length];
+        public int[] PositionPoolTeam = new int[PoolTeamEvents.length];
 
         public String[] RegistrationTimesOpenwaterSingle = new String[OpenwaterSingleEvents.length];
-        public int[]    PositionOpenwaterTeam            = new int[OpenwaterTeamEvents.length];
+        public int[] PositionOpenwaterTeam = new int[OpenwaterTeamEvents.length];
 
-        public int      TeamId;
+        public int TeamId;
     }
 
     public static class Team {
-        public String        Name;
+        public String Name;
         public List<Swimmer> swimmers = new ArrayList<Swimmer>();
     }
 
@@ -141,7 +145,8 @@ public class ConvertRescueSoft {
             for (int x = 0; x < PoolTeamEvents.length; x++) {
                 s.RegistrationTimesPoolTeam[x] = parseTime(row[getIndex(headers, PoolTeamEvents[x])]);
                 try {
-                    s.PositionPoolTeam[x] = (int) Double.parseDouble(row[getIndex(headers, "#" + PoolTeamEvents[x])].toString());
+                    s.PositionPoolTeam[x] = (int) Double
+                            .parseDouble(row[getIndex(headers, "#" + PoolTeamEvents[x])].toString());
                 } catch (NumberFormatException nfe) {
                     s.PositionPoolTeam[x] = -1;
                 }
@@ -151,7 +156,8 @@ public class ConvertRescueSoft {
             }
             for (int x = 0; x < OpenwaterTeamEvents.length; x++) {
                 try {
-                    s.PositionOpenwaterTeam[x] = (int) Double.parseDouble(row[getIndex(headers, OpenwaterTeamEvents[x])].toString());
+                    s.PositionOpenwaterTeam[x] = (int) Double
+                            .parseDouble(row[getIndex(headers, OpenwaterTeamEvents[x])].toString());
                 } catch (NumberFormatException nfe) {
                     s.PositionOpenwaterTeam[x] = -1;
                 }

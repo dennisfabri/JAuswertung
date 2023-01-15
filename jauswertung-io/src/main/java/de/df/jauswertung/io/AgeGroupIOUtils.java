@@ -26,13 +26,14 @@ public final class AgeGroupIOUtils {
         return OutputManager.speichereObject(name, aks);
         // return AgeGroupOutputUtils.speichereAKs(name, aks);
     }
-    
+
     public static String getDefaultAKsName() {
         return "DLRG 2023";
     }
 
     public static Regelwerk getDefaultAKs(boolean einzel) {
-        return AgeGroupIOUtils.ladeAKs(Utils.getUserDir() + "aks" + File.separator + getDefaultAKsName() + ".rw" + (einzel ? "e" : "m"));
+        return AgeGroupIOUtils.ladeAKs(
+                Utils.getUserDir() + "aks" + File.separator + getDefaultAKsName() + ".rw" + (einzel ? "e" : "m"));
     }
 
     public static Regelwerk getAKs(String name) {
@@ -45,5 +46,5 @@ public final class AgeGroupIOUtils {
 
     public static Regelwerk getAKs(String name, boolean einzel) {
         return getAKs(name + (einzel ? ".rwe" : ".rwm"));
-    }    
+    }
 }

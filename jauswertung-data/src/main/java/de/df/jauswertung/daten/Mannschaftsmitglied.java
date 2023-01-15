@@ -8,13 +8,13 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 public class Mannschaftsmitglied implements Serializable {
 
     @XStreamAsAttribute
-    private String     Vorname;
+    private String Vorname;
     @XStreamAsAttribute
-    private String     Nachname;
+    private String Nachname;
     @XStreamAsAttribute
     private Geschlecht geschlecht;
     @XStreamAsAttribute
-    private int        Jahrgang;
+    private int Jahrgang;
 
     public Mannschaftsmitglied() {
         clear();
@@ -74,7 +74,8 @@ public class Mannschaftsmitglied implements Serializable {
     public void setJahrgang(int jahrgang) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         if (jahrgang < 0 || jahrgang > year) {
-            throw new IllegalArgumentException("Year must be at least 0 but not higher than " + year + " but was " + jahrgang);
+            throw new IllegalArgumentException(
+                    "Year must be at least 0 but not higher than " + year + " but was " + jahrgang);
         }
         if (jahrgang == 0) {
             // Nothing to do

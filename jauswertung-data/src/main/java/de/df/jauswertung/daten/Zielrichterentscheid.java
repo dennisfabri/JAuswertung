@@ -16,8 +16,8 @@ public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable 
     private static final long serialVersionUID = -3488380754349447007L;
 
     @XStreamAsAttribute
-    private int               disziplin        = 0;
-    private LinkedList<T>     swimmers         = new LinkedList<T>();
+    private int disziplin = 0;
+    private LinkedList<T> swimmers = new LinkedList<T>();
 
     public Zielrichterentscheid() {
         // Nothing to do
@@ -48,7 +48,8 @@ public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable 
         }
         if (s.getAK().getDiszAnzahl() <= disziplin) {
             if (s.getAK().getDiszAnzahl() <= disziplin) {
-                throw new IllegalArgumentException(disziplin + " must be lower than " + s.getAK().getDiszAnzahl() + ".");
+                throw new IllegalArgumentException(
+                        disziplin + " must be lower than " + s.getAK().getDiszAnzahl() + ".");
             }
         }
         swimmers.addLast(s);

@@ -28,26 +28,26 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MUndoPlugin extends ANullPlugin {
 
-    private static final int    UNDO_STEPS = 20;
+    private static final int UNDO_STEPS = 20;
 
-    private ButtonInfo[]        buttons;
-    private MenuInfo[]          menues;
+    private ButtonInfo[] buttons;
+    private MenuInfo[] menues;
 
     private JUndoButton<String> undo;
     private JUndoButton<String> redo;
 
-    private JMenuItem           undom;
-    private JMenuItem           redom;
+    private JMenuItem undom;
+    private JMenuItem redom;
 
-    private LinkedList<String>  undolist   = new LinkedList<String>();
-    private LinkedList<byte[]>  undowk     = new LinkedList<byte[]>();
-    private LinkedList<byte[]>  redowk     = new LinkedList<byte[]>();
-    private LinkedList<String>  redolist   = new LinkedList<String>();
+    private LinkedList<String> undolist = new LinkedList<String>();
+    private LinkedList<byte[]> undowk = new LinkedList<byte[]>();
+    private LinkedList<byte[]> redowk = new LinkedList<byte[]>();
+    private LinkedList<String> redolist = new LinkedList<String>();
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf          tempWK     = null;
+    private AWettkampf tempWK = null;
 
-    private CorePlugin          core       = null;
+    private CorePlugin core = null;
 
     public MUndoPlugin() {
         EDTUtils.executeOnEDT(new Runnable() {
@@ -110,7 +110,7 @@ public class MUndoPlugin extends ANullPlugin {
         });
     }
 
-    private ASchwimmer schwimmer    = null;
+    private ASchwimmer schwimmer = null;
     private ASchwimmer schwimmerhlw = null;
 
     @Override
@@ -128,7 +128,8 @@ public class MUndoPlugin extends ANullPlugin {
             redom.setEnabled(false);
         }
 
-        if (due.getTitle().equals("Init") || (due.getTitle().equals("NewCompetition")) || (due.getTitle().equals("SaveAs")) || (due.getTitle().equals("Load"))
+        if (due.getTitle().equals("Init") || (due.getTitle().equals("NewCompetition"))
+                || (due.getTitle().equals("SaveAs")) || (due.getTitle().equals("Load"))
                 || (due.getTitle().equals("Save"))) {
             schwimmer = null;
             schwimmerhlw = null;

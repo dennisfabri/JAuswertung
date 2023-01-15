@@ -28,13 +28,13 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class RegisteredTeamnamesPrinter2 {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JButton        print;
-    private JButton        preview;
+    private JButton print;
+    private JButton preview;
 
-    private String         gliederung = null;
+    private String gliederung = null;
 
     public RegisteredTeamnamesPrinter2(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -75,7 +75,8 @@ class RegisteredTeamnamesPrinter2 {
 
     void preview() {
         PrintableCreator pc = new MeldelistenPC();
-        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RegisteredTeamnames"), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class MeldelistenPC implements PrintableCreator {

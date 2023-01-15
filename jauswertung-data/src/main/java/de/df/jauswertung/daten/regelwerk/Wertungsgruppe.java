@@ -7,15 +7,15 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 public class Wertungsgruppe implements Serializable {
 
     @XStreamAsAttribute
-    private String  name                         = "";
+    private String name = "";
     @XStreamAsAttribute
-    private boolean protokollMitEinzelwertung    = true;
+    private boolean protokollMitEinzelwertung = true;
     @XStreamAsAttribute
     private boolean protokollMitMehrkampfwertung = false;
     @XStreamAsAttribute
-    private boolean einzelwertunghlw             = false;
+    private boolean einzelwertunghlw = false;
     @XStreamAsAttribute
-    private boolean strafeIstDisqualifikation    = false;
+    private boolean strafeIstDisqualifikation = false;
 
     public Wertungsgruppe(String name) {
         setName(name);

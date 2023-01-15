@@ -148,25 +148,26 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         }
     }
 
-    StrafenPanel                   strafen       = null;
-    CodePanel                      code          = null;
-    ASchwimmer                     schwimmer     = null;
+    StrafenPanel strafen = null;
+    CodePanel code = null;
+    ASchwimmer schwimmer = null;
     @SuppressWarnings("rawtypes")
-    AWettkampf                     wk            = null;
+    AWettkampf wk = null;
 
-    private boolean                printOnFinish = false;
+    private boolean printOnFinish = false;
 
-    private IPluginManager         controller    = null;
-    JWizardDialog                  window        = null;
-    JWizard                        wizard        = null;
-    private IPenaltyWizardStrategy strategy      = null;
+    private IPluginManager controller = null;
+    JWizardDialog window = null;
+    JWizard wizard = null;
+    private IPenaltyWizardStrategy strategy = null;
 
-    private int                    steps         = 0;
+    private int steps = 0;
 
-    private int                    penaltyindex  = -1;
+    private int penaltyindex = -1;
 
     @SuppressWarnings("rawtypes")
-    public JPenaltyWizard(JFrame parent, IPluginManager c, AWettkampf wk, ASchwimmer s, boolean printOnFinish, boolean fullmode) {
+    public JPenaltyWizard(JFrame parent, IPluginManager c, AWettkampf wk, ASchwimmer s, boolean printOnFinish,
+            boolean fullmode) {
         super();
         wizard = new JWizard(WizardUIElementsProvider.getInstance());
         window = new JWizardDialog(parent, I18n.get("Penalty"), wizard, false);
@@ -175,7 +176,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
     }
 
     @SuppressWarnings("rawtypes")
-    public JPenaltyWizard(JDialog parent, IPluginManager c, AWettkampf wk, ASchwimmer s, boolean printOnFinish, boolean fullmode) {
+    public JPenaltyWizard(JDialog parent, IPluginManager c, AWettkampf wk, ASchwimmer s, boolean printOnFinish,
+            boolean fullmode) {
         super();
         wizard = new JWizard(WizardUIElementsProvider.getInstance());
         window = new JWizardDialog(parent, I18n.get("Penalty"), wizard, false);
@@ -248,7 +250,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
             throw new IllegalArgumentException("Index out of bounds (" + index + " < -1).");
         }
         if (index >= strategy.getStrafen().size()) {
-            throw new IllegalArgumentException("Index out of bounds (" + index + " >= " + strategy.getStrafen().size() + ").");
+            throw new IllegalArgumentException(
+                    "Index out of bounds (" + index + " >= " + strategy.getStrafen().size() + ").");
         }
         penaltyindex = index;
 
@@ -302,7 +305,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         if (printOnFinish) {
             PrintExecutor.print(strategy.getPrintable(strafe), I18n.get("Penalty"), true, controller.getWindow());
         }
-        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, schwimmer, strategy.getEventInfo(), null);
+        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, schwimmer,
+                strategy.getEventInfo(), null);
         window.setVisible(false);
     }
 
@@ -317,8 +321,10 @@ class JPenaltyWizard implements FinishListener, CancelListener {
     private class InfoPanel extends WizardInfoPage {
         public InfoPanel() {
             super(I18n.get("Penalty.Information"), I18n.get("Penalty.Information.Information"),
-                    new String[] { I18n.get("Startnumber"), I18n.get("Name"), I18n.get("Organisation"), I18n.get("AgeGroup") },
-                    new String[] { StartnumberFormatManager.format(schwimmer), schwimmer.getName(), schwimmer.getGliederung(),
+                    new String[] { I18n.get("Startnumber"), I18n.get("Name"), I18n.get("Organisation"),
+                            I18n.get("AgeGroup") },
+                    new String[] { StartnumberFormatManager.format(schwimmer), schwimmer.getName(),
+                            schwimmer.getGliederung(),
                             schwimmer.getAK().toString() + " " + I18n.geschlechtToString(schwimmer) });
         }
     }
@@ -326,7 +332,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
     private class CodePanel extends AWizardPage implements PageSwitchListener {
 
         private JComboBox<Strafe> penalties = null;
-        private JPanel            page      = null;
+        private JPanel page = null;
 
         public CodePanel() {
             // Nothing to do
@@ -339,7 +345,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
                 penalties.setRenderer(new PenaltyShortTextListRenderer());
                 penalties.setSelectedIndex(0);
 
-                FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu:grow,fill:default,4dlu:grow");
+                FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                        "4dlu:grow,fill:default,4dlu:grow");
                 page = new JPanel(layout);
 
                 page.add(new JLabel(I18n.get("Penalty")), CC.xy(2, 2));
@@ -377,15 +384,15 @@ class JPenaltyWizard implements FinishListener, CancelListener {
             }
         }
 
-        JComboBox<String> type        = null;
-        JIntegerField     points      = null;
-        JTextField        paragraph   = null;
-        JTextPane         description = null;
-        JButton           catalogue   = null;
+        JComboBox<String> type = null;
+        JIntegerField points = null;
+        JTextField paragraph = null;
+        JTextPane description = null;
+        JButton catalogue = null;
 
-        private int       ignore      = 0;
+        private int ignore = 0;
 
-        private JPanel    panel       = null;
+        private JPanel panel = null;
 
         public void setIgnoreUpdate(boolean b) {
             if (b) {
@@ -398,7 +405,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         public StrafenPanel() {
             super(I18n.get("ChoosePenalty"), I18n.get("ChoosePenalty.Information"));
             type = new JComboBox<String>(
-                    new String[] { I18n.get("None"), I18n.get("Points"), I18n.get("DidNotStart"), I18n.get("Disqualification"), I18n.get("Debarment") });
+                    new String[] { I18n.get("None"), I18n.get("Points"), I18n.get("DidNotStart"),
+                            I18n.get("Disqualification"), I18n.get("Debarment") });
             points = new JIntegerField();
             paragraph = new JTextField();
             description = new JTextPane();
@@ -431,7 +439,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
 
             FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
                     "4dlu,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu,"
-                            + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu," + "center:default,4dlu,fill:default,4dlu");
+                            + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,"
+                            + "center:default,4dlu,fill:default,4dlu");
             panel = new JPanel(layout);
             layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10, 12, 16 } });
 
@@ -472,7 +481,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
 
         public Strafe getStrafe() {
             Strafe s = null;
-            if ((getType() == Strafarten.NICHTS) && (paragraph.getText().length() + description.getText().length() == 0)) {
+            if ((getType() == Strafarten.NICHTS)
+                    && (paragraph.getText().length() + description.getText().length() == 0)) {
                 s = new Strafe(Strafe.NICHTS);
             } else {
                 s = new Strafe(description.getText(), paragraph.getText(), getType(), points.getInt());

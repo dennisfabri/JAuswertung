@@ -13,11 +13,11 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
  */
 public class SchwimmerData<T extends ASchwimmer> {
 
-    private int    time      = 0;
-    private T      schwimmer = null;
-    private Strafe strafe    = null;
-    private int    rank      = 0;
-    private double points    = 0;
+    private int time = 0;
+    private T schwimmer = null;
+    private Strafe strafe = null;
+    private int rank = 0;
+    private double points = 0;
 
     public SchwimmerData(T s, int disz, boolean wertung) {
         schwimmer = s;

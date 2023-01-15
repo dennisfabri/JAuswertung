@@ -1,21 +1,12 @@
-/*
- * Created on 13.11.2003
- */
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -28,55 +19,48 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JIntSpinner;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 
-/**
- * @author Dennis Fabri
- */
 class AKEditorPanel extends JPanel {
-
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID      = 3762813770862309687L;
-
     private JWarningTextField name;
-    private JCheckBox         zw;
+    private JCheckBox zw;
     private JComboBox<String> gesamt;
-    private JCheckBox         choiceAllowed;
-    private JCheckBox         mehrkampf;
-    private JCheckBox         einzelwertung;
-    private JCheckBox         einzelwertungZw;
-    private JCheckBox         strafeIstDisqualifikation;
+    private JCheckBox choiceAllowed;
+    private JCheckBox mehrkampf;
+    private JCheckBox einzelwertung;
+    private JCheckBox einzelwertungZw;
+    private JCheckBox strafeIstDisqualifikation;
     private JComboBox<String> laufsortierung;
-    private JCheckBox         laufrotation;
-    private JIntSpinner       mindisz;
-    private JIntSpinner       useddisz;
-    private JIntSpinner       maxdisz;
+    private JCheckBox laufrotation;
+    private JIntSpinner mindisz;
+    private JIntSpinner useddisz;
+    private JIntSpinner maxdisz;
 
     private JComboBox<String> resultgroup;
     private JComboBox<String> startgroup;
 
-    JIntSpinner               minMembers;
-    JIntSpinner               maxMembers;
+    private JIntSpinner minMembers;
+    private JIntSpinner maxMembers;
 
-    JIntegerField             minAlter;
-    JIntegerField             maxAlter;
-    JIntegerField             minAlterInSumme;
-    JIntegerField             maxAlterInSumme;
+    private JIntegerField minAlter;
+    private JIntegerField maxAlter;
+    private JIntegerField minAlterInSumme;
+    private JIntegerField maxAlterInSumme;
 
-    private DisziplinenPanel  disziplinen           = null;
-    private JPanel            disziplinenLabelPanel = new JPanel();
-    private JPanel            allgemein             = new JPanel();
-    AKsEditorPanel            parent                = null;
-    private Altersklasse      ak                    = null;
+    private DisziplinenPanel disziplinen = null;
+    private JPanel disziplinenLabelPanel = new JPanel();
+    private JPanel allgemein = new JPanel();
+    private AKsEditorPanel parent;
+    private Altersklasse ak;
 
-    private boolean           einzel;
-    private int               index;
+    private boolean einzel;
+    private int index;
 
-    public AKEditorPanel(AKsEditorPanel parent, Altersklasse newAk, boolean einzel, int index, String[] start, String[] result) {
+    public AKEditorPanel(AKsEditorPanel parent, Altersklasse newAk, boolean einzel, int index, String[] start,
+            String[] result) {
         this.parent = parent;
         this.ak = newAk;
         this.einzel = einzel;
@@ -163,10 +147,8 @@ class AKEditorPanel extends JPanel {
         if (strafeIstDisqualifikation.isSelected() != ak.isStrafeIstDisqualifikation()) {
             return true;
         }
-        if (einzelwertung.isSelected()) {
-            if (einzelwertungZw.isSelected() != ak.isEinzelwertungHlw()) {
-                return true;
-            }
+        if (einzelwertung.isSelected() && einzelwertungZw.isSelected() != ak.isEinzelwertungHlw()) {
+            return true;
         }
         if (startgroup.getSelectedIndex() != 0) {
             if (ak.getStartgruppe() == null) {
@@ -209,14 +191,14 @@ class AKEditorPanel extends JPanel {
     private void prepareGUI(String[] start, String[] result) {
         name = new JWarningTextField();
         zw = new JCheckBox();
-        gesamt = new JComboBox<String>();
+        gesamt = new JComboBox<>();
         choiceAllowed = new JCheckBox();
         mehrkampf = new JCheckBox();
         einzelwertung = new JCheckBox();
         einzelwertungZw = new JCheckBox();
         strafeIstDisqualifikation = new JCheckBox();
-        resultgroup = new JComboBox<String>();
-        startgroup = new JComboBox<String>();
+        resultgroup = new JComboBox<>();
+        startgroup = new JComboBox<>();
 
         mehrkampf.setSelected(ak.hasMehrkampfwertung());
         einzelwertung.setSelected(ak.hasEinzelwertung());
@@ -243,8 +225,6 @@ class AKEditorPanel extends JPanel {
         disziplinenLabelPanel.setLayout(new BorderLayout());
 
         gesamt.addItem(I18n.get("No"));
-        // gesamt.addItem(I18n.geschlechtToStringSubject(false));
-        // gesamt.addItem(I18n.geschlechtToStringSubject(true));
         gesamt.addItem(I18n.get("Sex1"));
         gesamt.addItem(I18n.get("Sex2"));
         gesamt.addItem(I18n.get("Both"));
@@ -255,16 +235,18 @@ class AKEditorPanel extends JPanel {
         int pos = (ak.getGesamtwertung(true) ? 1 : 0) + (ak.getGesamtwertung(false) ? 2 : 0);
         gesamt.setSelectedIndex(pos);
 
-        laufsortierung = new JComboBox<String>(
-                new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"), I18n.get("SameOrganisationDifferentHeats"),
-                        I18n.get("SortByAnouncedPoints"), I18n.get("SortByAnouncedTimes"), I18n.get("RandomlyPerDiscipline"), I18n.get("SortByILS") });
+        laufsortierung = new JComboBox<>(
+                new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
+                        I18n.get("SameOrganisationDifferentHeats"),
+                        I18n.get("SortByAnouncedPoints"), I18n.get("SortByAnouncedTimes"),
+                        I18n.get("RandomlyPerDiscipline"), I18n.get("SortByILS") });
         laufsortierung.setSelectedIndex(Math.max(0, ak.getLaufsortierung()));
 
         laufrotation = new JCheckBox();
         laufrotation.setSelected(ak.getLaufrotation());
 
         minAlter = new JIntegerField(100, false, false);
-        maxAlter = new JIntegerField(100, false, true);
+        maxAlter = new JIntegerField(100, false, false);
         if (ak.getMinimumAlter() > 0) {
             minAlter.setInt(ak.getMinimumAlter());
         }
@@ -272,7 +254,7 @@ class AKEditorPanel extends JPanel {
             maxAlter.setInt(ak.getMaximumAlter());
         }
         minAlterInSumme = new JIntegerField(1000, false, false);
-        maxAlterInSumme = new JIntegerField(1000, false, true);
+        maxAlterInSumme = new JIntegerField(1000, false, false);
         if (ak.getMinimumAlterInSumme() > 0) {
             minAlterInSumme.setInt(ak.getMinimumAlterInSumme());
         }
@@ -280,35 +262,21 @@ class AKEditorPanel extends JPanel {
             maxAlterInSumme.setInt(ak.getMaximumAlterInSumme());
         }
 
-        minAlter.setValidator(new JIntegerField.Validator() {
-            @Override
-            public boolean validate(int value) {
-                return (maxAlter.getInt() <= 0) || (value <= 0) || maxAlter.getInt() >= value;
+        minAlter.setValidator(
+                (Validator) value -> (maxAlter.getInt() <= 0) || (value <= 0) || maxAlter.getInt() >= value);
+        maxAlter.setValidator((Validator) value -> {
+            if ((minAlter.getInt() <= 0) || (value <= 0)) {
+                return true;
             }
+            return minAlter.getInt() <= value;
         });
-        maxAlter.setValidator(new JIntegerField.Validator() {
-            @Override
-            public boolean validate(int value) {
-                if ((minAlter.getInt() <= 0) || (value <= 0)) {
-                    return true;
-                }
-                return minAlter.getInt() <= value;
+        minAlterInSumme.setValidator((Validator) value -> (maxAlterInSumme.getInt() <= 0) || (value <= 0)
+                || maxAlterInSumme.getInt() >= value);
+        maxAlterInSumme.setValidator((Validator) value -> {
+            if ((minAlterInSumme.getInt() <= 0) || (value <= 0)) {
+                return true;
             }
-        });
-        minAlterInSumme.setValidator(new JIntegerField.Validator() {
-            @Override
-            public boolean validate(int value) {
-                return (maxAlterInSumme.getInt() <= 0) || (value <= 0) || maxAlterInSumme.getInt() >= value;
-            }
-        });
-        maxAlterInSumme.setValidator(new JIntegerField.Validator() {
-            @Override
-            public boolean validate(int value) {
-                if ((minAlterInSumme.getInt() <= 0) || (value <= 0)) {
-                    return true;
-                }
-                return minAlterInSumme.getInt() <= value;
-            }
+            return minAlterInSumme.getInt() <= value;
         });
 
         name.setToolTipText(I18n.getToolTip("NameOfAgeGroup"));
@@ -350,103 +318,53 @@ class AKEditorPanel extends JPanel {
     }
 
     private void initGUI() {
-        choiceAllowed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                updateDiszChoice();
-                notifyChange();
-            }
+        choiceAllowed.addActionListener(e -> {
+            updateDiszChoice();
+            notifyChange();
         });
-        mindisz.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                updateMinDiszChoice();
-                notifyChange();
-            }
+        mindisz.addChangeListener(e -> {
+            updateMinDiszChoice();
+            notifyChange();
         });
-        useddisz.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                updateUsedDiszChoice();
-                notifyChange();
-            }
+        useddisz.addChangeListener(e -> {
+            updateUsedDiszChoice();
+            notifyChange();
         });
-        maxdisz.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                updateMaxDiszChoice();
-                notifyChange();
-            }
+        maxdisz.addChangeListener(e -> {
+            updateMaxDiszChoice();
+            notifyChange();
         });
-        minMembers.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                if (maxMembers.getInt() < minMembers.getInt()) {
-                    maxMembers.setInt(minMembers.getInt());
-                }
-                notifyChange();
+        minMembers.addChangeListener(e -> {
+            if (maxMembers.getInt() < minMembers.getInt()) {
+                maxMembers.setInt(minMembers.getInt());
             }
+            notifyChange();
         });
-        maxMembers.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                if (maxMembers.getInt() < minMembers.getInt()) {
-                    minMembers.setInt(maxMembers.getInt());
-                }
-                notifyChange();
+        maxMembers.addChangeListener(e -> {
+            if (maxMembers.getInt() < minMembers.getInt()) {
+                minMembers.setInt(maxMembers.getInt());
             }
+            notifyChange();
         });
 
-        zw.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                updateEinzelwertung();
-                notifyChange();
-            }
+        zw.addItemListener(e -> {
+            updateEinzelwertung();
+            notifyChange();
         });
 
-        laufrotation.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                notifyChange();
-            }
+        laufrotation.addItemListener(e -> notifyChange());
+
+        mehrkampf.addActionListener(e -> notifyChange());
+
+        einzelwertung.addActionListener(e -> {
+            updateEinzelwertung();
+            notifyChange();
         });
 
-        mehrkampf.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // updateEinzelwertung();
-                notifyChange();
-            }
-        });
+        strafeIstDisqualifikation.addActionListener(e -> notifyChange());
 
-        einzelwertung.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateEinzelwertung();
-                notifyChange();
-            }
-        });
-
-        strafeIstDisqualifikation.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                notifyChange();
-            }
-        });
-
-        einzelwertungZw.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                notifyChange();
-            }
-        });
-        gesamt.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                notifyChange();
-            }
-        });
+        einzelwertungZw.addActionListener(e -> notifyChange());
+        gesamt.addItemListener(arg0 -> notifyChange());
 
         name.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -464,106 +382,23 @@ class AKEditorPanel extends JPanel {
                 parent.nameChanged();
             }
         });
-        laufsortierung.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateLaufrotation();
-                notifyChange();
-            }
+        laufsortierung.addItemListener(e -> {
+            updateLaufrotation();
+            notifyChange();
         });
-        startgroup.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateLaufrotationUndSortierung();
-                notifyChange();
-            }
+        startgroup.addItemListener(e -> {
+            updateLaufrotationUndSortierung();
+            notifyChange();
         });
-        resultgroup.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                notifyChange();
-            }
-        });
+        resultgroup.addItemListener(e -> notifyChange());
 
-        minAlter.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
+        minAlter.getDocument().addDocumentListener(new ChangeAndAgeCheck());
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
+        maxAlter.getDocument().addDocumentListener(new ChangeAndAgeCheck());
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
-        });
+        minAlterInSumme.getDocument().addDocumentListener(new ChangeAndAgeSumCheck());
 
-        maxAlter.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                checkAge();
-                notifyChange();
-            }
-        });
-
-        minAlterInSumme.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-        });
-
-        maxAlterInSumme.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                checkAgeInSum();
-                notifyChange();
-            }
-        });
+        maxAlterInSumme.getDocument().addDocumentListener(new ChangeAndAgeSumCheck());
 
         SimpleFormBuilder left = new SimpleFormBuilder(false);
 
@@ -603,7 +438,8 @@ class AKEditorPanel extends JPanel {
             right.add(I18n.get("MaximumAmount"), maxMembers);
         }
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,10dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,10dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setColumnGroups(new int[][] { { 2, 4 } });
 
         allgemein.setLayout(layout);
@@ -617,28 +453,19 @@ class AKEditorPanel extends JPanel {
     }
 
     boolean checkAge() {
-        if ((minAlter.getInt() > 0) && (maxAlter.getInt() > 0)) {
-            if (minAlter.getInt() > maxAlter.getInt()) {
-                return false;
-            }
-        }
-        return true;
+        return minAlter.getInt() <= 0 || maxAlter.getInt() <= 0 || minAlter.getInt() <= maxAlter.getInt();
     }
 
     boolean checkAgeInSum() {
-        if ((minAlterInSumme.getInt() > 0) && (maxAlterInSumme.getInt() > 0)) {
-            if (minAlterInSumme.getInt() > maxAlterInSumme.getInt()) {
-                return false;
-            }
-        }
-        return true;
+        return minAlterInSumme.getInt() <= 0 || maxAlterInSumme.getInt() <= 0
+                || minAlterInSumme.getInt() <= maxAlterInSumme.getInt();
     }
 
     public Altersklasse getAK() {
         Altersklasse nak = new Altersklasse();
         nak.setName(name.getText());
         nak.setHLW(zw.isSelected());
-        nak.setGesamtwertung(true, ((gesamt.getSelectedIndex() % 2)) > 0);
+        nak.setGesamtwertung(true, (gesamt.getSelectedIndex() % 2) > 0);
         nak.setGesamtwertung(false, (gesamt.getSelectedIndex() > 1));
         Disziplin[] disciplines = this.disziplinen.getDisziplinen(false);
         nak.setDiszAnzahl(disciplines.length);
@@ -747,7 +574,7 @@ class AKEditorPanel extends JPanel {
         for (int x = 0; x < startgroups.length; x++) {
             items[x + 1] = startgroups[x];
         }
-        startgroup.setModel(new DefaultComboBoxModel<String>(items));
+        startgroup.setModel(new DefaultComboBoxModel<>(items));
         try {
             startgroup.setSelectedItem(selected);
         } catch (Exception e) {
@@ -763,12 +590,48 @@ class AKEditorPanel extends JPanel {
         for (int x = 0; x < resultgroups.length; x++) {
             items[x + 1] = resultgroups[x];
         }
-        resultgroup.setModel(new DefaultComboBoxModel<String>(items));
+        resultgroup.setModel(new DefaultComboBoxModel<>(items));
         try {
             resultgroup.setSelectedItem(selected);
         } catch (Exception e) {
             resultgroup.setSelectedIndex(0);
         }
         resultgroup.setEnabled(items.length > 1);
+    }
+
+    private final class ChangeAndAgeCheck implements DocumentListener {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            changedUpdate(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            changedUpdate(e);
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            checkAge();
+            notifyChange();
+        }
+    }
+
+    private final class ChangeAndAgeSumCheck implements DocumentListener {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            changedUpdate(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            changedUpdate(e);
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            checkAgeInSum();
+            notifyChange();
+        }
     }
 }

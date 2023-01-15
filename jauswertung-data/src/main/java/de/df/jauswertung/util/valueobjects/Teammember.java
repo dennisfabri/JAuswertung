@@ -10,14 +10,14 @@ public class Teammember {
 
     private final static String[] forbidden = new String[] { "<", ">", ";", "#" };
 
-    private final int             index;
+    private final int index;
 
-    private final String          lastname;
-    private final String          firstname;
-    private final Geschlecht      geschlecht;
-    private final int             Jahrgang;
+    private final String lastname;
+    private final String firstname;
+    private final Geschlecht geschlecht;
+    private final int Jahrgang;
 
-    private final String          code;
+    private final String code;
 
     public Teammember(Mannschaft m, int index) {
         this(index, m.getMannschaftsmitglied(index).getVorname(), m.getMannschaftsmitglied(index).getNachname(),

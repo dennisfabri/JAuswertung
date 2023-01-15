@@ -36,14 +36,14 @@ import de.df.jutils.util.RecentlyUsedFiles;
  */
 public class MFilePlugin extends ANullPlugin {
 
-    private static final SimpleFileFilter   FILTER_WK     = FileFilters.FF_COMPETITION;
-    private IPluginManager                  controller;
-    private CorePlugin                      core;
-    private JMenuItem[]                     menu;
-    private JMenuItem[]                     recent;
-    private JButton[]                       buttons;
+    private static final SimpleFileFilter FILTER_WK = FileFilters.FF_COMPETITION;
+    private IPluginManager controller;
+    private CorePlugin core;
+    private JMenuItem[] menu;
+    private JMenuItem[] recent;
+    private JButton[] buttons;
 
-    RecentlyUsedFiles                       recentlyFiles = RecentlyUsedFiles.open(Utils.getPreferences());
+    RecentlyUsedFiles recentlyFiles = RecentlyUsedFiles.open(Utils.getPreferences());
 
     @Override
     public void setController(IPluginManager c, String uid) {
@@ -236,7 +236,8 @@ public class MFilePlugin extends ANullPlugin {
         if (name != null) {
             boolean result = true;
             if (new File(name).exists()) {
-                result = DialogUtils.ask(controller.getWindow(), I18n.get("OverwriteFileQuestion", name), I18n.get("OverwriteFileQuestion.Note", name));
+                result = DialogUtils.ask(controller.getWindow(), I18n.get("OverwriteFileQuestion", name),
+                        I18n.get("OverwriteFileQuestion.Note", name));
             }
             if (result) {
                 if (core.saveAs(name)) {
@@ -253,20 +254,24 @@ public class MFilePlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
     public MenuInfo[] getMenues() {
-        return new MenuInfo[] { new MenuInfo(I18n.get("File"), 100, menu, 100), new MenuInfo(I18n.get("File"), 100, recent, 500) };
+        return new MenuInfo[] { new MenuInfo(I18n.get("File"), 100, menu, 100),
+                new MenuInfo(I18n.get("File"), 100, recent, 500) };
     }
 
     @Override
     public void dataUpdated(UpdateEvent due) {
-        setSaveIcons((core.getFilename() != null) && ((due.getChangeReason() & UpdateEventConstants.REASON_LOAD_WK) == 0));
+        setSaveIcons(
+                (core.getFilename() != null) && ((due.getChangeReason() & UpdateEventConstants.REASON_LOAD_WK) == 0));
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getQuickButtons()
      */
     @Override

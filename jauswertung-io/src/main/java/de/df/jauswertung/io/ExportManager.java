@@ -36,7 +36,8 @@ public class ExportManager {
             I18n.get("Startkarten"), I18n.get("Heatoverview"), I18n.get("ZWList"), I18n.get("ZWStartkarten"),
             I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"), I18n.get("Referees"),
             I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"),
-            I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate"), I18n.get("Starters") };
+            I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate"),
+            I18n.get("Starters") };
 
     private static ExportManager manager = new ExportManager();
 
@@ -115,7 +116,8 @@ public class ExportManager {
         }
     }
 
-    public static <T extends ASchwimmer> boolean export(String format, OutputStream os, ImportExportTypes datatype, AWettkampf<T> wk,
+    public static <T extends ASchwimmer> boolean export(String format, OutputStream os, ImportExportTypes datatype,
+            AWettkampf<T> wk,
             Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (format == null) {
             throw new NullPointerException();
@@ -123,7 +125,8 @@ public class ExportManager {
         return export(getExporter(format), os, datatype, wk, fb);
     }
 
-    public static <T extends ASchwimmer> boolean export(IExporter ie, OutputStream os, ImportExportTypes datatype, AWettkampf<T> wk,
+    public static <T extends ASchwimmer> boolean export(IExporter ie, OutputStream os, ImportExportTypes datatype,
+            AWettkampf<T> wk,
             Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (ie == null) {
             throw new NullPointerException();
@@ -178,7 +181,8 @@ public class ExportManager {
         }
     }
 
-    public static <T extends ASchwimmer> boolean export(ImportExportTypes datatype, String name, String format, AWettkampf<T> wk,
+    public static <T extends ASchwimmer> boolean export(ImportExportTypes datatype, String name, String format,
+            AWettkampf<T> wk,
             Feedback fb) throws IOException, NullPointerException, NotSupportedException, NotEnabledException {
         boolean result = false;
         OutputStream out = null;

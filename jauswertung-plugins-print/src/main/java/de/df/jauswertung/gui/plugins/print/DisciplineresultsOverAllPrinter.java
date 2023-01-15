@@ -33,24 +33,26 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 class DisciplineresultsOverAllPrinter implements Printer {
 
-    CorePlugin       core          = null;
-    IPluginManager   controller    = null;
+    CorePlugin core = null;
+    IPluginManager controller = null;
 
-    private JPanel   panel         = null;
-    private JButton  print         = null;
-    private JButton  preview       = null;
-    private JLabel   warning       = null;
-    private JLabel   filter        = null;
+    private JPanel panel = null;
+    private JButton print = null;
+    private JButton preview = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
 
-    JSelectionDialog printDialog   = null;
+    JSelectionDialog printDialog = null;
     JSelectionDialog previewDialog = null;
 
     @SuppressWarnings("rawtypes")
     private void initDialogs() {
         if (printDialog == null) {
             AWettkampf wk = core.getFilteredWettkampf();
-            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"), JSelectionDialog.MODE_AK_SELECTION);
-            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"), JSelectionDialog.MODE_AK_SELECTION);
+            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"),
+                    JSelectionDialog.MODE_AK_SELECTION);
+            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"),
+                    JSelectionDialog.MODE_AK_SELECTION);
         }
     }
 
@@ -61,7 +63,9 @@ class DisciplineresultsOverAllPrinter implements Printer {
     }
 
     private void initGUI() {
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+        panel = new JPanel(
+                new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu",
+                        "4dlu,fill:default,4dlu"));
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
         print.addActionListener(new PrintActionListener());
@@ -87,6 +91,7 @@ class DisciplineresultsOverAllPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
 
@@ -97,6 +102,7 @@ class DisciplineresultsOverAllPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -140,11 +146,13 @@ class DisciplineresultsOverAllPrinter implements Printer {
 
         @SuppressWarnings("unchecked")
         LinkedList<Printable> ps = PrintUtils.getBestOfDisciplineResultsPrintable(selected, wk, true, true);
-        return PrintManager.getFinalPrintable(new MultiplePrintable(ps), wk.getLastChangedDate(), true, I18n.get("DisciplineOverAllAgeGroups"));
+        return PrintManager.getFinalPrintable(new MultiplePrintable(ps), wk.getLastChangedDate(), true,
+                I18n.get("DisciplineOverAllAgeGroups"));
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("DisciplineOverAllAgeGroups"), true, controller.getWindow());
+        PrintExecutor.print(getPrintable(selection), I18n.get("DisciplineOverAllAgeGroups"), true,
+                controller.getWindow());
     }
 
     private class PPrintableCreator implements PrintableCreator {
@@ -163,7 +171,8 @@ class DisciplineresultsOverAllPrinter implements Printer {
     }
 
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("DisciplineOverAllAgeGroups"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection),
+                I18n.get("DisciplineOverAllAgeGroups"), IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     void showPreviewSelectionDialog() {

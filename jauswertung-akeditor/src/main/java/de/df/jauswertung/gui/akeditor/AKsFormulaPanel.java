@@ -32,12 +32,12 @@ class AKsFormulaPanel extends JPanel {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 3257288011191498036L;
-    private JRadioButton[]    namen            = null;
-    private JLabel[]          formeln          = null;
-    private JLabel[]          descriptions     = null;
-    private ButtonGroup       buttons          = new ButtonGroup();
-    private Formel<?>[]       fs               = FormelManager.getFormeln();
-    JAKsEditor                options          = null;
+    private JRadioButton[] namen = null;
+    private JLabel[] formeln = null;
+    private JLabel[] descriptions = null;
+    private ButtonGroup buttons = new ButtonGroup();
+    private Formel<?>[] fs = FormelManager.getFormeln();
+    JAKsEditor options = null;
 
     public AKsFormulaPanel(JAKsEditor jod) {
         initFormeln();

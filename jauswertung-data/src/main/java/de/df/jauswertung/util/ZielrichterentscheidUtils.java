@@ -16,7 +16,8 @@ public final class ZielrichterentscheidUtils {
         // hide constructor
     }
 
-    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>> createCopy(LinkedList<Zielrichterentscheid<T>> liste) {
+    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>> createCopy(
+            LinkedList<Zielrichterentscheid<T>> liste) {
         LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>();
         for (Zielrichterentscheid<T> ze : liste) {
             Zielrichterentscheid<T> neu = new Zielrichterentscheid<T>();
@@ -28,11 +29,13 @@ public final class ZielrichterentscheidUtils {
         return zes;
     }
 
-    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>> generateZielrichterentscheide(AWettkampf<T> wk) {
+    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>> generateZielrichterentscheide(
+            AWettkampf<T> wk) {
         if (wk == null) {
             throw new NullPointerException("Competition must not be null");
         }
-        if ((wk.getLaufliste() == null) || (wk.getLaufliste().getLaufliste() == null) || (wk.getLaufliste().getLaufliste().isEmpty())) {
+        if ((wk.getLaufliste() == null) || (wk.getLaufliste().getLaufliste() == null)
+                || (wk.getLaufliste().getLaufliste().isEmpty())) {
             return null;
         }
 
@@ -78,14 +81,16 @@ public final class ZielrichterentscheidUtils {
     }
 
     @SuppressWarnings({ "cast", "unchecked" })
-    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>>[] checkZielrichterentscheide(AWettkampf<T> wk) {
+    public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>>[] checkZielrichterentscheide(
+            AWettkampf<T> wk) {
         if (wk == null) {
             throw new NullPointerException("Competition must not be null");
         }
 
         LinkedList<Zielrichterentscheid<T>> possible = generateZielrichterentscheide(wk);
         if (possible == null) {
-            return (LinkedList<Zielrichterentscheid<T>>[]) new LinkedList[] { new LinkedList<Zielrichterentscheid<T>>(), wk.getZielrichterentscheide() };
+            return (LinkedList<Zielrichterentscheid<T>>[]) new LinkedList[] { new LinkedList<Zielrichterentscheid<T>>(),
+                    wk.getZielrichterentscheide() };
         }
 
         LinkedList<Zielrichterentscheid<T>> existing = wk.getZielrichterentscheide();

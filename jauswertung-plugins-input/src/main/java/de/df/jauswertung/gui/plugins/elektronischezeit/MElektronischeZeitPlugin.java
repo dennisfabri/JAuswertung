@@ -22,14 +22,14 @@ import de.dm.ares.data.Heat;
 
 public class MElektronischeZeitPlugin extends ANullPlugin {
 
-    private CorePlugin    core         = null;
-    MOptionenPlugin       optionen     = null;
-    private FEditorPlugin editor       = null;
+    private CorePlugin core = null;
+    MOptionenPlugin optionen = null;
+    private FEditorPlugin editor = null;
 
-    private MenuInfo[]    menu         = null;
-    private JMenuItem     item         = null;
+    private MenuInfo[] menu = null;
+    private JMenuItem item = null;
 
-    private String        importedlast = "";
+    private String importedlast = "";
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -91,7 +91,8 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> void showWindow() {
-        JElektronischeZeit<T> jm = new JElektronischeZeit<T>(getController().getWindow(), (AWettkampf<T>) core.getWettkampf(), this);
+        JElektronischeZeit<T> jm = new JElektronischeZeit<T>(getController().getWindow(),
+                (AWettkampf<T>) core.getWettkampf(), this);
         ModalFrameUtil.showAsModal(jm, getController().getWindow());
     }
 
@@ -120,7 +121,8 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
     @SuppressWarnings("rawtypes")
     void notifyChange(JElektronischeZeit jm) {
         if (jm.hasChanged()) {
-            getController().sendDataUpdateEvent("ElektronischeZeitnahme", UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY,
+            getController().sendDataUpdateEvent("ElektronischeZeitnahme",
+                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY,
                     this);
         }
     }

@@ -34,12 +34,12 @@ public class AgegroupResultSelection {
         return male;
     }
 
-    private int       ak;
-    private boolean   male;
+    private int ak;
+    private boolean male;
 
     private boolean[] times;
     private boolean[] penalties;
-    private boolean   zusatzwertung;
+    private boolean zusatzwertung;
 
     public boolean isCompleteSelection() {
         if (!zusatzwertung) {

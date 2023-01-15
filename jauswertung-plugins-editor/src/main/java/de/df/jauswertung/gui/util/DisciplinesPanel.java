@@ -46,15 +46,15 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
         }
     }
 
-    private static final long              serialVersionUID = 8650758383163688649L;
+    private static final long serialVersionUID = 8650758383163688649L;
 
     private LinkedList<DataChangeListener> listeners;
 
-    private JCheckBox[][]                  boxes;
-    private CardLayout                     cards            = new CardLayout();
-    private int                            current          = 0;
-    private JIntegerField[][]              input;
-    private JTimeField[][]                 times;
+    private JCheckBox[][] boxes;
+    private CardLayout cards = new CardLayout();
+    private int current = 0;
+    private JIntegerField[][] input;
+    private JTimeField[][] times;
 
     public DisciplinesPanel(AWettkampf<T> wk) {
         setLayout(cards);
@@ -74,7 +74,8 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
             Altersklasse ak = aks.getAk(x);
             int anzahl = ak.getDiszAnzahl();
 
-            JPanel p = new JPanel(new FormLayout("4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+            JPanel p = new JPanel(new FormLayout(
+                    "4dlu,fill:default,4dlu,fill:default:grow," + "4dlu,fill:default,4dlu,fill:default,4dlu",
                     FormLayoutUtils.createLayoutString(ak.getDiszAnzahl())));
 
             boxes[x] = new JCheckBox[anzahl];
@@ -223,7 +224,7 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
         }
     }
 
-    public boolean validateData() {        
+    public boolean validateData() {
         return true;
     }
 }

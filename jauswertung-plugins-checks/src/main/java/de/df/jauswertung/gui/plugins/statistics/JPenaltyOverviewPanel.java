@@ -22,12 +22,12 @@ import de.df.jutils.gui.util.UIUtils;
 
 public class JPenaltyOverviewPanel extends JGlassPanel<JPanel> {
 
-    private static final long   serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private static final String HORIZONTAL       = "0px:grow,fill:default,0px:grow";
-    private static final String VERTICAL         = "0px,fill:default,0px";
+    private static final String HORIZONTAL = "0px:grow,fill:default,0px:grow";
+    private static final String VERTICAL = "0px,fill:default,0px";
 
-    private CorePlugin          core;
+    private CorePlugin core;
 
     public JPenaltyOverviewPanel(CorePlugin core) {
         super(new JPanel());

@@ -13,10 +13,10 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JZWStatusPanel extends JPanel {
 
-    JLabel[][] stati   = new JLabel[0][0];
-    JLabel[]   aknames = new JLabel[0];
-    JLabel[]   texts   = new JLabel[2];
-    JLabel[]   sex     = new JLabel[0];
+    JLabel[][] stati = new JLabel[0][0];
+    JLabel[] aknames = new JLabel[0];
+    JLabel[] texts = new JLabel[2];
+    JLabel[] sex = new JLabel[0];
 
     public JZWStatusPanel() {
         texts[0] = new JLabel(I18n.get("Input.Missing"));
@@ -64,7 +64,8 @@ public class JZWStatusPanel extends JPanel {
 
             removeAll();
 
-            FormLayout layout = new FormLayout("4dlu,fill:default," + FormLayoutUtils.createGrowingLayoutString(2 * size),
+            FormLayout layout = new FormLayout(
+                    "4dlu,fill:default," + FormLayoutUtils.createGrowingLayoutString(2 * size),
                     FormLayoutUtils.createLayoutString(2 + texts.length));
             setLayout(layout);
 

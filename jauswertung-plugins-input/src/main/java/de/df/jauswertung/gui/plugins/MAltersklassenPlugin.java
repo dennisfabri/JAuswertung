@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.function.Consumer;
 
 import javax.swing.JMenuItem;
 
@@ -18,7 +19,6 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.akeditor.JAKsEditor;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -29,14 +29,14 @@ import de.df.jutils.plugin.MenuInfo;
  */
 public class MAltersklassenPlugin extends ANullPlugin {
 
-    private static final String AK_STRING     = I18n.get("Rulebook");
+    private static final String AK_STRING = I18n.get("Rulebook");
     private static final String EXTRAS_STRING = I18n.get("Prepare");
 
-    IPluginManager              controller;
-    CorePlugin                  core;
-    WarningPlugin               warner;
+    IPluginManager controller;
+    CorePlugin core;
+    WarningPlugin warner;
 
-    private JMenuItem[]         menu;
+    private JMenuItem[] menu;
 
     @Override
     public void setController(IPluginManager c, String newUid) {
@@ -58,9 +58,9 @@ public class MAltersklassenPlugin extends ANullPlugin {
 
     final class AltersklassenActionListener implements ActionListener {
 
-        final class EditorCallback implements ISimpleCallback<JAKsEditor> {
+        final class EditorCallback implements Consumer<JAKsEditor> {
 
-            private final int       size;
+            private final int size;
             private final boolean[] empty;
 
             public EditorCallback(boolean[] empty) {
@@ -69,7 +69,7 @@ public class MAltersklassenPlugin extends ANullPlugin {
             }
 
             @Override
-            public void callback(JAKsEditor editor) {
+            public void accept(JAKsEditor editor) {
                 if (!editor.hasChanged()) {
                     return;
                 }
@@ -109,8 +109,10 @@ public class MAltersklassenPlugin extends ANullPlugin {
                 wk.getHLWListe().check();
                 wk.changedNow();
                 controller.sendDataUpdateEvent("ChangeRB",
-                        UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                        UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
+                                | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
+                                | UpdateEventConstants.REASON_POINTS_CHANGED
+                                | UpdateEventConstants.REASON_SWIMMER_CHANGED,
                         MAltersklassenPlugin.this);
             }
         }
@@ -118,7 +120,8 @@ public class MAltersklassenPlugin extends ANullPlugin {
         @Override
         @SuppressWarnings({ "unchecked" })
         public void actionPerformed(ActionEvent event) {
-            warner.information(controller.getWindow(), I18n.get("Information"), I18n.get("RulebookeditorLimited"), I18n.get("RulebookeditorLimited.Note"),
+            warner.information(controller.getWindow(), I18n.get("Information"), I18n.get("RulebookeditorLimited"),
+                    I18n.get("RulebookeditorLimited.Note"),
                     "Rulebookeditor");
             @SuppressWarnings("rawtypes")
             AWettkampf wk = core.getWettkampf();
@@ -127,7 +130,8 @@ public class MAltersklassenPlugin extends ANullPlugin {
             for (int x = 0; x < empty.length; x++) {
                 empty[x] = !SearchUtils.hasSchwimmer(wk, aks.getAk(x));
             }
-            JAKsEditor editor = new JAKsEditor(controller.getWindow(), wk.getRegelwerk(), wk instanceof EinzelWettkampf, empty);
+            JAKsEditor editor = new JAKsEditor(controller.getWindow(), wk.getRegelwerk(), wk instanceof EinzelWettkampf,
+                    empty);
             editor.setCallback(new EditorCallback(empty));
             ModalFrameUtil.showAsModal(editor, controller.getWindow());
         }

@@ -25,7 +25,6 @@ import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.AgeGroupIOUtils;
-import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 
@@ -40,15 +39,15 @@ public class JNeueAK extends JDialog {
      */
     private static final long serialVersionUID = 3906935560202105655L;
 
-    private static String[]   einzelNamen      = null;
-    private static String[]   mannschaftNamen  = null;
+    private static String[] einzelNamen = null;
+    private static String[] mannschaftNamen = null;
 
-    JButtonBar                einzel           = getEinzelBar();
-    JButtonBar                staffel          = getMannschaftStaffelBar();
-    JButton                   cancel           = getCancelButton();
-    Regelwerk                 result           = null;
+    JButtonBar einzel = getEinzelBar();
+    JButtonBar staffel = getMannschaftStaffelBar();
+    JButton cancel = getCancelButton();
+    Regelwerk result = null;
 
-    boolean                   einzelak         = false;
+    boolean einzelak = false;
 
     static {
         readFilenames();
@@ -57,7 +56,8 @@ public class JNeueAK extends JDialog {
     public JNeueAK(JFrame parent) {
         super(parent, I18n.get("NewAgeGroups"), true);
 
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu", "4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,fill:default,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4 } });
         setLayout(layout);
         add(einzel, CC.xywh(2, 2, 2, 1));
@@ -138,7 +138,8 @@ public class JNeueAK extends JDialog {
         buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions"), true));
 
         for (String aMannschaftNamen : mannschaftNamen) {
-            JButton aks = new JButton(aMannschaftNamen.substring(0, aMannschaftNamen.length() - 4), IconManager.getBigIcon("new"));
+            JButton aks = new JButton(aMannschaftNamen.substring(0, aMannschaftNamen.length() - 4),
+                    IconManager.getBigIcon("new"));
             aks.addActionListener(new ClickMannschaftActionListener(aMannschaftNamen));
             buttonBar.add(aks);
         }
@@ -154,7 +155,8 @@ public class JNeueAK extends JDialog {
         buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions"), true));
 
         for (String anEinzelNamen : einzelNamen) {
-            JButton aks = new JButton(anEinzelNamen.substring(0, anEinzelNamen.length() - 4), IconManager.getBigIcon("new"));
+            JButton aks = new JButton(anEinzelNamen.substring(0, anEinzelNamen.length() - 4),
+                    IconManager.getBigIcon("new"));
             aks.addActionListener(new ClickEinzelActionListener(anEinzelNamen));
             buttonBar.add(aks);
         }

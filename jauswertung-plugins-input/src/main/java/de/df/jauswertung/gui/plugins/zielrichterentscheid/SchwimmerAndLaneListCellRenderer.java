@@ -22,9 +22,9 @@ class SchwimmerAndLaneListCellRenderer implements ListCellRenderer {
 
     private ListCellRenderer parent;
 
-    private JLabel           none;
+    private JLabel none;
 
-    private JLabel           l;
+    private JLabel l;
 
     public SchwimmerAndLaneListCellRenderer() {
         this(null);
@@ -45,7 +45,8 @@ class SchwimmerAndLaneListCellRenderer implements ListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
         Component c = parent.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (!(value instanceof Object[])) {
             return c;
@@ -68,7 +69,8 @@ class SchwimmerAndLaneListCellRenderer implements ListCellRenderer {
         } else {
             l.setIcon(IconManager.getBigIcon("team"));
         }
-        l.setText(I18n.get("SwimmerLane", swimmer.getName(), StartnumberFormatManager.format(swimmer), bahn, swimmer.getAK(), I18n.geschlechtToString(swimmer),
+        l.setText(I18n.get("SwimmerLane", swimmer.getName(), StartnumberFormatManager.format(swimmer), bahn,
+                swimmer.getAK(), I18n.geschlechtToString(swimmer),
                 swimmer.getGliederungMitQGliederung()));
 
         return l;

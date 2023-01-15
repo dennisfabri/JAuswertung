@@ -26,14 +26,14 @@ import de.df.jutils.util.StringTools;
 
 class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
 
-    private static final long                   serialVersionUID = 8251280743952459484L;
+    private static final long serialVersionUID = 8251280743952459484L;
 
-    private Zielrichterentscheid<T>             ze               = null;
+    private Zielrichterentscheid<T> ze = null;
 
-    private JLabel                              zeit             = new JLabel();
-    private JLabel                              ak               = new JLabel();
-    private ModifiableListModel<Object[]>       model            = new ModifiableListModel<Object[]>();
-    private JSmoothList<Object[]>               liste            = new JSmoothList<Object[]>(model);
+    private JLabel zeit = new JLabel();
+    private JLabel ak = new JLabel();
+    private ModifiableListModel<Object[]> model = new ModifiableListModel<Object[]>();
+    private JSmoothList<Object[]> liste = new JSmoothList<Object[]>(model);
 
     private final JZielrichterentscheidFrame<T> parent;
 
@@ -80,7 +80,8 @@ class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
             T s = ze.getSchwimmer().getFirst();
             LaufInfo li = SchwimmerUtils.getLaufInfo(s.getWettkampf(), s, ze.getDisziplin());
 
-            setBorder(BorderUtils.createLabeledBorder(I18n.get("HeatNr", li.getLauf(), 1) + ": " + s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich())));
+            setBorder(BorderUtils.createLabeledBorder(I18n.get("HeatNr", li.getLauf(), 1) + ": "
+                    + s.getAK().getDisziplin(ze.getDisziplin(), s.isMaennlich())));
             ak.setText(I18n.getAgeGroupAsString(s));
         }
 

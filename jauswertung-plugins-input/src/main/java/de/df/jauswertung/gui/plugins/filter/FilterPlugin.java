@@ -32,14 +32,14 @@ import de.df.jutils.plugin.UpdateEvent;
 public class FilterPlugin extends ANullPlugin {
 
     private JComboBox<Filter> filters = null;
-    private ButtonInfo[]      bi      = null;
-    private ItemListener      il      = null;
+    private ButtonInfo[] bi = null;
+    private ItemListener il = null;
 
-    private JMenuItem         menu    = null;
-    private MenuInfo[]        mi      = null;
+    private JMenuItem menu = null;
+    private MenuInfo[] mi = null;
 
-    private CorePlugin        core    = null;
-    private WarningPlugin     warn    = null;
+    private CorePlugin core = null;
+    private WarningPlugin warn = null;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -116,7 +116,8 @@ public class FilterPlugin extends ANullPlugin {
                         @Override
                         public void run() {
                             core.getWettkampf().setCurrentFilterIndex(0);
-                            getController().sendDataUpdateEvent("FiltersChanged", UpdateEventConstants.REASON_FILTERS_CHANGED, FilterPlugin.this);
+                            getController().sendDataUpdateEvent("FiltersChanged",
+                                    UpdateEventConstants.REASON_FILTERS_CHANGED, FilterPlugin.this);
                         }
                     }.start();
                 }
@@ -180,7 +181,8 @@ public class FilterPlugin extends ANullPlugin {
             core.getWettkampf().setCurrentFilterIndex(index);
             getController().sendDataUpdateEvent("FilterSelection", UpdateEventConstants.REASON_FILTER_SELECTION, this);
             if (index > 0) {
-                warn.information(getController().getWindow(), null, I18n.get("Filter.Information"), I18n.get("Filter.Note"), "FilterInfo");
+                warn.information(getController().getWindow(), null, I18n.get("Filter.Information"),
+                        I18n.get("Filter.Note"), "FilterInfo");
             }
         }
     }

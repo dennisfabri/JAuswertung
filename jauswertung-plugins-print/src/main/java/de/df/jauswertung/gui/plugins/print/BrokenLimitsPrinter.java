@@ -62,14 +62,14 @@ import de.df.jutils.util.StringTools;
  */
 class BrokenLimitsPrinter implements Printer {
 
-    CorePlugin                core;
-    private IPluginManager    controller;
+    CorePlugin core;
+    private IPluginManager controller;
 
-    private JPanel            panel;
-    private JButton           print;
-    private JButton           preview;
-    private JLabel            filter;
-    private JLabel            warning;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
+    private JLabel warning;
     private JComboBox<String> agegroup;
 
     public BrokenLimitsPrinter(IPluginManager window, CorePlugin plugin) {
@@ -107,7 +107,8 @@ class BrokenLimitsPrinter implements Printer {
             }
         });
 
-        panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+        panel = new JPanel(new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu"));
 
         panel.add(filter, CC.xy(2, 2));
@@ -125,7 +126,8 @@ class BrokenLimitsPrinter implements Printer {
 
             boolean result = false;
             if ((wk != null) && (wk.hasSchwimmer())) {
-                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK
+                if ((reason & (REASON_AKS_CHANGED | REASON_NEW_TN | REASON_FILTER_SELECTION | REASON_POINTS_CHANGED
+                        | REASON_FILTERS_CHANGED | REASON_LOAD_WK
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
@@ -166,6 +168,7 @@ class BrokenLimitsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -175,6 +178,7 @@ class BrokenLimitsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -214,7 +218,8 @@ class BrokenLimitsPrinter implements Printer {
                             if (s.hasInput(disziplin.Id)) {
                                 if (tc.isBrokenBy(s.getZeit(disziplin.Id), s.getAkkumulierteStrafe(disziplin.Id),
                                         ak.getDisziplin(disziplin.disziplin, s.isMaennlich()).getName(), s,
-                                        wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), disziplin.round)) {
+                                        wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION),
+                                        disziplin.round)) {
                                     return true;
                                 }
                             }
@@ -259,13 +264,19 @@ class BrokenLimitsPrinter implements Printer {
                             for (OWDisziplin<ASchwimmer> disziplin : disziplinen) {
                                 for (ASchwimmer s : swimmer) {
                                     Disziplin d = ak.getDisziplin(disziplin.disziplin, y == 1);
-                                    if (s.hasInput(disziplin.Id) && tl.isBrokenBy(s.getZeit(disziplin.Id), s.getAkkumulierteStrafe(disziplin.Id), d.getName(),
-                                            s, wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), disziplin.round)) {
+                                    if (s.hasInput(disziplin.Id) && tl.isBrokenBy(s.getZeit(disziplin.Id),
+                                            s.getAkkumulierteStrafe(disziplin.Id), d.getName(),
+                                            s, wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION),
+                                            disziplin.round)) {
                                         Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-                                        Object[] data = new Object[] { s.getName() + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
-                                                s.getGliederung(), s.getQualifikationsebene(), I18n.getAgeGroupAsString(s),
+                                        Object[] data = new Object[] { s.getName()
+                                                + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
+                                                s.getGliederung(), s.getQualifikationsebene(),
+                                                I18n.getAgeGroupAsString(s),
                                                 StringTools.zeitString(s.getZeit(disziplin.Id)),
-                                                PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(disziplin.Id), ak), d.getName(), tl.getShortname() };
+                                                PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(disziplin.Id),
+                                                        ak),
+                                                d.getName(), tl.getShortname() };
                                         result.addLast(data);
                                     }
                                 }
@@ -275,12 +286,16 @@ class BrokenLimitsPrinter implements Printer {
                                 Collections.sort(swimmer, new ZeitenVergleicher(z));
                                 for (ASchwimmer s : swimmer) {
                                     Disziplin d = ak.getDisziplin(z, y == 1);
-                                    if (s.hasInput(z) && tl.isBrokenBy(s.getZeit(z), s.getAkkumulierteStrafe(z), d.getName(), s,
-                                            wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0)) {
+                                    if (s.hasInput(z)
+                                            && tl.isBrokenBy(s.getZeit(z), s.getAkkumulierteStrafe(z), d.getName(), s,
+                                                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0)) {
                                         Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-                                        Object[] data = new Object[] { s.getName() + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
-                                                s.getGliederung(), s.getQualifikationsebene(), I18n.getAgeGroupAsString(s),
-                                                StringTools.zeitString(s.getZeit(z)), PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(z), ak),
+                                        Object[] data = new Object[] { s.getName()
+                                                + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
+                                                s.getGliederung(), s.getQualifikationsebene(),
+                                                I18n.getAgeGroupAsString(s),
+                                                StringTools.zeitString(s.getZeit(z)),
+                                                PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(z), ak),
                                                 d.getName(), tl.getShortname() };
                                         result.addLast(data);
                                     }
@@ -292,8 +307,9 @@ class BrokenLimitsPrinter implements Printer {
             }
         }
 
-        TableModel tm = new DefaultTableModel(result.toArray(new Object[result.size()][0]), new Object[] { I18n.get("Name"), I18n.get("Organisation"), "",
-                I18n.get("AgeGroup"), I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Type") });
+        TableModel tm = new DefaultTableModel(result.toArray(new Object[result.size()][0]),
+                new Object[] { I18n.get("Name"), I18n.get("Organisation"), "",
+                        I18n.get("AgeGroup"), I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Type") });
         JTable table = new JTable(tm);
         if (PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 1);
@@ -303,7 +319,8 @@ class BrokenLimitsPrinter implements Printer {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     Printable getPrintable(AWettkampf wk, int index) {
-        return new JTablePrintable(getData(wk, index), JTablePrintable.OPT_ALL, true, PrintMode.FIT_WIDTH, true, PrintManager.getFont());
+        return new JTablePrintable(getData(wk, index), JTablePrintable.OPT_ALL, true, PrintMode.FIT_WIDTH, true,
+                PrintManager.getFont());
     }
 
     void print() {
@@ -311,7 +328,8 @@ class BrokenLimitsPrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class ListOfMedalsPC implements PrintableCreator {

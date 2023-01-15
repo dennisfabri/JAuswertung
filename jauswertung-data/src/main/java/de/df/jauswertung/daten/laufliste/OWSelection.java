@@ -5,14 +5,14 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 public class OWSelection implements Comparable<OWSelection> {
 
     public final Altersklasse ak;
-    public final int          akNummer;
-    public final boolean      male;
-    public final int          discipline;
-    public final int          round;
+    public final int akNummer;
+    public final boolean male;
+    public final int discipline;
+    public final int round;
 
-    public final boolean      isFinal;
+    public final boolean isFinal;
 
-    private final String      id;
+    private final String id;
 
     public String getId() {
         return id;

@@ -32,15 +32,15 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 class DocumentsPrinter implements Printer {
 
-    CorePlugin      core;
-    IPluginManager  controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel  panel;
+    private JPanel panel;
     private JButton print;
     private JButton preview;
 
-    private JLabel  warning = null;
-    private JLabel  filter  = null;
+    private JLabel warning = null;
+    private JLabel filter = null;
 
     public DocumentsPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -49,7 +49,9 @@ class DocumentsPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu," + "fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -76,6 +78,7 @@ class DocumentsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -85,6 +88,7 @@ class DocumentsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -98,12 +102,11 @@ class DocumentsPrinter implements Printer {
         Object o = filteredwk.getProperty(PropertyConstants.URKUNDE);
         boolean b = (o != null) && filteredwk.hasSchwimmer() && !wk.isHeatBased();
         /*
-         * if (b) { b = false; Altersklassen aks = wk.getAks(); for (int x = 0;
-         * x < aks.size(); x++) { for (int y = 0; y < 2; y++) { JResultTable
-         * result = JResultTable.getResultTable( filteredwk, aks.getAk(x), y ==
-         * 1); if (result.getRowCount() > 0) { double points =
-         * result.getPunkte(0); if (points > 0.005) { b = true; break; } } } if
-         * (b) { break; } } }
+         * if (b) { b = false; Altersklassen aks = wk.getAks(); for (int x = 0; x <
+         * aks.size(); x++) { for (int y = 0; y < 2; y++) { JResultTable result =
+         * JResultTable.getResultTable( filteredwk, aks.getAk(x), y == 1); if
+         * (result.getRowCount() > 0) { double points = result.getPunkte(0); if (points
+         * > 0.005) { b = true; break; } } } if (b) { break; } } }
          */
 
         warning.setVisible(!filteredwk.isCompetitionComplete());
@@ -114,11 +117,13 @@ class DocumentsPrinter implements Printer {
     }
 
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Documents"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Documents"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(GraphUtils.getPrintable(core.getWettkampf(), selection, false), I18n.get("Documents"), true, controller.getWindow());
+        PrintExecutor.print(GraphUtils.getPrintable(core.getWettkampf(), selection, false), I18n.get("Documents"), true,
+                controller.getWindow());
     }
 
     void showPreviewSelectionDialog() {
@@ -186,15 +191,17 @@ class DocumentsPrinter implements Printer {
 
     }
 
-    JSelectionDialog printDialog   = null;
+    JSelectionDialog printDialog = null;
     JSelectionDialog previewDialog = null;
 
     private void initDialogs() {
         if (printDialog == null) {
             @SuppressWarnings("rawtypes")
             AWettkampf wk = core.getFilteredWettkampf();
-            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"), JSelectionDialog.MODE_AK_SELECTION);
-            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"), JSelectionDialog.MODE_AK_SELECTION);
+            printDialog = new JSelectionDialog(controller.getWindow(), wk, new PrintCB(), I18n.get("Print"),
+                    JSelectionDialog.MODE_AK_SELECTION);
+            previewDialog = new JSelectionDialog(controller.getWindow(), wk, new PreviewCB(), I18n.get("Preview"),
+                    JSelectionDialog.MODE_AK_SELECTION);
         }
     }
 }

@@ -33,15 +33,16 @@ public final class I18n {
         // Never called
     }
 
-    private static ResourceBundle fallback    = null;
-    private static SafeTextProcessor   instance    = null;
-    private static SafeTextProcessor   disziplinen = null;
+    private static ResourceBundle fallback = null;
+    private static SafeTextProcessor instance = null;
+    private static SafeTextProcessor disziplinen = null;
 
     public static synchronized SafeTextProcessor getInstance() {
         if (instance == null) {
             MultipleResourceBundle rb = new MultipleResourceBundle();
             try {
-                ResourceBundle fileRB = ResourceBundle.getBundle("jauswertung", Locale.getDefault(), I18n.class.getClassLoader());
+                ResourceBundle fileRB = ResourceBundle.getBundle("jauswertung", Locale.getDefault(),
+                        I18n.class.getClassLoader());
                 rb.add(fileRB);
             } catch (RuntimeException re) {
                 re.printStackTrace();
@@ -59,7 +60,8 @@ public final class I18n {
             MultipleResourceBundle rb = new MultipleResourceBundle();
             rb.setVerbose(false);
             try {
-                ResourceBundle fileRB = ResourceBundle.getBundle("disziplinen", Locale.getDefault(), I18n.class.getClassLoader());
+                ResourceBundle fileRB = ResourceBundle.getBundle("disziplinen", Locale.getDefault(),
+                        I18n.class.getClassLoader());
                 rb.add(fileRB);
             } catch (RuntimeException re) {
                 re.printStackTrace();
@@ -76,7 +78,8 @@ public final class I18n {
 
     public static String getDisziplinShort(String id) {
         try {
-            String s1 = id.replace(" ", "").replace("\u00e4", "ae").replace("\u00FC", "ue").replace("\u00f6", "oe").replace("\u00c4", "Ae")
+            String s1 = id.replace(" ", "").replace("\u00e4", "ae").replace("\u00FC", "ue").replace("\u00f6", "oe")
+                    .replace("\u00c4", "Ae")
                     .replace("\u00dc", "Ue").replace("\u00d6", "oe").replace("\u00df", "ss");
             String s2 = getDisziplinenInstance().process(s1);
             if (s1.equals(s2)) {
@@ -166,13 +169,15 @@ public final class I18n {
     }
 
     public static String geschlechtToShortString(Regelwerk rw, boolean male) {
-        return (male ? rw.getTranslation("maleShort", get("maleShort")) : rw.getTranslation("femaleShort", get("femaleShort")));
+        return (male ? rw.getTranslation("maleShort", get("maleShort"))
+                : rw.getTranslation("femaleShort", get("femaleShort")));
     }
 
     public static String geschlechtToShortString(ASchwimmer s) {
         boolean male = s.isMaennlich();
         Regelwerk rw = s.getRegelwerk();
-        return (male ? rw.getTranslation("maleShort", get("maleShort")) : rw.getTranslation("femaleShort", get("femaleShort")));
+        return (male ? rw.getTranslation("maleShort", get("maleShort"))
+                : rw.getTranslation("femaleShort", get("femaleShort")));
     }
 
     public static String getRound(int round, boolean isFinal) {
@@ -264,7 +269,8 @@ public final class I18n {
         Altersklasse ak = wk.getRegelwerk().getAk(d.akNummer);
         boolean isFinal = ak.isFinal(d.disziplin, d.maennlich, d.round);
 
-        return String.format("%s - %s - %s", I18n.getAgeGroupAsString(wk.getRegelwerk(), ak, d.maennlich), ak.getDisziplin(d.disziplin, d.maennlich).getName(),
+        return String.format("%s - %s - %s", I18n.getAgeGroupAsString(wk.getRegelwerk(), ak, d.maennlich),
+                ak.getDisziplin(d.disziplin, d.maennlich).getName(),
                 I18n.getRound(d.round, isFinal));
     }
 
@@ -273,9 +279,10 @@ public final class I18n {
         Altersklasse ak = wk.getRegelwerk().getAk(d.akNummer);
         boolean isFinal = ak.isFinal(d.disziplin, d.maennlich, d.round);
 
-        return String.format("%s - %s", ak.getDisziplin(d.disziplin, d.maennlich).getName(), I18n.getRound(d.round, isFinal));
+        return String.format("%s - %s", ak.getDisziplin(d.disziplin, d.maennlich).getName(),
+                I18n.getRound(d.round, isFinal));
     }
-    
+
     public static String toString(Exception ex) {
         StringWriter errors = new StringWriter();
         ex.printStackTrace(new PrintWriter(errors));

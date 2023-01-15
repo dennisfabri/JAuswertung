@@ -29,7 +29,8 @@ class FilledStartkartenPrinter extends AFilledKartenPrinter {
 
     @SuppressWarnings("rawtypes")
     @Override
-    protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats, int minheat, int maxheat) {
+    protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
+            int minheat, int maxheat) {
         return new StartkartenPrintable(wk, mode, printEmptyCards, allheats, minheat, maxheat);
     }
 }

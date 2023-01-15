@@ -39,17 +39,17 @@ import de.df.jutils.util.StringTools;
 
 public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
 
-    private static final long           serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin                  core;
-    private FEditorPlugin               editor;
-    private JMissingInputFrame          parent;
+    private CorePlugin core;
+    private FEditorPlugin editor;
+    private JMissingInputFrame parent;
 
     private Hashtable<String, String[]> similarities;
 
-    private JPanel                      panel;
+    private JPanel panel;
 
-    private boolean                     changed          = false;
+    private boolean changed = false;
 
     public JOrganizationSimilarityPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -146,7 +146,8 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
         List<String> ids = new ArrayList<>(similarities.keySet());
         Collections.sort(ids);
 
-        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), FormLayoutUtils.createLayoutString(ids.size())));
+        panel.setLayout(new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                FormLayoutUtils.createLayoutString(ids.size())));
         int y = 2;
 
         for (String id : ids) {

@@ -13,7 +13,7 @@ abstract class FilesTestBase extends TestCase {
 
     private static final String FILE = "../../required/archive/";
 
-    private final String        year;
+    private final String year;
 
     public FilesTestBase(String name, String y) {
         super(name);

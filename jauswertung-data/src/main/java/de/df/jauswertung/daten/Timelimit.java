@@ -6,12 +6,12 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 
 public class Timelimit implements Serializable {
 
-    private String  disziplin = "";
-    private int     time      = 0;
-    private int     minage    = 0;
-    private int     maxage    = 0;
-    private String  agegroup  = "";
-    private boolean isMale    = false;
+    private String disziplin = "";
+    private int time = 0;
+    private int minage = 0;
+    private int maxage = 0;
+    private String agegroup = "";
+    private boolean isMale = false;
 
     public Timelimit() {
     }
@@ -122,7 +122,8 @@ public class Timelimit implements Serializable {
         return true;
     }
 
-    public boolean isBrokenBy(int zeit, Strafe strafe, String disziplin, ASchwimmer s, int year, int round, Timelimitchecktype type) {
+    public boolean isBrokenBy(int zeit, Strafe strafe, String disziplin, ASchwimmer s, int year, int round,
+            Timelimitchecktype type) {
         if (matches(disziplin, s, year)) {
             switch (type) {
             case UPPER_LIMIT:

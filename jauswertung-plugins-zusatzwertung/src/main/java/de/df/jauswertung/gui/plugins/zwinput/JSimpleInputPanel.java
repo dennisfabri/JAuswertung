@@ -297,9 +297,9 @@ class JSimpleInputPanel extends JPanel {
         panel.add(createMessagePanel(), CC.xy(4, 2));
         panel.add(over, CC.xyw(2, 4, 3));
         panel.add(in, CC.xyw(2, 6, 3));
-        
+
         setLayout(new MigLayout("", "[fill, grow, ::1200lp]", "[fill]"));
-        add(panel);        
+        add(panel);
     }
 
     private JPanel createPropertiesPanel() {

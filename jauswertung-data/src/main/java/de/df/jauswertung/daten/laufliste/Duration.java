@@ -11,8 +11,8 @@ public class Duration implements Serializable {
 
     private static final long serialVersionUID = 351707174206635887L;
 
-    private int               minutes;
-    private int               seconds;
+    private int minutes;
+    private int seconds;
 
     public Duration(double duration) {
         this((int) Math.floor(duration), (int) Math.round((duration - Math.floor(duration)) * 60));

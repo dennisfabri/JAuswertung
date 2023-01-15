@@ -380,7 +380,8 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Einzelwertung"), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Einzelwertung"),
+                IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     @SuppressWarnings("rawtypes")
@@ -496,7 +497,9 @@ abstract class APerDisciplinePrinter implements Printer {
                     @Override
                     public void callback(OWSelection[] t) {
                         if (t != null) {
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t), I18n.get("Einzelwertung"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
+                                    I18n.get("Einzelwertung"), IconManager.getIconBundle(),
+                                    IconManager.getTitleImages());
                         }
                     }
                 };

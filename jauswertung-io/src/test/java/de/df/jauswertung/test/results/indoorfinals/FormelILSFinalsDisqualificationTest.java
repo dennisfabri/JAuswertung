@@ -76,7 +76,7 @@ public class FormelILSFinalsDisqualificationTest {
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
 
         ergebnisGesamt = erstelleGesamtergebnis(wk);
-        
+
         OutputManager.speichereWettkampf("FormelILSFinalsDisqualification.wk", wk);
     }
 
@@ -302,7 +302,8 @@ public class FormelILSFinalsDisqualificationTest {
 
         for (int x = 0; x < AnzahlSchwimmer; x++) {
             assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisVorlauf.getResult(x).getSchwimmer().getName());
-            assertEquals(x < QualiPlaetze ? "Q": "", ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount()-1));
+            assertEquals(x < QualiPlaetze ? "Q" : "",
+                    ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount() - 1));
         }
     }
 

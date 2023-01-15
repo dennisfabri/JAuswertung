@@ -77,29 +77,32 @@ import de.df.jutils.util.StringTools;
 
 final class JNewZWWizard extends JWizardDialog implements FinishListener, CancelListener {
 
-    private static final Duration[] DURATIONS        = new Duration[] { new Duration(2), new Duration(3), new Duration(4), new Duration(5), new Duration(7, 30),
+    private static final Duration[] DURATIONS = new Duration[] { new Duration(2), new Duration(3), new Duration(4),
+            new Duration(5), new Duration(7, 30),
             new Duration(10), new Duration(15), new Duration(20) };
 
-    private static final Duration[] PAUSE_DURATIONS  = new Duration[] { new Duration(15), new Duration(30), new Duration(45), new Duration(60),
-            new Duration(90), new Duration(120), new Duration(180), new Duration(240), new Duration(300), new Duration(360) };
+    private static final Duration[] PAUSE_DURATIONS = new Duration[] { new Duration(15), new Duration(30),
+            new Duration(45), new Duration(60),
+            new Duration(90), new Duration(120), new Duration(180), new Duration(240), new Duration(300),
+            new Duration(360) };
 
-    private static final long       serialVersionUID = 3617856365452997169L;
+    private static final long serialVersionUID = 3617856365452997169L;
 
     @SuppressWarnings("rawtypes")
-    final AWettkampf                wk;
-    final CorePlugin                core;
-    final MZWPlugin                 origin;
+    final AWettkampf wk;
+    final CorePlugin core;
+    final MZWPlugin origin;
 
-    private final NumberPage        numbers;
-    private final SortPage          sort;
-    private final TypePage          type;
-    final TimePage                  times;
-    private final FreeTimePage      freetime;
-    final OptionsPage               options;
-    final AKSortPage                aksort;
-    final JMeldepunktePanel         melde;
+    private final NumberPage numbers;
+    private final SortPage sort;
+    private final TypePage type;
+    final TimePage times;
+    private final FreeTimePage freetime;
+    final OptionsPage options;
+    final AKSortPage aksort;
+    final JMeldepunktePanel melde;
 
-    private final JFrame            parent;
+    private final JFrame parent;
 
     public JNewZWWizard(JFrame parent, MZWPlugin origin, CorePlugin core) {
         super(parent, I18n.get("GenerateNewZW"), WizardUIElementsProvider.getInstance(), false);
@@ -145,7 +148,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
 
     private class NumberPage extends WizardIntegerPage {
         public NumberPage() {
-            super(getWizard(), I18n.get("GeneralSettings"), I18n.get("NewZW.GeneralSettings.Information"), new String[] { I18n.get("NumberOfLanes") }, null,
+            super(getWizard(), I18n.get("GeneralSettings"), I18n.get("NewZW.GeneralSettings.Information"),
+                    new String[] { I18n.get("NumberOfLanes") }, null,
                     new int[] { wk.getIntegerProperty(ZW_LANES) }, new int[] { 1 }, new int[] { 20 });
         }
     }
@@ -153,7 +157,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
     class SortPage extends WizardOptionPage {
         public SortPage() {
             super(getWizard(), I18n.get("SortingOfSwimmers"), I18n.get("NewZW.SortingOfSwimmers.Information"),
-                    new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationDifferentHeats"), I18n.get("SortByAnouncedPoints"),
+                    new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationDifferentHeats"),
+                            I18n.get("SortByAnouncedPoints"),
                             I18n.get("SameOrganisationSameHeat"), I18n.get("SortByOrganisationIgnoreAgegroups") },
                     wk.getIntegerProperty(ZW_SORTING_ORDER));
         }
@@ -172,7 +177,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
         public OptionsPage() {
             super(getWizard(), I18n.get("Options"), I18n.get("NewZW.Options.Information"),
                     new String[] { I18n.get("ZW.IgnoreAKSwimmers"), I18n.get("RespectQualifications") },
-                    new boolean[] { wk.getBooleanProperty(ZW_IGNORE_AK_SWIMMERS), wk.getBooleanProperty(ZW_RESPECT_QUALIFICATIONS) });
+                    new boolean[] { wk.getBooleanProperty(ZW_IGNORE_AK_SWIMMERS),
+                            wk.getBooleanProperty(ZW_RESPECT_QUALIFICATIONS) });
         }
 
         @Override
@@ -184,7 +190,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
     private class TypePage extends WizardOptionPage implements PageSwitchListener {
         public TypePage() {
             super(getWizard(), I18n.get("TypeOfGeneration"), I18n.get("NewZW.TypeOfGeneration.Information"),
-                    new String[] { I18n.get("Automatic"), I18n.get("Empty") }, (wk.getBooleanProperty(ZW_EMPTY_LIST) ? 1 : 0));
+                    new String[] { I18n.get("Automatic"), I18n.get("Empty") },
+                    (wk.getBooleanProperty(ZW_EMPTY_LIST) ? 1 : 0));
         }
 
         private void updateButton() {
@@ -231,22 +238,25 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
     class JMeldepunktePanel extends WizardOptionPage {
 
         public JMeldepunktePanel() {
-            super(getWizard(), I18n.get("AnouncedPoints"), I18n.get("NewZW.AnouncedPoints.Information"), getOptions(core.getWettkampf()), null,
-                    core.getWettkampf().getIntegerProperty(PropertyConstants.ZW_REGISTERED_POINTS_INDEX, 0), I18n.get("ZW.MeldepunkteInfo"),
+            super(getWizard(), I18n.get("AnouncedPoints"), I18n.get("NewZW.AnouncedPoints.Information"),
+                    getOptions(core.getWettkampf()), null,
+                    core.getWettkampf().getIntegerProperty(PropertyConstants.ZW_REGISTERED_POINTS_INDEX, 0),
+                    I18n.get("ZW.MeldepunkteInfo"),
                     SwingConstants.CENTER);
         }
     }
 
     private class TimePage extends AWizardPage {
 
-        private JPanel    panel;
+        private JPanel panel;
         private JComboBox time;
         private JComboBox duration;
 
         public TimePage() {
             super(I18n.get("Starttime"), I18n.get("NewZW.Starttime.Information"));
 
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu:grow,fill:default,4dlu,fill:default,4dlu:grow");
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                    "4dlu:grow,fill:default,4dlu,fill:default,4dlu:grow");
             layout.setRowGroups(new int[][] { { 2, 4 }, { 1, 5 } });
             panel = new JPanel(layout);
 
@@ -336,18 +346,18 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
             }
         }
 
-        private JPanel      panel;
+        private JPanel panel;
 
-        JRadioButton        nopause;
-        JRadioButton        checktime;
-        JRadioButton        checkak;
+        JRadioButton nopause;
+        JRadioButton checktime;
+        JRadioButton checkak;
         private ButtonGroup buttongroup;
 
-        JComboBox           time;
-        JComboBox           duration;
+        JComboBox time;
+        JComboBox duration;
 
-        JCheckBox[]         ak;
-        JComboBox[]         restarttime;
+        JCheckBox[] ak;
+        JComboBox[] restarttime;
 
         public FreeTimePage() {
             super(I18n.get("Pause"), I18n.get("NewZW.Pause.Information"));
@@ -366,7 +376,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
                 buttongroup.add(checkak);
 
                 FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
-                        "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu:grow");
+                        "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
+                                + "4dlu,fill:default,4dlu:grow");
                 panel = new JPanel(layout);
 
                 panel.add(nopause, CC.xy(2, 2));
@@ -401,7 +412,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
             duration = new JComboBox(generatePauseDurations());
             duration.setEnabled(false);
 
-            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,0dlu", "0dlu,fill:default,4dlu,fill:default,0dlu");
+            FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,0dlu",
+                    "0dlu,fill:default,4dlu,fill:default,0dlu");
             layout.setRowGroups(new int[][] { { 2, 4 } });
             JPanel checkpanel = new JPanel(layout);
 
@@ -530,7 +542,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
             HLWListe.Einteilung[] reihenfolge = aksort.getReihenfolge();
             int[][] result = new int[wk.getRegelwerk().size()][2];
             for (int x = 0; x < restarttime.length; x++) {
-                result[reihenfolge[x].getAK()][reihenfolge[x].isMaennlich() ? 1 : 0] = ((Time) restarttime[x].getSelectedItem()).getTimeInMinutes();
+                result[reihenfolge[x].getAK()][reihenfolge[x].isMaennlich() ? 1
+                        : 0] = ((Time) restarttime[x].getSelectedItem()).getTimeInMinutes();
             }
             return result;
         }
@@ -560,7 +573,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
                     Regelwerk aks = wk.getRegelwerk();
                     for (int x = 0; x < ak.length; x++) {
                         ak[x].setText(
-                                I18n.get("PauseAfterXUntil", I18n.getAgeGroupAsString(aks, aks.getAk(reihenfolge[x].getAK()), reihenfolge[x].isMaennlich())));
+                                I18n.get("PauseAfterXUntil", I18n.getAgeGroupAsString(aks,
+                                        aks.getAk(reihenfolge[x].getAK()), reihenfolge[x].isMaennlich())));
                     }
                     setRestarttime(wk.getProperty(ZW_PAUSE_RESTARTS));
                     setAgegroup(wk.getProperty(ZW_PAUSE_AGEGROUPS));
@@ -573,10 +587,10 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
 
     private class AKSortPage extends AWizardPage {
 
-        private JPanel       panel;
+        private JPanel panel;
         private JRadioButton auto;
-        JRadioButton         custom;
-        JList                list;
+        JRadioButton custom;
+        JList list;
 
         public AKSortPage() {
             super(I18n.get("AgeGroupSorting"), I18n.get("NewZW.AgeGroupSorting.Information"));
@@ -584,7 +598,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
         }
 
         public void initPage() {
-            FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+            FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                    "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
             layout.setRowGroups(new int[][] { { 2, 4 } });
             panel = new JPanel(layout);
 
@@ -602,7 +617,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
                 private static final long serialVersionUID = -7154403278324249315L;
 
                 @Override
-                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected,
+                        boolean cellHasFocus) {
                     Component c = super.getListCellRendererComponent(liste, value, index, isSelected, cellHasFocus);
                     if (!(value instanceof HLWListe.Einteilung)) {
                         return c;
@@ -670,7 +686,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
             if (isAutomatic()) {
                 HLWListe.Einteilung[] verteilung = wk.getHLWListe().getStandardVerteilung();
                 if (verteilung.length <= x) {
-                    throw new IllegalArgumentException("Index higher than or equal to array-length: " + x + " >= " + verteilung.length);
+                    throw new IllegalArgumentException(
+                            "Index higher than or equal to array-length: " + x + " >= " + verteilung.length);
                 }
                 return verteilung[x];
             }

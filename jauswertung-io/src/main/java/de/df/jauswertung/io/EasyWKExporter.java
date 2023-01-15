@@ -31,7 +31,8 @@ public class EasyWKExporter extends EmptyExporter {
         }
     }
 
-    private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows, int repeatcols, String competition)
+    private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows,
+            int repeatcols, String competition)
             throws IOException {
         write(name, new ExtendedTableModel[] { tm }, groupsize, repeatrows, repeatcols, competition);
     }
@@ -57,13 +58,15 @@ public class EasyWKExporter extends EmptyExporter {
         }
     }
 
-    private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
+    private <T extends ASchwimmer> void write(OutputStream name, ExtendedTableModel[] tms, int groupsize,
+            int repeatrows, int repeatcols, String competition)
             throws IOException {
         CsvUtils.write(name, tms[0]);
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#getType()
      */
     @Override
@@ -73,6 +76,7 @@ public class EasyWKExporter extends EmptyExporter {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.io.Exporter#getSuffixes()
      */
     @Override

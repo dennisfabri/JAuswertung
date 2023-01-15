@@ -37,20 +37,20 @@ import de.df.jutils.util.StringTools;
 
 public class JZWInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long  serialVersionUID = 8023494074221318513L;
+    private static final long serialVersionUID = 8023494074221318513L;
 
-    private CorePlugin         core;
-    private FEditorPlugin      editor;
+    private CorePlugin core;
+    private FEditorPlugin editor;
     private JMissingInputFrame parent;
 
-    private ASchwimmer[]       swimmers;
-    private int[]              indizes;
-    JDoubleField[]             points;
-    private JButton[]          edit;
+    private ASchwimmer[] swimmers;
+    private int[] indizes;
+    JDoubleField[] points;
+    private JButton[] edit;
 
-    private JPanel             panel;
+    private JPanel panel;
 
-    private boolean            changed          = false;
+    private boolean changed = false;
 
     public JZWInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
@@ -145,7 +145,8 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
         setEnabled(swimmers.length > 0);
 
         panel.removeAll();
-        SimpleTableBuilder dfb = new SimpleTableBuilder(panel, new boolean[] { false, true, true, true, true, false }, false);
+        SimpleTableBuilder dfb = new SimpleTableBuilder(panel, new boolean[] { false, true, true, true, true, false },
+                false);
         dfb.add(new JLabel(I18n.get("StartnumberShort")), "center,center");
         dfb.add(new JLabel(I18n.get("Name")), "center,center");
         dfb.add(new JLabel(I18n.get("Organisation")), "center,center");
@@ -207,7 +208,8 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             swimmers[index].setHLWState(indizes[index], HLWStates.NOT_ENTERED);
         } else {
             if (points[index].isSpecialString()) {
-                swimmers[index].setHLWState(indizes[index], ZWUtils.getHLWState(swimmers[index].getWettkampf(), points[index].getText()));
+                swimmers[index].setHLWState(indizes[index],
+                        ZWUtils.getHLWState(swimmers[index].getWettkampf(), points[index].getText()));
             } else {
                 swimmers[index].setHLWPunkte(indizes[index], points[index].getDouble());
             }
@@ -219,9 +221,9 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             check(s, x);
         }
     }
-    
+
     private static class SwimmerIndex {
-        
+
         private final ASchwimmer swimmer;
         private final int index;
 
@@ -234,6 +236,7 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
         public ASchwimmer getSwimmer() {
             return swimmer;
         }
+
         public int getIndex() {
             return index;
         }
@@ -333,7 +336,8 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
                 points[index - 1].requestFocus();
             }
-            if ((index + 1 < points.length) && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
+            if ((index + 1 < points.length)
+                    && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
                 points[index + 1].requestFocus();
             }
         }

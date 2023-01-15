@@ -12,7 +12,7 @@ import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.util.SearchUtils;
 
 public class HeatsUtils {
-    
+
     public static <T extends ASchwimmer> void save(AWettkampf<T> wk, OWSelection t, AWettkampf<T> wkx) {
         Laufliste<T> heats = wkx.getLaufliste();
         OWDisziplin<T> disziplin = wk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, t.round);
@@ -41,7 +41,7 @@ public class HeatsUtils {
             disziplin.laeufe.add(l);
         }
         wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER,
-                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));    
+                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
     }
 
 }

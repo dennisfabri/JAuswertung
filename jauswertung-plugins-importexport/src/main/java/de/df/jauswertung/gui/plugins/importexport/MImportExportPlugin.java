@@ -24,20 +24,20 @@ import de.df.jutils.plugin.UpdateEvent;
  */
 public class MImportExportPlugin extends ANullPlugin {
 
-    private static final String    ITEM_IMPORT        = I18n.get("ImportDots");
-    private static final String    ITEM_EXPORT        = I18n.get("ExportDots");
-    private static final String    ITEM_AUTO          = I18n.get("AutomaticSave");
-    private static final String    MENU               = I18n.get("File");
+    private static final String ITEM_IMPORT = I18n.get("ImportDots");
+    private static final String ITEM_EXPORT = I18n.get("ExportDots");
+    private static final String ITEM_AUTO = I18n.get("AutomaticSave");
+    private static final String MENU = I18n.get("File");
 
-    private JImportWizard          importWizard       = null;
-    private JExportWizard          exportWizard       = null;
+    private JImportWizard importWizard = null;
+    private JExportWizard exportWizard = null;
 
-    CorePlugin                     core               = null;
-    BugreportPlugin                bugreport          = null;
-    long                           click              = System.currentTimeMillis();
-    boolean                        run                = true;
+    CorePlugin core = null;
+    BugreportPlugin bugreport = null;
+    long click = System.currentTimeMillis();
+    boolean run = true;
 
-    JMenuItem[]                    menu               = null;
+    JMenuItem[] menu = null;
 
     private final ImportExportMode mode;
 
@@ -86,11 +86,12 @@ public class MImportExportPlugin extends ANullPlugin {
 
     synchronized JExportWizard getExportWizard() {
         if (exportWizard == null) {
-            exportWizard = new JExportWizard(getController().getWindow(), core, bugreport, mode, getSelectedOrganisation());
+            exportWizard = new JExportWizard(getController().getWindow(), core, bugreport, mode,
+                    getSelectedOrganisation());
         }
         return exportWizard;
     }
-    
+
     protected String getSelectedOrganisation() {
         return null;
     }

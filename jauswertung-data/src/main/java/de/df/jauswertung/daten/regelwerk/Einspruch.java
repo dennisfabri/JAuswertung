@@ -12,14 +12,14 @@ public class Einspruch implements Serializable {
     private static final long serialVersionUID = -403898828787336185L;
 
     @XStreamAsAttribute
-    private String            gliederung;
-    private Altersklasse      ak;
+    private String gliederung;
+    private Altersklasse ak;
     @XStreamAsAttribute
-    private boolean           maennlich;
+    private boolean maennlich;
     @XStreamAsAttribute
-    private String            text;
+    private String text;
     @XStreamAsAttribute
-    private boolean           accepted;
+    private boolean accepted;
 
     public Einspruch(String gliederung, Altersklasse ak, boolean maennlich, String text, boolean accepted) {
         this.gliederung = gliederung;

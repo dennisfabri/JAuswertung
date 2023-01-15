@@ -48,17 +48,17 @@ import de.df.jutils.util.StringTools;
  */
 class ListOfMedalsPrinter implements Printer {
 
-    private CorePlugin     core;
+    private CorePlugin core;
     private IPluginManager controller;
 
-    private JPanel         panel;
-    private JButton        print;
-    private JButton        preview;
-    private JLabel         filter;
-    private JCheckBox      bigPrint;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
+    private JLabel filter;
+    private JCheckBox bigPrint;
 
-    private float          fontscale = 1.8f;
-    private int            gapscale  = 50;
+    private float fontscale = 1.8f;
+    private int gapscale = 50;
 
     public ListOfMedalsPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -82,7 +82,9 @@ class ListOfMedalsPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout(
+                "4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(bigPrint, CC.xy(2, 2));
@@ -102,6 +104,7 @@ class ListOfMedalsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -111,6 +114,7 @@ class ListOfMedalsPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -153,9 +157,11 @@ class ListOfMedalsPrinter implements Printer {
                         data[z][4] = StringTools.punkteString(result[z].getPoints()) + "  ";
                     }
                     ExtendedTableModel etm = new ExtendedTableModel(data,
-                            new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ", I18n.get("Points") });
+                            new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ",
+                                    I18n.get("Points") });
                     etm.setColumnAlignments(
-                            new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.RIGHT });
+                            new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT,
+                                    SwingConstants.LEFT, SwingConstants.RIGHT });
                     etm.setName(I18n.getAgeGroupAsString(wk.getRegelwerk(), wk.getRegelwerk().getAk(x), y == 1));
                     results.addLast(etm);
                 }
@@ -164,7 +170,9 @@ class ListOfMedalsPrinter implements Printer {
 
         JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]));
 
-        return PrintManager.getFinalPrintable(new ComponentListPrintable2(bigPrint.isSelected() ? gapscale : 0, false, parts), core.getLastChangedDate(),
+        return PrintManager.getFinalPrintable(
+                new ComponentListPrintable2(bigPrint.isSelected() ? gapscale : 0, false, parts),
+                core.getLastChangedDate(),
                 getName(), getName());
     }
 
@@ -172,7 +180,8 @@ class ListOfMedalsPrinter implements Printer {
         FormLayout layout = null;
         if (PrintUtils.printOmitOrganisationForTeams) {
             layout = new FormLayout(
-                    FormLayoutUtils.createGrowingLayoutString(2, 0) + ",0dlu," + FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount() - 3, 0),
+                    FormLayoutUtils.createGrowingLayoutString(2, 0) + ",0dlu,"
+                            + FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount() - 3, 0),
                     FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
         } else {
             layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount(), 0),
@@ -263,7 +272,8 @@ class ListOfMedalsPrinter implements Printer {
             Font f = PrintManager.getFont();
             title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
 
-            FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1), "0dlu,fill:default,1dlu,fill:default,2dlu");
+            FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
+                    "0dlu,fill:default,1dlu,fill:default,2dlu");
             JComponent c = new JPanel(layout);
             c.setBackground(Color.WHITE);
             c.setForeground(Color.BLACK);
@@ -281,7 +291,8 @@ class ListOfMedalsPrinter implements Printer {
     }
 
     void preview() {
-        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+        PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
+                IconManager.getTitleImages());
     }
 
     private final class ListOfMedalsPC implements PrintableCreator {

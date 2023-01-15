@@ -39,19 +39,19 @@ import de.df.jutils.gui.window.JOptionsFrame;
 
 class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
 
-    private static final long                    serialVersionUID = 4051325639070265655L;
+    private static final long serialVersionUID = 4051325639070265655L;
 
-    private final JFrame                         parent;
+    private final JFrame parent;
 
-    JList                                        liste;
+    JList liste;
     ModifiableListModel<Zielrichterentscheid<T>> model;
-    JZielrichterentscheidPanel<T>                editor;
-    JButton                                      add;
-    JButton                                      remove;
+    JZielrichterentscheidPanel<T> editor;
+    JButton add;
+    JButton remove;
 
-    LinkedList<Zielrichterentscheid<T>>          possible;
+    LinkedList<Zielrichterentscheid<T>> possible;
 
-    AWettkampf<T>                                wk;
+    AWettkampf<T> wk;
 
     public JZielrichterentscheidFrame(JFrame parent) {
         super(parent, I18n.get("Zielrichterentscheid"), IconManager.getIconBundle());
@@ -87,7 +87,8 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
         liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         liste.setCellRenderer(new ZielrichterentscheidListCellRenderer());
 
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
 
         JPanel panel = new JPanel(layout);
 
@@ -122,7 +123,8 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Zielrichterentscheid<T> ze = JZESelectionDialog.getZielrichterentscheid(JZielrichterentscheidFrame.this, possible);
+                Zielrichterentscheid<T> ze = JZESelectionDialog.getZielrichterentscheid(JZielrichterentscheidFrame.this,
+                        possible);
                 if (ze != null) {
                     possible.remove(ze);
                     model.add(ze, 0);

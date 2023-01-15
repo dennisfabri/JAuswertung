@@ -258,7 +258,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         JPanel panel = new JPanel(new MigLayout("", "[fill, grow, ::1200lp]", "[fill]"));
         panel.add(innerPanel);
-        
+
         return panel;
     }
 

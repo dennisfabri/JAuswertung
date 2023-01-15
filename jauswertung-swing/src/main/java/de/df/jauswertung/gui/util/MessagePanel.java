@@ -17,15 +17,15 @@ public class MessagePanel extends JPanel {
 
     private static final long serialVersionUID = -5958437895949458261L;
 
-    private JLabel            title;
-    private JLabel[]          labels;
-    private int[]             indizes;
-    private boolean[]         shown;
-    private String[]          messages;
-    LinkedList<String>        text;
+    private JLabel title;
+    private JLabel[] labels;
+    private int[] indizes;
+    private boolean[] shown;
+    private String[] messages;
+    LinkedList<String> text;
 
-    private String            empty;
-    private String            normal;
+    private String empty;
+    private String normal;
 
     public MessagePanel(String normalTitle, String emptyTitle, String[] messages) {
         this(normalTitle, emptyTitle, messages, messages.length);
@@ -47,7 +47,8 @@ public class MessagePanel extends JPanel {
         }
         text = new LinkedList<String>();
 
-        FormLayout layout = new FormLayout("4dlu,10dlu,fill:default:grow,4dlu", FormLayoutUtils.createLayoutString(length + 1));
+        FormLayout layout = new FormLayout("4dlu,10dlu,fill:default:grow,4dlu",
+                FormLayoutUtils.createLayoutString(length + 1));
         FormLayoutUtils.setRowGroups(layout, length + 1);
         setLayout(layout);
 

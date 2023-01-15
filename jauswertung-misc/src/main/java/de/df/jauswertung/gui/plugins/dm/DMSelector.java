@@ -16,9 +16,10 @@ import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 
 public class DMSelector<T extends ASchwimmer> implements ISelector<T> {
 
-    private final int[][]     amount     = new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 }, { 2, 2 }, { 1, 1 } };
-    private final int[][]     candidates = new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 }, { 5, 5 }, { 5, 5 } };
-    private final boolean[][] ag         = new boolean[][] { { false, false }, { false, false }, { true, true }, { true, true }, { true, true } };
+    private final int[][] amount = new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 }, { 2, 2 }, { 1, 1 } };
+    private final int[][] candidates = new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 }, { 5, 5 }, { 5, 5 } };
+    private final boolean[][] ag = new boolean[][] { { false, false }, { false, false }, { true, true }, { true, true },
+            { true, true } };
 
     @Override
     public String getName() {
@@ -79,7 +80,8 @@ public class DMSelector<T extends ASchwimmer> implements ISelector<T> {
         }
     }
 
-    private static <T extends ASchwimmer> void select(LinkedList<T> swimmer, AMSelectionPlugin setter, int select, Random rng) {
+    private static <T extends ASchwimmer> void select(LinkedList<T> swimmer, AMSelectionPlugin setter, int select,
+            Random rng) {
         Collections.shuffle(swimmer, rng);
         for (int x = 0; x < Math.min(swimmer.size(), select); x++) {
             setter.getSelection().setValue(swimmer.get(x), true);

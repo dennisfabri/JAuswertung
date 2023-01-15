@@ -23,11 +23,11 @@ final class JTimeDialog<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = -8665331196332280641L;
 
-    JComboBox                 time             = null;
-    JComboBox                 duration         = null;
+    JComboBox time = null;
+    JComboBox duration = null;
 
-    Time                      result           = null;
-    Duration                  result2          = null;
+    Time result = null;
+    Duration result2 = null;
 
     public JTimeDialog(JHlwlisteBearbeiten<T> parent, boolean starttime, boolean hasDuration) {
         super(parent, I18n.get("SetTime"), true);
@@ -36,7 +36,8 @@ final class JTimeDialog<T extends ASchwimmer> extends JDialog {
         duration = new JComboBox(createDurations());
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                "4dlu," + (hasDuration ? "fill:default,4dlu,fill:default,4dlu," : "") + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+                "4dlu," + (hasDuration ? "fill:default,4dlu,fill:default,4dlu," : "")
+                        + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         setLayout(layout);
 
         add(new JLabel(I18n.get(starttime ? "EnterStarttime" : "EnterEndOfPause")), CC.xyw(2, 2, 3, "fill,fill"));
@@ -81,7 +82,8 @@ final class JTimeDialog<T extends ASchwimmer> extends JDialog {
     }
 
     private Duration[] createDurations() {
-        return new Duration[] { new Duration(2), new Duration(3), new Duration(4), new Duration(5), new Duration(6), new Duration(7.5), new Duration(8),
+        return new Duration[] { new Duration(2), new Duration(3), new Duration(4), new Duration(5), new Duration(6),
+                new Duration(7.5), new Duration(8),
                 new Duration(9), new Duration(10), new Duration(15), new Duration(20) };
     }
 

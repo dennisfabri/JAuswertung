@@ -9,11 +9,11 @@ import de.df.jauswertung.daten.laufliste.Laufliste;
 public class Startgruppe implements Serializable {
 
     @XStreamAsAttribute
-    private String  name           = "";
+    private String name = "";
     @XStreamAsAttribute
-    private int     laufsortierung = Laufliste.REIHENFOLGE_MELDEZEITEN;
+    private int laufsortierung = Laufliste.REIHENFOLGE_MELDEZEITEN;
     @XStreamAsAttribute
-    private boolean laufrotation   = true;
+    private boolean laufrotation = true;
 
     public Startgruppe(String name) {
         setName(name);

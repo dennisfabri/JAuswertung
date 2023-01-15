@@ -33,7 +33,7 @@ import de.df.jutils.print.printables.MultiplePrintable;
 import de.df.jutils.util.StringTools;
 
 public class GraphUtils {
-    
+
     public static <T extends ASchwimmer> Printable getDummyPrintable(Hashtable<String, Object>[] cells) {
         return new UrkundenPrintable<T>(cells);
     }

@@ -14,18 +14,18 @@ import junit.framework.TestCase;
 
 public class DSM06M140mTest extends TestCase {
 
-    private static final String  FILE = "src/test/resources/competitions/dsm06/mannschaft-ak140m.csv";
+    private static final String FILE = "src/test/resources/competitions/dsm06/mannschaft-ak140m.csv";
     private static final boolean MALE = true;
-    private static final int     AK   = 7;
+    private static final int AK = 7;
 
     public DSM06M140mTest(String x) {
         super(x);
     }
 
-    private static MannschaftWettkampf           wk      = null;
+    private static MannschaftWettkampf wk = null;
 
     private static SchwimmerResult<Mannschaft>[] results = null;
-    private static Object[][]                    data    = null;
+    private static Object[][] data = null;
 
     @Override
     protected void setUp() throws Exception {

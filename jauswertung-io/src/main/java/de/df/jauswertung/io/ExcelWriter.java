@@ -40,14 +40,14 @@ import de.df.jutils.io.csv.Seconds;
  */
 public class ExcelWriter {
 
-    public static final short PAGESIZE_LETTER           = (short) 1;
-    public static final short PAGESIZE_LEGAL            = (short) 5;
-    public static final short PAGESIZE_EXECUTIVE        = (short) 7;
-    public static final short PAGESIZE_A4               = (short) 9;
-    public static final short PAGESIZE_A5               = (short) 11;
-    public static final short PAGESIZE_ENVELOPE_10      = (short) 20;
-    public static final short PAGESIZE_ENVELOPE_DL      = (short) 27;
-    public static final short PAGESIZE_ENVELOPE_C5      = (short) 28;
+    public static final short PAGESIZE_LETTER = (short) 1;
+    public static final short PAGESIZE_LEGAL = (short) 5;
+    public static final short PAGESIZE_EXECUTIVE = (short) 7;
+    public static final short PAGESIZE_A4 = (short) 9;
+    public static final short PAGESIZE_A5 = (short) 11;
+    public static final short PAGESIZE_ENVELOPE_10 = (short) 20;
+    public static final short PAGESIZE_ENVELOPE_DL = (short) 27;
+    public static final short PAGESIZE_ENVELOPE_C5 = (short) 28;
     public static final short PAGESIZE_ENVELOPE_MONARCH = (short) 37;
 
     private static HSSFCell createCell(HSSFRow row, int col, HSSFCellStyle style) {
@@ -56,7 +56,8 @@ public class ExcelWriter {
         return cell;
     }
 
-    private static HSSFCell createMergedCell(HSSFSheet sheet, int x, int y, int width, int height, HSSFCellStyle style, String value) {
+    private static HSSFCell createMergedCell(HSSFSheet sheet, int x, int y, int width, int height, HSSFCellStyle style,
+            String value) {
         for (int i = y; i < y + height; i++) {
             HSSFRow row = sheet.getRow(i);
             if (row == null) {
@@ -72,7 +73,8 @@ public class ExcelWriter {
         return cell;
     }
 
-    private static <T extends ASchwimmer> HSSFSheet createSheet(HSSFWorkbook wb, String title, boolean landscape, int repeatrows, int repeatcols,
+    private static <T extends ASchwimmer> HSSFSheet createSheet(HSSFWorkbook wb, String title, boolean landscape,
+            int repeatrows, int repeatcols,
             String competition) {
         String atitle = SpreadsheetUtils.toSheetName(title);
         String xtitle = atitle;
@@ -116,14 +118,16 @@ public class ExcelWriter {
         header.setCenter(HeaderFooter.tab());
         Date datum = new Date();
         DateFormat datumsformat = DateFormat.getDateInstance();
-        header.setRight(I18n.get("ExcelHeaderRight", datumsformat.format(datum), DateFormat.getTimeInstance().format(datum)));
+        header.setRight(
+                I18n.get("ExcelHeaderRight", datumsformat.format(datum), DateFormat.getTimeInstance().format(datum)));
         if ((competition != null) && (competition.trim().length() > 0)) {
             header.setLeft(I18n.get("ExcelHeaderLeft", competition.trim()));
         }
         return sheet;
     }
 
-    public static void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols, String competition)
+    public static void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows, int repeatcols,
+            String competition)
             throws IOException {
         HSSFWorkbook wb = new HSSFWorkbook();
         ExcelStyles styles = new ExcelStyles(wb);
@@ -134,7 +138,8 @@ public class ExcelWriter {
         wb.write(name);
     }
 
-    public static void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows, Integer[] repeatcols, String[] titles,
+    public static void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows,
+            Integer[] repeatcols, String[] titles,
             String competition) throws IOException {
         HSSFWorkbook wb = new HSSFWorkbook();
         ExcelStyles styles = new ExcelStyles(wb);
@@ -145,7 +150,8 @@ public class ExcelWriter {
         wb.write(name);
     }
 
-    private static void buildSheet(ExtendedTableModel[] tms, HSSFWorkbook wb, ExcelStyles styles, int tmIndex, int groupsize, int repeatrows, int repeatcols,
+    private static void buildSheet(ExtendedTableModel[] tms, HSSFWorkbook wb, ExcelStyles styles, int tmIndex,
+            int groupsize, int repeatrows, int repeatcols,
             String competition) {
         ExtendedTableModel[][] tmx = new ExtendedTableModel[tms.length][1];
         for (int x = 0; x < tms.length; x++) {
@@ -160,7 +166,8 @@ public class ExcelWriter {
      * @param styles
      * @param z
      */
-    private static void buildSheet(ExtendedTableModel[][] tms, HSSFWorkbook wb, ExcelStyles styles, int tmIndex, int groupsize, int repeatrows, int repeatcols,
+    private static void buildSheet(ExtendedTableModel[][] tms, HSSFWorkbook wb, ExcelStyles styles, int tmIndex,
+            int groupsize, int repeatrows, int repeatcols,
             String[] names, String competition) {
         ExtendedTableModel[] tm = tms[tmIndex];
 
@@ -169,7 +176,8 @@ public class ExcelWriter {
             titel = names[tmIndex];
         }
 
-        HSSFSheet sheet = createSheet(wb, SpreadsheetUtils.toSheetName(titel), tm[0].isLandscape(), repeatrows, repeatcols, competition);
+        HSSFSheet sheet = createSheet(wb, SpreadsheetUtils.toSheetName(titel), tm[0].isLandscape(), repeatrows,
+                repeatcols, competition);
         int offset = 0;
         for (ExtendedTableModel aTm : tm) {
             for (int x = 0; x < aTm.getColumnCount(); x++) {
@@ -207,7 +215,8 @@ public class ExcelWriter {
      * @param sheet
      * @param offset
      */
-    private static int buildSheetContent(ExcelStyles styles, ExtendedTableModel tm, HSSFSheet sheet, int offset, int groupsize) {
+    private static int buildSheetContent(ExcelStyles styles, ExtendedTableModel tm, HSSFSheet sheet, int offset,
+            int groupsize) {
         // Write Table content
         for (short y = 0; y < tm.getRowCount(); y++) {
             HSSFRow row = sheet.createRow(y + offset);
@@ -223,7 +232,8 @@ public class ExcelWriter {
                 // Is right most cell
                 boolean right = (x + 1 == tm.getColumnCount());
                 // Get Style
-                HSSFCellStyle style = styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored, tm.getColumnFormat(x), groupsize > 1, false);
+                HSSFCellStyle style = styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
+                        tm.getColumnFormat(x), groupsize > 1, false);
                 HSSFCell cell = createCell(row, x, style);
 
                 Object o = tm.getValueAt(y, x);
@@ -244,7 +254,8 @@ public class ExcelWriter {
                     cell.setCellValue(new HSSFRichTextString(value));
                     if (value.contains("\n")) {
                         cell.setCellStyle(
-                                styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored, tm.getColumnFormat(x), groupsize > 1, true));
+                                styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
+                                        tm.getColumnFormat(x), groupsize > 1, true));
                     }
                 }
             }
@@ -308,7 +319,8 @@ public class ExcelWriter {
      * @param sheet
      * @return
      */
-    private static int buildSheetTitles(ExcelStyles styles, ExtendedTableModel tm, HSSFSheet sheet, int offset, boolean grouping) {
+    private static int buildSheetTitles(ExcelStyles styles, ExtendedTableModel tm, HSSFSheet sheet, int offset,
+            boolean grouping) {
         // Create title
         if (tm.getExtendedTitleRows() == null) {
             // Simple tableheader has one row
@@ -322,7 +334,8 @@ public class ExcelWriter {
                 // Get title
                 String s = tm.getColumnName(x);
                 // Get Style
-                HSSFCellStyle style = styles.getStyle(true, right, true, left, true, null, HorizontalAlignment.CENTER, grouping, s.contains("\n"));
+                HSSFCellStyle style = styles.getStyle(true, right, true, left, true, null, HorizontalAlignment.CENTER,
+                        grouping, s.contains("\n"));
                 HSSFCell cell = createCell(row, x, style);
                 cell.setCellType(CellType.STRING);
                 cell.setCellValue(new HSSFRichTextString(s));
@@ -345,7 +358,8 @@ public class ExcelWriter {
                     boolean bottom = (y + 1 == tm.getExtendedTitlesRowCount());
 
                     // Get Style
-                    HSSFCellStyle style = styles.getStyle(top, right, bottom, left, true, null, HorizontalAlignment.CENTER, grouping, false);
+                    HSSFCellStyle style = styles.getStyle(top, right, bottom, left, true, null,
+                            HorizontalAlignment.CENTER, grouping, false);
                     HSSFCell cell = createCell(rows[y], x, style);
                     cell.setCellType(CellType.STRING);
                     cell.setCellValue(new HSSFRichTextString(""));
@@ -385,7 +399,8 @@ public class ExcelWriter {
                         boolean top = (y == 0);
                         boolean bottom = (y + height >= tm.getExtendedTitlesRowCount());
 
-                        HSSFCellStyle style = styles.getStyle(top, right, bottom, left, true, null, HorizontalAlignment.CENTER, grouping, false);
+                        HSSFCellStyle style = styles.getStyle(top, right, bottom, left, true, null,
+                                HorizontalAlignment.CENTER, grouping, false);
                         createMergedCell(sheet, pos, y + offset, width, height, style, cell.title);
 
                         for (int w = y; w < y + height; w++) {

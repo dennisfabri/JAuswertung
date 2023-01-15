@@ -42,14 +42,14 @@ final class JBugReport extends JDialog {
      */
     private static final long serialVersionUID = 3907214861925364528L;
 
-    BugReport                 br               = null;
+    BugReport br = null;
 
-    JTextArea                 daten            = null;
-    JTextArea                 info             = null;
-    JButton                   anonymize        = new JButton();
-    JButton                   speichern        = null;
+    JTextArea daten = null;
+    JTextArea info = null;
+    JButton anonymize = new JButton();
+    JButton speichern = null;
 
-    private UpdateRunnable    updater          = new UpdateRunnable();
+    private UpdateRunnable updater = new UpdateRunnable();
 
     JBugReport(Frame parent) {
         super(parent, parent != null);

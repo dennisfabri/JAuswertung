@@ -40,14 +40,16 @@ public final class OWUtils {
         }
     }
 
-    public static <T extends ASchwimmer> boolean ShowRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title, String text, OWSelection[] data,
+    public static <T extends ASchwimmer> boolean ShowRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
+            String text, OWSelection[] data,
             ISimpleCallback<OWSelection[]> cb) {
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, true, cb);
         ModalFrameUtil.showAsModal(ds, owner);
         return ds.isCancelled();
     }
 
-    public static <T extends ASchwimmer> boolean ShowRoundSelector(JFrame owner, AWettkampf<T> wk, String title, String text, OWSelection[] data,
+    public static <T extends ASchwimmer> boolean ShowRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
+            String text, OWSelection[] data,
             ISimpleCallback<OWSelection> cb) {
         ISimpleCallback<OWSelection[]> cbx = new OWSelectionCallbackProxy(cb);
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, false, cbx);
@@ -57,7 +59,8 @@ public final class OWUtils {
 
     public static <T extends ASchwimmer> OWSelection[] getCreatedRounds(AWettkampf<T> wk, boolean onlyLatest) {
         Regelwerk rw = wk.getRegelwerk();
-        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
+        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(
+                Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
         List<OWSelection> daten = new ArrayList<OWSelection>();
         for (OWDisziplin<T> d : dx) {
@@ -70,8 +73,10 @@ public final class OWUtils {
                 }
             }
             if (selected) {
-                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich).getRunden().length;
-                daten.add(new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
+                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
+                        .getRunden().length;
+                daten.add(
+                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
             }
         }
         Collections.sort(daten);
@@ -80,7 +85,8 @@ public final class OWUtils {
 
     public static <T extends ASchwimmer> OWSelection[] getCurrentRounds(AWettkampf<T> wk) {
         Regelwerk rw = wk.getRegelwerk();
-        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
+        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(
+                Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
         HashSet<String> ids = new HashSet<String>(dx.stream().map(s -> s.Id).collect(Collectors.toList()));
 
@@ -88,8 +94,10 @@ public final class OWUtils {
         for (OWDisziplin<T> d : dx) {
             String id = OWDisziplin.getId(d.akNummer, d.maennlich, d.disziplin, d.round + 1);
             if (!ids.contains(id)) {
-                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich).getRunden().length;
-                daten.add(new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
+                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
+                        .getRunden().length;
+                daten.add(
+                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
             }
         }
         Collections.sort(daten);
@@ -123,7 +131,8 @@ public final class OWUtils {
                                     ok = CompetitionUtils.isDisciplineFinished(wk, id2);
                                 }
                                 if (ok) {
-                                    boolean isFinal = i == wk.getRegelwerk().getAk(x).getDisziplin(z, y == 1).getRunden().length;
+                                    boolean isFinal = i == wk.getRegelwerk().getAk(x).getDisziplin(z, y == 1)
+                                            .getRunden().length;
                                     daten.add(new OWSelection(ak, x, y == 1, z, i, isFinal));
                                 }
                             }

@@ -52,9 +52,10 @@ public class FormelILSFinalsWithdrawTest {
     private static final int Discipline = 0;
     private static final int Round = 0;
 
-    private static final String[] ExpectedQualificationResult = new String[] { "Q", "Q", "Q", "Q", "Q", "Q", "Q", "Q", "", "Q", "Q",
+    private static final String[] ExpectedQualificationResult = new String[] { "Q", "Q", "Q", "Q", "Q", "Q", "Q", "Q",
+            "", "Q", "Q",
             "Q", "Q", "Q", "Q", "Q", "Q", "", "", "" };
-    
+
     private EinzelWettkampf wk;
     private OWSelection selectionVorlauf;
     private JResultTable ergebnisVorlauf;

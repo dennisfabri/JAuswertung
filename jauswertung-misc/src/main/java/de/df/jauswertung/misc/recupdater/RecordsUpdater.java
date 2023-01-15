@@ -30,7 +30,9 @@ public class RecordsUpdater {
         importers.add(new CompetitionImporter("dem2022-mannschaft.wk", "DEM2022"));
         // importers.add(new CompetitionImporter("dmm2022-einzel.wk", "DMM2022"));
         // importers.add(new CompetitionImporter("dmm2022-mannschaft.wk", "DMM2022"));
-        // importers.add(new WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx", 2018));
+        // importers.add(new
+        // WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx",
+        // 2018));
 
         for (IImporter importer : importers) {
             importer.execute(records);

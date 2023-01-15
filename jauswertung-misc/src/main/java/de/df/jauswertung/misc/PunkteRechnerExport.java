@@ -33,7 +33,8 @@ public class PunkteRechnerExport {
         write(mannschaft, jahr, "Types.team");
 
         System.out.println("  ]),");
-        // System.out.println(String.format("$recs[%s] = array(\"e\" => $rec%se, \"m\" => $rec%sm);", jahr, jahr, jahr));
+        // System.out.println(String.format("$recs[%s] = array(\"e\" => $rec%se, \"m\"
+        // => $rec%sm);", jahr, jahr, jahr));
     }
 
     private static void write(Regelwerk aks, int year, String suffix) {
@@ -66,13 +67,13 @@ public class PunkteRechnerExport {
             sb.append("    ]),\n");
         }
         String text = sb.toString();
-        //text = text.replace("ä", "&auml;");
-        //text = text.replace("ö", "&ouml;");
-        //text = text.replace("ü", "&uuml;");
-        //text = text.replace("Ä", "&Auml;");
-        //text = text.replace("Ö", "&Ouml;");
-        //text = text.replace("Ü", "&Uuml;");
-        //text = text.replace("ß", "&szlig;");
+        // text = text.replace("ä", "&auml;");
+        // text = text.replace("ö", "&ouml;");
+        // text = text.replace("ü", "&uuml;");
+        // text = text.replace("Ä", "&Auml;");
+        // text = text.replace("Ö", "&Ouml;");
+        // text = text.replace("Ü", "&Uuml;");
+        // text = text.replace("ß", "&szlig;");
         System.out.print(text);
     }
 }

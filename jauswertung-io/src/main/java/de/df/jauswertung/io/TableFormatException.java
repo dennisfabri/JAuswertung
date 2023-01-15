@@ -7,9 +7,9 @@ public final class TableFormatException extends Exception {
 
     private static final long serialVersionUID = -6431012784221130245L;
 
-    private final int[]       data;
-    private String            sheet;
-    private String            file;
+    private final int[] data;
+    private String sheet;
+    private String file;
 
     public TableFormatException(int[] d, String file, String sheet) {
         super("Not all required fields found!");

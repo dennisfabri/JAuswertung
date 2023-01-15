@@ -36,12 +36,12 @@ import de.df.jutils.print.printables.MultiplePrintable;
  */
 class PuppenlistenPrinter implements Printer {
 
-    CorePlugin        core;
-    IPluginManager    controller;
+    CorePlugin core;
+    IPluginManager controller;
 
-    private JPanel    panel;
-    private JButton   print;
-    private JButton   preview;
+    private JPanel panel;
+    private JButton print;
+    private JButton preview;
     private JComboBox number = null;
 
     public PuppenlistenPrinter(IPluginManager window, CorePlugin plugin) {
@@ -51,7 +51,8 @@ class PuppenlistenPrinter implements Printer {
     }
 
     private void initGUI() {
-        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -107,6 +108,7 @@ class PuppenlistenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -116,6 +118,7 @@ class PuppenlistenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
+     * 
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -131,7 +134,8 @@ class PuppenlistenPrinter implements Printer {
 
     private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, int x) {
         PuppenListe<T> bl = new PuppenListe<T>(wk);
-        return PrintManager.getPrintable(bl.toJTable(x + 1), I18n.get("PuppeNummer", x + 1), JTablePrintable.OPT_ALL, true, true);
+        return PrintManager.getPrintable(bl.toJTable(x + 1), I18n.get("PuppeNummer", x + 1), JTablePrintable.OPT_ALL,
+                true, true);
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -148,7 +152,8 @@ class PuppenlistenPrinter implements Printer {
         } else {
             p = getPrintable(wk, number.getSelectedIndex());
         }
-        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Puppenliste"), I18n.get("Puppenliste"));
+        return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Puppenliste"),
+                I18n.get("Puppenliste"));
     }
 
     final class PrintActionListener implements ActionListener {
@@ -169,7 +174,8 @@ class PuppenlistenPrinter implements Printer {
                     return getPrintable();
                 }
             };
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Puppenliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Puppenliste"), IconManager.getIconBundle(),
+                    IconManager.getTitleImages());
         }
     }
 }

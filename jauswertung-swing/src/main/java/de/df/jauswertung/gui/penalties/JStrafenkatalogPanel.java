@@ -48,18 +48,18 @@ import de.df.jutils.gui.jlist.JListUtils;
  */
 class JStrafenkatalogPanel extends JPanel {
 
-    private static final long      serialVersionUID = -3908181088972213538L;
+    private static final long serialVersionUID = -3908181088972213538L;
 
-    private DefaultMutableTreeNode root             = new DefaultMutableTreeNode();
+    private DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 
-    private JTree                  kategorien       = new JTree(root);
+    private JTree kategorien = new JTree(root);
 
-    private JList<Strafe>          strafen          = new JList<Strafe>();
-    private JLabel                 name             = new JLabel();
-    private JLabel                 paragraph        = new JLabel();
-    private JLabel                 strafpunkte      = new JLabel();
-    private Strafen                strafenkatalog   = null;
-    private Strafe                 strafe           = null;
+    private JList<Strafe> strafen = new JList<Strafe>();
+    private JLabel name = new JLabel();
+    private JLabel paragraph = new JLabel();
+    private JLabel strafpunkte = new JLabel();
+    private Strafen strafenkatalog = null;
+    private Strafe strafe = null;
 
     public JStrafenkatalogPanel(Strafe str, Strafen s) {
         strafenkatalog = s;
@@ -104,7 +104,8 @@ class JStrafenkatalogPanel extends JPanel {
 
         // infoPanel zusammensetzen
         JPanel infoPanel = new JPanel();
-        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         infoPanel.setLayout(layout);
         infoPanel.add(new JLabel(I18n.get("Description") + ":"), CC.xy(2, 2));
@@ -116,7 +117,8 @@ class JStrafenkatalogPanel extends JPanel {
         infoPanel.setBorder(BorderUtils.createLabeledBorder(I18n.get("Details")));
 
         // Panel zusammensetzen
-        layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu");
         setLayout(layout);
         add(horizontalSplitter, CC.xy(2, 2));
         add(infoPanel, CC.xy(2, 4));
