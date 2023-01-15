@@ -82,7 +82,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         @SuppressWarnings("unchecked")
         LinkedList<T>[] listen = new LinkedList[ganzahl];
         for (int x = 0; x < ganzahl; x++) {
-            listen[x] = new LinkedList<T>();
+            listen[x] = new LinkedList<>();
         }
 
         int zahl = 0;
@@ -120,7 +120,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         });
 
         int anzahl = size / bahnen;
-        LinkedList<T> overflow = new LinkedList<T>();
+        LinkedList<T> overflow = new LinkedList<>();
         while (size % bahnen != 0) {
             for (int x = listen.length - 1; x >= 0; x--) {
                 if (!listen[x].isEmpty()) {
@@ -162,9 +162,9 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
     private static <T extends ASchwimmer> LinkedList<T> vorsortieren(AWettkampf<T> wk, LinkedList<T> ll) {
         if (ll == null) {
-            return new LinkedList<T>();
+            return new LinkedList<>();
         }
-        if (ll.size() == 0) {
+        if (ll.isEmpty()) {
             return ll;
         }
 
@@ -197,9 +197,9 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
     private static <T extends ASchwimmer> LinkedList<T> nachsortieren(AWettkampf<T> wk, LinkedList<T> ll) {
         if (ll == null) {
-            return new LinkedList<T>();
+            return new LinkedList<>();
         }
-        if (ll.size() == 0) {
+        if (ll.isEmpty()) {
             return ll;
         }
 
@@ -288,7 +288,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
         // Schwimmer nach Altersklassen trennen und anschließend sortieren,
         // um sie besser verarbeiten zu können
-        LinkedList<T> schwimmer = new LinkedList<T>();
+        LinkedList<T> schwimmer = new LinkedList<>();
         for (Einteilung anAufteilung : aufteilung) {
             Altersklasse ak = wk.getRegelwerk().getAk(anAufteilung.getAK());
             boolean male = anAufteilung.isMaennlich();
@@ -326,7 +326,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                         hlwliste.addLast(current);
                         startat.addLast(currentT);
 
-                        current = new LinkedList<HLWLauf<T>>();
+                        current = new LinkedList<>();
                         currentT = new Time(restarttimes[anAufteilung.getAK()][anAufteilung.isMaennlich() ? 1 : 0]);
                     }
                 }
@@ -356,7 +356,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                 startat.clear();
 
                 while (time > start) {
-                    LinkedList<HLWLauf<T>> neu = new LinkedList<HLWLauf<T>>();
+                    LinkedList<HLWLauf<T>> neu = new LinkedList<>();
                     Time neuT = new Time(start + wk.getIntegerProperty(ZW_PAUSE_DURATION));
 
                     while (time > start) {
@@ -436,16 +436,16 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
     public static <T extends ASchwimmer> void verteilen(LinkedList<HLWLauf<T>> hlwliste, LinkedList<T> schwimmer,
             int puppen) {
-        if (schwimmer.size() == 0) {
+        if (schwimmer.isEmpty()) {
             return;
         }
-        LinkedList<HLWLauf<T>> ll = new LinkedList<HLWLauf<T>>();
-        HLWLauf<T> lauf = new HLWLauf<T>(puppen);
+        LinkedList<HLWLauf<T>> ll = new LinkedList<>();
+        HLWLauf<T> lauf = new HLWLauf<>(puppen);
         ll.addFirst(lauf);
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
             if (lauf.isFull()) {
-                lauf = new HLWLauf<T>(puppen);
+                lauf = new HLWLauf<>(puppen);
                 ll.addLast(lauf);
             }
             lauf.addSchwimmer(li.next(), Lauf.HLW);
@@ -458,7 +458,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         if (s == null) {
             return;
         }
-        if ((hlwliste == null) || (hlwliste.size() == 0)) {
+        if ((hlwliste == null) || (hlwliste.isEmpty())) {
             return;
         }
         if (wk.getSchwimmeranzahl() == 0) {
@@ -584,7 +584,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         if (hlwliste.size() < list) {
             list = hlwliste.size();
         }
-        HLWLauf<T> neu = new HLWLauf<T>(wk.getIntegerProperty(ZW_LANES));
+        HLWLauf<T> neu = new HLWLauf<>(wk.getIntegerProperty(ZW_LANES));
         hlwliste.get(list).add(index, neu);
         refreshTime();
     }
@@ -598,15 +598,15 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
     public void split(int[] index, Time start) {
         if (index[1] < 0) {
-            LinkedList<HLWLauf<T>> liste = new LinkedList<HLWLauf<T>>();
-            liste.add(new HLWLauf<T>(wk.getIntegerProperty(PropertyConstants.ZW_LANES)));
+            LinkedList<HLWLauf<T>> liste = new LinkedList<>();
+            liste.add(new HLWLauf<>(wk.getIntegerProperty(PropertyConstants.ZW_LANES)));
             hlwliste.add(index[0], liste);
             startat.add(index[0], start);
         } else {
             LinkedList<HLWLauf<T>>[] listen = ListUtils.split(hlwliste.get(index[0]), index[1]);
             for (int x = 0; x < 2; x++) {
                 if (listen[x].isEmpty()) {
-                    listen[x].add(new HLWLauf<T>(wk.getIntegerProperty(PropertyConstants.ZW_LANES)));
+                    listen[x].add(new HLWLauf<>(wk.getIntegerProperty(PropertyConstants.ZW_LANES)));
                 }
             }
             hlwliste.remove(index[0]);
@@ -626,14 +626,14 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
     public synchronized void reset() {
         if (hlwliste == null) {
-            hlwliste = new LinkedList<LinkedList<HLWLauf<T>>>();
-            startat = new LinkedList<Time>();
+            hlwliste = new LinkedList<>();
+            startat = new LinkedList<>();
         } else {
             hlwliste.clear();
             startat.clear();
         }
 
-        hlwliste.add(new LinkedList<HLWLauf<T>>());
+        hlwliste.add(new LinkedList<>());
         startat.add(new Time(wk.getDoubleProperty(PropertyConstants.ZW_STARTTIME)));
     }
 
@@ -691,7 +691,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
     }
 
     public Einteilung[] getStandardVerteilung() {
-        LinkedList<Einteilung> daten = new LinkedList<Einteilung>();
+        LinkedList<Einteilung> daten = new LinkedList<>();
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             Altersklasse ak = wk.getRegelwerk().getAk(x);
             if (ak.hasHLW() && SearchUtils.hasSchwimmer(wk, ak)) {
@@ -713,7 +713,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         Einteilung[] daten = getStandardVerteilung();
 
         // Add configures entries
-        LinkedList<Einteilung> result = new LinkedList<Einteilung>();
+        LinkedList<Einteilung> result = new LinkedList<>();
         for (Einteilung anAufteilung : aufteilung) {
             boolean found = false;
             for (int y = 0; y < daten.length; y++) {

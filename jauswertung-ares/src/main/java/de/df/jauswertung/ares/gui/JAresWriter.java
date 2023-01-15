@@ -97,11 +97,8 @@ public class JAresWriter extends JFrame {
                 EDTUtils.niceExit();
             }
         });
-        export.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doExport();
-            }
+        export.addActionListener(e -> {
+            doExport();
         });
         close.addActionListener(new ActionListener() {
             @Override
@@ -110,19 +107,11 @@ public class JAresWriter extends JFrame {
                 EDTUtils.niceExit();
             }
         });
-        add.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doAdd();
-            }
+        add.addActionListener(e -> {
+            doAdd();
         });
-        remove.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doRemove();
-            }
+        remove.addActionListener(e -> {
+            doRemove();
         });
         directory.getDocument().addDocumentListener(new DocumentListener() {
 

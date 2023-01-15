@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.teammembersinput;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,9 +23,9 @@ public class SelectOrganisationPlugin extends ANullPlugin {
 
     private JComponent[] buttons;
     private JLabel label = new JLabel(I18n.get("Organisation"));
-    private JComboBox<String> selection = new JComboBox<String>();
+    private JComboBox<String> selection = new JComboBox<>();
     private String[] data = new String[0];
-    private LinkedList<ISelectionListener> listeners = new LinkedList<ISelectionListener>();
+    private LinkedList<ISelectionListener> listeners = new LinkedList<>();
 
     public void addSelectionListener(ISelectionListener listener) {
         if (listeners.contains(listener)) {
@@ -55,11 +54,8 @@ public class SelectOrganisationPlugin extends ANullPlugin {
 
     public SelectOrganisationPlugin() {
         buttons = new JComponent[] { label, selection };
-        selection.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                notifyListeners();
-            }
+        selection.addActionListener(e -> {
+            notifyListeners();
         });
     }
 
@@ -86,7 +82,7 @@ public class SelectOrganisationPlugin extends ANullPlugin {
             LinkedList<String> orgs = wk.getGliederungenMitQGliederung();
             if (orgs.size() != data.length) {
                 data = orgs.toArray(new String[orgs.size()]);
-                selection.setModel(new DefaultComboBoxModel<String>(data));
+                selection.setModel(new DefaultComboBoxModel<>(data));
                 if (gld != null && orgs.contains(gld) && !gld.equals(selection.getSelectedItem())) {
                     selection.setSelectedItem(gld);
                 }

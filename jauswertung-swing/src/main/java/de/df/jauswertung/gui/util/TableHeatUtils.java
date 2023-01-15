@@ -170,7 +170,7 @@ public final class TableHeatUtils {
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
         int anzahl = 0;
         SchwimmerInfo first = null;
-        LinkedList<SchwimmerInfo[]> result = new LinkedList<SchwimmerInfo[]>();
+        LinkedList<SchwimmerInfo[]> result = new LinkedList<>();
         SchwimmerInfo[] current = new SchwimmerInfo[bahnen];
         result.addLast(current);
         while (li.hasNext()) {
@@ -327,7 +327,7 @@ public final class TableHeatUtils {
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
         int anzahl = 0;
         SchwimmerInfo first = null;
-        LinkedList<SchwimmerInfo[]> result = new LinkedList<SchwimmerInfo[]>();
+        LinkedList<SchwimmerInfo[]> result = new LinkedList<>();
         SchwimmerInfo[] current = new SchwimmerInfo[lsi.size()];
         result.addLast(current);
         while (li.hasNext()) {
@@ -469,7 +469,7 @@ public final class TableHeatUtils {
             int ak = t.getAKNummer();
             int diszAnzahl = aks.getAk(ak).getDiszAnzahl();
 
-            LinkedList<SchwimmerInfo> temp = new LinkedList<SchwimmerInfo>();
+            LinkedList<SchwimmerInfo> temp = new LinkedList<>();
             ListIterator<SchwimmerInfo> li = lsi.listIterator();
             while (li.hasNext()) {
                 SchwimmerInfo si = li.next();
@@ -537,7 +537,7 @@ public final class TableHeatUtils {
         {
             LinkedList<SchwimmerInfo>[] temp = new LinkedList[gliederungen.length];
             for (int x = 0; x < gliederungen.length; x++) {
-                temp[x] = new LinkedList<SchwimmerInfo>();
+                temp[x] = new LinkedList<>();
                 for (LinkedList<SchwimmerInfo> info : infos) {
                     for (SchwimmerInfo si : info) {
                         if (si.getSchwimmer().getGliederungMitQGliederung().equals(gliederungen[x])) {
@@ -548,7 +548,7 @@ public final class TableHeatUtils {
             }
             infos = temp;
         }
-        LinkedList<ExtendedTableModel> models = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> models = new LinkedList<>();
 
         int meldeindex = wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0);
 
@@ -915,7 +915,7 @@ public final class TableHeatUtils {
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
         int anzahl = 0;
         SchwimmerInfo first = null;
-        LinkedList<SchwimmerInfo[]> result = new LinkedList<SchwimmerInfo[]>();
+        LinkedList<SchwimmerInfo[]> result = new LinkedList<>();
         SchwimmerInfo[] current = new SchwimmerInfo[bahnen];
         result.addLast(current);
         while (li.hasNext()) {
@@ -1045,7 +1045,7 @@ public final class TableHeatUtils {
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
         int anzahl = 0;
         SchwimmerInfo first = null;
-        LinkedList<SchwimmerInfo[]> result = new LinkedList<SchwimmerInfo[]>();
+        LinkedList<SchwimmerInfo[]> result = new LinkedList<>();
         SchwimmerInfo[] current = new SchwimmerInfo[bahnen];
         result.addLast(current);
         while (li.hasNext()) {
@@ -1099,9 +1099,7 @@ public final class TableHeatUtils {
                         if ((names[y] == null) || (names[y].equals("-"))) {
                             names[y] = null;
                         }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        names[y] = null;
-                    } catch (NullPointerException npe) {
+                    } catch (IndexOutOfBoundsException | NullPointerException ioobe) {
                         names[y] = null;
                     }
                 }

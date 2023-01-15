@@ -65,7 +65,7 @@ class LaufeinteilungPrinter implements Printer {
         preview.addActionListener(new PreviewActionListener());
         preview.setEnabled(false);
 
-        selection = new JComboBox<String>(new String[] { I18n.get("Heats"), I18n.get("AgeGroups"),
+        selection = new JComboBox<>(new String[] { I18n.get("Heats"), I18n.get("AgeGroups"),
                 I18n.get("Organization"), I18n.get("Compact") });
 
         hlw = new JCheckBox(I18n.get("PrintLaufeinteilungIncludeZW"));
@@ -205,12 +205,7 @@ class LaufeinteilungPrinter implements Printer {
     }
 
     void preview() {
-        PrintableCreator pc = new PrintableCreator() {
-            @Override
-            public Printable create() {
-                return getPrintable();
-            }
-        };
+        PrintableCreator pc = this::getPrintable;
         PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatarrangement"), IconManager.getIconBundle(),
                 IconManager.getTitleImages());
     }

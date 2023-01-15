@@ -4,9 +4,7 @@
 package de.df.jauswertung.gui.plugins.http;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -29,11 +27,8 @@ import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.io.CloseMode;
 import org.apache.hc.core5.util.TimeValue;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
-import de.df.jauswertung.gui.plugins.core.IWettkampfProvider;
 import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
@@ -73,25 +68,14 @@ public class HttpServerPlugin extends ANullPlugin {
 
         button = new JToggleButton(IconManager.getSmallIcon("webserver"));
         button.setToolTipText(I18n.get("StartStopHttpServer"));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttonAction();
-            }
+        button.addActionListener(e -> {
+            buttonAction();
         });
 
-        filter = new JResultsSelectionButton(new IWettkampfProvider() {
-            @Override
-            public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
-                return core.getWettkampf();
-            }
-        });
-        filter.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                if (arg0.getStateChange() == ItemEvent.DESELECTED) {
-                    source.setSelection(filter.getSelection(core.getWettkampf()));
-                }
+        filter = new JResultsSelectionButton(core::getWettkampf);
+        filter.addItemListener(arg0 -> {
+            if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+                source.setSelection(filter.getSelection(core.getWettkampf()));
             }
         });
         filter.setEnabled(false);
@@ -216,7 +200,7 @@ public class HttpServerPlugin extends ANullPlugin {
 
     private static Stream<String> listInterfaces() throws SocketException {
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-        return Collections.list(nets).stream().map(net -> displayInterfaceInformation(net)).flatMap(i -> i.stream())
+        return Collections.list(nets).stream().map(HttpServerPlugin::displayInterfaceInformation).flatMap(i -> i.stream())
                 .distinct();
     }
 

@@ -170,7 +170,7 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
         boolean found = false;
         String key = s.getName() + "#" + s.getAKNummer();
 
-        LinkedList<ASchwimmer> temp = new LinkedList<ASchwimmer>();
+        LinkedList<ASchwimmer> temp = new LinkedList<>();
         for (ASchwimmer swimmer : swimmers) {
             if (swimmer.equals(s)) {
                 return;

@@ -21,8 +21,8 @@ public final class RefereesTableCreator {
 
     private static <T extends ASchwimmer> JTable createTable(KampfrichterVerwaltung kt) {
         try {
-            LinkedList<String> names = new LinkedList<String>();
-            LinkedList<String> data = new LinkedList<String>();
+            LinkedList<String> names = new LinkedList<>();
+            LinkedList<String> data = new LinkedList<>();
 
             String last = " ";
 

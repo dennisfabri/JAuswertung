@@ -25,7 +25,7 @@ public class ExcelStyles {
     public ExcelStyles(HSSFWorkbook book) {
         wb = book;
         dataformat = wb.createDataFormat();
-        styles = new Hashtable<String, HSSFCellStyle>();
+        styles = new Hashtable<>();
     }
 
     private int booleanToBit(boolean b) {

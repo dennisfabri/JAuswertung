@@ -7,11 +7,11 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 
-public class StartnumberFormatManager {
+public final class StartnumberFormatManager {
 
     private static StartnumberFormatManager instance = null;
 
-    private final Hashtable<String, IStartnumberFormat> formats = new Hashtable<String, IStartnumberFormat>();
+    private final Hashtable<String, IStartnumberFormat> formats = new Hashtable<>();
 
     private StartnumberFormatManager() {
         add(new StartnumberDefault());

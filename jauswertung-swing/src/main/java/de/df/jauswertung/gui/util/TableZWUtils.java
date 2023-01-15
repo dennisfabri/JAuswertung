@@ -57,7 +57,7 @@ public final class TableZWUtils {
         }
         pause[1] = I18n.get("Pause");
 
-        LinkedList<Object[]> daten = new LinkedList<Object[]>();
+        LinkedList<Object[]> daten = new LinkedList<>();
 
         ListIterator<LinkedList<HLWLauf<T>>> lli = laufliste.getIterator();
         while (lli.hasNext()) {
@@ -104,7 +104,7 @@ public final class TableZWUtils {
         if (hlw) {
             ListIterator<LinkedList<HLWLauf<T>>> lli = wk.getHLWListe().getIterator();
 
-            LinkedList<Object> result = new LinkedList<Object>();
+            LinkedList<Object> result = new LinkedList<>();
             while (lli.hasNext()) {
                 LinkedList<HLWLauf<T>> ll = lli.next();
                 ListIterator<HLWLauf<T>> li = ll.listIterator();
@@ -116,7 +116,7 @@ public final class TableZWUtils {
         }
 
         ListIterator<Lauf<T>> li = wk.getLaufliste().getLaufliste().listIterator();
-        LinkedList<Object> result = new LinkedList<Object>();
+        LinkedList<Object> result = new LinkedList<>();
         while (li.hasNext()) {
             result.addLast(new UniqueString(li.next().getName()));
         }

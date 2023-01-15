@@ -82,11 +82,11 @@ public final class DataTableUtils {
     }
 
     static final class DataContainer {
-        private LinkedList<Integer> aligns = new LinkedList<Integer>();
-        private LinkedList<String> formats = new LinkedList<String>();
-        private LinkedList<Object> titles = new LinkedList<Object>();
-        private LinkedList<TitleCell> row1 = new LinkedList<TitleCell>();
-        private LinkedList<TitleCell> row2 = new LinkedList<TitleCell>();
+        private LinkedList<Integer> aligns = new LinkedList<>();
+        private LinkedList<String> formats = new LinkedList<>();
+        private LinkedList<Object> titles = new LinkedList<>();
+        private LinkedList<TitleCell> row1 = new LinkedList<>();
+        private LinkedList<TitleCell> row2 = new LinkedList<>();
 
         public void add(String title, int align, String format, String r, boolean mode) {
             add(title, null, align, format, r, mode);
@@ -163,7 +163,7 @@ public final class DataTableUtils {
     }
 
     public static String detectMitglieder(String[] titles, String[] data) {
-        LinkedList<Integer> index = new LinkedList<Integer>();
+        LinkedList<Integer> index = new LinkedList<>();
         boolean found = true;
         while (found) {
             found = false;
@@ -176,7 +176,7 @@ public final class DataTableUtils {
                 }
             }
         }
-        if (index.size() == 0) {
+        if (index.isEmpty()) {
             return "";
         }
         StringBuilder result = new StringBuilder();
@@ -254,7 +254,7 @@ public final class DataTableUtils {
             dc.add("Qualified", RIGHT, "", "Qualified", true);
         }
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         for (int x = 0; x < aks.size(); x++) {
             LinkedList<T> teilies = SearchUtils.getSchwimmer(wk, aks.getAk(x));
@@ -442,7 +442,7 @@ public final class DataTableUtils {
             dc.add("Qualified", CENTER, "", "Qualified", fullSizeColumns);
         }
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         altersklasse(result, wk, ak, male, diszAnzahl, 0, true, showpoints, true, removeUnranked, qualified);
 
@@ -533,7 +533,7 @@ public final class DataTableUtils {
             double points, boolean separate,
             boolean mustShowPoints, int qualified) {
         ASchwimmer t = line.getSchwimmer();
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
         if (line.hasKeineWertung()) {
             row.addLast("");
         } else {
@@ -644,7 +644,7 @@ public final class DataTableUtils {
         if (columns == null) {
             return source;
         }
-        LinkedList<Object> l = new LinkedList<Object>();
+        LinkedList<Object> l = new LinkedList<>();
         for (int x = 0; x < Math.min(columns.length, source.length); x++) {
             if (columns[x]) {
                 l.addLast(source[x]);
@@ -743,11 +743,11 @@ public final class DataTableUtils {
             maxteamsize = Math.max(maxteamsize, wk.getRegelwerk().getAk(x).getMaxMembers());
         }
 
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
-        LinkedList<Object> titles = new LinkedList<Object>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
+        LinkedList<Object> titles = new LinkedList<>();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         titles.addLast(I18n.get("StartnumberShort"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -795,7 +795,7 @@ public final class DataTableUtils {
             Mannschaft t = li.next();
 
             for (int i = 0; i < maxteamsize; i++) {
-                LinkedList<Object> row = new LinkedList<Object>();
+                LinkedList<Object> row = new LinkedList<>();
 
                 row.addLast(StartnumberFormatManager.format(t) + StringTools.asText(i));
                 row.addLast(t.getName());
@@ -844,11 +844,11 @@ public final class DataTableUtils {
             }
         }
 
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
-        LinkedList<Object> titles = new LinkedList<Object>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
+        LinkedList<Object> titles = new LinkedList<>();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         titles.addLast(I18n.get("StartnumberShort"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -887,7 +887,7 @@ public final class DataTableUtils {
         int percent = 0;
         int counter = 0;
 
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
 
         while (li.hasNext()) {
             int per = (counter * 100) / length;
@@ -952,7 +952,7 @@ public final class DataTableUtils {
             fb = new NullFeedback();
         }
 
-        LinkedList<ExtendedTableModel> results = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> results = new LinkedList<>();
 
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             Altersklasse ak = wk.getRegelwerk().getAk(x);
@@ -994,15 +994,15 @@ public final class DataTableUtils {
             }
         }
 
-        Collections.sort(swimmers, new SchwimmerNameVergleicher<T>());
-        Collections.sort(swimmers, new SchwimmerGeschlechtVergleicher<T>());
-        Collections.sort(swimmers, new SchwimmerAKVergleicher<T>());
+        Collections.sort(swimmers, new SchwimmerNameVergleicher<>());
+        Collections.sort(swimmers, new SchwimmerGeschlechtVergleicher<>());
+        Collections.sort(swimmers, new SchwimmerAKVergleicher<>());
 
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
-        LinkedList<Object> titles = new LinkedList<Object>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
+        LinkedList<Object> titles = new LinkedList<>();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         titles.addLast(I18n.get("StartnumberShort"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -1051,7 +1051,7 @@ public final class DataTableUtils {
 
             if (t.getAK().hasHLW()) {
                 for (int x = 0; x < t.getMaximaleHLW(); x++) {
-                    LinkedList<Object> row = new LinkedList<Object>();
+                    LinkedList<Object> row = new LinkedList<>();
 
                     if (t.getMaximaleHLW() > 1) {
                         StringBuilder sb = new StringBuilder();
@@ -1150,7 +1150,7 @@ public final class DataTableUtils {
 
         ListIterator<Lauf<T>> li = laufe.getLaufliste().listIterator();
 
-        LinkedList<Object[]> data = new LinkedList<Object[]>();
+        LinkedList<Object[]> data = new LinkedList<>();
 
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
 
@@ -1187,7 +1187,7 @@ public final class DataTableUtils {
      */
     private static <T extends ASchwimmer> Object[] laufToLine(Lauf<T> lauf, int bahnen, int offset,
             boolean mixedheats) {
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
         if (offset == (mixedheats ? 1 : 0)) {
             row.addLast(lauf.getName());
         } else {
@@ -1266,7 +1266,7 @@ public final class DataTableUtils {
             dc.addI(I18n.get("LaneNumber", x), defaultalign, "", "" + x, false);
         }
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         int puppen = wk.getIntegerProperty(ZW_LANES);
 
@@ -1326,9 +1326,9 @@ public final class DataTableUtils {
             return null;
         }
 
-        LinkedList<Object> titles = new LinkedList<Object>();
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
+        LinkedList<Object> titles = new LinkedList<>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
 
         titles.addLast(I18n.get("Category"));
         aligns.addLast(SwingConstants.LEFT);
@@ -1352,7 +1352,7 @@ public final class DataTableUtils {
         aligns.addLast(SwingConstants.LEFT);
         formats.addLast("");
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         KampfrichterVerwaltung kv = wk.getKampfrichterverwaltung();
 
@@ -1389,7 +1389,7 @@ public final class DataTableUtils {
      * @return
      */
     private static <T extends ASchwimmer> Object[] zusatzwertungToLine(Lauf<T> lauf, int puppen, int offset) {
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
         if (offset == 1) {
             row.addLast(lauf.getName());
         } else {
@@ -1452,9 +1452,9 @@ public final class DataTableUtils {
             return null;
         }
 
-        LinkedList<Object> titles = new LinkedList<Object>();
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
+        LinkedList<Object> titles = new LinkedList<>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
 
         titles.addLast(I18n.get("Startnumber"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -1505,7 +1505,7 @@ public final class DataTableUtils {
 
         ListIterator<Lauf<T>> li = laufe.getLaufliste().listIterator();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         int length = laufe.getLaufliste().size();
         int percent = 0;
@@ -1554,7 +1554,7 @@ public final class DataTableUtils {
     private static <T extends ASchwimmer> Object[] startkarteToLine(T schwimmer, Lauf<T> lauf, int x) {
         int disz = lauf.getDisznummer(x);
 
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
         row.addLast(StartnumberFormatManager.format(schwimmer));
         row.addLast(schwimmer.getName());
         if (schwimmer instanceof Teilnehmer) {
@@ -1585,9 +1585,9 @@ public final class DataTableUtils {
             return null;
         }
 
-        LinkedList<Object> titles = new LinkedList<Object>();
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
+        LinkedList<Object> titles = new LinkedList<>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
 
         titles.addLast(I18n.get("Startnumber"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -1626,7 +1626,7 @@ public final class DataTableUtils {
         aligns.addLast(SwingConstants.CENTER);
         formats.addLast("");
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         LinkedList<ZWStartkarte<T>> sk = SchwimmerUtils.toZWStartkarten(wk.getHLWListe(), 1, true, 0, 0, true);
         Collections.sort(sk, new Comparator<ZWStartkarte<T>>() {
@@ -1675,7 +1675,7 @@ public final class DataTableUtils {
     private static <T extends ASchwimmer> Object[] startkarteZWToLine(ZWStartkarte<T> sk, boolean printZWnames) {
         T schwimmer = sk.getSchwimmer();
 
-        LinkedList<Object> row = new LinkedList<Object>();
+        LinkedList<Object> row = new LinkedList<>();
 
         try {
             row.addLast(Integer.parseInt(sk.getStartnummer()));
@@ -1731,11 +1731,11 @@ public final class DataTableUtils {
         int maxteamsize = getMaximumMembers(wk, schwimmer);
         int maxregs = 1; // getMaximumRegisteredPoints(wk, schwimmer);
 
-        LinkedList<Integer> aligns = new LinkedList<Integer>();
-        LinkedList<String> formats = new LinkedList<String>();
-        LinkedList<Object> titles = new LinkedList<Object>();
+        LinkedList<Integer> aligns = new LinkedList<>();
+        LinkedList<String> formats = new LinkedList<>();
+        LinkedList<Object> titles = new LinkedList<>();
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
 
         titles.addLast(I18n.get("StartnumberShort"));
         aligns.addLast(SwingConstants.RIGHT);
@@ -1835,8 +1835,8 @@ public final class DataTableUtils {
             formats.addLast("");
         }
 
-        LinkedList<String> disciplines = new LinkedList<String>();
-        Hashtable<String, Integer> indizes = new Hashtable<String, Integer>();
+        LinkedList<String> disciplines = new LinkedList<>();
+        Hashtable<String, Integer> indizes = new Hashtable<>();
         if ((detail != RegistrationDetails.SHORT) && (detail != RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
             int index = 0;
             Regelwerk aks = wk.getRegelwerk();
@@ -1875,7 +1875,7 @@ public final class DataTableUtils {
 
             T t = li.next();
 
-            LinkedList<Object> row = new LinkedList<Object>();
+            LinkedList<Object> row = new LinkedList<>();
 
             row.addLast(StartnumberFormatManager.format(t));
             if (einzel) {
@@ -2033,7 +2033,7 @@ public final class DataTableUtils {
             }
         }
 
-        LinkedList<Object[]> mp = new LinkedList<Object[]>();
+        LinkedList<Object[]> mp = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);

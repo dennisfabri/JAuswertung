@@ -62,7 +62,6 @@ import de.df.jauswertung.util.vergleicher.SchwimmerStartnummernVergleicher;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIcon;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -150,37 +149,31 @@ public class PHeatInputPlugin extends ANullPlugin {
     private JPanel initPanel() {
         next = new JTransparentButton(IconManager.getSmallIcon("next"));
         next.setToolTipText(I18n.getToolTip("GotoNextHeat"));
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                int index = heat.getSelectedIndex();
-                if ((index < 0) && (heat.getItemCount() > 0)) {
-                    heat.setSelectedIndex(0);
-                    return;
-                }
-                index++;
-                if (heat.getItemCount() > index) {
-                    heat.setSelectedIndex(index);
-                }
+        next.addActionListener(arg0 -> {
+            int index = heat.getSelectedIndex();
+            if ((index < 0) && (heat.getItemCount() > 0)) {
+                heat.setSelectedIndex(0);
+                return;
+            }
+            index++;
+            if (heat.getItemCount() > index) {
+                heat.setSelectedIndex(index);
             }
         });
         previous = new JTransparentButton(IconManager.getSmallIcon("previous"));
         previous.setToolTipText(I18n.getToolTip("GotoPreviousHeat"));
-        previous.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                int index = heat.getSelectedIndex();
-                if ((index < 0) && (heat.getItemCount() > 0)) {
-                    heat.setSelectedIndex(0);
-                    return;
-                }
-                index--;
-                if (0 <= index) {
-                    heat.setSelectedIndex(index);
-                }
+        previous.addActionListener(arg0 -> {
+            int index = heat.getSelectedIndex();
+            if ((index < 0) && (heat.getItemCount() > 0)) {
+                heat.setSelectedIndex(0);
+                return;
+            }
+            index--;
+            if (0 <= index) {
+                heat.setSelectedIndex(index);
             }
         });
-        heat = new JComboBox<String>();
+        heat = new JComboBox<>();
         heat.setToolTipText(I18n.getToolTip("SelectHeat"));
         heat.addActionListener(new HeatActionListener());
         heat.addKeyListener(new KeyListener() {
@@ -211,19 +204,13 @@ public class PHeatInputPlugin extends ANullPlugin {
         discipline = new JLabel();
 
         zieleinlauf = new JButton(I18n.get("CheckZieleinlauf"));
-        zieleinlauf.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                zeigeZieleinlauf();
-            }
+        zieleinlauf.addActionListener(e -> {
+            zeigeZieleinlauf();
         });
 
         zielrichterentscheid = new JButton(I18n.get("Zielrichterentscheid"));
-        zielrichterentscheid.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                zeplugin.showZielrichterentscheid();
-            }
+        zielrichterentscheid.addActionListener(e -> {
+            zeplugin.showZielrichterentscheid();
         });
 
         String disciplinePart = "4dlu,left:default:grow,4dlu,";
@@ -298,7 +285,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
         } else {
             Laufliste laufliste = wk.getLaufliste();
-            if ((laufliste.getLaufliste() == null) || (laufliste.getLaufliste().size() == 0)) {
+            if ((laufliste.getLaufliste() == null) || (laufliste.getLaufliste().isEmpty())) {
                 main.setEnabled(false);
             }
         }
@@ -389,16 +376,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                 if (byTimes) {
                     inputs[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                     inputs[x].setToolTipText(I18n.getToolTip("TimeInputField"));
-                    inputs[x].setValidator(new Validator() {
-                        @Override
-                        public boolean validate(int value) {
-                            value = value / 100;
-                            if ((value % 100) >= 60) {
-                                return false;
-                            }
-                            value = value / 100;
-                            return value < 1000;
+                    inputs[x].setValidator(value -> {
+                        value = value / 100;
+                        if ((value % 100) >= 60) {
+                            return false;
                         }
+                        value = value / 100;
+                        return value < 1000;
                     });
                 } else {
                     inputs[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, Integer.MAX_VALUE, false, true);
@@ -736,48 +720,36 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         private void setPenaltyPoints(String zeit) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'p'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'p');
-                        inputs[index].setText(x);
-                        if (checkHighPoints(index)) {
-                            strategy.runPenaltyPoints(heat.getSelectedIndex(), index);
-                        }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'p');
+                    inputs[index].setText(x);
+                    if (checkHighPoints(index)) {
+                        strategy.runPenaltyPoints(heat.getSelectedIndex(), index);
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'p');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'p');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
 
         private void setPenaltyCode(String zeit) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'c'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'c');
-                        inputs[index].setText(x);
-                        if (checkHighPoints(index)) {
-                            strategy.runPenaltyCode(heat.getSelectedIndex(), index);
-                        }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'c');
+                    inputs[index].setText(x);
+                    if (checkHighPoints(index)) {
+                        strategy.runPenaltyCode(heat.getSelectedIndex(), index);
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'c');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'c');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -785,35 +757,26 @@ public class PHeatInputPlugin extends ANullPlugin {
         private void setMeanTime(String zeit) {
             if ((zeit.length() == 1)
                     || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, 'm'), '+'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), 'm'), '+');
-                        inputs[index].setText(x);
-                        if (checkHighPoints(index)) {
-                            strategy.runMeanTimeEditor(index, new ISimpleCallback<Boolean>() {
-                                @Override
-                                public void callback(Boolean t) {
-                                    if (false == t) {
-                                        return;
-                                    }
-                                    boolean b = nextLane(index, false);
-                                    if (!b) {
-                                        zeigeZieleinlauf();
-                                    }
-                                }
-                            });
-                        }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), 'm'), '+');
+                    inputs[index].setText(x);
+                    if (checkHighPoints(index)) {
+                        strategy.runMeanTimeEditor(index, t -> {
+                            if (false == t) {
+                                return;
+                            }
+                            boolean b = nextLane(index, false);
+                            if (!b) {
+                                zeigeZieleinlauf();
+                            }
+                        });
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'm');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'm');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -821,24 +784,18 @@ public class PHeatInputPlugin extends ANullPlugin {
         private void showZieleinlauf(String zeit) {
             if ((zeit.length() == 1)
                     || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                        inputs[index].setText(x);
-                        if (checkHighPoints(index)) {
-                            zeigeZieleinlauf();
-                        }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
+                    inputs[index].setText(x);
+                    if (checkHighPoints(index)) {
+                        zeigeZieleinlauf();
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -848,7 +805,7 @@ public class PHeatInputPlugin extends ANullPlugin {
          */
         private void setNoPenalty(String zeit) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, '#'))) {
-                strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<Strafe>());
+                strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<>());
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -860,13 +817,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), '#');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), '#');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -888,13 +842,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'd');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'd');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -913,13 +864,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'w');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'w');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -938,13 +886,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'f');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'f');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -963,13 +908,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'n');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'n');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -1092,7 +1034,7 @@ public class PHeatInputPlugin extends ANullPlugin {
          * @param zeit
          */
         private void setNoPenalty() {
-            strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<Strafe>());
+            strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<>());
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -1240,7 +1182,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                     items[x] = li.next().getName();
                 }
             }
-            heat.setModel(new DefaultComboBoxModel<String>(items));
+            heat.setModel(new DefaultComboBoxModel<>(items));
             if (index != -1) {
                 heat.setSelectedIndex(index);
             } else {
@@ -1417,12 +1359,9 @@ public class PHeatInputPlugin extends ANullPlugin {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
-            new JZieleinlaufDialog(controller.getWindow(), lauf, new ISimpleCallback<Boolean>() {
-                @Override
-                public void callback(Boolean result) {
-                    if (result) {
-                        nextHeat();
-                    }
+            new JZieleinlaufDialog(controller.getWindow(), lauf, result -> {
+                if (result) {
+                    nextHeat();
                 }
             }).setVisible(true);
         }
@@ -1481,7 +1420,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         @Override
         public void heatlistChanged() {
             wk = core.getWettkampf();
-            owlaeufe = new LinkedList<HeatInfo>();
+            owlaeufe = new LinkedList<>();
             OWLaufliste ll = wk.getLauflisteOW();
 
             OWDisziplin<T>[] dx = ll.getDisziplinen();
@@ -1555,7 +1494,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
             if (wk.isOpenWater()) {
                 LinkedList<T> schwimmer = current.getAllSchwimmer();
-                Collections.sort(schwimmer, new SchwimmerStartnummernVergleicher<T>());
+                Collections.sort(schwimmer, new SchwimmerStartnummernVergleicher<>());
 
                 values = schwimmer.toArray(new ASchwimmer[schwimmer.size()]);
             } else {
@@ -1737,12 +1676,9 @@ public class PHeatInputPlugin extends ANullPlugin {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
-            new JZieleinlaufDialog<T>(controller.getWindow(), lauf, new ISimpleCallback<Boolean>() {
-                @Override
-                public void callback(Boolean result) {
-                    if (result) {
-                        nextHeat();
-                    }
+            new JZieleinlaufDialog<T>(controller.getWindow(), lauf, result -> {
+                if (result) {
+                    nextHeat();
                 }
             }).setVisible(true);
         }

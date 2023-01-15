@@ -12,7 +12,6 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
@@ -99,12 +98,7 @@ public class RulebookPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RulebookSettings"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

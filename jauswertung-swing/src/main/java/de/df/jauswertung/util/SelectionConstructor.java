@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 public class SelectionConstructor {
 
-    private LinkedList<String> text = new LinkedList<String>();
-    private LinkedList<Boolean> values = new LinkedList<Boolean>();
+    private LinkedList<String> text = new LinkedList<>();
+    private LinkedList<Boolean> values = new LinkedList<>();
 
     public SelectionConstructor() {
         // Nothing to do

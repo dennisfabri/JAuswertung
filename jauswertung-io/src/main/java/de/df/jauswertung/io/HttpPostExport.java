@@ -12,7 +12,7 @@ import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jutils.util.NullFeedback;
 
-public class HttpPostExport {
+public final class HttpPostExport {
 
     private HttpPostExport() {
         // Hide Constructor

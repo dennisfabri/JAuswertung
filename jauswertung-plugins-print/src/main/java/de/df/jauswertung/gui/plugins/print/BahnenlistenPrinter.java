@@ -60,7 +60,7 @@ class BahnenlistenPrinter implements Printer {
         preview = new JButton(I18n.get("Preview"));
         preview.addActionListener(new PreviewActionListener());
 
-        number = new JComboBox<String>();
+        number = new JComboBox<>();
         number.addItem(I18n.get("AllLanes"));
 
         number.setEnabled(false);
@@ -133,7 +133,7 @@ class BahnenlistenPrinter implements Printer {
     }
 
     private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, int x) {
-        BahnenListe<T> bl = new BahnenListe<T>(wk);
+        BahnenListe<T> bl = new BahnenListe<>(wk);
         return PrintManager.getPrintable(bl.toJTable(x + 1), I18n.get("LaneNumber", x + 1), JTablePrintable.OPT_ALL,
                 true, true);
     }
@@ -165,12 +165,7 @@ class BahnenlistenPrinter implements Printer {
     final class PreviewActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Lanelist"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

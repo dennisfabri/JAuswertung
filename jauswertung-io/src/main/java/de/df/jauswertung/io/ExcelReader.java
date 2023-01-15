@@ -105,7 +105,7 @@ public final class ExcelReader {
 
         String sheetname = wb.getSheetName(sheetnumber);
 
-        LinkedList<Object[]> lines = new LinkedList<Object[]>();
+        LinkedList<Object[]> lines = new LinkedList<>();
         Iterator<Row> it = sheet.rowIterator();
         while (it.hasNext()) {
             boolean success = false;
@@ -115,7 +115,7 @@ public final class ExcelReader {
             if (row != null) {
                 Object[] dat = new Object[length + 1];
                 dat[length] = sheetname;
-                if (lines.size() == 0) {
+                if (lines.isEmpty()) {
                     dat[length] = "Sheetname";
                 }
                 for (int x = 0; x < length; x++) {

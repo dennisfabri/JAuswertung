@@ -9,13 +9,13 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 
 public class TimelimitsContainer implements Serializable {
 
-    private List<Timelimits> limits = new LinkedList<Timelimits>();
+    private List<Timelimits> limits = new LinkedList<>();
 
     public TimelimitsContainer() {
     }
 
     public TimelimitsContainer(Collection<Timelimits> data) {
-        limits = new LinkedList<Timelimits>(data);
+        limits = new LinkedList<>(data);
     }
 
     public boolean hasTimelimits() {
@@ -43,7 +43,7 @@ public class TimelimitsContainer implements Serializable {
     }
 
     private void setTimelimits(Timelimits[] timelimits) {
-        limits = new LinkedList<Timelimits>();
+        limits = new LinkedList<>();
         limits.clear();
         for (Timelimits l : timelimits) {
             limits.add(l);

@@ -72,9 +72,9 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
             return;
         }
         swimmers = (T[]) liste.toArray(new ASchwimmer[liste.size()]);
-        Arrays.sort(swimmers, new SchwimmerNameVergleicher<ASchwimmer>());
-        Arrays.sort(swimmers, new SchwimmerMeldepunkteVergleicher<ASchwimmer>());
-        Arrays.sort(swimmers, new SchwimmerGeschlechtVergleicher<ASchwimmer>());
+        Arrays.sort(swimmers, new SchwimmerNameVergleicher<>());
+        Arrays.sort(swimmers, new SchwimmerMeldepunkteVergleicher<>());
+        Arrays.sort(swimmers, new SchwimmerGeschlechtVergleicher<>());
 
         yes = new JRadioButton[swimmers.length];
         no = new JRadioButton[swimmers.length];
@@ -105,11 +105,8 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
             add(new JLabelSeparator(I18n.geschlechtToStringSubject(swimmers[0])), CC.xyw(2, row, 15, "fill,fill"));
         }
 
-        ActionListener buttonAL = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setChanged();
-            }
+        ActionListener buttonAL = e -> {
+            setChanged();
         };
 
         for (int x = 0; x < swimmers.length; x++) {

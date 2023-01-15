@@ -28,16 +28,16 @@ public class PenaltyPluginUtils {
 
     private static JPanel[] getPenalties(CorePlugin core, int index, boolean[][] selected, boolean border,
             PenaltyListener pl, boolean ignoreNA, boolean kurz) {
-        Hashtable<String, JPanel> panels = new Hashtable<String, JPanel>();
+        Hashtable<String, JPanel> panels = new Hashtable<>();
         PenaltyUIUtils.add(panels, core.getWettkampf(), index, selected, border, pl, ignoreNA, kurz);
 
-        LinkedList<String> indizes = new LinkedList<String>();
+        LinkedList<String> indizes = new LinkedList<>();
         for (String key : panels.keySet()) {
             indizes.add(key);
         }
         Collections.sort(indizes);
 
-        LinkedList<JPanel> result = new LinkedList<JPanel>();
+        LinkedList<JPanel> result = new LinkedList<>();
         ListIterator<String> li = indizes.listIterator();
         while (li.hasNext()) {
             result.addLast(panels.get(li.next()));

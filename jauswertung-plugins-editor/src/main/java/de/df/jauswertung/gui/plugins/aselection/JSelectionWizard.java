@@ -177,7 +177,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         unselect(swimmer);
 
         if (!options.isSelected(0)) {
-            LinkedList<ASchwimmer> swimmer2 = new LinkedList<ASchwimmer>();
+            LinkedList<ASchwimmer> swimmer2 = new LinkedList<>();
             for (ASchwimmer s : swimmer) {
                 boolean na = false;
                 boolean times = false;
@@ -291,7 +291,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         AWettkampf wk = core.getWettkampf();
         int index = wk.getIntegerProperty(meldekey, 0);
 
-        Collections.sort(swimmer, new SchwimmerMeldepunkteVergleicher<ASchwimmer>(true, index));
+        Collections.sort(swimmer, new SchwimmerMeldepunkteVergleicher<>(true, index));
         boolean[] selected = new boolean[swimmer.size()];
         double[] values = new double[swimmer.size()];
         double sum = 0;
@@ -349,7 +349,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
 
     @SuppressWarnings("rawtypes")
     public String[] getModes() {
-        LinkedList<String> result = new LinkedList<String>();
+        LinkedList<String> result = new LinkedList<>();
         result.addLast(I18n.get("None"));
         result.addLast(I18n.get("All"));
         result.addLast(I18n.get("FixedAmount"));

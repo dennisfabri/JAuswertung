@@ -56,7 +56,7 @@ public class BahnenListe<T extends ASchwimmer> {
         if (laufliste == null) {
             return null;
         }
-        if (laufliste.size() == 0) {
+        if (laufliste.isEmpty()) {
             return null;
         }
 

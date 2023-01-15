@@ -10,7 +10,6 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -46,7 +45,6 @@ import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -341,7 +339,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         @Override
         public JComponent getPage() {
             if (page == null) {
-                penalties = new JComboBox<Strafe>(wk.getStrafen().getStrafenListe().toArray(new Strafe[0]));
+                penalties = new JComboBox<>(wk.getStrafen().getStrafenListe().toArray(new Strafe[0]));
                 penalties.setRenderer(new PenaltyShortTextListRenderer());
                 penalties.setSelectedIndex(0);
 
@@ -404,7 +402,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
 
         public StrafenPanel() {
             super(I18n.get("ChoosePenalty"), I18n.get("ChoosePenalty.Information"));
-            type = new JComboBox<String>(
+            type = new JComboBox<>(
                     new String[] { I18n.get("None"), I18n.get("Points"), I18n.get("DidNotStart"),
                             I18n.get("Disqualification"), I18n.get("Debarment") });
             points = new JIntegerField();
@@ -412,11 +410,8 @@ class JPenaltyWizard implements FinishListener, CancelListener {
             description = new JTextPane();
             catalogue = new JButton(I18n.get("PenaltyCatalogue"));
 
-            type.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent arg0) {
-                    update();
-                }
+            type.addItemListener(arg0 -> {
+                update();
             });
             points.getDocument().addDocumentListener(new DocumentListener() {
 

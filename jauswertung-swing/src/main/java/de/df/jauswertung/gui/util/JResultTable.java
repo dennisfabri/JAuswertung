@@ -368,7 +368,7 @@ public final class JResultTable extends JGroupableTable {
                 ((DefaultTableModel) getModel()).removeRow(getRowCount() - 1);
             }
             while (getRowCount() < rows) {
-                Vector<String> v = new Vector<String>();
+                Vector<String> v = new Vector<>();
                 for (int x = 0; x < getColumnCount(); x++) {
                     v.add("");
                 }

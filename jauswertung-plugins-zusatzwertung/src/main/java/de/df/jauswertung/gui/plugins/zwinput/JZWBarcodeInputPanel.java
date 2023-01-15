@@ -4,14 +4,10 @@
 package de.df.jauswertung.gui.plugins.zwinput;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
@@ -22,9 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -43,9 +36,7 @@ import de.df.jauswertung.print.util.BarcodeUtils.ZWResultType;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.graphics.ColorUtils;
-import de.df.jutils.gui.JIcon;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JSignal;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -311,14 +302,11 @@ class JZWBarcodeInputPanel extends JPanel {
         inputPanel = new JPanel();
         input = new JIntegerField(false, true);
         input.addFocusListener(new ResettingFocusAdapter());
-        input.setValidator(new Validator() {
-            @Override
-            public boolean validate(int value) {
-                if (input.getText().length() == 0) {
-                    return true;
-                }
-                return BarcodeUtils.checkZWCode(value);
+        input.setValidator(value -> {
+            if (input.getText().length() == 0) {
+                return true;
             }
+            return BarcodeUtils.checkZWCode(value);
         });
         input.addKeyListener(new KeyAdapter() {
             @Override
@@ -339,11 +327,8 @@ class JZWBarcodeInputPanel extends JPanel {
 
         enter = new JButton(I18n.get("Apply"));
         enter.addFocusListener(new ResettingFocusAdapter());
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enterValue();
-            }
+        enter.addActionListener(e -> {
+            enterValue();
         });
 
         JScrollPane scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -441,12 +426,9 @@ class JZWBarcodeInputPanel extends JPanel {
     final class ResettingFocusAdapter extends FocusAdapter {
         @Override
         public void focusLost(FocusEvent e) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    if (!(input.hasFocus())) {
-                        clear(false, false);
-                    }
+            SwingUtilities.invokeLater(() -> {
+                if (!(input.hasFocus())) {
+                    clear(false, false);
                 }
             });
         }

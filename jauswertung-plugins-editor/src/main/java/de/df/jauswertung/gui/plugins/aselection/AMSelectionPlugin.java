@@ -39,7 +39,7 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
     private JMenuItem[] menu = null;
 
     @SuppressWarnings("rawtypes")
-    private static LinkedList<ISelector> selectors = new LinkedList<ISelector>();
+    private static LinkedList<ISelector> selectors = new LinkedList<>();
 
     private final String i18nprefix;
     private final String meldekey;

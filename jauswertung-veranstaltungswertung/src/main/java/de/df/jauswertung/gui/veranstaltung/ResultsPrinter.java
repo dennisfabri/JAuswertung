@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.veranstaltung;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -62,24 +61,18 @@ class ResultsPrinter implements Printer {
 
     private void initUI() {
         resultpreview = new JButton(I18n.get("Preview"));
-        resultpreview.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                preview();
-            }
+        resultpreview.addActionListener(e -> {
+            preview();
         });
         resultprint = new JButton(I18n.get("Print"));
-        resultprint.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                print();
-            }
+        resultprint.addActionListener(e -> {
+            print();
         });
         resultcompact = new JCheckBox(I18n.get("CompactView"));
         resultcompact.setSelected(true);
         resultcompact.setVisible(false);
 
-        resultmodus = new JComboBox<String>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
+        resultmodus = new JComboBox<>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
 
         panel = new JPanel(new FormLayout(
                 "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
@@ -98,9 +91,9 @@ class ResultsPrinter implements Printer {
 
         AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
         String[] nx = vs.getCompetitionNames();
-        LinkedList<Integer> sizes = new LinkedList<Integer>();
-        LinkedList<String> names = new LinkedList<String>();
-        LinkedList<String> sexes = new LinkedList<String>();
+        LinkedList<Integer> sizes = new LinkedList<>();
+        LinkedList<String> names = new LinkedList<>();
+        LinkedList<String> sexes = new LinkedList<>();
         for (int x = 0; x < wks.length; x++) {
             int amount = 0;
             if (wks[x] != null) {
@@ -128,7 +121,7 @@ class ResultsPrinter implements Printer {
                 names.addLast(nx[x]);
             }
         }
-        if (sizes.size() == 0) {
+        if (sizes.isEmpty()) {
             return EmptyPrintable.Instance;
         }
 

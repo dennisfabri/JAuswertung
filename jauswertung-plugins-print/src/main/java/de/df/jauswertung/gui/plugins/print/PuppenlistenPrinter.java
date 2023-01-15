@@ -133,7 +133,7 @@ class PuppenlistenPrinter implements Printer {
     }
 
     private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, int x) {
-        PuppenListe<T> bl = new PuppenListe<T>(wk);
+        PuppenListe<T> bl = new PuppenListe<>(wk);
         return PrintManager.getPrintable(bl.toJTable(x + 1), I18n.get("PuppeNummer", x + 1), JTablePrintable.OPT_ALL,
                 true, true);
     }
@@ -168,12 +168,7 @@ class PuppenlistenPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Puppenliste"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

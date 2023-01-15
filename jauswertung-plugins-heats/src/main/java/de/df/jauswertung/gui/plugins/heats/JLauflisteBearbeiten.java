@@ -9,7 +9,6 @@ import java.awt.Point;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.Printable;
@@ -169,12 +168,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     private void setSplitter() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setSplitterI();
-            }
-        });
+        SwingUtilities.invokeLater(this::setSplitterI);
     }
 
     void setSplitterI() {
@@ -400,12 +394,9 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             tabelle.setModel(new HeatTableModel<T>(wk));
             removeHeat.setEnabled(wk.getLaufliste().getLaufliste().size() > 1);
 
-            EDTUtils.executeOnEDT(new Runnable() {
-                @Override
-                public void run() {
-                    JTableUtils.setPreferredRowHeight(tabelle);
-                    JTableUtils.setPreferredCellWidths(tabelle);
-                }
+            EDTUtils.executeOnEDT(() -> {
+                JTableUtils.setPreferredRowHeight(tabelle);
+                JTableUtils.setPreferredCellWidths(tabelle);
             });
         }
     }
@@ -420,11 +411,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             @SuppressWarnings("unchecked")
             HeatTableModel<T> htm = (HeatTableModel<T>) tabelle.getModel();
             htm.updateNumbers();
-            EDTUtils.executeOnEDT(new Runnable() {
-                @Override
-                public void run() {
-                    JTableUtils.setPreferredCellWidths(tabelle);
-                }
+            EDTUtils.executeOnEDT(() -> {
+                JTableUtils.setPreferredCellWidths(tabelle);
             });
         }
     }
@@ -454,45 +442,30 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
 
     private void initMenu() {
         JMenuItem drucken = new JMenuItem(I18n.get("Print"), IconManager.getSmallIcon("print"));
-        drucken.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                drucken();
-            }
+        drucken.addActionListener(evt -> {
+            drucken();
         });
 
         JMenuItem vorschau = new JMenuItem(I18n.get("Preview"), IconManager.getSmallIcon("preview"));
-        vorschau.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                vorschau();
-            }
+        vorschau.addActionListener(evt -> {
+            vorschau();
         });
 
         JMenuItem schliessen = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        schliessen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                schliessen();
-            }
+        schliessen.addActionListener(evt -> {
+            schliessen();
         });
 
         JMenu datei = new JMenu(I18n.get("File"));
         if (darfAendern) {
             JMenuItem neueNummerierung = new JMenuItem("Laufnummerierung zur\u00fccksetzen");
-            neueNummerierung.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    nummerierungErneuern();
-                }
+            neueNummerierung.addActionListener(evt -> {
+                nummerierungErneuern();
             });
 
             JMenuItem emptyHeats = new JMenuItem(I18n.get("RemoveEmptyHeats"));
-            emptyHeats.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    removeEmptyHeats();
-                }
+            emptyHeats.addActionListener(evt -> {
+                removeEmptyHeats();
             });
 
             datei.add(neueNummerierung);
@@ -516,41 +489,26 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             return;
         }
         entfernen = new JMenuItem(I18n.get("Remove"));
-        entfernen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                lauflisteAendern();
-            }
+        entfernen.addActionListener(evt -> {
+            lauflisteAendern();
         });
 
         JMenuItem zeileNeu = new JMenuItem(I18n.get("AddHeatAbove"));
-        zeileNeu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addZeile(0);
-            }
+        zeileNeu.addActionListener(evt -> {
+            addZeile(0);
         });
 
         JMenuItem zeileNeuNach = new JMenuItem(I18n.get("AddHeatBelow"));
-        zeileNeuNach.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addZeile(1);
-            }
+        zeileNeuNach.addActionListener(evt -> {
+            addZeile(1);
         });
         removeHeat = new JMenuItem(I18n.get("RemoveHeat"));
-        removeHeat.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                removeZeile();
-            }
+        removeHeat.addActionListener(evt -> {
+            removeZeile();
         });
         renumberHeats = new JMenuItem(I18n.get("RenumberHeatsFromHere"));
-        renumberHeats.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                renumberHeats();
-            }
+        renumberHeats.addActionListener(evt -> {
+            renumberHeats();
         });
 
         popup = new JPopupMenu();
@@ -601,11 +559,8 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         JButton ok = new JButton();
         ok.setIcon(IconManager.getSmallIcon("close"));
         ok.setText(I18n.get("Close"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                schliessen();
-            }
+        ok.addActionListener(evt -> {
+            schliessen();
         });
         return ok;
     }
@@ -613,12 +568,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     private void initFrame() {
         setTitle(I18n.get("Laufliste"));
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                schliessen();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::schliessen);
     }
 
     private void initComponents() {
@@ -656,7 +606,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     private void initVergabeliste() {
-        vergabeliste = new JList<SchwimmerDisziplin<T>>(new HeatListModel<T>(wk));
+        vergabeliste = new JList<>(new HeatListModel<T>(wk));
         vergabeliste.setCellRenderer(new ComfortListCellRenderer());
         vergabeliste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // DataTipManager.get().register(vergabeliste);

@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -30,11 +29,8 @@ public class MInfoPlugin extends ANullPlugin {
     public MInfoPlugin() {
         info = new JMenuItem(INFO_STRING, IconManager.getSmallIcon("info"));
         info.setToolTipText(I18n.getToolTip("About"));
-        info.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                displayInfo();
-            }
+        info.addActionListener(arg0 -> {
+            displayInfo();
         });
     }
 

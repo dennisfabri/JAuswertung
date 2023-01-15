@@ -8,7 +8,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANG
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_ZW_LIST_CHANGED;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -35,11 +34,8 @@ public class MPropertiesPlugin extends ANullPlugin {
     public MPropertiesPlugin() {
         menu = new JMenuItem(I18n.get("Properties"), IconManager.getSmallIcon("eigenschaften"));
         menu.setToolTipText(I18n.getToolTip("Properties"));
-        menu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showProperties();
-            }
+        menu.addActionListener(arg0 -> {
+            showProperties();
         });
     }
 

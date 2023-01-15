@@ -89,7 +89,7 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
             }
         });
 
-        ArrayList<Component> result = new ArrayList<Component>(teams.size());
+        ArrayList<Component> result = new ArrayList<>(teams.size());
         for (Mannschaft m : teams) {
             boolean empty = true;
             for (int i = 0; i < m.getMaxMembers(); i++) {

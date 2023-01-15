@@ -92,26 +92,18 @@ class BrokenRecordsPrinter implements Printer {
         warning.setToolTipText(I18n.get("InputNotComplete"));
         warning.setVisible(false);
 
-        agegroup = new JComboBox<String>();
-        agegroup.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isUpdating) {
-                    return;
-                }
-                checkWarning(core.getFilteredWettkampf());
+        agegroup = new JComboBox<>();
+        agegroup.addActionListener(e -> {
+            if (isUpdating) {
+                return;
             }
+            checkWarning(core.getFilteredWettkampf());
         });
 
-        allRecords = new JComboBox<String>(
+        allRecords = new JComboBox<>(
                 new String[] { I18n.get("BrokenRecords.All"), I18n.get("BrokenRecords.ValidOnly") });
-        allRecords.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkWarning(core.getFilteredWettkampf());
-            }
+        allRecords.addActionListener(e -> {
+            checkWarning(core.getFilteredWettkampf());
         });
         allRecords.setSelectedIndex(1);
 
@@ -145,7 +137,7 @@ class BrokenRecordsPrinter implements Printer {
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
-                    LinkedList<String> names = new LinkedList<String>();
+                    LinkedList<String> names = new LinkedList<>();
                     agegroup.removeAllItems();
                     Regelwerk aks = wk.getRegelwerk();
                     for (int x = 0; x < aks.size(); x++) {
@@ -153,8 +145,8 @@ class BrokenRecordsPrinter implements Printer {
                         names.addLast(aks.getAk(x).getName());
                     }
                     names.addLast(I18n.get("All"));
-                    agegroup.setModel(new DefaultComboBoxModel<String>(names.toArray(new String[names.size()])));
-                    if (names.size() == 0) {
+                    agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[names.size()])));
+                    if (names.isEmpty()) {
                         agegroup.addItem(I18n.get("Empty"));
                     }
                     if (agegroup.getSelectedIndex() < 0) {
@@ -250,7 +242,7 @@ class BrokenRecordsPrinter implements Printer {
             akmin = index;
             akmax = index + 1;
         }
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
         for (int x = akmin; x < akmax; x++) {
             Altersklasse ak = wk.getRegelwerk().getAk(x);
             for (int y = 0; y < 2; y++) {

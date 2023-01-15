@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.check;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -67,12 +66,9 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         pack();
         setSize(Math.max(getWidth(), 800), Math.max(getHeight(), 600));
         UIStateUtils.uistatemanage(parent, this, "JMissingInputFrame");
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                if (isEnabled()) {
-                    setVisible(false);
-                }
+        WindowUtils.addEscapeAction(this, () -> {
+            if (isEnabled()) {
+                setVisible(false);
             }
         });
     }
@@ -144,18 +140,12 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         }
 
         updatebutton = new JButton(I18n.get("Update"), IconManager.getSmallIcon("update"));
-        updatebutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                update();
-            }
+        updatebutton.addActionListener(e -> {
+            update();
         });
         closebutton = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        closebutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        closebutton.addActionListener(e -> {
+            setVisible(false);
         });
 
         JTabbedPane tabs = new JTabbedPane();

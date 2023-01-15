@@ -19,7 +19,7 @@ public class StrafenParagraph implements Serializable {
 
     private static final long serialVersionUID = -4848924575259009244L;
 
-    private LinkedList<Strafe> strafen = new LinkedList<Strafe>();
+    private LinkedList<Strafe> strafen = new LinkedList<>();
     @XStreamAsAttribute
     private String name = "";
     @XStreamAsAttribute
@@ -102,7 +102,7 @@ public class StrafenParagraph implements Serializable {
     }
 
     public LinkedList<Strafe> getStrafen() {
-        return new LinkedList<Strafe>(strafen);
+        return new LinkedList<>(strafen);
     }
 
     public void removeStrafe(Strafe s) {

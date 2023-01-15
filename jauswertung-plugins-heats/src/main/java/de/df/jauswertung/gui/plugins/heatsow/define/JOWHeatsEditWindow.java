@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.heatsow.define;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -33,7 +31,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
@@ -64,41 +61,29 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
     private void buildMenu() {
         JMenuItem close = new JMenuItem(I18n.get("Close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doCancel();
-            }
+        close.addActionListener(arg0 -> {
+            doCancel();
         });
         JMenuItem copy = new JMenuItem(I18n.get("CopyFemaleToMale"));
-        copy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                for (int x = 0; x < panels.length / 2; x++) {
-                    panels[2 * x + 1].copyFrom(panels[2 * x]);
-                }
+        copy.addActionListener(arg0 -> {
+            for (int x = 0; x < panels.length / 2; x++) {
+                panels[2 * x + 1].copyFrom(panels[2 * x]);
             }
         });
         JMenuItem enumerate1 = new JMenuItem(I18n.get("EnumerateOddEven"));
-        enumerate1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                int offset1 = 1;
-                int offset2 = 1;
-                for (int x = 0; x < panels.length / 2; x++) {
-                    offset1 = panels[2 * x].enumerate1(offset1, false);
-                    offset2 = panels[2 * x + 1].enumerate1(offset2, true);
-                }
+        enumerate1.addActionListener(arg0 -> {
+            int offset1 = 1;
+            int offset2 = 1;
+            for (int x = 0; x < panels.length / 2; x++) {
+                offset1 = panels[2 * x].enumerate1(offset1, false);
+                offset2 = panels[2 * x + 1].enumerate1(offset2, true);
             }
         });
         JMenuItem enumerate2 = new JMenuItem(I18n.get("EnumerateContinous"));
-        enumerate2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                int offset = 1;
-                for (int x = 0; x < panels.length; x++) {
-                    offset = panels[x].enumerate2(offset);
-                }
+        enumerate2.addActionListener(arg0 -> {
+            int offset = 1;
+            for (int x = 0; x < panels.length; x++) {
+                offset = panels[x].enumerate2(offset);
             }
         });
 
@@ -119,21 +104,16 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
     private void buildUI(AWettkampf<T> wk) {
 
-        List<String> tempData = new ArrayList<String>();
+        List<String> tempData = new ArrayList<>();
         for (Altersklasse ak : wk.getRegelwerk().getAks()) {
             tempData.add(I18n.getAgeGroupAsString(wk.getRegelwerk(), ak, false));
             tempData.add(I18n.getAgeGroupAsString(wk.getRegelwerk(), ak, true));
         }
         String[] data = tempData.toArray(new String[tempData.size()]);
-        aks = new JList<String>(data);
+        aks = new JList<>(data);
         aks.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        aks.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                setSelected(aks.getSelectedIndex());
-            }
-
+        aks.addListSelectionListener(e -> {
+            setSelected(aks.getSelectedIndex());
         });
 
         panels = new JOWHeatsAKEditPanel[wk.getRegelwerk().size() * 2];
@@ -170,19 +150,11 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
         ok = new JButton(I18n.get("Ok"));
         cancel = new JButton(I18n.get("Cancel"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doCancel();
-            }
+        cancel.addActionListener(e -> {
+            doCancel();
         });
 
         p.add(ok, CC.xy(2, 2));

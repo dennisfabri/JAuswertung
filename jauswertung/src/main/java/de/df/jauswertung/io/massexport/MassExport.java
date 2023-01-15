@@ -7,7 +7,7 @@ import java.io.IOException;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.io.InputManager;
 
-public class MassExport {
+public final class MassExport {
 
     private MassExport() {
         // Hide Constructor

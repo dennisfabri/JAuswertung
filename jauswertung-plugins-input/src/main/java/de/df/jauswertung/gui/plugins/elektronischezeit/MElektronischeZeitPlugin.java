@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -18,7 +17,6 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
-import de.dm.ares.data.Heat;
 
 public class MElektronischeZeitPlugin extends ANullPlugin {
 
@@ -55,11 +53,8 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
         if (menu == null) {
             item = new JMenuItem(I18n.get("ElektronischeZeitnahme"));
             item.setToolTipText(I18n.getToolTip("ElektronischeZeitnahme"));
-            item.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    showWindow();
-                }
+            item.addActionListener(arg0 -> {
+                showWindow();
             });
             item.setAccelerator(I18n.getKeyStroke("ElektronischeZeitnahme"));
 
@@ -91,7 +86,7 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> void showWindow() {
-        JElektronischeZeit<T> jm = new JElektronischeZeit<T>(getController().getWindow(),
+        JElektronischeZeit<T> jm = new JElektronischeZeit<>(getController().getWindow(),
                 (AWettkampf<T>) core.getWettkampf(), this);
         ModalFrameUtil.showAsModal(jm, getController().getWindow());
     }

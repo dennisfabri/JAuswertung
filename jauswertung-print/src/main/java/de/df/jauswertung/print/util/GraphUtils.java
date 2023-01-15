@@ -189,7 +189,7 @@ public class GraphUtils {
 
     @SuppressWarnings({ "unchecked" })
     public static Hashtable<String, Object>[] collectGraph(mxGraph graph) {
-        LinkedList<Hashtable<String, Object>> cells = new LinkedList<Hashtable<String, Object>>();
+        LinkedList<Hashtable<String, Object>> cells = new LinkedList<>();
 
         graph.selectAll();
         Object[] gcells = graph.getSelectionCells();
@@ -199,7 +199,7 @@ public class GraphUtils {
             if (o instanceof mxCell) {
                 mxCell c = (mxCell) o;
 
-                Hashtable<String, Object> ht = new Hashtable<String, Object>();
+                Hashtable<String, Object> ht = new Hashtable<>();
 
                 mxRectangle r2d = graph.getBoundingBox(c);
                 ht.put("offset", new Point((int) r2d.getX(), (int) r2d.getY()));
@@ -216,7 +216,7 @@ public class GraphUtils {
                 cells.addLast(ht);
             }
         }
-        if (cells.size() == 0) {
+        if (cells.isEmpty()) {
             return null;
         }
         return cells.toArray(new Hashtable[cells.size()]);
@@ -272,7 +272,7 @@ public class GraphUtils {
     }
 
     public static Hashtable<String, Object> getDefaultStyle() {
-        Hashtable<String, Object> result = new Hashtable<String, Object>();
+        Hashtable<String, Object> result = new Hashtable<>();
 
         result.put(mxConstants.STYLE_FONTFAMILY, "DLRG Univers 55 Roman");
         result.put(mxConstants.STYLE_FONTSIZE, 12);
@@ -419,7 +419,7 @@ public class GraphUtils {
         graph.setAllowNegativeCoordinates(true);
 
         mxStylesheet styles = graph.getStylesheet();
-        Hashtable<String, Object> style = new Hashtable<String, Object>();
+        Hashtable<String, Object> style = new Hashtable<>();
         style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
         style.put(mxConstants.STYLE_OPACITY, 100);
         style.put(mxConstants.STYLE_FONTCOLOR, "#000000");

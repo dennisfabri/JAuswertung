@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,19 +28,15 @@ public class MHelpPlugin extends ANullPlugin {
         info.setEnabled(false);
         info.setToolTipText(I18n.getToolTip("Help"));
         try {
-            info.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    File htmlFile = new File(PATH_TO_DOC);
-                    try {
-                        Desktop.getDesktop().browse(htmlFile.toURI());
-                    } catch (IOException ex) {
-                        DialogUtils.showException(getController().getWindow(), "Hilfe nicht verfügbar",
-                                "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten.",
-                                "Sie können die Hilfe auch über das Startmenü aufrufen.", ex);
-                        ex.printStackTrace();
-                    }
+            info.addActionListener(e -> {
+                File htmlFile = new File(PATH_TO_DOC);
+                try {
+                    Desktop.getDesktop().browse(htmlFile.toURI());
+                } catch (IOException ex) {
+                    DialogUtils.showException(getController().getWindow(), "Hilfe nicht verfügbar",
+                            "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten.",
+                            "Sie können die Hilfe auch über das Startmenü aufrufen.", ex);
+                    ex.printStackTrace();
                 }
             });
             info.setEnabled(true);

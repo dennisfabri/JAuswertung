@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JCheckBox;
@@ -34,8 +33,8 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
     private LinkedList<BetaListener> oldListeners;
 
     public OBetaPlugin() {
-        betaListeners = new LinkedList<BetaListener>();
-        oldListeners = new LinkedList<BetaListener>();
+        betaListeners = new LinkedList<>();
+        oldListeners = new LinkedList<>();
 
         optionsPanel = new JPanel(new SimpleTableLayout(1, 5, 5));
         optionsPanel.setName(I18n.get("Beta"));
@@ -44,22 +43,16 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
 
         oldCheckBox = new JCheckBox(I18n.get("EnableOldFeatures"));
         oldCheckBox.setToolTipText("EnableOldFeatures");
-        oldCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                optionen.notifyChange();
-            }
+        oldCheckBox.addActionListener(e -> {
+            optionen.notifyChange();
         });
         oldCheckBox.setEnabled(false);
         oldCheckBox.setSelected(oldEnabled);
 
         betaCheckBox = new JCheckBox(I18n.get("EnableBetaFeatures"));
         betaCheckBox.setToolTipText("EnableBetaFeatures");
-        betaCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                optionen.notifyChange();
-            }
+        betaCheckBox.addActionListener(e -> {
+            optionen.notifyChange();
         });
         betaCheckBox.setEnabled(false);
         betaCheckBox.setSelected(betaEnabled);

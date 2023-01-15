@@ -61,7 +61,7 @@ public class ConvertRescueSoft {
 
     public static class Team {
         public String Name;
-        public List<Swimmer> swimmers = new ArrayList<Swimmer>();
+        public List<Swimmer> swimmers = new ArrayList<>();
     }
 
     private static ExcelData readFile(String filename) throws IOException {
@@ -117,7 +117,7 @@ public class ConvertRescueSoft {
     }
 
     public static List<Swimmer> parseSheet(String title, Object[][] sheet) {
-        List<Swimmer> members = new ArrayList<Swimmer>();
+        List<Swimmer> members = new ArrayList<>();
         if (sheet.length == 0) {
             return members;
         }
@@ -199,7 +199,7 @@ public class ConvertRescueSoft {
     }
 
     public static void WritePoolSingle(List<Swimmer> swimmers) {
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
         Add(sb, "Altersklasse");
@@ -234,7 +234,7 @@ public class ConvertRescueSoft {
     }
 
     public static void WritePoolTeam(List<Team> teams) {
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
         Add(sb, "Altersklasse");
@@ -314,7 +314,7 @@ public class ConvertRescueSoft {
     }
 
     public static void WriteOpenwaterSingle(List<Swimmer> swimmers) {
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
         Add(sb, "Altersklasse");
@@ -349,7 +349,7 @@ public class ConvertRescueSoft {
     }
 
     public static void WriteOpenwaterTeam(List<Team> teams) {
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
         Add(sb, "Altersklasse");
@@ -438,11 +438,11 @@ public class ConvertRescueSoft {
             t.swimmers.add(s);
         }
 
-        return new ArrayList<Team>(teams.values());
+        return new ArrayList<>(teams.values());
     }
 
     public static void main(String[] args) throws IOException {
-        List<Swimmer> swimmers = new ArrayList<Swimmer>();
+        List<Swimmer> swimmers = new ArrayList<>();
         ExcelData excel = readFile("Test/Meldedaten.xlsx");
         for (int x = 0; x < excel.titles.length; x++) {
             swimmers.addAll(parseSheet(excel.titles[x], excel.tables[x]));

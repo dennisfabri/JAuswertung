@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.prefs.Preferences;
 
 import javax.swing.JCheckBox;
@@ -70,28 +69,19 @@ public class OViewOptionsPlugin extends ANullPlugin implements MOptionenPlugin.O
             panel.setToolTipText(I18n.getToolTip("ViewOptions"));
             hlwleftalignCheckbox = new JCheckBox(I18n.get("HHListLeftAlign"));
             hlwleftalignCheckbox.setToolTipText(I18n.getToolTip("HHListLeftAlign"));
-            hlwleftalignCheckbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            hlwleftalignCheckbox.addActionListener(e -> {
+                optionen.notifyChange();
             });
             doubleMode = new JCheckBox(I18n.get("DividedGUI"));
             doubleMode.setToolTipText(I18n.getToolTip("DividedGUI"));
-            doubleMode.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            doubleMode.addActionListener(e -> {
+                optionen.notifyChange();
             });
 
             compress = new JCheckBox(I18n.get("CompressLists"));
             compress.setSelected(PrintUtils.getCompressLists());
-            compress.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    optionen.notifyChange();
-                }
+            compress.addActionListener(arg0 -> {
+                optionen.notifyChange();
             });
 
             panel.add(doubleMode);

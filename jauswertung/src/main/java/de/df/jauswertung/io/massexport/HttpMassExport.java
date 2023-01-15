@@ -10,7 +10,7 @@ import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.util.HttpUtils;
 import de.df.jutils.io.FileUtils;
 
-public class HttpMassExport {
+public final class HttpMassExport {
 
     private HttpMassExport() {
         // Hide Constructor

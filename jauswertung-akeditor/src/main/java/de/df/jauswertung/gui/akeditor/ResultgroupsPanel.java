@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.akeditor;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -38,8 +36,8 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class ResultgroupsPanel extends JPanel {
 
-    private ModifiableListModel<Wertungsgruppe> model = new ModifiableListModel<Wertungsgruppe>();
-    private JList<Wertungsgruppe> liste = new JList<Wertungsgruppe>(model);
+    private ModifiableListModel<Wertungsgruppe> model = new ModifiableListModel<>();
+    private JList<Wertungsgruppe> liste = new JList<>(model);
 
     private JAKsEditor parent;
 
@@ -57,23 +55,14 @@ public class ResultgroupsPanel extends JPanel {
         liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JListUtils.setAlternatingListCellRenderer(liste);
 
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                add();
-            }
+        add.addActionListener(e -> {
+            add();
         });
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                edit();
-            }
+        edit.addActionListener(e -> {
+            edit();
         });
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                delete();
-            }
+        delete.addActionListener(e -> {
+            delete();
         });
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu,0dlu:grow,4dlu",
@@ -104,11 +93,8 @@ public class ResultgroupsPanel extends JPanel {
         public Editor(JFrame parent, Wertungsgruppe initial) {
             super(parent, I18n.get("Resultgroup"), true);
 
-            disziplin.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    updateDisziplin();
-                }
+            disziplin.addChangeListener(e -> {
+                updateDisziplin();
             });
             requiresZW.setEnabled(false);
 
@@ -143,17 +129,11 @@ public class ResultgroupsPanel extends JPanel {
             add(penaltyIsDisq, CC.xy(4, 10));
             add(p, CC.xyw(2, 12, 3));
 
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doOk();
-                }
+            ok.addActionListener(e -> {
+                doOk();
             });
-            cancel.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doCancel();
-                }
+            cancel.addActionListener(e -> {
+                doCancel();
             });
             text.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -173,18 +153,8 @@ public class ResultgroupsPanel extends JPanel {
                 }
             });
 
-            WindowUtils.addEnterAction(this, new Runnable() {
-                @Override
-                public void run() {
-                    doOk();
-                }
-            });
-            WindowUtils.addEscapeAction(this, new Runnable() {
-                @Override
-                public void run() {
-                    doCancel();
-                }
-            });
+            WindowUtils.addEnterAction(this, this::doOk);
+            WindowUtils.addEscapeAction(this, this::doCancel);
 
             checkOk();
             pack();

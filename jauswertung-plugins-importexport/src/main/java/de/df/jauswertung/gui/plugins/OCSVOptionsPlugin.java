@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -57,30 +56,19 @@ public class OCSVOptionsPlugin extends AFeature implements MOptionenPlugin.Optio
     @Override
     public synchronized JPanel[] getPanels() {
         if (optionsPanel == null) {
-            EDTUtils.executeOnEDT(new Runnable() {
-                @Override
-                public void run() {
-                    createPanel();
-                }
-            });
+            EDTUtils.executeOnEDT(this::createPanel);
         }
         return new JPanel[] { optionsPanel };
     }
 
     void createPanel() {
         excel = new JRadioButton(I18n.get("CSVExcelCompatible"));
-        excel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                options.notifyChange();
-            }
+        excel.addActionListener(arg0 -> {
+            options.notifyChange();
         });
         correct = new JRadioButton(I18n.get("CSVCorrect"));
-        correct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                options.notifyChange();
-            }
+        correct.addActionListener(arg0 -> {
+            options.notifyChange();
         });
 
         ButtonGroup bg = new ButtonGroup();

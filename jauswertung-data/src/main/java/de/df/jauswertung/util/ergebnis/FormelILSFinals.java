@@ -203,7 +203,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         for (int i = 0; i < swimmer.length; i++) {
             SchwimmerData<T> sd = swimmer[i];
 
-            SchwimmerInfo<T> si = new SchwimmerInfo<T>();
+            SchwimmerInfo<T> si = new SchwimmerInfo<>();
             si.schwimmer = SearchUtils.getSchwimmer(wk, swimmer[i].getSchwimmer());
             si.platz = 1; // Um den Vergleicher nicht zu verwirren...
             si.zeit = sd.getTime();
@@ -231,20 +231,20 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             }
         }
 
-        Hashtable<Integer, SchwimmerInfo<T>> hsi = new Hashtable<Integer, SchwimmerInfo<T>>();
+        Hashtable<Integer, SchwimmerInfo<T>> hsi = new Hashtable<>();
         for (SchwimmerInfo<T> sx : infos) {
             hsi.put(sx.schwimmer.getStartnummer(), sx);
         }
         ComparatorT2 comp = new ComparatorT2(hsi);
         Arrays.sort(swimmer, comp);
 
-        ArrayList<ArrayList<SchwimmerData<T>>> xxl = new ArrayList<ArrayList<SchwimmerData<T>>>();
+        ArrayList<ArrayList<SchwimmerData<T>>> xxl = new ArrayList<>();
         ArrayList<SchwimmerData<T>> current = null;
         SchwimmerData<T> sdx = null;
 
         for (int x = 0; x < swimmer.length; x++) {
             if (sdx == null || current == null || comp.compare(sdx, swimmer[x]) != 0) {
-                current = new ArrayList<SchwimmerData<T>>();
+                current = new ArrayList<>();
                 xxl.add(current);
                 sdx = swimmer[x];
                 current.add(sdx);
@@ -320,7 +320,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             }
         }
 
-        ArrayList<SchwimmerResult<T>[]> results = new ArrayList<SchwimmerResult<T>[]>();
+        ArrayList<SchwimmerResult<T>[]> results = new ArrayList<>();
         for (int x = 0; x < rounds; x++) {
             OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x, x == rounds - 1);
             AWettkampf<T> wkx = ResultUtils.createCompetitionFor(wk, t);

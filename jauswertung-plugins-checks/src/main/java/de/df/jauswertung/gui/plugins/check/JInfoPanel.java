@@ -200,7 +200,7 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
                 int values = 0;
                 int startpass = 0;
 
-                Hashtable<String, String> tableN = new Hashtable<String, String>();
+                Hashtable<String, String> tableN = new Hashtable<>();
                 int names = 0;
                 int disciplines = 0;
 
@@ -469,7 +469,7 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
             {
                 // Zielrichterentscheid
                 LinkedList<Zielrichterentscheid<T>>[] zes = ZielrichterentscheidUtils.checkZielrichterentscheide(wk);
-                state[ZRENTSCHEID] = (zes[1].size() == 0);
+                state[ZRENTSCHEID] = (zes[1].isEmpty());
                 text[ZRENTSCHEID] = zes[1].size();
             }
         } catch (Exception e) {

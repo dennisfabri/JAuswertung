@@ -543,7 +543,7 @@ public class AresWriterDefault {
 
     }
 
-    private static class Discipline {
+    private static final class Discipline {
         private final String name;
         private final int amount;
         private final int length;
@@ -631,7 +631,7 @@ public class AresWriterDefault {
         PrintStream ps = new PrintStream(os, true, CHARSET2);
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<Lauf<?>> ll = new LinkedList<Lauf<?>>();
+        LinkedList<Lauf<?>> ll = new LinkedList<>();
         for (AWettkampf<?> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -689,7 +689,7 @@ public class AresWriterDefault {
 
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<Lauf<?>> ll = new LinkedList<Lauf<?>>();
+        LinkedList<Lauf<?>> ll = new LinkedList<>();
         for (AWettkampf<?> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }

@@ -32,8 +32,8 @@ class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
 
     private JLabel zeit = new JLabel();
     private JLabel ak = new JLabel();
-    private ModifiableListModel<Object[]> model = new ModifiableListModel<Object[]>();
-    private JSmoothList<Object[]> liste = new JSmoothList<Object[]>(model);
+    private ModifiableListModel<Object[]> model = new ModifiableListModel<>();
+    private JSmoothList<Object[]> liste = new JSmoothList<>(model);
 
     private final JZielrichterentscheidFrame<T> parent;
 
@@ -85,7 +85,7 @@ class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
             ak.setText(I18n.getAgeGroupAsString(s));
         }
 
-        LinkedList<Object[]> result = new LinkedList<Object[]>();
+        LinkedList<Object[]> result = new LinkedList<>();
         for (ASchwimmer s : ze.getSchwimmer()) {
             Object[] o = new Object[2];
             o[0] = s;
@@ -105,7 +105,7 @@ class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
     }
 
     private ModifiableListModel<Object[]> createModel(LinkedList<Object[]> result) {
-        ModifiableListModel<Object[]> m = new ModifiableListModel<Object[]>(result);
+        ModifiableListModel<Object[]> m = new ModifiableListModel<>(result);
         m.addListDataListener(new ListDataListener() {
             @Override
             public void contentsChanged(ListDataEvent e) {
@@ -128,7 +128,7 @@ class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
     @SuppressWarnings("unchecked")
     void updateZielrichterentscheid() {
         if (ze != null) {
-            LinkedList<T> result = new LinkedList<T>();
+            LinkedList<T> result = new LinkedList<>();
             for (Object[] o : model.getAllElements()) {
                 result.addLast((T) o[0]);
             }

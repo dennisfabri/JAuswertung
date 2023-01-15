@@ -16,7 +16,7 @@ class ZWListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerZW<T>
     private LinkedList<SchwimmerZW<T>> data;
 
     public ZWListModel() {
-        data = new LinkedList<SchwimmerZW<T>>();
+        data = new LinkedList<>();
     }
 
     @Override
@@ -25,7 +25,7 @@ class ZWListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerZW<T>
     }
 
     public void addElement(T o) {
-        SchwimmerZW<T> sh = new SchwimmerZW<T>(o, 1);
+        SchwimmerZW<T> sh = new SchwimmerZW<>(o, 1);
         addElement(sh);
     }
 

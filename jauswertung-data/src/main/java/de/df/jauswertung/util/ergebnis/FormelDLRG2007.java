@@ -124,7 +124,7 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
         SchwimmerData[] sold = swimmer;
         Arrays.sort(sold, new DLRGComparator());
 
-        LinkedList<SchwimmerData> sd = new LinkedList<SchwimmerData>();
+        LinkedList<SchwimmerData> sd = new LinkedList<>();
 
         for (SchwimmerData aSwimmer2 : swimmer) {
             if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS)
@@ -167,12 +167,12 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
         }
 
         // Update results based on "Zielrichterentscheid"
-        Hashtable<Integer, LinkedList<SchwimmerData>> table = new Hashtable<Integer, LinkedList<SchwimmerData>>();
+        Hashtable<Integer, LinkedList<SchwimmerData>> table = new Hashtable<>();
         for (SchwimmerData aSwimmer : swimmer) {
             if (aSwimmer.getRank() > 0) {
                 LinkedList<SchwimmerData> liste = table.get(aSwimmer.getRank());
                 if (liste == null) {
-                    liste = new LinkedList<SchwimmerData>();
+                    liste = new LinkedList<>();
                     table.put(aSwimmer.getRank(), liste);
                 }
                 liste.addLast(aSwimmer);
@@ -186,7 +186,7 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
 
                 if (ze != null) {
                     SchwimmerData[] temp = liste.toArray(new SchwimmerData[liste.size()]);
-                    LinkedList<SchwimmerData> ergebnis = new LinkedList<SchwimmerData>();
+                    LinkedList<SchwimmerData> ergebnis = new LinkedList<>();
                     for (T s : ze.getSchwimmer()) {
                         for (SchwimmerData aTemp : temp) {
                             if (aTemp.getSchwimmer().equals(s)) {
@@ -332,12 +332,12 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
 
         if (ak.getDiszAnzahl() == 1) {
             // Update results based on "Zielrichterentscheid"
-            Hashtable<Integer, LinkedList<SchwimmerResult>> table = new Hashtable<Integer, LinkedList<SchwimmerResult>>();
+            Hashtable<Integer, LinkedList<SchwimmerResult>> table = new Hashtable<>();
             for (SchwimmerResult result : results) {
                 if (result.getPlace() > 0) {
                     LinkedList<SchwimmerResult> liste = table.get(result.getPlace());
                     if (liste == null) {
-                        liste = new LinkedList<SchwimmerResult>();
+                        liste = new LinkedList<>();
                         table.put(result.getPlace(), liste);
                     }
                     liste.addLast(result);
@@ -351,7 +351,7 @@ public class FormelDLRG2007<T extends ASchwimmer> implements Formel<T> {
 
                     if (ze != null) {
                         SchwimmerResult[] temp = liste.toArray(new SchwimmerResult[liste.size()]);
-                        LinkedList<SchwimmerResult> ergebnis = new LinkedList<SchwimmerResult>();
+                        LinkedList<SchwimmerResult> ergebnis = new LinkedList<>();
                         for (T s : ze.getSchwimmer()) {
                             for (SchwimmerResult aTemp : temp) {
                                 if (aTemp.getSchwimmer().equals(s)) {

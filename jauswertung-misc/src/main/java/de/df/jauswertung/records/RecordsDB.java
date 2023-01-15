@@ -11,12 +11,12 @@ public class RecordsDB {
 
     private static final String BASEDIR = "src/test/resources/competitions/Rekorde/";
 
-    private LinkedList<Record> records = new LinkedList<Record>();
-    private LinkedList<Agegroup> agegroups = new LinkedList<Agegroup>();
-    private LinkedList<Discipline> disciplines = new LinkedList<Discipline>();
-    private LinkedList<Competitor> competitors = new LinkedList<Competitor>();
-    private LinkedList<Location> locations = new LinkedList<Location>();
-    private LinkedList<Club> clubs = new LinkedList<Club>();
+    private LinkedList<Record> records = new LinkedList<>();
+    private LinkedList<Agegroup> agegroups = new LinkedList<>();
+    private LinkedList<Discipline> disciplines = new LinkedList<>();
+    private LinkedList<Competitor> competitors = new LinkedList<>();
+    private LinkedList<Location> locations = new LinkedList<>();
+    private LinkedList<Club> clubs = new LinkedList<>();
 
     public RecordsDB() throws FileNotFoundException {
         Initialize();

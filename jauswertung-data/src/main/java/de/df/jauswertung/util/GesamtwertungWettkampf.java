@@ -99,7 +99,7 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                 // uebernommen.
                 if (modus == GroupEvaluationMode.BestWithoutBlocking) {
                     boolean changed = false;
-                    Hashtable<String, String> glds = new Hashtable<String, String>();
+                    Hashtable<String, String> glds = new Hashtable<>();
                     for (int z = 0; z < results[x * 2 + y].length; z++) {
                         SchwimmerResult<ASchwimmer> sr = results[x * 2 + y][z];
                         boolean found = glds.containsKey(sr.getSchwimmer().getGliederungMitQGliederung());

@@ -249,7 +249,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             Altersklasse ak = aks.getAk(x);
             if (ak.hasEinzelwertung()) {
                 for (int z = 0; z < 2; z++) {
-                    LinkedList<ExtendedTableModel> etm = new LinkedList<ExtendedTableModel>();
+                    LinkedList<ExtendedTableModel> etm = new LinkedList<>();
                     for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, z == 1);
                         if ((llak != null) && (!llak.isEmpty())) {

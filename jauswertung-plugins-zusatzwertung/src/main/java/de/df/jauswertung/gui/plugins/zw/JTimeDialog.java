@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.zw;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -56,12 +55,7 @@ final class JTimeDialog<T extends ASchwimmer> extends JDialog {
         pack();
         WindowUtils.center(this, parent);
 
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
 
         WindowUtils.addEscapeAction(this);
     }
@@ -100,19 +94,13 @@ final class JTimeDialog<T extends ASchwimmer> extends JDialog {
         JPanel panel = new JPanel(layout);
 
         JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doCancel();
-            }
+        cancel.addActionListener(e -> {
+            doCancel();
         });
 
         panel.add(ok, CC.xy(2, 2));

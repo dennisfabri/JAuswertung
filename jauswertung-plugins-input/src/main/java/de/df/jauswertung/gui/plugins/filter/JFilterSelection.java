@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.filter;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -31,29 +30,18 @@ class JFilterSelection extends JDialog {
     public JFilterSelection(JFrame parent, LinkedList<String> names) {
         super(parent, I18n.get("FilterSelection"), true);
 
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doCancel();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::doCancel);
 
         String[] n = names.toArray(new String[names.size()]);
         list.setListData(n);
 
         JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doCancel();
-            }
+        cancel.addActionListener(arg0 -> {
+            doCancel();
         });
 
         JScrollPane scroller = new JScrollPane(list);

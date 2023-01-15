@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -120,38 +119,32 @@ public class JNeuerWettkampf extends JDialog {
             mannschaftNamen = einzelNamen;
             return;
         }
-        einzelNamen = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                if ((!name.toLowerCase().endsWith(".ake")) && (!name.toLowerCase().endsWith(".rwe"))) {
+        einzelNamen = dir.list((file, name) -> {
+            if ((!name.toLowerCase().endsWith(".ake")) && (!name.toLowerCase().endsWith(".rwe"))) {
+                return false;
+            }
+            try {
+                if (AgeGroupIOUtils.ladeAKs(file.getCanonicalPath() + File.separator + name) == null) {
                     return false;
                 }
-                try {
-                    if (AgeGroupIOUtils.ladeAKs(file.getCanonicalPath() + File.separator + name) == null) {
-                        return false;
-                    }
-                } catch (IOException e) {
-                    // e.printStackTrace();
-                }
-                return true;
+            } catch (IOException e) {
+                // e.printStackTrace();
             }
+            return true;
         });
         Arrays.sort(einzelNamen);
-        mannschaftNamen = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                if ((!name.toLowerCase().endsWith(".akm")) && (!name.toLowerCase().endsWith(".rwm"))) {
+        mannschaftNamen = dir.list((file, name) -> {
+            if ((!name.toLowerCase().endsWith(".akm")) && (!name.toLowerCase().endsWith(".rwm"))) {
+                return false;
+            }
+            try {
+                if (AgeGroupIOUtils.ladeAKs(file.getCanonicalPath() + File.separator + name) == null) {
                     return false;
                 }
-                try {
-                    if (AgeGroupIOUtils.ladeAKs(file.getCanonicalPath() + File.separator + name) == null) {
-                        return false;
-                    }
-                } catch (IOException e) {
-                    // e.printStackTrace();
-                }
-                return true;
+            } catch (IOException e) {
+                // e.printStackTrace();
             }
+            return true;
         });
         Arrays.sort(mannschaftNamen);
 
@@ -194,11 +187,8 @@ public class JNeuerWettkampf extends JDialog {
 
     private JButton getCancelButton() {
         JButton c = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        c.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                setVisible(false);
-            }
+        c.addActionListener(event -> {
+            setVisible(false);
         });
         return c;
     }

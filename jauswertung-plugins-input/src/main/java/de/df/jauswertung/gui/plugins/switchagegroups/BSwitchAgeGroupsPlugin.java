@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.switchagegroups;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -35,11 +34,8 @@ public class BSwitchAgeGroupsPlugin extends ANullPlugin {
             button.setToolTipText(I18n.get("SwitchAgeGroups"));
             bi = new ButtonInfo(button, 9000);
 
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    switchAGs();
-                }
+            button.addActionListener(e -> {
+                switchAGs();
             });
         } else {
             button = null;

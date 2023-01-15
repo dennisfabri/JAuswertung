@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -106,11 +105,8 @@ class JKampfrichterEinheitPanel extends JPanel {
         }
 
         neu = new JTransparentButton(IconManager.getSmallIcon("new"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addPosition();
-            }
+        neu.addActionListener(e -> {
+            addPosition();
         });
         neu.setToolTipText(I18n.getToolTip("AddRefereeposition"));
 

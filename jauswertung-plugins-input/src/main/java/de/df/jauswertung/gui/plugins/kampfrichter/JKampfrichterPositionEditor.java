@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -47,16 +46,11 @@ public class JKampfrichterPositionEditor extends JDialog {
 
     private void addActions() {
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
     }
 
     private void initGUI() {
-        LinkedList<String> known = new LinkedList<String>();
+        LinkedList<String> known = new LinkedList<>();
         for (String pos : einheit.getPositionen()) {
             if (!pos.equals(position.getPosition())) {
                 known.addLast(pos);
@@ -67,7 +61,7 @@ public class JKampfrichterPositionEditor extends JDialog {
         name.setRequired(true);
         name.setForced(true);
 
-        stufe = new JComboBox<String>(KampfrichterStufe.getBaseLevels());
+        stufe = new JComboBox<>(KampfrichterStufe.getBaseLevels());
         stufe.setSelectedIndex(KampfrichterStufe.getBaseIndex(position.getMinimaleStufe()));
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
@@ -106,18 +100,12 @@ public class JKampfrichterPositionEditor extends JDialog {
 
     private JPanel getButtons() {
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doCancel();
-            }
+        close.addActionListener(e -> {
+            doCancel();
         });
 
         FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default,0dlu", "0dlu,fill:default,0dlu");

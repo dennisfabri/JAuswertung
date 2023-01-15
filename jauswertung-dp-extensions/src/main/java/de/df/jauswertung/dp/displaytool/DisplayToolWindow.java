@@ -1,7 +1,6 @@
 package de.df.jauswertung.dp.displaytool;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -94,18 +93,14 @@ public abstract class DisplayToolWindow {
         menuBar.add(mnDatei);
 
         JMenuItem miOpen = new JMenuItem("\u00D6ffnen");
-        miOpen.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doOpen();
-            }
+        miOpen.addActionListener(e -> {
+            doOpen();
         });
         mnDatei.add(miOpen);
 
         JMenuItem miUpdate = new JMenuItem("Aktualisieren");
-        miUpdate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doUpdate();
-            }
+        miUpdate.addActionListener(e -> {
+            doUpdate();
         });
         mnDatei.add(miUpdate);
 
@@ -113,10 +108,8 @@ public abstract class DisplayToolWindow {
         mnDatei.add(separator);
 
         JMenuItem miExit = new JMenuItem("Beenden");
-        miExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
+        miExit.addActionListener(e -> {
+            System.exit(0);
         });
         mnDatei.add(miExit);
     }

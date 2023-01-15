@@ -133,12 +133,7 @@ class LaufeinteilungKompaktPrinter implements Printer {
     }
 
     void preview() {
-        PrintableCreator pc = new PrintableCreator() {
-            @Override
-            public Printable create() {
-                return getPrintable();
-            }
-        };
+        PrintableCreator pc = this::getPrintable;
         PrintExecutor.preview(controller.getWindow(), pc, I18n.get("HeatarrangementCompact"),
                 IconManager.getIconBundle(), IconManager.getTitleImages());
     }

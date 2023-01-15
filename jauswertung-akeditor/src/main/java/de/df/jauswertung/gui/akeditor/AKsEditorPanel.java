@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.akeditor;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -20,7 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.blogspot.rabbithole.JSmoothList;
 
@@ -79,7 +77,7 @@ class AKsEditorPanel extends JPanel {
 
         insertCount = 1;
 
-        altersklassen = new LinkedList<AKEditorPanel>();
+        altersklassen = new LinkedList<>();
         listmodel = new ModifiableListModel<String>() {
 
             private static final long serialVersionUID = -3302798347968933015L;
@@ -92,7 +90,7 @@ class AKsEditorPanel extends JPanel {
                 notifyChange();
             }
         };
-        liste = new JSmoothList<String>(listmodel);
+        liste = new JSmoothList<>(listmodel);
         JListUtils.setAlternatingListCellRenderer(liste);
 
         panel = new JPanel(new BorderLayout());
@@ -113,11 +111,8 @@ class AKsEditorPanel extends JPanel {
         }
 
         liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        liste.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                fireSelectionChanged();
-            }
+        liste.addListSelectionListener(e -> {
+            fireSelectionChanged();
         });
         liste.addMouseListener(new MouseAdapter() {
             private AKPopup popup = new AKPopup();
@@ -165,19 +160,13 @@ class AKsEditorPanel extends JPanel {
         loeschen = new JMenuItem(I18n.get("DeleteAG"));
         loeschen.setIcon(IconManager.getSmallIcon("delete"));
         loeschen.setEnabled(listmodel.size() > 1);
-        loeschen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doDelete();
-            }
+        loeschen.addActionListener(e -> {
+            doDelete();
         });
         JMenuItem einfuegen = new JMenuItem(I18n.get("InsertAG"));
         einfuegen.setIcon(IconManager.getSmallIcon("new"));
-        einfuegen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doInsert();
-            }
+        einfuegen.addActionListener(e -> {
+            doInsert();
         });
         bearbeiten.add(loeschen);
         bearbeiten.add(einfuegen);
@@ -311,29 +300,17 @@ class AKsEditorPanel extends JPanel {
             add(up);
             add(down);
 
-            remove.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doDelete();
-                }
+            remove.addActionListener(e -> {
+                doDelete();
             });
-            add.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doInsert();
-                }
+            add.addActionListener(e -> {
+                doInsert();
             });
-            up.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    moveUp();
-                }
+            up.addActionListener(e -> {
+                moveUp();
             });
-            down.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    moveDown();
-                }
+            down.addActionListener(e -> {
+                moveDown();
             });
         }
 

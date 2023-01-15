@@ -116,7 +116,7 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
         Arrays.sort(sold, new DLRGComparator());
 
         // LinkedList<SchwimmerData> zero = new LinkedList<SchwimmerData>();
-        LinkedList<SchwimmerData<T>> sd = new LinkedList<SchwimmerData<T>>();
+        LinkedList<SchwimmerData<T>> sd = new LinkedList<>();
 
         for (SchwimmerData<T> aSwimmer2 : swimmer) {
             if ((aSwimmer2.getTime() == 0) || (aSwimmer2.getStrafart() == Strafarten.AUSSCHLUSS)
@@ -159,12 +159,12 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
         }
 
         // Update results based on "Zielrichterentscheid"
-        Hashtable<Integer, LinkedList<SchwimmerData>> table = new Hashtable<Integer, LinkedList<SchwimmerData>>();
+        Hashtable<Integer, LinkedList<SchwimmerData>> table = new Hashtable<>();
         for (SchwimmerData aSwimmer : swimmer) {
             if (aSwimmer.getRank() > 0) {
                 LinkedList<SchwimmerData> liste = table.get(aSwimmer.getRank());
                 if (liste == null) {
-                    liste = new LinkedList<SchwimmerData>();
+                    liste = new LinkedList<>();
                     table.put(aSwimmer.getRank(), liste);
                 }
                 liste.addLast(aSwimmer);
@@ -177,7 +177,7 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
                 if (ze != null) {
                     SchwimmerData[] temp = liste.toArray(new SchwimmerData[liste.size()]);
-                    LinkedList<SchwimmerData> ergebnis = new LinkedList<SchwimmerData>();
+                    LinkedList<SchwimmerData> ergebnis = new LinkedList<>();
                     for (Object o : ze.getSchwimmer()) {
                         ASchwimmer s = (ASchwimmer) o;
                         for (SchwimmerData aTemp : temp) {
@@ -316,12 +316,12 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
         if (ak.getDiszAnzahl() == 1) {
             // Update results based on "Zielrichterentscheid"
-            Hashtable<Integer, LinkedList<SchwimmerResult>> table = new Hashtable<Integer, LinkedList<SchwimmerResult>>();
+            Hashtable<Integer, LinkedList<SchwimmerResult>> table = new Hashtable<>();
             for (SchwimmerResult result : results) {
                 if (result.getPlace() > 0) {
                     LinkedList<SchwimmerResult> liste = table.get(result.getPlace());
                     if (liste == null) {
-                        liste = new LinkedList<SchwimmerResult>();
+                        liste = new LinkedList<>();
                         table.put(result.getPlace(), liste);
                     }
                     liste.addLast(result);
@@ -335,7 +335,7 @@ public class FormelLinear<T extends ASchwimmer> implements Formel<T> {
 
                     if (ze != null) {
                         SchwimmerResult[] temp = liste.toArray(new SchwimmerResult[liste.size()]);
-                        LinkedList<SchwimmerResult> ergebnis = new LinkedList<SchwimmerResult>();
+                        LinkedList<SchwimmerResult> ergebnis = new LinkedList<>();
                         for (Object o : ze.getSchwimmer()) {
                             ASchwimmer s = (ASchwimmer) o;
                             for (SchwimmerResult aTemp : temp) {

@@ -75,14 +75,14 @@ public class JsonResults {
 
     private List<Individual> createIndividualResults(AWettkampf<?> wk) {
         if (wk instanceof EinzelWettkampf ewk) {
-            return createResults(ewk, (s, r) -> createIndividual(s, r));
+            return createResults(ewk, this::createIndividual);
         }
         return new ArrayList<>();
     }
 
     private List<Team> createTeamResults(AWettkampf<?> wk) {
         if (wk instanceof MannschaftWettkampf mwk) {
-            return createResults(mwk, (s, r) -> createTeam(s, r));
+            return createResults(mwk, this::createTeam);
         }
         return new ArrayList<>();
     }
@@ -176,7 +176,7 @@ public class JsonResults {
     private static <TX extends ASchwimmer, X> List<X> altersklasse(AWettkampf<TX> wk, Altersklasse ak,
             boolean maennlich, CreateCompetitor<TX, X> creator) {
 
-        List<X> collected = new ArrayList<X>();
+        List<X> collected = new ArrayList<>();
 
         SchwimmerResult<TX>[] results = ResultCalculator.getResults(wk, ak, maennlich, null, false);
         if (results.length == 0) {

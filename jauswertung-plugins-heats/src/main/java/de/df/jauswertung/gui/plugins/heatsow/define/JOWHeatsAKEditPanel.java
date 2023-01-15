@@ -46,7 +46,7 @@ public class JOWHeatsAKEditPanel extends JPanel {
     }
 
     public Collection<Integer> GetIds() {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ArrayList<Integer> ids = new ArrayList<>();
         for (int x = 0; x < panels.length; x++) {
             for (int i : panels[x].getIds()) {
                 ids.add(i);

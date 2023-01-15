@@ -40,7 +40,7 @@ public class MOptionenPlugin extends ANullPlugin {
 
     public MOptionenPlugin() {
         super();
-        plugins = new LinkedList<OptionsPlugin>();
+        plugins = new LinkedList<>();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MOptionenPlugin extends ANullPlugin {
     private void initDialog() {
         if (dialog == null) {
             LinkedList<OptionsPlugin> plugs = plugins;
-            plugins = new LinkedList<OptionsPlugin>();
+            plugins = new LinkedList<>();
             tabs = new JTabbedPane();
             ListIterator<OptionsPlugin> li = plugs.listIterator();
             while (li.hasNext()) {
@@ -109,7 +109,7 @@ public class MOptionenPlugin extends ANullPlugin {
                 }
                 dialog.pack();
             }
-            if (plugins.size() == 0) {
+            if (plugins.isEmpty()) {
                 menu[0].setEnabled(false);
             }
         }

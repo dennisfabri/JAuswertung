@@ -510,12 +510,7 @@ public class CorePlugin extends AFeature {
     }
 
     private void checkAks() {
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                checkAKsInternal();
-            }
-        };
+        Runnable run = this::checkAKsInternal;
         new Thread(run).start();
     }
 

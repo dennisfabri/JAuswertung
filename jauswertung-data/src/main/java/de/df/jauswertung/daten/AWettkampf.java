@@ -85,7 +85,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         if (s == null) {
             throw new NullPointerException("Argument must not be null!");
         }
-        properties = new Hashtable<String, Object>();
+        properties = new Hashtable<>();
         pcManager = new PropertyChangeManager(this);
 
         strafen = s;
@@ -130,7 +130,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         hlwliste = new HLWListe<>(this);
         aks = altersklassen;
         kampfrichter = null;
-        zielrichterentscheide = new LinkedList<Zielrichterentscheid<T>>();
+        zielrichterentscheide = new LinkedList<>();
         timelimits = new TimelimitsContainer();
 
         changedNow();
@@ -716,8 +716,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final synchronized LinkedList<String> getGliederungen() {
-        Hashtable<String, String> temp = new Hashtable<String, String>();
-        LinkedList<String> result = new LinkedList<String>();
+        Hashtable<String, String> temp = new Hashtable<>();
+        LinkedList<String> result = new LinkedList<>();
 
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
@@ -732,8 +732,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final synchronized LinkedList<String> getQualigliederungen() {
-        Hashtable<String, String> temp = new Hashtable<String, String>();
-        LinkedList<String> result = new LinkedList<String>();
+        Hashtable<String, String> temp = new Hashtable<>();
+        LinkedList<String> result = new LinkedList<>();
 
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
@@ -750,8 +750,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final synchronized LinkedList<String> getGliederungenMitQGliederung() {
-        Hashtable<String, String> temp = new Hashtable<String, String>();
-        LinkedList<String> result = new LinkedList<String>();
+        Hashtable<String, String> temp = new Hashtable<>();
+        LinkedList<String> result = new LinkedList<>();
 
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
@@ -770,7 +770,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final synchronized int getAnzahlGliederungen() {
-        Hashtable<String, String> temp = new Hashtable<String, String>();
+        Hashtable<String, String> temp = new Hashtable<>();
 
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
@@ -915,7 +915,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * @return Liefert alle Schwimmer des Wettkampfes
      */
     public final synchronized LinkedList<T> getSchwimmer() {
-        return new LinkedList<T>(schwimmer);
+        return new LinkedList<>(schwimmer);
     }
 
     public final synchronized boolean hasSchwimmer() {
@@ -1048,7 +1048,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     private void checkZielrichterentscheide() {
         if (zielrichterentscheide == null) {
-            zielrichterentscheide = new LinkedList<Zielrichterentscheid<T>>();
+            zielrichterentscheide = new LinkedList<>();
             return;
         }
 
@@ -1064,14 +1064,14 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public LinkedList<Zielrichterentscheid<T>> getZielrichterentscheide() {
         checkZielrichterentscheide();
-        return new LinkedList<Zielrichterentscheid<T>>(zielrichterentscheide);
+        return new LinkedList<>(zielrichterentscheide);
     }
 
     public void setZielrichterentscheide(LinkedList<Zielrichterentscheid<T>> ze) {
         if (ze == null) {
             throw new NullPointerException("List must not be null");
         }
-        zielrichterentscheide = new LinkedList<Zielrichterentscheid<T>>(ze);
+        zielrichterentscheide = new LinkedList<>(ze);
     }
 
     public boolean isFilterActive() {

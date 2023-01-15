@@ -229,7 +229,7 @@ public class MZWPlugin extends ANullPlugin {
         boolean blocked = (!editable) || block.isSelected();
         ISimpleCallback<JHlwlisteBearbeiten<ASchwimmer>> sc = null;
         if (!blocked) {
-            sc = t -> editCallback(t);
+            sc = this::editCallback;
         }
         ModalFrameUtil.showAsModal(
                 new JHlwlisteBearbeiten(getController().getWindow(), core.getWettkampf(), !blocked, sc),

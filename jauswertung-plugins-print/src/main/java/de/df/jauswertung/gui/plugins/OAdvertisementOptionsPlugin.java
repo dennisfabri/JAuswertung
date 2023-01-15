@@ -14,7 +14,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -126,24 +125,20 @@ public final class OAdvertisementOptionsPlugin extends ANullPlugin implements MO
         if (panel == null) {
             enabled = new JCheckBox(I18n.get("AdvertisementEnabled"));
             enabled.setSelected(true);
-            enabled.addChangeListener(new ChangeListener() {
+            enabled.addChangeListener(ce -> {
+                boolean e = enabled.isSelected();
+                ptop.setEnabled(e);
+                pbottom.setEnabled(e);
+                ltop.setEnabled(e);
+                lbottom.setEnabled(e);
+                ptopfile.setEnabled(e);
+                pbottomfile.setEnabled(e);
+                ltopfile.setEnabled(e);
+                lbottomfile.setEnabled(e);
 
-                @Override
-                public void stateChanged(ChangeEvent ce) {
-                    boolean e = enabled.isSelected();
-                    ptop.setEnabled(e);
-                    pbottom.setEnabled(e);
-                    ltop.setEnabled(e);
-                    lbottom.setEnabled(e);
-                    ptopfile.setEnabled(e);
-                    pbottomfile.setEnabled(e);
-                    ltopfile.setEnabled(e);
-                    lbottomfile.setEnabled(e);
-
-                    if (e != oldstate) {
-                        optionen.notifyChange();
-                        oldstate = e;
-                    }
+                if (e != oldstate) {
+                    optionen.notifyChange();
+                    oldstate = e;
                 }
             });
 

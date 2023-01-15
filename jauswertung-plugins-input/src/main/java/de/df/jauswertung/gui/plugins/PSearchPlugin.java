@@ -13,7 +13,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
@@ -39,7 +38,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 import de.df.jutils.gui.jtable.TableSorter;
 
@@ -173,11 +171,8 @@ public class PSearchPlugin extends ANullPlugin {
         ColumnFittingMouseAdapter.enable(result);
         DataTipManager.get().register(result);
 
-        result.getModel().addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                updateButtons();
-            }
+        result.getModel().addTableModelListener(e -> {
+            updateButtons();
         });
         result.addMouseListener(new MouseListener() {
             @Override
@@ -295,7 +290,7 @@ public class PSearchPlugin extends ANullPlugin {
             result.tableChanged(new TableModelEvent(result.getModel()));
         } else if (result.getRowCount() < elements.size()) {
             while (result.getRowCount() < elements.size()) {
-                Vector<String> v = new Vector<String>();
+                Vector<String> v = new Vector<>();
                 for (int x = 0; x < result.getColumnCount(); x++) {
                     v.add("");
                 }
@@ -544,12 +539,12 @@ public class PSearchPlugin extends ANullPlugin {
         gliederung.setToolTipText(I18n.getToolTip("SearchOrganization"));
         quali = new JNoSpaceTextfield();
         quali.setToolTipText(I18n.getToolTip("SearchQualifikationsgliederung"));
-        altersklasse = new JComboBox<String>();
+        altersklasse = new JComboBox<>();
         altersklasse.setToolTipText(I18n.getToolTip("SearchAgeGroup"));
-        geschlecht = new JComboBox<String>(new String[] { I18n.get("female"), I18n.get("male"), I18n.get("All") });
+        geschlecht = new JComboBox<>(new String[] { I18n.get("female"), I18n.get("male"), I18n.get("All") });
         geschlecht.setSelectedIndex(2);
         geschlecht.setToolTipText(I18n.getToolTip("SearchSex"));
-        ausserk = new JComboBox<String>(new String[] { I18n.get("No"), I18n.get("Yes"), I18n.get("All") });
+        ausserk = new JComboBox<>(new String[] { I18n.get("No"), I18n.get("Yes"), I18n.get("All") });
         ausserk.setSelectedIndex(2);
         ausserk.setToolTipText(I18n.getToolTip("SearchAusserKonkurrenz"));
 
@@ -600,27 +595,18 @@ public class PSearchPlugin extends ANullPlugin {
     private JPanel getButtons() {
         edit = new JTransparentButton(IconManager.getSmallIcon("edit"));
         edit.setToolTipText(I18n.getToolTip("Edit"));
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                bearbeiten();
-            }
+        edit.addActionListener(e -> {
+            bearbeiten();
         });
         togglenames = new JTransparentButton(IconManager.getSmallIcon("togglenames"));
         togglenames.setToolTipText(I18n.getToolTip("ToggleNames"));
-        togglenames.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toggleNames();
-            }
+        togglenames.addActionListener(e -> {
+            toggleNames();
         });
         delete = new JTransparentButton(IconManager.getSmallIcon("remove"));
         delete.setToolTipText(I18n.getToolTip("Remove"));
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                core.remove(getSchwimmer());
-            }
+        delete.addActionListener(e -> {
+            core.remove(getSchwimmer());
         });
 
         JPanel p = new JPanel();
@@ -786,63 +772,36 @@ public class PSearchPlugin extends ANullPlugin {
             result.addMouseListener(new Listener());
 
             edititem = new JMenuItem(I18n.get("Edit"), IconManager.getSmallIcon("edit"));
-            edititem.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    editor.editSchwimmer(getSchwimmer()[0], true);
-                }
+            edititem.addActionListener(e -> {
+                editor.editSchwimmer(getSchwimmer()[0], true);
             });
             starteritem = new JMenuItem(I18n.get("EditStarter"));
-            starteritem.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    starter.editStarter((Mannschaft) (getSchwimmer()[0]));
-                }
+            starteritem.addActionListener(e -> {
+                starter.editStarter((Mannschaft) (getSchwimmer()[0]));
             });
             heatsitem = new JMenuItem(I18n.get("HeatsViewer"));
-            heatsitem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showStarts();
-                }
+            heatsitem.addActionListener(e -> {
+                showStarts();
             });
             deleteitem = new JMenuItem(I18n.get("Delete"), IconManager.getSmallIcon("delete"));
-            deleteitem.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    core.remove(getSchwimmer());
-                }
+            deleteitem.addActionListener(e -> {
+                core.remove(getSchwimmer());
             });
             toggleitem = new JMenuItem(I18n.get("ToggleNames"));
-            toggleitem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    toggleNames();
-                }
+            toggleitem.addActionListener(e -> {
+                toggleNames();
             });
             penaltyitem = new JMenuItem(I18n.get("SetPenalty"));
-            penaltyitem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showPenaltyEditor();
-                }
+            penaltyitem.addActionListener(e -> {
+                showPenaltyEditor();
             });
             renameOrganization = new JMenuItem(I18n.get("Organization"));
-            renameOrganization.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    renameOrganization();
-                }
+            renameOrganization.addActionListener(e -> {
+                renameOrganization();
             });
             renameQOrganization = new JMenuItem(I18n.get("Qualifikationsebene"));
-            renameQOrganization.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    renameQOrganization();
-                }
+            renameQOrganization.addActionListener(e -> {
+                renameQOrganization();
             });
 
             setLayout(new ListLayout(1));
@@ -941,14 +900,10 @@ public class PSearchPlugin extends ANullPlugin {
 
         private JMenuItem createMenuItem(int index) {
             JMenuItem item = new JCheckBoxMenuItem(I18n.get(IDS[index]));
-            item.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    for (int i = 0; i < items.length; i++) {
-                        if (e.getSource() == items[i]) {
-                            setTableColumnEnabled(i, items[i].isSelected());
-                        }
+            item.addActionListener(e -> {
+                for (int i = 0; i < items.length; i++) {
+                    if (e.getSource() == items[i]) {
+                        setTableColumnEnabled(i, items[i].isSelected());
                     }
                 }
             });

@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.editor;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -198,22 +197,16 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         setContentPane(panel);
 
         ok = new JButton(I18n.get("Ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
+        cancel.addActionListener(arg0 -> {
+            setVisible(false);
         });
 
-        penalty = new JComboBox<Strafe>(penalties.toArray(new Strafe[penalties.size()]));
+        penalty = new JComboBox<>(penalties.toArray(new Strafe[penalties.size()]));
         penalty.setRenderer(new PenaltyShortTextListRenderer());
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",

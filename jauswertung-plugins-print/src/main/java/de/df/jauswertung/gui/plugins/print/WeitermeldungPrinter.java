@@ -136,7 +136,7 @@ class WeitermeldungPrinter implements Printer {
         if (!wk.hasSchwimmer()) {
             return null;
         }
-        LinkedList<ExtendedTableModel> result = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> result = new LinkedList<>();
 
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {

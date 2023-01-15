@@ -55,7 +55,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
             lanes[x] = wk.getLaufliste().isLaneUsed(x);
         }
 
-        LinkedList<Component> components = new LinkedList<Component>();
+        LinkedList<Component> components = new LinkedList<>();
         for (Lauf<T> lauf : laufliste) {
             components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showOrganisation));
         }
@@ -183,7 +183,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
             }
         });
 
-        LinkedList<Object[]> datas = new LinkedList<Object[]>();
+        LinkedList<Object[]> datas = new LinkedList<>();
 
         for (SwimmerTableRow<T> tupel : swimmers) {
             datas.add(tupel.getRow());

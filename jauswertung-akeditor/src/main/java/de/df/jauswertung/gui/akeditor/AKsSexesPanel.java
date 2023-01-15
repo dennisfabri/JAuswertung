@@ -46,12 +46,7 @@ class AKsSexesPanel extends JPanel {
         sex1Name.getDocument().addDocumentListener(new ChangeListener());
 
         sex1Short = new JWarningTextField(true, true);
-        sex1Short.setValidator(new JWarningTextField.Validator() {
-            @Override
-            public boolean validate(String value) {
-                return value != null && value.length() <= 3;
-            }
-        });
+        sex1Short.setValidator(value -> value != null && value.length() <= 3);
         sex1Short.setAutoSelectAll(true);
         sex1Short.getDocument().addDocumentListener(new ChangeListener());
 
@@ -64,12 +59,7 @@ class AKsSexesPanel extends JPanel {
         sex2Name.getDocument().addDocumentListener(new ChangeListener());
 
         sex2Short = new JWarningTextField(true, true);
-        sex2Short.setValidator(new JWarningTextField.Validator() {
-            @Override
-            public boolean validate(String value) {
-                return value != null && value.length() <= 3;
-            }
-        });
+        sex2Short.setValidator(value -> value != null && value.length() <= 3);
         sex2Short.setAutoSelectAll(true);
         sex2Short.getDocument().addDocumentListener(new ChangeListener());
     }

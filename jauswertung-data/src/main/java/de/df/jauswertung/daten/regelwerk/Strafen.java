@@ -25,11 +25,11 @@ public final class Strafen implements Serializable {
 
     /** Creates new Strafen */
     public Strafen() {
-        strafen = new LinkedList<StrafenKapitel>();
+        strafen = new LinkedList<>();
     }
 
     public LinkedList<StrafenKapitel> getKapitel() {
-        return new LinkedList<StrafenKapitel>(strafen);
+        return new LinkedList<>(strafen);
     }
 
     public final Strafe getStrafe(String code) {
@@ -51,7 +51,7 @@ public final class Strafen implements Serializable {
     }
 
     public LinkedList<Strafe> getStrafenListe() {
-        LinkedList<Strafe> ps = new LinkedList<Strafe>();
+        LinkedList<Strafe> ps = new LinkedList<>();
 
         ListIterator<StrafenKapitel> kapitel = getKapitel().listIterator();
         while (kapitel.hasNext()) {

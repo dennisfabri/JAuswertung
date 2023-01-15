@@ -21,9 +21,9 @@ class HeatListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerDis
     private LinkedList<SchwimmerDisziplin<T>> data;
 
     public HeatListModel(AWettkampf<T> wk) {
-        data = new LinkedList<SchwimmerDisziplin<T>>();
+        data = new LinkedList<>();
 
-        Hashtable<String, SchwimmerDisziplin<T>> storage = new Hashtable<String, SchwimmerDisziplin<T>>();
+        Hashtable<String, SchwimmerDisziplin<T>> storage = new Hashtable<>();
         {
             // Put everything in a list
             LinkedList<T> ll = wk.getSchwimmer();
@@ -32,7 +32,7 @@ class HeatListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerDis
                 T s = li.next();
                 for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                     if (s.isDisciplineChosen(x)) {
-                        storage.put("" + s.getStartnummer() + "x" + x, new SchwimmerDisziplin<T>(s, x));
+                        storage.put("" + s.getStartnummer() + "x" + x, new SchwimmerDisziplin<>(s, x));
                     }
                 }
             }
@@ -94,8 +94,8 @@ class HeatListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerDis
     @Override
     public SchwimmerDisziplin<T> getElementAt(int index) {
         // Workaround for DataTipManager
-        if (data.size() == 0) {
-            return new SchwimmerDisziplin<T>();
+        if (data.isEmpty()) {
+            return new SchwimmerDisziplin<>();
         }
         return data.get(index);
     }

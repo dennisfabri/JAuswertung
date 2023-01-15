@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.prefs.Preferences;
 
 import javax.swing.JCheckBox;
@@ -74,37 +73,25 @@ public class OGeneralOptionsPlugin extends ANullPlugin implements MOptionenPlugi
             panel.setToolTipText(I18n.getToolTip("GeneralOptions"));
             singleCheckbox = new JCheckBox(I18n.get("SingleCompetitionAtStartup"));
             singleCheckbox.setToolTipText(I18n.getToolTip("SingleCompetitionAtStartup"));
-            singleCheckbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            singleCheckbox.addActionListener(e -> {
+                optionen.notifyChange();
             });
             penaltyCheckbox = new JCheckBox(I18n.get("PrintPenalties"));
             penaltyCheckbox.setToolTipText(I18n.getToolTip("SetPrintPenalties"));
-            penaltyCheckbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            penaltyCheckbox.addActionListener(e -> {
+                optionen.notifyChange();
             });
 
             hightimesCheckbox = new JCheckBox(I18n.get("DisplayHighTimesWarning"));
             hightimesCheckbox.setToolTipText(I18n.getToolTip("DisplayHighTimesWarning"));
-            hightimesCheckbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            hightimesCheckbox.addActionListener(e -> {
+                optionen.notifyChange();
             });
 
             lowtimesCheckbox = new JCheckBox(I18n.get("DisplayLowTimesWarning"));
             lowtimesCheckbox.setToolTipText(I18n.getToolTip("DisplayLowTimesWarning"));
-            lowtimesCheckbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionen.notifyChange();
-                }
+            lowtimesCheckbox.addActionListener(e -> {
+                optionen.notifyChange();
             });
 
             panel.add(singleCheckbox, CC.xy(2, 2));

@@ -45,11 +45,11 @@ public final class ResultCalculator {
         Formel<T> formel = FormelManager.getInstance().get(wk.getRegelwerk().getFormelID());
 
         wk.check();
-        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>(
+        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<>(
                 wk.getZielrichterentscheide());
 
         ListIterator<Zielrichterentscheid<T>> li = zes.listIterator();
-        Hashtable<String, Zielrichterentscheid<T>> zetable = new Hashtable<String, Zielrichterentscheid<T>>();
+        Hashtable<String, Zielrichterentscheid<T>> zetable = new Hashtable<>();
         while (li.hasNext()) {
             Zielrichterentscheid<T> ze = li.next();
             if (ze.isValid()) {
@@ -83,7 +83,7 @@ public final class ResultCalculator {
 
         SchwimmerResult<T>[] results = new SchwimmerResult[schwimmer.length];
         for (int x = 0; x < schwimmer.length; x++) {
-            results[x] = new SchwimmerResult<T>(schwimmer[x]);
+            results[x] = new SchwimmerResult<>(schwimmer[x]);
             for (SchwimmerData<T>[] anErgebnisse : ergebnisse) {
                 results[x].add(anErgebnisse[x]);
             }

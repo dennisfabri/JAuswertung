@@ -104,69 +104,32 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
     }
 
     private void addActions() {
-        Runnable full = new Runnable() {
-            @Override
-            public void run() {
+        Runnable full = this::full;
+        Runnable full1 = () -> {
+            full(0);
+        };
+        Runnable full2 = () -> {
+            full(1);
+        };
+        Runnable next = this::next;
+        Runnable prev = this::previous;
+        Runnable switchMirror = () -> {
+            mirror = !mirror;
+            paint();
+        };
+        Runnable toggle = this::toggleBlackWhite;
+        Runnable close = () -> {
+            if (screen != null) {
                 full();
             }
-        };
-        Runnable full1 = new Runnable() {
-            @Override
-            public void run() {
-                full(0);
+            setVisible(false);
+            try {
+                dispose();
+            } catch (Exception ex) {
+                // Nothing to do
             }
         };
-        Runnable full2 = new Runnable() {
-            @Override
-            public void run() {
-                full(1);
-            }
-        };
-        Runnable next = new Runnable() {
-            @Override
-            public void run() {
-                next();
-            }
-        };
-        Runnable prev = new Runnable() {
-            @Override
-            public void run() {
-                previous();
-            }
-        };
-        Runnable switchMirror = new Runnable() {
-            @Override
-            public void run() {
-                mirror = !mirror;
-                paint();
-            }
-        };
-        Runnable toggle = new Runnable() {
-            @Override
-            public void run() {
-                toggleBlackWhite();
-            }
-        };
-        Runnable close = new Runnable() {
-            @Override
-            public void run() {
-                if (screen != null) {
-                    full();
-                }
-                setVisible(false);
-                try {
-                    dispose();
-                } catch (Exception ex) {
-                    // Nothing to do
-                }
-            }
-        };
-        Runnable switchPage = new Runnable() {
-            @Override
-            public void run() {
-                switchPage();
-            }
-        };
+        Runnable switchPage = this::switchPage;
 
         WindowUtils.addEscapeAction(this, close);
         WindowUtils.addEnterAction(this, next);
@@ -296,7 +259,7 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
     }
 
     public static <E extends ASchwimmer> void start(JFrame parent, AWettkampf<E> wk) {
-        JHeatPresentationFrame<E> hpf = new JHeatPresentationFrame<E>(parent, wk);
+        JHeatPresentationFrame<E> hpf = new JHeatPresentationFrame<>(parent, wk);
         hpf.setVisible(true);
     }
 

@@ -57,7 +57,7 @@ public class ResultSelectionUtils {
         CompetitionUtils.minimizeCompetition(wk);
         for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
             if (wg.isProtokollMitMehrkampfwertung()) {
-                Hashtable<Integer, Altersklasse> aks = new Hashtable<Integer, Altersklasse>();
+                Hashtable<Integer, Altersklasse> aks = new Hashtable<>();
                 int index = -1;
                 for (int x = 0; x < wk.getRegelwerk().size(); x++) {
                     Altersklasse ak = wk.getRegelwerk().getAk(x);
@@ -68,7 +68,7 @@ public class ResultSelectionUtils {
                 }
                 LinkedList<ASchwimmer> swimmers = Utils.copy(wk).getSchwimmer();
                 ListIterator<ASchwimmer> li = swimmers.listIterator();
-                LinkedList<ASchwimmer> result = new LinkedList<ASchwimmer>();
+                LinkedList<ASchwimmer> result = new LinkedList<>();
                 while (li.hasNext()) {
                     ASchwimmer s = li.next();
                     if (aks.containsKey(s.getAKNummer())) {

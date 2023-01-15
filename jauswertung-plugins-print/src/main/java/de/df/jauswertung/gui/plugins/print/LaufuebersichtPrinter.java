@@ -112,12 +112,7 @@ class LaufuebersichtPrinter implements Printer {
     }
 
     void preview() {
-        PrintableCreator pc = new PrintableCreator() {
-            @Override
-            public Printable create() {
-                return getPrintable();
-            }
-        };
+        PrintableCreator pc = this::getPrintable;
         PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Heatoverview"), IconManager.getIconBundle(),
                 IconManager.getTitleImages());
     }

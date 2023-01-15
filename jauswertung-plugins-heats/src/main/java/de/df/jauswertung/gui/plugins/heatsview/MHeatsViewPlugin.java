@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.heatsview;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -49,11 +48,8 @@ public class MHeatsViewPlugin extends ANullPlugin {
             if (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().isFullScreenSupported()) {
                 menu.setEnabled(false);
             }
-            menu.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showHeatView();
-                }
+            menu.addActionListener(e -> {
+                showHeatView();
             });
         }
         return new MenuInfo[] { new MenuInfo(I18n.get("Information"), 550, menu, 2000) };

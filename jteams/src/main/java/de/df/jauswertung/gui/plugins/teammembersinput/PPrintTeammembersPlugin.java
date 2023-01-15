@@ -78,12 +78,7 @@ public class PPrintTeammembersPlugin extends ANullPlugin {
         selectOrganisation = (SelectOrganisationPlugin) controller.getFeature("de.df.jauswertung.selectorganisation",
                 pluginuid);
 
-        selectOrganisation.addSelectionListener(new ISelectionListener() {
-            @Override
-            public void selected(String selection) {
-                select(selection);
-            }
-        });
+        selectOrganisation.addSelectionListener(this::select);
 
         createTeammemberPrinters(getController(), core, warner);
         dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED);

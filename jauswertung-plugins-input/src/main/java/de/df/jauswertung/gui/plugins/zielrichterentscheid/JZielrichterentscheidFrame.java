@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -34,7 +33,6 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.window.JOptionsFrame;
 
 class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
@@ -59,7 +57,7 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
 
         setIconImages(IconManager.getTitleImages());
 
-        possible = new LinkedList<Zielrichterentscheid<T>>();
+        possible = new LinkedList<>();
 
         addOptionsListener(new OptionsListener() {
             @Override
@@ -80,9 +78,9 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
     }
 
     private void initGUI() {
-        model = new ModifiableListModel<Zielrichterentscheid<T>>();
+        model = new ModifiableListModel<>();
         liste = new JList(model);
-        editor = new JZielrichterentscheidPanel<T>(this);
+        editor = new JZielrichterentscheidPanel<>(this);
 
         liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         liste.setCellRenderer(new ZielrichterentscheidListCellRenderer());
@@ -100,19 +98,15 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
         panel.add(scr, CC.xy(2, 4));
         panel.add(editor, CC.xy(4, 4));
 
-        liste.addListSelectionListener(new ListSelectionListener() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (liste.getSelectedIndex() < 0) {
-                    if (model.getSize() > 0) {
-                        liste.setSelectedIndex(0);
-                    }
-                } else {
-                    editor.setEntscheid((Zielrichterentscheid<T>) liste.getSelectedValue());
+        liste.addListSelectionListener(e -> {
+            if (liste.getSelectedIndex() < 0) {
+                if (model.getSize() > 0) {
+                    liste.setSelectedIndex(0);
                 }
-                remove.setEnabled(liste.getSelectedIndex() >= 0);
+            } else {
+                editor.setEntscheid((Zielrichterentscheid<T>) liste.getSelectedValue());
             }
+            remove.setEnabled(liste.getSelectedIndex() >= 0);
         });
 
         setContent(panel);
@@ -139,29 +133,25 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
             }
         });
         remove = new JTransparentButton(IconManager.getSmallIcon("remove"));
-        remove.addActionListener(new ActionListener() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int index = liste.getSelectedIndex();
-                if (index >= 0) {
-                    Zielrichterentscheid<T> ze = model.remove(index);
-                    possible.addLast(ze);
-                    Collections.sort(possible, new ZielrichterentscheidVergleicher<T>());
+        remove.addActionListener(e -> {
+            int index = liste.getSelectedIndex();
+            if (index >= 0) {
+                Zielrichterentscheid<T> ze = model.remove(index);
+                possible.addLast(ze);
+                Collections.sort(possible, new ZielrichterentscheidVergleicher<T>());
 
-                    add.setEnabled(!possible.isEmpty());
-                    setChanged(true);
-                }
-                if (model.getSize() <= index) {
-                    index = model.getSize() - 1;
-                }
-                if (index >= 0) {
-                    liste.setSelectedIndex(index);
-                    editor.setEntscheid((Zielrichterentscheid<T>) liste.getSelectedValue());
-                } else {
-                    remove.setEnabled(false);
-                    editor.setEntscheid(null);
-                }
+                add.setEnabled(!possible.isEmpty());
+                setChanged(true);
+            }
+            if (model.getSize() <= index) {
+                index = model.getSize() - 1;
+            }
+            if (index >= 0) {
+                liste.setSelectedIndex(index);
+                editor.setEntscheid((Zielrichterentscheid<T>) liste.getSelectedValue());
+            } else {
+                remove.setEnabled(false);
+                editor.setEntscheid(null);
             }
         });
 
@@ -188,7 +178,7 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
     }
 
     public void apply() {
-        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>();
+        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<>();
         for (int x = 0; x < model.getSize(); x++) {
             zes.addLast(model.getElementAt(x));
         }
@@ -209,7 +199,7 @@ class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
 
         possible = ZielrichterentscheidUtils.generateZielrichterentscheide(w);
         if (possible == null) {
-            possible = new LinkedList<Zielrichterentscheid<T>>();
+            possible = new LinkedList<>();
         }
 
         LinkedList<Zielrichterentscheid<T>> copy = ZielrichterentscheidUtils.createCopy(wk.getZielrichterentscheide());

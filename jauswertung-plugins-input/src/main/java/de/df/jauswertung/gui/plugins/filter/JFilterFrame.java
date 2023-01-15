@@ -8,7 +8,6 @@ import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -24,7 +23,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -51,9 +49,9 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
 
     private JPanel main;
     private JList list;
-    private ModifiableListModel<String> model = new ModifiableListModel<String>();
+    private ModifiableListModel<String> model = new ModifiableListModel<>();
     private CardLayout cards;
-    private LinkedList<JFilterPanel<T>> panels = new LinkedList<JFilterPanel<T>>();
+    private LinkedList<JFilterPanel<T>> panels = new LinkedList<>();
     private Filter[] filters = null;
     private String[] gliederungen = null;
 
@@ -85,12 +83,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
         this.parent = parent;
         callback = sc;
 
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doClose();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::doClose);
 
         gliederungen = wk.getGliederungenMitQGliederung().toArray(new String[wk.getGliederungen().size()]);
 
@@ -121,16 +114,13 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
         filters = wk.getFilter();
         String[] t = new String[filters.length];
         for (int x = 0; x < filters.length; x++) {
-            panels.addLast(new JFilterPanel<T>(this, filters[x], gliederungen, x));
+            panels.addLast(new JFilterPanel<>(this, filters[x], gliederungen, x));
             main.add(panels.getLast(), "" + x);
             t[x] = "";
         }
         model.addAll(t);
-        list.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent arg0) {
-                updateSelection();
-            }
+        list.addListSelectionListener(arg0 -> {
+            updateSelection();
         });
 
         JScrollPane scroller = new JScrollPane(list);
@@ -138,17 +128,11 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
 
         addFilter = new JTransparentButton(IconManager.getSmallIcon("new"));
         removeFilter = new JTransparentButton(IconManager.getSmallIcon("remove"));
-        addFilter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addFilter();
-            }
+        addFilter.addActionListener(arg0 -> {
+            addFilter();
         });
-        removeFilter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                removeFilter();
-            }
+        removeFilter.addActionListener(arg0 -> {
+            removeFilter();
         });
 
         JPanel p = new JPanel(
@@ -173,23 +157,14 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
         apply = new JButton(I18n.get("Apply"), IconManager.getSmallIcon("apply"));
         close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
         buttons.add(ok);
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doClose();
-            }
+        close.addActionListener(arg0 -> {
+            doClose();
         });
-        apply.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doApply();
-            }
+        apply.addActionListener(arg0 -> {
+            doApply();
         });
         buttons.add(apply);
         buttons.add(close);
@@ -223,17 +198,11 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
                 showPopup(me);
             }
         });
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addFilter();
-            }
+        add.addActionListener(arg0 -> {
+            addFilter();
         });
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                removeFilter();
-            }
+        remove.addActionListener(arg0 -> {
+            removeFilter();
         });
     }
 
@@ -371,7 +340,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
             return;
         }
         index++;
-        JFilterPanel<T> p = new JFilterPanel<T>(this, new Filter(), gliederungen, index);
+        JFilterPanel<T> p = new JFilterPanel<>(this, new Filter(), gliederungen, index);
         model.add("", index);
         panels.add(index, p);
         main.removeAll();

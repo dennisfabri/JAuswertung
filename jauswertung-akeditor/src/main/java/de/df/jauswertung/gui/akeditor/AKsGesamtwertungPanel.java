@@ -11,7 +11,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
@@ -61,30 +60,27 @@ class AKsGesamtwertungPanel extends JPanel {
 
     private void initFormeln() {
         groupEvaluation = new JCheckBox(I18n.get("EnableGroupEvaluation"));
-        groupEvaluation.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                boolean selected = groupEvaluation.isSelected();
-                boolean force = !bestTeamWithoutBlocking.isSelected();
-                allAGs.setEnabled(selected);
-                allTeams.setEnabled(selected);
-                bestTeam.setEnabled(selected);
-                best4Teams.setEnabled(selected);
-                bestTeamWithoutBlocking.setEnabled(selected);
-                bestPerDiscipline.setEnabled(selected);
-                scalePoints.setEnabled(selected);
-                medaillen.setEnabled(selected);
-                labelSeparator.setEnabled(selected);
+        groupEvaluation.addChangeListener(e -> {
+            boolean selected = groupEvaluation.isSelected();
+            boolean force = !bestTeamWithoutBlocking.isSelected();
+            allAGs.setEnabled(selected);
+            allTeams.setEnabled(selected);
+            bestTeam.setEnabled(selected);
+            best4Teams.setEnabled(selected);
+            bestTeamWithoutBlocking.setEnabled(selected);
+            bestPerDiscipline.setEnabled(selected);
+            scalePoints.setEnabled(selected);
+            medaillen.setEnabled(selected);
+            labelSeparator.setEnabled(selected);
 
-                noscale.setEnabled(selected);
-                internationalScale.setEnabled(selected);
-                internationalPerDiscipline.setEnabled(selected && force);
-                punkteanpassung.setEnabled(selected);
-                medaillen.setEnabled(selected);
+            noscale.setEnabled(selected);
+            internationalScale.setEnabled(selected);
+            internationalPerDiscipline.setEnabled(selected && force);
+            punkteanpassung.setEnabled(selected);
+            medaillen.setEnabled(selected);
 
-                if ((!force) && (internationalPerDiscipline.isSelected())) {
-                    internationalScale.setSelected(true);
-                }
+            if ((!force) && (internationalPerDiscipline.isSelected())) {
+                internationalScale.setSelected(true);
             }
         });
         allAGs = new JCheckBox(I18n.get("GliederungMussAnAllenAltersklassenTeilnehmen"));
@@ -130,16 +126,13 @@ class AKsGesamtwertungPanel extends JPanel {
         groupScale.add(internationalPerDiscipline);
         groupScale.add(medaillen);
 
-        ActionListener change = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                parent.notifyChange();
+        ActionListener change = arg0 -> {
+            parent.notifyChange();
 
-                boolean force = !bestTeamWithoutBlocking.isSelected();
-                internationalPerDiscipline.setEnabled(force);
-                if ((!force) && (internationalPerDiscipline.isSelected())) {
-                    internationalScale.setSelected(true);
-                }
+            boolean force = !bestTeamWithoutBlocking.isSelected();
+            internationalPerDiscipline.setEnabled(force);
+            if ((!force) && (internationalPerDiscipline.isSelected())) {
+                internationalScale.setSelected(true);
             }
         };
 

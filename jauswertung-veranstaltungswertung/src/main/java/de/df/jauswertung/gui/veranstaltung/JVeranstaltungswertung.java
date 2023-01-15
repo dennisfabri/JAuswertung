@@ -34,7 +34,6 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 class JVeranstaltungswertung extends JGlassFrame {
 
@@ -113,39 +112,24 @@ class JVeranstaltungswertung extends JGlassFrame {
 
     private void createMenues() {
         neu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("newfile"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                neu();
-            }
+        neu.addActionListener(e -> {
+            neu();
         });
         open = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                open();
-            }
+        open.addActionListener(e -> {
+            open();
         });
         save = new JMenuItem(I18n.get("Save"), IconManager.getSmallIcon("savefile"));
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
+        save.addActionListener(e -> {
+            save();
         });
         saveas = new JMenuItem(I18n.get("SaveAs"), IconManager.getSmallIcon("saveasfile"));
-        saveas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveas();
-            }
+        saveas.addActionListener(e -> {
+            saveas();
         });
         quit = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                close();
-            }
+        quit.addActionListener(e -> {
+            close();
         });
 
         file = new JMenu(I18n.get("File"));

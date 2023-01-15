@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -68,42 +67,27 @@ class JKampfrichterManager extends JGlassFrame {
         setSize(Math.max(getWidth(), 800), 600);
         UIStateUtils.uistatemanage(parent, this, "JKampfrichterManager");
 
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                setVisible(false);
-            }
+        WindowUtils.addEscapeAction(this, () -> {
+            setVisible(false);
         });
     }
 
     private void initMenu() {
         JMenuItem neu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("newfile"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                neu();
-            }
+        neu.addActionListener(e -> {
+            neu();
         });
         JMenuItem load = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
-        load.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                laden();
-            }
+        load.addActionListener(e -> {
+            laden();
         });
         JMenuItem save = new JMenuItem(I18n.get("Save"), IconManager.getSmallIcon("saveasfile"));
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                speichern();
-            }
+        save.addActionListener(e -> {
+            speichern();
         });
         JMenuItem exit = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        exit.addActionListener(e -> {
+            setVisible(false);
         });
 
         JMenu datei = new JMenu(I18n.get("File"));
@@ -183,11 +167,8 @@ class JKampfrichterManager extends JGlassFrame {
         setTitle(I18n.get("Refereemanagement"));
 
         close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
+        close.addActionListener(arg0 -> {
+            setVisible(false);
         });
 
         FormLayout layout = new FormLayout("4dlu,0dlu:grow,fill:default,4dlu",
@@ -218,27 +199,21 @@ class JKampfrichterManager extends JGlassFrame {
     }
 
     void updateGUI() {
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                if (teams != null) {
-                    remove(teams);
-                }
-                teams = new JKampfrichterTeamPanel(kv);
-
-                add(teams, CC.xyw(2, 2, 2, "fill,fill"));
-
-                repaint();
-
+        EDTUtils.executeOnEDT(() -> {
+            if (teams != null) {
+                remove(teams);
             }
+            teams = new JKampfrichterTeamPanel(kv);
+
+            add(teams, CC.xyw(2, 2, 2, "fill,fill"));
+
+            repaint();
+
         });
         EDTUtils.sleep();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                repaint();
-                validate();
-            }
+        SwingUtilities.invokeLater(() -> {
+            repaint();
+            validate();
         });
     }
 

@@ -47,7 +47,7 @@ public class PuppenListe<T extends ASchwimmer> {
             return null;
         }
 
-        LinkedList<String[]> ergebnis = new LinkedList<String[]>();
+        LinkedList<String[]> ergebnis = new LinkedList<>();
 
         String[] pause = new String[5];
         for (int x = 0; x < 5; x++) {
@@ -62,7 +62,7 @@ public class PuppenListe<T extends ASchwimmer> {
                 if (laufliste == null) {
                     return null;
                 }
-                if (laufliste.size() == 0) {
+                if (laufliste.isEmpty()) {
                     return null;
                 }
 

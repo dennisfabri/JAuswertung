@@ -44,7 +44,7 @@ class RegisteredTeamnamesPrinter implements Printer {
     private JButton preview;
     private JLabel filter;
     private JComboBox<String> organisation;
-    private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+    private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
     public RegisteredTeamnamesPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -69,7 +69,7 @@ class RegisteredTeamnamesPrinter implements Printer {
         // I18n.get("Organisation"), I18n.get("AgeGroup"),
         // I18n.get("Name") });
         // order.setSelectedIndex(2);
-        organisation = new JComboBox<String>(model);
+        organisation = new JComboBox<>(model);
 
         FormLayout layout = new FormLayout(
                 "0dlu,fill:default,4dlu:grow,fill:default,"

@@ -10,7 +10,7 @@ import de.df.jauswertung.daten.PropertyConstants;
 public class OWLaufliste<T extends ASchwimmer> implements Serializable {
 
     final AWettkampf<T> wk;
-    private Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<String, OWDisziplin<T>>();
+    private Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<>();
 
     public OWLaufliste(AWettkampf<T> wk) {
         if (wk == null) {
@@ -57,7 +57,7 @@ public class OWLaufliste<T extends ASchwimmer> implements Serializable {
     public OWDisziplin<T> addDisziplin(int akNummer, boolean male, int discipline, int round) {
         String id = OWDisziplin.getId(akNummer, male, discipline, round);
         if (!disziplinen.containsKey(id)) {
-            disziplinen.put(id, new OWDisziplin<T>(akNummer, male, discipline, round));
+            disziplinen.put(id, new OWDisziplin<>(akNummer, male, discipline, round));
         }
         return disziplinen.get(id);
     }

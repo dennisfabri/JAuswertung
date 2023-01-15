@@ -9,7 +9,7 @@ import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
 
-public class DPSplitter {
+public final class DPSplitter {
 
     private final String sourcefile;
     private final String nationsfile;

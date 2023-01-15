@@ -110,7 +110,7 @@ public final class IconManager {
             if (iconx == null) {
                 return null;
             }
-            iconimages = new LinkedList<Image>();
+            iconimages = new LinkedList<>();
             for (ImageIcon icon : iconx) {
                 iconimages.addLast(icon.getImage());
             }

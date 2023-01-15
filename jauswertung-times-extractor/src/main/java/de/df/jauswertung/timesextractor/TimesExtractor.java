@@ -82,16 +82,16 @@ public class TimesExtractor {
         List<Strafe> penalties = new ArrayList<>();
         penalties.addAll(s.getStrafen(x));
         penalties.addAll(s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
-        return penalties.stream().map(p -> toPenalty(p)).toArray(Penalty[]::new);
+        return penalties.stream().map(this::toPenalty).toArray(Penalty[]::new);
     }
 
     private Penalty toPenalty(Strafe str) {
         PenaltyType type = switch (str.getArt()) {
-        case DISQUALIFIKATION -> PenaltyType.Disqualified;
-        case NICHT_ANGETRETEN -> PenaltyType.DidNotStart;
-        case AUSSCHLUSS -> PenaltyType.Disqualified;
-        case NICHTS -> PenaltyType.None;
-        case STRAFPUNKTE -> PenaltyType.Points;
+        case DISQUALIFIKATION -> PenaltyType.Disqualified
+        case NICHT_ANGETRETEN -> PenaltyType.DidNotStart
+        case AUSSCHLUSS -> PenaltyType.Disqualified
+        case NICHTS -> PenaltyType.None
+        case STRAFPUNKTE -> PenaltyType.Points
         };
         return new Penalty(str.getShortname(), type, str.getStrafpunkte());
     }

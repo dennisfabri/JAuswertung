@@ -13,7 +13,7 @@ public class KampfrichterVerwaltung implements Serializable {
     private final LinkedList<KampfrichterEinheit> einheiten;
 
     public KampfrichterVerwaltung() {
-        einheiten = new LinkedList<KampfrichterEinheit>();
+        einheiten = new LinkedList<>();
     }
 
     public KampfrichterEinheit getEinheit(int x) {

@@ -39,8 +39,8 @@ public final class PropertiesTableCreator {
 
     public static <T extends ASchwimmer> JTable createTable(AWettkampf<T> wk) {
         try {
-            LinkedList<String> names = new LinkedList<String>();
-            LinkedList<String> data = new LinkedList<String>();
+            LinkedList<String> names = new LinkedList<>();
+            LinkedList<String> data = new LinkedList<>();
 
             String filtername = wk.getCurrentFilter().getName();
             if (wk.getCurrentFilterIndex() == 0) {

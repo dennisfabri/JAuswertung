@@ -5,7 +5,7 @@ import java.util.Hashtable;
 
 public class Ergebnisfreigabe implements Serializable {
 
-    private final Hashtable<String, Boolean> freigabe = new Hashtable<String, Boolean>();
+    private final Hashtable<String, Boolean> freigabe = new Hashtable<>();
 
     public Ergebnisfreigabe() {
     }

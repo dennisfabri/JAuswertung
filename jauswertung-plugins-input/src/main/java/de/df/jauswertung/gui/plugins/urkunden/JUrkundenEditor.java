@@ -224,11 +224,8 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
     private void initPopup() {
         delete = new JMenuItem(I18n.get("Remove"));
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                removeSelectedFields();
-            }
+        delete.addActionListener(arg0 -> {
+            removeSelectedFields();
         });
 
         font = new JMenuItem(I18n.get("Font"));
@@ -245,25 +242,16 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         });
 
         alignleft = new JMenuItem(I18n.get("Leftalign"), IconManager.getSmallIcon("leftalign"));
-        alignleft.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.LEFT);
-            }
+        alignleft.addActionListener(e -> {
+            setAlignment(SwingConstants.LEFT);
         });
         aligncenter = new JMenuItem(I18n.get("Centeralign"), IconManager.getSmallIcon("centeralign"));
-        aligncenter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.CENTER);
-            }
+        aligncenter.addActionListener(e -> {
+            setAlignment(SwingConstants.CENTER);
         });
         alignright = new JMenuItem(I18n.get("Rightalign"), IconManager.getSmallIcon("rightalign"));
-        alignright.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.RIGHT);
-            }
+        alignright.addActionListener(e -> {
+            setAlignment(SwingConstants.RIGHT);
         });
 
         alignment = new JMenu(I18n.get("Alignment"));
@@ -304,43 +292,28 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         JToggleButton gridButton = new JToggleButton(IconManager.getSmallIcon("grid"));
         gridButton.setToolTipText(I18n.getToolTip("SetGrid"));
         gridButton.setSelected(grid);
-        gridButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JToggleButton b = (JToggleButton) e.getSource();
-                updateGrid(b.isSelected());
-            }
+        gridButton.addActionListener(e -> {
+            JToggleButton b = (JToggleButton) e.getSource();
+            updateGrid(b.isSelected());
         });
 
         helper = new JToggleButton(I18n.get("Help"));
         helper.setSelected(true);
-        helper.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                help.setVisible(helper.isSelected());
-            }
+        helper.addActionListener(e -> {
+            help.setVisible(helper.isSelected());
         });
 
         left = new JButton(IconManager.getSmallIcon("leftalign"));
-        left.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.LEFT);
-            }
+        left.addActionListener(e -> {
+            setAlignment(SwingConstants.LEFT);
         });
         center = new JButton(IconManager.getSmallIcon("centeralign"));
-        center.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.CENTER);
-            }
+        center.addActionListener(e -> {
+            setAlignment(SwingConstants.CENTER);
         });
         right = new JButton(IconManager.getSmallIcon("rightalign"));
-        right.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setAlignment(SwingConstants.RIGHT);
-            }
+        right.addActionListener(e -> {
+            setAlignment(SwingConstants.RIGHT);
         });
 
         fontbutton = new JButton(IconManager.getSmallIcon("fonts"));
@@ -427,13 +400,10 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
     private void initMenu() {
         JMenuItem setup = new JMenuItem(I18n.get("Pagesetup"));
-        setup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean b = PageSetup.show(I18n.get("Document"));
-                if (b) {
-                    updateSize();
-                }
+        setup.addActionListener(e -> {
+            boolean b = PageSetup.show(I18n.get("Document"));
+            if (b) {
+                updateSize();
             }
         });
 
@@ -451,34 +421,22 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         });
 
         JMenuItem close = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        close.addActionListener(e -> {
+            setVisible(false);
         });
 
         JMenuItem neu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("new"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GraphUtils.clear(graph);
-            }
+        neu.addActionListener(e -> {
+            GraphUtils.clear(graph);
         });
 
         JMenuItem load = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
-        load.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                laden();
-            }
+        load.addActionListener(e -> {
+            laden();
         });
         JMenuItem save = new JMenuItem(I18n.get("Save"), IconManager.getSmallIcon("saveasfile"));
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                speichern();
-            }
+        save.addActionListener(e -> {
+            speichern();
         });
 
         JMenu file = new JMenu(I18n.get("File"));
@@ -509,12 +467,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         jgraph.setMinimumSize(d);
         jgraph.setMaximumSize(d);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                graphcontainer.updateUI();
-            }
-        });
+        SwingUtilities.invokeLater(graphcontainer::updateUI);
     }
 
     void updateGrid(boolean b) {

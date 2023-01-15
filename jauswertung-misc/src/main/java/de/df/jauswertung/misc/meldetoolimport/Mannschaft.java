@@ -15,10 +15,10 @@ public class Mannschaft {
     }
 
     public String get(String key) {
-        if (key == "Name") {
+        if ("Name".equals(key)) {
             key = "Gliederung";
         }
-        if (key == "Maennlich") {
+        if ("Maennlich".equals(key)) {
             key = "Geschlecht";
         }
         int x = 0;
@@ -67,7 +67,7 @@ public class Mannschaft {
                 // Nothing to do
             }
         }
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         for (int x = 0; x < entries.length; x++) {
             if (entries[x] > 0) {
                 data.add("" + entries[x]);

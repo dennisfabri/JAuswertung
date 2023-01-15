@@ -106,7 +106,7 @@ public final class CompetitionUtils {
             return null;
         }
         Regelwerk aks = wk.getRegelwerk();
-        Hashtable<String, int[]> medaille = new Hashtable<String, int[]>();
+        Hashtable<String, int[]> medaille = new Hashtable<>();
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 SchwimmerResult<T>[] results = ResultCalculator.getResults(wk, aks.getAk(x), y == 1);
@@ -135,7 +135,7 @@ public final class CompetitionUtils {
                 }
             }
         }
-        LinkedList<Medal> medals = new LinkedList<Medal>();
+        LinkedList<Medal> medals = new LinkedList<>();
         Enumeration<String> li = medaille.keys();
         while (li.hasMoreElements()) {
             String name = li.nextElement();
@@ -336,7 +336,7 @@ public final class CompetitionUtils {
             throw new IllegalArgumentException("Min must not be higher than max.");
         }
 
-        Hashtable<String, LinkedList<T>> teams = new Hashtable<String, LinkedList<T>>();
+        Hashtable<String, LinkedList<T>> teams = new Hashtable<>();
         {
             ListIterator<T> li = wk.getSchwimmer().listIterator();
             while (li.hasNext()) {
@@ -346,7 +346,7 @@ public final class CompetitionUtils {
 
                     LinkedList<T> ll = teams.get(team);
                     if (ll == null) {
-                        ll = new LinkedList<T>();
+                        ll = new LinkedList<>();
                         teams.put(team, ll);
                     }
                     ll.addLast(t);
@@ -397,7 +397,7 @@ public final class CompetitionUtils {
                         }
                     }
                     if (penalty) {
-                        if (m.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF).size() == 0) {
+                        if (m.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF).isEmpty()) {
                             m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
                                     new Strafe(I18n.get("MixedAgegroups"), "GA", Strafarten.DISQUALIFIKATION, 0));
                         }
@@ -407,7 +407,7 @@ public final class CompetitionUtils {
                 Altersklasse ak = wk.getRegelwerk().getAk(aknummer);
 
                 for (int i = 0; i < ak.getDiszAnzahl(); i++) {
-                    LinkedList<Result> times = new LinkedList<Result>();
+                    LinkedList<Result> times = new LinkedList<>();
                     SchwimmerResult<T>[] result = ResultCalculator.getResults(wk, ll, ak, m.isMaennlich(), null, true);
                     for (SchwimmerResult<T> sr : result) {
                         SchwimmerData<T> sd = sr.getResults()[i];
@@ -471,7 +471,7 @@ public final class CompetitionUtils {
         @SuppressWarnings("unchecked")
         LinkedList<T>[] swimmers = new LinkedList[wgs.length];
         for (int x = 0; x < swimmers.length; x++) {
-            swimmers[x] = new LinkedList<T>();
+            swimmers[x] = new LinkedList<>();
         }
 
         wk.disableUpdates();
@@ -554,7 +554,7 @@ public final class CompetitionUtils {
     }
 
     public static <T extends ASchwimmer> LinkedList<T> switchAGs(AWettkampf<T> wk) {
-        LinkedList<T> notchanged = new LinkedList<T>();
+        LinkedList<T> notchanged = new LinkedList<>();
         ListIterator<T> li = wk.getSchwimmer().listIterator();
         Regelwerk aks = wk.getRegelwerk();
         while (li.hasNext()) {
@@ -586,7 +586,7 @@ public final class CompetitionUtils {
     }
 
     public static <T extends ASchwimmer> int[][] getOrganizationAmounts(AWettkampf<T> wk) {
-        Hashtable<String, String> orgs = new Hashtable<String, String>();
+        Hashtable<String, String> orgs = new Hashtable<>();
         int[][] amounts = new int[wk.getRegelwerk().size()][2];
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             for (int y = 0; y < 2; y++) {
@@ -605,7 +605,7 @@ public final class CompetitionUtils {
     }
 
     public static <T extends ASchwimmer> int[][] getQOrganizationAmounts(AWettkampf<T> wk) {
-        Hashtable<String, String> orgs = new Hashtable<String, String>();
+        Hashtable<String, String> orgs = new Hashtable<>();
         int[][] amounts = new int[wk.getRegelwerk().size()][2];
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             for (int y = 0; y < 2; y++) {

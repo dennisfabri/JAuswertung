@@ -7,7 +7,7 @@ import de.df.jauswertung.io.IOUtils;
 import de.df.jutils.print.PageSetting;
 import de.df.jutils.print.PageSetup;
 
-public class PrinterInit {
+public final class PrinterInit {
 
     private PrinterInit() {
     }

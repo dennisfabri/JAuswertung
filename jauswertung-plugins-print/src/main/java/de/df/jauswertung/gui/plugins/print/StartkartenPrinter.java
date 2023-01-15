@@ -123,7 +123,7 @@ class StartkartenPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = () -> getPrintable();
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Startkarten"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

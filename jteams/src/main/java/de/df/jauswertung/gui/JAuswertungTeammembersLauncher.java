@@ -37,7 +37,7 @@ public final class JAuswertungTeammembersLauncher {
         if (args == null) {
             return new RemoteAction[0];
         }
-        LinkedList<RemoteAction> actions = new LinkedList<RemoteAction>();
+        LinkedList<RemoteAction> actions = new LinkedList<>();
         int x = 0;
         while (x + 1 < args.length) {
             if ((args[x] != null) && (args[x + 1] != null)) {

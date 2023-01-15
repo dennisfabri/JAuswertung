@@ -17,7 +17,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
 
@@ -105,15 +104,12 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        agegroup = new JComboBox<String>();
-        agegroup.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                if (isUpdating) {
-                    return;
-                }
-                checkWarning(core.getFilteredWettkampf());
+        agegroup = new JComboBox<>();
+        agegroup.addItemListener(arg0 -> {
+            if (isUpdating) {
+                return;
             }
+            checkWarning(core.getFilteredWettkampf());
         });
 
         panel = new JPanel(
@@ -146,8 +142,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                         | REASON_NEW_WK)) > 0) {
                     result = false;
                     int index = Math.max(0, agegroup.getSelectedIndex());
-                    LinkedList<Integer> indexlist = new LinkedList<Integer>();
-                    LinkedList<String> names = new LinkedList<String>();
+                    LinkedList<Integer> indexlist = new LinkedList<>();
+                    LinkedList<String> names = new LinkedList<>();
                     agegroup.removeAllItems();
                     Regelwerk aks = wk.getRegelwerk();
                     for (int x = 0; x < aks.size(); x++) {
@@ -166,8 +162,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                             names.addLast(wg.getName());
                         }
                     }
-                    agegroup.setModel(new DefaultComboBoxModel<String>(names.toArray(new String[names.size()])));
-                    if (names.size() == 0) {
+                    agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[names.size()])));
+                    if (names.isEmpty()) {
                         agegroup.addItem(I18n.get("Empty"));
                     }
                     indices = new int[indexlist.size()];
@@ -294,7 +290,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     }
 
     Printable getPrintable(AWettkampf<?> wk) {
-        LinkedList<ExtendedTableModel> results = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> results = new LinkedList<>();
 
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             for (int y = 0; y < 2; y++) {

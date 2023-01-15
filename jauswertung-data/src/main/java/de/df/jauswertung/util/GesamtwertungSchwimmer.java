@@ -80,7 +80,7 @@ public class GesamtwertungSchwimmer extends ASchwimmer {
 
     @Override
     public LinkedList<Strafe> getStrafen(int disz) {
-        LinkedList<Strafe> ls = new LinkedList<Strafe>();
+        LinkedList<Strafe> ls = new LinkedList<>();
         ls.addLast(getAkkumulierteStrafe(disz));
         return ls;
     }

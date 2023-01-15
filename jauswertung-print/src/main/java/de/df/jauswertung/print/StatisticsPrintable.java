@@ -50,7 +50,7 @@ public class StatisticsPrintable<T extends ASchwimmer> extends MultiplePrintable
     private static <T extends ASchwimmer> LinkedList<Printable> preparePrintables(AWettkampf<T> wk) {
         wk = Utils.copy(wk);
 
-        LinkedList<Printable> printables = new LinkedList<Printable>();
+        LinkedList<Printable> printables = new LinkedList<>();
         Printable p = createStatisticsPage(wk.getSchwimmer(), wk.getRegelwerk(), null);
         if (p != null) {
             printables.addLast(p);
@@ -74,7 +74,7 @@ public class StatisticsPrintable<T extends ASchwimmer> extends MultiplePrintable
     }
 
     private static <T extends ASchwimmer> LinkedList<Printable> generateGliederungStatsPrintables(AWettkampf<T> wk) {
-        LinkedList<Printable> printables = new LinkedList<Printable>();
+        LinkedList<Printable> printables = new LinkedList<>();
         Printable p;
         LinkedList<String> g = wk.getGliederungenMitQGliederung();
         ListIterator<String> li = g.listIterator();

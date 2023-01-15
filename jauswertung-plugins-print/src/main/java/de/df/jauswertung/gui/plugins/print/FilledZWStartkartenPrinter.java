@@ -31,7 +31,6 @@ import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PageMode;
 import de.df.jutils.print.PrintExecutor;
-import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
 /**
@@ -167,7 +166,7 @@ class FilledZWStartkartenPrinter implements Printer {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> boolean askForDetails() {
-        JDetailsDialog<T> details = new JDetailsDialog<T>(controller.getWindow(), (AWettkampf<T>) core.getWettkampf(),
+        JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), (AWettkampf<T>) core.getWettkampf(),
                 I18n.get("ZWStartkarten"), true);
         EDTUtils.setVisible(details, true);
         if (details.isOk()) {
@@ -194,12 +193,7 @@ class FilledZWStartkartenPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (askForDetails()) {
-                PrintableCreator pc = new PrintableCreator() {
-                    @Override
-                    public Printable create() {
-                        return getPrintable();
-                    }
-                };
+                PrintableCreator pc = this::getPrintable;
                 PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"),
                         IconManager.getIconBundle(), IconManager.getTitleImages());
             }

@@ -265,7 +265,7 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
             updateSwimmers(temp);
         } else if (remove) {
             boolean found = false;
-            LinkedList<SwimmerIndex> temp = new LinkedList<SwimmerIndex>();
+            LinkedList<SwimmerIndex> temp = new LinkedList<>();
             for (int x = 0; x < swimmers.length; x++) {
                 if (swimmers[x].equals(s) && (indizes[x] == pos)) {
                     found = true;

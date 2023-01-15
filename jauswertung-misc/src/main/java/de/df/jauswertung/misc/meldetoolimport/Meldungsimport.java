@@ -10,12 +10,12 @@ import de.df.jutils.util.StringTools;
 
 class Meldungsimport {
 
-    private ArrayList<Hashtable<String, String>> rows = new ArrayList<Hashtable<String, String>>();
+    private ArrayList<Hashtable<String, String>> rows = new ArrayList<>();
 
     Meldungsimport(String file) {
         Object[][] data = CsvUtils.read(file);
         for (int y = 1; y < data.length; y++) {
-            Hashtable<String, String> row = new Hashtable<String, String>();
+            Hashtable<String, String> row = new Hashtable<>();
             for (int x = 0; x < data[0].length; x++) {
                 row.put(data[0][x].toString(), data[y][x].toString());
             }
@@ -55,7 +55,7 @@ class Meldungsimport {
             // Team
             System.out.println("  Team mode");
 
-            Hashtable<String, ArrayList<Hashtable<String, String>>> groupedRows = new Hashtable<String, ArrayList<Hashtable<String, String>>>();
+            Hashtable<String, ArrayList<Hashtable<String, String>>> groupedRows = new Hashtable<>();
             for (int x = 0; x < rows.size(); x++) {
                 Hashtable<String, String> row = rows.get(x);
                 String key = createKey(zos.GetTyp(), row.get("Mannschaftsname"), row.get("Geschlecht"));
@@ -64,7 +64,7 @@ class Meldungsimport {
                 if (groupedRows.containsKey(key)) {
                     list = groupedRows.get(key);
                 } else {
-                    list = new ArrayList<Hashtable<String, String>>();
+                    list = new ArrayList<>();
                     groupedRows.put(key, list);
                 }
                 list.add(row);
@@ -140,7 +140,7 @@ class Meldungsimport {
         @SuppressWarnings("unchecked")
         Mannschaft m = new Mannschaft(members.toArray(new Hashtable[members.size()]));
 
-        ArrayList<Object> row = new ArrayList<Object>();
+        ArrayList<Object> row = new ArrayList<>();
         String gldstr = getGliederung(m);
 
         System.out.println(gldstr);
@@ -185,7 +185,7 @@ class Meldungsimport {
     }
 
     private Object[] berechneZeile(Hashtable<String, String> entry, Zuordnung zos, Gliederungen gld) {
-        ArrayList<Object> row = new ArrayList<Object>();
+        ArrayList<Object> row = new ArrayList<>();
         String gldstr = entry.get("Gliederung");
         if (gldstr == null || gldstr.trim().length() == 0) {
             gldstr = entry.get("Mannschaftsname");

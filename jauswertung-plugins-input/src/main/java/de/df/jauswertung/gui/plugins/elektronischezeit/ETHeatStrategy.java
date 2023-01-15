@@ -39,9 +39,9 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
     private final IPluginManager controller;
     private final IPlugin plugin;
 
-    private LinkedList<OWSelection> rounds = new LinkedList<OWSelection>();
-    private Hashtable<String, IdSelection> roundsById = new Hashtable<String, IdSelection>();
-    private Hashtable<Integer, OWInfo> heatids = new Hashtable<Integer, OWInfo>();
+    private LinkedList<OWSelection> rounds = new LinkedList<>();
+    private Hashtable<String, IdSelection> roundsById = new Hashtable<>();
+    private Hashtable<Integer, OWInfo> heatids = new Hashtable<>();
 
     public ETHeatStrategy(IPluginManager controller, IPlugin plugin, JFrame parent, AWettkampf<T> w) {
         wk = w;

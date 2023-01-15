@@ -13,7 +13,7 @@ public class ExportSQL {
         WriteAG(true);
     }
 
-    private static HashSet<String> disciplines = new HashSet<String>();
+    private static HashSet<String> disciplines = new HashSet<>();
 
     private static void WriteAG(boolean einzel) {
         Regelwerk rwe = AgeGroupIOUtils.getDefaultAKs(einzel);

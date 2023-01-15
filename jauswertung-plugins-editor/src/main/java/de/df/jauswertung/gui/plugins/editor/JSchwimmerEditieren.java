@@ -14,7 +14,6 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -64,7 +63,6 @@ import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.util.StringTools;
 
 class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
@@ -225,11 +223,8 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             ak.addItem(r.getAk(x).toString());
         }
         ak.setSelectedIndex(AltersklassenUtils.getAkNummer(schwimmer.getAK(), wk.getRegelwerk()));
-        ak.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateDisciplinePanel();
-            }
+        ak.addItemListener(arg0 -> {
+            updateDisciplinePanel();
         });
         ausserkonkurrenz.setSelected(schwimmer.isAusserKonkurrenz());
 

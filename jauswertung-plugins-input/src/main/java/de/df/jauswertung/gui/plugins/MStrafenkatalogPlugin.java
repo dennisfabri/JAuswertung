@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -39,12 +38,9 @@ public class MStrafenkatalogPlugin extends ANullPlugin {
         menu = new JMenuItem[1];
         menu[0] = new JMenuItem(ITEM);
         menu[0].setToolTipText(I18n.getToolTip("PenaltyCatalogue"));
-        menu[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                PenaltyUIUtils.showPenalties(controller.getWindow(), core.getStrafen());
+        menu[0].addActionListener(arg0 -> {
+            PenaltyUIUtils.showPenalties(controller.getWindow(), core.getStrafen());
 
-            }
         });
     } /*
        * (non-Javadoc)

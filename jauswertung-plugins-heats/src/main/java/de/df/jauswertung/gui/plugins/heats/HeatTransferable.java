@@ -34,7 +34,7 @@ class HeatTransferable<T extends ASchwimmer> implements Transferable {
     }
 
     public HeatTransferable(SchwimmerDisziplin<T> data, JComponent source) {
-        this.container = new DnDContainer<T>(data, source);
+        this.container = new DnDContainer<>(data, source);
     }
 
     @Override

@@ -120,11 +120,11 @@ public final class Launcher {
     }
 
     private static void launchAlphaServer() {
-        EDTUtils.executeOnEDT(() -> JCollector.run());
+        EDTUtils.executeOnEDT(JCollector::run);
     }
 
     private static void launchVeranstaltungswertung() {
-        EDTUtils.executeOnEDT(() -> Veranstaltungswertung.start());
+        EDTUtils.executeOnEDT(Veranstaltungswertung::start);
     }
 
     private static void launchVeranstaltungswertung(String filename) {

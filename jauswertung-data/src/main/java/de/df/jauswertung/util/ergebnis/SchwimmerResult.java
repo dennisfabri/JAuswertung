@@ -25,7 +25,7 @@ public class SchwimmerResult<T extends ASchwimmer> {
     public SchwimmerResult(T s) {
         schwimmer = s;
         strafe = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-        results = new LinkedList<SchwimmerData<T>>();
+        results = new LinkedList<>();
     }
 
     public void add(SchwimmerData<T> result) {

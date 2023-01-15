@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.uisettings;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -122,20 +121,12 @@ public class UIModeWindow extends JFrame {
             }
         });
 
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doSave();
-            }
+        ok.addActionListener(e -> {
+            doSave();
         });
 
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doExit();
-            }
+        cancel.addActionListener(e -> {
+            doExit();
         });
     }
 

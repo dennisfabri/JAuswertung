@@ -38,7 +38,7 @@ public final class ZielrichterentscheidPrintable<T extends ASchwimmer> extends C
             return null;
         }
 
-        LinkedList<Component> components = new LinkedList<Component>();
+        LinkedList<Component> components = new LinkedList<>();
         for (Zielrichterentscheid<T> ze : zes[0]) {
             components.addLast(getPanel(ze));
         }

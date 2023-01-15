@@ -65,7 +65,7 @@ public class JStarterPerDiscipline extends JPanel {
 
     private void initStarter() {
         String[] mm = schwimmer.getMitgliedernamen();
-        LinkedList<String> mmx = new LinkedList<String>();
+        LinkedList<String> mmx = new LinkedList<>();
         mmx.add("");
         for (String m : mm) {
             mmx.add(m);

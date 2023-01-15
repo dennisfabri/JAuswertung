@@ -156,7 +156,7 @@ public class ImportUtils {
     static <T extends ASchwimmer> Hashtable<String, String[]> tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
             String[] sheets, Object[][][] tables, String file) throws TableEntryException, TableException {
 
-        Hashtable<String, String[]> result = new Hashtable<String, String[]>();
+        Hashtable<String, String[]> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
         int valid = 0;
@@ -1195,7 +1195,7 @@ public class ImportUtils {
 
     static <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> tablesToZWResult(AWettkampf<T> wk, Feedback fb,
             String[] sheets, Object[][][] tables, String file) throws TableException, TableEntryException {
-        Hashtable<ZWStartnummer, Double> result = new Hashtable<ZWStartnummer, Double>();
+        Hashtable<ZWStartnummer, Double> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
         int valid = 0;
         for (int y = 0; y < tables.length; y++) {
@@ -1383,7 +1383,7 @@ public class ImportUtils {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
         boolean einzel = (w instanceof EinzelWettkampf);
-        LinkedList<T> result = new LinkedList<T>();
+        LinkedList<T> result = new LinkedList<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
         int valid = 0;
@@ -1455,7 +1455,7 @@ public class ImportUtils {
             KampfrichterEinheit ke = kv.getEinheit(x);
             String[] positionen = ke.getPositionen();
             for (String aPositionen : positionen) {
-                ke.setKampfrichter(aPositionen, new LinkedList<Kampfrichter>());
+                ke.setKampfrichter(aPositionen, new LinkedList<>());
             }
         }
         int referees = 0;
@@ -1483,7 +1483,7 @@ public class ImportUtils {
             try {
                 indizes = identifyIndizes(wk, titles, false, false, file, sheet);
 
-                LinkedList<String> missing = new LinkedList<String>();
+                LinkedList<String> missing = new LinkedList<>();
 
                 if (indizes[CATEGORY] < 0) {
                     missing.addLast(I18n.get("Category"));

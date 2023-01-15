@@ -28,7 +28,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
@@ -200,62 +199,41 @@ public class JAKsEditor extends JGlassFrame {
         JMenu datei = new JMenu(I18n.get("File"));
         JMenuItem neu = new JMenuItem(I18n.get("New"));
         neu.setIcon(IconManager.getSmallIcon("newfile"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                neueAK.setVisible(true);
-                if (neueAK.getAltersklassen() != null) {
-                    doNew(neueAK.getAltersklassen(), neueAK.isEinzelAltersklassen());
-                }
+        neu.addActionListener(arg0 -> {
+            neueAK.setVisible(true);
+            if (neueAK.getAltersklassen() != null) {
+                doNew(neueAK.getAltersklassen(), neueAK.isEinzelAltersklassen());
             }
         });
 
         JMenuItem open = new JMenuItem(I18n.get("Open"));
         open.setIcon(IconManager.getSmallIcon("openfile"));
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOpen();
-            }
+        open.addActionListener(e -> {
+            doOpen();
         });
         JMenuItem save = new JMenuItem(I18n.get("Save"));
         save.setIcon(IconManager.getSmallIcon("savefile"));
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doSave();
-            }
+        save.addActionListener(e -> {
+            doSave();
         });
         JMenuItem saveas = new JMenuItem(I18n.get("SaveAs"));
         saveas.setIcon(IconManager.getSmallIcon("saveasfile"));
-        saveas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doSaveAs();
-            }
+        saveas.addActionListener(e -> {
+            doSaveAs();
         });
 
         JMenuItem preview = new JMenuItem(I18n.get("Preview"));
-        preview.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                preview();
-            }
+        preview.addActionListener(e -> {
+            preview();
         });
         JMenuItem print = new JMenuItem(I18n.get("Print"), IconManager.getSmallIcon("print"));
-        print.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                print();
-            }
+        print.addActionListener(e -> {
+            print();
         });
 
         JMenuItem schliessen = new JMenuItem(I18n.get("Close"));
-        schliessen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doClose();
-            }
+        schliessen.addActionListener(e -> {
+            doClose();
         });
         if (fullAccess) {
             datei.add(neu);
@@ -340,17 +318,14 @@ public class JAKsEditor extends JGlassFrame {
         // tabs.add(I18n.get("Resultgroups"), groupspanel);
         tabs.add(I18n.get("GroupEvaluation"), gesamtwertung);
 
-        tabs.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent evt) {
-                JTabbedPane pane = (JTabbedPane) evt.getSource();
-                // int sel = pane.getSelectedIndex();
-                // boolean active = sel == 1;
-                boolean active = pane.getSelectedComponent() == editor;
-                JMenu[] menues = editor.getMenues();
-                for (JMenu menue : menues) {
-                    menue.setEnabled(active);
-                }
+        tabs.addChangeListener(evt -> {
+            JTabbedPane pane = (JTabbedPane) evt.getSource();
+            // int sel = pane.getSelectedIndex();
+            // boolean active = sel == 1;
+            boolean active = pane.getSelectedComponent() == editor;
+            JMenu[] menues = editor.getMenues();
+            for (JMenu menue : menues) {
+                menue.setEnabled(active);
             }
         });
         tabs.setSelectedIndex(2);
@@ -380,26 +355,17 @@ public class JAKsEditor extends JGlassFrame {
         JPanel buttons = new JPanel(layout);
         ok = new JButton(I18n.get("Ok"));
         ok.setIcon(IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         apply = new JButton(I18n.get("Apply"));
         apply.setIcon(IconManager.getSmallIcon("apply"));
-        apply.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doApply();
-            }
+        apply.addActionListener(e -> {
+            doApply();
         });
         cancel = new JButton(I18n.get("Close"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doClose();
-            }
+        cancel.addActionListener(e -> {
+            doClose();
         });
         if (!fullAccess) {
             buttons.add(ok, CC.xy(2, 1));

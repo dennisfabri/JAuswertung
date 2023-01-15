@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.filter;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -54,11 +53,8 @@ public class FilterPlugin extends ANullPlugin {
         }
         menu = new JMenuItem(I18n.get("OutputFilter"));
         menu.setToolTipText(I18n.getToolTip("DefineOutputFilter"));
-        menu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                changeFilters();
-            }
+        menu.addActionListener(arg0 -> {
+            changeFilters();
         });
 
         mi = new MenuInfo[1];
@@ -69,14 +65,11 @@ public class FilterPlugin extends ANullPlugin {
         if (bi != null) {
             return;
         }
-        il = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                updateButtonSelection();
-            }
+        il = arg0 -> {
+            updateButtonSelection();
         };
 
-        filters = new JComboBox<Filter>();
+        filters = new JComboBox<>();
         filters.setToolTipText(I18n.getToolTip("SelectOutputFilter"));
         filters.setEnabled(false);
 
@@ -106,7 +99,7 @@ public class FilterPlugin extends ANullPlugin {
             filters.removeItemListener(il);
             filters.removeAllItems();
 
-            filters.setModel(new DefaultComboBoxModel<Filter>(core.getWettkampf().getFilter()));
+            filters.setModel(new DefaultComboBoxModel<>(core.getWettkampf().getFilter()));
             if (core.getWettkampf().isHeatBased()) {
                 filters.setSelectedIndex(0);
                 filters.addItemListener(il);
@@ -153,12 +146,7 @@ public class FilterPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     void changeFilters() {
-        ISimpleCallback<JFilterFrame> sc = new ISimpleCallback<JFilterFrame>() {
-            @Override
-            public void callback(JFilterFrame jfd) {
-                internalCallback(jfd);
-            }
-        };
+        ISimpleCallback<JFilterFrame> sc = this::internalCallback;
         JFilterFrame jfd = new JFilterFrame(getController().getWindow(), core.getWettkampf(), sc);
         ModalFrameUtil.showAsModal(jfd, getController().getWindow());
     }

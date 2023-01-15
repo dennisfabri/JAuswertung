@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.timelimit;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -36,20 +35,14 @@ public class TimeLimitsPlugin extends ANullPlugin {
 
     public TimeLimitsPlugin() {
         edit = new JMenuItem(I18n.get("Edit"));
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showEditor();
-            }
+        edit.addActionListener(arg0 -> {
+            showEditor();
         });
         edit.setToolTipText(I18n.getToolTip("Edit"));
 
         check = new JMenuItem(I18n.get("Check"));
-        check.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                // showEditor(false);
-            }
+        check.addActionListener(arg0 -> {
+            // showEditor(false);
         });
         check.setToolTipText(I18n.getToolTip("Check"));
         check.setEnabled(true);

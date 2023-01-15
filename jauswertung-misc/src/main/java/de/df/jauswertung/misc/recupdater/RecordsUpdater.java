@@ -25,7 +25,7 @@ public class RecordsUpdater {
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
 
-        LinkedList<IImporter> importers = new LinkedList<IImporter>();
+        LinkedList<IImporter> importers = new LinkedList<>();
         // importers.add(new CompetitionImporter("dem2022-einzel.wk", "DEM2022"));
         importers.add(new CompetitionImporter("dem2022-mannschaft.wk", "DEM2022"));
         // importers.add(new CompetitionImporter("dmm2022-einzel.wk", "DMM2022"));
@@ -125,7 +125,7 @@ public class RecordsUpdater {
 
             Record t = li.next();
 
-            LinkedList<Object> row = new LinkedList<Object>();
+            LinkedList<Object> row = new LinkedList<>();
 
             row.addLast(t.getCompetition());
             row.addLast(t.getAgegroup());
@@ -176,7 +176,7 @@ public class RecordsUpdater {
 
     private static LinkedList<Record> tablesToRecords(Feedback fb, String[] titles, Object[][][] tables)
             throws Exception {
-        LinkedList<Record> records = new LinkedList<Record>();
+        LinkedList<Record> records = new LinkedList<>();
 
         for (int i = 0; i < titles.length; i++) {
             String title = titles[i];

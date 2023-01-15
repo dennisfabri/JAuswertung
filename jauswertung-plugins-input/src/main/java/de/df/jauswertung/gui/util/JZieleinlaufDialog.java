@@ -81,11 +81,8 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
             buttons = p;
         } else {
             JButton ok = new JButton(I18n.get("Ok"));
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                }
+            ok.addActionListener(e -> {
+                setVisible(false);
             });
             buttons = ok;
         }

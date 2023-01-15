@@ -139,7 +139,7 @@ public class ResultUtils {
                     if (owd.akNummer == akn && owd.maennlich == (z == 1)) {
                         OWDisziplin<T> neu = llNeu.addDisziplin(owd.disziplin, z == 1, 0, owd.round);
                         for (OWLauf<T> lauf : owd.laeufe) {
-                            OWLauf<T> laufNeu = new OWLauf<T>(w, neu.Id, lauf, false);
+                            OWLauf<T> laufNeu = new OWLauf<>(w, neu.Id, lauf, false);
                             neu.laeufe.add(laufNeu);
                         }
                     }
@@ -245,12 +245,12 @@ public class ResultUtils {
             // return null;
         }
 
-        LinkedList<Zielrichterentscheid<T>> neuezes = new LinkedList<Zielrichterentscheid<T>>();
+        LinkedList<Zielrichterentscheid<T>> neuezes = new LinkedList<>();
         LinkedList<Zielrichterentscheid<T>> zes = ZielrichterentscheidUtils.checkZielrichterentscheide(wk)[0];
         ListIterator<Zielrichterentscheid<T>> li = zes.listIterator();
         while (li.hasNext()) {
             Zielrichterentscheid<T> ze = li.next();
-            Zielrichterentscheid<T> neu = new Zielrichterentscheid<T>();
+            Zielrichterentscheid<T> neu = new Zielrichterentscheid<>();
             for (T t : ze.getSchwimmer()) {
                 if (t.getAKNummer() == akn) {
                     LinkedList<T> ll = SearchUtils.getSchwimmer(w, w.getRegelwerk().getAk(ze.getDisziplin()),
@@ -296,7 +296,7 @@ public class ResultUtils {
             boolean removeEmpty) {
         wk = Utils.copy(wk);
         Wertungsgruppe wg = wk.getRegelwerk().getWertungsgruppe(wgname);
-        LinkedList<T> teilnehmer = new LinkedList<T>();
+        LinkedList<T> teilnehmer = new LinkedList<>();
         int index = -1;
         wk.disableUpdates();
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
@@ -466,7 +466,7 @@ public class ResultUtils {
                     .getRunden()[t1.round];
             SchwimmerResult<T>[] results = ResultCalculator.getResults(wk1, wk1.getRegelwerk().getAk(0), t.male);
 
-            HashSet<Integer> sn = new HashSet<Integer>();
+            HashSet<Integer> sn = new HashSet<>();
             for (SchwimmerResult<T> r : results) {
                 SchwimmerData<T> rs = r.getResults()[0];
                 if (rs.getRank() >= 0 && rs.getRank() <= qualified) {
@@ -520,7 +520,7 @@ public class ResultUtils {
 
         for (T s : new ArrayList<T>(wk.getSchwimmer())) {
             int zeit = 0;
-            LinkedList<Strafe> strafen = new LinkedList<Strafe>();
+            LinkedList<Strafe> strafen = new LinkedList<>();
             if (d != null) {
                 T sx = SearchUtils.getSchwimmer(wk, s.getStartnummer());
                 zeit = sx.getZeit(d.Id);

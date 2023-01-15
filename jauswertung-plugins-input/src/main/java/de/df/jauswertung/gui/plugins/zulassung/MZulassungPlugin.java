@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.zulassung;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JMenu;
@@ -34,23 +33,14 @@ public class MZulassungPlugin extends ANullPlugin {
         menu.add(reset);
         menu.add(delete);
 
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startWizard();
-            }
+        neu.addActionListener(e -> {
+            startWizard();
         });
-        reset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                reset();
-            }
+        reset.addActionListener(e -> {
+            reset();
         });
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                delete();
-            }
+        delete.addActionListener(e -> {
+            delete();
         });
     }
 

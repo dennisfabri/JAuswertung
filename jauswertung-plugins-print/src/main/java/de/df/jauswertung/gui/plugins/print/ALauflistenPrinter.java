@@ -145,7 +145,7 @@ abstract class ALauflistenPrinter implements Printer {
             }
         });
 
-        ArrayList<AWettkampf<?>> wkx = new ArrayList<AWettkampf<?>>();
+        ArrayList<AWettkampf<?>> wkx = new ArrayList<>();
         for (OWSelection s : t) {
             wkx.add(createCompetitionFor(s));
         }
@@ -163,12 +163,9 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null && t.length > 0) {
-                            printLaufliste(t, comments.isSelected());
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null && t.length > 0) {
+                        printLaufliste(t, comments.isSelected());
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
@@ -200,13 +197,10 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null && t.length > 0) {
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(getCompetitions(t)),
-                                    getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null && t.length > 0) {
+                        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(getCompetitions(t)),
+                                getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",

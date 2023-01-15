@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.zielrichterentscheid;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -25,7 +24,7 @@ import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 @SuppressWarnings("serial")
-class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
+final class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
 
     private JList liste = new JList();
     private final JFrame parent;
@@ -69,12 +68,7 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
         add(getButtons(), CC.xy(2, 4));
 
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
 
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         pack();
@@ -101,18 +95,12 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
         JPanel p = new JPanel(layout);
 
         JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        cancel.addActionListener(e -> {
+            setVisible(false);
         });
 
         p.add(ok, CC.xy(2, 2));
@@ -127,7 +115,7 @@ class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
 
     public static <T extends ASchwimmer> Zielrichterentscheid<T> getZielrichterentscheid(JFrame parent,
             LinkedList<Zielrichterentscheid<T>> zes) {
-        JZESelectionDialog<T> jzes = new JZESelectionDialog<T>(parent, zes);
+        JZESelectionDialog<T> jzes = new JZESelectionDialog<>(parent, zes);
         jzes.setVisible(true);
         return jzes.getResult();
     }

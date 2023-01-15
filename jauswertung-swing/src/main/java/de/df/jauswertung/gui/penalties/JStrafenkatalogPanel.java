@@ -3,7 +3,6 @@ package de.df.jauswertung.gui.penalties;
 import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -19,9 +18,7 @@ import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -54,7 +51,7 @@ class JStrafenkatalogPanel extends JPanel {
 
     private JTree kategorien = new JTree(root);
 
-    private JList<Strafe> strafen = new JList<Strafe>();
+    private JList<Strafe> strafen = new JList<>();
     private JLabel name = new JLabel();
     private JLabel paragraph = new JLabel();
     private JLabel strafpunkte = new JLabel();
@@ -140,19 +137,13 @@ class JStrafenkatalogPanel extends JPanel {
         } else {
             ok = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
         }
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
         JButton abbrechen = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
         abbrechen.setVisible(aktiv);
-        abbrechen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                doCancel();
-            }
+        abbrechen.addActionListener(evt -> {
+            doCancel();
         });
 
         FormLayout buttonLayout;
@@ -406,17 +397,11 @@ class JStrafenkatalogPanel extends JPanel {
     }
 
     private void initListeners(boolean mayselect) {
-        kategorien.addTreeSelectionListener(new TreeSelectionListener() {
-            @Override
-            public void valueChanged(TreeSelectionEvent e) {
-                paragraphSelected();
-            }
+        kategorien.addTreeSelectionListener(e -> {
+            paragraphSelected();
         });
-        strafen.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent evt) {
-                strafeSelected();
-            }
+        strafen.addListSelectionListener(evt -> {
+            strafeSelected();
         });
         if (mayselect) {
             strafen.addMouseListener(new MouseAdapter() {

@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.urkunden;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,7 +17,6 @@ import com.l2fprod.common.fontchooser.JFontChooser;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 class JFontDialog extends JDialog {
 
@@ -31,18 +29,12 @@ class JFontDialog extends JDialog {
         super(parent, I18n.get("Font"), true);
 
         JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        cancel.addActionListener(e -> {
+            setVisible(false);
         });
 
         FormLayout layout = new FormLayout("4dlu,0px:grow,fill:default,4dlu,fill:default,4dlu",

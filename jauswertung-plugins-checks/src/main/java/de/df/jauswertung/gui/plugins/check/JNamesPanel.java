@@ -101,7 +101,7 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         for (String gld : glds) {
             LinkedList<Teilnehmer> swimmers = SearchUtils.getSchwimmer(wk, new String[] { gld }, false);
             if ((swimmers != null) && (!swimmers.isEmpty())) {
-                LinkedList<ASchwimmer> result = new LinkedList<ASchwimmer>();
+                LinkedList<ASchwimmer> result = new LinkedList<>();
                 for (Teilnehmer s : swimmers) {
                     if (!fits(s)) {
                         result.addLast(s);

@@ -159,7 +159,8 @@ public final class Utils {
     }
 
     private static class FastClonerHashtable implements IFastCloner {
-        @SuppressWarnings({ "unchecked", "rawtypes" })
+        @Override
+        @SuppressWarnings({"unchecked", "rawtypes"})
         public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
             final Hashtable<Object, Object> m = (Hashtable) t;
             final Hashtable<Object, Object> result = new Hashtable<>();
@@ -171,6 +172,7 @@ public final class Utils {
     }
 
     private static class FastClonerDate implements IFastCloner {
+        @Override
         public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
             final Date m = (Date) t;
             return new Date(m.getTime());

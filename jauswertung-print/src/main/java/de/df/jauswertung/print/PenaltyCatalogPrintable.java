@@ -35,7 +35,7 @@ public class PenaltyCatalogPrintable<T extends ASchwimmer> extends ComponentList
         Strafen strafen = wk.getStrafen();
         ListIterator<StrafenKapitel> chapters = strafen.getKapitel().listIterator();
 
-        LinkedList<Component> text = new LinkedList<Component>();
+        LinkedList<Component> text = new LinkedList<>();
 
         while (chapters.hasNext()) {
             StrafenKapitel chapter = chapters.next();

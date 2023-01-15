@@ -146,9 +146,7 @@ public final class InputManager {
             if (o != null) {
                 return o;
             }
-        } catch (IOException ef) {
-            // ef.printStackTrace();
-        } catch (RuntimeException ef) {
+        } catch (IOException | RuntimeException ef) {
             // ef.printStackTrace();
         }
         try {
@@ -159,9 +157,7 @@ public final class InputManager {
             if (o != null) {
                 return o;
             }
-        } catch (IOException ef) {
-            // ef.printStackTrace();
-        } catch (RuntimeException ef) {
+        } catch (IOException | RuntimeException ef) {
             // ef.printStackTrace();
         }
         try {
@@ -172,10 +168,7 @@ public final class InputManager {
             if (o != null) {
                 return o;
             }
-        } catch (RuntimeException ef1) {
-            // ef1.printStackTrace();
-            return null;
-        } catch (IOException ef1) {
+        } catch (RuntimeException | IOException ef1) {
             // ef1.printStackTrace();
             return null;
         }
@@ -189,9 +182,7 @@ public final class InputManager {
             Hashtable<String, Object> o = ladeObjekte(zf);
             zf.close();
             return o;
-        } catch (IOException ef) {
-            // Nothing to do
-        } catch (RuntimeException ef) {
+        } catch (IOException | RuntimeException ef) {
             // Nothing to do
         }
         try {
@@ -245,7 +236,7 @@ public final class InputManager {
 
     public static synchronized Hashtable<String, Object> ladeObjekte(InputStream is) {
         try {
-            Hashtable<String, Object> result = new Hashtable<String, Object>();
+            Hashtable<String, Object> result = new Hashtable<>();
 
             // Try to read XML-Data from Zip-File
             ZipInputStream zis = new ZipInputStream(is);

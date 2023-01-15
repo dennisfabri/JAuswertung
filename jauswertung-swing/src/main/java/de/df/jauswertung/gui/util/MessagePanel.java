@@ -45,7 +45,7 @@ public class MessagePanel extends JPanel {
             labels[x] = new JLabel();
             shown[x] = false;
         }
-        text = new LinkedList<String>();
+        text = new LinkedList<>();
 
         FormLayout layout = new FormLayout("4dlu,10dlu,fill:default:grow,4dlu",
                 FormLayoutUtils.createLayoutString(length + 1));

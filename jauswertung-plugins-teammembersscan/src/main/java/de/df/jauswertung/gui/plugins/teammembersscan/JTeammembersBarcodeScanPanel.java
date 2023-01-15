@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.teammembersscan;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -40,7 +39,6 @@ import de.df.jutils.graphics.ColorUtils;
 import de.df.jutils.gui.JDottingLabel;
 import de.df.jutils.gui.JSignal;
 import de.df.jutils.gui.JWarningTextField;
-import de.df.jutils.gui.JWarningTextField.Validator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
@@ -457,14 +455,11 @@ class JTeammembersBarcodeScanPanel extends JPanel {
     private JPanel createInputPanel() {
         input = new JWarningTextField(false, true);
         input.addFocusListener(new ResettingFocusAdapter());
-        input.setValidator(new Validator() {
-            @Override
-            public boolean validate(String value) {
-                if (input.getText().length() == 0) {
-                    return true;
-                }
-                return TeamUtils.checkBarcode(input.getText().trim());
+        input.setValidator(value -> {
+            if (input.getText().length() == 0) {
+                return true;
             }
+            return TeamUtils.checkBarcode(input.getText().trim());
         });
         input.addKeyListener(new KeyAdapter() {
             @Override
@@ -488,11 +483,8 @@ class JTeammembersBarcodeScanPanel extends JPanel {
 
         enter = new JButton(I18n.get("Apply"));
         enter.addFocusListener(new ResettingFocusAdapter());
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enterValue();
-            }
+        enter.addActionListener(e -> {
+            enterValue();
         });
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
@@ -510,27 +502,15 @@ class JTeammembersBarcodeScanPanel extends JPanel {
     private JPanel createIdPanel() {
         exportId = new JLabel();
         generateId = new JButton(I18n.get("Generate"));
-        generateId.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                core.getMannschaftWettkampf().createTeammembersRegistrationsId();
-                parent.sendDataUpdateEvent("ExportId", UpdateEventConstants.REASON_TEAMMEMBERS_EXPORTID_CHANGED);
-            }
+        generateId.addActionListener(e -> {
+            core.getMannschaftWettkampf().createTeammembersRegistrationsId();
+            parent.sendDataUpdateEvent("ExportId", UpdateEventConstants.REASON_TEAMMEMBERS_EXPORTID_CHANGED);
         });
         helpId = new JButton(I18n.get("Help.Short"));
-        helpId.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        helpId.addActionListener(e -> {
         });
         listIds = new JButton(I18n.get("ListIds"));
-        listIds.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        listIds.addActionListener(e -> {
         });
 
         listIds.setEnabled(false);
@@ -646,12 +626,9 @@ class JTeammembersBarcodeScanPanel extends JPanel {
     final class ResettingFocusAdapter extends FocusAdapter {
         @Override
         public void focusLost(FocusEvent e) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    if (!(input.hasFocus())) {
-                        clear(false, false);
-                    }
+            SwingUtilities.invokeLater(() -> {
+                if (!(input.hasFocus())) {
+                    clear(false, false);
                 }
             });
         }

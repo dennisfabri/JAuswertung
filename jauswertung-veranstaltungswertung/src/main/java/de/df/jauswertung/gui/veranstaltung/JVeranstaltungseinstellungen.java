@@ -89,16 +89,13 @@ class JVeranstaltungseinstellungen extends JPanel {
         groupScale.add(internationalPerDiscipline);
         groupScale.add(medaillen);
 
-        ActionListener change = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                parent.setModified();
+        ActionListener change = arg0 -> {
+            parent.setModified();
 
-                boolean force = !bestTeamWithoutBlocking.isSelected();
-                internationalPerDiscipline.setEnabled(force);
-                if ((!force) && (internationalPerDiscipline.isSelected())) {
-                    internationalScale.setSelected(true);
-                }
+            boolean force = !bestTeamWithoutBlocking.isSelected();
+            internationalPerDiscipline.setEnabled(force);
+            if ((!force) && (internationalPerDiscipline.isSelected())) {
+                internationalScale.setSelected(true);
             }
         };
 

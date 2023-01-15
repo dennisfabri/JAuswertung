@@ -26,7 +26,7 @@ public class StrafenKapitel implements Serializable {
     private String kapitel;
 
     public StrafenKapitel(int kap) {
-        paragraphen = new LinkedList<StrafenParagraph>();
+        paragraphen = new LinkedList<>();
         name = "";
         kapitel = "" + kap;
     }
@@ -81,7 +81,7 @@ public class StrafenKapitel implements Serializable {
     }
 
     public LinkedList<StrafenParagraph> getParagraphen() {
-        return new LinkedList<StrafenParagraph>(paragraphen);
+        return new LinkedList<>(paragraphen);
     }
 
     public void removeParagraph(StrafenParagraph sp) {

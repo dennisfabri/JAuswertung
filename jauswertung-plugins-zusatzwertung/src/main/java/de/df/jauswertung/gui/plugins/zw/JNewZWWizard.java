@@ -21,7 +21,6 @@ import static de.df.jauswertung.daten.PropertyConstants.ZW_STARTTIME;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.LinkedList;
 
 import javax.swing.ButtonGroup;
@@ -63,7 +62,6 @@ import de.df.jutils.gui.jlist.JListUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -605,11 +603,8 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
 
             auto = new JRadioButton(I18n.get("Automatic"), true);
             custom = new JRadioButton(I18n.get("Custom"), false);
-            custom.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    list.setEnabled(custom.isSelected());
-                }
+            custom.addItemListener(e -> {
+                list.setEnabled(custom.isSelected());
             });
             list = new JSmoothList<HLWListe.Einteilung>(wk.getHLWListe().getVerteilung());
             list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -700,12 +695,7 @@ final class JNewZWWizard extends JWizardDialog implements FinishListener, Cancel
     public void finish() {
         EDTUtils.setEnabled(this, false);
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                finishHLW();
-            }
-        });
+        EDTUtils.executeOnEDT(this::finishHLW);
 
         @SuppressWarnings("rawtypes")
         SwingWorker sw = new SwingWorker<Boolean, Object>() {

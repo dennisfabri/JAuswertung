@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JDialog;
@@ -34,11 +33,8 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
 
     public MTipOfTheDayPlugin() {
         item.setToolTipText(I18n.getToolTip("TipOfTheDay"));
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showTips();
-            }
+        item.addActionListener(arg0 -> {
+            showTips();
         });
     }
 
@@ -74,14 +70,11 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
     }
 
     void showTips() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (dialog == null) {
-                    dialog = createDialog();
-                }
-                dialog.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            if (dialog == null) {
+                dialog = createDialog();
             }
+            dialog.setVisible(true);
         });
     }
 
@@ -103,12 +96,7 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
     }
 
     void showTipAtStartup() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                showTipAtStartupI();
-            }
-        });
+        SwingUtilities.invokeLater(this::showTipAtStartupI);
     }
 
     void showTipAtStartupI() {

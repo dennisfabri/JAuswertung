@@ -13,7 +13,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -55,11 +54,8 @@ public class MPenaltylistPlugin extends ANullPlugin {
     public MPenaltylistPlugin() {
         item = new JMenuItem(I18n.get("Penaltylist"), IconManager.getSmallIcon("penalty"));
         item.setToolTipText(I18n.getToolTip("Penaltylist"));
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showPenalties();
-            }
+        item.addActionListener(e -> {
+            showPenalties();
         });
     }
 

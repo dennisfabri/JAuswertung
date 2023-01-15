@@ -19,29 +19,29 @@ public final class FormelManager {
 
     private static FormelManager instance = new FormelManager();
 
-    private Hashtable<String, Formel<ASchwimmer>> formeln = new Hashtable<String, Formel<ASchwimmer>>();
+    private Hashtable<String, Formel<ASchwimmer>> formeln = new Hashtable<>();
 
-    private LinkedList<Formel<ASchwimmer>> flist = new LinkedList<Formel<ASchwimmer>>();
-    private LinkedList<Formel<ASchwimmer>> publicFlist = new LinkedList<Formel<ASchwimmer>>();
+    private LinkedList<Formel<ASchwimmer>> flist = new LinkedList<>();
+    private LinkedList<Formel<ASchwimmer>> publicFlist = new LinkedList<>();
 
     /**
      * 
      */
     private FormelManager() {
-        add(new FormelDLRG<ASchwimmer>(), false);
-        add(new FormelDLRG2007<ASchwimmer>());
-        add(new FormelDLRG2007Finals<ASchwimmer>());
-        add(new FormelILS<ASchwimmer>());
-        add(new FormelILSSERC<ASchwimmer>());
-        add(new FormelILSOutdoor<ASchwimmer>());
-        add(new FormelILSFinals<ASchwimmer>());
-        add(new FormelILSOutdoorFinals<ASchwimmer>());
-        add(new FormelDP<ASchwimmer>());
-        add(new FormelDSV<ASchwimmer>(), false);
-        add(new FormelFeuerwehr2005<ASchwimmer>(), false);
-        add(new FormelMedaillen<ASchwimmer>(), false);
-        add(new FormelLinear<ASchwimmer>());
-        add(new FormelDirectPoints<ASchwimmer>(), false);
+        add(new FormelDLRG<>(), false);
+        add(new FormelDLRG2007<>());
+        add(new FormelDLRG2007Finals<>());
+        add(new FormelILS<>());
+        add(new FormelILSSERC<>());
+        add(new FormelILSOutdoor<>());
+        add(new FormelILSFinals<>());
+        add(new FormelILSOutdoorFinals<>());
+        add(new FormelDP<>());
+        add(new FormelDSV<>(), false);
+        add(new FormelFeuerwehr2005<>(), false);
+        add(new FormelMedaillen<>(), false);
+        add(new FormelLinear<>());
+        add(new FormelDirectPoints<>(), false);
     }
 
     public static FormelManager getInstance() {

@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -42,11 +41,8 @@ public class WarningPlugin extends AFeature {
             }
 
             JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SwingUtilities.getWindowAncestor((Component) e.getSource()).setVisible(false);
-                }
+            ok.addActionListener(e -> {
+                SwingUtilities.getWindowAncestor((Component) e.getSource()).setVisible(false);
             });
             JCheckBox always = new JCheckBox(I18n.get("DoNotAskAgain"));
 
@@ -86,11 +82,8 @@ public class WarningPlugin extends AFeature {
             }
 
             JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SwingUtilities.getWindowAncestor((Component) e.getSource()).setVisible(false);
-                }
+            ok.addActionListener(e -> {
+                SwingUtilities.getWindowAncestor((Component) e.getSource()).setVisible(false);
             });
             JCheckBox always = new JCheckBox(I18n.get("DoNotAskAgain"));
 

@@ -59,10 +59,10 @@ public final class OWUtils {
 
     public static <T extends ASchwimmer> OWSelection[] getCreatedRounds(AWettkampf<T> wk, boolean onlyLatest) {
         Regelwerk rw = wk.getRegelwerk();
-        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(
+        LinkedList<OWDisziplin<T>> dx = new LinkedList<>(
                 Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
-        List<OWSelection> daten = new ArrayList<OWSelection>();
+        List<OWSelection> daten = new ArrayList<>();
         for (OWDisziplin<T> d : dx) {
             boolean selected = true;
             if (onlyLatest) {
@@ -85,12 +85,12 @@ public final class OWUtils {
 
     public static <T extends ASchwimmer> OWSelection[] getCurrentRounds(AWettkampf<T> wk) {
         Regelwerk rw = wk.getRegelwerk();
-        LinkedList<OWDisziplin<T>> dx = new LinkedList<OWDisziplin<T>>(
+        LinkedList<OWDisziplin<T>> dx = new LinkedList<>(
                 Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
-        HashSet<String> ids = new HashSet<String>(dx.stream().map(s -> s.Id).collect(Collectors.toList()));
+        HashSet<String> ids = new HashSet<>(dx.stream().map(s -> s.Id).collect(Collectors.toList()));
 
-        List<OWSelection> daten = new ArrayList<OWSelection>();
+        List<OWSelection> daten = new ArrayList<>();
         for (OWDisziplin<T> d : dx) {
             String id = OWDisziplin.getId(d.akNummer, d.maennlich, d.disziplin, d.round + 1);
             if (!ids.contains(id)) {
@@ -105,7 +105,7 @@ public final class OWUtils {
     }
 
     public static OWSelection[] getCreatableRounds(AWettkampf<ASchwimmer> wk) {
-        List<OWSelection> daten = new ArrayList<OWSelection>();
+        List<OWSelection> daten = new ArrayList<>();
         Regelwerk rw = wk.getRegelwerk();
         for (int x = 0; x < rw.size(); x++) {
             Altersklasse ak = rw.getAk(x);

@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -94,18 +93,8 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         pack();
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         // setExtendedState(Frame.MAXIMIZED_BOTH);
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                close();
-            }
-        });
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                enterTimes();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::close);
+        WindowUtils.addEnterAction(this, this::enterTimes);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -121,8 +110,8 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
                 "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
-        heat = new JHeatPanel<T>(this);
-        time = new JTimePanel<T>(this, heat);
+        heat = new JHeatPanel<>(this);
+        time = new JTimePanel<>(this, heat);
         heat.setTimePanel(time);
         time.setDirectMatching(strategy.isDirectMatching());
 
@@ -136,18 +125,12 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         layout.setColumnGroups(new int[][] { { 2, 4 } });
         JPanel p = new JPanel(layout);
         update = new JButton(I18n.get("Update"), IconManager.getSmallIcon("update"));
-        update.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                update();
-            }
+        update.addActionListener(e -> {
+            update();
         });
         close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                close();
-            }
+        close.addActionListener(e -> {
+            close();
         });
 
         p.add(update, CC.xy(2, 2));

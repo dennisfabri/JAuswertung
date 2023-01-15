@@ -48,22 +48,14 @@ public class JResultsSelectionButton extends JToggleButton {
     private JButton[] plus = new JButton[0];
     private JButton[] minus = new JButton[0];
 
-    private ActionListener plusAL = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton b = (JButton) (e.getSource());
-            selectColumn(Integer.parseInt(b.getName()));
-        }
+    private ActionListener plusAL = e -> {
+        JButton b = (JButton) (e.getSource());
+        selectColumn(Integer.parseInt(b.getName()));
     };
 
-    private ActionListener minusAL = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton b = (JButton) (e.getSource());
-            unselectColumn(Integer.parseInt(b.getName()));
-        }
+    private ActionListener minusAL = e -> {
+        JButton b = (JButton) (e.getSource());
+        unselectColumn(Integer.parseInt(b.getName()));
     };
 
     public JResultsSelectionButton(IWettkampfProvider core) {
@@ -332,7 +324,7 @@ public class JResultsSelectionButton extends JToggleButton {
 
     @SuppressWarnings("rawtypes")
     public AgegroupResultSelection[] getSelection(AWettkampf wk) {
-        LinkedList<AgegroupResultSelection> result = new LinkedList<AgegroupResultSelection>();
+        LinkedList<AgegroupResultSelection> result = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < indizes.length; x++) {
             if (indizes[x] >= 0) {
@@ -343,7 +335,7 @@ public class JResultsSelectionButton extends JToggleButton {
     }
 
     private LinkedList<AgegroupResultSelection> getResultForAgegroup(int i, int ak, Altersklasse ag) {
-        LinkedList<AgegroupResultSelection> result = new LinkedList<AgegroupResultSelection>();
+        LinkedList<AgegroupResultSelection> result = new LinkedList<>();
         for (int x = 0; x < 2; x++) {
             boolean[] times = new boolean[ag.getDiszAnzahl()];
             boolean[] penalties = new boolean[ag.getDiszAnzahl()];

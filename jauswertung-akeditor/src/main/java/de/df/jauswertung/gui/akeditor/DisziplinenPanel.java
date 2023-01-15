@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
@@ -25,7 +24,6 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
@@ -96,18 +94,18 @@ class DisziplinenPanel extends JPanel {
 
     public DisziplinenPanel(AKEditorPanel p, Altersklasse aks) {
         parent = p;
-        disziplinen = new LinkedList<JTextField>();
-        recw = new LinkedList<JIntegerField>();
-        recm = new LinkedList<JIntegerField>();
-        recwt = new LinkedList<JTimeField>();
-        recmt = new LinkedList<JTimeField>();
+        disziplinen = new LinkedList<>();
+        recw = new LinkedList<>();
+        recm = new LinkedList<>();
+        recwt = new LinkedList<>();
+        recmt = new LinkedList<>();
         roundsw = new LinkedList<int[]>();
         roundIdsw = new LinkedList<int[]>();
         roundsm = new LinkedList<int[]>();
         roundIdsm = new LinkedList<int[]>();
 
-        lengths = new LinkedList<JIntegerField>();
-        laps = new LinkedList<JIntegerField>();
+        lengths = new LinkedList<>();
+        laps = new LinkedList<>();
 
         count = 0;
         plusButton = new JTransparentButton();
@@ -206,24 +204,16 @@ class DisziplinenPanel extends JPanel {
     private JIntegerField createIntegerField(boolean required) {
         JIntegerField df = new JIntegerField(JTimeField.MAX_TIME, required, required);
         if (!required) {
-            df.setValidator(new Validator() {
-                @Override
-                public boolean validate(int value) {
-                    value = value / 100;
-                    if ((value % 100) >= 60) {
-                        return false;
-                    }
-                    value = value / 100;
-                    return value < 1000;
+            df.setValidator(value -> {
+                value = value / 100;
+                if ((value % 100) >= 60) {
+                    return false;
                 }
+                value = value / 100;
+                return value < 1000;
             });
         } else {
-            df.setValidator(new Validator() {
-                @Override
-                public boolean validate(int value) {
-                    return value > 0;
-                }
-            });
+            df.setValidator(value -> value > 0);
         }
         df.setColumns(8);
         df.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -246,20 +236,14 @@ class DisziplinenPanel extends JPanel {
 
     private void prepareComponents(Altersklasse aks) {
         plusButton.setIcon(IconManager.getSmallIcon("more"));
-        plusButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addRow();
-                notifyChange();
-            }
+        plusButton.addActionListener(e -> {
+            addRow();
+            notifyChange();
         });
         minusButton.setIcon(IconManager.getSmallIcon("less"));
-        minusButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeRow();
-                notifyChange();
-            }
+        minusButton.addActionListener(e -> {
+            removeRow();
+            notifyChange();
         });
 
         if (aks == null) {

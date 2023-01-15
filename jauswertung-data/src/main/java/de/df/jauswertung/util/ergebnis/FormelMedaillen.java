@@ -88,8 +88,8 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
         Arrays.sort(sold, new ILSComparator());
 
         // LinkedList<SchwimmerData> zero = new LinkedList<SchwimmerData>();
-        LinkedList<SchwimmerData> sd = new LinkedList<SchwimmerData>();
-        LinkedList<SchwimmerData> others = new LinkedList<SchwimmerData>();
+        LinkedList<SchwimmerData> sd = new LinkedList<>();
+        LinkedList<SchwimmerData> others = new LinkedList<>();
         for (SchwimmerData aSwimmer : swimmer) {
             if ((aSwimmer.getTime() == 0) || (aSwimmer.getStrafart() == Strafarten.AUSSCHLUSS)
                     || (aSwimmer.getStrafart() == Strafarten.DISQUALIFIKATION)

@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.heatsow.define;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -43,17 +42,11 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
         add = new JTransparentButton(IconManager.getSmallIcon("more"));
         remove = new JTransparentButton(IconManager.getSmallIcon("less"));
 
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addRound();
-            }
+        add.addActionListener(e -> {
+            addRound();
         });
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeRound();
-            }
+        remove.addActionListener(e -> {
+            removeRound();
         });
 
         rebuildUI();

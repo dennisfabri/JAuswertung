@@ -129,7 +129,7 @@ class ListOfMedalsPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        LinkedList<ExtendedTableModel> results = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> results = new LinkedList<>();
 
         AWettkampf<?> wk = Utils.copy(core.getFilteredWettkampf());
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {

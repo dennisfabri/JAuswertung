@@ -35,7 +35,7 @@ class DocumentsEinzelwertungPrinter extends APerDisciplinePrinter {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification) {
-        LinkedList<Printable> ll = new LinkedList<Printable>();
+        LinkedList<Printable> ll = new LinkedList<>();
         Printable p = GraphUtils.getPrintable(wk, selected, true);
         if (p != null) {
             ll.add(p);

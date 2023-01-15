@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.check;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -35,22 +34,16 @@ public class MMissingInputPlugin extends ANullPlugin {
     public MMissingInputPlugin() {
         button = new JButton(IconManager.getSmallIcon("check"));
         button.setToolTipText(I18n.getToolTip("CheckInput"));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showWindow();
-            }
+        button.addActionListener(arg0 -> {
+            showWindow();
         });
 
         menu = new JMenuItem[1];
         menu[0] = new JMenuItem(I18n.get("CheckInput"), IconManager.getSmallIcon("check"));
         menu[0].setToolTipText(I18n.getToolTip("CheckInput"));
         menu[0].setEnabled(false);
-        menu[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showWindow();
-            }
+        menu[0].addActionListener(arg0 -> {
+            showWindow();
         });
         menu[0].setAccelerator(I18n.getKeyStroke("checkdata"));
 

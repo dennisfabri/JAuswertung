@@ -13,8 +13,8 @@ public class KampfrichterEinheit implements Serializable {
     private static final long serialVersionUID = -5183109430325434863L;
 
     private String name = "";
-    private LinkedList<KampfrichterPosition> positionen = new LinkedList<KampfrichterPosition>();
-    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter = new Hashtable<String, LinkedList<Kampfrichter>>();
+    private LinkedList<KampfrichterPosition> positionen = new LinkedList<>();
+    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter = new Hashtable<>();
 
     public KampfrichterEinheit(String name) {
         if (name == null) {
@@ -122,7 +122,7 @@ public class KampfrichterEinheit implements Serializable {
         }
         LinkedList<Kampfrichter> karis = kampfrichter.get(position);
         if (karis == null) {
-            karis = new LinkedList<Kampfrichter>();
+            karis = new LinkedList<>();
             kampfrichter.put(position, karis);
         }
         karis.addLast(kr);
@@ -194,7 +194,7 @@ public class KampfrichterEinheit implements Serializable {
     }
 
     public String[][] getInhalt() {
-        LinkedList<String[]> result = new LinkedList<String[]>();
+        LinkedList<String[]> result = new LinkedList<>();
         for (KampfrichterPosition pos : positionen) {
             LinkedList<Kampfrichter> karis = kampfrichter.get(pos.getPosition());
             boolean empty = true;
@@ -234,7 +234,7 @@ public class KampfrichterEinheit implements Serializable {
 
     public void clearInput() {
         for (KampfrichterPosition s : positionen) {
-            LinkedList<Kampfrichter> kr = new LinkedList<Kampfrichter>();
+            LinkedList<Kampfrichter> kr = new LinkedList<>();
             kr.addLast(new Kampfrichter());
             kampfrichter.put(s.getPosition(), kr);
         }

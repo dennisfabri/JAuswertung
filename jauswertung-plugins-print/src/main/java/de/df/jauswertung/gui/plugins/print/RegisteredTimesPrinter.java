@@ -125,15 +125,15 @@ class RegisteredTimesPrinter implements Printer {
         if (!wk.hasSchwimmer()) {
             return null;
         }
-        LinkedList<ExtendedTableModel> result = new LinkedList<ExtendedTableModel>();
+        LinkedList<ExtendedTableModel> result = new LinkedList<>();
 
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 LinkedList<ASchwimmer> schwimmer = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
                 if ((schwimmer != null) && (schwimmer.size() > 0)) {
-                    Collections.sort(schwimmer, new SchwimmerGliederungVergleicher<ASchwimmer>());
-                    Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher<ASchwimmer>());
+                    Collections.sort(schwimmer, new SchwimmerGliederungVergleicher<>());
+                    Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher<>());
                     ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer,
                             DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
                     etm.setName(aks.getAk(x).getName() + " " + I18n.geschlechtToString(aks, y == 1));

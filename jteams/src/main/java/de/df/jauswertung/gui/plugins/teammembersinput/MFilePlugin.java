@@ -140,12 +140,7 @@ public class MFilePlugin extends ANullPlugin {
         empty.setEnabled(false);
         recent[recentlyFiles.getLength()] = empty;
 
-        recentlyFiles.addListener(new RecentlyUsedFiles.ChangeListener() {
-            @Override
-            public void changed() {
-                updateRecentlyUsedFiles();
-            }
-        });
+        recentlyFiles.addListener(this::updateRecentlyUsedFiles);
 
         updateRecentlyUsedFiles();
     }

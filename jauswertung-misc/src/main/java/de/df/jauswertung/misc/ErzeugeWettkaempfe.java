@@ -229,7 +229,7 @@ public final class ErzeugeWettkaempfe {
                 if (pos.equals("Zeitnehmer")) {
                     anzahl = wk.getIntegerProperty(PropertyConstants.HEATS_LANES) * 2;
                 }
-                LinkedList<Kampfrichter> karis = new LinkedList<Kampfrichter>();
+                LinkedList<Kampfrichter> karis = new LinkedList<>();
                 for (int x = 0; x < anzahl; x++) {
                     int zahl = rng.nextInt(6);
                     KampfrichterStufe stufe = KampfrichterStufe.KEINE;

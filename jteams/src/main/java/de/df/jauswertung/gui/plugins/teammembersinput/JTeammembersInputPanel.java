@@ -17,7 +17,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.CC;
@@ -134,17 +133,13 @@ class JTeammembersInputPanel extends JPanel {
         JTableUtils.setAlternatingTableCellRenderer(teamstable);
         ColumnFittingMouseAdapter.enable(teamstable);
 
-        teamstable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = teamstable.getSelectedRow();
-                if (index >= 0 && index < teams.length) {
-                    setSelectedTeam(teams[index]);
-                } else {
-                    setSelectedTeam(null);
-                }
+        teamstable.getSelectionModel().addListSelectionListener(e -> {
+            int index = teamstable.getSelectedRow();
+            if (index >= 0 && index < teams.length) {
+                setSelectedTeam(teams[index]);
+            } else {
+                setSelectedTeam(null);
             }
-
         });
 
         return new JScrollPane(teamstable);
@@ -330,7 +325,7 @@ class JTeammembersInputPanel extends JPanel {
                             lastname[x].setAutoSelectAll(true);
                             year[x] = new JIntegerField(3000, false, true);
                             year[x].setAutoSelectAll(true);
-                            sex[x] = new JComboBox<String>(new String[] { I18n.get("sex1"), I18n.get("sex2"), "-" });
+                            sex[x] = new JComboBox<>(new String[] { I18n.get("sex1"), I18n.get("sex2"), "-" });
 
                             firstname[x].getDocument().addDocumentListener(new InputChangedListener(x));
                             lastname[x].getDocument().addDocumentListener(new InputChangedListener(x));

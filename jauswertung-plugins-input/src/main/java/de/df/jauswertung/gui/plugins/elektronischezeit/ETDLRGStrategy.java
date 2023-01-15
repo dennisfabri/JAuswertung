@@ -153,12 +153,9 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
                 if (times[x] <= 0) {
                     t.addStrafe(disz, wk.getStrafen().getNichtAngetreten());
                     t.setZeit(disz, 0);
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, t,
-                                    disz, plugin);
-                        }
+                    SwingUtilities.invokeLater(() -> {
+                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, t,
+                                disz, plugin);
                     });
                 } else {
                     t.setZeit(disz, times[x]);
@@ -171,12 +168,9 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
                         }
                     }
                     t.setStrafen(disz, ls);
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, disz,
-                                    plugin);
-                        }
+                    SwingUtilities.invokeLater(() -> {
+                        controller.sendDataUpdateEvent("SetTime", REASON_POINTS_CHANGED | REASON_PENALTY, t, disz,
+                                plugin);
                     });
                 }
             }
@@ -188,16 +182,13 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         @SuppressWarnings("rawtypes")
         Lauf lauf = wk.getLaufliste().getLaufliste().get(heatnr);
         ASchwimmer s = lauf.getSchwimmer(row);
-        s.setStrafen(lauf.getDisznummer(row), new LinkedList<Strafe>());
+        s.setStrafen(lauf.getDisznummer(row), new LinkedList<>());
 
         int diszNummer = lauf.getDisznummer(row);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
-                        plugin);
-            }
+        SwingUtilities.invokeLater(() -> {
+            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                    plugin);
         });
 
     }
@@ -211,12 +202,9 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
         int diszNummer = lauf.getDisznummer(row);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
-                        plugin);
-            }
+        SwingUtilities.invokeLater(() -> {
+            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                    plugin);
         });
     }
 
@@ -229,12 +217,9 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
         int diszNummer = lauf.getDisznummer(row);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
-                        plugin);
-            }
+        SwingUtilities.invokeLater(() -> {
+            controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, s, diszNummer,
+                    plugin);
         });
     }
 

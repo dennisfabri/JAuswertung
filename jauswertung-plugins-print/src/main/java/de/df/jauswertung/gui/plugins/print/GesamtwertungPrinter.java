@@ -76,11 +76,8 @@ class GesamtwertungPrinter implements Printer {
 
         type = new JComboBox(new Object[] { I18n.get("Organization"), I18n.get("Qualifikationsebene") });
         type.setSelectedIndex(0);
-        type.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                dataUpdated(null, core.getWettkampf(), core.getFilteredWettkampf());
-            }
+        type.addActionListener(arg0 -> {
+            dataUpdated(null, core.getWettkampf(), core.getFilteredWettkampf());
         });
 
         panel.add(filter, CC.xy(2, 2));
@@ -171,12 +168,7 @@ class GesamtwertungPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

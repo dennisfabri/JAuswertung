@@ -124,7 +124,7 @@ public class SchwimmerDisziplin<T extends ASchwimmer>
         boolean agegroup = ((mode & MODE_EXTENDED_BY_AGEGROUP) > 0);
         boolean disciplineboolean = ((mode & MODE_EXTENDED_BY_DISCIPLINE) > 0);
 
-        ArrayList<String> extensions = new ArrayList<String>();
+        ArrayList<String> extensions = new ArrayList<>();
 
         if (swimmer instanceof Teilnehmer) {
             Teilnehmer t = (Teilnehmer) swimmer;
@@ -159,7 +159,7 @@ public class SchwimmerDisziplin<T extends ASchwimmer>
             name1 = swimmer.getName();
         }
 
-        LinkedList<String> text = new LinkedList<String>();
+        LinkedList<String> text = new LinkedList<>();
 
         if (name2 != null) {
             text.addLast(

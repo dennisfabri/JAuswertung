@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -24,7 +23,6 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -82,25 +80,16 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
 
     private JPanel createHeatSelector() {
         previous = new JTransparentButton(IconManager.getSmallIcon("previous"));
-        previous.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                previousHeat();
-            }
+        previous.addActionListener(e -> {
+            previousHeat();
         });
         next = new JTransparentButton(IconManager.getSmallIcon("next"));
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nextHeat();
-            }
+        next.addActionListener(e -> {
+            nextHeat();
         });
-        heat = new JComboBox<String>(strategy.getHeatnames());
-        heat.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateHeat();
-            }
+        heat = new JComboBox<>(strategy.getHeatnames());
+        heat.addActionListener(e -> {
+            updateHeat();
         });
 
         FormLayout layout = new FormLayout("0dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu",
@@ -165,16 +154,13 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         for (int y = 0; y < lanes; y++) {
             inputs[y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
             inputs[y].setToolTipText(I18n.getToolTip("TimeInputField"));
-            inputs[y].setValidator(new Validator() {
-                @Override
-                public boolean validate(int value) {
-                    value = value / 100;
-                    if ((value % 100) >= 60) {
-                        return false;
-                    }
-                    value = value / 100;
-                    return value < 1000;
+            inputs[y].setValidator(value -> {
+                value = value / 100;
+                if ((value % 100) >= 60) {
+                    return false;
                 }
+                value = value / 100;
+                return value < 1000;
             });
             inputs[y].getDocument().addDocumentListener(new TimeListener(y));
             inputs[y].setAutoSelectAll(true);
@@ -348,13 +334,10 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // }
                 // });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'p');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'p');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -376,13 +359,10 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // }
                 // });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'c');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'c');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -404,13 +384,10 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 // }
                 // });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'm');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'm');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -418,22 +395,16 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         private void showZieleinlauf(int heatnr, int row, String zeit) {
             if ((zeit.length() == 1)
                     || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                        inputs[index].setText(x);
-                        // zeigeZieleinlauf();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
+                    inputs[index].setText(x);
+                    // zeigeZieleinlauf();
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -443,23 +414,17 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
          */
         private void setNoPenalty(int heatnr, int row, String zeit) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, '#'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), '#');
-                        inputs[index].setText(x);
-                        heatinfo[4][index].setText("");
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), '#');
+                    inputs[index].setText(x);
+                    heatinfo[4][index].setText("");
                 });
                 strategy.setNoPenalty(heatnr, row);
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), '#');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), '#');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -470,22 +435,16 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         private void setDisqualifikation(int heatnr, int row, String zeit) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'd'))) {
                 strategy.setDisqualification(heatnr, row);
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'd');
-                        inputs[index].setText(x);
-                        updateHeat();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'd');
+                    inputs[index].setText(x);
+                    updateHeat();
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'd');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'd');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }
@@ -496,22 +455,16 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         private void setNA(int heatnr, int row, String zeit) {
             if ((zeit.equals("n"))) {
                 strategy.setNA(heatnr, row);
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'n');
-                        inputs[index].setText(x);
-                        updateHeat();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'n');
+                    inputs[index].setText(x);
+                    updateHeat();
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'n');
-                        inputs[index].setText(x);
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String x = StringTools.removeAll(inputs[index].getText(), 'n');
+                    inputs[index].setText(x);
+                    Toolkit.getDefaultToolkit().beep();
                 });
             }
         }

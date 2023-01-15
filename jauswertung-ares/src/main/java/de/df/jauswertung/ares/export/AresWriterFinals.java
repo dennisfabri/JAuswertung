@@ -24,7 +24,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 
-public class AresWriterFinals {
+public final class AresWriterFinals {
 
     private AresWriterFinals() {
     }
@@ -113,7 +113,7 @@ public class AresWriterFinals {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
         // 0; "25 m" ; 25 ;1
-        Hashtable<String, Integer> disziplinen = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> disziplinen = new Hashtable<>();
         for (AWettkampf<T> wk : wks) {
             writeLaengen(wk.getRegelwerk(), ps, disziplinen);
         }
@@ -160,7 +160,7 @@ public class AresWriterFinals {
         // 3; "Schleppen e Puppe" ;"SP"
         // 4; "Vermischt " ;"ME"
 
-        Hashtable<String, String> shorts = new Hashtable<String, String>();
+        Hashtable<String, String> shorts = new Hashtable<>();
         for (String[] sn : shortnames) {
             shorts.put(sn[0].toLowerCase(), sn[1]);
         }
@@ -169,9 +169,9 @@ public class AresWriterFinals {
         ps.println("idStyle;Style;StyleAbrév");
         Enumeration<String> dis = disziplinen.keys();
 
-        Hashtable<Integer, String> reverse = new Hashtable<Integer, String>();
+        Hashtable<Integer, String> reverse = new Hashtable<>();
 
-        LinkedList<Integer> ids = new LinkedList<Integer>();
+        LinkedList<Integer> ids = new LinkedList<>();
         while (dis.hasMoreElements()) {
             String d = dis.nextElement();
             int id = disziplinen.get(d);
@@ -407,7 +407,7 @@ public class AresWriterFinals {
         return sn;
     }
 
-    private static Hashtable<String, Integer> snMapping = new Hashtable<String, Integer>();
+    private static Hashtable<String, Integer> snMapping = new Hashtable<>();
     private static int nextSN = 1;
 
     private static <T extends ASchwimmer> int writeNames(AWettkampf<T> wk, PrintStream ps, int offset)

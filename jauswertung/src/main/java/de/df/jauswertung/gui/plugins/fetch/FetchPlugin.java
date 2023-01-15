@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.fetch;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JMenuItem;
@@ -36,11 +35,8 @@ public class FetchPlugin extends ANullPlugin {
         if (menu == null) {
             item = new JMenuItem(I18n.get("FetchCompetition"));
             item.setToolTipText(I18n.getToolTip("FetchCompetition"));
-            item.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    showWindow();
-                }
+            item.addActionListener(arg0 -> {
+                showWindow();
             });
             item.setAccelerator(I18n.getKeyStroke("FetchCompetition"));
 

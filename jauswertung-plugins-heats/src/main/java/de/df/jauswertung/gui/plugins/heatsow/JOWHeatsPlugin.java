@@ -121,7 +121,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void ablaufDefinieren() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        JOWHeatsEditWindow<ASchwimmer> w = new JOWHeatsEditWindow<ASchwimmer>(wk, new ISimpleCallback<Boolean>() {
+        JOWHeatsEditWindow<ASchwimmer> w = new JOWHeatsEditWindow<>(wk, new ISimpleCallback<Boolean>() {
 
             @Override
             public void callback(Boolean t) {
@@ -140,13 +140,10 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void loescheLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-            @Override
-            public void callback(OWSelection[] t) {
-                if (t != null) {
-                    for (OWSelection s : t) {
-                        loescheLaufliste(s);
-                    }
+        ISimpleCallback<OWSelection[]> cb = []t -> {
+            if (t != null) {
+                for (OWSelection s : t) {
+                    loescheLaufliste(s);
                 }
             }
         };
@@ -162,21 +159,18 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private void bearbeiteLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
-        ISimpleCallback<OWSelection> cb = new ISimpleCallback<OWSelection>() {
-            @Override
-            public void callback(OWSelection t) {
-                if (t != null) {
-                    OWSelection s = t;
-                    AWettkampf<ASchwimmer> wkx = core.getWettkampf();
-                    OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
-                    if (d == null || d.isEmpty()) {
-                        DialogUtils.inform(getController().getWindow(),
-                                "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                                "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
-                        return;
-                    }
-                    bearbeiteLaufliste(s);
+        ISimpleCallback<OWSelection> cb = t -> {
+            if (t != null) {
+                OWSelection s = t;
+                AWettkampf<ASchwimmer> wkx = core.getWettkampf();
+                OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
+                if (d == null || d.isEmpty()) {
+                    DialogUtils.inform(getController().getWindow(),
+                            "Die Laufliste ist leer und kann nicht bearbeitet werden.",
+                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
+                    return;
                 }
+                bearbeiteLaufliste(s);
             }
         };
         OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
@@ -186,21 +180,18 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private void zeigeLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
-        ISimpleCallback<OWSelection> cb = new ISimpleCallback<OWSelection>() {
-            @Override
-            public void callback(OWSelection t) {
-                if (t != null) {
-                    OWSelection s = t;
-                    AWettkampf<ASchwimmer> wkx = core.getWettkampf();
-                    OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
-                    if (d == null || d.isEmpty()) {
-                        DialogUtils.inform(getController().getWindow(),
-                                "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                                "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
-                        return;
-                    }
-                    zeigeLaufliste(s);
+        ISimpleCallback<OWSelection> cb = t -> {
+            if (t != null) {
+                OWSelection s = t;
+                AWettkampf<ASchwimmer> wkx = core.getWettkampf();
+                OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
+                if (d == null || d.isEmpty()) {
+                    DialogUtils.inform(getController().getWindow(),
+                            "Die Laufliste ist leer und kann nicht bearbeitet werden.",
+                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
+                    return;
                 }
+                zeigeLaufliste(s);
             }
         };
         OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",

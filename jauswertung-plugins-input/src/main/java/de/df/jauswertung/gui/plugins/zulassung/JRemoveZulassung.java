@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.zulassung;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -25,10 +24,9 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 
-public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
+public final class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
 
     private IPluginManager controller;
     private AWettkampf<T> wk;
@@ -111,18 +109,12 @@ public class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
                 new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu", "0dlu,fill:default,4dlu"));
 
         JButton ok = new JButton(I18n.get("Remove"), IconManager.getSmallIcon("remove"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("close"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        cancel.addActionListener(e -> {
+            setVisible(false);
         });
 
         if (!enabled) {

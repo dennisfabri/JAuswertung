@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.statistics;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -33,7 +32,7 @@ public class JQualiOrganizationDetailPanel extends JGlassPanel<JPanel> {
 
     private static final long serialVersionUID = 8023494074221318513L;
 
-    private Hashtable<String, JComponent> presentation = new Hashtable<String, JComponent>();
+    private Hashtable<String, JComponent> presentation = new Hashtable<>();
     private CardLayout cards = new CardLayout();
     private JPanel view = new JPanel(cards);
 
@@ -71,11 +70,8 @@ public class JQualiOrganizationDetailPanel extends JGlassPanel<JPanel> {
 
         final JComboBox box = new JComboBox(g);
         if (g.length > 0) {
-            box.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    changeSelection(box);
-                }
+            box.addItemListener(e -> {
+                changeSelection(box);
             });
             box.setSelectedIndex(0);
             changeSelection(box);

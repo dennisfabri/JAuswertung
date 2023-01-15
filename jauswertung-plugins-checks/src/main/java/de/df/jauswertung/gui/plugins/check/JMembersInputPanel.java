@@ -107,7 +107,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
             return;
         }
         MannschaftWettkampf wk = (MannschaftWettkampf) xwk;
-        LinkedList<TeamContainer> nomembers = new LinkedList<TeamContainer>();
+        LinkedList<TeamContainer> nomembers = new LinkedList<>();
 
         LinkedList<Mannschaft> swimmerlist = wk.getSchwimmer();
         ListIterator<Mannschaft> li = swimmerlist.listIterator();
@@ -210,7 +210,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
         Altersklasse ak = t.getAK();
         int minMembers = ak.getMinMembers();
         int maxMembers = ak.getMaxMembers();
-        LinkedList<Integer> ages = new LinkedList<Integer>();
+        LinkedList<Integer> ages = new LinkedList<>();
         int male = 0;
         int female = 0;
         for (int x = 0; x < maxMembers; x++) {
@@ -270,7 +270,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
 
         Mannschaft s = (Mannschaft) a;
 
-        LinkedList<TeamContainer> tcs = new LinkedList<TeamContainer>();
+        LinkedList<TeamContainer> tcs = new LinkedList<>();
         for (TeamContainer tc : swimmers) {
             if (tc.team.getStartnummer() != s.getStartnummer()) {
                 tcs.add(tc);

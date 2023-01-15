@@ -29,7 +29,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -47,7 +46,6 @@ import de.df.jauswertung.gui.util.TimeStatus;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -129,11 +127,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
                 return c;
             }
         });
-        disciplines.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                layout.show(container, "" + disciplines.getSelectedIndex());
-            }
+        disciplines.addListSelectionListener(e -> {
+            layout.show(container, "" + disciplines.getSelectedIndex());
         });
         JScrollPane scr1 = new JScrollPane(disciplines);
         scr1.setBorder(BorderUtils.createLabeledBorder(I18n.get("Disciplines")));
@@ -155,8 +150,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         @SuppressWarnings("unchecked")
         LinkedList<StatusDetail>[] timestatus = new LinkedList[max];
         for (int x = 0; x < max; x++) {
-            notimes[x] = new LinkedList<ASchwimmer>();
-            timestatus[x] = new LinkedList<StatusDetail>();
+            notimes[x] = new LinkedList<>();
+            timestatus[x] = new LinkedList<>();
         }
 
         LinkedList<ASchwimmer> swimmerlist = wk.getSchwimmer();
@@ -276,10 +271,10 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         signal = new JLabel[dcount][0];
         discipline = new JLabel[dcount][0];
 
-        LinkedList<String> discs = new LinkedList<String>();
+        LinkedList<String> discs = new LinkedList<>();
         for (int x = 0; x < dcount; x++) {
             discs.addLast(I18n.get("DisciplineNumber", x + 1));
-            panels[x] = new JGlassPanel<JPanel>(new JPanel());
+            panels[x] = new JGlassPanel<>(new JPanel());
             JScrollPane scroller = new JScrollPane(panels[x]);
             scroller.setBorder(BorderUtils.createLabeledBorder(I18n.get("DisciplineNumber", x + 1)));
             scroller.getHorizontalScrollBar().setUnitIncrement(10);
@@ -313,16 +308,13 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(20, 2, "center,center"));
             for (int y = 0; y < swimmers[x].length; y++) {
                 input[x][y] = new JIntegerField(JTimeField.MAX_TIME, false, true);
-                input[x][y].setValidator(new Validator() {
-                    @Override
-                    public boolean validate(int value) {
-                        value = value / 100;
-                        if ((value % 100) >= 60) {
-                            return false;
-                        }
-                        value = value / 100;
-                        return value < 1000;
+                input[x][y].setValidator(value -> {
+                    value = value / 100;
+                    if ((value % 100) >= 60) {
+                        return false;
                     }
+                    value = value / 100;
+                    return value < 1000;
                 });
                 input[x][y].addKeyListener(new CursorListener(x, y));
                 input[x][y].setHorizontalAlignment(SwingConstants.RIGHT);
@@ -412,8 +404,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
 
             if (add) {
                 boolean found = false;
-                LinkedList<ASchwimmer> temp1 = new LinkedList<ASchwimmer>();
-                LinkedList<StatusDetail> temp2 = new LinkedList<StatusDetail>();
+                LinkedList<ASchwimmer> temp1 = new LinkedList<>();
+                LinkedList<StatusDetail> temp2 = new LinkedList<>();
                 for (int y = 0; y < swimmers[x].length; y++) {
                     if (swimmers[x][y].equals(s)) {
                         found = true;
@@ -429,8 +421,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
                 }
             } else if (remove) {
                 boolean found = false;
-                LinkedList<ASchwimmer> temp1 = new LinkedList<ASchwimmer>();
-                LinkedList<StatusDetail> temp2 = new LinkedList<StatusDetail>();
+                LinkedList<ASchwimmer> temp1 = new LinkedList<>();
+                LinkedList<StatusDetail> temp2 = new LinkedList<>();
                 for (int y = 0; y < swimmers[x].length; y++) {
                     if (swimmers[x][y].equals(s)) {
                         found = true;

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -55,20 +54,14 @@ class SiegerlistePrinter implements Printer {
 
     private void initUI() {
         resultpreview = new JButton(I18n.get("Preview"));
-        resultpreview.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                preview();
-            }
+        resultpreview.addActionListener(e -> {
+            preview();
         });
         resultprint = new JButton(I18n.get("Print"));
-        resultprint.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                print();
-            }
+        resultprint.addActionListener(e -> {
+            print();
         });
-        resultmodus = new JComboBox<String>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
+        resultmodus = new JComboBox<>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
 
         panel = new JPanel(
                 new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",

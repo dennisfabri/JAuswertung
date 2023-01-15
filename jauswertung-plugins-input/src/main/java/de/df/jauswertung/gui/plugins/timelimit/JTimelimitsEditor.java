@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.timelimit;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,7 +13,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -28,7 +26,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 class JTimelimitsEditor extends JFrame {
 
@@ -60,27 +57,19 @@ class JTimelimitsEditor extends JFrame {
         setIconImages(IconManager.getTitleImages());
 
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
         cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doCancel();
-            }
+        cancel.addActionListener(arg0 -> {
+            doCancel();
         });
 
         Timelimits[] limits = timelimits.getTimelimits();
         this.callback = callback;
 
         model = new ModifiableListModel<>(limits);
-        entries = new JList<Timelimits>(model);
+        entries = new JList<>(model);
         entries.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -93,14 +82,10 @@ class JTimelimitsEditor extends JFrame {
                 showEntriesPopup(evt);
             }
         });
-        entries.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent evt) {
-                int selected = entries.getSelectedIndex();
-                int previous = selected == evt.getFirstIndex() ? evt.getLastIndex() : evt.getFirstIndex();
-                selectEntry(previous, selected);
-            }
+        entries.addListSelectionListener(evt -> {
+            int selected = entries.getSelectedIndex();
+            int previous = selected == evt.getFirstIndex() ? evt.getLastIndex() : evt.getFirstIndex();
+            selectEntry(previous, selected);
         });
 
         panel = new JTimelimitsPanel(this, female, male);
@@ -138,18 +123,12 @@ class JTimelimitsEditor extends JFrame {
 
     private void initMenu() {
         add = new JMenuItem(I18n.get("Add"), IconManager.getSmallIcon("new"));
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addEntry();
-            }
+        add.addActionListener(arg0 -> {
+            addEntry();
         });
         remove = new JMenuItem(I18n.get("Remove"), IconManager.getSmallIcon("remove"));
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                removeEntry();
-            }
+        remove.addActionListener(arg0 -> {
+            removeEntry();
         });
 
         menu = new JPopupMenu();

@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.util;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -29,7 +28,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 public class JDisciplineSelector extends JFrame {
 
@@ -124,17 +122,11 @@ public class JDisciplineSelector extends JFrame {
 
         JButton ok = new JButton(I18n.get("Ok"));
         JButton cancel = new JButton(I18n.get("Cancel"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doCancel();
-            }
+        cancel.addActionListener(e -> {
+            doCancel();
         });
 
         p.add(ok, CC.xy(2, 2));
@@ -146,7 +138,7 @@ public class JDisciplineSelector extends JFrame {
     private void doOk() {
         if (table.getSelectedRowCount() > 0) {
             if (callback != null) {
-                ArrayList<OWSelection> selected = new ArrayList<OWSelection>();
+                ArrayList<OWSelection> selected = new ArrayList<>();
                 int[] rows = table.getSelectedRows();
                 for (int x : rows) {
                     selected.add(data[x]);

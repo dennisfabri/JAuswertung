@@ -87,76 +87,36 @@ public class JHeatPresentationFrame extends JFrame {
     }
 
     private void addActions() {
-        Runnable full = new Runnable() {
-            @Override
-            public void run() {
+        Runnable full = this::full;
+        Runnable full1 = () -> {
+            full(0);
+        };
+        Runnable full2 = () -> {
+            full(1);
+        };
+        Runnable next = this::next;
+        Runnable prev = this::previous;
+        Runnable switchMirror = () -> {
+            mirror = !mirror;
+            paint();
+        };
+        Runnable toggle = this::toggleBlackWhite;
+        Runnable close = () -> {
+            if (screen != null) {
                 full();
             }
-        };
-        Runnable full1 = new Runnable() {
-            @Override
-            public void run() {
-                full(0);
+            setVisible(false);
+            try {
+                dispose();
+            } catch (Exception ex) {
+                // Nothing to do
             }
         };
-        Runnable full2 = new Runnable() {
-            @Override
-            public void run() {
-                full(1);
-            }
-        };
-        Runnable next = new Runnable() {
-            @Override
-            public void run() {
-                next();
-            }
-        };
-        Runnable prev = new Runnable() {
-            @Override
-            public void run() {
-                previous();
-            }
-        };
-        Runnable switchMirror = new Runnable() {
-            @Override
-            public void run() {
-                mirror = !mirror;
-                paint();
-            }
-        };
-        Runnable toggle = new Runnable() {
-            @Override
-            public void run() {
-                toggleBlackWhite();
-            }
-        };
-        Runnable close = new Runnable() {
-            @Override
-            public void run() {
-                if (screen != null) {
-                    full();
-                }
-                setVisible(false);
-                try {
-                    dispose();
-                } catch (Exception ex) {
-                    // Nothing to do
-                }
-            }
-        };
-        Runnable switchPage = new Runnable() {
-            @Override
-            public void run() {
-                switchPage();
-            }
-        };
+        Runnable switchPage = this::switchPage;
 
-        Runnable restore = new Runnable() {
-            @Override
-            public void run() {
-                if (screen == null) {
-                    restore();
-                }
+        Runnable restore = () -> {
+            if (screen == null) {
+                restore();
             }
         };
 
@@ -242,12 +202,7 @@ public class JHeatPresentationFrame extends JFrame {
             }
             setCursor(Cursor.getDefaultCursor());
 
-            EDTUtils.executeOnEDTAsync(new Runnable() {
-                @Override
-                public void run() {
-                    restore();
-                }
-            });
+            EDTUtils.executeOnEDTAsync(this::restore);
 
         } else {
             System.out.println(getVirtualScreenBounds());

@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -13,7 +12,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -123,29 +121,20 @@ public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPl
             }
         });
         dots = new JButton("...");
-        dots.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                chooseDirectory();
-            }
+        dots.addActionListener(arg0 -> {
+            chooseDirectory();
         });
 
         time = new JIntSpinner(intervall, 5, 120, 5);
-        time.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                optionen.notifyChange();
-            }
+        time.addChangeListener(arg0 -> {
+            optionen.notifyChange();
         });
 
         backup = new JCheckBox();
-        backup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                optionen.notifyChange();
+        backup.addActionListener(arg0 -> {
+            optionen.notifyChange();
 
-                updateButtons();
-            }
+            updateButtons();
         });
         backup.setSelected(enabled);
 

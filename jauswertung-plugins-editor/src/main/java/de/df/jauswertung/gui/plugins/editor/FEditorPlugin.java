@@ -112,13 +112,13 @@ public class FEditorPlugin extends AFeature {
     }
 
     public void edit(JFrame parent, Teilnehmer t, boolean delete) {
-        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent,
+        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<>(t, core.getEinzelWettkampf(), parent,
                 delete, core);
         editAndUpdateSwimmer(t, jte);
     }
 
     public void edit(JDialog parent, Teilnehmer t, boolean delete) {
-        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<Teilnehmer>(t, core.getEinzelWettkampf(), parent,
+        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<>(t, core.getEinzelWettkampf(), parent,
                 delete, core);
         editAndUpdateSwimmer(t, jte);
     }
@@ -132,13 +132,13 @@ public class FEditorPlugin extends AFeature {
     }
 
     public void edit(JFrame parent, Mannschaft t, boolean delete) {
-        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(),
+        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<>(t, core.getMannschaftWettkampf(),
                 parent, delete, core);
         editAndUpdateTeam(t, jmal);
     }
 
     public void edit(JDialog parent, Mannschaft t, boolean delete) {
-        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<Mannschaft>(t, core.getMannschaftWettkampf(),
+        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<>(t, core.getMannschaftWettkampf(),
                 parent, delete, core);
         editAndUpdateTeam(t, jmal);
     }
@@ -177,22 +177,22 @@ public class FEditorPlugin extends AFeature {
     }
 
     public <T extends ASchwimmer> void runPenaltyPoints(AWettkampf<T> wk, T s, int disz) {
-        JPenaltyPointsAdditor<T> jte = new JPenaltyPointsAdditor<T>(getController(), wk, s, disz);
+        JPenaltyPointsAdditor<T> jte = new JPenaltyPointsAdditor<>(getController(), wk, s, disz);
         SwingUtilities.invokeLater(new WindowLauncher(jte));
     }
 
     public <T extends ASchwimmer> void runPenaltyPoints(AWettkampf<T> wk, T s, String id) {
-        JPenaltyPointsAdditor<T> jte = new JPenaltyPointsAdditor<T>(getController(), wk, s, id);
+        JPenaltyPointsAdditor<T> jte = new JPenaltyPointsAdditor<>(getController(), wk, s, id);
         SwingUtilities.invokeLater(new WindowLauncher(jte));
     }
 
     public <T extends ASchwimmer> void runPenaltyCode(AWettkampf<T> wk, T s, int disz, Strafen str) {
-        JPenaltyAdditor<T> jte = new JPenaltyAdditor<T>(getController(), wk, s, disz, str);
+        JPenaltyAdditor<T> jte = new JPenaltyAdditor<>(getController(), wk, s, disz, str);
         SwingUtilities.invokeLater(new WindowLauncher(jte));
     }
 
     public <T extends ASchwimmer> void runPenaltyCode(AWettkampf<T> wk, T s, String id, Strafen str) {
-        JPenaltyAdditor<T> jte = new JPenaltyAdditor<T>(getController(), wk, s, id, str);
+        JPenaltyAdditor<T> jte = new JPenaltyAdditor<>(getController(), wk, s, id, str);
         SwingUtilities.invokeLater(new WindowLauncher(jte));
     }
 
@@ -212,13 +212,13 @@ public class FEditorPlugin extends AFeature {
         if ((s.getAK().getDiszAnzahl() < disz)) {
             disz = s.getAK().getDiszAnzahl();
         }
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
                 penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
     public <T extends ASchwimmer> void runPenaltyEditor(JFrame parent, AWettkampf<T> wk, T s, String disz) {
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
                 penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
@@ -227,13 +227,13 @@ public class FEditorPlugin extends AFeature {
         if ((s.getAK().getDiszAnzahl() < disz)) {
             disz = s.getAK().getDiszAnzahl();
         }
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
                 penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }
 
     public <T extends ASchwimmer> void runPenaltyEditor(JDialog parent, AWettkampf<T> wk, T s, String disz) {
-        JPenaltyEditor<T> editor = new JPenaltyEditor<T>(parent, getController(), wk, s, disz,
+        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
                 penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);
     }

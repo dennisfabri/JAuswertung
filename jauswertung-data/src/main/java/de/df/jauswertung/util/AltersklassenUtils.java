@@ -50,7 +50,7 @@ public final class AltersklassenUtils {
 
     public static <T extends ASchwimmer> int getUniqueDisciplinesCount(AWettkampf<T> wk) {
         Regelwerk aks = wk.getRegelwerk();
-        Hashtable<String, String> result = new Hashtable<String, String>();
+        Hashtable<String, String> result = new Hashtable<>();
         for (int x = 0; x < aks.size(); x++) {
             if (SearchUtils.hasSchwimmer(wk, aks.getAk(x))) {
                 Disziplin[] disziplinen = aks.getAk(x).getDisziplinen(true);

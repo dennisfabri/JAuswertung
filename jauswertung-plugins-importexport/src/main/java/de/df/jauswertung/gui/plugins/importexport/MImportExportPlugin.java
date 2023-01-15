@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.importexport;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
@@ -103,28 +102,17 @@ public class MImportExportPlugin extends ANullPlugin {
         // Main
         menu = new JMenuItem[3];
         menu[0] = new JMenuItem(ITEM_IMPORT);
-        menu[0].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                getImportWizard().start();
-            }
+        menu[0].addActionListener(arg0 -> {
+            getImportWizard().start();
         });
         menu[1] = new JMenuItem(ITEM_EXPORT);
-        menu[1].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                getExportWizard().start();
-            }
+        menu[1].addActionListener(arg0 -> {
+            getExportWizard().start();
         });
         menu[2] = new JCheckBoxMenuItem(ITEM_AUTO);
-        menu[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.getPreferences().putBoolean("AutomaticSave", menu[2].isSelected());
-                click = System.currentTimeMillis();
-            }
+        menu[2].addActionListener(arg0 -> {
+            Utils.getPreferences().putBoolean("AutomaticSave", menu[2].isSelected());
+            click = System.currentTimeMillis();
         });
         menu[2].setSelected(Utils.getPreferences().getBoolean("AutomaticSave", true));
         click = System.currentTimeMillis();

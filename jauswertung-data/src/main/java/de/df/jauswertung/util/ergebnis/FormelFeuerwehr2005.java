@@ -183,7 +183,7 @@ public class FormelFeuerwehr2005<T extends ASchwimmer> implements Formel<T> {
         }
         double oldResult = getTime(swimmer[0], d) + 0.005;
         int pos = 0;
-        LinkedList<SchwimmerData> stored = new LinkedList<SchwimmerData>();
+        LinkedList<SchwimmerData> stored = new LinkedList<>();
         for (SchwimmerData aSwimmer : swimmer) {
             if (getTime(aSwimmer, d) <= ASchwimmer.TIME_EPSILON) {
                 break;

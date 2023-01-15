@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
 
@@ -23,7 +22,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.core.AgegroupResultSelection;
-import de.df.jauswertung.gui.plugins.core.IWettkampfProvider;
 import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.gui.util.I18n;
@@ -101,29 +99,17 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        diszipline = new JResultsSelectionButton(new IWettkampfProvider() {
-            @Override
-            public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
-                return ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
-            }
-        });
-        diszipline.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                if (arg0.getStateChange() == ItemEvent.DESELECTED) {
-                    checkWarning(ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
-                }
+        diszipline = new JResultsSelectionButton(() -> ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
+        diszipline.addItemListener(arg0 -> {
+            if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+                checkWarning(ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
             }
         });
 
         unterschrift = new JCheckBox(I18n.get("Unterschrift"));
         unterschrift.setSelected(Utils.getPreferences().getBoolean("ResultsWithSignature", false));
-        unterschrift.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
-            }
+        unterschrift.addActionListener(arg0 -> {
+            Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
         });
         unterschrift.setEnabled(false);
 
@@ -196,7 +182,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
     <T extends ASchwimmer> Printable getPrintable(boolean[][] selected) {
         AWettkampf<T> wk = getWettkampf();
 
-        LinkedList<T> remove = new LinkedList<T>();
+        LinkedList<T> remove = new LinkedList<>();
         for (int x = 0; x < selected.length; x++) {
             for (int y = 0; y < selected[x].length; y++) {
                 if (!selected[x][y]) {

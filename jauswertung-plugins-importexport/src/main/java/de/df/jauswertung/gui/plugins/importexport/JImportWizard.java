@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.importexport;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -75,7 +74,6 @@ import de.df.jutils.gui.wizard.PageSwitchListener;
 import de.df.jutils.gui.wizard.UpdateListener;
 import de.df.jutils.gui.wizard.WizardOptionPage;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 import de.df.jutils.util.SystemOutFeedback;
 
@@ -354,11 +352,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             };
 
             panel.add(filename, CC.xy(2, 3));
-            filename.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    update();
-                }
+            filename.addActionListener(arg0 -> {
+                update();
             });
             filename.addKeyListener(new KeyAdapter() {
 
@@ -394,11 +389,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             });
             JButton button = new JButton("...");
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    browseFile();
-                }
+            button.addActionListener(arg0 -> {
+                browseFile();
             });
             panel.add(button, CC.xy(4, 3));
         }
@@ -603,12 +595,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 try {
                     results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names,
                             format.getSelectedItemname(), wk,
-                            new Feedback() {
-                                @Override
-                                public void showFeedback(String t) {
-                                    insertText(t);
-                                }
-                            });
+                    this::insertText);
                 } catch (TableEntryException tee) {
                     if (display) {
                         DialogUtils.warn(JImportWizard.this,
@@ -639,12 +626,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     e.printStackTrace();
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
                             I18n.get("CheckFile"));
-                } catch (OldExcelFormatException old) {
+                } catch (OldExcelFormatException | LeftoverDataException old) {
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                            I18n.get("OldFileExcelFormat"));
-                } catch (LeftoverDataException lde) {
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                            I18n.get("ErrorInExcelFormat"));
+                    I18n.get("OldFileExcelFormat"));
                 }
             }
         }
@@ -741,8 +725,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     @SuppressWarnings("unchecked")
                     Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
                     Enumeration<String> sns = names.keys();
-                    LinkedList<ASchwimmer> r = new LinkedList<ASchwimmer>();
-                    HashSet<Integer> foundSN = new HashSet<Integer>();
+                    LinkedList<ASchwimmer> r = new LinkedList<>();
+                    HashSet<Integer> foundSN = new HashSet<>();
                     while (sns.hasMoreElements()) {
                         String sntext = sns.nextElement();
                         int sn = Integer.parseInt(sntext.substring(0, sntext.length() - 1));
@@ -759,7 +743,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     @SuppressWarnings("unchecked")
                     Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
                     Enumeration<ZWStartnummer> sns = names.keys();
-                    LinkedList<ASchwimmer> r = new LinkedList<ASchwimmer>();
+                    LinkedList<ASchwimmer> r = new LinkedList<>();
                     while (sns.hasMoreElements()) {
                         r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
                     }

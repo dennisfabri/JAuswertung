@@ -10,7 +10,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.print.Printable;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -107,25 +106,18 @@ class ResultsPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        diszipline = new JComboBox<String>();
-        diszipline.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                if (isUpdating) {
-                    return;
-                }
-                checkWarning(core.getFilteredWettkampf());
+        diszipline = new JComboBox<>();
+        diszipline.addItemListener(arg0 -> {
+            if (isUpdating) {
+                return;
             }
+            checkWarning(core.getFilteredWettkampf());
         });
 
         unterschrift = new JCheckBox(I18n.get("Unterschrift"));
         unterschrift.setSelected(Utils.getPreferences().getBoolean("ResultsWithSignature", false));
-        unterschrift.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
-            }
+        unterschrift.addActionListener(arg0 -> {
+            Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
         });
         unterschrift.setEnabled(false);
 
@@ -356,7 +348,7 @@ class ResultsPrinter implements Printer {
         CompetitionUtils.minimizeCompetition(wk);
         for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
             if (wg.isProtokollMitMehrkampfwertung()) {
-                Hashtable<Integer, Altersklasse> aks = new Hashtable<Integer, Altersklasse>();
+                Hashtable<Integer, Altersklasse> aks = new Hashtable<>();
                 int index = -1;
                 for (int x = 0; x < wk.getRegelwerk().size(); x++) {
                     Altersklasse ak = wk.getRegelwerk().getAk(x);
@@ -367,7 +359,7 @@ class ResultsPrinter implements Printer {
                 }
                 LinkedList<ASchwimmer> swimmers = Utils.copy(wk).getSchwimmer();
                 ListIterator<ASchwimmer> li = swimmers.listIterator();
-                LinkedList<ASchwimmer> result = new LinkedList<ASchwimmer>();
+                LinkedList<ASchwimmer> result = new LinkedList<>();
                 while (li.hasNext()) {
                     ASchwimmer s = li.next();
                     if (aks.containsKey(s.getAKNummer())) {

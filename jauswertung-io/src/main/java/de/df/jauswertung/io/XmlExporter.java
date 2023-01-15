@@ -279,6 +279,7 @@ public class XmlExporter extends EmptyExporter {
         }
     }
 
+    @Override
     public <T extends ASchwimmer> boolean results(OutputStream out, AWettkampf<T> wk, Feedback fb) {
         try {
             fb.showFeedback(I18n.get("CollectingData"));

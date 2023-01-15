@@ -12,15 +12,15 @@ public class Eingabe implements Serializable {
     @XStreamAsAttribute
     private int zeit = 0;
     private int[] starter = null;
-    private LinkedList<Strafe> strafen = new LinkedList<Strafe>();
+    private LinkedList<Strafe> strafen = new LinkedList<>();
 
     public LinkedList<Strafe> getStrafen() {
-        return new LinkedList<Strafe>(strafen);
+        return new LinkedList<>(strafen);
     }
 
     public void setStrafen(LinkedList<Strafe> s) {
         if (s == null) {
-            s = new LinkedList<Strafe>();
+            s = new LinkedList<>();
         }
         strafen = s;
     }

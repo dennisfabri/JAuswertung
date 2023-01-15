@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.statistics;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -39,18 +38,15 @@ class JStatisticsFrame extends JGlassFrame {
         pack();
         setSize(Math.max(getWidth(), 800), Math.max(getHeight(), 600));
         UIStateUtils.uistatemanage(parent, this, "JStatisticsFrame");
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                if (isEnabled()) {
-                    setVisible(false);
-                }
+        WindowUtils.addEscapeAction(this, () -> {
+            if (isEnabled()) {
+                setVisible(false);
             }
         });
     }
 
     private static Collection<JComponent> preparePanels(CorePlugin core) {
-        LinkedList<JComponent> panels = new LinkedList<JComponent>();
+        LinkedList<JComponent> panels = new LinkedList<>();
         panels.add(new JOverviewPanel(core));
         panels.add(new JRegistrationOverviewPanel(core));
         panels.add(new JRegistrationLVOverviewPanel(core));
@@ -68,11 +64,8 @@ class JStatisticsFrame extends JGlassFrame {
 
     private void init(Collection<JComponent> panels) {
         closebutton = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        closebutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        closebutton.addActionListener(e -> {
+            setVisible(false);
         });
 
         JTabbedPane tabs = new JTabbedPane();

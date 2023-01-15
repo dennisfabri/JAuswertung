@@ -27,7 +27,6 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -56,7 +55,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
     final IPluginManager controller;
     final AWettkampf<T> wk;
 
-    private final ArrayList<String> ids = new ArrayList<String>();
+    private final ArrayList<String> ids = new ArrayList<>();
 
     private final JTabbedPane penaltytabs;
 
@@ -156,12 +155,9 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
     private JPanel createButtons() {
         JButton close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.setEnabled(true);
-                setVisible(false);
-            }
+        close.addActionListener(e -> {
+            parent.setEnabled(true);
+            setVisible(false);
         });
 
         JPanel p = new JPanel(new FlowLayout(SwingConstants.RIGHT, 0, 0));
@@ -228,25 +224,19 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public ActionListener getDeleteActionListener() {
-                return new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int index = penalties.getSelectedIndex();
-                        swimmer.removeStrafe(discipline, index);
-                        updatePenalties();
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
-                                discipline, null);
-                    }
+                return e -> {
+                    int index = penalties.getSelectedIndex();
+                    swimmer.removeStrafe(discipline, index);
+                    updatePenalties();
+                    controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
+                            discipline, null);
                 };
             }
 
             @Override
             public ActionListener getEditActionListener() {
-                return new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        edit();
-                    }
+                return e -> {
+                    edit();
                 };
             }
 
@@ -320,25 +310,19 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public ActionListener getDeleteActionListener() {
-                return new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int index = penalties.getSelectedIndex();
-                        swimmer.removeStrafe(id, index);
-                        updatePenalties();
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
-                                id, null);
-                    }
+                return e -> {
+                    int index = penalties.getSelectedIndex();
+                    swimmer.removeStrafe(id, index);
+                    updatePenalties();
+                    controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, swimmer,
+                            id, null);
                 };
             }
 
             @Override
             public ActionListener getEditActionListener() {
-                return new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        edit();
-                    }
+                return e -> {
+                    edit();
                 };
             }
 
@@ -370,7 +354,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
         final IPenaltyDisciplineEditorStrategy editor;
 
-        final JList<Strafe> penalties = new JList<Strafe>();
+        final JList<Strafe> penalties = new JList<>();
 
         final JButton delete = new JButton(IconManager.getSmallIcon("delete"));
         final JButton edit = new JButton(IconManager.getSmallIcon("edit"));
@@ -413,13 +397,10 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 edit.addActionListener(editor.getEditActionListener());
 
                 penalties.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                penalties.addListSelectionListener(new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        boolean b = penalties.getSelectedIndex() >= 0;
-                        edit.setEnabled(b);
-                        delete.setEnabled(b);
-                    }
+                penalties.addListSelectionListener(e -> {
+                    boolean b = penalties.getSelectedIndex() >= 0;
+                    edit.setEnabled(b);
+                    delete.setEnabled(b);
                 });
                 penalties.addMouseListener(new MouseAdapter() {
                     @Override
@@ -464,19 +445,13 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
     }
 
     private void addActions() {
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                parent.setEnabled(true);
-                setVisible(false);
-            }
+        WindowUtils.addEscapeAction(this, () -> {
+            parent.setEnabled(true);
+            setVisible(false);
         });
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                parent.setEnabled(true);
-                setVisible(false);
-            }
+        WindowUtils.addEnterAction(this, () -> {
+            parent.setEnabled(true);
+            setVisible(false);
         });
     }
 }

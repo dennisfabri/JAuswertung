@@ -46,12 +46,7 @@ public class OUploadOptionsPlugin extends AFeature implements MOptionenPlugin.Op
     @Override
     public synchronized JPanel[] getPanels() {
         if (optionsPanel == null) {
-            EDTUtils.executeOnEDT(new Runnable() {
-                @Override
-                public void run() {
-                    createPanel();
-                }
-            });
+            EDTUtils.executeOnEDT(this::createPanel);
         }
         return new JPanel[] { optionsPanel };
     }

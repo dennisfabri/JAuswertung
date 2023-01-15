@@ -81,12 +81,9 @@ public class JKariStufenButton extends JPanel {
         level = new JToggleButton(createArrow());
         level.setBounds(0, 0, 0, 0);
         level.setHorizontalTextPosition(SwingConstants.LEFT);
-        level.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                level.setEnabled(false);
-                dialog.show(level, 0, level.getHeight());
-            }
+        level.addActionListener(e -> {
+            level.setEnabled(false);
+            dialog.show(level, 0, level.getHeight());
         });
         initDialog();
 
@@ -191,7 +188,7 @@ public class JKariStufenButton extends JPanel {
         return new ImageIcon(i);
     }
 
-    private LinkedList<ChangeListener> changes = new LinkedList<ChangeListener>();
+    private LinkedList<ChangeListener> changes = new LinkedList<>();
 
     void stateChanged() {
         ChangeEvent event = new ChangeEvent(this);

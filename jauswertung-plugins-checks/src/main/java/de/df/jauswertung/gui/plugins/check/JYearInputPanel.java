@@ -96,7 +96,7 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
             return;
         }
         EinzelWettkampf wk = (EinzelWettkampf) xwk;
-        LinkedList<Teilnehmer> noyear = new LinkedList<Teilnehmer>();
+        LinkedList<Teilnehmer> noyear = new LinkedList<>();
 
         LinkedList<Teilnehmer> swimmerlist = wk.getSchwimmer();
         ListIterator<Teilnehmer> li = swimmerlist.listIterator();
@@ -159,7 +159,7 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
 
             String proposal = "";
 
-            agegroups[x] = new JComboBox<String>(groups);
+            agegroups[x] = new JComboBox<>(groups);
             agegroups[x].setSelectedIndex(s.getAKNummer());
             agegroups[x].addActionListener(new AgeGroupInputListener(x));
             years[x] = new JIntegerField(false, true);
@@ -215,7 +215,7 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
         sortSwimmers();
 
         if (s.getJahrgang() == 0) {
-            LinkedList<Teilnehmer> temp = new LinkedList<Teilnehmer>();
+            LinkedList<Teilnehmer> temp = new LinkedList<>();
             for (Teilnehmer swimmer : swimmers) {
                 if (swimmer.equals(s)) {
                     return;

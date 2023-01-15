@@ -85,7 +85,7 @@ public class Check {
     }
 
     void showRecWarning() {
-        SwingUtilities.invokeLater(() -> showRecWarningI());
+        SwingUtilities.invokeLater(this::showRecWarningI);
     }
 
     void showRecWarningI() {

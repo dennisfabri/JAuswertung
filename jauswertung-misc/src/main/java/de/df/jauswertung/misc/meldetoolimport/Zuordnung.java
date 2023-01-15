@@ -12,7 +12,7 @@ public class Zuordnung {
     public Zuordnung(String file, Zuordnungstyp typ) {
         Typ = typ;
 
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         String[] rows = TextFileUtils.fileToStringArray(file, null, false);
         for (String row : rows) {
             row = row.trim();

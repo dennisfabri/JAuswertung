@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.akeditor;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -54,11 +53,8 @@ class AKsFormulaPanel extends JPanel {
             namen[x] = new JRadioButton(fs[x].getName());
             formeln[x] = new JLabel(fs[x].getFormel());
             descriptions[x] = new JLabel(fs[x].getDescription());
-            namen[x].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    options.notifyChange();
-                }
+            namen[x].addActionListener(e -> {
+                options.notifyChange();
             });
 
             buttons.add(namen[x]);

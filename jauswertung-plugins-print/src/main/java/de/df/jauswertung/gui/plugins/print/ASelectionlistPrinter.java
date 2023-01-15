@@ -88,7 +88,7 @@ abstract class ASelectionlistPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        order = new JComboBox<String>(
+        order = new JComboBox<>(
                 new String[] { I18n.get("Startnumber"), I18n.get("Organisation"), I18n.get("AgeGroup"),
                         I18n.get("Name"), I18n.get("Heat") });
         order.setSelectedIndex(2);

@@ -7,10 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -21,7 +19,6 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -93,12 +90,7 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
         super.setController(plugincontroller, pluginuid);
         options = (MOptionenPlugin) getController().getFeature("de.df.jauswertung.options", getUid());
         options.addOptionsPlugin(this);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                getPanels();
-            }
-        });
+        SwingUtilities.invokeLater(this::getPanels);
     }
 
     /*
@@ -116,11 +108,8 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
                 fontChooser = new JFontChooser();
                 fontChooser.setSelectedFont(PrintManager.getFont());
                 fontChooser.addPropertyChangeListener(JFontChooser.SELECTED_FONT_CHANGED_KEY,
-                        new PropertyChangeListener() {
-                            @Override
-                            public void propertyChange(PropertyChangeEvent evt) {
-                                options.notifyChange();
-                            }
+                        evt -> {
+                            options.notifyChange();
                         });
                 JScrollPane scroll = new JScrollPane(fontChooser);
                 scroll.setBorder(null);
@@ -129,83 +118,56 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
 
             results = new JCheckBox(I18n.get("PrintResultsHorizontallyInProtocol"));
             results.setSelected(PrintUtils.printProtocolResultsHorizontal);
-            results.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            results.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             emptylanes = new JCheckBox(I18n.get("PrintEmptyLanes"));
             emptylanes.setSelected(PrintUtils.printEmptyLanes);
-            emptylanes.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            emptylanes.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             printdns = new JCheckBox(I18n.get("PrintDidNotStart"));
             printdns.setSelected(PrintUtils.printDidNotStart);
-            printdns.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            printdns.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             emptycards = new JCheckBox(I18n.get("PrintEmptyCards"));
             emptycards.setSelected(PrintUtils.printEmptyCards);
-            emptycards.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            emptycards.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             points = new JCheckBox(I18n.get("PrintPointsInDisciplineResults"));
             points.setSelected(PrintUtils.printPointsInDisciplineResults);
-            points.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            points.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             checksum = new JCheckBox(I18n.get("PrintChecksum"));
             checksum.setSelected(PrintUtils.printChecksum);
-            checksum.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            checksum.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             printranks = new JCheckBox(I18n.get("PrintRanksInResults"));
             printranks.setSelected(JResultTable.printRanksInResults);
-            printranks.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            printranks.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             hlwNames = new JCheckBox(I18n.get("PrintZWnames"));
             hlwNames.setSelected(PrintUtils.printZWnames);
-            hlwNames.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            hlwNames.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             omitOrganisationForTeams = new JCheckBox(I18n.get("PrintOmitOrganisationForTeams"));
             omitOrganisationForTeams.setSelected(PrintUtils.printOmitOrganisationForTeams);
-            omitOrganisationForTeams.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    options.notifyChange();
-                }
+            omitOrganisationForTeams.addActionListener(arg0 -> {
+                options.notifyChange();
             });
 
             rowmarker = new JSlider(0, 255, JPrintTable.getRowMarker());
@@ -214,12 +176,9 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
             // rowmarker.setPaintLabels(true);
             // rowmarker.setPaintTrack(true);
             // rowmarker.setPaintTicks(true);
-            rowmarker.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    options.notifyChange();
-                    updateRowMarkerColor();
-                }
+            rowmarker.addChangeListener(e -> {
+                options.notifyChange();
+                updateRowMarkerColor();
             });
             rowmarkercolor = new JLabel(new ImageIcon(rowmarkerimage));
             JPanel rowmarkerpanel = new JPanel(new BorderLayout(5, 5));

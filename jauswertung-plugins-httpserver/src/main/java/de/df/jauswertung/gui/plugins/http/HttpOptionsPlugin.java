@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.http;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -124,37 +123,25 @@ class HttpOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
 
             defaultPort = new JCheckBox(I18n.get("DefaultPort"));
             defaultPort.setToolTipText(I18n.getToolTip("HttpServerDefaultPort"));
-            defaultPort.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    portField.setEnabled(!defaultPort.isSelected());
-                    if (defaultPort.isSelected()) {
-                        portField.setInt(80);
-                    }
-                    parent.optionen.notifyChange();
+            defaultPort.addActionListener(e -> {
+                portField.setEnabled(!defaultPort.isSelected());
+                if (defaultPort.isSelected()) {
+                    portField.setInt(80);
                 }
+                parent.optionen.notifyChange();
             });
 
             exportOnlyComplete = new JRadioButton(I18n.get("SendOnlyCompleteDisciplines"));
-            exportOnlyComplete.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    parent.optionen.notifyChange();
-                }
+            exportOnlyComplete.addActionListener(e -> {
+                parent.optionen.notifyChange();
             });
             exportFiltered = new JRadioButton(I18n.get("SendOnlyFilteredData"));
-            exportFiltered.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    parent.optionen.notifyChange();
-                }
+            exportFiltered.addActionListener(e -> {
+                parent.optionen.notifyChange();
             });
             exportEverything = new JRadioButton(I18n.get("SendEverything"));
-            exportEverything.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    parent.optionen.notifyChange();
-                }
+            exportEverything.addActionListener(e -> {
+                parent.optionen.notifyChange();
             });
 
             exportGroup = new ButtonGroup();

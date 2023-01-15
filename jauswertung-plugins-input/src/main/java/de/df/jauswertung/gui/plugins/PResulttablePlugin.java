@@ -13,7 +13,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -344,12 +343,12 @@ public class PResulttablePlugin extends ANullPlugin {
 
     void initGUI() {
         result = JResultTable.getResultTable(null, 0, false, false, false, 0, "-");
-        elements = new LinkedList<ASchwimmer>();
+        elements = new LinkedList<>();
 
-        altersklasse = new JComboBox<String>();
-        geschlecht = new JComboBox<String>();
-        disziplin = new JComboBox<String>();
-        runde = new JComboBox<String>();
+        altersklasse = new JComboBox<>();
+        geschlecht = new JComboBox<>();
+        disziplin = new JComboBox<>();
+        runde = new JComboBox<>();
         update = new JButton(I18n.get("Update"));
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
 
@@ -371,19 +370,11 @@ public class PResulttablePlugin extends ANullPlugin {
         runde.addItem("-");
         runde.setSelectedIndex(0);
 
-        update.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateResult(true);
-            }
+        update.addActionListener(e -> {
+            updateResult(true);
         });
-        print.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                print();
-            }
+        print.addActionListener(e -> {
+            print();
         });
 
         String horizontal = "4dlu,fill:default:grow," + FormLayoutUtils.createLayoutString(10)
@@ -408,7 +399,7 @@ public class PResulttablePlugin extends ANullPlugin {
         scroller = new JScrollPane(result);
         scroller.setBorder(new ShadowBorder());
 
-        glas = new JGlassPanel<JScrollPane>(scroller);
+        glas = new JGlassPanel<>(scroller);
         panel.add(glas, CC.xyw(2, 4, 23));
 
         initListeners();
@@ -792,41 +783,26 @@ public class PResulttablePlugin extends ANullPlugin {
             result.addMouseListener(new Listener());
 
             edit = new JMenuItem(I18n.get("Edit"), IconManager.getSmallIcon("edit"));
-            edit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ASchwimmer s = getSelectedSwimmer();
-                    editor.editSchwimmer(s, true);
-                }
+            edit.addActionListener(e -> {
+                ASchwimmer s = getSelectedSwimmer();
+                editor.editSchwimmer(s, true);
             });
             delete = new JMenuItem(I18n.get("Delete"), IconManager.getSmallIcon("delete"));
-            delete.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ASchwimmer s = getSelectedSwimmer();
-                    core.remove(s);
-                }
+            delete.addActionListener(e -> {
+                ASchwimmer s = getSelectedSwimmer();
+                core.remove(s);
             });
             heatsitem = new JMenuItem(I18n.get("HeatsViewer"));
-            heatsitem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showStarts();
-                }
+            heatsitem.addActionListener(e -> {
+                showStarts();
             });
             penalty = new JMenuItem(I18n.get("SetPenalty"));
-            penalty.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    editPenalty();
-                }
+            penalty.addActionListener(e -> {
+                editPenalty();
             });
             withdraw = new JMenuItem(I18n.get("Withdraw"));
-            withdraw.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    withdraw();
-                }
+            withdraw.addActionListener(e -> {
+                withdraw();
             });
 
             setLayout(new ListLayout(1));

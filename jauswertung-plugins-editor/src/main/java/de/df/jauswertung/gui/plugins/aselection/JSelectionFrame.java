@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -75,18 +74,8 @@ class JSelectionFrame extends JGlassFrame {
         pack();
         UIStateUtils.uistatemanage(parent, this, "JSelectionFrame");
 
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::doOk);
+        WindowUtils.addEnterAction(this, this::doOk);
     }
 
     @Override
@@ -145,19 +134,13 @@ class JSelectionFrame extends JGlassFrame {
 
     private void initMenu() {
         JMenuItem neu = new JMenuItem(I18n.get("Wizard"));
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                callWizard();
-            }
+        neu.addActionListener(e -> {
+            callWizard();
         });
 
         JMenuItem close = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        close.addActionListener(e -> {
+            doOk();
         });
 
         JMenu menu = new JMenu(I18n.get("File"));
@@ -173,11 +156,8 @@ class JSelectionFrame extends JGlassFrame {
     private JPanel getButtons() {
         JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
         JButton close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        close.addActionListener(e -> {
+            doOk();
         });
         p.add(close);
         return p;

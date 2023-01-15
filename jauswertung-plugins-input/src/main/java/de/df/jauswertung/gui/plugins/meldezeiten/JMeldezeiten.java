@@ -3,7 +3,6 @@ package de.df.jauswertung.gui.plugins.meldezeiten;
 import java.awt.CardLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -65,36 +64,23 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
         for (int x = 0; x < ag.length; x++) {
             ag[x] = rw.getAk(x).getName();
         }
-        agegroups = new JComboBox<String>(ag);
-        sex = new JComboBox<String>(
+        agegroups = new JComboBox<>(ag);
+        sex = new JComboBox<>(
                 new String[] { I18n.geschlechtToShortString(rw, false), I18n.geschlechtToShortString(rw, true) });
-        agegroups.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                selectPanel();
-            }
+        agegroups.addActionListener(arg0 -> {
+            selectPanel();
         });
-        sex.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                selectPanel();
-            }
+        sex.addActionListener(arg0 -> {
+            selectPanel();
         });
 
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
         cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                accept();
-            }
+        ok.addActionListener(arg0 -> {
+            accept();
         });
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
-
+        cancel.addActionListener(arg0 -> {
+            setVisible(false);
         });
         FormLayout buttonLayout = new FormLayout("fill:default:grow,fill:default,4dlu,fill:default", "fill:default");
         buttonLayout.setColumnGroups(new int[][] { { 2, 4 } });
@@ -122,12 +108,7 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
         pack();
         setExtendedState(Frame.MAXIMIZED_BOTH);
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                accept();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::accept);
         UIStateUtils.uistatemanage(parent, this, "JMeldezeiten");
     }
 

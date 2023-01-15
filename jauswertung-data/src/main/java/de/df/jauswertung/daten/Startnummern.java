@@ -20,11 +20,11 @@ public class Startnummern implements Serializable {
 
     public Startnummern() {
         min = 1;
-        recycler = new LinkedList<Integer>();
+        recycler = new LinkedList<>();
     }
 
     public synchronized int get() {
-        if (recycler.size() == 0) {
+        if (recycler.isEmpty()) {
             min++;
             return min - 1;
         }
@@ -46,7 +46,7 @@ public class Startnummern implements Serializable {
             // Hohe nummer
             return true;
         }
-        if (recycler.size() == 0) {
+        if (recycler.isEmpty()) {
             // Startnummer ist bereits vergeben
             return false;
         }
@@ -72,7 +72,7 @@ public class Startnummern implements Serializable {
             min = startnummer + 1;
             return true;
         }
-        if (recycler.size() == 0) {
+        if (recycler.isEmpty()) {
             // Startnummer ist bereits vergeben
             return false;
         }

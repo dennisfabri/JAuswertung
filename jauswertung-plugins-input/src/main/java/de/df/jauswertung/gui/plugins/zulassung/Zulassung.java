@@ -193,14 +193,14 @@ public class Zulassung<T extends ASchwimmer> {
             for (int y = 0; y < 2; y++) {
                 LinkedList<T> schwimmer = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
 
-                direkt[x][y] = new LinkedList<T>();
-                gesetzt[x][y] = new LinkedList<T>();
-                gesperrt[x][y] = new LinkedList<T>();
-                punkte[x][y] = new LinkedList<T>();
-                nichtzugelassen[x][y] = new LinkedList<T>();
-                nachruecker[x][y] = new LinkedList<T>();
+                direkt[x][y] = new LinkedList<>();
+                gesetzt[x][y] = new LinkedList<>();
+                gesperrt[x][y] = new LinkedList<>();
+                punkte[x][y] = new LinkedList<>();
+                nichtzugelassen[x][y] = new LinkedList<>();
+                nachruecker[x][y] = new LinkedList<>();
 
-                zugelassen[x][y] = new LinkedList<T>();
+                zugelassen[x][y] = new LinkedList<>();
 
                 HashedCounter directs = new HashedCounter();
 

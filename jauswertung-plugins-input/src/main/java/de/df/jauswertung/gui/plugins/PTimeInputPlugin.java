@@ -57,7 +57,6 @@ import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
-import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.plugin.ANullPlugin;
@@ -205,16 +204,13 @@ public class PTimeInputPlugin extends ANullPlugin {
                 penaltiesTextNew[x] = penaltiestext[x];
 
                 if (byTimes) {
-                    inputsNew[x].setValidator(new Validator() {
-                        @Override
-                        public boolean validate(int value) {
-                            value = value / 100;
-                            if ((value % 100) >= 60) {
-                                return false;
-                            }
-                            value = value / 100;
-                            return value < 1000;
+                    inputsNew[x].setValidator(value -> {
+                        value = value / 100;
+                        if ((value % 100) >= 60) {
+                            return false;
                         }
+                        value = value / 100;
+                        return value < 1000;
                     });
                     inputsNew[x].setToolTipText(I18n.getToolTip("TimeInputField"));
                 } else {
@@ -239,16 +235,13 @@ public class PTimeInputPlugin extends ANullPlugin {
                 disciplinesNew[x] = new JLabel();
                 inputsNew[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                 if (byTimes) {
-                    inputsNew[x].setValidator(new Validator() {
-                        @Override
-                        public boolean validate(int value) {
-                            value = value / 100;
-                            if ((value % 100) >= 60) {
-                                return false;
-                            }
-                            value = value / 100;
-                            return value < 1000;
+                    inputsNew[x].setValidator(value -> {
+                        value = value / 100;
+                        if ((value % 100) >= 60) {
+                            return false;
                         }
+                        value = value / 100;
+                        return value < 1000;
                     });
                     inputsNew[x].setToolTipText(I18n.getToolTip("TimeInputField"));
                 }
@@ -323,18 +316,15 @@ public class PTimeInputPlugin extends ANullPlugin {
         time = new JLabel(I18n.get("Time"));
         penalty = new JLabel(I18n.get("Penalty"));
 
-        discipline = new JComboBox<Integer>();
+        discipline = new JComboBox<>();
         discipline.setToolTipText(I18n.getToolTip("SelectNumberOfDiscipline"));
-        amount = new JComboBox<Integer>(new Integer[] { 5, 10, 15, 20, 25, 30, 40, 50 });
+        amount = new JComboBox<>(new Integer[] { 5, 10, 15, 20, 25, 30, 40, 50 });
         amount.addActionListener(new AmountActionListener());
         amount.setToolTipText(I18n.getToolTip("NumberOfInputLines"));
         more = new JButton(I18n.get("More"));
         more.setToolTipText(I18n.getToolTip("PrepareForNewInput"));
-        more.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                prepareMoreInput();
-            }
+        more.addActionListener(e -> {
+            prepareMoreInput();
         });
 
         flx = new FocusListener() {
@@ -935,7 +925,7 @@ public class PTimeInputPlugin extends ANullPlugin {
          */
         private void setNoPenalty(String zeit, UndoableEdit ue) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, '#'))) {
-                swimmers[index].setStrafen(disciplineNumber, new LinkedList<Strafe>());
+                swimmers[index].setStrafen(disciplineNumber, new LinkedList<>());
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -973,11 +963,8 @@ public class PTimeInputPlugin extends ANullPlugin {
          */
         private void setPenalty(String zeit, UndoableEdit ue) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'p'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        editor.runPenaltyPoints(core.getWettkampf(), swimmers[index], disciplineNumber);
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    editor.runPenaltyPoints(core.getWettkampf(), swimmers[index], disciplineNumber);
                 });
             }
             ue.undo();
@@ -989,11 +976,8 @@ public class PTimeInputPlugin extends ANullPlugin {
         private void setMeanTime(String zeit, UndoableEdit ue) {
             if ((zeit.length() == 1)
                     || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, 'm'), '+'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        editor.runMeanTimeEditor(swimmers[index], disciplineNumber);
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    editor.runMeanTimeEditor(swimmers[index], disciplineNumber);
                 });
             }
             ue.undo();
@@ -1004,12 +988,9 @@ public class PTimeInputPlugin extends ANullPlugin {
          */
         private void setPenaltyCode(String zeit, UndoableEdit ue) {
             if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'c'))) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        editor.runPenaltyCode(core.getWettkampf(), swimmers[index], disciplineNumber,
-                                core.getWettkampf().getStrafen());
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    editor.runPenaltyCode(core.getWettkampf(), swimmers[index], disciplineNumber,
+                            core.getWettkampf().getStrafen());
                 });
             }
             ue.undo();
@@ -1178,7 +1159,7 @@ public class PTimeInputPlugin extends ANullPlugin {
         }
 
         private void setNoPenalty() {
-            swimmers[index].setStrafen(disciplineNumber, new LinkedList<Strafe>());
+            swimmers[index].setStrafen(disciplineNumber, new LinkedList<>());
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

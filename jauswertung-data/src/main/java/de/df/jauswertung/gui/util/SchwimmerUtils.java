@@ -124,8 +124,8 @@ public final class SchwimmerUtils {
         if (teilies == null) {
             return null;
         }
-        LinkedList<T> ergebnis = new LinkedList<T>(teilies);
-        Collections.sort(ergebnis, new SchwimmerStartnummernVergleicher<T>());
+        LinkedList<T> ergebnis = new LinkedList<>(teilies);
+        Collections.sort(ergebnis, new SchwimmerStartnummernVergleicher<>());
         return ergebnis;
     }
 
@@ -133,11 +133,11 @@ public final class SchwimmerUtils {
         if (si == null) {
             return null;
         }
-        if (si.size() == 0) {
+        if (si.isEmpty()) {
             return si;
         }
 
-        LinkedList<SchwimmerInfo> ergebnis = new LinkedList<SchwimmerInfo>(si);
+        LinkedList<SchwimmerInfo> ergebnis = new LinkedList<>(si);
         // Collections.sort(ergebnis);
         Collections.sort(ergebnis, new SchwimmerInfoStartnummernVergleicher());
         return ergebnis;
@@ -162,7 +162,7 @@ public final class SchwimmerUtils {
             for (int y = 0; y < 2; y++) {
                 LinkedList<T> ll = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
                 if ((ll != null) && (ll.size() > 0)) {
-                    ergebnis[zahl] = new LinkedList<SchwimmerInfo>();
+                    ergebnis[zahl] = new LinkedList<>();
                     ListIterator<T> li = ll.listIterator();
                     do {
                         T s = li.next();
@@ -181,7 +181,7 @@ public final class SchwimmerUtils {
         if (laufliste == null) {
             return null;
         }
-        if (laufliste.size() == 0) {
+        if (laufliste.isEmpty()) {
             return null;
         }
         if (disz >= s.getAK().getDiszAnzahl()) {
@@ -315,7 +315,7 @@ public final class SchwimmerUtils {
             }
         }
 
-        LinkedList<Startkarte> temp = new LinkedList<Startkarte>();
+        LinkedList<Startkarte> temp = new LinkedList<>();
         for (LinkedList<Startkarte> aListen : listen) {
             Startkarte[] sk = aListen.stream().sorted().toArray(Startkarte[]::new);
             for (Startkarte s : sk) {
@@ -400,7 +400,7 @@ public final class SchwimmerUtils {
             }
         }
 
-        LinkedList<T> ergebnis = new LinkedList<T>();
+        LinkedList<T> ergebnis = new LinkedList<>();
         for (x = 0; x < result.length; x++) {
             for (y = 0; y < result[x].length; y++) {
                 if (result[x][y] != null) {
@@ -427,7 +427,7 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<HLWLauf<T>> merged = new LinkedList<HLWLauf<T>>();
+        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
 
         {
             ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
@@ -436,9 +436,9 @@ public final class SchwimmerUtils {
             }
         }
 
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<ZWStartkarte<T>>();
+        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
 
-        if (merged.size() == 0) {
+        if (merged.isEmpty()) {
             return null;
         }
 
@@ -451,7 +451,7 @@ public final class SchwimmerUtils {
 
         ListIterator<HLWLauf<T>> li = merged.listIterator(sindex);
 
-        Hashtable<Integer, Integer> zaehler = new Hashtable<Integer, Integer>();
+        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
 
         while (li.hasNext() && (amount > 0)) {
             amount--;
@@ -468,7 +468,7 @@ public final class SchwimmerUtils {
                         zaehler.put(s.getStartnummer(), 0);
                     }
 
-                    liste.addLast(new ZWStartkarte<T>(s, l.getTime(), x + 1, index));
+                    liste.addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
                 }
             }
         }
@@ -484,7 +484,7 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<HLWLauf<T>> merged = new LinkedList<HLWLauf<T>>();
+        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
 
         {
             ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
@@ -497,10 +497,10 @@ public final class SchwimmerUtils {
 
         LinkedList<ZWStartkarte<T>>[] listen = new LinkedList[ll.get(first).getBahnen()];
         for (int x = 0; x < listen.length; x++) {
-            listen[x] = new LinkedList<ZWStartkarte<T>>();
+            listen[x] = new LinkedList<>();
         }
 
-        if (merged.size() == 0) {
+        if (merged.isEmpty()) {
             return null;
         }
 
@@ -513,7 +513,7 @@ public final class SchwimmerUtils {
 
         ListIterator<HLWLauf<T>> li = merged.listIterator(sindex);
 
-        Hashtable<Integer, Integer> zaehler = new Hashtable<Integer, Integer>();
+        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
 
         while (li.hasNext() && (amount > 0)) {
             amount--;
@@ -530,12 +530,12 @@ public final class SchwimmerUtils {
                         zaehler.put(s.getStartnummer(), 0);
                     }
 
-                    listen[x].addLast(new ZWStartkarte<T>(s, l.getTime(), x + 1, index));
+                    listen[x].addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
                 }
             }
         }
 
-        LinkedList<ZWStartkarte<T>> temp = new LinkedList<ZWStartkarte<T>>();
+        LinkedList<ZWStartkarte<T>> temp = new LinkedList<>();
         for (LinkedList<ZWStartkarte<T>> aListen : listen) {
             temp.addAll(aListen);
         }
@@ -585,18 +585,18 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<ZWStartkarte<T>>();
+        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
 
         LinkedList<T> swimmers = wk.getSchwimmer();
-        Collections.sort(swimmers, new SchwimmerNameVergleicher<T>());
-        Collections.sort(swimmers, new SchwimmerAKVergleicher<T>());
+        Collections.sort(swimmers, new SchwimmerNameVergleicher<>());
+        Collections.sort(swimmers, new SchwimmerAKVergleicher<>());
         ListIterator<T> li = swimmers.listIterator();
 
         while (li.hasNext()) {
             T s = li.next();
             if (s.getAK().hasHLW()) {
                 for (int index = 0; index < s.getMaximaleHLW(); index++) {
-                    liste.addLast(new ZWStartkarte<T>(s, null, 0, index));
+                    liste.addLast(new ZWStartkarte<>(s, null, 0, index));
                 }
             }
         }
@@ -619,10 +619,10 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<HLWLauf<T>> merged = new LinkedList<HLWLauf<T>>();
+        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
 
         {
-            LinkedList<HLWLauf<T>> temp = new LinkedList<HLWLauf<T>>();
+            LinkedList<HLWLauf<T>> temp = new LinkedList<>();
             ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
             while (lli.hasNext()) {
                 temp.addAll(lli.next());
@@ -642,11 +642,11 @@ public final class SchwimmerUtils {
             }
         }
 
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<ZWStartkarte<T>>();
+        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
 
         ListIterator<HLWLauf<T>> li = merged.listIterator();
 
-        Hashtable<Integer, Integer> zaehler = new Hashtable<Integer, Integer>();
+        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
 
         while (li.hasNext()) {
             HLWLauf<T> l = li.next();
@@ -661,7 +661,7 @@ public final class SchwimmerUtils {
                         zaehler.put(s.getStartnummer(), 0);
                     }
 
-                    liste.addLast(new ZWStartkarte<T>(s, l.getTime(), x + 1, index));
+                    liste.addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
                 }
             }
         }

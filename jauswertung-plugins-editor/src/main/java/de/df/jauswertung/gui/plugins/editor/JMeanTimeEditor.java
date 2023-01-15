@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.editor;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
@@ -29,7 +28,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -135,12 +133,7 @@ class JMeanTimeEditor extends JDialog {
     }
 
     private void addActions() {
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doCancel();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::doCancel);
     }
 
     void doCancel() {
@@ -229,37 +222,26 @@ class JMeanTimeEditor extends JDialog {
         setContentPane(panel);
 
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doCancel();
-            }
+        cancel.addActionListener(arg0 -> {
+            doCancel();
         });
 
         integer = new JIntegerField[3];
         time = new JTimeField[integer.length];
         for (int x = 0; x < integer.length; x++) {
             integer[x] = new JIntegerField(JTimeField.MAX_TIME, true);
-            integer[x].setValidator(new Validator() {
-                @Override
-                public boolean validate(int value) {
-                    value = value / 100;
-                    if ((value % 100) >= 60) {
-                        return false;
-                    }
-                    value = value / 100;
-                    return value < 1000;
+            integer[x].setValidator(value -> {
+                value = value / 100;
+                if ((value % 100) >= 60) {
+                    return false;
                 }
+                value = value / 100;
+                return value < 1000;
             });
             integer[x].getDocument().addDocumentListener(new TimeListener(x));
             integer[x].addKeyListener(new TimeKeyListener(x));

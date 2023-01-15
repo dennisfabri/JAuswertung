@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.urkunden;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -25,19 +24,13 @@ public class MUrkundenPlugin extends ANullPlugin {
 
     public MUrkundenPlugin() {
         JMenuItem item = new JMenuItem(I18n.get("Mehrkampf"));
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showEditor(false);
-            }
+        item.addActionListener(arg0 -> {
+            showEditor(false);
         });
         item.setToolTipText(I18n.getToolTip("MehrkampfurkundeBearbeiten"));
         JMenuItem item2 = new JMenuItem(I18n.get("Einzelwertung"));
-        item2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showEditor(true);
-            }
+        item2.addActionListener(arg0 -> {
+            showEditor(true);
         });
         item2.setToolTipText(I18n.getToolTip("EinzelwertungsurkundeBearbeiten"));
 
@@ -63,7 +56,7 @@ public class MUrkundenPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked" })
     <T extends ASchwimmer> void showEditor(boolean einzelwertung) {
-        JUrkundenEditor<T> ue = new JUrkundenEditor<T>(getController().getWindow(), (AWettkampf<T>) core.getWettkampf(),
+        JUrkundenEditor<T> ue = new JUrkundenEditor<>(getController().getWindow(), (AWettkampf<T>) core.getWettkampf(),
                 getController(), einzelwertung);
         ModalFrameUtil.showAsModal(ue, getController().getWindow());
     }

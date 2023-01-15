@@ -248,7 +248,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public BlockEinteilung[] getStandardBlocks() {
-        LinkedList<Integer> sgs = new LinkedList<Integer>();
+        LinkedList<Integer> sgs = new LinkedList<>();
 
         Startgruppe[] startgruppen = wk.getRegelwerk().getEffektiveStartgruppen();
         int anzahl = startgruppen.length;
@@ -305,7 +305,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         if (extend) {
-            LinkedList<BlockEinteilung> liste = new LinkedList<BlockEinteilung>();
+            LinkedList<BlockEinteilung> liste = new LinkedList<>();
             for (BlockEinteilung block : blocks) {
                 if (block != null) {
                     liste.addLast(block);
@@ -386,7 +386,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         LinkedList<Einteilung>[] disciplines = new LinkedList[maxdisz];
         for (int x = 0; x < maxdisz; x++) {
-            disciplines[x] = new LinkedList<Einteilung>();
+            disciplines[x] = new LinkedList<>();
         }
 
         boolean hasMinPlus1 = false;
@@ -412,7 +412,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
         if (hasMinPlus1) {
             for (int x = 0; x < mindisz + 1; x++) {
-                LinkedList<Einteilung> temp = new LinkedList<Einteilung>();
+                LinkedList<Einteilung> temp = new LinkedList<>();
                 for (int y = 0; y < anzahl; y++) {
                     for (int z = 0; z < 2; z++) {
                         int index = getSGIndex(sgs, y, z == 1);
@@ -427,7 +427,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         for (int x = 0; x < maxdisz; x++) {
-            LinkedList<Einteilung> temp = new LinkedList<Einteilung>();
+            LinkedList<Einteilung> temp = new LinkedList<>();
             for (int y = 0; y < anzahl; y++) {
                 for (int z = 0; z < 2; z++) {
                     int index = getSGIndex(sgs, y, z == 1);
@@ -448,7 +448,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             }
         }
 
-        LinkedList<Einteilung> daten = new LinkedList<Einteilung>();
+        LinkedList<Einteilung> daten = new LinkedList<>();
 
         for (int x = 0; x < maxdisz; x++) {
             daten.addAll(disciplines[x]);
@@ -525,7 +525,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         if (sgs == null) {
             return null;
         }
-        LinkedList<Einteilung> result = new LinkedList<Einteilung>();
+        LinkedList<Einteilung> result = new LinkedList<>();
 
         Startgruppe[] startgruppen = wk.getRegelwerk().getEffektiveStartgruppen();
 
@@ -784,9 +784,9 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                     laeufe[sg][1][disz] = result[1];
                     laeufe[sg][2][disz] = result[2];
                 } else {
-                    laeufe[sg][0][disz] = new LinkedList<Lauf<T>>();
-                    laeufe[sg][1][disz] = new LinkedList<Lauf<T>>();
-                    laeufe[sg][2][disz] = new LinkedList<Lauf<T>>();
+                    laeufe[sg][0][disz] = new LinkedList<>();
+                    laeufe[sg][1][disz] = new LinkedList<>();
+                    laeufe[sg][2][disz] = new LinkedList<>();
                 }
             }
         }
@@ -1005,7 +1005,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     @SuppressWarnings("unchecked")
     private static <T extends ASchwimmer> void vorsortierenVerteilt(AWettkampf<T> wk, LinkedList<T> ll) {
-        if ((ll == null) || (ll.size() == 0)) {
+        if ((ll == null) || (ll.isEmpty())) {
             return;
         }
 
@@ -1016,7 +1016,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         LinkedList<T>[] listen = new LinkedList[ganzahl];
         for (int x = 0; x < ganzahl; x++) {
-            listen[x] = new LinkedList<T>();
+            listen[x] = new LinkedList<>();
         }
 
         int zahl = 0;
@@ -1053,7 +1053,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         });
 
         int anzahl = size / bahnen;
-        LinkedList<T> overflow = new LinkedList<T>();
+        LinkedList<T> overflow = new LinkedList<>();
         while (size % bahnen != 0) {
             for (int x = listen.length - 1; x >= 0; x--) {
                 if (!listen[x].isEmpty()) {
@@ -1142,8 +1142,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         // Bei Disziplinenwahl nicht beitilgte Schwimmer entfernen
         if (s.getAK().isDisciplineChoiceAllowed()) {
             LinkedList<T>[] schwimmer2 = new LinkedList[2];
-            schwimmer2[0] = new LinkedList<T>(schwimmer[0]);
-            schwimmer2[1] = new LinkedList<T>(schwimmer[1]);
+            schwimmer2[0] = new LinkedList<>(schwimmer[0]);
+            schwimmer2[1] = new LinkedList<>(schwimmer[1]);
 
             for (int x = 0; x < 2; x++) {
                 ListIterator<T> li = schwimmer2[x].listIterator();
@@ -1168,10 +1168,10 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 // 1. Gemischter Lauf mit den schlechtesten Schwimmern
                 // 2. Weibliche Läufe
                 // 3. Männliche Läufe
-                LinkedList<T> l1 = new LinkedList<T>(schwimmer[0]);
-                LinkedList<T> l2 = new LinkedList<T>(schwimmer[1]);
-                LinkedList<T> rest1 = new LinkedList<T>();
-                LinkedList<T> rest2 = new LinkedList<T>();
+                LinkedList<T> l1 = new LinkedList<>(schwimmer[0]);
+                LinkedList<T> l2 = new LinkedList<>(schwimmer[1]);
+                LinkedList<T> rest1 = new LinkedList<>();
+                LinkedList<T> rest2 = new LinkedList<>();
                 for (int x = 0; x < s1; x++) {
                     rest1.addFirst(l1.removeLast());
                 }
@@ -1213,7 +1213,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     private static <T extends ASchwimmer> void startgruppeVerteilen(AWettkampf<T> wk, LinkedList<Lauf<T>> laufliste,
             int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen, boolean rotieren,
             boolean[] laneSelection, boolean isFinal) {
-        if (schwimmer.size() == 0) {
+        if (schwimmer.isEmpty()) {
             return;
         }
         if ((!isFinal) && wk.getRegelwerk().getFormelID().equals(FormelILSFinals.ID)) {
@@ -1236,8 +1236,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             weite = 3;
         }
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
-        Lauf<T> lauf = new Lauf<T>(vbahnen, 0, 0, laneSelection);
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
+        Lauf<T> lauf = new Lauf<>(vbahnen, 0, 0, laneSelection);
         ll.addFirst(lauf);
         ListIterator<T> li = schwimmer.listIterator();
         while (li.hasNext()) {
@@ -1245,7 +1245,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 if (rotieren) {
                     lauf.rotieren(disziplinAnzahl - disziplin - 1, weite);
                 }
-                lauf = new Lauf<T>(vbahnen, 0, 0, laneSelection);
+                lauf = new Lauf<>(vbahnen, 0, 0, laneSelection);
                 ll.addFirst(lauf);
             }
             lauf.addSchwimmer(li.next(), disziplin);
@@ -1289,7 +1289,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     private static <T extends ASchwimmer> void startgruppeVerteilenILS(AWettkampf<T> wk, LinkedList<Lauf<T>> laufliste,
             int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen, boolean rotieren,
             boolean[] laneSelection) {
-        if (schwimmer.size() == 0) {
+        if (schwimmer.isEmpty()) {
             return;
         }
 
@@ -1300,7 +1300,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         @SuppressWarnings("unchecked")
         Lauf<T>[] ll = new Lauf[amount];
         for (int x = 0; x < ll.length; x++) {
-            ll[x] = new Lauf<T>(vbahnen, x, 0, laneSelection);
+            ll[x] = new Lauf<>(vbahnen, x, 0, laneSelection);
         }
 
         // Einteilung in drei Gruppen:
@@ -1395,7 +1395,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     private static <T extends ASchwimmer> void startgruppeVerteilenILSOutdoor(AWettkampf<T> wk,
             LinkedList<Lauf<T>> laufliste, int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen,
             boolean rotieren, boolean[] laneSelection) {
-        if (schwimmer.size() == 0) {
+        if (schwimmer.isEmpty()) {
             return;
         }
 
@@ -1406,7 +1406,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         @SuppressWarnings("unchecked")
         Lauf<T>[] ll = new Lauf[amount];
         for (int x = 0; x < ll.length; x++) {
-            ll[x] = new Lauf<T>(vbahnen, x, 0, laneSelection);
+            ll[x] = new Lauf<>(vbahnen, x, 0, laneSelection);
             ll[x].setLeftToRight(true);
         }
 
@@ -1474,7 +1474,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         if (laufliste != null) {
             laufliste.clear();
         } else {
-            laufliste = new LinkedList<Lauf<T>>();
+            laufliste = new LinkedList<>();
         }
     }
 
@@ -1483,7 +1483,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public synchronized void remove(T s) {
-        if ((s == null) || (laufliste == null) || (laufliste.size() == 0)) {
+        if ((s == null) || (laufliste == null) || (laufliste.isEmpty())) {
             return;
         }
         if (wk.getSchwimmeranzahl() == 0) {
@@ -1519,7 +1519,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public synchronized void check(T s) {
-        if ((s == null) || (laufliste == null) || (laufliste.size() == 0)) {
+        if ((s == null) || (laufliste == null) || (laufliste.isEmpty())) {
             return;
         }
         if (wk.getSchwimmeranzahl() == 0) {
@@ -1548,7 +1548,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public synchronized void check(boolean hasOther) {
-        if ((laufliste == null) || (laufliste.size() == 0)) {
+        if ((laufliste == null) || (laufliste.isEmpty())) {
             return;
         }
         if (wk.getSchwimmeranzahl() == 0) {
@@ -1580,7 +1580,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return null;
         }
         if (laufliste == null) {
-            laufliste = new LinkedList<Lauf<T>>();
+            laufliste = new LinkedList<>();
         }
         if (laufliste.size() < index) {
             index = laufliste.size();
@@ -1671,7 +1671,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         if (laufliste == null) {
             return false;
         }
-        if (laufliste.size() == 0) {
+        if (laufliste.isEmpty()) {
             return false;
         }
 
@@ -1690,11 +1690,11 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         int b = wk.getIntegerProperty(HEATS_LANES);
 
         // Kleiner Pre-Test fuer schoenere Ergebnisse
-        Lauf<T> neu = new Lauf<T>(b, laufnummer, laufbuchstabe);
+        Lauf<T> neu = new Lauf<>(b, laufnummer, laufbuchstabe);
         if (!exists(neu)) {
             return neu;
         }
-        neu = new Lauf<T>(b, laufnummer + 1, 0);
+        neu = new Lauf<>(b, laufnummer + 1, 0);
         if (!exists(neu)) {
             return neu;
         }
@@ -1707,7 +1707,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 laufbuchstabe = 0;
                 laufnummer++;
             }
-            neu = new Lauf<T>(b, laufnummer, laufbuchstabe);
+            neu = new Lauf<>(b, laufnummer, laufbuchstabe);
         } while (exists(neu));
 
         return neu;
@@ -1740,7 +1740,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         if (laufliste == null) {
             return false;
         }
-        if (laufliste.size() == 0) {
+        if (laufliste.isEmpty()) {
             return false;
         }
 

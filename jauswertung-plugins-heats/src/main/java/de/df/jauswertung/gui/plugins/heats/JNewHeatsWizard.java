@@ -26,7 +26,6 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
@@ -465,7 +464,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         private JRadioButton auto = null;
         JRadioButton custom = null;
 
-        private LinkedList<String> disciplines = new LinkedList<String>();
+        private LinkedList<String> disciplines = new LinkedList<>();
         Hashtable<String, boolean[]> selection;
         Object[][] selections = null;
 
@@ -534,7 +533,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         }
 
         private void initDataPanel() {
-            if (disciplines.size() == 0) {
+            if (disciplines.isEmpty()) {
                 Hashtable<String, boolean[]> old = selection;
                 selection = new Hashtable<String, boolean[]>();
                 Regelwerk aks = wk.getRegelwerk();
@@ -579,7 +578,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     titles[x] = b;
                 }
 
-                LinkedList<Object[]> input = new LinkedList<Object[]>();
+                LinkedList<Object[]> input = new LinkedList<>();
                 ListIterator<String> li = disciplines.listIterator();
                 while (li.hasNext()) {
                     String name = li.next();
@@ -615,11 +614,8 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
                 auto = new JRadioButton(I18n.get("UseAllLanes"), true);
                 custom = new JRadioButton(I18n.get("Custom"), false);
-                custom.addItemListener(new ItemListener() {
-                    @Override
-                    public void itemStateChanged(ItemEvent e) {
-                        data.setEnabled(custom.isSelected());
-                    }
+                custom.addItemListener(e -> {
+                    data.setEnabled(custom.isSelected());
                 });
 
                 data = new JPanel() {
@@ -743,11 +739,8 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                             wk.getBooleanProperty(HEATS_MIXED_IN_FRONT), wk.getBooleanProperty(HEATS_JOIN_HEATS),
                             wk.getBooleanProperty(HEATS_ROTATE), wk.getBooleanProperty(HEATS_NOT_COMPETING_MIXED),
                             wk.getBooleanProperty(HEATS_RESPECT_QUALIFICATIONS) });
-            addSelectionListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    updateEnabled();
-                }
+            addSelectionListener(e -> {
+                updateEnabled();
             });
             updateEnabled();
         }
@@ -816,26 +809,17 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             panel = new JPanel(layout);
 
             auto = new JRadioButton(I18n.get("Automatic"), true);
-            auto.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    cards.show(editor, "auto");
-                }
+            auto.addItemListener(e -> {
+                cards.show(editor, "auto");
             });
 
             custom = new JRadioButton(I18n.get("HeatsDetailed"), false);
-            custom.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    cards.show(editor, "custom");
-                }
+            custom.addItemListener(e -> {
+                cards.show(editor, "custom");
             });
             blocks = new JRadioButton(I18n.get("HeatsByBlocks"), false);
-            blocks.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    cards.show(editor, "blocks");
-                }
+            blocks.addItemListener(e -> {
+                cards.show(editor, "blocks");
             });
             listcustom = getListCustom();
             listblocks = getListBlocks();
@@ -960,23 +944,17 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             private JMenuItem del = new JMenuItem(I18n.get("DeleteBlockswitch"), IconManager.getSmallIcon("delete"));
 
             public BlocksPopup() {
-                add.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        @SuppressWarnings("unchecked")
-                        ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
-                                .getModel();
-                        model.add(new Laufliste.BlockEinteilung(-1, false), listblocks.getSelectedIndex());
-                    }
+                add.addActionListener(e -> {
+                    @SuppressWarnings("unchecked")
+                    ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
+                            .getModel();
+                    model.add(new Laufliste.BlockEinteilung(-1, false), listblocks.getSelectedIndex());
                 });
-                del.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        @SuppressWarnings("unchecked")
-                        ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
-                                .getModel();
-                        model.remove(listblocks.getSelectedIndex());
-                    }
+                del.addActionListener(e -> {
+                    @SuppressWarnings("unchecked")
+                    ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
+                            .getModel();
+                    model.remove(listblocks.getSelectedIndex());
                 });
 
                 add(add);
@@ -1078,12 +1056,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         EDTUtils.setEnabled(this, false);
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                finishHeats();
-            }
-        });
+        EDTUtils.executeOnEDT(this::finishHeats);
         SwingWorker<Boolean, Object> sw = new SwingWorker<Boolean, Object>() {
             @Override
             protected Boolean doInBackground() throws Exception {

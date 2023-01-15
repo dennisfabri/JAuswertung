@@ -86,7 +86,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
             }
         }
 
-        LinkedList<Component> components = new LinkedList<Component>();
+        LinkedList<Component> components = new LinkedList<>();
         int index = 0;
         for (Lauf<T> lauf : laufliste) {
             components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showNotes,
@@ -164,7 +164,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
     private static <T extends ASchwimmer> JPanel getTablePanel(Lauf<T> lauf, boolean[] lanes, boolean showDisciplines,
             boolean showTimes, boolean showQuali,
             boolean showNotes, boolean showOrganisation, boolean showYearOfBirth, boolean isMultiline, boolean showSN) {
-        LinkedList<Object[]> datas = new LinkedList<Object[]>();
+        LinkedList<Object[]> datas = new LinkedList<>();
         for (int x = 0; x < lauf.getBahnen(); x++) {
             if (PrintUtils.printEmptyLanes || lanes[x]) {
                 Object[] data = new Object[9];

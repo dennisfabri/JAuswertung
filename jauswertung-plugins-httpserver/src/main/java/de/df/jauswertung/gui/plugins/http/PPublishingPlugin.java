@@ -68,7 +68,7 @@ public class PPublishingPlugin extends ANullPlugin {
     }
 
     private JComboBox createComboBox(Altersklasse ak, boolean maennlich, boolean empty) {
-        LinkedList<String> result = new LinkedList<String>();
+        LinkedList<String> result = new LinkedList<>();
         for (int x = 0; x <= ak.getDiszAnzahl(); x++) {
             result.addLast(I18n.get("Discipline1toN", x));
         }

@@ -110,13 +110,13 @@ public final class MiscImportUtils {
             int jahr) throws TableException, TableFormatException, IOException, TableEntryException {
         String[] datei = FileUtils.readTextFile(file);
         int disz = wk.getRegelwerk().getAk(ak).getDiszAnzahl();
-        LinkedList<String[]> result = new LinkedList<String[]>();
+        LinkedList<String[]> result = new LinkedList<>();
         if (wk instanceof EinzelWettkampf) {
             if (disz > 3) {
                 for (String aDatei : datei) {
                     if (aDatei.trim().length() > 0) {
                         try {
-                            LinkedList<String> l = new LinkedList<String>();
+                            LinkedList<String> l = new LinkedList<>();
                             String sn = aDatei.substring(0, 5).trim();
                             String nachname = aDatei.substring(5, 21).trim();
                             String vorname = aDatei.substring(21, 37).trim();
@@ -202,7 +202,7 @@ public final class MiscImportUtils {
             } else {
                 for (String aDatei : datei) {
                     if (aDatei.trim().length() > 0) {
-                        LinkedList<String> l = new LinkedList<String>();
+                        LinkedList<String> l = new LinkedList<>();
                         String sn = aDatei.substring(0, 6).trim();
                         String nachname = aDatei.substring(6, 24).trim();
                         String vorname = aDatei.substring(24, 41).trim();
@@ -277,7 +277,7 @@ public final class MiscImportUtils {
         } else {
             for (String aDatei : datei) {
                 if (aDatei.trim().length() > 0) {
-                    LinkedList<String> l = new LinkedList<String>();
+                    LinkedList<String> l = new LinkedList<>();
                     String sn = aDatei.substring(0, 8).trim();
                     String nachname = aDatei.substring(8, 30).trim();
                     String vorname = "";
@@ -519,7 +519,7 @@ public final class MiscImportUtils {
 
                         }
                     }
-                    if ((t.getZeit(x) == 0) && (t.getStrafen(x).size() == 0)) {
+                    if ((t.getZeit(x) == 0) && (t.getStrafen(x).isEmpty())) {
                         t.addStrafe(x, Strafe.NICHT_ANGETRETEN);
                     }
                 }

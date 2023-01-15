@@ -16,7 +16,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.print.Printable;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -115,15 +114,12 @@ abstract class APerDisciplinePrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        agegroup = new JComboBox<String>();
-        agegroup.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                if (isUpdating) {
-                    return;
-                }
-                checkWarning(core.getFilteredWettkampf());
+        agegroup = new JComboBox<>();
+        agegroup.addItemListener(arg0 -> {
+            if (isUpdating) {
+                return;
             }
+            checkWarning(core.getFilteredWettkampf());
         });
 
         panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
@@ -155,8 +151,8 @@ abstract class APerDisciplinePrinter implements Printer {
                             | REASON_NEW_WK)) > 0) {
                         result = false;
                         int index = Math.max(0, agegroup.getSelectedIndex());
-                        LinkedList<Integer> indexlist = new LinkedList<Integer>();
-                        LinkedList<String> names = new LinkedList<String>();
+                        LinkedList<Integer> indexlist = new LinkedList<>();
+                        LinkedList<String> names = new LinkedList<>();
                         agegroup.removeAllItems();
                         Regelwerk aks = wk.getRegelwerk();
                         for (int x = 0; x < aks.size(); x++) {
@@ -175,8 +171,8 @@ abstract class APerDisciplinePrinter implements Printer {
                                 names.addLast(wg.getName());
                             }
                         }
-                        agegroup.setModel(new DefaultComboBoxModel<String>(names.toArray(new String[names.size()])));
-                        if (names.size() == 0) {
+                        agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[names.size()])));
+                        if (names.isEmpty()) {
                             agegroup.addItem(I18n.get("Empty"));
                         }
                         indices = new int[indexlist.size()];
@@ -435,12 +431,9 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            printResult(t);
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        printResult(t);
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
@@ -457,12 +450,9 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection> cb = new ISimpleCallback<OWSelection>() {
-                    @Override
-                    public void callback(OWSelection t) {
-                        if (t != null) {
-                            export(t);
-                        }
+                ISimpleCallback<OWSelection> cb = t -> {
+                    if (t != null) {
+                        export(t);
                     }
                 };
                 OWUtils.ShowRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
@@ -493,14 +483,11 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
-                                    I18n.get("Einzelwertung"), IconManager.getIconBundle(),
-                                    IconManager.getTitleImages());
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
+                                I18n.get("Einzelwertung"), IconManager.getIconBundle(),
+                                IconManager.getTitleImages());
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",

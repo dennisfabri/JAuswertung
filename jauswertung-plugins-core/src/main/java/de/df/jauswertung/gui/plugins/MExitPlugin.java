@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -35,12 +34,8 @@ public class MExitPlugin extends ANullPlugin {
 
     public MExitPlugin() {
         exit.setToolTipText(I18n.getToolTip("Exit"));
-        exit.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                controller.quit();
-            }
+        exit.addActionListener(arg0 -> {
+            controller.quit();
         });
     }
 

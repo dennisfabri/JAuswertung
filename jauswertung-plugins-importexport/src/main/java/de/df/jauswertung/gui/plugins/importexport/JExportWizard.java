@@ -7,7 +7,6 @@ import static de.df.jauswertung.io.ExportManager.NAMES;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -299,12 +298,8 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
             };
 
             page.add(filename, CC.xy(2, 3));
-            filename.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    update();
-                }
+            filename.addActionListener(arg0 -> {
+                update();
             });
             filename.addKeyListener(new KeyAdapter() {
 
@@ -332,12 +327,8 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             });
             JButton button = new JButton("...");
-            button.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    browseFile();
-                }
+            button.addActionListener(arg0 -> {
+                browseFile();
             });
             page.add(button, CC.xy(4, 3));
         }

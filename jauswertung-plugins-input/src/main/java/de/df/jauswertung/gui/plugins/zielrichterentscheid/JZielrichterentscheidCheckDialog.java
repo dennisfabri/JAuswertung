@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.zielrichterentscheid;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
@@ -34,7 +33,7 @@ import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 
-class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
+final class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
 
     private static final long serialVersionUID = -1245349186646716314L;
 
@@ -69,12 +68,7 @@ class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
         });
 
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
 
         pack();
         UIStateUtils.uistatemanage(parent, this, "JZielrichterentscheidCheckDialog");
@@ -115,18 +109,12 @@ class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
         JPanel p = new JPanel(layout);
 
         JButton ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doCancel();
-            }
+        cancel.addActionListener(e -> {
+            doCancel();
         });
 
         p.add(ok, CC.xy(2, 2));

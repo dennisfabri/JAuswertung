@@ -14,7 +14,7 @@ public class PropertyChangeManager implements Serializable {
     private Object source;
 
     public PropertyChangeManager(Object src) {
-        listeners = new LinkedList<PropertyChangeListener>();
+        listeners = new LinkedList<>();
         source = src;
     }
 

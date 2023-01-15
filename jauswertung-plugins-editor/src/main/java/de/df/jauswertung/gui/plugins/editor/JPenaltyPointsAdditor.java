@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.editor;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -32,7 +31,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 
 class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
@@ -201,21 +199,13 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         setContentPane(panel);
 
         ok = new JButton(I18n.get("Ok"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"));
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
+        cancel.addActionListener(arg0 -> {
+            setVisible(false);
         });
 
         integer = new JIntegerField(10000, false);

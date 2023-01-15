@@ -33,12 +33,7 @@ class SchwimmerZW<T extends ASchwimmer> implements ListRenderDataProvider, Compa
         swimmer = s;
         updateCount(offen);
 
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                initLabel();
-            }
-        });
+        EDTUtils.executeOnEDT(this::initLabel);
     }
 
     public void updateCount(int amount) {

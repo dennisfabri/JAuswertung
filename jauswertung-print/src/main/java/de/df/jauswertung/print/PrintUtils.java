@@ -120,7 +120,7 @@ public final class PrintUtils {
             Altersklasse ak = aks.getAk(y);
             if (ak.hasMehrkampfwertung()) {
                 for (int a = 0; a < 2; a++) {
-                    GetFullPrintable<T> gfp = new GetFullPrintable<T>(wk, ak, a == 1, reducedview, points,
+                    GetFullPrintable<T> gfp = new GetFullPrintable<>(wk, ak, a == 1, reducedview, points,
                             qualification);
                     EDTUtils.executeOnEDT(gfp);
                     Printable p = gfp.printable;
@@ -150,7 +150,7 @@ public final class PrintUtils {
             Altersklasse ak = aks.getAk(y);
             if (ak.hasMehrkampfwertung()) {
                 for (int a = 0; a < 2; a++) {
-                    GetFullPrintable<T> gfp = new GetFullPrintable<T>(wk, ak, a == 1, reducedview, points,
+                    GetFullPrintable<T> gfp = new GetFullPrintable<>(wk, ak, a == 1, reducedview, points,
                             qualification);
                     EDTUtils.executeOnEDT(gfp);
                     Printable p = gfp.printable;
@@ -168,7 +168,7 @@ public final class PrintUtils {
                 Altersklasse ak = akx.getAk(y);
                 if (ak.hasMehrkampfwertung()) {
                     for (int a = 0; a < 2; a++) {
-                        GetFullPrintable<T> gfp = new GetFullPrintable<T>(wkx, ak, a == 1, reducedview, points,
+                        GetFullPrintable<T> gfp = new GetFullPrintable<>(wkx, ak, a == 1, reducedview, points,
                                 qualification);
                         EDTUtils.executeOnEDT(gfp);
                         Printable p = gfp.printable;
@@ -185,7 +185,7 @@ public final class PrintUtils {
         if (wk.getRegelwerk().hasGesamtwertung()) {
             ps.addLast(getGesamtwertungPrintable(wk));
         }
-        if (ps.size() == 0) {
+        if (ps.isEmpty()) {
             return null;
         }
         return new MultiplePrintable(ps);
@@ -242,7 +242,7 @@ public final class PrintUtils {
     public static <T extends ASchwimmer> LinkedList<Printable> getIntermediateResults(boolean[][] selected,
             AWettkampf<T> wk, int max, boolean reducedview, boolean points, int qualification) {
         wk = Utils.copy(wk);
-        LinkedList<Printable> ps = new LinkedList<Printable>();
+        LinkedList<Printable> ps = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int y = 0; y < selected[0].length; y++) {
             Altersklasse ak = aks.getAk(y);
@@ -265,7 +265,7 @@ public final class PrintUtils {
 
         // Disziplinen erkennen
         boolean strafeIstDisqualifikation = false;
-        Hashtable<String, Disziplin[]> disziplinen = new Hashtable<String, Disziplin[]>();
+        Hashtable<String, Disziplin[]> disziplinen = new Hashtable<>();
         for (int x = 0; x < selected[0].length; x++) {
             if (selected[0][x] | selected[1][x]) {
                 Altersklasse ak = wk.getRegelwerk().getAk(x);
@@ -296,7 +296,7 @@ public final class PrintUtils {
         }
 
         // Altersklassen aufbauen
-        Hashtable<String, Integer> swimmer = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> swimmer = new Hashtable<>();
         Regelwerk aks = new Regelwerk(wk.getRegelwerk().isEinzel(), wk.getRegelwerk().getFormelID());
         aks.setSize(disziplinen.size());
         {
@@ -376,7 +376,7 @@ public final class PrintUtils {
     public static <T extends ASchwimmer> LinkedList<Printable> getFullResultsPrintable(boolean[][] selected,
             AWettkampf<T> wkx, boolean reducedview, boolean points, int qualification) {
         final AWettkampf<T> wk = Utils.copy(wkx);
-        LinkedList<Printable> ps = new LinkedList<Printable>();
+        LinkedList<Printable> ps = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int y = 0; y < selected[0].length; y++) {
             Altersklasse ak = aks.getAk(y);
@@ -396,7 +396,7 @@ public final class PrintUtils {
 
     static <T extends ASchwimmer> Printable getIntermediatePrintable(AWettkampf<T> wk, int max, Altersklasse ak,
             boolean male, boolean reducedview, boolean points, boolean checksum, int qualification) {
-        if (SearchUtils.getSchwimmer(wk, ak, male).size() == 0) {
+        if (SearchUtils.getSchwimmer(wk, ak, male).isEmpty()) {
             return null;
         }
 
@@ -504,7 +504,7 @@ public final class PrintUtils {
 
     static <T extends ASchwimmer> Printable getFullPrintable(AWettkampf<T> wk, Altersklasse ak, boolean male,
             boolean reducedview, boolean points, boolean checksum, int qualification) {
-        if (SearchUtils.getSchwimmer(wk, ak, male).size() == 0) {
+        if (SearchUtils.getSchwimmer(wk, ak, male).isEmpty()) {
             return null;
         }
 
@@ -572,7 +572,7 @@ public final class PrintUtils {
 
     public static <T extends ASchwimmer> LinkedList<Printable> getEinzelwertungPrintables(AWettkampf<T> wk,
             boolean removeEmpty, int qualification) {
-        LinkedList<Printable> mp = new LinkedList<Printable>();
+        LinkedList<Printable> mp = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, x, removeEmpty);
@@ -624,7 +624,7 @@ public final class PrintUtils {
             }
         }
 
-        LinkedList<JComponent> mp = new LinkedList<JComponent>();
+        LinkedList<JComponent> mp = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
@@ -710,7 +710,7 @@ public final class PrintUtils {
                 }
             }
         }
-        if (mp.size() == 0) {
+        if (mp.isEmpty()) {
             return null;
         }
         return mp.toArray(new JComponent[mp.size()]);
@@ -718,7 +718,7 @@ public final class PrintUtils {
 
     public static <T extends ASchwimmer> LinkedList<Printable> getEinzelwertungPrintables(AWettkampf<T> wk, int ak,
             boolean removeEmpty, int qualification) {
-        LinkedList<Printable> mp = new LinkedList<Printable>();
+        LinkedList<Printable> mp = new LinkedList<>();
         for (int y = 0; y < 2; y++) {
             AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, ak, y == 1);
             if (w != null) {
@@ -738,7 +738,7 @@ public final class PrintUtils {
         private String first = "";
         private String last = "";
         private BitSet[] sgs;
-        private LinkedList<String> disziplinen = new LinkedList<String>();
+        private LinkedList<String> disziplinen = new LinkedList<>();
 
         public LaufInfo(AWettkampf<T> wk, Lauf<T> lauf) {
             this.wk = wk;
@@ -772,7 +772,7 @@ public final class PrintUtils {
         public String[] getStartgruppen() {
             Regelwerk aks = wk.getRegelwerk();
             Startgruppe[] sgx = aks.getEffektiveStartgruppen();
-            LinkedList<String> result = new LinkedList<String>();
+            LinkedList<String> result = new LinkedList<>();
             for (int x = 0; x < sgx.length; x++) {
                 if (sgs[0].get(x) && sgs[1].get(x)) {
                     result.addLast(I18n.get("AgeGroupSex", sgx[x].getName(), I18n.get("mixed")));
@@ -868,13 +868,13 @@ public final class PrintUtils {
             return null;
         }
 
-        LinkedList<LaufInfo<T>> data = new LinkedList<LaufInfo<T>>();
+        LinkedList<LaufInfo<T>> data = new LinkedList<>();
 
         {
             // Daten zu den Läufen sammeln
             ListIterator<Lauf<T>> li = liste.getLaufliste().listIterator();
             while (li.hasNext()) {
-                data.addLast(new LaufInfo<T>(wk, li.next()));
+                data.addLast(new LaufInfo<>(wk, li.next()));
             }
         }
 

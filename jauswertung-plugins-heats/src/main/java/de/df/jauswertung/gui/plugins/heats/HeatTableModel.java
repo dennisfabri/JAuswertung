@@ -28,7 +28,7 @@ public class HeatTableModel<T extends ASchwimmer> implements TableModel {
     public HeatTableModel(AWettkampf<T> wk) {
         this.wk = wk;
         heats = wk.getLaufliste();
-        listeners = new LinkedList<TableModelListener>();
+        listeners = new LinkedList<>();
     }
 
     @Override
@@ -124,11 +124,11 @@ public class HeatTableModel<T extends ASchwimmer> implements TableModel {
 
     @SuppressWarnings("unchecked")
     public SchwimmerDisziplin<T>[] removeRow(int row) {
-        LinkedList<SchwimmerDisziplin<T>> list = new LinkedList<SchwimmerDisziplin<T>>();
+        LinkedList<SchwimmerDisziplin<T>> list = new LinkedList<>();
         Lauf<T> heat = heats.getLaufliste().get(row);
         for (int x = 0; x < heat.getBahnen(); x++) {
             if (heat.getSchwimmer(x) != null) {
-                list.addLast(new SchwimmerDisziplin<T>(x, heat, false));
+                list.addLast(new SchwimmerDisziplin<>(x, heat, false));
             }
         }
         heats.remove(row);

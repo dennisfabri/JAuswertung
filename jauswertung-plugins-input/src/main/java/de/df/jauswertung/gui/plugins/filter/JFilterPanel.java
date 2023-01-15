@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.filter;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -19,7 +18,6 @@ import javax.swing.ListModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -70,7 +68,7 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
         gliederungen = n;
 
         model.addAll(filter);
-        gl = new LinkedList<String>();
+        gl = new LinkedList<>();
         for (String aGliederungen : gliederungen) {
             boolean found = false;
             for (int y = 0; y < filter.length; y++) {
@@ -84,7 +82,7 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
             }
         }
         Collections.sort(gl);
-        if (gl.size() == 0) {
+        if (gl.isEmpty()) {
             add.setEnabled(false);
         }
         updateIndex(index);
@@ -107,23 +105,14 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
             name.setEnabled(false);
         }
 
-        fi.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent arg0) {
-                selectionChanged();
-            }
+        fi.addListSelectionListener(arg0 -> {
+            selectionChanged();
         });
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doAdd();
-            }
+        add.addActionListener(arg0 -> {
+            doAdd();
         });
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doRemove();
-            }
+        remove.addActionListener(arg0 -> {
+            doRemove();
         });
         name.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -212,7 +201,7 @@ class JFilterPanel<T extends ASchwimmer> extends JPanel {
             for (String aG : g) {
                 gl.remove(aG);
             }
-            if (gl.size() == 0) {
+            if (gl.isEmpty()) {
                 add.setEnabled(false);
             }
             model.addAll(g);

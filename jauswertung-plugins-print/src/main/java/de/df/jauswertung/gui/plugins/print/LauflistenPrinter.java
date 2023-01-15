@@ -112,7 +112,7 @@ class LauflistenPrinter implements Printer {
     }
 
     static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T>[] wkx) {
-        ArrayList<Printable> px = new ArrayList<Printable>();
+        ArrayList<Printable> px = new ArrayList<>();
         for (AWettkampf wk : wkx) {
             px.add(getPrintable(wk));
         }
@@ -133,7 +133,7 @@ class LauflistenPrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t) {
-            ArrayList<AWettkampf> wkx = new ArrayList<AWettkampf>();
+            ArrayList<AWettkampf> wkx = new ArrayList<>();
             for (OWSelection s : t) {
                 wkx.add(createCompetitionFor(s));
             }
@@ -145,12 +145,9 @@ class LauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            printLaufliste(t);
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        printLaufliste(t);
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
@@ -182,18 +179,15 @@ class LauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            ArrayList<AWettkampf> wkx = new ArrayList<AWettkampf>();
-                            for (OWSelection s : t) {
-                                wkx.add(createCompetitionFor(s));
-                            }
-                            PrintExecutor.preview(controller.getWindow(),
-                                    new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])),
-                                    I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        ArrayList<AWettkampf> wkx = new ArrayList<>();
+                        for (OWSelection s : t) {
+                            wkx.add(createCompetitionFor(s));
                         }
+                        PrintExecutor.preview(controller.getWindow(),
+                                new PPrintableCreator(wkx.toArray(new AWettkampf[wkx.size()])),
+                                I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",

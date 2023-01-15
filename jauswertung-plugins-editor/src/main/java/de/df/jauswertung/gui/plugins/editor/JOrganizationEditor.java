@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.editor;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -73,12 +72,7 @@ class JOrganizationEditor extends JDialog {
 
     private void addActions() {
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
     }
 
     @SuppressWarnings("rawtypes")
@@ -116,21 +110,13 @@ class JOrganizationEditor extends JDialog {
         setContentPane(panel);
 
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
+        cancel.addActionListener(arg0 -> {
+            setVisible(false);
         });
 
         value = new JWarningTextField(true, false);

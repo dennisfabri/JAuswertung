@@ -32,7 +32,7 @@ public final class ErzeugeStrafen {
 
         public Collection<Strafe> expand(Strafe s) {
 
-            ArrayList<Strafe> strafen = new ArrayList<Strafe>();
+            ArrayList<Strafe> strafen = new ArrayList<>();
             strafen.add(s);
             if (!isMatching(s)) {
                 return strafen;
@@ -126,9 +126,9 @@ public final class ErzeugeStrafen {
 
         Strafen s = new Strafen();
 
-        LinkedList<String> kapitelnamen = new LinkedList<String>();
-        Hashtable<String, Hashtable<String, LinkedList<Strafe>>> h = new Hashtable<String, Hashtable<String, LinkedList<Strafe>>>();
-        Hashtable<String, LinkedList<String>> hp = new Hashtable<String, LinkedList<String>>();
+        LinkedList<String> kapitelnamen = new LinkedList<>();
+        Hashtable<String, Hashtable<String, LinkedList<Strafe>>> h = new Hashtable<>();
+        Hashtable<String, LinkedList<String>> hp = new Hashtable<>();
 
         Object[][] table = ExcelReader.sheetToTable(source, 0);
 
@@ -136,16 +136,16 @@ public final class ErzeugeStrafen {
             String kapitel = table[x][0].toString().trim();
             Hashtable<String, LinkedList<Strafe>> ht = h.get(kapitel);
             if (ht == null) {
-                ht = new Hashtable<String, LinkedList<Strafe>>();
+                ht = new Hashtable<>();
                 h.put(kapitel, ht);
                 kapitelnamen.addLast(kapitel);
-                hp.put(kapitel, new LinkedList<String>());
+                hp.put(kapitel, new LinkedList<>());
             }
             String bereich = table[x][1].toString().trim();
             LinkedList<Strafe> ll = ht.get(bereich);
             if (ll == null) {
                 hp.get(kapitel).addLast(bereich);
-                ll = new LinkedList<Strafe>();
+                ll = new LinkedList<>();
                 ht.put(bereich, ll);
             }
             Strafarten art = Strafarten.NICHTS;

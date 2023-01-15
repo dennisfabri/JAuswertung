@@ -58,7 +58,7 @@ public class StatisticsUtils {
         }
 
         for (T s : wk.getSchwimmer()) {
-            LinkedList<Strafe> strafen = new LinkedList<Strafe>();
+            LinkedList<Strafe> strafen = new LinkedList<>();
             strafen.addAll(s.getAllgemeineStrafen());
             for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                 strafen.addAll(s.getStrafen(x));
@@ -88,7 +88,7 @@ public class StatisticsUtils {
     }
 
     public static <T extends ASchwimmer> LinkedList<JComponent> createPenaltiesStatistics(AWettkampf<T> wk) {
-        LinkedList<JComponent> list = new LinkedList<JComponent>();
+        LinkedList<JComponent> list = new LinkedList<>();
         list.addLast(createPenaltiesPerAgegroupPanel(wk));
         if (wk.hasLaufliste() && wk.isDLRGBased()) {
             list.addLast(createPenaltiesPerLaneAndDisciplinePanel(wk));
@@ -309,7 +309,7 @@ public class StatisticsUtils {
         Regelwerk aks = wk.getRegelwerk();
 
         if (!wk.hasSchwimmer()) {
-            return new LinkedList<JComponent>();
+            return new LinkedList<>();
         }
 
         int size = 0;
@@ -320,7 +320,7 @@ public class StatisticsUtils {
         }
 
         LinkedList<String> gliederungsliste = wk.getGliederungenMitQGliederung();
-        Hashtable<String, Integer> gliederungen = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> gliederungen = new Hashtable<>();
         boolean longgld = false;
         {
             int x = 0;
@@ -349,7 +349,7 @@ public class StatisticsUtils {
             statsall[ak][male ? 1 : 0]++;
         }
 
-        LinkedList<JComponent> ps = new LinkedList<JComponent>();
+        LinkedList<JComponent> ps = new LinkedList<>();
 
         int amount = gliederungsliste.size();
         int offset = 0;
@@ -371,7 +371,7 @@ public class StatisticsUtils {
         int starts = 0;
         ListIterator<T> li = swimmer.listIterator();
 
-        Hashtable<String, Boolean> gliederungenHt = new Hashtable<String, Boolean>();
+        Hashtable<String, Boolean> gliederungenHt = new Hashtable<>();
         int[][] akTeilies = new int[aks.size()][2];
         int[][] akStarts = new int[aks.size()][2];
         while (li.hasNext()) {

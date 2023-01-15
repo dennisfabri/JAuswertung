@@ -35,7 +35,7 @@ public class AresWriterBlocks {
 
     public static <T extends Teilnehmer> void writeEZ(AWettkampf<T>[] wks, String file) throws IOException {
         FileOutputStream fos = new FileOutputStream(file);
-        LinkedList<Heat> heats = new LinkedList<Heat>();
+        LinkedList<Heat> heats = new LinkedList<>();
         int pos = 1;
         for (AWettkampf<T> wk : wks) {
             for (Lauf<T> lauf : wk.getLaufliste().getLaufliste()) {
@@ -134,7 +134,7 @@ public class AresWriterBlocks {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
         // 0; "25 m" ; 25 ;1
-        Hashtable<String, Integer> disziplinen = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> disziplinen = new Hashtable<>();
         for (AWettkampf<T> wk : wks) {
             writeLaengen(wk.getRegelwerk(), ps, disziplinen);
         }
@@ -210,9 +210,9 @@ public class AresWriterBlocks {
         ps.println("idStyle;Style;StyleAbrév");
         Enumeration<String> dis = disziplinen.keys();
 
-        Hashtable<Integer, String> reverse = new Hashtable<Integer, String>();
+        Hashtable<Integer, String> reverse = new Hashtable<>();
 
-        LinkedList<Integer> ids = new LinkedList<Integer>();
+        LinkedList<Integer> ids = new LinkedList<>();
         while (dis.hasMoreElements()) {
             String d = dis.nextElement();
             int id = disziplinen.get(d);
@@ -245,7 +245,7 @@ public class AresWriterBlocks {
 
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("event;round;nbHeat;idLen;idStyle;abCat;date;time");
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -296,7 +296,7 @@ public class AresWriterBlocks {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("event;round;nbHeat;idLen;idStyle;abCat;date;time");
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -341,7 +341,7 @@ public class AresWriterBlocks {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("id;event;round ;heat");
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -415,7 +415,7 @@ public class AresWriterBlocks {
         ps.println("event;round;text");
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -456,7 +456,7 @@ public class AresWriterBlocks {
         PrintStream ps = new PrintStream(os, true, CHARSET2);
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
@@ -557,7 +557,7 @@ public class AresWriterBlocks {
 
         // Laufliste<T> liste = wk.getLaufliste();
 
-        LinkedList<Lauf<T>> ll = new LinkedList<Lauf<T>>();
+        LinkedList<Lauf<T>> ll = new LinkedList<>();
         for (AWettkampf<T> wk : wks) {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }

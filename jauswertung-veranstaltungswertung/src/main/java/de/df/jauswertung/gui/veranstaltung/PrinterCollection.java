@@ -23,7 +23,7 @@ class PrinterCollection implements Printer {
 
     private String name;
     private JPanel panel = new JPanel(new SimpleTableLayout(1, 5, 5));
-    private LinkedList<Printer> printers = new LinkedList<Printer>();
+    private LinkedList<Printer> printers = new LinkedList<>();
 
     public PrinterCollection(String name) {
         this.name = name;

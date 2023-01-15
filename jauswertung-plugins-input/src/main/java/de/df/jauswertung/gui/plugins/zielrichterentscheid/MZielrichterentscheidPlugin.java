@@ -8,7 +8,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANG
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_ZW_LIST_CHANGED;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -31,11 +30,8 @@ public class MZielrichterentscheidPlugin extends ANullPlugin {
     public MZielrichterentscheidPlugin() {
         menu = new JMenuItem(I18n.get("Zielrichterentscheid"));
         menu.setToolTipText(I18n.getToolTip("Zielrichterentscheid"));
-        menu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showZielrichterentscheid();
-            }
+        menu.addActionListener(arg0 -> {
+            showZielrichterentscheid();
         });
         menu.setAccelerator(I18n.getKeyStroke("zielrichterentscheid"));
     }

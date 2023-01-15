@@ -172,8 +172,8 @@ public class BugReport implements Serializable {
         String[][] result = new String[2][0];
         @SuppressWarnings("rawtypes")
         Enumeration props = System.getProperties().keys();
-        LinkedList<String> keys = new LinkedList<String>();
-        LinkedList<String> values = new LinkedList<String>();
+        LinkedList<String> keys = new LinkedList<>();
+        LinkedList<String> values = new LinkedList<>();
         while (props.hasMoreElements()) {
             String key = (String) props.nextElement();
             values.addLast(System.getProperty(key));

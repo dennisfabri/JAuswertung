@@ -57,7 +57,7 @@ public class PRegistrationPlugin extends ANullPlugin {
     @Override
     public void dataUpdated(UpdateEvent due) {
         if ((due.getChangeReason() & (REASON_NEW_WK | REASON_LOAD_WK)) > 0) {
-            EDTUtils.executeOnEDT(() -> updateDisplay());
+            EDTUtils.executeOnEDT(this::updateDisplay);
         }
     }
 

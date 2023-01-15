@@ -319,10 +319,8 @@ class DataProvider {
                 throw new NullPointerException();
             }
             Transform.writeHtmlDocument(out, "xsl/results.xsl", doc);
-        } catch (TransformerException te) {
+        } catch (TransformerException | ParserConfigurationException te) {
             throw new IOException(te.getMessage());
-        } catch (ParserConfigurationException e) {
-            throw new IOException(e.getMessage());
         }
     }
 
@@ -398,7 +396,7 @@ class DataProvider {
         zos.close();
     }
 
-    private Hashtable<String, IDataProvider> providers = new Hashtable<String, IDataProvider>();
+    private Hashtable<String, IDataProvider> providers = new Hashtable<>();
 
     public String registerDataProvider(IDataProvider dp) {
         String key = null;

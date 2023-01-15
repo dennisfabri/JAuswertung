@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.statistics;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -28,11 +27,8 @@ public class MStatisticsPlugin extends ANullPlugin {
         menu[0] = new JMenuItem(I18n.get("Statistics"));
         menu[0].setToolTipText(I18n.getToolTip("Statistics"));
         menu[0].setEnabled(false);
-        menu[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showWindow();
-            }
+        menu[0].addActionListener(arg0 -> {
+            showWindow();
         });
 
         minfo = new MenuInfo[1];

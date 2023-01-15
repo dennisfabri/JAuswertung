@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.util;
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -88,11 +87,8 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
         }
 
         JButton close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        close.addActionListener(e -> {
+            setVisible(false);
         });
 
         // add(new JLabel(schwimmer.getName()), CC.xyw(2, 2, 5, "center,fill"));

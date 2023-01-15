@@ -84,7 +84,7 @@ public final class PrinterUtils {
 
         PrinterCollection misc = createEmptyFormPrinters(controller);
 
-        LinkedList<Printer> printers = new LinkedList<Printer>();
+        LinkedList<Printer> printers = new LinkedList<>();
         printers.addLast(competition);
         printers.addLast(protocol);
         printers.addLast(ergebnisse);

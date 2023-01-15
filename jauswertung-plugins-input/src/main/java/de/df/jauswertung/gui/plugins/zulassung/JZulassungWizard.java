@@ -17,7 +17,6 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -39,7 +38,6 @@ import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -247,17 +245,11 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
             single = new JRadioButton(I18n.get("SetZulassungLimits.SingleInput"));
             multi = new JRadioButton(I18n.get("SetZulassungLimits.DetailedInput"));
 
-            single.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    modeChanged();
-                }
+            single.addChangeListener(e -> {
+                modeChanged();
             });
-            multi.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    modeChanged();
-                }
+            multi.addChangeListener(e -> {
+                modeChanged();
             });
 
             simpleInput = new JIntegerField(false, true);

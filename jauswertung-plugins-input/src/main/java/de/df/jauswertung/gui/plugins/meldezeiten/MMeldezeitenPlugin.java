@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.meldezeiten;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
@@ -32,11 +31,8 @@ public class MMeldezeitenPlugin extends ANullPlugin {
         if (menu == null) {
             item = new JMenuItem(I18n.get("Meldezeiten"));
             item.setToolTipText(I18n.getToolTip("Meldezeiten"));
-            item.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    showWindow();
-                }
+            item.addActionListener(arg0 -> {
+                showWindow();
             });
             menu = new MenuInfo[1];
             menu[0] = new MenuInfo(I18n.get("Prepare"), 510, item, 91);
@@ -56,12 +52,7 @@ public class MMeldezeitenPlugin extends ANullPlugin {
     @SuppressWarnings({ "unchecked" })
     void showWindow() {
         @SuppressWarnings("rawtypes")
-        ISimpleCallback<JMeldezeiten> sc = new ISimpleCallback<JMeldezeiten>() {
-            @Override
-            public void callback(JMeldezeiten jm) {
-                notifyChange(jm);
-            }
-        };
+        ISimpleCallback<JMeldezeiten> sc = this::notifyChange;
 
         @SuppressWarnings("rawtypes")
         JMeldezeiten jm = new JMeldezeiten(getController().getWindow(), core.getWettkampf(), sc);

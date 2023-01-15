@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ListIterator;
@@ -64,11 +63,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
     public MPointGuessingPlugin() {
         guess.setToolTipText(I18n.getToolTip("GuessReportedPoints"));
-        guess.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                guessPoints();
-            }
+        guess.addActionListener(arg0 -> {
+            guessPoints();
         });
     }
 
@@ -81,12 +77,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
         dialog.setValue(0);
         dialog.setMaximumValue(1 + core.getWettkampf().getRegelwerk().size() * 2);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                dialog.start();
-            }
-        });
+        SwingUtilities.invokeLater(dialog::start);
 
         if (sw == null) {
             sw = new SwingWorker<Object, Object>() {
@@ -101,12 +92,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
                     AWettkampf wk = core.getWettkampf();
                     @SuppressWarnings("rawtypes")
                     AWettkampf copy = Utils.copy(wk);
-                    EDTUtils.executeOnEDT(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.increaseValue();
-                        }
-                    });
+                    EDTUtils.executeOnEDT(dialog::increaseValue);
                     ListIterator<ASchwimmer> li = copy.getSchwimmer().listIterator();
                     while (li.hasNext()) {
                         ASchwimmer s = li.next();
@@ -119,12 +105,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
                     boolean changed = false;
                     for (int x = 0; x < wk.getRegelwerk().size(); x++) {
                         for (int y = 0; y < 2; y++) {
-                            EDTUtils.executeOnEDT(new Runnable() {
-                                @Override
-                                public void run() {
-                                    dialog.increaseValue();
-                                }
-                            });
+                            EDTUtils.executeOnEDT(dialog::increaseValue);
                             if (SearchUtils.hasSchwimmer(copy, copy.getRegelwerk().getAk(x), y == 1)) {
                                 JResultTable table = JResultTable.getResultTable(copy, copy.getRegelwerk().getAk(x),
                                         y == 1, false, true, 0);
@@ -141,12 +122,7 @@ public class MPointGuessingPlugin extends ANullPlugin {
                         }
                     }
                     if (changed) {
-                        EDTUtils.executeOnEDT(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.finishing();
-                            }
-                        });
+                        EDTUtils.executeOnEDT(dialog::finishing);
                         controller.sendDataUpdateEvent("GuessReportedPoints",
                                 UpdateEventConstants.REASON_SWIMMER_CHANGED, MPointGuessingPlugin.this);
                     }
@@ -222,11 +198,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
             values = new int[anzahl][2];
 
             ok = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                }
+            ok.addActionListener(e -> {
+                setVisible(false);
             });
 
             progress = new JProgressBar(0, 10);

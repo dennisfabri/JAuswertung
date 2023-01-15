@@ -143,7 +143,7 @@ class JSimpleInputPanel extends JPanel {
         Strafe s1 = core.getWettkampf().getStrafen().getNichtAngetreten();
         Strafe s2 = core.getWettkampf().getStrafen().getDisqualifiziert();
         String[] specialStrings = null;
-        LinkedList<String> strings = new LinkedList<String>();
+        LinkedList<String> strings = new LinkedList<>();
         strings.add(I18n.get("DidNotStartShort"));
         strings.add("n");
         strings.add(I18n.get("DisqualificationShort"));
@@ -171,22 +171,19 @@ class JSimpleInputPanel extends JPanel {
                 dlNew[x] = dl[x];
             } else {
                 startnumbersNew[x] = new JWarningTextField(false, true);
-                startnumbersNew[x].setValidator(new JWarningTextField.Validator() {
-                    @Override
-                    public boolean validate(String value) {
-                        if ((value == null) || (value.trim().length() == 0)) {
-                            return true;
-                        }
-                        value = value.trim();
-                        if (StringTools.isInteger(value)) {
-                            return true;
-                        }
-                        if ((ZWUtils.getZWIndex(core.getWettkampf(), value) >= 0)
-                                && (ZWUtils.getZWStartnummer(core.getWettkampf(), value) >= 0)) {
-                            return true;
-                        }
-                        return false;
+                startnumbersNew[x].setValidator(value -> {
+                    if ((value == null) || (value.trim().length() == 0)) {
+                        return true;
                     }
+                    value = value.trim();
+                    if (StringTools.isInteger(value)) {
+                        return true;
+                    }
+                    if ((ZWUtils.getZWIndex(core.getWettkampf(), value) >= 0)
+                    && (ZWUtils.getZWStartnummer(core.getWettkampf(), value) >= 0)) {
+                        return true;
+                    }
+                    return false;
                 });
                 startnumbersNew[x].setToolTipText(I18n.getToolTip("StartnumberInput"));
                 startnumbersNew[x].addKeyListener(moreInputListener);
@@ -248,16 +245,13 @@ class JSimpleInputPanel extends JPanel {
         agegroup = new JLabel(I18n.get("AgeGroup"));
         input = new JLabel(I18n.get("ZWPoints"));
 
-        amount = new JComboBox<Integer>(new Integer[] { 5, 10, 15, 20, 25, 30, 40, 50 });
+        amount = new JComboBox<>(new Integer[] { 5, 10, 15, 20, 25, 30, 40, 50 });
         amount.setToolTipText(I18n.getToolTip("NumberOfInputLines"));
         amount.addActionListener(new AmountActionListener());
         more = new JButton(I18n.get("More"));
         more.setToolTipText(I18n.getToolTip("PrepareForNewInput"));
-        more.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                prepareMoreInput();
-            }
+        more.addActionListener(e -> {
+            prepareMoreInput();
         });
     }
 
@@ -687,34 +681,22 @@ class JSimpleInputPanel extends JPanel {
         public void insertUpdate(DocumentEvent e) {
             String zeit = inputs[index].getText();
             if (zeit.indexOf("+") > -1) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String s = StringTools.removeAll(inputs[index].getText(), '+');
-                        setInput(index, s, true);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                nextRow(index);
-                            }
-                        });
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String s = StringTools.removeAll(inputs[index].getText(), '+');
+                    setInput(index, s, true);
+                    SwingUtilities.invokeLater(() -> {
+                        nextRow(index);
+                    });
                 });
                 return;
             }
             if (zeit.indexOf("-") > -1) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String s = StringTools.removeAll(inputs[index].getText(), '-');
-                        setInput(index, s, true);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                previousRow(index);
-                            }
-                        });
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String s = StringTools.removeAll(inputs[index].getText(), '-');
+                    setInput(index, s, true);
+                    SwingUtilities.invokeLater(() -> {
+                        previousRow(index);
+                    });
                 });
                 return;
             }
@@ -812,34 +794,22 @@ class JSimpleInputPanel extends JPanel {
         @Override
         public void insertUpdate(DocumentEvent e) {
             if (startnumbers[index].getText().indexOf("+") > -1) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String s = StringTools.removeAll(startnumbers[index].getText(), '+');
-                        startnumbers[index].setText(s);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                nextRow(index);
-                            }
-                        });
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String s = StringTools.removeAll(startnumbers[index].getText(), '+');
+                    startnumbers[index].setText(s);
+                    SwingUtilities.invokeLater(() -> {
+                        nextRow(index);
+                    });
                 });
                 return;
             }
             if (startnumbers[index].getText().indexOf("-") > -1) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String s = StringTools.removeAll(startnumbers[index].getText(), '-');
-                        startnumbers[index].setText(s);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                previousRow(index);
-                            }
-                        });
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    String s = StringTools.removeAll(startnumbers[index].getText(), '-');
+                    startnumbers[index].setText(s);
+                    SwingUtilities.invokeLater(() -> {
+                        previousRow(index);
+                    });
                 });
                 return;
             }

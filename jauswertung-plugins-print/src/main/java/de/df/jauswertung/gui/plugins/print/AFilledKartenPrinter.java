@@ -72,7 +72,7 @@ abstract class AFilledKartenPrinter implements Printer {
         preview = new JButton(I18n.get("Preview"));
         preview.addActionListener(new PreviewActionListener());
 
-        pages = new JComboBox<String>(new String[] { "1", "2", "4" });
+        pages = new JComboBox<>(new String[] { "1", "2", "4" });
         pages.setSelectedIndex(2);
 
         pages.setEnabled(false);
@@ -132,7 +132,7 @@ abstract class AFilledKartenPrinter implements Printer {
             int minheat, int maxheat);
 
     <T extends ASchwimmer> boolean askForDetails(AWettkampf<T> wk) {
-        JDetailsDialog<T> details = new JDetailsDialog<T>(controller.getWindow(), wk, text, false);
+        JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text, false);
         EDTUtils.setVisible(details, true);
         if (details.isOk()) {
             allheats = details.printAllHeats();
@@ -179,12 +179,9 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            printLaufliste(t);
-                        }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        printLaufliste(t);
                     }
                 };
                 OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
@@ -220,16 +217,12 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = new ISimpleCallback<OWSelection[]>() {
-                    @SuppressWarnings("rawtypes")
-                    @Override
-                    public void callback(OWSelection[] t) {
-                        if (t != null) {
-                            AWettkampf[] wkx = createCompetitionFor(t);
-                            if (askForDetails(wkx)) {
-                                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
-                                        IconManager.getIconBundle(), IconManager.getTitleImages());
-                            }
+                ISimpleCallback<OWSelection[]> cb = []t -> {
+                    if (t != null) {
+                        AWettkampf[] wkx = createCompetitionFor(t);
+                        if (askForDetails(wkx)) {
+                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
+                                    IconManager.getIconBundle(), IconManager.getTitleImages());
                         }
                     }
                 };

@@ -74,7 +74,7 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
         // JResultTable result = JResultTable.getResultTable(wk,
         // wk.getRegelwerk().getAk(ak), sex, false, true, 0);
 
-        LinkedList<String[]> temp = new LinkedList<String[]>();
+        LinkedList<String[]> temp = new LinkedList<>();
 
         for (int x = 0; x < results.size(); x++) {
             SchwimmerResult<T> sr = results.getResult(x);

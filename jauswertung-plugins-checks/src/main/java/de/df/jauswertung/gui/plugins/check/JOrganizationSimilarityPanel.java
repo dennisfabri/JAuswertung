@@ -86,7 +86,7 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
             return;
         }
 
-        LinkedList<String[]> sim = new LinkedList<String[]>();
+        LinkedList<String[]> sim = new LinkedList<>();
 
         String[] glds = wk.getGliederungen().toArray(new String[0]);
         Arrays.sort(glds);
@@ -101,7 +101,7 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
     }
 
     private static Hashtable<String, String[]> unite(LinkedList<String[]> similarities) {
-        Hashtable<String, LinkedList<String>> data = new Hashtable<String, LinkedList<String>>();
+        Hashtable<String, LinkedList<String>> data = new Hashtable<>();
         for (String[] glds : similarities) {
             LinkedList<String> l = null;
             for (String gld : glds) {
@@ -118,14 +118,14 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
                 }
             }
             if (l == null) {
-                l = new LinkedList<String>();
+                l = new LinkedList<>();
                 ListUtils.addAll(l, glds);
             }
             for (String gld : l) {
                 data.put(gld, l);
             }
         }
-        Hashtable<String, String[]> sim = new Hashtable<String, String[]>();
+        Hashtable<String, String[]> sim = new Hashtable<>();
         for (LinkedList<String> glds : data.values()) {
             String[] a = glds.toArray(new String[glds.size()]);
             Arrays.sort(a);

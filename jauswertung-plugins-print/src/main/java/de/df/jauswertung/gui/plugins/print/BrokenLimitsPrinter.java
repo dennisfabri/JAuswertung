@@ -95,16 +95,12 @@ class BrokenLimitsPrinter implements Printer {
         warning.setToolTipText(I18n.get("InputNotComplete"));
         warning.setVisible(false);
 
-        agegroup = new JComboBox<String>();
-        agegroup.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isUpdating) {
-                    return;
-                }
-                checkWarning(core.getFilteredWettkampf());
+        agegroup = new JComboBox<>();
+        agegroup.addActionListener(e -> {
+            if (isUpdating) {
+                return;
             }
+            checkWarning(core.getFilteredWettkampf());
         });
 
         panel = new JPanel(new FormLayout(

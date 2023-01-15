@@ -23,7 +23,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
@@ -63,7 +62,7 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
             return;
         }
 
-        listeners = new LinkedList<DataChangeListener>();
+        listeners = new LinkedList<>();
 
         Regelwerk aks = wk.getRegelwerk();
         boxes = new JCheckBox[aks.size()][0];
@@ -84,16 +83,13 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
             for (int y = 0; y < boxes[x].length; y++) {
                 boxes[x][y] = new JCheckBox();
                 input[x][y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME);
-                input[x][y].setValidator(new Validator() {
-                    @Override
-                    public boolean validate(int value) {
-                        value = value / 100;
-                        if ((value % 100) >= 60) {
-                            return false;
-                        }
-                        value = value / 100;
-                        return value < 1000;
+                input[x][y].setValidator(value -> {
+                    value = value / 100;
+                    if ((value % 100) >= 60) {
+                        return false;
                     }
+                    value = value / 100;
+                    return value < 1000;
                 });
                 times[x][y] = new JTimeField(input[x][y]);
                 boxes[x][y].addChangeListener(new SelectionListener(x, y));

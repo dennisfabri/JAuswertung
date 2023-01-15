@@ -34,7 +34,7 @@ public final class SearchUtils {
             String gliederung, String quali, int ak,
             int sex, int ausserk, AWettkampf<T> wk) {
         if (wk == null) {
-            return new LinkedList<T>();
+            return new LinkedList<>();
         }
 
         bemerkung = bemerkung.toLowerCase();
@@ -104,7 +104,7 @@ public final class SearchUtils {
     private static <T extends ASchwimmer> LinkedList<T> startGetSchwimmer(AWettkampf<T> wk) {
         LinkedList<T> suchen;
         synchronized (wk) {
-            suchen = new LinkedList<T>(wk.getSchwimmer());
+            suchen = new LinkedList<>(wk.getSchwimmer());
         }
         return suchen;
     }
@@ -113,7 +113,7 @@ public final class SearchUtils {
         if (n == null) {
             return;
         }
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         synchronized (suchen) {
@@ -148,7 +148,7 @@ public final class SearchUtils {
             return;
         }
         synchronized (suchen) {
-            Collections.sort(suchen, new SchwimmerMeldepunkteVergleicher<T>(meldeindex));
+            Collections.sort(suchen, new SchwimmerMeldepunkteVergleicher<>(meldeindex));
             ListIterator<T> li = suchen.listIterator();
             double points = Double.MAX_VALUE;
             for (int x = 0; x < amount; x++) {
@@ -168,7 +168,7 @@ public final class SearchUtils {
         if (n == null) {
             return;
         }
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         synchronized (suchen) {
@@ -197,7 +197,7 @@ public final class SearchUtils {
         if (n == null) {
             return;
         }
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         synchronized (suchen) {
@@ -222,7 +222,7 @@ public final class SearchUtils {
         if (n == null) {
             return;
         }
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         synchronized (suchen) {
@@ -244,7 +244,7 @@ public final class SearchUtils {
     }
 
     private static <T extends ASchwimmer> void filtereGeschlecht(LinkedList<T> suchen, boolean maennlich) {
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         ListIterator<T> li = suchen.listIterator();
@@ -257,7 +257,7 @@ public final class SearchUtils {
     }
 
     private static <T extends ASchwimmer> void filtereDisziplin(LinkedList<T> suchen, int d) {
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         ListIterator<T> li = suchen.listIterator();
@@ -270,7 +270,7 @@ public final class SearchUtils {
     }
 
     private static <T extends ASchwimmer> void filtereAK(LinkedList<T> suchen, Altersklasse ak) {
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         if (ak == null) {
@@ -286,7 +286,7 @@ public final class SearchUtils {
     }
 
     private static <T extends ASchwimmer> void filtereAKs(LinkedList<T> suchen, LinkedList<Altersklasse> aks) {
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return;
         }
         if (aks == null) {
@@ -354,7 +354,7 @@ public final class SearchUtils {
     public static <T extends ASchwimmer> T getSchwimmer(AWettkampf<T> wk, int startnummer) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereStartnummer(suchen, startnummer);
-        if (suchen.size() == 0) {
+        if (suchen.isEmpty()) {
             return null;
         }
         return suchen.getFirst();
@@ -400,13 +400,13 @@ public final class SearchUtils {
     }
 
     public static <T extends ASchwimmer> boolean hasSchwimmer(LinkedList<T> wk, Altersklasse ak) {
-        LinkedList<T> suchen = new LinkedList<T>(wk);
+        LinkedList<T> suchen = new LinkedList<>(wk);
         filtereAK(suchen, ak);
         return !suchen.isEmpty();
     }
 
     public static <T extends ASchwimmer> boolean hasSchwimmer(LinkedList<T> wk, int sn) {
-        LinkedList<T> suchen = new LinkedList<T>(wk);
+        LinkedList<T> suchen = new LinkedList<>(wk);
         filtereStartnummer(suchen, sn);
         return !suchen.isEmpty();
     }

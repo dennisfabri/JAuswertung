@@ -166,12 +166,12 @@ class JKampfrichterPositionPanel extends JPanel {
     }
 
     private void setTraversalKeys(JTextPane textArea) {
-        Set<AWTKeyStroke> set = new HashSet<AWTKeyStroke>(
+        Set<AWTKeyStroke> set = new HashSet<>(
                 textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
         set.add(KeyStroke.getKeyStroke("TAB"));
         textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
 
-        set = new HashSet<AWTKeyStroke>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
+        set = new HashSet<>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
         set.add(KeyStroke.getKeyStroke("shift TAB"));
         textArea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
     }
@@ -187,7 +187,7 @@ class JKampfrichterPositionPanel extends JPanel {
     }
 
     void save() {
-        LinkedList<Kampfrichter> kr = new LinkedList<Kampfrichter>();
+        LinkedList<Kampfrichter> kr = new LinkedList<>();
         for (int x = 0; x < texts.length; x++) {
             KampfrichterStufe stufe = levels[x].getStufe();
             if (stufe == null) {
@@ -220,12 +220,9 @@ class JKampfrichterPositionPanel extends JPanel {
     private void initGUI() {
         setBorder();
 
-        neu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changed = true;
-                appendRow();
-            }
+        neu.addActionListener(e -> {
+            changed = true;
+            appendRow();
         });
         neu.setToolTipText(I18n.getToolTip("AddReferee"));
 
@@ -257,11 +254,8 @@ class JKampfrichterPositionPanel extends JPanel {
                 changed = true;
             }
         };
-        changeListener = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                changed = true;
-            }
+        changeListener = e -> {
+            changed = true;
         };
 
         for (int x = 0; x < karis.length; x++) {
@@ -333,31 +327,22 @@ class JKampfrichterPositionPanel extends JPanel {
         top.setOpaque(false);
 
         up = new JTransparentButton(IconManager.getSmallIcon("up"));
-        up.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.moveUp(position);
-                changed = true;
-            }
+        up.addActionListener(e -> {
+            parent.moveUp(position);
+            changed = true;
         });
         // up.setToolTipText(I18n.getToolTip("EditRefereeposition"));
 
         down = new JTransparentButton(IconManager.getSmallIcon("down"));
-        down.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.moveDown(position);
-                changed = true;
-            }
+        down.addActionListener(e -> {
+            parent.moveDown(position);
+            changed = true;
         });
         // down.setToolTipText(I18n.getToolTip("EditRefereeposition"));
 
         edit = new JTransparentButton(IconManager.getSmallIcon("edit"));
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editPosition();
-            }
+        edit.addActionListener(e -> {
+            editPosition();
         });
         edit.setToolTipText(I18n.getToolTip("EditRefereeposition"));
 

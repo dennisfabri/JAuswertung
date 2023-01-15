@@ -51,7 +51,7 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
     }
 
     public LinkedList<OWLauf<T>> getLaeufe() {
-        return new LinkedList<OWLauf<T>>(laeufe);
+        return new LinkedList<>(laeufe);
     }
 
     public void addSchwimmer(T t) {
@@ -64,7 +64,7 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
         if (round == 0) {
             return null;
         }
-        return new LinkedList<T>(Schwimmer);
+        return new LinkedList<>(Schwimmer);
     }
 
     @Override

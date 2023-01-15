@@ -1,7 +1,6 @@
 package de.df.jauswertung.dp.displaytool;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -26,17 +25,14 @@ public class DataDisplayWindow extends DisplayToolWindow {
                 SwingConstants.RIGHT);
         JTableUtils.setPreferredCellSizes(getTable(), false, false);
 
-        getDisplay().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int rows = 10;
-                try {
-                    rows = Integer.parseInt(getRows().getText());
-                } catch (Exception ex) {
-                    // Nothing to do
-                }
-                new JHeatPresentationFrame(null, rows, controller.getCompetition()).setVisible(true);
+        getDisplay().addActionListener(e -> {
+            int rows = 10;
+            try {
+                rows = Integer.parseInt(getRows().getText());
+            } catch (Exception ex) {
+                // Nothing to do
             }
+            new JHeatPresentationFrame(null, rows, controller.getCompetition()).setVisible(true);
         });
     }
 

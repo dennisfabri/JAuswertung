@@ -50,7 +50,7 @@ public class PTeammembersInputPlugin extends ANullPlugin {
         // inputbarcode.setEnabled(false);
         // addInfoToGlass(inputbarcode);
 
-        inputmanual = new JGlassPanel<JPanel>(manual);
+        inputmanual = new JGlassPanel<>(manual);
         inputmanual.setEnabled(false);
 
         addInfoToGlass(inputmanual);
@@ -91,13 +91,7 @@ public class PTeammembersInputPlugin extends ANullPlugin {
         core = (CorePlugin) controller.getFeature("de.df.jauswertung.core", uid);
         organisation = (SelectOrganisationPlugin) controller.getFeature("de.df.jauswertung.selectorganisation", uid);
 
-        organisation.addSelectionListener(new ISelectionListener() {
-            @Override
-            public void selected(String selection) {
-                // barcode.setSelectedOrganisation(selection);
-                manual.setSelectedOrganisation(selection);
-            }
-        });
+        organisation.addSelectionListener(manual::setSelectedOrganisation);
     }
 
     @Override

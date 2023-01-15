@@ -41,7 +41,7 @@ public class DMSelector<T extends ASchwimmer> implements ISelector<T> {
                             li.remove();
                         }
                     }
-                    Collections.sort(swimmers[x][y], new SchwimmerMeldepunkteVergleicher<ASchwimmer>(true, 0));
+                    Collections.sort(swimmers[x][y], new SchwimmerMeldepunkteVergleicher<>(true, 0));
                     while (swimmers[x][y].size() > candidates[x][y]) {
                         swimmers[x][y].removeLast();
                     }

@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -30,7 +29,6 @@ import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
-import de.df.jutils.gui.util.WindowUtils;
 
 /**
  * @author Dennis Fabri
@@ -107,21 +105,18 @@ class JNeueKV extends JDialog {
             einzelNamen = new String[0];
             return;
         }
-        einzelNamen = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                if (!name.toLowerCase().endsWith(".kr")) {
+        einzelNamen = dir.list((file, name) -> {
+            if (!name.toLowerCase().endsWith(".kr")) {
+                return false;
+            }
+            try {
+                if (InputManager.ladeKampfrichter(file.getCanonicalPath() + File.separator + name) == null) {
                     return false;
                 }
-                try {
-                    if (InputManager.ladeKampfrichter(file.getCanonicalPath() + File.separator + name) == null) {
-                        return false;
-                    }
-                } catch (IOException e) {
-                    // e.printStackTrace();
-                }
-                return true;
+            } catch (IOException e) {
+                // e.printStackTrace();
             }
+            return true;
         });
         Arrays.sort(einzelNamen);
     }
@@ -141,11 +136,8 @@ class JNeueKV extends JDialog {
 
     private JButton getCancelButton() {
         JButton c = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        c.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                setVisible(false);
-            }
+        c.addActionListener(event -> {
+            setVisible(false);
         });
         return c;
     }

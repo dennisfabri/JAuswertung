@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -58,11 +57,8 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         createLower();
 
         enter = new JButton(I18n.get("Enter"));
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enterTimes();
-            }
+        enter.addActionListener(e -> {
+            enterTimes();
         });
 
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
@@ -103,8 +99,8 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         penalty = new JComboBox[lanesamount];
         for (int x = 0; x < lanesamount; x++) {
             lanes[x] = new JLabel("" + (x + 1));
-            times[x] = new JComboBox<String>();
-            penalty[x] = new JComboBox<String>(new String[] { "-" });
+            times[x] = new JComboBox<>();
+            penalty[x] = new JComboBox<>(new String[] { "-" });
             times[x].setEnabled(false);
             penalty[x].setEnabled(false);
 
@@ -116,25 +112,16 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
 
     private void createUpper() {
         previous = new JTransparentButton(IconManager.getSmallIcon("previous"));
-        previous.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                previousHeat();
-            }
+        previous.addActionListener(e -> {
+            previousHeat();
         });
         next = new JTransparentButton(IconManager.getSmallIcon("next"));
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nextHeat();
-            }
+        next.addActionListener(e -> {
+            nextHeat();
         });
-        current = new JComboBox<String>();
-        current.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateHeat();
-            }
+        current = new JComboBox<>();
+        current.addActionListener(e -> {
+            updateHeat();
         });
 
         FormLayout layout = new FormLayout(
@@ -159,7 +146,7 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         for (int x = 0; x < heats.length; x++) {
             entries[x] = "" + heats[x].getEvent() + "/" + heats[x].getHeat();
         }
-        current.setModel(new DefaultComboBoxModel<String>(entries));
+        current.setModel(new DefaultComboBoxModel<>(entries));
         if (index >= entries.length) {
             index = entries.length - 1;
         }
@@ -180,7 +167,7 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         if ((index < 0) || (index >= heats.length)) {
             // No heatdata found
             for (int x = 0; x < times.length; x++) {
-                times[x].setModel(new DefaultComboBoxModel<String>(new String[] { "-" }));
+                times[x].setModel(new DefaultComboBoxModel<>(new String[] { "-" }));
                 times[x].setSelectedIndex(0);
                 times[x].setEnabled(false);
 
@@ -201,7 +188,7 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
                 } else {
                     times[x].setEnabled(true);
                 }
-                times[x].setModel(new DefaultComboBoxModel<String>(tx));
+                times[x].setModel(new DefaultComboBoxModel<>(tx));
                 times[x].setSelectedIndex(tx.length - 1);
                 times[x].setEnabled(tx.length > 1);
 

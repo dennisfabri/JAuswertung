@@ -76,7 +76,7 @@ class RegistrationPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        order = new JComboBox<String>(new String[] { I18n.get("Startnumber"), I18n.get("Organisation"),
+        order = new JComboBox<>(new String[] { I18n.get("Startnumber"), I18n.get("Organisation"),
                 I18n.get("AgeGroup"), I18n.get("Name") });
         order.setSelectedIndex(2);
 

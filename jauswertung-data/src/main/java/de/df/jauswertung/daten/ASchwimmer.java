@@ -57,7 +57,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     private LinkedList<Strafe> allgemeineStrafen;
     private LinkedList<Strafe>[] strafen;
 
-    private Hashtable<String, Eingabe> eingaben = new Hashtable<String, Eingabe>();
+    private Hashtable<String, Eingabe> eingaben = new Hashtable<>();
 
     @XStreamAsAttribute
     private boolean ausserkonkurrenz;
@@ -497,7 +497,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         disciplineChoice[i] = c;
         if (!c) {
             setZeit(i, 0);
-            setStrafen(i, new LinkedList<Strafe>());
+            setStrafen(i, new LinkedList<>());
         }
         wk.check();
     }
@@ -518,7 +518,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             disciplineChoice[x] = c[x];
             if (!c[x]) {
                 setZeit(x, 0);
-                setStrafen(x, new LinkedList<Strafe>());
+                setStrafen(x, new LinkedList<>());
             }
         }
         wk.check();
@@ -623,14 +623,14 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public LinkedList<Strafe> getStrafen(String id) {
         Eingabe e = getEingabe(id, false);
         if (e == null) {
-            return new LinkedList<Strafe>();
+            return new LinkedList<>();
         }
         return e.getStrafen();
     }
 
     public void setStrafen(String id, LinkedList<Strafe> strafen) {
         if (strafen == null) {
-            strafen = new LinkedList<Strafe>();
+            strafen = new LinkedList<>();
         }
         Eingabe e = getEingabe(id, true);
         e.setStrafen(strafen);
@@ -646,12 +646,12 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             return getAllgemeineStrafen();
         }
         if (strafen[disz] == null) {
-            return new LinkedList<Strafe>();
+            return new LinkedList<>();
         }
         if (!isDisciplineChosen(disz)) {
-            return new LinkedList<Strafe>();
+            return new LinkedList<>();
         }
-        return new LinkedList<Strafe>(strafen[disz]);
+        return new LinkedList<>(strafen[disz]);
     }
 
     /**
@@ -662,9 +662,9 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public synchronized boolean setStrafen(int disz, LinkedList<Strafe> s) {
         if (s == null) {
             // throw new NullPointerException("s must not be null.");
-            s = new LinkedList<Strafe>();
+            s = new LinkedList<>();
         }
-        LinkedList<Strafe> liste = new LinkedList<Strafe>(s);
+        LinkedList<Strafe> liste = new LinkedList<>(s);
         boolean found = false;
         ListIterator<Strafe> li = liste.listIterator();
         while (li.hasNext()) {
@@ -730,8 +730,8 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
         for (int x = 0; x < zeiten.length; x++) {
             zeiten[x] = 0;
-            strafen[x] = new LinkedList<Strafe>();
-            allgemeineStrafen = new LinkedList<Strafe>();
+            strafen[x] = new LinkedList<>();
+            allgemeineStrafen = new LinkedList<>();
             getEingabe("", false);
             eingaben.clear();
         }
@@ -879,7 +879,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
                     melde2[x] = meldezeiten[x];
                 } else {
                     zeiten2[x] = 0;
-                    strafen2[x] = new LinkedList<Strafe>();
+                    strafen2[x] = new LinkedList<>();
                     choice2[x] = choiceDefault;
                     melde2[x] = 0;
                 }
@@ -962,14 +962,14 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     public LinkedList<Strafe> getAllgemeineStrafen() {
         if (allgemeineStrafen == null) {
-            allgemeineStrafen = new LinkedList<Strafe>();
+            allgemeineStrafen = new LinkedList<>();
         }
-        return new LinkedList<Strafe>(allgemeineStrafen);
+        return new LinkedList<>(allgemeineStrafen);
     }
 
     public void setAllgemeineStrafen(LinkedList<Strafe> s) {
         if (s == null) {
-            s = new LinkedList<Strafe>();
+            s = new LinkedList<>();
         }
         allgemeineStrafen = s;
     }
@@ -1183,7 +1183,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     void removeEingabe(String id) {
         if (eingaben == null) {
-            eingaben = new Hashtable<String, Eingabe>();
+            eingaben = new Hashtable<>();
         }
         eingaben.remove(id);
     }
@@ -1194,7 +1194,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     public Eingabe getEingabe(String id, boolean create) {
         if (eingaben == null) {
-            eingaben = new Hashtable<String, Eingabe>();
+            eingaben = new Hashtable<>();
         }
         Eingabe e = eingaben.getOrDefault(id, null);
         if (e == null && create) {

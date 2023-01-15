@@ -32,7 +32,7 @@ public final class RefereesTableVeryCompactCreator {
 
     private static <T extends ASchwimmer> String[] createTable(KampfrichterVerwaltung kt) {
         try {
-            List<String> entries = new ArrayList<String>();
+            List<String> entries = new ArrayList<>();
             for (int x = 0; x < kt.getEinheitenCount(); x++) {
                 StringBuilder sb = new StringBuilder();
                 KampfrichterEinheit ke = kt.getEinheit(x);
@@ -93,7 +93,7 @@ public final class RefereesTableVeryCompactCreator {
         }
 
         String[] entries = createTable(kt);
-        List<Component> components = new ArrayList<Component>();
+        List<Component> components = new ArrayList<>();
         for (String entry : entries) {
             XHTMLPanel panel = new XHTMLPanel();
             panel.setDocumentFromString(I18n.get("PrintRefereesHtml", css, entry), "", new XhtmlNamespaceHandler());

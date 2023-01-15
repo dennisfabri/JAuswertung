@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -43,21 +42,15 @@ public class MKampfrichterPlugin extends ANullPlugin {
 
             neu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("new"));
             neu.setToolTipText(I18n.getToolTip("NewReferees"));
-            neu.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    newReferees();
-                }
+            neu.addActionListener(arg0 -> {
+                newReferees();
             });
 
             edit = new JMenuItem(I18n.get("Edit"), IconManager.getSmallIcon("edit"));
             edit.setToolTipText(I18n.getToolTip("EditReferees"));
             edit.setEnabled(false);
-            edit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent arg0) {
-                    showManager(false);
-                }
+            edit.addActionListener(arg0 -> {
+                showManager(false);
             });
 
             menu.add(neu);

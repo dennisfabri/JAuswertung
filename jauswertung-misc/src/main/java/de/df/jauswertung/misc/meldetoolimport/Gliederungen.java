@@ -6,7 +6,7 @@ import de.df.jauswertung.io.CsvUtils;
 
 public class Gliederungen {
 
-    Hashtable<String, Integer> Map = new Hashtable<String, Integer>();
+    Hashtable<String, Integer> Map = new Hashtable<>();
 
     public Gliederungen(String file) {
         Object[][] data = CsvUtils.read(file);

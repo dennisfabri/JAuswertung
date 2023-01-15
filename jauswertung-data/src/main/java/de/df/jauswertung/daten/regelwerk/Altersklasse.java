@@ -590,7 +590,7 @@ public class Altersklasse implements Serializable {
     }
 
     public boolean isValid() {
-        Hashtable<String, String> disz = new Hashtable<String, String>();
+        Hashtable<String, String> disz = new Hashtable<>();
         for (int x = 0; x < disziplinen[0].length; x++) {
             if (!disziplinen[0][x].getName().equals(disziplinen[1][x].getName())) {
                 return false;

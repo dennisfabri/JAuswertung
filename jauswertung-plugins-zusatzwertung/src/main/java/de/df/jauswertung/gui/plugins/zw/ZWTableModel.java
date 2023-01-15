@@ -28,7 +28,7 @@ class ZWTableModel<T extends ASchwimmer> implements TableModel {
     public ZWTableModel(AWettkampf<T> wk) {
         this.wk = wk;
         hlw = wk.getHLWListe();
-        listeners = new LinkedList<TableModelListener>();
+        listeners = new LinkedList<>();
     }
 
     @Override
@@ -116,7 +116,7 @@ class ZWTableModel<T extends ASchwimmer> implements TableModel {
             return new ASchwimmer[0];
         }
 
-        LinkedList<T> list = new LinkedList<T>();
+        LinkedList<T> list = new LinkedList<>();
         HLWLauf<T> lauf = hlw.get(index);
         for (int x = 0; x < lauf.getBahnen(); x++) {
             if (lauf.getSchwimmer(x) != null) {

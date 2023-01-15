@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
@@ -39,10 +38,10 @@ public class MUndoPlugin extends ANullPlugin {
     private JMenuItem undom;
     private JMenuItem redom;
 
-    private LinkedList<String> undolist = new LinkedList<String>();
-    private LinkedList<byte[]> undowk = new LinkedList<byte[]>();
-    private LinkedList<byte[]> redowk = new LinkedList<byte[]>();
-    private LinkedList<String> redolist = new LinkedList<String>();
+    private LinkedList<String> undolist = new LinkedList<>();
+    private LinkedList<byte[]> undowk = new LinkedList<>();
+    private LinkedList<byte[]> redowk = new LinkedList<>();
+    private LinkedList<String> redolist = new LinkedList<>();
 
     @SuppressWarnings("rawtypes")
     private AWettkampf tempWK = null;
@@ -50,17 +49,12 @@ public class MUndoPlugin extends ANullPlugin {
     private CorePlugin core = null;
 
     public MUndoPlugin() {
-        EDTUtils.executeOnEDT(new Runnable() {
-            @Override
-            public void run() {
-                initGUI();
-            }
-        });
+        EDTUtils.executeOnEDT(this::initGUI);
     }
 
     void initGUI() {
-        undo = new JUndoButton<String>(null, IconManager.getSmallIcon("undo"), UNDO_STEPS);
-        redo = new JUndoButton<String>(null, IconManager.getSmallIcon("redo"), UNDO_STEPS);
+        undo = new JUndoButton<>(null, IconManager.getSmallIcon("undo"), UNDO_STEPS);
+        redo = new JUndoButton<>(null, IconManager.getSmallIcon("redo"), UNDO_STEPS);
 
         undom = new JMenuItem(I18n.get("Undo"), IconManager.getSmallIcon("undo"));
         redom = new JMenuItem(I18n.get("Redo"), IconManager.getSmallIcon("redo"));
@@ -83,17 +77,11 @@ public class MUndoPlugin extends ANullPlugin {
         undom.setEnabled(false);
         redom.setEnabled(false);
 
-        undom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                undo(0);
-            }
+        undom.addActionListener(e -> {
+            undo(0);
         });
-        redom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                redo(0);
-            }
+        redom.addActionListener(e -> {
+            redo(0);
         });
 
         undo.addUndoListener(new UndoListener<String>() {
@@ -102,11 +90,8 @@ public class MUndoPlugin extends ANullPlugin {
                 MUndoPlugin.this.undo(index);
             }
         });
-        redo.addUndoListener(new UndoListener<String>() {
-            @Override
-            public void undo(JUndoButton<String> source, int index) {
-                redo(index);
-            }
+        redo.addUndoListener((source, index) -> {
+            redo(index);
         });
     }
 

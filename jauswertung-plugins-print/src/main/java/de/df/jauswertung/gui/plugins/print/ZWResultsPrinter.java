@@ -95,11 +95,8 @@ class ZWResultsPrinter implements Printer {
 
         unterschrift = new JCheckBox(I18n.get("Unterschrift"));
         unterschrift.setSelected(Utils.getPreferences().getBoolean("ZWResultsWithSignature", false));
-        unterschrift.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Utils.getPreferences().putBoolean("ZWResultsWithSignature", unterschrift.isSelected());
-            }
+        unterschrift.addActionListener(arg0 -> {
+            Utils.getPreferences().putBoolean("ZWResultsWithSignature", unterschrift.isSelected());
         });
         unterschrift.setEnabled(false);
 

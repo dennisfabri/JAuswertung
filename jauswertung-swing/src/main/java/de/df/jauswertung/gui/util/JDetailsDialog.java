@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.util;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -50,14 +48,11 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
         all = new JRadioButton(I18n.get("PrintForAllHeats", whattoprint));
         selected = new JRadioButton(I18n.get("PrintForSelectedHeats", whattoprint));
 
-        selected.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                boolean b = selected.isSelected();
-                from.setEnabled(b);
-                to.setEnabled(b);
-                updateButtons();
-            }
+        selected.addChangeListener(e -> {
+            boolean b = selected.isSelected();
+            from.setEnabled(b);
+            to.setEnabled(b);
+            updateButtons();
         });
 
         bg = new ButtonGroup();
@@ -72,17 +67,11 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
         from.setEnabled(false);
         to.setEnabled(false);
 
-        from.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateButtons();
-            }
+        from.addActionListener(e -> {
+            updateButtons();
         });
-        to.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateButtons();
-            }
+        to.addActionListener(e -> {
+            updateButtons();
         });
 
         add(all, CC.xyw(2, 2, 5));
@@ -100,14 +89,11 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
         pack();
         WindowUtils.center(this, parent);
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                if (ok.isEnabled()) {
-                    doOk();
-                } else {
-                    Toolkit.getDefaultToolkit().beep();
-                }
+        WindowUtils.addEnterAction(this, () -> {
+            if (ok.isEnabled()) {
+                doOk();
+            } else {
+                Toolkit.getDefaultToolkit().beep();
             }
         });
     }
@@ -149,18 +135,12 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
         cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
 
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doOk();
-            }
+        ok.addActionListener(e -> {
+            doOk();
         });
 
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        cancel.addActionListener(e -> {
+            setVisible(false);
         });
 
         buttonpanel.add(ok, CC.xy(2, 2));

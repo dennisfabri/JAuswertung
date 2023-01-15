@@ -124,12 +124,7 @@ public class ProtocolPrinter implements Printer {
                 return;
             }
 
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Protocol"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

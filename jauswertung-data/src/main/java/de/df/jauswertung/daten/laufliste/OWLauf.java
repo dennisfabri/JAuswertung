@@ -68,7 +68,7 @@ public class OWLauf<T extends ASchwimmer> implements Serializable {
     }
 
     public LinkedList<T> getAllSchwimmer() {
-        LinkedList<T> scw = new LinkedList<T>();
+        LinkedList<T> scw = new LinkedList<>();
         for (int x = 0; x < schwimmer.length; x++) {
             if (schwimmer[x] != null) {
                 scw.add(schwimmer[x]);

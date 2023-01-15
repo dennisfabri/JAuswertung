@@ -30,7 +30,6 @@ import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PageMode;
 import de.df.jutils.print.PrintExecutor;
-import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
 /**
@@ -170,12 +169,7 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (askForDetails()) {
-                PrintableCreator pc = new PrintableCreator() {
-                    @Override
-                    public Printable create() {
-                        return getPrintable();
-                    }
-                };
+                PrintableCreator pc = this::getPrintable;
                 PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"),
                         IconManager.getIconBundle(), IconManager.getTitleImages());
             }

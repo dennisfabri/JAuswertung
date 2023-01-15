@@ -60,7 +60,7 @@ class SprecherlistePrinter implements Printer {
         preview = new JButton(I18n.get("Preview"));
         preview.addActionListener(new PreviewActionListener());
 
-        columns = new JComboBox<String>(
+        columns = new JComboBox<>(
                 new String[] { I18n.get("None"), I18n.get("Disciplines"), I18n.get("Meldezeiten"),
                         I18n.get("DisciplinesAndMeldezeiten") });
         columns.setSelectedIndex(3);
@@ -151,12 +151,7 @@ class SprecherlistePrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = new PrintableCreator() {
-                @Override
-                public Printable create() {
-                    return getPrintable();
-                }
-            };
+            PrintableCreator pc = this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SpeakerHeatList"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

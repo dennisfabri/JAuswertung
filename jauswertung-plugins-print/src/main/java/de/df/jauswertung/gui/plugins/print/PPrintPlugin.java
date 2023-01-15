@@ -10,7 +10,6 @@ import static de.df.jauswertung.daten.PropertyConstants.SHORTNAME;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.print.Printable;
@@ -106,11 +105,8 @@ public class PPrintPlugin extends ANullPlugin {
 
         JMenuItem m = new JMenuItem(I18n.get("Print"), IconManager.getSmallIcon("print"));
         m.setToolTipText(I18n.getToolTip("Printpanel"));
-        m.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                showPrintPanel();
-            }
+        m.addActionListener(arg0 -> {
+            showPrintPanel();
         });
 
         menu = new MenuInfo[1];
@@ -171,26 +167,14 @@ public class PPrintPlugin extends ANullPlugin {
 
     @Override
     public ActionInfo[] getActions() {
-        return new ActionInfo[] { new ActionInfo(KeyEvent.VK_F11, 0, new Runnable() {
-            @Override
-            public void run() {
-                printLastCompleted(false);
-            }
-        }), new ActionInfo(KeyEvent.VK_F12, 0, new Runnable() {
-            @Override
-            public void run() {
-                printResults(false);
-            }
-        }), new ActionInfo(KeyEvent.VK_F11, InputEvent.CTRL_DOWN_MASK, new Runnable() {
-            @Override
-            public void run() {
-                printLastCompleted(true);
-            }
-        }), new ActionInfo(KeyEvent.VK_F12, InputEvent.CTRL_DOWN_MASK, new Runnable() {
-            @Override
-            public void run() {
-                printResults(true);
-            }
+        return new ActionInfo[] { new ActionInfo(KeyEvent.VK_F11, 0, () -> {
+            printLastCompleted(false);
+        }), new ActionInfo(KeyEvent.VK_F12, 0, () -> {
+            printResults(false);
+        }), new ActionInfo(KeyEvent.VK_F11, InputEvent.CTRL_DOWN_MASK, () -> {
+            printLastCompleted(true);
+        }), new ActionInfo(KeyEvent.VK_F12, InputEvent.CTRL_DOWN_MASK, () -> {
+            printResults(true);
         }) };
     }
 
@@ -251,12 +235,8 @@ public class PPrintPlugin extends ANullPlugin {
         selected[lastcomplete[1]][lastcomplete[0]] = true;
 
         if (view) {
-            PrintCallBack pcb = new PrintCallBack() {
-                @Override
-                @SuppressWarnings("synthetic-access")
-                public void print(boolean[][] select) {
-                    printResults(core.getFilteredWettkampf(), select, true);
-                }
+            PrintCallBack pcb = [][]select -> {
+                printResults(core.getFilteredWettkampf(), select, true);
             };
             JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),
                     false);
@@ -288,12 +268,8 @@ public class PPrintPlugin extends ANullPlugin {
         }
 
         if (view) {
-            PrintCallBack pcb = new PrintCallBack() {
-                @Override
-                @SuppressWarnings("synthetic-access")
-                public void print(boolean[][] select) {
-                    printResults(core.getFilteredWettkampf(), select, true);
-                }
+            PrintCallBack pcb = [][]select -> {
+                printResults(core.getFilteredWettkampf(), select, true);
             };
             JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),
                     false);

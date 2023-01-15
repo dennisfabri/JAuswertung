@@ -91,20 +91,20 @@ public class PenaltyUIUtils {
 
     public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
             boolean ignoreNA, boolean kurz) {
-        Hashtable<String, JPanel> panels = new Hashtable<String, JPanel>();
+        Hashtable<String, JPanel> panels = new Hashtable<>();
         add(panels, wk, index, selected, false, null, ignoreNA, kurz);
 
-        LinkedList<String> indizes = new LinkedList<String>();
+        LinkedList<String> indizes = new LinkedList<>();
         for (String key : panels.keySet()) {
             indizes.add(key);
         }
         Collections.sort(indizes);
 
-        if (indizes.size() == 0) {
+        if (indizes.isEmpty()) {
             return null;
         }
 
-        LinkedList<JPanel> result = new LinkedList<JPanel>();
+        LinkedList<JPanel> result = new LinkedList<>();
         ListIterator<String> li = indizes.listIterator();
         while (li.hasNext()) {
             result.addLast(panels.get(li.next()));
@@ -135,7 +135,7 @@ public class PenaltyUIUtils {
                 if (isSelected(selected, x, y)) {
                     LinkedList<T> liste = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
 
-                    Collections.sort(liste, new SchwimmerNameVergleicher<T>());
+                    Collections.sort(liste, new SchwimmerNameVergleicher<>());
 
                     if ((liste != null) && (liste.size() > 0)) {
                         ListIterator<T> li = liste.listIterator();

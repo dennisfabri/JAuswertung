@@ -2,9 +2,7 @@ package de.df.jauswertung.gui.akeditor;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -39,8 +37,8 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class Startgroupspanel extends JPanel {
 
-    private ModifiableListModel<Startgruppe> model = new ModifiableListModel<Startgruppe>();
-    private JList<Startgruppe> liste = new JList<Startgruppe>(model);
+    private ModifiableListModel<Startgruppe> model = new ModifiableListModel<>();
+    private JList<Startgruppe> liste = new JList<>(model);
 
     private JAKsEditor parent;
 
@@ -57,23 +55,14 @@ public class Startgroupspanel extends JPanel {
         liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JListUtils.setAlternatingListCellRenderer(liste);
 
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                add();
-            }
+        add.addActionListener(e -> {
+            add();
         });
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                edit();
-            }
+        edit.addActionListener(e -> {
+            edit();
         });
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                delete();
-            }
+        delete.addActionListener(e -> {
+            delete();
         });
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,0dlu,0dlu:grow,4dlu",
@@ -102,17 +91,14 @@ public class Startgroupspanel extends JPanel {
         public Editor(JFrame parent, Startgruppe initial) {
             super(parent, I18n.get("Startgroup"), true);
 
-            laufsortierung = new JComboBox<String>(
+            laufsortierung = new JComboBox<>(
                     new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
                             I18n.get("SameOrganisationDifferentHeats"), I18n.get("SortByAnouncedPoints"),
                             I18n.get("SortByAnouncedTimes") });
             laufsortierung.setSelectedIndex(4);
             laufsortierung.setToolTipText(I18n.getToolTip("Laufsortierung"));
-            laufsortierung.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    updateLaufrotation();
-                }
+            laufsortierung.addItemListener(e -> {
+                updateLaufrotation();
             });
 
             laufrotation = new JCheckBox();
@@ -145,17 +131,11 @@ public class Startgroupspanel extends JPanel {
             add(laufrotation, CC.xy(4, 6));
             add(p, CC.xyw(2, 8, 3));
 
-            ok.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doOk();
-                }
+            ok.addActionListener(e -> {
+                doOk();
             });
-            cancel.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    doCancel();
-                }
+            cancel.addActionListener(e -> {
+                doCancel();
             });
             text.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -175,18 +155,8 @@ public class Startgroupspanel extends JPanel {
                 }
             });
 
-            WindowUtils.addEnterAction(this, new Runnable() {
-                @Override
-                public void run() {
-                    doOk();
-                }
-            });
-            WindowUtils.addEscapeAction(this, new Runnable() {
-                @Override
-                public void run() {
-                    doCancel();
-                }
-            });
+            WindowUtils.addEnterAction(this, this::doOk);
+            WindowUtils.addEscapeAction(this, this::doCancel);
 
             checkOk();
             pack();

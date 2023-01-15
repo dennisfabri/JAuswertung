@@ -7,7 +7,6 @@ package de.df.jauswertung.gui.plugins.zw;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -182,12 +181,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     // *****************************************************************
 
     private void setSplitter() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setSplitterI();
-            }
-        });
+        SwingUtilities.invokeLater(this::setSplitterI);
     }
 
     void setSplitterI() {
@@ -261,7 +255,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
 
         int[] index = model.rowToIndex(y);
 
-        JTimeDialog<T> time = new JTimeDialog<T>(this, index[0] == 0, true);
+        JTimeDialog<T> time = new JTimeDialog<>(this, index[0] == 0, true);
         time.setTime(wk.getHLWListe().getStarttime(index[0]));
         time.setDuration(wk.getDoubleProperty(PropertyConstants.ZW_DURATION));
         time.setVisible(true);
@@ -333,7 +327,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
                 tabelle.setValueAt(temp.getAltersklasse(), y, 1);
 
                 wk.getHLWListe().remove(index, x);
-                ((ZWListModel<T>) vergabeliste.getModel()).addElement(new SchwimmerZW<T>(sh, 1));
+                ((ZWListModel<T>) vergabeliste.getModel()).addElement(new SchwimmerZW<>(sh, 1));
 
                 displaySchwimmer(sh);
                 if (vergabeliste.getSelectedIndex() < 0) {
@@ -443,67 +437,43 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
         }
 
         entfernen = new JMenuItem(I18n.get("Remove"));
-        entfernen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                hlwAendern();
-            }
+        entfernen.addActionListener(evt -> {
+            hlwAendern();
         });
 
         JMenuItem addHeatAbove = new JMenuItem(I18n.get("AddHeatAbove"));
-        addHeatAbove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addZeile(0);
-            }
+        addHeatAbove.addActionListener(evt -> {
+            addZeile(0);
         });
 
         JMenuItem addHeatBelow = new JMenuItem(I18n.get("AddHeatBelow"));
-        addHeatBelow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addZeile(1);
-            }
+        addHeatBelow.addActionListener(evt -> {
+            addZeile(1);
         });
 
         removeHeat = new JMenuItem(I18n.get("RemoveHeat"));
-        removeHeat.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                removeZeile();
-            }
+        removeHeat.addActionListener(evt -> {
+            removeZeile();
         });
 
         JMenuItem addPauseAbove = new JMenuItem(I18n.get("AddPauseAbove"));
-        addPauseAbove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addPause(0);
-            }
+        addPauseAbove.addActionListener(evt -> {
+            addPause(0);
         });
 
         JMenuItem addPauseBelow = new JMenuItem(I18n.get("AddPauseBelow"));
-        addPauseBelow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                addPause(1);
-            }
+        addPauseBelow.addActionListener(evt -> {
+            addPause(1);
         });
 
         removePause = new JMenuItem(I18n.get("RemovePause"));
-        removePause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                removePause();
-            }
+        removePause.addActionListener(evt -> {
+            removePause();
         });
 
         editPause = new JMenuItem(I18n.get("EditPause"));
-        editPause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                editPause();
-            }
+        editPause.addActionListener(evt -> {
+            editPause();
         });
 
         popup = new JPopupMenu();
@@ -564,9 +534,9 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
         vergabeliste.setCellRenderer(new ComfortListCellRenderer());
         DataTipManager.get().register(vergabeliste);
 
-        Hashtable<Integer, Integer> daten = new Hashtable<Integer, Integer>();
+        Hashtable<Integer, Integer> daten = new Hashtable<>();
         LinkedList<T> ll = wk.getSchwimmer();
-        ZWListModel<T> dlm = new ZWListModel<T>();
+        ZWListModel<T> dlm = new ZWListModel<>();
 
         ListIterator<T> li = ll.listIterator();
         while (li.hasNext()) {
@@ -600,7 +570,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
             int amount = daten.get(sn);
             if (amount > 0) {
                 T s = SearchUtils.getSchwimmer(wk, sn);
-                dlm.addElement(new SchwimmerZW<T>(s, amount));
+                dlm.addElement(new SchwimmerZW<>(s, amount));
             }
         }
 
@@ -640,11 +610,8 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
 
     private JButton createButton() {
         JButton close = new JButton(I18n.get("Close"), IconManager.getSmallIcon("close"));
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                schliessen();
-            }
+        close.addActionListener(evt -> {
+            schliessen();
         });
 
         return close;
@@ -682,11 +649,8 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     private void initMenu() {
         JMenuItem schliessen = new JMenuItem(I18n.get("Close"), IconManager.getSmallIcon("close"));
         schliessen.setToolTipText(I18n.get("Close"));
-        schliessen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                schliessen();
-            }
+        schliessen.addActionListener(evt -> {
+            schliessen();
         });
 
         JMenu datei = new JMenu(I18n.get("File"));
@@ -706,12 +670,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
                 schliessen();
             }
         });
-        WindowUtils.addEscapeAction(this, new Runnable() {
-            @Override
-            public void run() {
-                schliessen();
-            }
-        });
+        WindowUtils.addEscapeAction(this, this::schliessen);
     }
 
     public boolean isChanged() {

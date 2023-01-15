@@ -33,7 +33,7 @@ import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 import de.df.jutils.util.StringTools;
 
-class CompetitionExporter {
+final class CompetitionExporter {
 
     private CompetitionExporter() {
         // TODO Auto-generated constructor stub

@@ -46,7 +46,7 @@ public class Namengenerator {
     private String[] gliederungen = null;
     private String[] lvs = null;
 
-    private Hashtable<String, String> gld2lv = new Hashtable<String, String>();
+    private Hashtable<String, String> gld2lv = new Hashtable<>();
 
     private String[] readNamen(String date, String[] backup) {
         return TextFileUtils.fileToStringArray(dir, date, backup, false);
@@ -86,7 +86,7 @@ public class Namengenerator {
         lvs = readNamen("LVs.txt", lvs2);
 
         if (gliederungen.length > anzahl) {
-            LinkedList<String> gl = new LinkedList<String>();
+            LinkedList<String> gl = new LinkedList<>();
             for (String aGliederungen : gliederungen) {
                 gl.addLast(aGliederungen);
             }

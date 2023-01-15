@@ -205,7 +205,7 @@ public class PenaltylistePrinter implements Printer {
             daten[x] = I18n.get("DisciplineNumber", x + 1);
         }
         daten[max] = I18n.get("All");
-        disziplin.setModel(new DefaultComboBoxModel<String>(daten));
+        disziplin.setModel(new DefaultComboBoxModel<>(daten));
         disziplin.setSelectedIndex(index);
     }
 

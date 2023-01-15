@@ -15,7 +15,6 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
@@ -82,16 +81,13 @@ class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {
                 integer[x][y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                 integer[x][y].setHorizontalAlignment(SwingConstants.RIGHT);
                 times[x][y] = new JTimeField(integer[x][y]);
-                integer[x][y].setValidator(new Validator() {
-                    @Override
-                    public boolean validate(int value) {
-                        value = value / 100;
-                        if ((value % 100) >= 60) {
-                            return false;
-                        }
-                        value = value / 100;
-                        return value < 1000;
+                integer[x][y].setValidator(value -> {
+                    value = value / 100;
+                    if ((value % 100) >= 60) {
+                        return false;
                     }
+                    value = value / 100;
+                    return value < 1000;
                 });
                 times[x][y].setTimeAsInt(swimmer[x].getMeldezeit(y));
                 integer[x][y].getDocument().addDocumentListener(new DocumentListener() {

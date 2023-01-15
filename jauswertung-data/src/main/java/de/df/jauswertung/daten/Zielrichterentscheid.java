@@ -17,7 +17,7 @@ public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable 
 
     @XStreamAsAttribute
     private int disziplin = 0;
-    private LinkedList<T> swimmers = new LinkedList<T>();
+    private LinkedList<T> swimmers = new LinkedList<>();
 
     public Zielrichterentscheid() {
         // Nothing to do
@@ -68,7 +68,7 @@ public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable 
 
     public LinkedList<T> getSchwimmer() {
         check();
-        return new LinkedList<T>(swimmers);
+        return new LinkedList<>(swimmers);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

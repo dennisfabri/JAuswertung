@@ -62,8 +62,8 @@ public class Regelwerk implements Serializable {
     @XStreamAsAttribute
     private String zusatzwertungKurz = "ZW";
 
-    private LinkedList<Startgruppe> startgruppen = new LinkedList<Startgruppe>();
-    private LinkedList<Wertungsgruppe> wertungsgruppen = new LinkedList<Wertungsgruppe>();
+    private LinkedList<Startgruppe> startgruppen = new LinkedList<>();
+    private LinkedList<Wertungsgruppe> wertungsgruppen = new LinkedList<>();
 
     /**
      * Gibt an, ob es sich um Einzel- oder Mannschaftsaltersklassen handelt.
@@ -121,7 +121,7 @@ public class Regelwerk implements Serializable {
             throw new IllegalArgumentException("Name must not be null!");
         }
         if (startgruppen == null) {
-            startgruppen = new LinkedList<Startgruppe>();
+            startgruppen = new LinkedList<>();
         }
         if (startgruppen.contains(name)) {
             return false;
@@ -138,7 +138,7 @@ public class Regelwerk implements Serializable {
             throw new IllegalArgumentException("Name must not be empty!");
         }
         if (startgruppen == null) {
-            startgruppen = new LinkedList<Startgruppe>();
+            startgruppen = new LinkedList<>();
         }
         boolean found = false;
         ListIterator<Startgruppe> li = startgruppen.listIterator();
@@ -189,7 +189,7 @@ public class Regelwerk implements Serializable {
     }
 
     public void setStartgruppen(Startgruppe[] gruppen) {
-        startgruppen = new LinkedList<Startgruppe>();
+        startgruppen = new LinkedList<>();
         for (Startgruppe gruppe : gruppen) {
             startgruppen.add(gruppe);
         }
@@ -227,7 +227,7 @@ public class Regelwerk implements Serializable {
     }
 
     public void setWertungsgruppen(Wertungsgruppe[] gruppen) {
-        wertungsgruppen = new LinkedList<Wertungsgruppe>();
+        wertungsgruppen = new LinkedList<>();
         for (Wertungsgruppe gruppe : gruppen) {
             wertungsgruppen.add(gruppe);
         }
@@ -246,7 +246,7 @@ public class Regelwerk implements Serializable {
 
     public boolean addWertungsgruppe(Wertungsgruppe gruppe) {
         if (wertungsgruppen == null) {
-            wertungsgruppen = new LinkedList<Wertungsgruppe>();
+            wertungsgruppen = new LinkedList<>();
         }
         if (wertungsgruppen.contains(gruppe)) {
             return false;
@@ -469,7 +469,7 @@ public class Regelwerk implements Serializable {
     }
 
     public String getChecksum(String[] aknames) {
-        LinkedList<Altersklasse> akx = new LinkedList<Altersklasse>();
+        LinkedList<Altersklasse> akx = new LinkedList<>();
         akx.addAll(Arrays.asList(aks));
         ListIterator<Altersklasse> li = akx.listIterator();
         while (li.hasNext()) {
@@ -656,7 +656,7 @@ public class Regelwerk implements Serializable {
     }
 
     public synchronized Startgruppe[] getEffektiveStartgruppen() {
-        LinkedList<Startgruppe> sgs = new LinkedList<Startgruppe>();
+        LinkedList<Startgruppe> sgs = new LinkedList<>();
         for (Altersklasse ak : aks) {
             Startgruppe sg = getStartgruppe(ak);
             if (!sgs.contains(sg)) {
@@ -678,7 +678,7 @@ public class Regelwerk implements Serializable {
     }
 
     public synchronized LinkedList<Altersklasse> getAKsForStartgroup(Startgruppe sg) {
-        LinkedList<Altersklasse> aksLocal = new LinkedList<Altersklasse>();
+        LinkedList<Altersklasse> aksLocal = new LinkedList<>();
         for (Altersklasse ak : this.aks) {
             if (getStartgruppe(ak).equals(sg)) {
                 aksLocal.add(ak);

@@ -18,9 +18,9 @@ public final class ZielrichterentscheidUtils {
 
     public static <T extends ASchwimmer> LinkedList<Zielrichterentscheid<T>> createCopy(
             LinkedList<Zielrichterentscheid<T>> liste) {
-        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<Zielrichterentscheid<T>>();
+        LinkedList<Zielrichterentscheid<T>> zes = new LinkedList<>();
         for (Zielrichterentscheid<T> ze : liste) {
-            Zielrichterentscheid<T> neu = new Zielrichterentscheid<T>();
+            Zielrichterentscheid<T> neu = new Zielrichterentscheid<>();
             neu.setDisziplin(ze.getDisziplin());
             neu.addSchwimmer(ze.getSchwimmer());
 
@@ -39,12 +39,12 @@ public final class ZielrichterentscheidUtils {
             return null;
         }
 
-        LinkedList<Zielrichterentscheid<T>> result = new LinkedList<Zielrichterentscheid<T>>();
+        LinkedList<Zielrichterentscheid<T>> result = new LinkedList<>();
         {
             ListIterator<Lauf<T>> li = wk.getLaufliste().getLaufliste().listIterator();
             while (li.hasNext()) {
                 Lauf<T> lauf = li.next();
-                Hashtable<String, LinkedList<T>> temp = new Hashtable<String, LinkedList<T>>();
+                Hashtable<String, LinkedList<T>> temp = new Hashtable<>();
                 for (int x = 0; x < lauf.getBahnen(); x++) {
                     if (lauf.getSchwimmer(x) != null) {
                         T t = lauf.getSchwimmer(x);
@@ -52,7 +52,7 @@ public final class ZielrichterentscheidUtils {
                             String key = "" + lauf.getDisznummer(x) + "x" + t.getZeit(lauf.getDisznummer(x));
                             LinkedList<T> liste = temp.get(key);
                             if (liste == null) {
-                                liste = new LinkedList<T>();
+                                liste = new LinkedList<>();
                                 temp.put(key, liste);
                             }
                             liste.addLast(t);
@@ -65,7 +65,7 @@ public final class ZielrichterentscheidUtils {
                     LinkedList<T> liste = temp.get(key);
                     if (liste.size() > 1) {
                         int disziplin = Integer.parseInt(key.substring(0, key.indexOf("x")));
-                        Zielrichterentscheid<T> ze = new Zielrichterentscheid<T>();
+                        Zielrichterentscheid<T> ze = new Zielrichterentscheid<>();
                         ze.setDisziplin(disziplin);
                         ze.addSchwimmer(liste);
 
@@ -74,7 +74,7 @@ public final class ZielrichterentscheidUtils {
                 }
             }
         }
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
             return null;
         }
         return result;
@@ -95,8 +95,8 @@ public final class ZielrichterentscheidUtils {
 
         LinkedList<Zielrichterentscheid<T>> existing = wk.getZielrichterentscheide();
 
-        LinkedList<Zielrichterentscheid<T>> valid = new LinkedList<Zielrichterentscheid<T>>();
-        LinkedList<Zielrichterentscheid<T>> invalid = new LinkedList<Zielrichterentscheid<T>>();
+        LinkedList<Zielrichterentscheid<T>> valid = new LinkedList<>();
+        LinkedList<Zielrichterentscheid<T>> invalid = new LinkedList<>();
 
         for (Zielrichterentscheid<T> ze : existing) {
             if (possible.contains(ze)) {

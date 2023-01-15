@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.editor;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,7 +23,6 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
@@ -70,12 +68,7 @@ class JTimeEditor extends JDialog {
 
     private void addActions() {
         WindowUtils.addEscapeAction(this);
-        WindowUtils.addEnterAction(this, new Runnable() {
-            @Override
-            public void run() {
-                doOk();
-            }
-        });
+        WindowUtils.addEnterAction(this, this::doOk);
     }
 
     void doOk() {
@@ -109,34 +102,23 @@ class JTimeEditor extends JDialog {
         setContentPane(panel);
 
         ok = new JButton(I18n.get("Ok"), IconManager.getSmallIcon("ok"));
-        ok.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                doOk();
-            }
+        ok.addActionListener(arg0 -> {
+            doOk();
         });
 
         JButton cancel = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        cancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                setVisible(false);
-            }
+        cancel.addActionListener(arg0 -> {
+            setVisible(false);
         });
 
         integer = new JIntegerField(JTimeField.MAX_TIME, true);
-        integer.setValidator(new Validator() {
-            @Override
-            public boolean validate(int value) {
-                value = value / 100;
-                if ((value % 100) >= 60) {
-                    return false;
-                }
-                value = value / 100;
-                return value < 1000;
+        integer.setValidator(value -> {
+            value = value / 100;
+            if ((value % 100) >= 60) {
+                return false;
             }
+            value = value / 100;
+            return value < 1000;
         });
         integer.setAutoSelectAll(true);
         integer.requestFocus();

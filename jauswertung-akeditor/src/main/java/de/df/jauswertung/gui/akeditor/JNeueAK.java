@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FilenameFilter;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -78,18 +77,8 @@ public class JNeueAK extends JDialog {
             mannschaftNamen = einzelNamen;
             return;
         }
-        einzelNamen = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                return name.toLowerCase().endsWith(".ake") || name.toLowerCase().endsWith(".rwe");
-            }
-        });
-        mannschaftNamen = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                return name.toLowerCase().endsWith(".akm") || name.toLowerCase().endsWith(".rwm");
-            }
-        });
+        einzelNamen = dir.list((file, name) -> name.toLowerCase().endsWith(".ake") || name.toLowerCase().endsWith(".rwe"));
+        mannschaftNamen = dir.list((file, name) -> name.toLowerCase().endsWith(".akm") || name.toLowerCase().endsWith(".rwm"));
     }
 
     @Override
@@ -124,11 +113,8 @@ public class JNeueAK extends JDialog {
 
     private JButton getCancelButton() {
         JButton c = new JButton(I18n.get("Cancel"), IconManager.getSmallIcon("cancel"));
-        c.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                setVisible(false);
-            }
+        c.addActionListener(event -> {
+            setVisible(false);
         });
         return c;
     }

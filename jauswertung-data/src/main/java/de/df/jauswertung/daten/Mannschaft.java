@@ -139,7 +139,7 @@ public class Mannschaft extends ASchwimmer {
 
     private static String getMitgliedernamenShort(Mannschaftsmitglied[] members, String separator) {
         int additional = -1;
-        List<String> namen = new ArrayList<String>();
+        List<String> namen = new ArrayList<>();
         boolean repeat = false;
         int maxlength = 0;
         do {
