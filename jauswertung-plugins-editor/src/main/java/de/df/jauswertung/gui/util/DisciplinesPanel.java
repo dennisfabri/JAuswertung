@@ -24,6 +24,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JTimeField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
@@ -83,7 +84,7 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
             for (int y = 0; y < boxes[x].length; y++) {
                 boxes[x][y] = new JCheckBox();
                 input[x][y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME);
-                input[x][y].setValidator(value -> {
+                input[x][y].setValidator((Validator)value -> {
                     value = value / 100;
                     if ((value % 100) >= 60) {
                         return false;

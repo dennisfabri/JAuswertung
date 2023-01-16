@@ -165,7 +165,7 @@ class BahnenlistenPrinter implements Printer {
     final class PreviewActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = BahnenlistenPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Lanelist"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

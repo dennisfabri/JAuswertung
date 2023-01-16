@@ -15,7 +15,6 @@ import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafe;
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.Utils;
@@ -87,11 +86,11 @@ public class TimesExtractor {
 
     private Penalty toPenalty(Strafe str) {
         PenaltyType type = switch (str.getArt()) {
-        case DISQUALIFIKATION -> PenaltyType.Disqualified
-        case NICHT_ANGETRETEN -> PenaltyType.DidNotStart
-        case AUSSCHLUSS -> PenaltyType.Disqualified
-        case NICHTS -> PenaltyType.None
-        case STRAFPUNKTE -> PenaltyType.Points
+        case DISQUALIFIKATION -> PenaltyType.Disqualified;
+        case NICHT_ANGETRETEN -> PenaltyType.DidNotStart;
+        case AUSSCHLUSS -> PenaltyType.Disqualified;
+        case NICHTS -> PenaltyType.None;
+        case STRAFPUNKTE -> PenaltyType.Points;
         };
         return new Penalty(str.getShortname(), type, str.getStrafpunkte());
     }

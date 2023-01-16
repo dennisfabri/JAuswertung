@@ -169,7 +169,7 @@ class FilledSimpleZWStartkartenPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (askForDetails()) {
-                PrintableCreator pc = this::getPrintable;
+                PrintableCreator pc = FilledSimpleZWStartkartenPrinter.this::getPrintable;
                 PrintExecutor.preview(controller.getWindow(), pc, I18n.get("FilledZWStartkarten"),
                         IconManager.getIconBundle(), IconManager.getTitleImages());
             }

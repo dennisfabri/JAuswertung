@@ -105,7 +105,7 @@ public class InfopagePrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = InfopagePrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Infopage"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

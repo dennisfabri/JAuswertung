@@ -24,6 +24,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JTimeField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
@@ -112,7 +113,7 @@ class JTimeEditor extends JDialog {
         });
 
         integer = new JIntegerField(JTimeField.MAX_TIME, true);
-        integer.setValidator(value -> {
+        integer.setValidator((Validator)value -> {
             value = value / 100;
             if ((value % 100) >= 60) {
                 return false;

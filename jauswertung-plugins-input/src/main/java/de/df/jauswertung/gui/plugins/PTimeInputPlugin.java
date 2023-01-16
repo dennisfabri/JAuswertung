@@ -204,7 +204,7 @@ public class PTimeInputPlugin extends ANullPlugin {
                 penaltiesTextNew[x] = penaltiestext[x];
 
                 if (byTimes) {
-                    inputsNew[x].setValidator(value -> {
+                    inputsNew[x].setValidator((Validator)value -> {
                         value = value / 100;
                         if ((value % 100) >= 60) {
                             return false;
@@ -235,7 +235,7 @@ public class PTimeInputPlugin extends ANullPlugin {
                 disciplinesNew[x] = new JLabel();
                 inputsNew[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                 if (byTimes) {
-                    inputsNew[x].setValidator(value -> {
+                    inputsNew[x].setValidator((Validator)value -> {
                         value = value / 100;
                         if ((value % 100) >= 60) {
                             return false;

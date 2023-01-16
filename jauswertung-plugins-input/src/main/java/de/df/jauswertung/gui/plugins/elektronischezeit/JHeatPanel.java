@@ -25,6 +25,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.util.StringTools;
@@ -154,7 +155,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         for (int y = 0; y < lanes; y++) {
             inputs[y] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
             inputs[y].setToolTipText(I18n.getToolTip("TimeInputField"));
-            inputs[y].setValidator(value -> {
+            inputs[y].setValidator((Validator)value -> {
                 value = value / 100;
                 if ((value % 100) >= 60) {
                     return false;

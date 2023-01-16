@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.akeditor;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
@@ -24,6 +23,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
@@ -204,7 +204,7 @@ class DisziplinenPanel extends JPanel {
     private JIntegerField createIntegerField(boolean required) {
         JIntegerField df = new JIntegerField(JTimeField.MAX_TIME, required, required);
         if (!required) {
-            df.setValidator(value -> {
+            df.setValidator((Validator) value -> {
                 value = value / 100;
                 if ((value % 100) >= 60) {
                     return false;
@@ -213,7 +213,7 @@ class DisziplinenPanel extends JPanel {
                 return value < 1000;
             });
         } else {
-            df.setValidator(value -> value > 0);
+            df.setValidator((Validator) value -> value > 0);
         }
         df.setColumns(8);
         df.setHorizontalAlignment(SwingConstants.RIGHT);

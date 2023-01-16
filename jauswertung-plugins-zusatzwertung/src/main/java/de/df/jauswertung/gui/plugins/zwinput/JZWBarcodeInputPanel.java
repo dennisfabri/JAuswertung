@@ -302,7 +302,7 @@ class JZWBarcodeInputPanel extends JPanel {
         inputPanel = new JPanel();
         input = new JIntegerField(false, true);
         input.addFocusListener(new ResettingFocusAdapter());
-        input.setValidator(value -> {
+        input.setValidator((JIntegerField.Validator)value -> {
             if (input.getText().length() == 0) {
                 return true;
             }

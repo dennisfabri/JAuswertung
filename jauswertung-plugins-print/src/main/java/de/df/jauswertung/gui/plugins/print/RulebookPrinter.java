@@ -98,7 +98,7 @@ public class RulebookPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = RulebookPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("RulebookSettings"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

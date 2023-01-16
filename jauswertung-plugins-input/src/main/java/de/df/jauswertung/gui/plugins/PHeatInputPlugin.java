@@ -64,6 +64,7 @@ import de.df.jutils.gui.JIcon;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -376,7 +377,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 if (byTimes) {
                     inputs[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                     inputs[x].setToolTipText(I18n.getToolTip("TimeInputField"));
-                    inputs[x].setValidator(value -> {
+                    inputs[x].setValidator((Validator)value -> {
                         value = value / 100;
                         if ((value % 100) >= 60) {
                             return false;
@@ -1359,7 +1360,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
-            new JZieleinlaufDialog(controller.getWindow(), lauf, result -> {
+            new JZieleinlaufDialog(controller.getWindow(), lauf, (ISimpleCallback<Boolean>)result -> {
                 if (result) {
                     nextHeat();
                 }

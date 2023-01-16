@@ -168,7 +168,7 @@ class GesamtwertungPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = GesamtwertungPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

@@ -595,7 +595,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 try {
                     results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names,
                             format.getSelectedItemname(), wk,
-                    this::insertText);
+                    s -> insertText(s));
                 } catch (TableEntryException tee) {
                     if (display) {
                         DialogUtils.warn(JImportWizard.this,

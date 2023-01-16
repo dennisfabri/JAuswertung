@@ -118,7 +118,7 @@ class PropertiesPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = PropertiesPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("CompetitionInformation"),
                     IconManager.getIconBundle(), IconManager.getTitleImages());
         }

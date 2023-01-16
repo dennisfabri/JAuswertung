@@ -431,7 +431,7 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null) {
                         printResult(t);
                     }
@@ -483,7 +483,7 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
                                 I18n.get("Einzelwertung"), IconManager.getIconBundle(),

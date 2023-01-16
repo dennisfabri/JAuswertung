@@ -135,7 +135,7 @@ public class ZielrichterentscheidPrinter implements Printer {
                 return;
             }
 
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = ZielrichterentscheidPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zielrichterentscheide"),
                     IconManager.getIconBundle(), IconManager.getTitleImages());
         }

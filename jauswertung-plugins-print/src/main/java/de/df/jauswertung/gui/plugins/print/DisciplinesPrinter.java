@@ -106,7 +106,7 @@ public class DisciplinesPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = DisciplinesPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Disciplines"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

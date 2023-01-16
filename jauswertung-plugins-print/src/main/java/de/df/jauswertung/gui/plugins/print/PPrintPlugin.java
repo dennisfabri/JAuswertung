@@ -235,7 +235,7 @@ public class PPrintPlugin extends ANullPlugin {
         selected[lastcomplete[1]][lastcomplete[0]] = true;
 
         if (view) {
-            PrintCallBack pcb = [][]select -> {
+            PrintCallBack pcb = select -> {
                 printResults(core.getFilteredWettkampf(), select, true);
             };
             JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),
@@ -268,7 +268,7 @@ public class PPrintPlugin extends ANullPlugin {
         }
 
         if (view) {
-            PrintCallBack pcb = [][]select -> {
+            PrintCallBack pcb = select -> {
                 printResults(core.getFilteredWettkampf(), select, true);
             };
             JSelectionDialog dialog = new JSelectionDialog(getController().getWindow(), wk, pcb, I18n.get("Print"),

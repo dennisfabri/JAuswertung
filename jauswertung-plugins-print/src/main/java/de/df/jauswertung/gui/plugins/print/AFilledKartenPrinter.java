@@ -179,7 +179,7 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null) {
                         printLaufliste(t);
                     }
@@ -217,7 +217,7 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null) {
                         AWettkampf[] wkx = createCompetitionFor(t);
                         if (askForDetails(wkx)) {

@@ -670,16 +670,16 @@
 				<version>4.38.2</version>
 				<configuration>
 					<activeRecipes>
-						<recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
+						<!--<recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
 						<recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
 						<recipe>org.openrewrite.java.cleanup.MissingOverrideAnnotation</recipe>
-						<recipe>org.openrewrite.java.cleanup.Cleanup</recipe>
+						<!-- <recipe>org.openrewrite.java.cleanup.Cleanup</recipe> -->
 						<recipe>org.openrewrite.java.cleanup.CombineSemanticallyEqualCatchBlocks</recipe>
-						<recipe>org.openrewrite.java.cleanup.CommonStaticAnalysis</recipe>
-						<recipe>org.openrewrite.java.cleanup.CompareEnumsWithEqualityOperator</recipe>
+						<!--<recipe>org.openrewrite.java.cleanup.CommonStaticAnalysis</recipe>-->
+						<!--<recipe>org.openrewrite.java.cleanup.CompareEnumsWithEqualityOperator</recipe>-->
 						<recipe>org.openrewrite.java.cleanup.FinalClass</recipe>
-						<recipe>org.openrewrite.java.cleanup.JavaApiBestPractices</recipe>
-						<recipe>org.openrewrite.java.cleanup.UseCollectionInterfaces</recipe>
+						<!--<recipe>org.openrewrite.java.cleanup.JavaApiBestPractices</recipe>-->
+						<!--<recipe>org.openrewrite.java.cleanup.UseCollectionInterfaces</recipe>-->
 						<recipe>org.openrewrite.java.cleanup.IsEmptyCallOnCollections</recipe>
 						<recipe>org.openrewrite.java.cleanup.NoEmptyCollectionWithRawType</recipe>
 						<recipe>org.openrewrite.java.cleanup.UseStandardCharset</recipe>
@@ -688,7 +688,7 @@
 						<recipe>org.openrewrite.java.cleanup.UseDiamondOperator</recipe>
 						<recipe>org.openrewrite.java.cleanup.UseLambdaForFunctionalInterface</recipe>
 						<recipe>org.openrewrite.java.cleanup.ReplaceLambdaWithMethodReference</recipe>
-						<recipe>org.openrewrite.java.cleanup.IndexOfReplaceableByContains</recipe>
+						<!--<recipe>org.openrewrite.java.cleanup.IndexOfReplaceableByContains</recipe>-->
 					</activeRecipes>
 				</configuration>
 				<dependencies>

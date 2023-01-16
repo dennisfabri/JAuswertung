@@ -2,19 +2,10 @@ package de.df.jauswertung.misc.recupdater;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.Disziplin;
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
-import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.misc.times.Time;
 import de.df.jauswertung.timesextractor.Competition;
@@ -22,9 +13,6 @@ import de.df.jauswertung.timesextractor.Entry;
 import de.df.jauswertung.timesextractor.Event;
 import de.df.jauswertung.timesextractor.TimesExtractor;
 import de.df.jauswertung.timesextractor.ValueTypes;
-import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.vergleicher.ZeitenVergleicher;
-import de.df.jutils.util.StringTools;
 
 public class CompetitionImporter implements IImporter {
 

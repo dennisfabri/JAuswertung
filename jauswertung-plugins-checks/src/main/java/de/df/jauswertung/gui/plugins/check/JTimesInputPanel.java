@@ -28,7 +28,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -47,6 +46,7 @@ import de.df.jauswertung.gui.util.TimeStatus;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
@@ -322,7 +322,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(24, 2, "center,center"));
             for (int y = 0; y < swimmers[x].length; y++) {
                 input[x][y] = new JIntegerField(JTimeField.MAX_TIME, false, true);
-                input[x][y].setValidator(value -> {
+                input[x][y].setValidator((Validator)value -> {
                     value = value / 100;
                     if ((value % 100) >= 60) {
                         return false;

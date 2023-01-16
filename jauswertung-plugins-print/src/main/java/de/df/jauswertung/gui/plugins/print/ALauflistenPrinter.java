@@ -163,7 +163,7 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         printLaufliste(t, comments.isSelected());
                     }
@@ -197,7 +197,7 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(getCompetitions(t)),
                                 getName(), IconManager.getIconBundle(), IconManager.getTitleImages());

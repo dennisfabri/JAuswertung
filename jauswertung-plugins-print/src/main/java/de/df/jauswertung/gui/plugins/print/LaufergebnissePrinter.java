@@ -142,7 +142,7 @@ class LaufergebnissePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         printLaufliste(t);
                     }
@@ -176,7 +176,7 @@ class LaufergebnissePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = []t -> {
+                ISimpleCallback<OWSelection[]> cb = t -> {
                     if (t != null) {
                         ArrayList<AWettkampf> wkx = new ArrayList<>();
                         for (OWSelection s : t) {

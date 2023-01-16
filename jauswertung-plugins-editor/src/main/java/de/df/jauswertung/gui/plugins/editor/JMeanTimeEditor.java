@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
@@ -28,6 +27,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jutils.gui.JIntegerField;
+import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -235,7 +235,7 @@ class JMeanTimeEditor extends JDialog {
         time = new JTimeField[integer.length];
         for (int x = 0; x < integer.length; x++) {
             integer[x] = new JIntegerField(JTimeField.MAX_TIME, true);
-            integer[x].setValidator(value -> {
+            integer[x].setValidator((Validator)value -> {
                 value = value / 100;
                 if ((value % 100) >= 60) {
                     return false;

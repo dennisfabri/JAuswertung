@@ -114,7 +114,7 @@ class ZieleinlaufkartenPrinter implements Printer {
     final class PreviewActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = ZieleinlaufkartenPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Zieleinlaufkarten"),
                     IconManager.getIconBundle(), IconManager.getTitleImages());
         }

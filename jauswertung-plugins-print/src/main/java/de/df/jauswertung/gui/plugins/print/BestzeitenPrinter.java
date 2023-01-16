@@ -98,7 +98,7 @@ public class BestzeitenPrinter implements Printer {
     final class PreviewActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = BestzeitenPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SchnellsteZeiten"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

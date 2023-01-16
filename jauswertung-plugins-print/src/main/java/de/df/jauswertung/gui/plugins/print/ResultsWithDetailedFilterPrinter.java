@@ -22,6 +22,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.core.AgegroupResultSelection;
+import de.df.jauswertung.gui.plugins.core.IWettkampfProvider;
 import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.gui.util.I18n;
@@ -99,9 +100,16 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        diszipline = new JResultsSelectionButton(() -> ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
-        diszipline.addItemListener(arg0 -> {
-            if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+        diszipline = new JResultsSelectionButton(new IWettkampfProvider() {
+
+            @Override
+            public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
+                return ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+            }
+            
+        });
+        diszipline.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.DESELECTED) {
                 checkWarning(ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
             }
         });

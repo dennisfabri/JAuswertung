@@ -151,7 +151,7 @@ class SprecherlistePrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintableCreator pc = this::getPrintable;
+            PrintableCreator pc = SprecherlistePrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("SpeakerHeatList"), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }

@@ -140,7 +140,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void loescheLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        ISimpleCallback<OWSelection[]> cb = []t -> {
+        ISimpleCallback<OWSelection[]> cb = t -> {
             if (t != null) {
                 for (OWSelection s : t) {
                     loescheLaufliste(s);
