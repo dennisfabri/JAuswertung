@@ -9,6 +9,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.misc.times.Time;
 import de.df.jauswertung.timesextractor.Competition;
+import de.df.jauswertung.timesextractor.CompetitorType;
 import de.df.jauswertung.timesextractor.Entry;
 import de.df.jauswertung.timesextractor.Event;
 import de.df.jauswertung.timesextractor.TimesExtractor;
@@ -54,12 +55,13 @@ public class CompetitionImporter implements IImporter {
     private static String[] sexes = merge(males, females);
 
     private List<Time> toTimes(Event event) {
-
+        boolean isTeam = event.getCompetitorType().equals(CompetitorType.Team);
+        
         List<Time> result = new ArrayList<>();
         if (isKnownSex(event.getSex())) {
             boolean male = isMale(event.getSex());
-            for (Entry entry : event.getTimes()) {
-                result.add(new Time(competition, event.isTeam(), entry.getName(), "", entry.getOrganization(),
+            for (Entry entry : event.getTimes()) {                
+                result.add(new Time(competition, isTeam, entry.getName(), "", entry.getOrganization(),
                         event.getAgegroup(), male, event.getDiscipline(), entry.getValue() / 10, entry.getPenalties()));
             }
         }

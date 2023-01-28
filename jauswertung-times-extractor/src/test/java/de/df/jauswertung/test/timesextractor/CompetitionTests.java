@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import de.df.jauswertung.timesextractor.Competition;
+import de.df.jauswertung.timesextractor.CompetitorType;
 import de.df.jauswertung.timesextractor.Event;
 import de.df.jauswertung.timesextractor.ValueTypes;
 
@@ -28,6 +29,6 @@ class CompetitionTests {
     void addEmptyEvent() {
         Competition actual = new Competition("a name");
 
-        actual.addEvent(new Event("agegroup", true, "sex", "discipline", 0, true, ValueTypes.TimeInMillis));
+        actual.addEvent(new Event("agegroup", CompetitorType.Team, "sex", "discipline", 0, true, ValueTypes.TimeInMillis));
     }
 }

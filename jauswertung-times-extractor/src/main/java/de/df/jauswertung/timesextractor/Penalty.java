@@ -1,7 +1,10 @@
 package de.df.jauswertung.timesextractor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public record Penalty(String name, PenaltyType type, int points) {
 
+    @JsonIgnore
     public boolean isRealPenalty() {
         if (type == PenaltyType.None) {
             return false;

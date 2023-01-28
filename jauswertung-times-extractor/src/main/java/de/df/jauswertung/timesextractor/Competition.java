@@ -23,9 +23,9 @@ public class Competition {
         }
     }
 
-    public void addTime(String agegroup, boolean isTeam, String sex, String discipline, int round, boolean isFinal,
+    public void addTime(String agegroup, CompetitorType competitorType, String sex, String discipline, int round, boolean isFinal,
             ValueTypes type, Entry entry) {
-        Event event = new Event(agegroup, isTeam, sex, discipline, round, isFinal, type);
+        Event event = new Event(agegroup, competitorType, sex, discipline, round, isFinal, type);
         event.addTime(entry);
 
         addEvent(event);

@@ -10,4 +10,5 @@ public class Entry {
     private final int value;
     private final Penalty[] penalties;
     private final Swimmer[] swimmer;
+    private final Start start;
 }

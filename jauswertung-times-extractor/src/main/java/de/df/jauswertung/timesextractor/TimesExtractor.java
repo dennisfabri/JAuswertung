@@ -3,6 +3,7 @@ package de.df.jauswertung.timesextractor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -12,6 +13,7 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -67,14 +69,37 @@ public class TimesExtractor {
                 Penalty[] penalties = getPenalties(s, x);
                 int round = s.getWettkampf().getIntegerProperty("round", 0);
                 boolean isFinal = s.getWettkampf().getBooleanProperty("isFinal", true);
-                competition.addTime(ak.getName(), s instanceof Mannschaft, I18n.geschlechtToShortString(s),
+                
+                Start start = determineStart(s);
+                CompetitorType competitorType = s instanceof Mannschaft ? CompetitorType.Team : CompetitorType.Individual;
+                
+                competition.addTime(ak.getName(), competitorType, I18n.geschlechtToShortString(s),
                         ak.getDisziplin(x, s.isMaennlich()).getName(), round, isFinal, type,
                         new Entry(StartnumberFormatManager.format(s), s.getName(), s.getGliederungMitQGliederung(),
                                 value, penalties,
-                                getSwimmer(s)));
+                                getSwimmer(s), start));
             }
         }
         return times;
+    }
+    
+    private <T extends ASchwimmer> Start determineStart(T schwimmer) {
+        AWettkampf<T> wk = schwimmer.getWettkampf();
+        LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
+        if (heats == null) {
+            // Do Nothing
+        } else {
+            for (Lauf<T> l : heats) {
+                for (int x = 0; x < l.getBahnen(); x++) {
+                    T s = l.getSchwimmer(x);
+                    if (s == schwimmer) {
+                        int i = l.getDisznummer(x);
+                        return new Start(l.getName(), x+1);
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private Penalty[] getPenalties(ASchwimmer s, int x) {
