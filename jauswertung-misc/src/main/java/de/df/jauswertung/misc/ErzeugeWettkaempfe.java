@@ -384,24 +384,24 @@ public final class ErzeugeWettkaempfe {
 
     public static void main(String[] args) {
         System.out.println("Erzeuge Wettk\u00E4mpfe:");
-        String s = "../../test/resources/values";
+        String s = "../../../../jauswertung-io/src/test/resources/values";
         if ((args != null) && (args.length > 0)) {
             s = args[0];
         }
-        einzel(new Namengenerator(s, 12), "../../../data/Einzel 1.wk", 12, -1);
-        einzel(new Namengenerator(s, 32), "../../../data/Einzel 2.wk", 32, -1);
-        einzel(new Namengenerator(s, 100), "../../../data/Einzel 3.wk", 64, -1);
-        einzel(new Namengenerator(s, 1000), "../../../data/Einzel 4.wk", 128, -1);
-        mannschaft(new Namengenerator(s, 12), "../../../data/Mannschaft 1.wk", 12, -1);
-        mannschaft(new Namengenerator(s, 32), "../../../data/Mannschaft 2.wk", 32, -1);
-        mannschaft(new Namengenerator(s, 100), "../../../data/Mannschaft 3.wk", 64, -1);
-        mannschaft(new Namengenerator(s, 1000), "../../../data/Mannschaft 4.wk", 128, -1);
-        einzel(new Namengenerator(s, 12), "../../../data/Einzel 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
-        einzel(new Namengenerator(s, 32), "../../../data/Einzel 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
-        einzel(new Namengenerator(s, 100), "../../../data/Einzel 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
-        mannschaft(new Namengenerator(s, 12), "../../../data/Mannschaft 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
-        mannschaft(new Namengenerator(s, 32), "../../../data/Mannschaft 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
-        mannschaft(new Namengenerator(s, 100), "../../../data/Mannschaft 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
+        einzel(new Namengenerator(s, 12), "../../../../data/Einzel 1.wk", 12, -1);
+        einzel(new Namengenerator(s, 32), "../../../../data/Einzel 2.wk", 32, -1);
+        einzel(new Namengenerator(s, 100), "../../../../data/Einzel 3.wk", 64, -1);
+        einzel(new Namengenerator(s, 1000), "../../../../data/Einzel 4.wk", 128, -1);
+        mannschaft(new Namengenerator(s, 12), "../../../../data/Mannschaft 1.wk", 12, -1);
+        mannschaft(new Namengenerator(s, 32), "../../../../data/Mannschaft 2.wk", 32, -1);
+        mannschaft(new Namengenerator(s, 100), "../../../../data/Mannschaft 3.wk", 64, -1);
+        mannschaft(new Namengenerator(s, 1000), "../../../../data/Mannschaft 4.wk", 128, -1);
+        einzel(new Namengenerator(s, 12), "../../../../data/Einzel 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
+        einzel(new Namengenerator(s, 32), "../../../../data/Einzel 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
+        einzel(new Namengenerator(s, 100), "../../../../data/Einzel 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
+        mannschaft(new Namengenerator(s, 12), "../../../../data/Mannschaft 1 (Zeiten unvollst\u00E4ndig).wk", 12, 2);
+        mannschaft(new Namengenerator(s, 32), "../../../../data/Mannschaft 2 (Zeiten unvollst\u00E4ndig).wk", 32, 2);
+        mannschaft(new Namengenerator(s, 100), "../../../../data/Mannschaft 3 (Zeiten unvollst\u00E4ndig).wk", 64, 2);
         System.out.println("Fertig");
     }
 }
