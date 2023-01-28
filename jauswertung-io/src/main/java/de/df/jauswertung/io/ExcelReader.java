@@ -58,7 +58,6 @@ public final class ExcelReader {
     }
 
     public static Object[][] sheetToTable(HSSFWorkbook wb, int sheetnumber) {
-        // HSSFFormulaEvaluator evaluator = new HSSFFormulaEvaluator(wb);
         FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
         return sheetToTable(wb, sheetnumber, evaluator);
     }
@@ -109,7 +108,6 @@ public final class ExcelReader {
         Iterator<Row> it = sheet.rowIterator();
         while (it.hasNext()) {
             boolean success = false;
-            // row = sheet.getRow(rowIndex);
             Row row = it.next();
 
             if (row != null) {

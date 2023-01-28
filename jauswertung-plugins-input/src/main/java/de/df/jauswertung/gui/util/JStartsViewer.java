@@ -72,9 +72,7 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
         if (heats == null) {
             // Do Nothing
         } else {
-            ListIterator<Lauf<T>> li = heats.listIterator();
-            while (li.hasNext()) {
-                Lauf<T> l = li.next();
+            for (Lauf<T> l : heats) {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
                     if (s == schwimmer) {
