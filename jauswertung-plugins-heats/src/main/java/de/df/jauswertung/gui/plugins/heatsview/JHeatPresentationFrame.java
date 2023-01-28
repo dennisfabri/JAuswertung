@@ -192,7 +192,7 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
 
     private GraphicsDevice screen = null;
     private final Cursor cursor = Toolkit.getDefaultToolkit()
-            .createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(1, 1), "");
+            .createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "");
 
     private void full(int screenIndex) {
         setVisible(false);
