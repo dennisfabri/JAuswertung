@@ -3,8 +3,15 @@ package de.df.jauswertung.misc;
 import java.awt.Font;
 import java.io.IOException;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.io.AgeGroupIOUtils;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.io.TableEntryException;
+import de.df.jauswertung.io.TableException;
+import de.df.jauswertung.io.TableFormatException;
 import de.df.jutils.print.PrintManager;
 
 public class ErzeugeDMWettkaempfe {

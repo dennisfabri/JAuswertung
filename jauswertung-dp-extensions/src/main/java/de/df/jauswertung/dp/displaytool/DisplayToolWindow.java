@@ -1,7 +1,5 @@
 package de.df.jauswertung.dp.displaytool;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

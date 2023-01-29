@@ -3,8 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;

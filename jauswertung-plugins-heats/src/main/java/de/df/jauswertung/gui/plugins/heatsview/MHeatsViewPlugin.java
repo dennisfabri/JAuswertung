@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.heatsview;
 
 import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JMenuItem;
 

@@ -1,7 +1,5 @@
 package de.df.jauswertung.dp.displaytool;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;

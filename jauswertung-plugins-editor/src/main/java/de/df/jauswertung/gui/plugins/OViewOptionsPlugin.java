@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins;
 
-import java.awt.event.ActionEvent;
 import java.util.prefs.Preferences;
 
 import javax.swing.JCheckBox;

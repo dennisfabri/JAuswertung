@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 

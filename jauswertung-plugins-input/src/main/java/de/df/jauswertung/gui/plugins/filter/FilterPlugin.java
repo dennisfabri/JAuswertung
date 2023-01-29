@@ -5,8 +5,6 @@ package de.df.jauswertung.gui.plugins.filter;
 
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;

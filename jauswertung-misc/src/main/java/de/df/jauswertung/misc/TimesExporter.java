@@ -2,8 +2,12 @@ package de.df.jauswertung.misc;
 
 import java.io.File;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.io.InputManager;
 

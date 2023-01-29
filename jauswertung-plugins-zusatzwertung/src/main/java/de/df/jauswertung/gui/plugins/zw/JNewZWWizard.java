@@ -20,7 +20,6 @@ import static de.df.jauswertung.daten.PropertyConstants.ZW_STARTTIME;
 
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.event.ItemEvent;
 import java.util.LinkedList;
 
 import javax.swing.ButtonGroup;

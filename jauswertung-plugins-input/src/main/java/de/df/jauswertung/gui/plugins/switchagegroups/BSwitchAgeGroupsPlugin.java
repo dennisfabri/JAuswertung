@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.switchagegroups;
 
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.ListIterator;
 

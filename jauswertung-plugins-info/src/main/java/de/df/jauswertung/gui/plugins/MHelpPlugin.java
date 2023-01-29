@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.Desktop;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 

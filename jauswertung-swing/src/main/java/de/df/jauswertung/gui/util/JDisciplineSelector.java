@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.util;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;

@@ -9,7 +9,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.print.Printable;
 import java.util.LinkedList;
 import java.util.ListIterator;

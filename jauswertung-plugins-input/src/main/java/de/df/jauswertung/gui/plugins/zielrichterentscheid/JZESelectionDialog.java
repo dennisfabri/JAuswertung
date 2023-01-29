@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.zielrichterentscheid;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;

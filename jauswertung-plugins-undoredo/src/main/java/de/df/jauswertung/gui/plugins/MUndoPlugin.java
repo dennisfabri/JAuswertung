@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins;
 
-import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;

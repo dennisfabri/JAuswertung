@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.veranstaltung;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 import java.util.Date;

@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;

@@ -5,9 +5,7 @@ package de.df.jauswertung.gui.util;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;

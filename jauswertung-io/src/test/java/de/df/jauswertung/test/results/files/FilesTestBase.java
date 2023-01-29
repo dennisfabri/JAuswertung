@@ -5,7 +5,9 @@ package de.df.jauswertung.test.results.files;
 
 import java.io.File;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.EinzelWettkampf;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.io.InputManager;
 import junit.framework.TestCase;
 

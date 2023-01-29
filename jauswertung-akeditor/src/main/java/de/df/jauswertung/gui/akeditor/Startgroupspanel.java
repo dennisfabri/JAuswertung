@@ -1,8 +1,6 @@
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.util.LinkedList;
 
 import javax.swing.JButton;

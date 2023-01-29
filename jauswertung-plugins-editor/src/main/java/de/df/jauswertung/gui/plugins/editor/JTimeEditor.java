@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,8 +22,8 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JIntegerField.Validator;
+import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;

@@ -19,7 +19,6 @@ import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
-import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
 /**

@@ -1,8 +1,9 @@
 package de.df.jauswertung.misc;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.AgeGroupIOUtils;
-import de.df.jauswertung.util.AltersklassenUtils;
 
 public class ExportAgegroups2Code {
 

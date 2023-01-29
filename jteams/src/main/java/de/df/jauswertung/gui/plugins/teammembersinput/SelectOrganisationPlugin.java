@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.teammembersinput;
 
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;

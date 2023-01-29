@@ -2,9 +2,13 @@ package de.df.jauswertung.misc;
 
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.TimelimitsContainer;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.SearchUtils;
 

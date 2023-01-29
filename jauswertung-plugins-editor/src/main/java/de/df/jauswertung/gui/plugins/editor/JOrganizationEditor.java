@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 
 import javax.swing.JButton;

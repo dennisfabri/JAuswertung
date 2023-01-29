@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

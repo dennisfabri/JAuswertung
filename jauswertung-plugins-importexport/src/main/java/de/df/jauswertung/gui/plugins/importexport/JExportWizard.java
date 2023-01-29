@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.importexport;
 import static de.df.jauswertung.io.ExportManager.NAMES;
 
 import java.awt.Cursor;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;

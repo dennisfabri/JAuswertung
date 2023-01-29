@@ -23,7 +23,6 @@ import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
-import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
 /**

@@ -4,10 +4,19 @@
 package de.df.jauswertung.misc;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.LinkedList;
 
-import de.df.jauswertung.daten.regelwerk.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.StrafenKapitel;
+import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
+import de.df.jauswertung.io.ExcelReader;
+import de.df.jauswertung.io.OutputManager;
 
 public final class ErzeugeStrafen {
     private static enum TeamPenaltyType {

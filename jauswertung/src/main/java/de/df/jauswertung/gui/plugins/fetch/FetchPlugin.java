@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.fetch;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javax.swing.JMenuItem;

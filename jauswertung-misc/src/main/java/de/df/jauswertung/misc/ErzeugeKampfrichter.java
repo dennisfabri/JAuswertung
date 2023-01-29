@@ -3,11 +3,15 @@
  */
 package de.df.jauswertung.misc;
 
-import static de.df.jauswertung.daten.kampfrichter.KampfrichterStufe.*;
+import static de.df.jauswertung.daten.kampfrichter.KampfrichterStufe.D12;
+import static de.df.jauswertung.daten.kampfrichter.KampfrichterStufe.E1;
+import static de.df.jauswertung.daten.kampfrichter.KampfrichterStufe.F1;
+import static de.df.jauswertung.daten.kampfrichter.KampfrichterStufe.KEINE;
 
 import java.io.FileNotFoundException;
 
-import de.df.jauswertung.daten.kampfrichter.*;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.io.OutputManager;
 
 public final class ErzeugeKampfrichter {

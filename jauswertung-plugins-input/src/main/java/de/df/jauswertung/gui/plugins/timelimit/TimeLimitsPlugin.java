@@ -1,7 +1,5 @@
 package de.df.jauswertung.gui.plugins.timelimit;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 

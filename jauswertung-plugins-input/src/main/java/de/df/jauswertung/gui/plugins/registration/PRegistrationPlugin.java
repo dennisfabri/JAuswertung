@@ -6,8 +6,6 @@ package de.df.jauswertung.gui.plugins.registration;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LOAD_WK;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_WK;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
 
 import de.df.jauswertung.daten.AWettkampf;

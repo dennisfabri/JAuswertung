@@ -12,7 +12,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANG
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;

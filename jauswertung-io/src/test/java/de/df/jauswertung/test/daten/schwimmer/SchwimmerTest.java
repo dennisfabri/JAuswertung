@@ -3,9 +3,11 @@
  */
 package de.df.jauswertung.test.daten.schwimmer;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.AgeGroupIOUtils;
+import de.df.jauswertung.io.InputManager;
 import junit.framework.TestCase;
 
 public class SchwimmerTest extends TestCase {

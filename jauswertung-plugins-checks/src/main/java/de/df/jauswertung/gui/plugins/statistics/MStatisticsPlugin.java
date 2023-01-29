@@ -3,8 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.statistics;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JMenuItem;
 
 import de.df.jauswertung.gui.plugins.CorePlugin;

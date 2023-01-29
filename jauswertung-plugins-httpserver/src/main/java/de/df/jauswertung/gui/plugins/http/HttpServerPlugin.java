@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.http;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.net.InetAddress;
 import java.net.NetworkInterface;

@@ -9,7 +9,6 @@ import static de.df.jauswertung.daten.PropertyConstants.NAME;
 import static de.df.jauswertung.daten.PropertyConstants.SHORTNAME;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.print.Printable;

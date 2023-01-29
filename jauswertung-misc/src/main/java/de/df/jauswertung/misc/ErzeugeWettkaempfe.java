@@ -45,7 +45,6 @@ import de.df.jauswertung.daten.regelwerk.StrafenParagraph;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
-import de.df.jauswertung.util.AltersklassenUtils;
 import de.df.jauswertung.util.RandomUtils;
 
 /**

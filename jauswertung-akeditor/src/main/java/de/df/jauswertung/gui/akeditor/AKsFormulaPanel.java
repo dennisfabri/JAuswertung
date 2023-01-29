@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;

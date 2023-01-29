@@ -8,7 +8,6 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.CsvUtils;
-import de.df.jauswertung.io.IOUtils;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
 

@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -13,7 +12,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 

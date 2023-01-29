@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.zw;
  */
 
 import java.awt.Window;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;

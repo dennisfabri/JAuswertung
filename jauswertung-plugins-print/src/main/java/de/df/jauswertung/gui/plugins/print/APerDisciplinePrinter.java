@@ -15,7 +15,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.print.Printable;
 import java.io.FileOutputStream;
 import java.io.OutputStream;

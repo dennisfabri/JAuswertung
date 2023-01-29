@@ -1,7 +1,5 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JMenuItem;
 
 import de.df.jauswertung.daten.ASchwimmer;

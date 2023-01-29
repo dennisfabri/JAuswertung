@@ -1,8 +1,8 @@
 package de.df.jauswertung.misc;
 
-import de.df.jauswertung.daten.regelwerk.*;
+import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.AgeGroupIOUtils;
-import de.df.jauswertung.util.AltersklassenUtils;
 
 // $rec = array(
 // array("AK 12", -1, array( 31.90, 35.70, 24.30), array( 31.10, 35.10, 23.60), array("50m Hindernis", "50m k. Schwimmen", "50m Flossen")),

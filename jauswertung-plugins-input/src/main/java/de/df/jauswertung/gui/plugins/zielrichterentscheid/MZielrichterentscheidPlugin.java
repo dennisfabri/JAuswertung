@@ -7,8 +7,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LAUF_LIST_CHANGE
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_ZW_LIST_CHANGED;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JMenuItem;
 
 import de.df.jauswertung.gui.UpdateEventConstants;

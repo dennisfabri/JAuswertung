@@ -9,7 +9,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.print.Printable;
 import java.util.Hashtable;
 import java.util.LinkedList;

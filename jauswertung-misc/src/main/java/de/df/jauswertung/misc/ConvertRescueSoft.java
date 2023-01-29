@@ -1,13 +1,19 @@
 package de.df.jauswertung.misc;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.Excel2007Utils;
+import de.df.jauswertung.io.ExcelReader;
+import de.df.jauswertung.io.TextFileUtils;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.StringTools;
 

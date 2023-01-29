@@ -3,8 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.importexport;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 

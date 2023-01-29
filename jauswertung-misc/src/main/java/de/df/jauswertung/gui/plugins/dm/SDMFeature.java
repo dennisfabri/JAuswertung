@@ -1,7 +1,9 @@
 package de.df.jauswertung.gui.plugins.dm;
 
 import de.df.jauswertung.gui.plugins.doping.MDopingPlugin;
-import de.df.jutils.plugin.*;
+import de.df.jutils.plugin.AFeature;
+import de.df.jutils.plugin.IPluginManager;
+import de.df.jutils.plugin.UpdateEvent;
 
 public class SDMFeature extends AFeature {
 

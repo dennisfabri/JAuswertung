@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.statistics;
 
-import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.LinkedList;
 

@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

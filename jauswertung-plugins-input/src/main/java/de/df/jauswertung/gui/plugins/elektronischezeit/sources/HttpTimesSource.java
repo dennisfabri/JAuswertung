@@ -2,10 +2,8 @@ package de.df.jauswertung.gui.plugins.elektronischezeit.sources;
 
 import java.io.IOException;
 
-import de.df.jauswertung.gui.plugins.elektronischezeit.MElektronischeZeitPlugin;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.util.HttpUtils;
-import de.df.jauswertung.util.Utils;
 import de.dm.ares.data.Heat;
 
 public class HttpTimesSource implements ITimesSource {

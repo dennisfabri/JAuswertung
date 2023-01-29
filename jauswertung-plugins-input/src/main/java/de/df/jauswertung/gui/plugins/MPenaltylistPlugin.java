@@ -12,7 +12,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.Window;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;

@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.urkunden;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;

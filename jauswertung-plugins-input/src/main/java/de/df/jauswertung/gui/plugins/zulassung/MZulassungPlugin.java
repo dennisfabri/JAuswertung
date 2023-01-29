@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.plugins.zulassung;
 
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 
 import javax.swing.JMenu;

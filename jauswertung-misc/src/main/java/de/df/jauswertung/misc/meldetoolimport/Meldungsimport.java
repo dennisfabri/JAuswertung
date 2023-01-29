@@ -1,7 +1,12 @@
 package de.df.jauswertung.misc.meldetoolimport;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 

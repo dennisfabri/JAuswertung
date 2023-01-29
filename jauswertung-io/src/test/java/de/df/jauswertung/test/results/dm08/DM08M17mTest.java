@@ -5,11 +5,15 @@ package de.df.jauswertung.test.results.dm08;
 
 import java.io.FileNotFoundException;
 
-import de.df.jauswertung.daten.*;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.io.AgeGroupIOUtils;
+import de.df.jauswertung.io.InputManager;
+import de.df.jauswertung.io.TableFormatException;
 import de.df.jauswertung.test.util.TestImportUtils;
 import de.df.jauswertung.test.util.TestUtils;
-import de.df.jauswertung.util.ergebnis.*;
+import de.df.jauswertung.util.ergebnis.ResultCalculator;
+import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import junit.framework.TestCase;
 
 public class DM08M17mTest extends TestCase {

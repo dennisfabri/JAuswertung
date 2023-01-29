@@ -9,11 +9,8 @@ import java.awt.GraphicsEnvironment;
 import java.text.MessageFormat;
 
 import javax.swing.JFileChooser;
-import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 
-import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
-import org.jdesktop.swinghelper.debug.EventDispatchThreadHangMonitor;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 import org.slf4j.Logger;

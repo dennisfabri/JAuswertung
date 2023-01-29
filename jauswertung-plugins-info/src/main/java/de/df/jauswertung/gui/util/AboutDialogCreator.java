@@ -9,7 +9,6 @@ import javax.swing.JTextPane;
 
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.window.JAboutDialog;
 
 public final class AboutDialogCreator {

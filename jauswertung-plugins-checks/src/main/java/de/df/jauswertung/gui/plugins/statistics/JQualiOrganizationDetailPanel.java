@@ -5,7 +5,6 @@ package de.df.jauswertung.gui.plugins.statistics;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ItemEvent;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;

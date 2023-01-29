@@ -1,7 +1,5 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit.sources;
 
-import de.df.jauswertung.gui.plugins.elektronischezeit.IETStrategy;
-import de.df.jauswertung.gui.plugins.elektronischezeit.MElektronischeZeitPlugin;
 import de.dm.ares.data.Heat;
 import de.dm.ares.file.FileReader;
 

@@ -4,7 +4,9 @@
 package de.df.jauswertung.misc;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.ExportManager;
+import de.df.jauswertung.io.ImportExportTypes;
+import de.df.jauswertung.io.InputManager;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 

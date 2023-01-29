@@ -12,7 +12,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
@@ -38,8 +37,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
-
-import de.df.jutils.gui.jtable.TableSorter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -69,6 +66,7 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.jtable.ColumnFittingMouseAdapter;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.jtable.SimpleTableModel;
+import de.df.jutils.gui.jtable.TableSorter;
 import de.df.jutils.gui.layout.ListLayout;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 import de.df.jutils.io.csv.FixedDecimal;

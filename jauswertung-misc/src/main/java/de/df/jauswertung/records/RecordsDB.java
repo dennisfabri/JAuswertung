@@ -2,7 +2,9 @@ package de.df.jauswertung.records;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
 
 import de.df.jauswertung.io.CsvUtils;
 import de.df.jutils.util.DateUtils;

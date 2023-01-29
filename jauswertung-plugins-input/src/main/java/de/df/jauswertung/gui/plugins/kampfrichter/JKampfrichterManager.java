@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 
 import javax.swing.JButton;

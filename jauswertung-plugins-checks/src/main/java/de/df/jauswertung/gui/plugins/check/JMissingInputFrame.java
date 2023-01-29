@@ -3,8 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.check;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
