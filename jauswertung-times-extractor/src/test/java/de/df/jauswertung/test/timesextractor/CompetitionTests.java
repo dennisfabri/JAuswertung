@@ -16,18 +16,20 @@ class CompetitionTests {
         Competition actual = new Competition();
 
         assertEquals("", actual.getName());
+        assertEquals("", actual.getAcronym());
     }
 
     @Test
     void createEmptyCompetitionWithName() {
-        Competition actual = new Competition("a name");
+        Competition actual = new Competition("a name", "a short name");
 
         assertEquals("a name", actual.getName());
+        assertEquals("a short name", actual.getAcronym());
     }
 
     @Test
     void addEmptyEvent() {
-        Competition actual = new Competition("a name");
+        Competition actual = new Competition("a name", "a short name");
 
         actual.addEvent(new Event("agegroup", CompetitorType.Team, "sex", "discipline", 0, true, ValueTypes.TimeInMillis));
     }

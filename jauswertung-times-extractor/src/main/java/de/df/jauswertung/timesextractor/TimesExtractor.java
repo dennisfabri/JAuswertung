@@ -46,7 +46,7 @@ public class TimesExtractor {
         wk = Utils.copy(wk);
         AWettkampf<T>[] competitions = createAllCompetitions(wk);
 
-        Competition competition = new Competition(wk.getStringProperty(PropertyConstants.NAME));
+        Competition competition = new Competition(wk.getStringProperty(PropertyConstants.NAME), wk.getStringProperty(PropertyConstants.SHORTNAME));
         for (AWettkampf<T> wkx : competitions) {
             for (ASchwimmer s : wkx.getSchwimmer()) {
                 extractTimes(s, competition);
@@ -69,10 +69,11 @@ public class TimesExtractor {
                 Penalty[] penalties = getPenalties(s, x);
                 int round = s.getWettkampf().getIntegerProperty("round", 0);
                 boolean isFinal = s.getWettkampf().getBooleanProperty("isFinal", true);
-                
+
                 Start start = determineStart(s);
-                CompetitorType competitorType = s instanceof Mannschaft ? CompetitorType.Team : CompetitorType.Individual;
-                
+                CompetitorType competitorType = s instanceof Mannschaft ? CompetitorType.Team
+                        : CompetitorType.Individual;
+
                 competition.addTime(ak.getName(), competitorType, I18n.geschlechtToShortString(s),
                         ak.getDisziplin(x, s.isMaennlich()).getName(), round, isFinal, type,
                         new Entry(StartnumberFormatManager.format(s), s.getName(), s.getGliederungMitQGliederung(),
@@ -82,7 +83,7 @@ public class TimesExtractor {
         }
         return times;
     }
-    
+
     private <T extends ASchwimmer> Start determineStart(T schwimmer) {
         AWettkampf<T> wk = schwimmer.getWettkampf();
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
@@ -93,8 +94,7 @@ public class TimesExtractor {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
                     if (s == schwimmer) {
-                        int i = l.getDisznummer(x);
-                        return new Start(l.getName(), x+1);
+                        return new Start(l.getName(), x + 1);
                     }
                 }
             }
@@ -123,7 +123,6 @@ public class TimesExtractor {
     private Swimmer[] getSwimmer(ASchwimmer s) {
         if (s instanceof Teilnehmer t) {
             return new Swimmer[] { new Swimmer(StartnumberFormatManager.format(t), t.getVorname(), t.getNachname(),
-                    t.getGliederungMitQGliederung(),
                     I18n.geschlechtToShortString(t), t.getJahrgang()) };
         }
         if (s instanceof Mannschaft m && m.hasMannschaftsmitglieder()) {
@@ -147,8 +146,8 @@ public class TimesExtractor {
                     break;
 
                 }
-                swimmer.add(new Swimmer(StartnumberFormatManager.format(m), mitglied.getVorname(),
-                        mitglied.getNachname(), m.getGliederungMitQGliederung(),
+                swimmer.add(new Swimmer("", mitglied.getVorname(),
+                        mitglied.getNachname(),
                         gender, mitglied.getJahrgang()));
             }
             return swimmer.toArray(new Swimmer[swimmer.size()]);

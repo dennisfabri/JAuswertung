@@ -7,7 +7,6 @@ public class Swimmer {
     private final String startnumber;
     private final String firstName;
     private final String lastName;
-    private final String organization;
     private final String sex;
     private final int yearOfBirth;
 }

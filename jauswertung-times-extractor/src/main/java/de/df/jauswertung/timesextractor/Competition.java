@@ -10,11 +10,14 @@ import lombok.RequiredArgsConstructor;
 public class Competition {
     @Getter
     private final String name;
+    @Getter
+    private final String acronym;
 
     private final List<Event> events = new ArrayList<>();
 
     public Competition() {
         name = "";
+        acronym = "";
     }
 
     public void addEvent(Event newEvent) {
