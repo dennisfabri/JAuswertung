@@ -1,6 +1,3 @@
-/*
- * Created on 17.10.2004
- */
 package de.df.jauswertung.gui.plugins.print;
 
 import java.awt.event.ActionEvent;
@@ -29,12 +26,10 @@ import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 
-/**
- * @author Dennis Fabri
- * @date 17.10.2004
- */
 class GesamtwertungPrinter implements Printer {
 
+    private static final String TITLE = "GroupEvaluation";
+    
     CorePlugin core = null;
     IPluginManager controller = null;
 
@@ -43,7 +38,7 @@ class GesamtwertungPrinter implements Printer {
     private JButton preview = null;
     private JLabel warning = null;
     private JLabel filter = null;
-    private JComboBox type = null;
+    private JComboBox<String> type = null;
 
     public GesamtwertungPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -74,11 +69,9 @@ class GesamtwertungPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        type = new JComboBox(new Object[] { I18n.get("Organization"), I18n.get("Qualifikationsebene") });
+        type = new JComboBox<>(new String[] { I18n.get("Organization"), I18n.get("Qualifikationsebene") });
         type.setSelectedIndex(0);
-        type.addActionListener(arg0 -> {
-            dataUpdated(null, core.getWettkampf(), core.getFilteredWettkampf());
-        });
+        type.addActionListener(arg0 -> dataUpdated(null, core.getWettkampf(), core.getFilteredWettkampf()));
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -106,7 +99,7 @@ class GesamtwertungPrinter implements Printer {
      */
     @Override
     public String getName() {
-        return I18n.get("GroupEvaluation");
+        return I18n.get(TITLE);
     }
 
     @Override
@@ -115,7 +108,6 @@ class GesamtwertungPrinter implements Printer {
         if (filteredwk.getRegelwerk().hasGesamtwertung() && filteredwk.hasSchwimmer()) {
             result = true;
         }
-        boolean resulttype = result;
         boolean resultfilter = result;
         if (result && (type.getSelectedIndex() > 0)) {
             filteredwk = Utils.copy(filteredwk);
@@ -125,7 +117,7 @@ class GesamtwertungPrinter implements Printer {
                     filteredwk.removeSchwimmer(s);
                 }
             }
-            resulttype = false;
+            boolean resulttype = false;
             if (filteredwk.getRegelwerk().hasGesamtwertung() && filteredwk.hasSchwimmer()) {
                 resulttype = true;
             }
@@ -153,14 +145,14 @@ class GesamtwertungPrinter implements Printer {
             }
         }
         return PrintManager.getFinalPrintable(PrintUtils.getGesamtwertungPrintable(wk), core.getLastChangedDate(), true,
-                I18n.get("GroupEvaluation"));
+                I18n.get(TITLE));
     }
 
     final class PrintActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("GroupEvaluation"), true, controller.getWindow());
+            PrintExecutor.print(getPrintable(), I18n.get(TITLE), true, controller.getWindow());
         }
     }
 
@@ -169,7 +161,7 @@ class GesamtwertungPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             PrintableCreator pc = GesamtwertungPrinter.this::getPrintable;
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get(TITLE), IconManager.getIconBundle(),
                     IconManager.getTitleImages());
         }
     }

@@ -26,13 +26,13 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -99,25 +99,27 @@ class JMeanTimeEditor extends JDialog {
      * 
      */
     private static final long serialVersionUID = 3256719580843227188L;
+    
+    private static final BooleanConsumer EMPTY_CALLBACK = b->{};
 
-    ASchwimmer schwimmer = null;
-    int disziplin = 0;
-    JIntegerField[] integer = null;
-    JTimeField[] time = null;
-    JButton ok = null;
-    IPluginManager controller = null;
-    private ISimpleCallback<Boolean> cb = null;
+    private ASchwimmer schwimmer = null;
+    private int disziplin = 0;
+    private JIntegerField[] integer = null;
+    private JTimeField[] time = null;
+    private JButton ok = null;
+    private IPluginManager controller = null;
+    private BooleanConsumer cb = null;
 
     /**
      * This is the default constructor
      */
-    public JMeanTimeEditor(IPluginManager controller, ASchwimmer s, int disz, ISimpleCallback<Boolean> cb) {
+    public JMeanTimeEditor(IPluginManager controller, ASchwimmer s, int disz, BooleanConsumer cb) {
         super(controller.getWindow(), I18n.get("TimeInput"), true);
         if (!s.isDisciplineChosen(disz)) {
             throw new IllegalArgumentException();
         }
         this.controller = controller;
-        this.cb = cb;
+        this.cb = cb != null ? cb : EMPTY_CALLBACK;
 
         schwimmer = s;
         disziplin = disz;
@@ -138,9 +140,7 @@ class JMeanTimeEditor extends JDialog {
 
     void doCancel() {
         setVisible(false);
-        if (cb != null) {
-            cb.callback(false);
-        }
+        cb.accept(false);
     }
 
     void doOk() {
@@ -206,9 +206,7 @@ class JMeanTimeEditor extends JDialog {
         }
 
         setVisible(false);
-        if (cb != null) {
-            cb.callback(true);
-        }
+        cb.accept(true);
     }
 
     /**
@@ -235,7 +233,7 @@ class JMeanTimeEditor extends JDialog {
         time = new JTimeField[integer.length];
         for (int x = 0; x < integer.length; x++) {
             integer[x] = new JIntegerField(JTimeField.MAX_TIME, true);
-            integer[x].setValidator((Validator)value -> {
+            integer[x].setValidator((Validator) value -> {
                 value = value / 100;
                 if ((value % 100) >= 60) {
                     return false;

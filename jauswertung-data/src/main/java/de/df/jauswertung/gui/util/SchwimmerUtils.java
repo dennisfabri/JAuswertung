@@ -161,13 +161,11 @@ public final class SchwimmerUtils {
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 LinkedList<T> ll = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
-                if ((ll != null) && (ll.size() > 0)) {
+                if ((ll != null) && !ll.isEmpty()) {
                     ergebnis[zahl] = new LinkedList<>();
-                    ListIterator<T> li = ll.listIterator();
-                    do {
-                        T s = li.next();
+                    for (T s : ll) {
                         ergebnis[zahl].addLast(getSchwimmerInfo(wk, s));
-                    } while (li.hasNext());
+                    }
                     ergebnis[zahl] = sortiereSchwimmerInfo(ergebnis[zahl]);
                     zahl++;
                 }
@@ -175,6 +173,27 @@ public final class SchwimmerUtils {
         }
         return ergebnis;
     }
+    
+    private static <T extends ASchwimmer> SchwimmerInfo getSchwimmerInfo(AWettkampf<T> wk, T s) {
+        String[] li = new String[s.getAK().getDiszAnzahl()];
+        String[] bi = new String[s.getAK().getDiszAnzahl()];
+
+        for (int x = 0; x < li.length; x++) {
+            li[x] = "-";
+            bi[x] = "-";
+            try {
+                LaufInfo laufinfo = getLaufInfo(wk, s, x);
+                if (laufinfo != null) {
+                    li[x] = laufinfo.getLauf();
+                    bi[x] = laufinfo.getBahn();
+                }
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
+        }
+
+        return new SchwimmerInfo(s, li, bi);
+    }    
 
     public static <T extends ASchwimmer> LaufInfo getLaufInfo(AWettkampf<T> wk, T s, int disz) {
         LinkedList<Lauf<T>> laufliste = wk.getLaufliste().getLaufliste();
@@ -188,19 +207,14 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        do {
-            Lauf<T> l = li.next();
+        for (Lauf<T> l : laufliste) {
             for (int x = 0; x < l.getBahnen(); x++) {
                 T temp = l.getSchwimmer(x);
-                if ((temp != null) && (s.equals(temp))) {
-                    int d = l.getDisznummer(x);
-                    if (disz == d) {
-                        return new LaufInfo(l.getName(), x + 1);
-                    }
+                if ((temp != null) && (s.getStartnummer() == temp.getStartnummer()) && disz == l.getDisznummer(x)) {
+                    return new LaufInfo(l.getName(), x + 1);
                 }
             }
-        } while (li.hasNext());
+        }
         return null;
     }
 
@@ -230,27 +244,6 @@ public final class SchwimmerUtils {
             zw[x] = new ZWInfo();
         }
         return zw;
-    }
-
-    public static <T extends ASchwimmer> SchwimmerInfo getSchwimmerInfo(AWettkampf<T> wk, T s) {
-        String[] li = new String[s.getAK().getDiszAnzahl()];
-        String[] bi = new String[s.getAK().getDiszAnzahl()];
-
-        for (int x = 0; x < li.length; x++) {
-            li[x] = "-";
-            bi[x] = "-";
-            try {
-                LaufInfo laufinfo = getLaufInfo(wk, s, x);
-                if (laufinfo != null) {
-                    li[x] = laufinfo.getLauf();
-                    bi[x] = laufinfo.getBahn();
-                }
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
-            }
-        }
-
-        return new SchwimmerInfo(s, li, bi);
     }
 
     @SuppressWarnings("unchecked")

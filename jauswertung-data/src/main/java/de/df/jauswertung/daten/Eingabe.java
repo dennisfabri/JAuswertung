@@ -2,6 +2,7 @@ package de.df.jauswertung.daten;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
@@ -18,11 +19,11 @@ public class Eingabe implements Serializable {
         return new LinkedList<>(strafen);
     }
 
-    public void setStrafen(LinkedList<Strafe> s) {
+    public void setStrafen(List<Strafe> s) {
         if (s == null) {
             s = new LinkedList<>();
         }
-        strafen = s;
+        strafen = new LinkedList<>(s);
     }
 
     public void addStrafe(Strafe s) {

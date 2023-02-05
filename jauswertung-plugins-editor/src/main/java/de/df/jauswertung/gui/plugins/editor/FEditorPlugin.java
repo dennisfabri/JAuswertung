@@ -20,8 +20,8 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.OGeneralOptionsPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.AFeature;
 import de.df.jutils.plugin.IPluginManager;
@@ -71,7 +71,7 @@ public class FEditorPlugin extends AFeature {
         runMeanTimeEditor(s, disz, null);
     }
 
-    public void runMeanTimeEditor(ASchwimmer s, int disz, ISimpleCallback<Boolean> cb) {
+    public void runMeanTimeEditor(ASchwimmer s, int disz, BooleanConsumer cb) {
         JMeanTimeEditor jte = new JMeanTimeEditor(getController(), s, disz, cb);
         SwingUtilities.invokeLater(new WindowLauncher(jte));
     }
