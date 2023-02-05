@@ -5,8 +5,6 @@ package de.df.jauswertung.gui.plugins;
 
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PENALTY;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -20,6 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import javax.swing.DefaultComboBoxModel;
@@ -28,9 +27,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -59,6 +55,7 @@ import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jauswertung.util.vergleicher.SchwimmerStartnummernVergleicher;
+import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIcon;
 import de.df.jutils.gui.JIntegerField;
@@ -69,7 +66,6 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.PanelInfo;
@@ -77,24 +73,20 @@ import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
 import net.miginfocom.swing.MigLayout;
 
-/**
- * @author Dennis Fabri
- * @date 05.04.2004
- */
 public class PHeatInputPlugin extends ANullPlugin {
 
     private static final String INPUT = I18n.get("HeatResultInput");
 
-    int bahnen = -1;
+    private int bahnen = -1;
 
-    JGlassPanel<JPanel> main = null;
+    private JGlassPanel<JPanel> main = null;
 
     private JPanel heatPanel = null;
-    JButton next = null;
-    JButton previous = null;
-    JComboBox<String> heat = null;
-    JLabel discipline = null;
-    JLabel agegroup = null;
+    private JButton next = null;
+    private JButton previous = null;
+    private JComboBox<String> heat = null;
+    private JLabel discipline = null;
+    private JLabel agegroup = null;
 
     private IHeatInputStrategy strategy = null;
 
@@ -103,32 +95,32 @@ public class PHeatInputPlugin extends ANullPlugin {
     private JLabel[] agegroups = null;
     private JLabel[] startnumbers = null;
     private JIcon[] icons = null;
-    JIntegerField[] inputs = null;
-    JTimeField[] times = null;
+    private JIntegerField[] inputs = null;
+    private JTimeField[] times = null;
     private JLabel[] penaltiestext = null;
     private JButton[] penalties = null;
-    private DocumentListener[] dl = null;
-    HighPointsListener[] fl = null;
+    private SessionedDocumentListener[] dl = null;
+    private HighPointsListener[] fl = null;
 
     private JButton zieleinlauf = null;
     private JButton zielrichterentscheid = null;
 
     private NextHeatListener nextHeatListener = null;
 
-    ASchwimmer[] swimmers = null;
+    private ASchwimmer[] swimmers = null;
     @SuppressWarnings("rawtypes")
-    AWettkampf wk = null;
+    private AWettkampf wk = null;
 
-    IPluginManager controller = null;
-    CorePlugin core = null;
-    FEditorPlugin editor = null;
-    MZielrichterentscheidPlugin zeplugin = null;
+    private IPluginManager controller = null;
+    private CorePlugin core = null;
+    private FEditorPlugin editor = null;
+    private MZielrichterentscheidPlugin zeplugin = null;
 
     public PHeatInputPlugin() {
         // Nothing to do
     }
 
-    void createPanel() {
+    private void createPanel() {
         nextHeatListener = new NextHeatListener();
 
         main = new JGlassPanel<>(initPanel());
@@ -143,7 +135,6 @@ public class PHeatInputPlugin extends ANullPlugin {
         glass.setLayout(new CenterLayout());
         glass.add(info);
 
-        // Hauptpanel sperren
         main.setEnabled(false);
     }
 
@@ -205,14 +196,10 @@ public class PHeatInputPlugin extends ANullPlugin {
         discipline = new JLabel();
 
         zieleinlauf = new JButton(I18n.get("CheckZieleinlauf"));
-        zieleinlauf.addActionListener(e -> {
-            zeigeZieleinlauf();
-        });
+        zieleinlauf.addActionListener(e -> zeigeZieleinlauf());
 
         zielrichterentscheid = new JButton(I18n.get("Zielrichterentscheid"));
-        zielrichterentscheid.addActionListener(e -> {
-            zeplugin.showZielrichterentscheid();
-        });
+        zielrichterentscheid.addActionListener(e -> zeplugin.showZielrichterentscheid());
 
         String disciplinePart = "4dlu,left:default:grow,4dlu,";
         String agegroupPart = "center:default:grow,4dlu,";
@@ -360,7 +347,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (byTimes) {
                 times = new JTimeField[bahnen];
             }
-            dl = new DocumentListener[bahnen];
+            dl = new SessionedDocumentListener[bahnen];
             fl = new HighPointsListener[bahnen];
             swimmers = new ASchwimmer[bahnen];
             penalties = new JButton[bahnen];
@@ -372,12 +359,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                 organisations[x] = new JLabel();
                 agegroups[x] = new JLabel();
                 startnumbers[x] = new JLabel();
-                dl[x] = new TimeListener(x);
+                dl[x] = new SessionedDocumentListener(
+                        new TimeInputListener(new HeatInputConsumer(x), this, controller));
                 fl[x] = new HighPointsListener(x);
                 if (byTimes) {
                     inputs[x] = new JIntegerField(JIntegerField.EMPTY_FIELD, JTimeField.MAX_TIME, false, true);
                     inputs[x].setToolTipText(I18n.getToolTip("TimeInputField"));
-                    inputs[x].setValidator((Validator)value -> {
+                    inputs[x].setValidator((Validator) value -> {
                         value = value / 100;
                         if ((value % 100) >= 60) {
                             return false;
@@ -400,7 +388,6 @@ public class PHeatInputPlugin extends ANullPlugin {
                 penaltiestext[x] = new JLabel();
                 penalties[x] = new JButton(I18n.get("Penalty"));
                 penalties[x].setToolTipText(I18n.getToolTip("PenaltyButton"));
-                penalties[x].addKeyListener(new PenaltyKeyListener(x));
                 penalties[x].addActionListener(new PenaltyListener(x));
 
                 icons[x] = new JIcon(IconManager.getSmallIcon("warn").getImage());
@@ -428,7 +415,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         updateInputFields();
     }
 
-    boolean update = false;
+    private volatile boolean update = false;
 
     synchronized void updateInputFields() {
         int index = heat.getSelectedIndex();
@@ -489,7 +476,7 @@ public class PHeatInputPlugin extends ANullPlugin {
     }
 
     boolean nextLane(boolean switchheat) {
-        return nextLane(currentLane(), switchheat);
+        return hasNextLane(currentLane(), switchheat);
     }
 
     boolean previousLane(boolean switchheat) {
@@ -497,14 +484,14 @@ public class PHeatInputPlugin extends ANullPlugin {
     }
 
     boolean nextLane(int index) {
-        return nextLane(index, false);
+        return hasNextLane(index, false);
     }
 
     boolean previousLane(int index) {
         return previousLane(index, false);
     }
 
-    boolean nextLane(int index, boolean switchheat) {
+    boolean hasNextLane(int index, boolean switchheat) {
         int i = index;
 
         index++;
@@ -552,6 +539,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         if (!value.equals(inputs[x].getText())) {
             inputs[x].getDocument().removeDocumentListener(dl[x]);
             inputs[x].setText(value);
+            dl[x].updateWith(value);
             inputs[x].getDocument().addDocumentListener(dl[x]);
         }
     }
@@ -564,6 +552,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             } else {
                 inputs[x].setInt(value);
             }
+            dl[x].updateWith(inputs[x].getText());
             inputs[x].getDocument().addDocumentListener(dl[x]);
         }
     }
@@ -585,11 +574,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
     }
 
-    private boolean checkHighPoints(int index) {
+    private boolean hasHighPoints(int index) {
         if (swimmers[index] == null) {
-            return true;
-        }
-        if (inputs[index].getText().equals("")) {
             return true;
         }
         if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
@@ -624,302 +610,46 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (data2.equals(data)) {
                 return true;
             }
-            return checkHighPoints(index);
+            return hasHighPoints(index);
         }
     }
 
-    private class TimeListener extends KeyAdapter implements DocumentListener {
+    private class HeatInputConsumer implements TimeInputAdapter {
+        private final int index;
 
-        int index = 0;
-
-        public TimeListener(int x) {
-            if ((x < 0) || (x >= bahnen)) {
-                throw new IllegalArgumentException("Index to large! Should be 0 <=" + x + "<" + bahnen + ".");
+        public HeatInputConsumer(int index) {
+            if ((index < 0) || (index >= bahnen)) {
+                throw new IllegalArgumentException("Index to large! Should be 0 <=" + index + "<" + bahnen + ".");
             }
-            index = x;
+            this.index = index;
         }
 
-        @Override
-        public void keyReleased(KeyEvent e) {
-            if (e.isConsumed()) {
-                return;
-            }
-            switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                if (index > 0) {
-                    inputs[index - 1].requestFocus();
-                } else {
-                    if (fl[index].checkTime()) {
-                        previousHeat(false);
-                    }
+        public void moveDown() {
+            if (index + 1 < inputs.length) {
+                inputs[index + 1].requestFocus();
+            } else {
+                if (fl[index].checkTime()) {
+                    nextHeat();
                 }
-                e.consume();
-                break;
-            case KeyEvent.VK_DOWN:
-                if (index + 1 < inputs.length) {
-                    inputs[index + 1].requestFocus();
-                } else {
-                    if (fl[index].checkTime()) {
-                        nextHeat();
-                    }
+            }
+        }
+
+        public void moveUp() {
+            if (index > 0) {
+                inputs[index - 1].requestFocus();
+            } else {
+                if (fl[index].checkTime()) {
+                    previousHeat(false);
                 }
-                e.consume();
-                break;
-            default:
-                break;
             }
         }
 
-        @Override
-        public void insertUpdate(DocumentEvent arg0) {
-            if (swimmers[index] == null) {
-                return;
-            }
-            if (inputs[index].isValidInt() && (!byTimes || times[index].isValidValue())) {
-                changeTime();
-                updatePenalty(index);
-                return;
-            }
-            String zeit = inputs[index].getText();
-            if (zeit.indexOf("p") > -1) {
-                setPenaltyPoints(zeit);
-                return;
-            }
-            if (zeit.indexOf("c") > -1) {
-                setPenaltyCode(zeit);
-                return;
-            }
-            if ((zeit.indexOf(",") > -1) || (zeit.indexOf("z") > -1)) {
-                showZieleinlauf(zeit);
-                return;
-            }
-            if (zeit.indexOf("#") > -1) {
-                setNoPenalty(zeit);
-                return;
-            }
-            if ((zeit.indexOf("m") > -1) || (zeit.indexOf("+") > -1)) {
-                setMeanTime(zeit);
-                return;
-            }
-            if (zeit.indexOf("d") > -1) {
-                setDisqualifikation(zeit);
-                return;
-            }
-            if (zeit.indexOf("n") > -1) {
-                setNA(zeit);
-                return;
-            }
-            if (zeit.indexOf("w") > -1) {
-                setWithdraw(zeit);
-                return;
-            }
-            if (zeit.indexOf("f") > -1) {
-                setDidNotFinish(zeit);
-                return;
-            }
+        public void updateTime() {
+            changeTime();
+            updatePenalty();
+
         }
 
-        private void setPenaltyPoints(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'p'))) {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'p');
-                    inputs[index].setText(x);
-                    if (checkHighPoints(index)) {
-                        strategy.runPenaltyPoints(heat.getSelectedIndex(), index);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'p');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void setPenaltyCode(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'c'))) {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'c');
-                    inputs[index].setText(x);
-                    if (checkHighPoints(index)) {
-                        strategy.runPenaltyCode(heat.getSelectedIndex(), index);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'c');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void setMeanTime(String zeit) {
-            if ((zeit.length() == 1)
-                    || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, 'm'), '+'))) {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), 'm'), '+');
-                    inputs[index].setText(x);
-                    if (checkHighPoints(index)) {
-                        strategy.runMeanTimeEditor(index, t -> {
-                            if (false == t) {
-                                return;
-                            }
-                            boolean b = nextLane(index, false);
-                            if (!b) {
-                                zeigeZieleinlauf();
-                            }
-                        });
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'm');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void showZieleinlauf(String zeit) {
-            if ((zeit.length() == 1)
-                    || StringTools.isInteger(StringTools.removeAll(StringTools.removeAll(zeit, ','), 'z'))) {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                    inputs[index].setText(x);
-                    if (checkHighPoints(index)) {
-                        zeigeZieleinlauf();
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        /**
-         * @param zeit
-         */
-        private void setNoPenalty(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, '#'))) {
-                strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<>());
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), '#');
-                        inputs[index].setText(x);
-                        updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), '#');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        /**
-         * @param zeit
-         */
-        private void setDisqualifikation(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'd'))) {
-                strategy.addStrafe(heat.getSelectedIndex(), index, Strafe.DISQUALIFIKATION);
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'd');
-                        inputs[index].setText(x);
-                        updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'd');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void setWithdraw(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'w'))) {
-                strategy.addStrafe(heat.getSelectedIndex(), index, wk.getStrafen().getWithdraw());
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'w');
-                        inputs[index].setText(x);
-                        updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'w');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void setDidNotFinish(String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'f'))) {
-                strategy.addStrafe(heat.getSelectedIndex(), index, wk.getStrafen().getDidNotFinish());
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'f');
-                        inputs[index].setText(x);
-                        updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'f');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        private void setNA(String zeit) {
-            if ((zeit.equals("n"))) {
-                strategy.addStrafe(heat.getSelectedIndex(), index, wk.getStrafen().getNichtAngetreten());
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        String x = StringTools.removeAll(inputs[index].getText(), 'n');
-                        inputs[index].setText(x);
-                        updatePenalty(index);
-                        controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                                swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                    }
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    String x = StringTools.removeAll(inputs[index].getText(), 'n');
-                    inputs[index].setText(x);
-                    Toolkit.getDefaultToolkit().beep();
-                });
-            }
-        }
-
-        /**
-         * 
-         */
         private void changeTime() {
             synchronized (controller) {
                 if (update) {
@@ -930,13 +660,92 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public void removeUpdate(DocumentEvent arg0) {
-            insertUpdate(arg0);
+        public ASchwimmer getSchwimmer() {
+            return swimmers[index];
         }
 
         @Override
-        public void changedUpdate(DocumentEvent arg0) {
-            insertUpdate(arg0);
+        public JIntegerField getInputField() {
+            return inputs[index];
+        }
+
+        @Override
+        public JTimeField getTimeField() {
+            return times[index];
+        }
+
+        @Override
+        public boolean checkHighPoints() {
+            return PHeatInputPlugin.this.hasHighPoints(index);
+        }
+
+        @Override
+        public int getIndex() {
+            return index;
+        }
+
+        @Override
+        public int getDiscipline() {
+            return strategy.getDiscipline(index);
+        }
+
+        @Override
+        public void zeigeZieleinlauf() {
+            PHeatInputPlugin.this.zeigeZieleinlauf();
+
+        }
+
+        @Override
+        public boolean setStrafen(List<Strafe> strafen) {
+            return strategy.setStrafen(heat.getSelectedIndex(), index, strafen);
+
+        }
+
+        @Override
+        public void updatePenalty() {
+            PHeatInputPlugin.this.updatePenalty(index);
+
+        }
+
+        @Override
+        public void addStrafe(Strafe strafe) {
+            strategy.addStrafe(heat.getSelectedIndex(), index, strafe);
+
+        }
+
+        @Override
+        public void runMeanTimeEditor() {
+            editor.runMeanTimeEditor(getSchwimmer(), getDiscipline(), finishedSuccessfully -> {
+                if (!finishedSuccessfully) {
+                    return;
+                }
+                if (!hasNextLane(getIndex(), false)) {
+                    zeigeZieleinlauf();
+                }
+            });
+        }
+
+        @Override
+        public boolean isByTimes() {
+            return byTimes;
+        }
+
+        @Override
+        public void runPenaltyPoints() {
+            strategy.runPenaltyPoints(heat.getSelectedIndex(), getIndex());
+
+        }
+
+        @Override
+        public void runPenaltyCode() {
+            strategy.runPenaltyCode(heat.getSelectedIndex(), getIndex());
+
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        public AWettkampf getCompetition() {
+            return wk;
         }
     }
 
@@ -954,7 +763,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
     }
 
-    int getFocusIndex() {
+    private int getFocusIndex() {
         for (int x = 0; x < inputs.length; x++) {
             if (inputs[x].hasFocus()) {
                 return x;
@@ -963,106 +772,59 @@ public class PHeatInputPlugin extends ANullPlugin {
         return 0;
     }
 
-    class NextHeatListener extends KeyAdapter {
+    private class NextHeatListener extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int index = getFocusIndex();
+                int index = getFocusIndex();
+                switch (e.getKeyCode()) {
+                case KeyEvent.VK_ENTER, KeyEvent.VK_DOWN:
                     if (fl[index].checkTime()) {
                         nextHeat();
                     }
-                    return;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    int index = getFocusIndex();
+                    e.consume();
+                    break;
+                case KeyEvent.VK_UP:
                     if (fl[index].checkTime()) {
                         previousHeat(true);
                     }
-                    return;
+                    e.consume();
+                    break;
+                default:
+                    break;
                 }
-            }
-            if (!e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            } else if (!e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
+                switch (e.getKeyCode()) {
+                case KeyEvent.VK_ENTER:
                     boolean b = nextLane();
                     if (!b) {
                         zeigeZieleinlauf();
                     }
-                    return;
-                }
-            }
-            if (e.isConsumed()) {
-                return;
-            }
-            switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                previousLane(true);
-                e.consume();
-                break;
-            case KeyEvent.VK_DOWN:
-                nextLane(true);
-                e.consume();
-                break;
-            default:
-                break;
-            }
-
-            // don't override the time in the field
-            int index = getFocusIndex();
-            if (inputs[index] == null)
-                return;
-            String keychars = "pc#mdn+-*/";
-            if (!keychars.contains(Character.toString(e.getKeyChar())))
-                return;
-            if (inputs[index].getSelectedText() == null)
-                return;
-            if (inputs[index].getSelectedText().equals(inputs[index].getText())) {
-                inputs[index].moveCaretPosition(0);
-            }
-        }
-    }
-
-    final class PenaltyKeyListener extends KeyAdapter {
-
-        final int index;
-
-        public PenaltyKeyListener(int index) {
-            this.index = index;
-        }
-
-        /**
-         * @param zeit
-         */
-        private void setNoPenalty() {
-            strategy.setStrafen(heat.getSelectedIndex(), index, new LinkedList<>());
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                            swimmers[index], strategy.getDiscipline(index), PHeatInputPlugin.this);
-                }
-            });
-        }
-
-        @Override
-        public void keyReleased(KeyEvent evt) {
-            char key = evt.getKeyChar();
-            if (key == '*') {
-                if (fl[index].checkTime()) {
-                    nextHeat();
-                }
-                return;
-            }
-            if (key == '/') {
-                if (fl[index].checkTime()) {
+                    e.consume();
+                    break;
+                case KeyEvent.VK_PAGE_DOWN:
+                    int index = getFocusIndex();
+                    if (fl[index].checkTime()) {
+                        nextHeat();
+                    }
+                    e.consume();
+                    break;
+                case KeyEvent.VK_PAGE_UP:
                     previousHeat(true);
+                    e.consume();
+                    break;
+                case KeyEvent.VK_UP:
+                    previousLane(true);
+                    e.consume();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    nextLane(true);
+                    e.consume();
+                    break;
+                default:
+                    // Nothing to do
                 }
-                return;
-            }
-            if (key == '#') {
-                setNoPenalty();
-                return;
             }
         }
     }
@@ -1117,7 +879,7 @@ public class PHeatInputPlugin extends ANullPlugin {
     interface IHeatInputStrategy {
         public int getBahnen();
 
-        public void runMeanTimeEditor(int index, ISimpleCallback<Boolean> iSimpleCallback);
+        public void runMeanTimeEditor(int index, BooleanConsumer iSimpleCallback);
 
         public String getSortingLabel();
 
@@ -1125,7 +887,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         public void addStrafe(int index, int lane, Strafe disqualifikation);
 
-        public void setStrafen(int index, int lane, LinkedList<Strafe> linkedList);
+        public boolean setStrafen(int index, int lane, List<Strafe> linkedList);
 
         public void runPenaltyCode(int index, int lane);
 
@@ -1177,7 +939,6 @@ public class PHeatInputPlugin extends ANullPlugin {
             heat.removeAllItems();
             String[] items = new String[ll == null || ll.isEmpty() ? 0 : ll.getLaufliste().size()];
             if (items.length > 0) {
-                @SuppressWarnings("null")
                 ListIterator<Lauf<T>> li = ll.getLaufliste().listIterator();
                 for (int x = 0; li.hasNext(); x++) {
                     items[x] = li.next().getName();
@@ -1343,8 +1104,12 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public void setStrafen(int index, int lane, LinkedList<Strafe> strafen) {
+        public boolean setStrafen(int index, int lane, List<Strafe> strafen) {
+            if (swimmers[lane].getStrafen(disciplines[lane]).isEmpty() && strafen.isEmpty()) {
+                return false;
+            }
             swimmers[lane].setStrafen(disciplines[lane], strafen);
+            return true;
         }
 
         @Override
@@ -1360,7 +1125,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
-            new JZieleinlaufDialog(controller.getWindow(), lauf, (ISimpleCallback<Boolean>)result -> {
+            new JZieleinlaufDialog(controller.getWindow(), lauf, result -> {
                 if (result) {
                     nextHeat();
                 }
@@ -1373,7 +1138,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public void runMeanTimeEditor(int index, ISimpleCallback<Boolean> iSimpleCallback) {
+        public void runMeanTimeEditor(int index, BooleanConsumer iSimpleCallback) {
             editor.runMeanTimeEditor(swimmers[index], getDiscipline(index), iSimpleCallback);
         }
     }
@@ -1629,13 +1394,17 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public void setStrafen(int index, int lane, LinkedList<Strafe> strafen) {
+        public boolean setStrafen(int index, int lane, List<Strafe> strafen) {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
-
             ASchwimmer t = swimmers[lane];
             Eingabe e = t.getEingabe(d.Id, true);
+
+            if (e.getStrafen().isEmpty() && strafen.isEmpty()) {
+                return false;
+            }
             e.setStrafen(strafen);
+            return true;
         }
 
         @SuppressWarnings("unchecked")
@@ -1693,7 +1462,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public void runMeanTimeEditor(int index, ISimpleCallback<Boolean> iSimpleCallback) {
+        public void runMeanTimeEditor(int index, BooleanConsumer iSimpleCallback) {
             // editor.runMeanTimeEditor(swimmers[index], strategy.getDiscipline(index),
             // iSimpleCallback);
         }

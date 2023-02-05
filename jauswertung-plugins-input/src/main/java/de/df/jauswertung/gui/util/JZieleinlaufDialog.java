@@ -17,8 +17,8 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.layout.FormLayoutUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
@@ -26,10 +26,10 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
 
     private final class ZieleinlaufActionListener implements ActionListener {
 
-        private ISimpleCallback<Boolean> cb;
-        private boolean result;
+        private final BooleanConsumer cb;
+        private final boolean result;
 
-        public ZieleinlaufActionListener(ISimpleCallback<Boolean> cb, boolean result) {
+        public ZieleinlaufActionListener(BooleanConsumer cb, boolean result) {
             this.cb = cb;
             this.result = result;
         }
@@ -37,7 +37,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             setVisible(false);
-            cb.callback(result);
+            cb.accept(result);
         }
     }
 
@@ -45,21 +45,21 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
 
     private JFrame parent;
 
-    public JZieleinlaufDialog(JFrame parent, Lauf<T> lauf, ISimpleCallback<Boolean> cb) {
+    public JZieleinlaufDialog(JFrame parent, Lauf<T> lauf, BooleanConsumer cb) {
         super(parent, I18n.get("Zieleinlauf"), true);
         String[][] data = getData(lauf);
 
         init(parent, data, cb);
     }
 
-    public JZieleinlaufDialog(JFrame parent, OWLauf<T> lauf, ISimpleCallback<Boolean> cb) {
+    public JZieleinlaufDialog(JFrame parent, OWLauf<T> lauf, BooleanConsumer cb) {
         super(parent, I18n.get("Zieleinlauf"), true);
         String[][] data = getData(lauf);
 
         init(parent, data, cb);
     }
 
-    private void init(JFrame parent, String[][] data, ISimpleCallback<Boolean> cb) {
+    private void init(JFrame parent, String[][] data, BooleanConsumer cb) {
         this.parent = parent;
 
         int rows = data.length;

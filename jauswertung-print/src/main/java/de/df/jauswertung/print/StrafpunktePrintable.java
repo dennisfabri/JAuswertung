@@ -43,7 +43,6 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
 
     private T schwimmer = null;
     private AWettkampf<T> wettkampf = null;
-    // private int disziplin = 0;
     private int lane = -1;
     private String heat = null;
     private Strafe strafe = null;

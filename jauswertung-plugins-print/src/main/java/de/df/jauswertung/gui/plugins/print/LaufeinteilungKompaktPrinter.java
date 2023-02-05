@@ -3,6 +3,11 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LOAD_WK;
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_WK;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -96,7 +101,9 @@ class LaufeinteilungKompaktPrinter implements Printer {
     @Override
     @SuppressWarnings("rawtypes")
     public void dataUpdated(UpdateEvent due, AWettkampf wk, AWettkampf filteredwk) {
-        checkLaufliste();
+        if (due.isReason(REASON_LAUF_LIST_CHANGED | REASON_FILTERS_CHANGED | REASON_LOAD_WK | REASON_NEW_WK)) {
+            checkLaufliste();            
+        }
     }
 
     Printable getPrintable() {

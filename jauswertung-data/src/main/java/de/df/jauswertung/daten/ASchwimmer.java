@@ -3,6 +3,7 @@ package de.df.jauswertung.daten;
 import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -659,7 +660,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
      * 
      * @param disz Nummer der Disziplin @param s Strafe
      */
-    public synchronized boolean setStrafen(int disz, LinkedList<Strafe> s) {
+    public synchronized boolean setStrafen(int disz, List<Strafe> s) {
         if (s == null) {
             // throw new NullPointerException("s must not be null.");
             s = new LinkedList<>();
