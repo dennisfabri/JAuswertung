@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -50,7 +51,6 @@ import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
@@ -430,7 +430,7 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         printResult(t);
                     }
@@ -449,7 +449,7 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection> cb = t -> {
+                Consumer<OWSelection> cb = t -> {
                     if (t != null) {
                         export(t);
                     }
@@ -482,7 +482,7 @@ abstract class APerDisciplinePrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
                                 I18n.get("Einzelwertung"), IconManager.getIconBundle(),

@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,13 +25,12 @@ import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.jtable.SimpleTableModel;
 import de.df.jutils.gui.layout.FormLayoutUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
 
 public class JDisciplineSelector extends JFrame {
 
-    private ISimpleCallback<OWSelection[]> callback;
+    private Consumer<OWSelection[]> callback;
 
     private final AWettkampf<?> wk;
     private final OWSelection[] data;
@@ -40,7 +40,7 @@ public class JDisciplineSelector extends JFrame {
     private boolean cancelled = false;
 
     public JDisciplineSelector(String title, String text, AWettkampf<?> wk, OWSelection[] data, boolean multiselect,
-            ISimpleCallback<OWSelection[]> callback) {
+            Consumer<OWSelection[]> callback) {
         this.callback = callback;
         this.wk = wk;
         this.data = Arrays.stream(data).sorted(new Comparator<OWSelection>() {
@@ -143,7 +143,7 @@ public class JDisciplineSelector extends JFrame {
                     selected.add(data[x]);
                 }
 
-                callback.callback(selected.toArray(new OWSelection[selected.size()]));
+                callback.accept(selected.toArray(new OWSelection[selected.size()]));
             }
         }
         setVisible(false);

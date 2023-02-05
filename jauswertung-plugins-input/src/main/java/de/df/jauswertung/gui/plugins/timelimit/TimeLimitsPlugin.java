@@ -1,5 +1,7 @@
 package de.df.jauswertung.gui.plugins.timelimit;
 
+import java.util.function.Consumer;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -8,7 +10,6 @@ import de.df.jauswertung.daten.TimelimitsContainer;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -23,13 +24,7 @@ public class TimeLimitsPlugin extends ANullPlugin {
     private JMenuItem edit;
     private JMenuItem check;
 
-    private ISimpleCallback<TimelimitsContainer> callback = new ISimpleCallback<TimelimitsContainer>() {
-
-        @Override
-        public void callback(TimelimitsContainer tlc) {
-            saveResult(tlc);
-        }
-    };
+    private Consumer<TimelimitsContainer> callback = tlc -> saveResult(tlc);
 
     public TimeLimitsPlugin() {
         edit = new JMenuItem(I18n.get("Edit"));

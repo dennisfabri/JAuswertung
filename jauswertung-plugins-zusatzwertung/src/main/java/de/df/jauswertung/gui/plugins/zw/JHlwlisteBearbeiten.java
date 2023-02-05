@@ -15,6 +15,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.TooManyListenersException;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,7 +56,6 @@ import de.df.jutils.gui.jtable.JFittingTable;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
 import de.df.jutils.gui.renderer.ComfortListCellRenderer;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
@@ -146,12 +146,12 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     T swimmer = null;
     private JSplitPane splitter = null;
 
-    private ISimpleCallback<JHlwlisteBearbeiten<T>> callback = null;
+    private Consumer<JHlwlisteBearbeiten<T>> callback = null;
 
     private boolean changed = false;
 
     public JHlwlisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean mayChange,
-            ISimpleCallback<JHlwlisteBearbeiten<T>> callback) {
+            Consumer<JHlwlisteBearbeiten<T>> callback) {
         if (wettkampf == null) {
             throw new NullPointerException();
         }
@@ -221,7 +221,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
         }
         super.setVisible(visible);
         if ((!visible) && (callback != null)) {
-            callback.callback(this);
+            callback.accept(this);
         }
     }
 

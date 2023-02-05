@@ -3,6 +3,7 @@ package de.df.jauswertung.gui.plugins.timelimit;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,6 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 
 class JTimelimitsEditor extends JFrame {
@@ -41,9 +41,9 @@ class JTimelimitsEditor extends JFrame {
     private JMenuItem add;
     private JMenuItem remove;
 
-    private ISimpleCallback<TimelimitsContainer> callback;
+    private Consumer<TimelimitsContainer> callback;
 
-    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, ISimpleCallback<TimelimitsContainer> callback,
+    JTimelimitsEditor(JFrame parent, TimelimitsContainer timelimits, Consumer<TimelimitsContainer> callback,
             Sex female, Sex male) {
         this.parent = parent;
 
@@ -177,7 +177,7 @@ class JTimelimitsEditor extends JFrame {
     private boolean save() {
         boolean saved = panel.save();
         if (saved) {
-            callback.callback(new TimelimitsContainer(model.getAllElements()));
+            callback.accept(new TimelimitsContainer(model.getAllElements()));
         }
         return saved;
     }

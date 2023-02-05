@@ -2,6 +2,7 @@ package de.df.jauswertung.gui.plugins.meldezeiten;
 
 import java.awt.CardLayout;
 import java.awt.Frame;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,7 +19,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
@@ -41,9 +41,9 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
 
     private JFrame parent;
 
-    private ISimpleCallback<JMeldezeiten<T>> callback;
+    private Consumer<JMeldezeiten<T>> callback;
 
-    public JMeldezeiten(JFrame p, AWettkampf<T> w, ISimpleCallback<JMeldezeiten<T>> cb) {
+    public JMeldezeiten(JFrame p, AWettkampf<T> w, Consumer<JMeldezeiten<T>> cb) {
         super(I18n.get("Meldezeiten"));
         setIconImages(IconManager.getTitleImages());
         parent = p;
@@ -136,7 +136,7 @@ class JMeldezeiten<T extends ASchwimmer> extends JFrame {
         parent.setEnabled(!arg0);
         super.setVisible(arg0);
         if ((!arg0) && (callback != null)) {
-            callback.callback(this);
+            callback.accept(this);
         }
     }
 

@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +36,6 @@ import de.df.jutils.gui.JInvisibleSplitPane;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.ModifiableListModel;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
@@ -46,7 +46,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
     private AWettkampf<T> wk = null;
 
     private JPanel main;
-    private JList list;
+    private JList<String> list;
     private ModifiableListModel<String> model = new ModifiableListModel<>();
     private CardLayout cards;
     private LinkedList<JFilterPanel<T>> panels = new LinkedList<>();
@@ -64,11 +64,11 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
     private JButton addFilter = null;
     private JButton removeFilter = null;
 
-    private ISimpleCallback<JFilterFrame<T>> callback = null;
+    private Consumer<JFilterFrame<T>> callback = null;
 
     private JFrame parent;
 
-    public JFilterFrame(JFrame parent, AWettkampf<T> w, ISimpleCallback<JFilterFrame<T>> sc) {
+    public JFilterFrame(JFrame parent, AWettkampf<T> w, Consumer<JFilterFrame<T>> sc) {
         super(I18n.get("EditFilters"));
         if (parent == null) {
             throw new NullPointerException();
@@ -104,7 +104,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
         jisp.setBorder(new EmptyBorder(5, 5, 0, 5));
 
         cards = new CardLayout();
-        list = new JList(model);
+        list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         main = new JPanel(cards);
@@ -287,7 +287,7 @@ class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
             changed = true;
             input = false;
             filters = f;
-            callback.callback(this);
+            callback.accept(this);
         }
     }
 

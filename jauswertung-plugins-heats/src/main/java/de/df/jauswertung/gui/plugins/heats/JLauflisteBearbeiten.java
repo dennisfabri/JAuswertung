@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.print.Printable;
 import java.util.LinkedList;
 import java.util.TooManyListenersException;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,7 +59,6 @@ import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
 import de.df.jutils.gui.renderer.ComfortListCellRenderer;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.print.PrintExecutor;
@@ -131,7 +131,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     private JLabel punkte = new JLabel();
     private JLabel disziplin = new JLabel();
 
-    private ISimpleCallback<JLauflisteBearbeiten<T>> callback = null;
+    private Consumer<JLauflisteBearbeiten<T>> callback = null;
 
     T swimmer = null;
     private JSplitPane splitter = null;
@@ -139,7 +139,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     private boolean changed = false;
 
     public JLauflisteBearbeiten(Window parent, AWettkampf<T> wettkampf, boolean darfAendern,
-            ISimpleCallback<JLauflisteBearbeiten<T>> callback) {
+            Consumer<JLauflisteBearbeiten<T>> callback) {
         if (wettkampf == null) {
             throw new NullPointerException("Wettkampf<T> must not be null!");
         }
@@ -212,7 +212,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
             removeHeat.setEnabled(wk.getLaufliste().getLaufliste().size() > 1);
         }
         if ((!visible) && (callback != null)) {
-            callback.callback(this);
+            callback.accept(this);
         }
     }
 

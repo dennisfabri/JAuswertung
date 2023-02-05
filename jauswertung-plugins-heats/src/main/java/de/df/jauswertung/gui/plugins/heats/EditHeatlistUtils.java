@@ -1,9 +1,10 @@
 package de.df.jauswertung.gui.plugins.heats;
 
+import java.util.function.Consumer;
+
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.IFeature;
 import de.df.jutils.plugin.IPluginManager;
@@ -11,15 +12,15 @@ import de.df.jutils.plugin.IPluginManager;
 public class EditHeatlistUtils {
 
     private static final class EditFinishedListener<T extends ASchwimmer>
-            implements ISimpleCallback<JLauflisteBearbeiten<T>> {
+            implements Consumer<JLauflisteBearbeiten<T>> {
 
         private final IPluginManager controller;
         private final IFeature plugin;
         private final AWettkampf<T> wk;
-        private final ISimpleCallback<AWettkampf<T>> callback;
+        private final Consumer<AWettkampf<T>> callback;
 
         public EditFinishedListener(IPluginManager controller, IFeature plugin, AWettkampf<T> wk,
-                ISimpleCallback<AWettkampf<T>> callback) {
+                Consumer<AWettkampf<T>> callback) {
             this.controller = controller;
             this.plugin = plugin;
             this.wk = wk;
@@ -27,11 +28,11 @@ public class EditHeatlistUtils {
         }
 
         @Override
-        public void callback(JLauflisteBearbeiten<T> t) {
+        public void accept(JLauflisteBearbeiten<T> t) {
             if (t.isChanged()) {
                 notifyHeatlistChanged(controller, plugin);
                 if (callback != null) {
-                    callback.callback(wk);
+                    callback.accept(wk);
                 }
             }
         }
@@ -39,8 +40,8 @@ public class EditHeatlistUtils {
 
     public static <T extends ASchwimmer> void laufliste(IPluginManager controller, IFeature plugin, AWettkampf<T> wk,
             boolean editable,
-            ISimpleCallback<AWettkampf<T>> callback) {
-        ISimpleCallback<JLauflisteBearbeiten<T>> sc = null;
+            Consumer<AWettkampf<T>> callback) {
+        Consumer<JLauflisteBearbeiten<T>> sc = null;
         if (editable) {
             sc = new EditFinishedListener<T>(controller, plugin, wk, callback);
         }

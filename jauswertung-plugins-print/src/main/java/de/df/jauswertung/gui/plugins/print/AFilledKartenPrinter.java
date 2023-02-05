@@ -6,6 +6,7 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,7 +28,6 @@ import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PageMode;
@@ -179,7 +179,7 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         printLaufliste(t);
                     }
@@ -217,7 +217,7 @@ abstract class AFilledKartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         AWettkampf[] wkx = createCompetitionFor(t);
                         if (askForDetails(wkx)) {

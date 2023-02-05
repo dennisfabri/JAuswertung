@@ -1,11 +1,12 @@
 package de.df.jauswertung.gui.plugins.meldezeiten;
 
+import java.util.function.Consumer;
+
 import javax.swing.JMenuItem;
 
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -50,7 +51,7 @@ public class MMeldezeitenPlugin extends ANullPlugin {
     @SuppressWarnings({ "unchecked" })
     void showWindow() {
         @SuppressWarnings("rawtypes")
-        ISimpleCallback<JMeldezeiten> sc = this::notifyChange;
+        Consumer<JMeldezeiten> sc = this::notifyChange;
 
         @SuppressWarnings("rawtypes")
         JMeldezeiten jm = new JMeldezeiten(getController().getWindow(), core.getWettkampf(), sc);

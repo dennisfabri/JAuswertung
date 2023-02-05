@@ -15,6 +15,7 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_ZW_LIST_CHANGED;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -30,7 +31,6 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
@@ -227,7 +227,7 @@ public class MZWPlugin extends ANullPlugin {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     void edit(boolean editable) {
         boolean blocked = (!editable) || block.isSelected();
-        ISimpleCallback<JHlwlisteBearbeiten<ASchwimmer>> sc = null;
+        Consumer<JHlwlisteBearbeiten<ASchwimmer>> sc = null;
         if (!blocked) {
             sc = this::editCallback;
         }

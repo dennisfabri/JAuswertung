@@ -24,10 +24,10 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.UIStateUtils;
 
 public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
@@ -42,11 +42,11 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
     private JScrollPane right;
 
-    private ISimpleCallback<Boolean> callback;
+    private BooleanConsumer callback;
 
     private boolean isOk = false;
 
-    public JOWHeatsEditWindow(AWettkampf<T> wk, ISimpleCallback<Boolean> callback) {
+    public JOWHeatsEditWindow(AWettkampf<T> wk, BooleanConsumer callback) {
         setTitle(I18n.get("DefineRounds"));
         setIconImages(IconManager.getTitleImages());
         this.callback = callback;
@@ -193,7 +193,7 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
         }
 
         if (callback != null) {
-            callback.callback(isOk);
+            callback.accept(isOk);
         }
         setVisible(false);
     }

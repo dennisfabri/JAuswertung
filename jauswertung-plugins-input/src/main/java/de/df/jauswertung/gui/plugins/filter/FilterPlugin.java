@@ -6,6 +6,7 @@ package de.df.jauswertung.gui.plugins.filter;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
 
 import java.awt.event.ItemListener;
+import java.util.function.Consumer;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -18,7 +19,6 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
@@ -144,7 +144,7 @@ public class FilterPlugin extends ANullPlugin {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     void changeFilters() {
-        ISimpleCallback<JFilterFrame> sc = this::internalCallback;
+        Consumer<JFilterFrame> sc = this::internalCallback;
         JFilterFrame jfd = new JFilterFrame(getController().getWindow(), core.getWettkampf(), sc);
         ModalFrameUtil.showAsModal(jfd, getController().getWindow());
     }

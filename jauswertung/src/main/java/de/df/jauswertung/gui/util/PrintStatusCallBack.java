@@ -1,9 +1,10 @@
 package de.df.jauswertung.gui.util;
 
-import de.df.jutils.gui.util.ISimpleCallback;
+import java.util.function.Consumer;
+
 import de.df.jutils.plugin.JPFrame;
 
-public class PrintStatusCallBack implements ISimpleCallback<Integer> {
+public class PrintStatusCallBack implements Consumer<Integer> {
 
     private final JPFrame jpframe;
 
@@ -12,7 +13,7 @@ public class PrintStatusCallBack implements ISimpleCallback<Integer> {
     }
 
     @Override
-    public void callback(Integer t) {
+    public void accept(Integer t) {
         if (t == null) {
             jpframe.setStatusBarText(null);
             return;

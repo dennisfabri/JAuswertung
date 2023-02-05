@@ -9,6 +9,7 @@ import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,7 +28,6 @@ import de.df.jauswertung.gui.util.OWUtils;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.SprecherlistePrintable;
 import de.df.jauswertung.util.ResultUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
@@ -163,7 +163,7 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         printLaufliste(t, comments.isSelected());
                     }
@@ -197,7 +197,7 @@ abstract class ALauflistenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
-                ISimpleCallback<OWSelection[]> cb = t -> {
+                Consumer<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(getCompetitions(t)),
                                 getName(), IconManager.getIconBundle(), IconManager.getTitleImages());

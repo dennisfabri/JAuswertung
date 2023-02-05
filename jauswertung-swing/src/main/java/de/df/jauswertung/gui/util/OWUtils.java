@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
@@ -19,30 +20,29 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 
 public final class OWUtils {
 
-    private static final class OWSelectionCallbackProxy implements ISimpleCallback<OWSelection[]> {
+    private static final class OWSelectionCallbackProxy implements Consumer<OWSelection[]> {
 
-        private final ISimpleCallback<OWSelection> cb;
+        private final Consumer<OWSelection> cb;
 
-        public OWSelectionCallbackProxy(ISimpleCallback<OWSelection> cb) {
+        public OWSelectionCallbackProxy(Consumer<OWSelection> cb) {
             this.cb = cb;
         }
 
         @Override
-        public void callback(OWSelection[] t) {
+        public void accept(OWSelection[] t) {
             if (t != null && t.length > 0) {
-                cb.callback(t[0]);
+                cb.accept(t[0]);
             }
         }
     }
 
     public static <T extends ASchwimmer> boolean ShowRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
             String text, OWSelection[] data,
-            ISimpleCallback<OWSelection[]> cb) {
+            Consumer<OWSelection[]> cb) {
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, true, cb);
         ModalFrameUtil.showAsModal(ds, owner);
         return ds.isCancelled();
@@ -50,8 +50,8 @@ public final class OWUtils {
 
     public static <T extends ASchwimmer> boolean ShowRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
             String text, OWSelection[] data,
-            ISimpleCallback<OWSelection> cb) {
-        ISimpleCallback<OWSelection[]> cbx = new OWSelectionCallbackProxy(cb);
+            Consumer<OWSelection> cb) {
+        Consumer<OWSelection[]> cbx = new OWSelectionCallbackProxy(cb);
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, false, cbx);
         ModalFrameUtil.showAsModal(ds, owner);
         return ds.isCancelled();

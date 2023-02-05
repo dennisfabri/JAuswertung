@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -42,7 +43,6 @@ import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.ISimpleCallback;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -121,18 +121,14 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void ablaufDefinieren() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        JOWHeatsEditWindow<ASchwimmer> w = new JOWHeatsEditWindow<>(wk, new ISimpleCallback<Boolean>() {
-
-            @Override
-            public void callback(Boolean t) {
-                if (t) {
-                    getController().sendDataUpdateEvent("ChangeRB",
-                            UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
-                                    | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                    | UpdateEventConstants.REASON_POINTS_CHANGED
-                                    | UpdateEventConstants.REASON_SWIMMER_CHANGED,
-                            JOWHeatsPlugin.this);
-                }
+        JOWHeatsEditWindow<ASchwimmer> w = new JOWHeatsEditWindow<>(wk, t -> {
+            if (t) {
+                getController().sendDataUpdateEvent("ChangeRB",
+                        UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
+                                | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
+                                | UpdateEventConstants.REASON_POINTS_CHANGED
+                                | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                        JOWHeatsPlugin.this);
             }
         });
         ModalFrameUtil.showAsModal(w, getController().getWindow());
@@ -140,7 +136,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void loescheLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        ISimpleCallback<OWSelection[]> cb = t -> {
+        Consumer<OWSelection[]> cb = t -> {
             if (t != null) {
                 for (OWSelection s : t) {
                     loescheLaufliste(s);
@@ -159,7 +155,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private void bearbeiteLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
-        ISimpleCallback<OWSelection> cb = t -> {
+        Consumer<OWSelection> cb = t -> {
             if (t != null) {
                 OWSelection s = t;
                 AWettkampf<ASchwimmer> wkx = core.getWettkampf();
@@ -180,7 +176,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private void zeigeLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
-        ISimpleCallback<OWSelection> cb = t -> {
+        Consumer<OWSelection> cb = t -> {
             if (t != null) {
                 OWSelection s = t;
                 AWettkampf<ASchwimmer> wkx = core.getWettkampf();
@@ -267,7 +263,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void neueLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        ISimpleCallback<OWSelection[]> cb = selection -> {
+        Consumer<OWSelection[]> cb = selection -> {
             if (selection != null) {
                 boolean askForPrint = selection.length == 1;
                 for (OWSelection t : selection)
