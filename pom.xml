@@ -16,15 +16,15 @@
 		<jutils.version>16.2.2</jutils.version>
 		<alphaserver.version>16.2.2</alphaserver.version>
 		<poi.version>5.2.3</poi.version>
-		<jersey.version>3.1.0</jersey.version>
+		<jersey.version>3.1.1</jersey.version>
 		<batik.version>1.14</batik.version>
-		<slf4j.version>2.0.6</slf4j.version>
-		<logback.version>1.4.5</logback.version>
+		<slf4j.version>2.0.7</slf4j.version>
+		<logback.version>1.4.6</logback.version>
 		<javafx.version>17</javafx.version>
-		<jackson.version>2.14.1</jackson.version>
-		<lombok.version>1.18.24</lombok.version>
+		<jackson.version>2.14.2</jackson.version>
+		<lombok.version>1.18.26</lombok.version>
 		<junit.version>5.9.2</junit.version>
-		<mockito.version>5.0.0</mockito.version>
+		<mockito.version>5.2.0</mockito.version>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -559,22 +559,22 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.2.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<!-- Fixed version because of doxia version problem with maven-project-info-reports-plugin -->
+					<!-- Fixed to version 3.9.1 because of doxia version problem with maven-project-info-reports-plugin -->
 					<version>3.9.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>3.4.1</version>
+					<version>3.4.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.4.2</version>
+					<version>3.5.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
@@ -582,7 +582,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -667,7 +667,7 @@
 			<plugin>
 				<groupId>org.openrewrite.maven</groupId>
 				<artifactId>rewrite-maven-plugin</artifactId>
-				<version>4.38.2</version>
+				<version>4.42.0</version>
 				<configuration>
 					<activeRecipes>
 						<!--<recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
@@ -695,17 +695,17 @@
 					<dependency>
 						<groupId>org.openrewrite.recipe</groupId>
 						<artifactId>rewrite-migrate-java</artifactId>
-						<version>1.15.0</version>
+						<version>1.18.0</version>
 					</dependency>
 				</dependencies>
 			</plugin>			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.14.2</version>
-				<configuration>
-					<rulesUri>file:./version-rules.xml</rulesUri>
-				</configuration>
+				<version>2.15.0</version>
+                <configuration>
+                    <rulesUri>https://raw.githubusercontent.com/LISASP-org/java-basics/main/version-rules.xml</rulesUri>
+                </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

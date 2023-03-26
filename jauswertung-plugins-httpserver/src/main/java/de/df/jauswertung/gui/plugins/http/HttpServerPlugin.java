@@ -67,9 +67,7 @@ public class HttpServerPlugin extends ANullPlugin {
 
         button = new JToggleButton(IconManager.getSmallIcon("webserver"));
         button.setToolTipText(I18n.get("StartStopHttpServer"));
-        button.addActionListener(e -> {
-            buttonAction();
-        });
+        button.addActionListener(e -> buttonAction());
 
         filter = new JResultsSelectionButton(core::getWettkampf);
         filter.addItemListener(arg0 -> {
@@ -199,7 +197,8 @@ public class HttpServerPlugin extends ANullPlugin {
 
     private static Stream<String> listInterfaces() throws SocketException {
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-        return Collections.list(nets).stream().map(HttpServerPlugin::displayInterfaceInformation).flatMap(i -> i.stream())
+        return Collections.list(nets).stream().map(HttpServerPlugin::displayInterfaceInformation)
+                .flatMap(i -> i.stream())
                 .distinct();
     }
 

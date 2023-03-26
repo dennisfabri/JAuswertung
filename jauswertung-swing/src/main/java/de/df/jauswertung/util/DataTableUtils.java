@@ -683,11 +683,14 @@ public final class DataTableUtils {
             ks = ks.mit(KampfrichterStufe.D12);
             s = s.replace("D12", "");
         }
+        if (s.indexOf("D1") >= 0) {
+            ks = ks.mit(KampfrichterStufe.D12);
+            s = s.replace("D1", "");
+        }
         if (s.indexOf("D3") >= 0) {
             ks = ks.mit(KampfrichterStufe.F1D3);
             s = s.replace("D3", "");
         }
-
         if (s.indexOf("E123") >= 0) {
             ks = ks.mit(KampfrichterStufe.E123);
             s = s.replace("E123", "");

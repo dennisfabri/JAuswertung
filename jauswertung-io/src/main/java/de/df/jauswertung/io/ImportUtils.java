@@ -896,6 +896,9 @@ public class ImportUtils {
         if (text.equalsIgnoreCase(Qualifikation.NACHRUECKER.toString())) {
             return Qualifikation.NACHRUECKER;
         }
+        if (text.equalsIgnoreCase("Punkte")) {
+            return Qualifikation.OFFEN;
+        }
         if (text.equalsIgnoreCase("-")) {
             return Qualifikation.NICHT_QUALIFIZIERT;
         }
@@ -1130,7 +1133,7 @@ public class ImportUtils {
                 wk != null ? wk.getRegelwerk().getTranslation("female", I18n.get("female")) : null,
                 wk != null ? wk.getRegelwerk().getTranslation("femaleShort", I18n.get("femaleShort")) : null);
         GenderIdentifier male = new GenderIdentifier(
-                "m", "männlich", "männl.",
+                "m", "mï¿½nnlich", "mï¿½nnl.",
                 "m", "male",
                 "1", "true",
                 I18n.get("male"),
@@ -1603,9 +1606,9 @@ public class ImportUtils {
                     .replace(" m.f.", " mit flossen").replace(" m.fl.", " mit flossen").replace(" m.", " mit")
                     .replace(" fl.", " flossen").replace(" f.", " flossen").replace(" e. p.", " einer puppe")
                     .replace("super lifesaver", "super-lifesaver").replace("life-saver", "lifesaver")
-                    .replace(" roa", " rückenlage ohne armtätigkeit")
-                    .replace("rückenlage ohne arme", "rückenlage ohne armtätigkeit")
-                    .replace("rückenschwimmen", "rückenlage ohne armtätigkeit").replace(" e.", " einer")
+                    .replace(" roa", " rï¿½ckenlage ohne armtï¿½tigkeit")
+                    .replace("rï¿½ckenlage ohne arme", "rï¿½ckenlage ohne armtï¿½tigkeit")
+                    .replace("rï¿½ckenschwimmen", "rï¿½ckenlage ohne armtï¿½tigkeit").replace(" e.", " einer")
                     .replace("st.", "staffel").replace("hindernis-schwimmen", "hindernisschwimmen")
                     .replace("hindernis- schwimmen", "hindernisschwimmen")
                     .replace("kombinierte rettungs-\u00fcbung", "kombinierte rettungs\u00fcbung")
