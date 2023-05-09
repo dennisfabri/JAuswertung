@@ -30,7 +30,7 @@ class LauflistenRecorderPrinter extends ALauflistenPrinter {
     }
 
     @Override
-    protected <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, String header, boolean withComments) {
+    protected <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, String header, boolean withComments, boolean withDisciplines, boolean withTimes) {
         Printable p = new RecorderPrintable<T>(wk, false, false, false, !PrintUtils.printOmitOrganisationForTeams);
         return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, getName()), wk.getLastChangedDate(),
                 true, getName());

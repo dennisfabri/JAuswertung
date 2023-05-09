@@ -92,11 +92,6 @@ abstract class ALauflistenPrinter implements Printer {
         preview.setEnabled(b);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
-     */
     @Override
     public JPanel getPanel() {
         return panel;
@@ -109,19 +104,19 @@ abstract class ALauflistenPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        return getPrintable(core.getWettkampf(), getName(), comments.isSelected());
+        return getPrintable(core.getWettkampf(), getName(), comments.isSelected(), false, showTimes);
     }
 
-    Printable getPrintable(AWettkampf<?>[] wkx, String header, boolean withComments) {
+    Printable getPrintable(AWettkampf<?>[] wkx, String header, boolean withComments, boolean withDisciplines, boolean withTimes) {
         ArrayList<Printable> px = new ArrayList<>();
         for (AWettkampf<?> wk : wkx) {
-            px.add(getPrintable(wk, header, withComments));
+            px.add(getPrintable(wk, header, withComments, withDisciplines, withTimes));
         }
         return new MultiplePrintable(px);
     }
 
-    protected <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, String header, boolean withComments) {
-        Printable p = new SprecherlistePrintable<T>(wk, false, showTimes, false, withComments,
+    protected <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, String header, boolean withComments, boolean withDisciplines, boolean withTimes) {
+        Printable p = new SprecherlistePrintable<T>(wk, withDisciplines, withTimes, false, withComments,
                 !PrintUtils.printOmitOrganisationForTeams,
                 PrintUtils.printYearOfBirth);
         return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, header), wk.getLastChangedDate(), true,
@@ -155,7 +150,7 @@ abstract class ALauflistenPrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t, boolean withComments) {
-            PrintExecutor.print(getPrintable(getCompetitions(t), getName(), withComments), getName(), true,
+            PrintExecutor.print(getPrintable(getCompetitions(t), getName(), withComments, false, showTimes), getName(), true,
                     controller.getWindow());
         }
 
@@ -189,7 +184,7 @@ abstract class ALauflistenPrinter implements Printer {
 
             @Override
             public Printable create() {
-                return getPrintable(wkx, getName(), comments.isSelected());
+                return getPrintable(wkx, getName(), comments.isSelected(), false, showTimes);
             }
         }
 
