@@ -16,5 +16,10 @@
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.7.1</version>
+		</dependency>
 	</dependencies>
 </project>

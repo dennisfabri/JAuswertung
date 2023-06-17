@@ -26,8 +26,11 @@ import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.io.CloseMode;
 import org.apache.hc.core5.util.TimeValue;
 
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
+import de.df.jauswertung.gui.plugins.core.IWettkampfProvider;
 import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
@@ -69,7 +72,12 @@ public class HttpServerPlugin extends ANullPlugin {
         button.setToolTipText(I18n.get("StartStopHttpServer"));
         button.addActionListener(e -> buttonAction());
 
-        filter = new JResultsSelectionButton(core::getWettkampf);
+        filter = new JResultsSelectionButton(new IWettkampfProvider() {
+            @Override
+            public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
+                return core.getWettkampf();
+            }
+        });
         filter.addItemListener(arg0 -> {
             if (arg0.getStateChange() == ItemEvent.DESELECTED) {
                 source.setSelection(filter.getSelection(core.getWettkampf()));

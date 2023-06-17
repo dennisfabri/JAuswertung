@@ -5,7 +5,7 @@
     <languages>
       <principalLanguage id="de" />
     </languages>
-    <jreBundles jdkProviderId="JBR" release="17/17.0.5-b653.23" />
+    <jreBundles jdkProviderId="JBR" release="17/17.0.7-b979.4" />
   </application>
   <files>
     <filesets>
@@ -404,6 +404,7 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
     </launcher>
   </launchers>
   <installerGui>
+    <laf type="native" />
     <applications>
       <application id="installer" beanClass="com.install4j.runtime.beans.applications.InstallerApplication">
         <serializedBean>
