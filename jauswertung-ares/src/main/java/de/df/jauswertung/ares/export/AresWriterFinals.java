@@ -169,6 +169,9 @@ public final class AresWriterFinals {
             new String[] { "Obstacle Relay", "OR" }, new String[] { "Manikin Relay", "MKR" },
             new String[] { "Medley Relay", "MER" },
             new String[] { "Mixed Pool Lifesaver Relay", "MLR" },
+            new String[] { "Pool Lifesaver Relay", "MLR" },
+            new String[] { "Mixed Lifesaver Relay", "MLR" },
+            new String[] { "Lifesaver Relay", "MLR" },
     };
 
     private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
