@@ -47,6 +47,7 @@ import de.df.jutils.gui.jtable.SimpleTableModel;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dennis Fabri @date 28.10.2004
@@ -721,7 +722,7 @@ public final class JResultTable extends JGroupableTable {
                         isQualified = daten[0].getRank() > 0 && daten[0].getTime() > 0;
                     }
                     if (!isQualified) {
-                        if (place < qualification) {
+                        if (place >= 0 && place < qualification) {
                             qualification++;
                         }
                     }
