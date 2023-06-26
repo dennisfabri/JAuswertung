@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -564,15 +566,18 @@ public final class AresWriterFinals {
         }
     }
 
+    private static final String numbers = IntStream.range(1, 100).mapToObj(i -> "" + i + (i < 10 ? " " : ""))
+            .collect(Collectors.joining(" "));
+
     private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os)
             throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idRound;TITLE;RoundAbrev;roundtext; sequence");
-        ps.println("0; \"Lauf\"; \"L\"; \"Lauf\";  \"1\"");
-        ps.println("1; \"Vorlauf\"; \"VL\"; \"Vorlauf\";  \"1\"");
-        ps.println("2; \"Zwischenlauf\"; \"ZL\"; \"Zwischenlauf\";  \"1\"");
-        ps.println("3; \"Finale\"; \"F\"; \"Finale\";  \"1\"");
+        ps.println("0; \"Lauf\"; \"L\"; \"Lauf\";  \"" + numbers + "\"");
+        ps.println("1; \"Vorlauf\"; \"VL\"; \"Vorlauf\";  \"" + numbers + "\"");
+        ps.println("2; \"Zwischenlauf\"; \"ZL\"; \"Zwischenlauf\";  \"" + numbers + "\"");
+        ps.println("3; \"Finale\"; \"F\"; \"Finale\";  \"" + numbers + "\"");
     }
 
     private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os)
