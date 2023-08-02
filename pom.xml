@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
@@ -16,15 +18,15 @@
 		<jutils.version>16.2.2</jutils.version>
 		<alphaserver.version>16.2.2</alphaserver.version>
 		<poi.version>5.2.3</poi.version>
-		<jersey.version>3.1.2</jersey.version>
+		<jersey.version>3.1.3</jersey.version>
 		<batik.version>1.14</batik.version>
 		<slf4j.version>2.0.7</slf4j.version>
-		<logback.version>1.4.7</logback.version>
+		<logback.version>1.4.8</logback.version>
 		<javafx.version>17</javafx.version>
 		<jackson.version>2.15.2</jackson.version>
 		<lombok.version>1.18.28</lombok.version>
-		<junit.version>5.9.3</junit.version>
-		<mockito.version>5.3.1</mockito.version>
+		<junit.version>5.10.0</junit.version>
+		<mockito.version>5.4.0</mockito.version>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -564,21 +566,22 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<!-- Fixed to version 3.9.1 because of doxia version problem with maven-project-info-reports-plugin -->
+					<!-- Fixed to version 3.9.1 because of doxia version problem
+					with maven-project-info-reports-plugin -->
 					<version>3.9.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>3.4.2</version>
+					<version>3.4.5</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.5.0</version>
+					<version>3.6.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
@@ -600,12 +603,22 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.1.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsave-plugin</artifactId>
 					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.16.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.openrewrite.maven</groupId>
+					<artifactId>rewrite-maven-plugin</artifactId>
+					<version>5.3.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -638,12 +651,14 @@
 					</annotationProcessorPaths>
 				</configuration>
 				<executions>
-					<!-- Replacing default-compile as it is treated specially by maven -->
+					<!-- Replacing default-compile as it is treated specially by
+					maven -->
 					<execution>
 						<id>default-compile</id>
 						<phase>none</phase>
 					</execution>
-					<!-- Replacing default-testCompile as it is treated specially by maven -->
+					<!-- Replacing default-testCompile as it is treated
+					specially by maven -->
 					<execution>
 						<id>default-testCompile</id>
 						<phase>none</phase>
@@ -667,27 +682,34 @@
 			<plugin>
 				<groupId>org.openrewrite.maven</groupId>
 				<artifactId>rewrite-maven-plugin</artifactId>
-				<version>4.42.0</version>
 				<configuration>
 					<activeRecipes>
 						<!--<recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
 						<recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
-						<recipe>org.openrewrite.java.cleanup.MissingOverrideAnnotation</recipe>
-						<!-- <recipe>org.openrewrite.java.cleanup.Cleanup</recipe> -->
-						<recipe>org.openrewrite.java.cleanup.CombineSemanticallyEqualCatchBlocks</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.MissingOverrideAnnotation</recipe>
+						<!--
+						<recipe>org.openrewrite.java.cleanup.Cleanup</recipe> -->
+						<recipe>
+							org.openrewrite.java.cleanup.CombineSemanticallyEqualCatchBlocks</recipe>
 						<!--<recipe>org.openrewrite.java.cleanup.CommonStaticAnalysis</recipe>-->
 						<!--<recipe>org.openrewrite.java.cleanup.CompareEnumsWithEqualityOperator</recipe>-->
 						<recipe>org.openrewrite.java.cleanup.FinalClass</recipe>
 						<!--<recipe>org.openrewrite.java.cleanup.JavaApiBestPractices</recipe>-->
 						<!--<recipe>org.openrewrite.java.cleanup.UseCollectionInterfaces</recipe>-->
-						<recipe>org.openrewrite.java.cleanup.IsEmptyCallOnCollections</recipe>
-						<recipe>org.openrewrite.java.cleanup.NoEmptyCollectionWithRawType</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.IsEmptyCallOnCollections</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.NoEmptyCollectionWithRawType</recipe>
 						<recipe>org.openrewrite.java.cleanup.UseStandardCharset</recipe>
-						<recipe>org.openrewrite.java.cleanup.StringLiteralEquality</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.StringLiteralEquality</recipe>
 						<recipe>org.openrewrite.java.cleanup.UseStringReplace</recipe>
 						<recipe>org.openrewrite.java.cleanup.UseDiamondOperator</recipe>
-						<recipe>org.openrewrite.java.cleanup.UseLambdaForFunctionalInterface</recipe>
-						<recipe>org.openrewrite.java.cleanup.ReplaceLambdaWithMethodReference</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.UseLambdaForFunctionalInterface</recipe>
+						<recipe>
+							org.openrewrite.java.cleanup.ReplaceLambdaWithMethodReference</recipe>
 						<!--<recipe>org.openrewrite.java.cleanup.IndexOfReplaceableByContains</recipe>-->
 					</activeRecipes>
 				</configuration>
@@ -698,14 +720,14 @@
 						<version>2.0.0</version>
 					</dependency>
 				</dependencies>
-			</plugin>			
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.15.0</version>
-                <configuration>
-                    <rulesUri>https://raw.githubusercontent.com/LISASP-org/java-basics/main/version-rules.xml</rulesUri>
-                </configuration>
+				<configuration>
+					<rulesUri>
+						https://raw.githubusercontent.com/LISASP-org/java-basics/main/version-rules.xml</rulesUri>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
