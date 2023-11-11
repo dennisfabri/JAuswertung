@@ -73,6 +73,8 @@ public class AresWriterDefault {
         fos = new FileOutputStream(dir + File.separator + "lsttitpr.txt");
         writeCompetitionInfo(wks, fos);
         fos.close();
+        
+        // writeAnzeigetafel(wks, dir);
     }
 
     private static <T extends ASchwimmer> void ensureUniqueStartnumbers(AWettkampf<T>[] wks) {
