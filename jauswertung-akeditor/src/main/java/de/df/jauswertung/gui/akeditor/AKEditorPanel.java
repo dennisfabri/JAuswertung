@@ -7,6 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -247,6 +248,8 @@ class AKEditorPanel extends JPanel {
 
         minAlter = new JIntegerField(100, false, false);
         maxAlter = new JIntegerField(100, false, false);
+        minAlter.setHorizontalAlignment(SwingConstants.RIGHT);
+        maxAlter.setHorizontalAlignment(SwingConstants.RIGHT);
         if (ak.getMinimumAlter() > 0) {
             minAlter.setInt(ak.getMinimumAlter());
         }
@@ -255,13 +258,15 @@ class AKEditorPanel extends JPanel {
         }
         minAlterInSumme = new JIntegerField(1000, false, false);
         maxAlterInSumme = new JIntegerField(1000, false, false);
+        minAlterInSumme.setHorizontalAlignment(SwingConstants.RIGHT);
+        maxAlterInSumme.setHorizontalAlignment(SwingConstants.RIGHT);
         if (ak.getMinimumAlterInSumme() > 0) {
             minAlterInSumme.setInt(ak.getMinimumAlterInSumme());
         }
         if (ak.getMaximumAlterInSumme() > 0) {
             maxAlterInSumme.setInt(ak.getMaximumAlterInSumme());
         }
-
+        
         minAlter.setValidator(
                 (Validator) value -> (maxAlter.getInt() <= 0) || (value <= 0) || maxAlter.getInt() >= value);
         maxAlter.setValidator((Validator) value -> {
