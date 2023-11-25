@@ -113,17 +113,7 @@ class DisciplineresultsOverAllPrinter implements Printer {
     @Override
     @SuppressWarnings("rawtypes")
     public void dataUpdated(UpdateEvent due, AWettkampf wk, AWettkampf filteredwk) {
-
-        boolean result = false;
-        if (wk.isHeatBased()) {
-            result = false;
-        } else {
-            if (filteredwk != null) {
-                if (filteredwk.hasSchwimmer()) {
-                    result = true;
-                }
-            }
-        }
+        boolean result = !wk.isHeatBased() && filteredwk != null && filteredwk.hasSchwimmer();
 
         print.setEnabled(result);
         preview.setEnabled(result);

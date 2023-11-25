@@ -100,7 +100,6 @@ public final class IOUtils {
         if (!StandardCharsets.UTF_8.displayName().equals(charset)) {
             charset = "Cp1252";
         }
-        log.debug(StandardCharsets.UTF_8.displayName());
         log.debug("Detected charset '{}'", charset);
 
         try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
