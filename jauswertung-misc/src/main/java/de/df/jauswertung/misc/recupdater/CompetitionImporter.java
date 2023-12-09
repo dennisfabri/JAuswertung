@@ -75,4 +75,9 @@ public class CompetitionImporter implements IImporter {
     private boolean isKnownSex(String sex) {
         return Arrays.stream(sexes).anyMatch(s -> s.equals(sex.toLowerCase(Locale.ROOT)));
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s: %s", this.competition, this.filename);
+    }
 }

@@ -29,22 +29,27 @@ import de.df.jutils.util.SystemOutFeedback;
 
 public class RecordsUpdater {
 
-    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2023.xlsx";
-    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2023.xls";
+    private static String OldRecords = "src/test/resources/competitions/Rekordwerte 2024.xlsx";
+    private static String NewRecords = "src/test/resources/competitions/Rekordwerte 2024.xls";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
+        
+        // records.print();
 
         LinkedList<IImporter> importers = new LinkedList<>();
-        // importers.add(new CompetitionImporter("dem2022-einzel.wk", "DEM2022"));
-        importers.add(new CompetitionImporter("dem2022-mannschaft.wk", "DEM2022"));
-        // importers.add(new CompetitionImporter("dmm2022-einzel.wk", "DMM2022"));
-        // importers.add(new CompetitionImporter("dmm2022-mannschaft.wk", "DMM2022"));
+        // importers.add(new CompetitionImporter("dem2023-einzel.wk", "DEM2023"));
+        // importers.add(new CompetitionImporter("dem2023-mannschaft.wk", "DEM2023"));
+        importers.add(new CompetitionImporter("dmm2023_einzel.wk", "DMM2023"));
+        importers.add(new CompetitionImporter("dmm2023_mannschaft.wk", "DMM2023"));
+        // importers.add(new CompetitionImporter("dsm2023_einzel.wk", "DSM2023"));
+        // importers.add(new CompetitionImporter("dsm2023_mannschaft.wk", "DSM2023"));
         // importers.add(new
         // WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx",
         // 2018));
 
         for (IImporter importer : importers) {
+            System.out.println(importer);
             importer.execute(records);
         }
 

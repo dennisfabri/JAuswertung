@@ -30,8 +30,14 @@ public class Record implements Serializable {
 
     public boolean update(String newCompetition, int newTime, String newName) {
         setMatched(true);
+        if (newTime <= 0) {
+            return false;
+        }
         if (newTime >= this.time && this.time > 0 && !this.name.equalsIgnoreCase("geschätzt")) {
             return false;
+        }
+        if (discipline.equals("200 m Super Lifesaver") && male == false && agegroup.equals("AK 15/16")) {
+            System.out.println("X -> "+newName+ " - "+ newTime + " < "+ time);
         }
         setCompetition(newCompetition);
         setTime(newTime);

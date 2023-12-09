@@ -33,4 +33,10 @@ public class Records {
             }
         }
     }
+
+    public void print() {
+        for (Record record : records) {
+            System.out.println(record);
+        }
+    }
 }
