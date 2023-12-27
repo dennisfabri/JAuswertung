@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -19,7 +22,7 @@ import de.df.jauswertung.io.ExcelReader;
 import de.df.jauswertung.io.OutputManager;
 
 public final class ErzeugeStrafen {
-    private static enum TeamPenaltyType {
+    private enum TeamPenaltyType {
         Member, Change
     }
 
@@ -111,7 +114,7 @@ public final class ErzeugeStrafen {
     }
 
     public static void main(String[] args) throws IOException {
-        int jahr = 2023;
+        int jahr = 2024;
 
         strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls",
                 "jauswertung-files/src/main/resources/penalties/default.def",
@@ -135,23 +138,22 @@ public final class ErzeugeStrafen {
 
         Strafen s = new Strafen();
 
-        LinkedList<String> kapitelnamen = new LinkedList<>();
-        Hashtable<String, Hashtable<String, LinkedList<Strafe>>> h = new Hashtable<>();
-        Hashtable<String, LinkedList<String>> hp = new Hashtable<>();
+        List<String> kapitelnamen = new LinkedList<>();
+        Map<String, Map<String, List<Strafe>>> h = new HashMap<>();
+        Map<String, List<String>> hp = new HashMap<>();
 
         Object[][] table = ExcelReader.sheetToTable(source, 0);
 
         for (int x = 1; x < table.length; x++) {
             String kapitel = table[x][0].toString().trim();
-            Hashtable<String, LinkedList<Strafe>> ht = h.get(kapitel);
-            if (ht == null) {
-                ht = new Hashtable<>();
-                h.put(kapitel, ht);
-                kapitelnamen.addLast(kapitel);
-                hp.put(kapitel, new LinkedList<>());
-            }
+            Map<String, List<Strafe>> ht = h.computeIfAbsent(kapitel, key -> {
+                Map<String, List<Strafe>> value = new HashMap<>();
+                kapitelnamen.addLast(key);
+                hp.put(key, new LinkedList<>());
+                return value;
+            });
             String bereich = table[x][1].toString().trim();
-            LinkedList<Strafe> ll = ht.get(bereich);
+            List<Strafe> ll = ht.get(bereich);
             if (ll == null) {
                 hp.get(kapitel).addLast(bereich);
                 ll = new LinkedList<>();
@@ -161,9 +163,9 @@ public final class ErzeugeStrafen {
             int hoehe = 0;
 
             Object artid = table[x][4];
-            if (artid instanceof Number) {
+            if (artid instanceof Number number) {
                 art = Strafarten.STRAFPUNKTE;
-                hoehe = ((Number) artid).intValue();
+                hoehe = number.intValue();
             } else {
                 String st = artid.toString();
                 if (st.equals("Disqualifikation")) {
@@ -192,7 +194,7 @@ public final class ErzeugeStrafen {
 
             s.addKapitel(sk);
 
-            Hashtable<String, LinkedList<Strafe>> ll = h.get(kapitel);
+            Map<String, List<Strafe>> ll = h.get(kapitel);
 
             int y = 1;
             for (String bereich : hp.get(kapitel)) {
@@ -226,6 +228,7 @@ public final class ErzeugeStrafen {
         sp.addStrafe(new Strafe("", "", Strafarten.STRAFPUNKTE, 100));
         sp.addStrafe(new Strafe("", "", Strafarten.STRAFPUNKTE, 200));
         sp.addStrafe(Strafe.NICHT_ANGETRETEN);
+        sp.addStrafe(Strafe.NICHT_BEENDET);
         sp.addStrafe(Strafe.DISQUALIFIKATION);
         sp.addStrafe(Strafe.AUSSCHLUSS);
 

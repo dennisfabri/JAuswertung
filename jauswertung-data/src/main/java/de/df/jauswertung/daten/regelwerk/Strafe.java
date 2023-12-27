@@ -17,6 +17,7 @@ public class Strafe implements Serializable {
 
     public static final Strafe NICHTS = new Strafe("", "", Strafarten.NICHTS, 0);
     public static final Strafe NICHT_ANGETRETEN = new Strafe("", "", Strafarten.NICHT_ANGETRETEN, 0);
+    public static final Strafe NICHT_BEENDET = new Strafe("Nicht beendet", "n.b.", Strafarten.DISQUALIFIKATION, 0);
     public static final Strafe DISQUALIFIKATION = new Strafe("", "", Strafarten.DISQUALIFIKATION, 0);
     public static final Strafe AUSSCHLUSS = new Strafe("", "", Strafarten.AUSSCHLUSS, 0);
     public static final Strafe WITHDRAW = new Strafe("", "WD", Strafarten.NICHTS, 0);

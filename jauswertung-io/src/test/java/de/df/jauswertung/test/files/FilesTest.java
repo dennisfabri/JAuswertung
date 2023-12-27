@@ -19,7 +19,7 @@ public class FilesTest {
     private final static String Path = "../jauswertung-files/src/main/resources/";
 
     @ParameterizedTest
-    @ValueSource(strings = { "DLRG 2023.rwe", "DLRG 2023.rwm", "International - Ocean.rwe", "International - Ocean.rwm",
+    @ValueSource(strings = { "DLRG 2024.rwe", "DLRG 2024.rwm", "International - Ocean.rwe", "International - Ocean.rwm",
             "International - Pool.rwm", "International - Pool Mixed.rwm" })
     void LadeRegelwerke(String name) {
         String filename = Path + "aks/" + name;

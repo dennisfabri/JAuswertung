@@ -40,8 +40,8 @@ public class RecordsUpdater {
         LinkedList<IImporter> importers = new LinkedList<>();
         // importers.add(new CompetitionImporter("dem2023-einzel.wk", "DEM2023"));
         // importers.add(new CompetitionImporter("dem2023-mannschaft.wk", "DEM2023"));
-        importers.add(new CompetitionImporter("dmm2023_einzel.wk", "DMM2023"));
-        importers.add(new CompetitionImporter("dmm2023_mannschaft.wk", "DMM2023"));
+        // importers.add(new CompetitionImporter("dmm2023_einzel.wk", "DMM2023"));
+        // importers.add(new CompetitionImporter("dmm2023_mannschaft.wk", "DMM2023"));
         // importers.add(new CompetitionImporter("dsm2023_einzel.wk", "DSM2023"));
         // importers.add(new CompetitionImporter("dsm2023_mannschaft.wk", "DSM2023"));
         // importers.add(new

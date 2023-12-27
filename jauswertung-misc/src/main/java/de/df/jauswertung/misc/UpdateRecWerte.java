@@ -13,7 +13,7 @@ import de.df.jauswertung.io.OutputManager;
 
 public class UpdateRecWerte {
 
-    private static final int YEAR = 2023;
+    private static final int YEAR = 2024;
 
     private static final String PathToCsv = "src\\test\\resources\\rec-werte\\";
     private static final String PathToRulebook = "..\\jauswertung-files\\src\\main\\resources\\aks\\";
@@ -54,6 +54,9 @@ public class UpdateRecWerte {
 
                 int index = rw.getIndex(agegroup);
                 // System.out.println(agegroup + "/" + discipline + " -> " + index);
+                if (index < 0) {
+                    throw new IllegalArgumentException(String.format("Agegroup '%s' not found.", agegroup));
+                }
                 Altersklasse ak = rw.getAk(index);
                 boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(wk, discipline, 2, x, "CSV", werte);
                 String disziplin = row[3].toString();
