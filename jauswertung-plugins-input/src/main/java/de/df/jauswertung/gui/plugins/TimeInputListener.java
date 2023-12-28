@@ -100,7 +100,7 @@ class TimeInputListener implements BiFunction<String, String[], String> {
             case "w":
                 setWithdraw();
                 break;
-            case "f":
+            case "f", "b":
                 if (oldValue.isEmpty()) {
                     setDidNotFinish();
                 }

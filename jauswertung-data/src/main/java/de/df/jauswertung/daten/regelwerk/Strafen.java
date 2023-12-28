@@ -21,6 +21,10 @@ public final class Strafen implements Serializable {
 
     private static final long serialVersionUID = 1664311476306024507L;
 
+    private static final String[] dnsNames = new String[] { "DNS", "D.N.S.", "n.a." };
+    private static final String[] dnfNames = new String[] { "DNF", "D.N.F.", "n.b.", "S1" };
+    private static final String[] wdNames = new String[] { "WD", "Withdraw" };
+    
     private LinkedList<StrafenKapitel> strafen;
 
     /** Creates new Strafen */
@@ -76,13 +80,6 @@ public final class Strafen implements Serializable {
         return ps;
     }
 
-    private static final String[] dnsNames = new String[] { "DNS", "D.N.S.", "n.a." };
-    private static final String[] dnfNames = new String[] { "DNF", "D.N.F.", "S1" };
-    private static final String[] wdNames = new String[] { "WD", "Withdraw" };
-
-    private static final Strafe DIDNOTFINISH = new Strafe("Did not finish", "DNF", Strafarten.DISQUALIFIKATION, 0);
-    private static final Strafe WITHDRAW = new Strafe("Withdraw", "WD", Strafarten.NICHTS, 0);
-
     public Strafe getNichtAngetreten() {
         for (String na : dnsNames) {
             Strafe s = getStrafe(na);
@@ -108,7 +105,7 @@ public final class Strafen implements Serializable {
                 return s;
             }
         }
-        return DIDNOTFINISH;
+        return Strafe.NICHT_BEENDET;
     }
 
     public Strafe getWithdraw() {
@@ -118,6 +115,6 @@ public final class Strafen implements Serializable {
                 return s;
             }
         }
-        return WITHDRAW;
+        return Strafe.WITHDRAW;
     }
 }
