@@ -29,3 +29,5 @@ bin/
 *.vs
 
 jauswertung-misc/src/test/resources/competitions/Ergebnisse.csv
+
+*.zip
