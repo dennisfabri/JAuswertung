@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.6" transformSequenceNumber="10">
   <directoryPresets config="./global.vmoptions" />
-  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shrinkRuntime="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.2.3" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="21" jdkMode="jdk" jdkName="JDK 21">
+  <application name="JAuswertung" applicationId="0397-6260-1904-1864" mediaDir="../target/" compression="9" lzmaCompression="true" createChecksums="false" shortName="JAuswertung" publisher="Dennis Fabri" publisherWeb="https://www.dennisfabri.de" version="16.2.4" allPathsRelative="true" backupOnSave="true" autoSave="true" convertDotsToUnderscores="false" macVolumeId="f6a80ab5f5b45eb" javaMinVersion="21" jdkMode="jdk" jdkName="JDK 21">
     <languages>
       <principalLanguage id="de" />
     </languages>
-    <jreBundles jdkProviderId="Adoptium" release="21/jdk-21.0.1+12">
+    <jreBundles jdkProviderId="Adoptium" release="21/jdk-21.0.2+13">
       <modules>
         <defaultModules set="all" />
       </modules>
