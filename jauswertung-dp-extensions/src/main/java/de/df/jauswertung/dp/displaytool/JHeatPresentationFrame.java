@@ -200,7 +200,11 @@ public class JHeatPresentationFrame extends JFrame {
             if (device.isFullScreenSupported()) {
                 device.setFullScreenWindow(null);
             }
-            setCursor(Cursor.getDefaultCursor());
+            try {
+                setCursor(Cursor.getDefaultCursor());
+            } catch (IndexOutOfBoundsException ioobe) {
+                // Catch a exception on linux systems (Maybe openjdk related)
+            }
 
             EDTUtils.executeOnEDTAsync(this::restore);
 
