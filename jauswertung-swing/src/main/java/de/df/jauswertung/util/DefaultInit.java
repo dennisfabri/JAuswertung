@@ -13,12 +13,14 @@ import javax.swing.SwingUtilities;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
+import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.print.PrintManager;
+import de.df.jutils.util.OSUtils;
 import skt.swing.scroll.ScrollGestureRecognizer;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
@@ -67,7 +69,12 @@ public final class DefaultInit {
     }
 
     private static void initFileChooser() {
-        FileChooserUtils.initialize(new FileChooserJFX());
+        if (OSUtils.isWindows()) {
+            FileChooserUtils.initialize(new FileChooserJFX());
+        } else {
+            FileChooserUtils.initialize(new FileChooserL2f());
+
+        }
         SwingUtilities.invokeLater(() -> {
             try {
                 new JFileChooser();

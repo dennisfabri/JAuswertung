@@ -28,5 +28,9 @@
 			<groupId>org.lisasp.swing</groupId>
 			<artifactId>filechooser-jfx</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.lisasp.swing</groupId>
+			<artifactId>filechooser-l2f</artifactId>
+		</dependency>
 	</dependencies>
 </project>
