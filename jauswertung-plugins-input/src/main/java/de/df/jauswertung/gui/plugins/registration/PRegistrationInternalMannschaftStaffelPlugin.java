@@ -416,12 +416,12 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
             startnummer.requestFocus();
             return;
         }
-        if (teamname.length() == 0) {
+        if (teamname.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("NameMustNotBeEmpty"), I18n.get("NameMustNotBeEmpty.Note"));
             name.requestFocus();
             return;
         }
-        if (g.length() == 0) {
+        if (g.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
                     I18n.get("OrganisationMustNotBeEmpty.Note"));
             gliederung.requestFocus();
@@ -429,7 +429,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         }
         if (amount.getInt() <= 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("AmountMustBeBiggerThanZero"),
-                    I18n.get("AmountMustBeBiggerThanZero"));
+                    I18n.get("AmountMustBeBiggerThanZero.Note"));
             amount.requestFocus();
             return;
         }

@@ -68,8 +68,6 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
         tb.add(getUnderline());
         tb.add(I18n.get("Lane") + ":");
         tb.add(getUnderline());
-        // tb.add(I18n.get("HeadAndLaneShort") + ":", false, "right,fill");
-        // tb.add(getUnderline());
 
         tb.addSeparator(getMiddleline());
 
@@ -85,8 +83,6 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
         tb.add(I18n.get("SchwimmOderWenderichter") + ":");
         tb.add(getUnderline(), true);
         tb.add(getUnderline(), true);
-        // tb.add(I18n.get("Lane") + ":", false, "right,bottom");
-        // tb.add(getUnderline());
 
         tb.add(I18n.get("CodePunktabzug") + ":");
         tb.add(getUnderline(), true);
@@ -94,18 +90,6 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
 
         tb.add(I18n.get("WettkampfleiterShort") + ":");
         tb.add(getUnderline(), true);
-
-        // tb.add(I18n.get("Protokollfuehrer") + ":");
-        // tb.add(getUnderline(), true);
-
-        // tb.add(I18n.get("Appeal") + ":");
-        // tb.add(I18n.get("AcceptedDenied"), true);
-
-        // tb.add(I18n.get("Decision") + ":");
-        // tb.add(I18n.get("AppealChangedOrReturned"), true);
-
-        // tb.add(I18n.get("Schiedsgericht") + ":");
-        // tb.add(getUnderline(), true);
 
         tb.addSeparator(getMiddleline());
         tb.add(I18n.get("ProgrammerShortInfo"), true, "right,center");

@@ -1,6 +1,3 @@
-/*
- * Created on 04.04.2005
- */
 package de.df.jauswertung.gui.util;
 
 import javax.swing.JComponent;
@@ -24,21 +21,15 @@ public final class AboutDialogCreator {
         general.setText(I18n.get("AboutGeneral", I18n.getVersion()));
         general.setName(I18n.get("AboutGeneralTitle"));
 
-        JTextPane thanks = new JTextPane();
-        thanks.setEditable(false);
-        thanks.setContentType("text/plain");
-        thanks.setText(I18n.get("AboutLinks"));
-        thanks.setName(I18n.get("AboutLinksTitle"));
-
         JComponent[] c = null;
         if (Utils.isInDevelopmentMode()) {
-            c = new JComponent[] { general, thanks,
+            c = new JComponent[] { general,
                     JAboutDialog.getSystemInformation(
                             new String[] { I18n.get("Systeminformation"), I18n.get("Property"), I18n.get("Value") }),
                     JAboutDialog.getUIInformation(
                             new String[] { I18n.get("UIInformation"), I18n.get("Property"), I18n.get("Value") }) };
         } else {
-            c = new JComponent[] { general, thanks };
+            c = new JComponent[] { general };
         }
 
         JAboutDialog about = new JAboutDialog(parent, I18n.get("About"), IconManager.getLogo(), c);

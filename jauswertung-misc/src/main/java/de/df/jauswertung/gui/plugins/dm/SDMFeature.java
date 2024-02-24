@@ -10,7 +10,6 @@ public class SDMFeature extends AFeature {
     @Override
     @SuppressWarnings("rawtypes")
     public void setController(IPluginManager plugincontroller, String pluginuid) {
-        // TODO Auto-generated method stub
         super.setController(plugincontroller, pluginuid);
 
         MDopingPlugin selection = (MDopingPlugin) plugincontroller.getFeature("de.df.jauswertung.doping", pluginuid);

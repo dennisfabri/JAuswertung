@@ -45,7 +45,7 @@ public final class I18n {
                         I18n.class.getClassLoader());
                 rb.add(fileRB);
             } catch (RuntimeException re) {
-                re.printStackTrace();
+                // re.printStackTrace();
                 // Nothing to do
             }
             rb.add(getFallbackResourceBundle());
