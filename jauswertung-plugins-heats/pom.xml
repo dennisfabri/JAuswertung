@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
-		<version>16.3.0</version>
+		<version>16.3.1</version>
 	</parent>
 	<artifactId>jauswertung-plugins-heats</artifactId>
 
