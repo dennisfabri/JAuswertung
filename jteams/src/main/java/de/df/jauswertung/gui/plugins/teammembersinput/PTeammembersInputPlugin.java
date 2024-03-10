@@ -91,7 +91,7 @@ public class PTeammembersInputPlugin extends ANullPlugin {
         core = (CorePlugin) controller.getFeature("de.df.jauswertung.core", uid);
         organisation = (SelectOrganisationPlugin) controller.getFeature("de.df.jauswertung.selectorganisation", uid);
 
-        organisation.addSelectionListener(manual::setSelectedOrganisation);
+        organisation.addSelectionListener(selection -> manual.setSelectedOrganisation(selection));
     }
 
     @Override
