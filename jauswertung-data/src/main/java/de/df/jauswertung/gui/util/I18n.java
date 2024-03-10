@@ -18,7 +18,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jutils.exception.ParserException;
-import de.df.jutils.i18n.EmptyResourceBundle;
+import de.df.jutils.i18n.IdResourceBundle;
 import de.df.jutils.i18n.SafeTextProcessor;
 import de.df.jutils.resourcebundle.IdentityResourceBundle;
 import de.df.jutils.resourcebundle.MultipleResourceBundle;
@@ -93,7 +93,7 @@ public final class I18n {
 
     private static synchronized ResourceBundle getFallbackResourceBundle() {
         if (fallback == null) {
-            fallback = new EmptyResourceBundle();
+            fallback = new IdResourceBundle();
         }
         return fallback;
     }
@@ -108,7 +108,7 @@ public final class I18n {
 
     public static String getToolTip(final String key, final Object... dynamics) {
         String s = get("ToolTip." + key, dynamics);
-        if (s.trim().length() == 0) {
+        if (s.isBlank()) {
             return null;
         }
         return s;

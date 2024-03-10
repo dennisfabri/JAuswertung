@@ -52,7 +52,7 @@ import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jauswertung.util.ergebnis.FormelILS;
+import de.df.jauswertung.util.ergebnis.*;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JGradientLabel;
 import de.df.jutils.gui.border.ShadowBorder;
@@ -97,8 +97,8 @@ public class PResulttablePlugin extends ANullPlugin {
 
     private static final long BITMASK1 = REASON_AKS_CHANGED | REASON_LOAD_WK | REASON_NEW_WK | REASON_LAUF_LIST_CHANGED;
     private static final long BITMASK2 = REASON_LOAD_WK | REASON_GLIEDERUNG_CHANGED | REASON_SWIMMER_DELETED
-            | REASON_SWIMMER_CHANGED
-            | REASON_POINTS_CHANGED | REASON_NEW_TN | REASON_NEW_WK | REASON_PENALTY | REASON_PROPERTIES_CHANGED;
+                                         | REASON_SWIMMER_CHANGED
+                                         | REASON_POINTS_CHANGED | REASON_NEW_TN | REASON_NEW_WK | REASON_PENALTY | REASON_PROPERTIES_CHANGED;
 
     public PResulttablePlugin() {
         super();
@@ -136,11 +136,13 @@ public class PResulttablePlugin extends ANullPlugin {
     private void updateSexes() {
         String[] items = null;
         if (wk == null) {
-            items = new String[] { I18n.get("female"), I18n.get("male") };
+            items = new String[]{I18n.get("female"), I18n.get("male")};
         } else {
             Regelwerk rw = wk.getRegelwerk();
-            items = new String[] { I18n.geschlechtToStringSubject(rw, false),
-                    I18n.geschlechtToStringSubject(rw, true) };
+            items = new String[]{
+                    I18n.geschlechtToStringSubject(rw, false),
+                    I18n.geschlechtToStringSubject(rw, true)
+            };
         }
         boolean changed = false;
         if (geschlecht.getModel().getSize() != items.length) {
@@ -174,7 +176,7 @@ public class PResulttablePlugin extends ANullPlugin {
         glas.setEnabled(false);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     void updateResult(boolean force, boolean doPrint) {
         try {
             glas.setEnabled(!isHeatBased() || force);
@@ -194,7 +196,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     return;
                 }
                 isPartOnly = (discipline + 1 < disziplin.getItemCount()) && (disziplin.getItemCount() > 0)
-                        && (runde.getItemCount() > 0);
+                             && (runde.getItemCount() > 0);
                 if (!isPartOnly) {
                     ak = wkx.getRegelwerk().getAk(index);
                     if (!ak.hasMehrkampfwertung()) {
@@ -224,12 +226,17 @@ public class PResulttablePlugin extends ANullPlugin {
                         if (wkx == null) {
                             disableDisplay();
                             DialogUtils.inform(getController().getWindow(),
-                                    I18n.get("RoundNotYetGenerated.Information"),
-                                    I18n.get("RoundNotYetGenerated.Note"));
+                                               I18n.get("RoundNotYetGenerated.Information"),
+                                               I18n.get("RoundNotYetGenerated.Note"));
                             return;
                         }
                         if (!isFinal) {
-                            wkx.getRegelwerk().setFormelID(FormelILS.ID);
+                            Regelwerk rw = wk.getRegelwerk();
+                            rw.setFormelID(switch (rw.getFormelID()) {
+                                case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
+                                case FormelDLRG2007Finals.ID -> FormelDLRG2007.ID;
+                                default -> FormelILS.ID;
+                            });
                         }
                         ak = wkx.getRegelwerk().getAk(index);
                         discipline = 0;
@@ -246,11 +253,11 @@ public class PResulttablePlugin extends ANullPlugin {
                 boolean einzel = wkx instanceof EinzelWettkampf;
                 if ((JResultTable.getColumnCount(anzahl, hlw, einzel, qualification) != result.getColumnCount())) {
                     result = JResultTable.getResultTable(ak, anzahl, hlw, wkx instanceof EinzelWettkampf, false,
-                            qualification,
-                            wk.getRegelwerk().getZusatzwertungShort());
+                                                         qualification,
+                                                         wk.getRegelwerk().getZusatzwertungShort());
                     if (anzahl == 1 && !hlw) {
                         JTableUtils.hideColumnAndRemoveData(result,
-                                JResultTable.PREFIX + JResultTable.D_POINTS_OFFSET + (einzel ? 1 : 0));
+                                                            JResultTable.PREFIX + JResultTable.D_POINTS_OFFSET + (einzel ? 1 : 0));
                         if (qualification > 0) {
                             JTableUtils.hideColumnAndRemoveData(result, JResultTable.DIFF_OFFSET + (einzel ? 1 : 0));
                             JTableUtils.hideColumnAndRemoveData(result, JResultTable.SCORE_OFFSET + (einzel ? 1 : 0));
@@ -290,16 +297,18 @@ public class PResulttablePlugin extends ANullPlugin {
                 if (isHeatBased()) {
                     if (isPartOnly) {
                         PrintExecutor.print(getPrintable(wkx, !isCompleteDiscipline, round, qualification, selection),
-                                I18n.get("Result"), getController().getWindow());
+                                            I18n.get("Result"), getController().getWindow());
                     } else {
                         PrintExecutor.print(getPrintable(wkx, false, 0, 0, selection), I18n.get("Results"),
-                                getController().getWindow());
+                                            getController().getWindow());
                     }
                 } else {
                     PrintExecutor.print(
                             getPrintable(wkx, false, 0, 0,
-                                    new boolean[][] { { geschlecht.getSelectedIndex() == 0 },
-                                            { geschlecht.getSelectedIndex() == 1 } }),
+                                         new boolean[][]{
+                                                 {geschlecht.getSelectedIndex() == 0},
+                                                 {geschlecht.getSelectedIndex() == 1}
+                                         }),
                             I18n.get("Results"), getController().getWindow());
                 }
             }
@@ -308,7 +317,7 @@ public class PResulttablePlugin extends ANullPlugin {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "hiding" })
+    @SuppressWarnings({"rawtypes", "hiding"})
     private Printable getPrintable(AWettkampf wk, boolean isRound, int round, int qualification, boolean[][] selected) {
         LinkedList<Printable> ps = getPrintable(selected, wk, qualification);
         MessageFormat header;
@@ -318,13 +327,13 @@ public class PResulttablePlugin extends ANullPlugin {
             header = new MessageFormat("");
         }
         return PrintManager.getFinalPrintable(new MultiplePrintable(ps), wk.getLastChangedDate(), header,
-                I18n.get("Einzelwertung"));
+                                              I18n.get("Einzelwertung"));
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes", "hiding" })
+    @SuppressWarnings({"unchecked", "rawtypes", "hiding"})
     protected LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification) {
         return PrintUtils.getFullResultsPrintable(selected, wk, true, PrintUtils.printPointsInDisciplineResults,
-                qualification);
+                                                  qualification);
     }
 
     private void initListeners() {
@@ -377,10 +386,10 @@ public class PResulttablePlugin extends ANullPlugin {
         });
 
         String horizontal = "4dlu,fill:default:grow," + FormLayoutUtils.createLayoutString(10)
-                + ",fill:default:grow,4dlu";
+                            + ",fill:default:grow,4dlu";
 
         FormLayout layout = new FormLayout(horizontal, "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
-        layout.setColumnGroups(new int[][] { { 2, 20, 22 }, { 6, 10, 14, 18 }, { 4, 8, 12, 16 } });
+        layout.setColumnGroups(new int[][]{{2, 20, 22}, {6, 10, 14, 18}, {4, 8, 12, 16}});
         panel = new JPanel(layout);
         panel.setName(I18n.get("Results"));
 
@@ -576,7 +585,7 @@ public class PResulttablePlugin extends ANullPlugin {
 
     @Override
     public PanelInfo[] getPanelInfos() {
-        return new PanelInfo[] {
+        return new PanelInfo[]{
                 new PanelInfo(I18n.get("Results"), IconManager.getBigIcon("resulttable"), false, false, 1500) {
                     @Override
                     public JPanel getPanelI() {
@@ -586,7 +595,8 @@ public class PResulttablePlugin extends ANullPlugin {
                         }
                         return panel;
                     }
-                } };
+                }
+        };
     }
 
     class ResultAKSexItemListener implements ItemListener {
@@ -669,7 +679,7 @@ public class PResulttablePlugin extends ANullPlugin {
         updateResult(false);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     void showStarts() {
         if (!isHeatBased()) {
             ASchwimmer s = getSelectedSwimmer();
@@ -717,7 +727,7 @@ public class PResulttablePlugin extends ANullPlugin {
                 int diszx = result.getSelectedDiscipline();
                 if (diszx >= 0) {
                     String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1,
-                            diszx, 0);
+                                                    diszx, 0);
                     if (wk.getLauflisteOW().getDisziplin(disz) != null) {
                         editor.runPenaltyEditor(wk, s, disz);
                     }
@@ -730,7 +740,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     round--;
                 }
                 String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1,
-                        disziplin.getSelectedIndex(), round);
+                                                disziplin.getSelectedIndex(), round);
                 editor.runPenaltyEditor(wk, s, disz);
             }
         } else {
@@ -746,7 +756,7 @@ public class PResulttablePlugin extends ANullPlugin {
                 int diszx = result.getSelectedDiscipline();
                 if (diszx >= 0) {
                     String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1,
-                            diszx, 0);
+                                                    diszx, 0);
                     if (wk.getLauflisteOW().getDisziplin(disz) != null) {
                         s.addStrafe(disz, new Strafe("", "WD", Strafarten.NICHTS, 0));
                         sendDataUpdateEvent("Withdraw", UpdateEventConstants.REASON_PENALTY);
@@ -758,7 +768,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     round--;
                 }
                 String disz = OWDisziplin.getId(altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex() == 1,
-                        disziplin.getSelectedIndex(), round);
+                                                disziplin.getSelectedIndex(), round);
                 s.addStrafe(disz, new Strafe("", "WD", Strafarten.NICHTS, 0));
                 sendDataUpdateEvent("Withdraw", UpdateEventConstants.REASON_PENALTY);
             }

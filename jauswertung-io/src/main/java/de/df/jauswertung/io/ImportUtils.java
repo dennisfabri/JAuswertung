@@ -93,6 +93,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.df.jutils.i18n.IdResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +121,6 @@ import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jutils.i18n.EmptyResourceBundle;
 import de.df.jutils.io.csv.CsvManager;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
 import de.df.jutils.util.Feedback;
@@ -138,7 +138,7 @@ public class ImportUtils {
             srb.setVerbose(false);
             return srb;
         } catch (RuntimeException re) {
-            return new EmptyResourceBundle();
+            return new IdResourceBundle();
         }
     }
 
