@@ -121,7 +121,7 @@ class DocumentsPrinter implements Printer {
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(GraphUtils.getPrintable(core.getWettkampf(), selection, false), I18n.get("Documents"), true,
+        PrintExecutor.print(GraphUtils.getPrintable(core.getFilteredWettkampf(), selection, false), I18n.get("Documents"), true,
                 controller.getWindow());
     }
 
@@ -151,7 +151,7 @@ class DocumentsPrinter implements Printer {
 
         @Override
         public Printable create() {
-            return GraphUtils.getPrintable(core.getWettkampf(), selection, false);
+            return GraphUtils.getPrintable(core.getFilteredWettkampf(), selection, false);
         }
 
     }

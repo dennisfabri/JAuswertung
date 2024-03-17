@@ -135,9 +135,9 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
                 eintrag[14] = (m < 10 ? "0" : "") + eintrag[13];
                 eintrag[15] = "" + s;
                 eintrag[16] = (s < 10 ? "0" : "") + eintrag[15];
-                eintrag[17] = "" + s + ztx;
+                eintrag[17] = s + ztx;
                 eintrag[18] = (s < 10 ? "0" : "") + eintrag[17];
-                eintrag[19] = "" + s + htx;
+                eintrag[19] = s + htx;
                 eintrag[20] = (s < 10 ? "0" : "") + eintrag[19];
             } else {
                 for (int y = 11; y < 21; y++) {
