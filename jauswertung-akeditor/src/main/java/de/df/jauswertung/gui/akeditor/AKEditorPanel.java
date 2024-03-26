@@ -1,6 +1,7 @@
 package de.df.jauswertung.gui.akeditor;
 
 import java.awt.BorderLayout;
+import java.util.Comparator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -24,6 +25,8 @@ import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
+
+import static java.util.Arrays.stream;
 
 class AKEditorPanel extends JPanel {
     private JWarningTextField name;
@@ -61,7 +64,7 @@ class AKEditorPanel extends JPanel {
     private int index;
 
     public AKEditorPanel(AKsEditorPanel parent, Altersklasse newAk, boolean einzel, int index, String[] start,
-            String[] result) {
+                         String[] result) {
         this.parent = parent;
         this.ak = newAk;
         this.einzel = einzel;
@@ -237,10 +240,11 @@ class AKEditorPanel extends JPanel {
         gesamt.setSelectedIndex(pos);
 
         laufsortierung = new JComboBox<>(
-                new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
-                        I18n.get("SameOrganisationDifferentHeats"),
-                        I18n.get("SortByAnouncedPoints"), I18n.get("SortByAnouncedTimes"),
-                        I18n.get("RandomlyPerDiscipline"), I18n.get("SortByILS") });
+                stream(Reihenfolge.values()).sorted(Comparator.comparing(Reihenfolge::getValue))
+                                            .filter(r -> r != Reihenfolge.Regelwerk)
+                                            .map(r -> I18n.get("Sorting." + r.name()))
+                                            .toArray(String[]::new)
+        );
         laufsortierung.setSelectedIndex(Math.max(0, ak.getLaufsortierung()));
 
         laufrotation = new JCheckBox();
@@ -266,7 +270,7 @@ class AKEditorPanel extends JPanel {
         if (ak.getMaximumAlterInSumme() > 0) {
             maxAlterInSumme.setInt(ak.getMaximumAlterInSumme());
         }
-        
+
         minAlter.setValidator(
                 (Validator) value -> (maxAlter.getInt() <= 0) || (value <= 0) || maxAlter.getInt() >= value);
         maxAlter.setValidator((Validator) value -> {
@@ -276,7 +280,7 @@ class AKEditorPanel extends JPanel {
             return minAlter.getInt() <= value;
         });
         minAlterInSumme.setValidator((Validator) value -> (maxAlterInSumme.getInt() <= 0) || (value <= 0)
-                || maxAlterInSumme.getInt() >= value);
+                                                          || maxAlterInSumme.getInt() >= value);
         maxAlterInSumme.setValidator((Validator) value -> {
             if ((minAlterInSumme.getInt() <= 0) || (value <= 0)) {
                 return true;
@@ -444,8 +448,8 @@ class AKEditorPanel extends JPanel {
         }
 
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,10dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu");
-        layout.setColumnGroups(new int[][] { { 2, 4 } });
+                                           "4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout.setColumnGroups(new int[][]{{2, 4}});
 
         allgemein.setLayout(layout);
 
@@ -463,7 +467,7 @@ class AKEditorPanel extends JPanel {
 
     boolean checkAgeInSum() {
         return minAlterInSumme.getInt() <= 0 || maxAlterInSumme.getInt() <= 0
-                || minAlterInSumme.getInt() <= maxAlterInSumme.getInt();
+               || minAlterInSumme.getInt() <= maxAlterInSumme.getInt();
     }
 
     public Altersklasse getAK() {
