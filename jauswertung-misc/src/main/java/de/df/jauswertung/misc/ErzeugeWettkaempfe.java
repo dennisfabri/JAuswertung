@@ -36,6 +36,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -357,7 +358,7 @@ public final class ErzeugeWettkaempfe {
                 }
             }
         }
-        mwk.setProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_MELDEPUNKTE);
+        mwk.setProperty(PropertyConstants.HEATS_SORTING_ORDER, Reihenfolge.Meldepunkte.getValue());
         mwk.getLaufliste().erzeugen();
         mwk.getHLWListe().erzeugen();
         if (datei != null) {
@@ -369,10 +370,6 @@ public final class ErzeugeWettkaempfe {
         return mwk;
     }
 
-    /**
-     * @param r
-     * @return
-     */
     private static int getHLWPunkte() {
         double r = rng.nextDouble();
         if (r < 0.05) {

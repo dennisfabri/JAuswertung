@@ -1,20 +1,12 @@
-/*
- * Altersklasse.java Created on 9. Februar 2001, 12:51
- */
-
 package de.df.jauswertung.daten.regelwerk;
 
-/**
- * Hier werden die Information festgehalten, die fuer die jeweilige Altersklasse
- * gelten.
- * 
- * @author Dennis Fabri
- */
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Stack;
 
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
+import lombok.Getter;
 import org.dom4j.Element;
 
 import com.pmease.commons.xmt.VersionedDocument;
@@ -23,10 +15,24 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jutils.util.StringTools;
 
+/**
+ *
+ * Hier werden die Information festgehalten, die für die jeweilige Altersklasse
+ * gelten.
+ *
+ * @author Dennis Fabri
+ */
 public class Altersklasse implements Serializable {
 
     private static final long serialVersionUID = -3984390739372155907L;
 
+    /**
+     * -- GETTER --
+     *  Liefert den Namen zurueck.
+     *
+     * @return Gibt den Namen ohne Geschlecht zurueck.
+     */
+    @Getter
     @XStreamAsAttribute
     private String name;
     @XStreamAsAttribute
@@ -55,7 +61,7 @@ public class Altersklasse implements Serializable {
     @XStreamAsAttribute
     private boolean strafeIstDisqualifikation = false;
     @XStreamAsAttribute
-    private int laufsortierung = Laufliste.REIHENFOLGE_MELDEZEITEN;
+    private int laufsortierung = Reihenfolge.Meldezeiten.getValue();
     @XStreamAsAttribute
     private boolean laufrotation = true;
     @XStreamAsAttribute
@@ -72,9 +78,7 @@ public class Altersklasse implements Serializable {
     /**
      * Erzeugt eine neue Altersklasse.
      * 
-     * @param _akNummer   Nummer der Altersklasse
-     * @param _geschlecht das Geschlecht
-     * @param einzel      true wenn es eine EinzelAK ist, sonst false
+     * @param akNummer   Nummer der Altersklasse
      */
     Altersklasse(int akNummer) {
         this("", null, false);
@@ -84,10 +88,9 @@ public class Altersklasse implements Serializable {
     /**
      * Erzeugt eine Altersklasse mit selbstdefinierten Werten.
      * 
-     * @param _name       Gibt den Namen an.
-     * @param _diszAnzahl Gibt die Anzahl der Disziplinen an.
-     * @param _diszes     Gibt die einzelnen Disziplinen als Array an.
-     * @param _hlw        Gibt an, ob eine Zusatzwertung durchgefuehrt werden muss
+     * @param aName       Gibt den Namen an.
+     * @param aDiszes     Gibt die einzelnen Disziplinen als Array an.
+     * @param aHlw        Gibt an, ob eine Zusatzwertung durchgefuehrt werden muss
      *                    oder nicht.
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw) {
@@ -99,11 +102,10 @@ public class Altersklasse implements Serializable {
     /**
      * Erzeugt eine Altersklasse mit selbstdefinierten Werten.
      * 
-     * @param _name       Gibt den Namen an.
-     * @param _geschlecht Gibt das Geschlecht an.
-     * @param _diszAnzahl Gibt die Anzahl der Disziplinen an.
-     * @param _diszes     Gibt die einzelnen Disziplinen als Array an.
-     * @param _hlw        Gibt an, ob eine HLW durchgefuehrt werden muss oder nicht.
+     * @param aName       Gibt den Namen an.
+     * @param aDiszes     Gibt die einzelnen Disziplinen als Array an.
+     * @param aHlw        Gibt an, ob eine HLW durchgeführt werden muss oder nicht.
+     * @param aKompakt    Kompakt
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw, boolean aKompakt) {
         this(aName, aDiszes, aHlw);
@@ -147,18 +149,9 @@ public class Altersklasse implements Serializable {
     }
 
     /**
-     * Liefert den Namen zurueck.
-     * 
-     * @return Gibt den Namen ohne Geschlecht zurueck.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Setzt den Namen.
      * 
-     * @param _name Dies ist der neue Name.
+     * @param aName Dies ist der neue Name.
      */
     public synchronized void setName(String aName) {
         if (aName == null) {
@@ -176,7 +169,7 @@ public class Altersklasse implements Serializable {
     }
 
     /**
-     * Liefert die entsprechende Disziplin zurueck.
+     * Liefert die entsprechende Disziplin zurück.
      * 
      * @param disz Gibt die Nummer der Disziplin an. Dabei entspricht 0 der ersten
      *             Disziplin.
@@ -240,7 +233,7 @@ public class Altersklasse implements Serializable {
     /**
      * Legt fest, ob eine HLW durchgefuehrt werden muss.
      * 
-     * @param _hlw TRUE wenn eine HLW durchgefuehrt werden soll, sonst FALSE.
+     * @param aHlw TRUE wenn eine HLW durchgefuehrt werden soll, sonst FALSE.
      */
     public void setHLW(boolean aHlw) {
         hlw = aHlw;
@@ -262,7 +255,7 @@ public class Altersklasse implements Serializable {
      * Setzt die Anzahl der Disziplinen neu fest. Die alten Disziplinen werden dabei
      * gel\u00F6scht.
      * 
-     * @param _diszAnzahl Neue Anzahl der Disziplinen.
+     * @param diszAnzahl Neue Anzahl der Disziplinen.
      */
     public void setDiszAnzahl(int diszAnzahl) {
         if (disziplinen == null) {
@@ -614,7 +607,7 @@ public class Altersklasse implements Serializable {
     protected class InterneStartgruppe extends Startgruppe {
 
         public InterneStartgruppe() {
-            super((Altersklasse.this.getName() == null || Altersklasse.this.getName().length() == 0 ? "-"
+            super((Altersklasse.this.getName() == null || Altersklasse.this.getName().isEmpty() ? "-"
                     : Altersklasse.this.getName()));
         }
 

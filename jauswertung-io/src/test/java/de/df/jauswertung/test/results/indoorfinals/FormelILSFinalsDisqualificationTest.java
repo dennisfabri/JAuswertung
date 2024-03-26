@@ -17,15 +17,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
 
+import de.df.jauswertung.daten.laufliste.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Teilnehmer;
-import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLauf;
-import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -109,7 +106,7 @@ public class FormelILSFinalsDisqualificationTest {
 
         wkx.setProperty(HEATS_LANES, 8);
         wkx.setProperty(HEATS_FIRST_HEAT, 1);
-        wkx.setProperty(HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK);
+        wkx.setProperty(HEATS_SORTING_ORDER, Reihenfolge.Regelwerk.getValue());
 
         wkx.setProperty(HEATS_AVOID_ALMOST_EMPTY, true);
         wkx.setProperty(HEATS_AAE_FASTEST_HEAT_UNTOUCHED, true);

@@ -4,11 +4,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLauf;
-import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.util.SearchUtils;
 
 public class HeatsUtils {
@@ -41,7 +37,7 @@ public class HeatsUtils {
             disziplin.laeufe.add(l);
         }
         wk.setProperty(PropertyConstants.HEATS_SORTING_ORDER,
-                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK));
+                wkx.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER, Reihenfolge.Regelwerk.getValue()));
     }
 
 }

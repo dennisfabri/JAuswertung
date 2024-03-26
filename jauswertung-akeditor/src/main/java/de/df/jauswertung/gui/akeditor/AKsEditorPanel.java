@@ -336,14 +336,14 @@ class AKsEditorPanel extends JPanel {
     public void updateStartgroups(String[] sgroups) {
         this.startgroups = sgroups;
         for (AKEditorPanel ake : altersklassen) {
-            ake.updateStartgroups(sgroups);
+            ake.updateStartGroups(sgroups);
         }
     }
 
     public void updateResultgroups(String[] rgroups) {
         this.resultgroups = rgroups;
         for (AKEditorPanel ake : altersklassen) {
-            ake.updateResultgroups(rgroups);
+            ake.updateResultGroups(rgroups);
         }
     }
 

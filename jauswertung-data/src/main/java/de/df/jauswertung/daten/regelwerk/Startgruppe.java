@@ -5,13 +5,14 @@ import java.io.Serializable;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 
 public class Startgruppe implements Serializable {
 
     @XStreamAsAttribute
     private String name = "";
     @XStreamAsAttribute
-    private int laufsortierung = Laufliste.REIHENFOLGE_MELDEZEITEN;
+    private int laufsortierung = Reihenfolge.Meldezeiten.getValue();
     @XStreamAsAttribute
     private boolean laufrotation = true;
 

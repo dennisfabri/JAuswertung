@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Stack;
 
+import de.df.jauswertung.daten.laufliste.*;
 import org.dom4j.Element;
 
 import com.pmease.commons.xmt.VersionedDocument;
@@ -46,11 +47,6 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.HLWListe;
-import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLaufliste;
-import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Einspruch;
@@ -94,7 +90,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         setProperty(ELEKTRONISCHE_ZEITNAHME, false);
         setProperty(HEATS_LANES, 6);
         setProperty(HEATS_MIXED, true);
-        setProperty(HEATS_SORTING_ORDER, Laufliste.REIHENFOLGE_REGELWERK);
+        setProperty(HEATS_SORTING_ORDER, Reihenfolge.Regelwerk.getValue());
         setProperty(HEATS_ROTATE, false);
         setProperty(HEATS_NOT_COMPETING_MIXED, true);
         setProperty(HEATS_EMPTY_LIST, false);

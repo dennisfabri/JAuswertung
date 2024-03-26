@@ -14,7 +14,7 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
@@ -305,8 +305,8 @@ class AKEditorPanel extends JPanel {
         minMembers.setToolTipText(I18n.getToolTip("MinimalMembers"));
         maxMembers.setToolTipText(I18n.getToolTip("MaximalMembers"));
 
-        updateStartgroups(start);
-        updateResultgroups(result);
+        updateStartGroups(start);
+        updateResultGroups(result);
 
         if (ak.getStartgruppe() != null) {
             startgroup.setSelectedItem(ak.getStartgruppe());
@@ -565,20 +565,18 @@ class AKEditorPanel extends JPanel {
     }
 
     void updateLaufrotation() {
-        boolean b = laufsortierung.getSelectedIndex() != Laufliste.REIHENFOLGE_MELDEZEITEN;
+        boolean b = laufsortierung.getSelectedIndex() != Reihenfolge.Meldezeiten.getValue();
         b = b && startgroup.getSelectedIndex() <= 0;
         if (b != laufrotation.isEnabled()) {
             laufrotation.setEnabled(b);
         }
     }
 
-    public void updateStartgroups(String[] startgroups) {
+    public void updateStartGroups(String[] startgroups) {
         String selected = (String) startgroup.getSelectedItem();
         String[] items = new String[startgroups.length + 1];
         items[0] = I18n.get("Item.NoStartgroup");
-        for (int x = 0; x < startgroups.length; x++) {
-            items[x + 1] = startgroups[x];
-        }
+        System.arraycopy(startgroups, 0, items, 1, startgroups.length);
         startgroup.setModel(new DefaultComboBoxModel<>(items));
         try {
             startgroup.setSelectedItem(selected);
@@ -588,12 +586,12 @@ class AKEditorPanel extends JPanel {
         startgroup.setEnabled(items.length > 1);
     }
 
-    public void updateResultgroups(String[] resultgroups) {
+    public void updateResultGroups(String[] resultGroups) {
         String selected = (String) resultgroup.getSelectedItem();
-        String[] items = new String[resultgroups.length + 1];
+        String[] items = new String[resultGroups.length + 1];
         items[0] = I18n.get("Item.NoResultgroup");
-        for (int x = 0; x < resultgroups.length; x++) {
-            items[x + 1] = resultgroups[x];
+        for (int x = 0; x < resultGroups.length; x++) {
+            items[x + 1] = resultGroups[x];
         }
         resultgroup.setModel(new DefaultComboBoxModel<>(items));
         try {

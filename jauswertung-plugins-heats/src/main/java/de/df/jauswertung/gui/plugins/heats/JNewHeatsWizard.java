@@ -18,6 +18,8 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_REGISTERED_POINTS_
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICATIONS;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
+import static de.df.jauswertung.daten.laufliste.Laufeinteilungsmodus.fromValue;
+import static java.util.Arrays.stream;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -27,11 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListCellRenderer;
@@ -63,7 +61,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.Laufeinteilungsmodus;
 import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
@@ -96,8 +96,7 @@ import de.df.jutils.plugin.IFeature;
 import de.df.jutils.util.ArrayUtils;
 import de.df.jutils.util.StringTools;
 
-public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
-        implements FinishListener, CancelListener {
+public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog implements FinishListener, CancelListener {
 
     private static final long serialVersionUID = 3617856365452997169L;
 
@@ -185,9 +184,13 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     private class NumberPage extends WizardComboBoxPage<Integer> {
         public NumberPage(boolean reducedMode) {
-            super(getWizard(), I18n.get("GeneralSettings"), I18n.get("NewHeats.GeneralSettings.Information"),
-                    new String[] { I18n.get("NumberOfLanes"), I18n.get("FirstHeatNumber") }, null, createArrays(),
-                    new int[] { wk.getIntegerProperty(HEATS_LANES) - 1, wk.getIntegerProperty(HEATS_FIRST_HEAT) - 1 });
+            super(getWizard(),
+                  I18n.get("GeneralSettings"),
+                  I18n.get("NewHeats.GeneralSettings.Information"),
+                  new String[]{I18n.get("NumberOfLanes"), I18n.get("FirstHeatNumber")},
+                  null,
+                  createArrays(),
+                  new int[]{wk.getIntegerProperty(HEATS_LANES) - 1, wk.getIntegerProperty(HEATS_FIRST_HEAT) - 1});
             if (reducedMode) {
                 setEnabled(1, false);
             }
@@ -221,7 +224,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             }
         }
 
-        @SuppressWarnings({ "rawtypes" })
+        @SuppressWarnings({"rawtypes"})
         private AWettkampf wkx;
 
         private final JIntegerField[][][] input;
@@ -470,8 +473,8 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         public LanesPage() {
             super(I18n.get("LaneSelection"), I18n.get("LaneSelection.Information"));
             bahnen = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
-            @SuppressWarnings("unchecked")
-            Hashtable<String, boolean[]> s = (Hashtable<String, boolean[]>) wk.getProperty(HEATS_LANE_SELECTION);
+            @SuppressWarnings("unchecked") Hashtable<String, boolean[]> s =
+                    (Hashtable<String, boolean[]>) wk.getProperty(HEATS_LANE_SELECTION);
             selection = new Hashtable<String, boolean[]>();
             if (s != null) {
                 Enumeration<String> e = s.keys();
@@ -595,9 +598,13 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 }
 
                 selections = input.toArray(new Object[input.size()][0]);
-                FormLayoutUtils.createTable(data, I18n.get("AvailableLanes"), titles,
-                        input.toArray(new Object[input.size()][0]), new int[] { SwingConstants.LEFT },
-                        SwingConstants.CENTER, false);
+                FormLayoutUtils.createTable(data,
+                                            I18n.get("AvailableLanes"),
+                                            titles,
+                                            input.toArray(new Object[input.size()][0]),
+                                            new int[]{SwingConstants.LEFT},
+                                            SwingConstants.CENTER,
+                                            false);
 
                 data.setEnabled(data.isEnabled());
             }
@@ -607,8 +614,8 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         public JComponent getPage() {
             if (panel == null) {
                 FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
-                        "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
-                layout.setRowGroups(new int[][] { { 2, 4 } });
+                                                   "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+                layout.setRowGroups(new int[][]{{2, 4}});
                 panel = new JPanel(layout);
 
                 auto = new JRadioButton(I18n.get("UseAllLanes"), true);
@@ -660,9 +667,11 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     private class TypePage extends WizardOptionPage implements PageSwitchListener {
         public TypePage() {
-            super(getWizard(), I18n.get("TypeOfGeneration"), I18n.get("TypeOfGeneration.Information"),
-                    new String[] { I18n.get("Automatic"), I18n.get("EmptyHeatlist") },
-                    (wk.getBooleanProperty(HEATS_EMPTY_LIST) ? 1 : 0));
+            super(getWizard(),
+                  I18n.get("TypeOfGeneration"),
+                  I18n.get("TypeOfGeneration.Information"),
+                  new String[]{I18n.get("Automatic"), I18n.get("EmptyHeatlist")},
+                  (wk.getBooleanProperty(HEATS_EMPTY_LIST) ? 1 : 0));
         }
 
         private void updateButton() {
@@ -693,20 +702,21 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     private static <T extends ASchwimmer> int getSortingIndex(AWettkampf<T> wk) {
         int sorting = wk.getIntegerProperty(HEATS_SORTING_ORDER);
-        if (sorting == Laufliste.REIHENFOLGE_REGELWERK) {
-            sorting = Laufliste.REIHENFOLGE_AMOUNT - 1;
+        if (Reihenfolge.Regelwerk.equalsValue(sorting)) {
+            sorting = Reihenfolge.length() - 1;
         }
         return sorting;
     }
 
     private class SortPage extends WizardOptionPage {
         public SortPage() {
-            super(getWizard(), I18n.get("SortingOfSwimmers"), I18n.get("SortingOfSwimmers.Information"),
-                    new String[] { I18n.get("Randomly"), I18n.get("SameOrganisationSameHeat"),
-                            I18n.get("SameOrganisationDifferentHeats"), I18n.get("SortByAnouncedPoints"),
-                            I18n.get("SortByAnouncedTimes"), I18n.get("RandomlyPerDiscipline"), I18n.get("SortByILS"),
-                            I18n.get("SortByRulebookSettings") },
-                    getSortingIndex(wk));
+            super(getWizard(),
+                  I18n.get("SortingOfSwimmers"),
+                  I18n.get("SortingOfSwimmers.Information"),
+                  stream(Reihenfolge.values()).sorted(Comparator.comparingInt(Reihenfolge::getValue))
+                                              .map(r -> I18n.get("Sorting." + r.name()))
+                                              .toArray(String[]::new),
+                  getSortingIndex(wk));
         }
 
         @Override
@@ -722,22 +732,23 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     private class OptionsPage extends WizardCheckboxPage implements PageSwitchListener {
         public OptionsPage() {
-            super(getWizard(), I18n.get("Options"), I18n.get("Heats.Options.Information"),
-                    new String[] { I18n.get("AvoidAlmostEmptyHeatsAtEndOfAgegroup"),
-                            SPACING + I18n.get("DoNotTouchFastestHeats"), I18n.get("MixedHeats"),
-                            SPACING + I18n.get("MixedHeatsInFront"), SPACING + I18n.get("JoinAlmostEmptyHeats"),
-                            I18n.get("RotateLanes"), I18n.get("NormalAndAKInDifferentHeats"),
-                            I18n.get("RespectQualifications") },
-                    new String[] { I18n.getToolTip("AvoidAlmostEmptyHeatsAtEndOfAgegroup"),
-                            I18n.getToolTip("DoNotTouchFastestHeats"), I18n.getToolTip("MixedHeats"),
-                            I18n.getToolTip("MixedHeatsInFront"), I18n.getToolTip("JoinAlmostEmptyHeats"),
-                            I18n.getToolTip("RotateLanes"), I18n.getToolTip("NormalAndAKInDifferentHeats"),
-                            I18n.getToolTip("RespectQualifications") },
-                    new boolean[] { wk.getBooleanProperty(HEATS_AVOID_ALMOST_EMPTY),
-                            wk.getBooleanProperty(HEATS_AAE_FASTEST_HEAT_UNTOUCHED), wk.getBooleanProperty(HEATS_MIXED),
-                            wk.getBooleanProperty(HEATS_MIXED_IN_FRONT), wk.getBooleanProperty(HEATS_JOIN_HEATS),
-                            wk.getBooleanProperty(HEATS_ROTATE), wk.getBooleanProperty(HEATS_NOT_COMPETING_MIXED),
-                            wk.getBooleanProperty(HEATS_RESPECT_QUALIFICATIONS) });
+            super(getWizard(), I18n.get("Options"), I18n.get("Heats.Options.Information"), new String[]{
+                    I18n.get("AvoidAlmostEmptyHeatsAtEndOfAgegroup"), SPACING + I18n.get("DoNotTouchFastestHeats"),
+                    I18n.get("MixedHeats"), SPACING + I18n.get("MixedHeatsInFront"),
+                    SPACING + I18n.get("JoinAlmostEmptyHeats"), I18n.get("RotateLanes"),
+                    I18n.get("NormalAndAKInDifferentHeats"), I18n.get("RespectQualifications")
+            }, new String[]{
+                    I18n.getToolTip("AvoidAlmostEmptyHeatsAtEndOfAgegroup"), I18n.getToolTip("DoNotTouchFastestHeats"),
+                    I18n.getToolTip("MixedHeats"), I18n.getToolTip("MixedHeatsInFront"),
+                    I18n.getToolTip("JoinAlmostEmptyHeats"), I18n.getToolTip("RotateLanes"),
+                    I18n.getToolTip("NormalAndAKInDifferentHeats"), I18n.getToolTip("RespectQualifications")
+            }, new boolean[]{
+                    wk.getBooleanProperty(HEATS_AVOID_ALMOST_EMPTY),
+                    wk.getBooleanProperty(HEATS_AAE_FASTEST_HEAT_UNTOUCHED), wk.getBooleanProperty(HEATS_MIXED),
+                    wk.getBooleanProperty(HEATS_MIXED_IN_FRONT), wk.getBooleanProperty(HEATS_JOIN_HEATS),
+                    wk.getBooleanProperty(HEATS_ROTATE), wk.getBooleanProperty(HEATS_NOT_COMPETING_MIXED),
+                    wk.getBooleanProperty(HEATS_RESPECT_QUALIFICATIONS)
+            });
             addSelectionListener(e -> {
                 updateEnabled();
             });
@@ -746,11 +757,11 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
         @Override
         public void pageSwitch(boolean forward) {
-            int sortindex = sort.getSelectedIndex();
-            setEnabled(5,
-                    (sortindex != (sort.getItemCount() - 1)) && (sortindex != Laufliste.REIHENFOLGE_MELDEZEITEN)
-                            && (sortindex != Laufliste.REIHENFOLGE_ILS1)
-                            && (sortindex != Laufliste.REIHENFOLGE_ZUFALL_JE_DISZIPLIN));
+            Reihenfolge reihenfolge = Reihenfolge.fromValue(sort.getSelectedIndex());
+            setEnabled(5, switch (reihenfolge) {
+                case Regelwerk, Meldezeiten, ILSPool, ILSPoolVorlauf, ZufallJeDisziplin -> false;
+                default -> true;
+            });
             setEnabled(7, !wk.HasOpenQualifications());
         }
 
@@ -779,9 +790,14 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
     class JMeldepunktePanel extends WizardOptionPage {
 
         public JMeldepunktePanel() {
-            super(getWizard(), I18n.get("AnouncedPoints"), I18n.get("NewHeats.AnouncedPoints.Information"),
-                    getOptions(wk), null, wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0),
-                    I18n.get("Heats.MeldepunkteInfo"), SwingConstants.CENTER);
+            super(getWizard(),
+                  I18n.get("AnouncedPoints"),
+                  I18n.get("NewHeats.AnouncedPoints.Information"),
+                  getOptions(wk),
+                  null,
+                  wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0),
+                  I18n.get("Heats.MeldepunkteInfo"),
+                  SwingConstants.CENTER);
         }
     }
 
@@ -803,8 +819,8 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
         public void initPage() {
             FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
-                    "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
-            layout.setRowGroups(new int[][] { { 2, 4, 6 } });
+                                               "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+            layout.setRowGroups(new int[][]{{2, 4, 6}});
             panel = new JPanel(layout);
 
             auto = new JRadioButton(I18n.get("Automatic"), true);
@@ -835,16 +851,16 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             editor.add(getDescriptionPanel(listblocks, "Info.HeatsByBlocks"), "blocks");
             cards.show(editor, "auto");
 
-            switch (wk.getLaufliste().getLastMode()) {
-            case Laufliste.AUTO:
-                auto.setSelected(true);
-                break;
-            case Laufliste.BLOCKS:
-                blocks.setSelected(true);
-                break;
-            case Laufliste.EINTEILUNG:
-                custom.setSelected(true);
-                break;
+            switch (fromValue(wk.getLaufliste().getLastMode())) {
+                case Auto:
+                    auto.setSelected(true);
+                    break;
+                case Blocks:
+                    blocks.setSelected(true);
+                    break;
+                case Einteilung:
+                    custom.setSelected(true);
+                    break;
             }
 
             panel.add(auto, CC.xy(2, 2));
@@ -869,8 +885,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 private static final long serialVersionUID = -7154403278324249315L;
 
                 @Override
-                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected,
-                        boolean cellHasFocus) {
+                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                     Component c = super.getListCellRendererComponent(liste, value, index, isSelected, cellHasFocus);
                     if (!(value instanceof Laufliste.Einteilung)) {
                         return c;
@@ -887,9 +902,10 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     Laufliste.Einteilung data = (Laufliste.Einteilung) value;
                     Startgruppe sg = wk.getRegelwerk().getEffektiveStartgruppen()[data.getStartgruppe()];
                     Altersklasse ak = wk.getRegelwerk().getAKsForStartgroup(sg).getFirst();
-                    l.setText(I18n.get("AgegroupSexDiscipline", sg.getName(),
-                            I18n.geschlechtToShortString(wk.getRegelwerk(), data.isMaennlich()),
-                            ak.getDisziplin(data.getDisziplin(), true)));
+                    l.setText(I18n.get("AgegroupSexDiscipline",
+                                       sg.getName(),
+                                       I18n.geschlechtToShortString(wk.getRegelwerk(), data.isMaennlich()),
+                                       ak.getDisziplin(data.getDisziplin(), true)));
                     return l;
                 }
             });
@@ -905,8 +921,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 private static final long serialVersionUID = -7154403278324249315L;
 
                 @Override
-                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected,
-                        boolean cellHasFocus) {
+                public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                     Component c = super.getListCellRendererComponent(liste, value, index, isSelected, cellHasFocus);
                     if (!(value instanceof Laufliste.BlockEinteilung)) {
                         return c;
@@ -925,8 +940,9 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                         l.setText("--- Blockwechsel ---");
                     } else {
                         Startgruppe sg = wk.getRegelwerk().getEffektiveStartgruppen()[data.getStartgruppe()];
-                        l.setText(I18n.get("AgeGroupSex", sg.getName(),
-                                I18n.geschlechtToString(wk.getRegelwerk(), data.isMaennlich())));
+                        l.setText(I18n.get("AgeGroupSex",
+                                           sg.getName(),
+                                           I18n.geschlechtToString(wk.getRegelwerk(), data.isMaennlich())));
                     }
                     return l;
                 }
@@ -944,15 +960,13 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
             public BlocksPopup() {
                 add.addActionListener(e -> {
-                    @SuppressWarnings("unchecked")
-                    ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
-                            .getModel();
+                    @SuppressWarnings("unchecked") ModifiableListModel<Laufliste.BlockEinteilung> model =
+                            (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks.getModel();
                     model.add(new Laufliste.BlockEinteilung(-1, false), listblocks.getSelectedIndex());
                 });
                 del.addActionListener(e -> {
-                    @SuppressWarnings("unchecked")
-                    ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
-                            .getModel();
+                    @SuppressWarnings("unchecked") ModifiableListModel<Laufliste.BlockEinteilung> model =
+                            (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks.getModel();
                     model.remove(listblocks.getSelectedIndex());
                 });
 
@@ -1062,36 +1076,24 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 try {
                     long eventtype = 0;
                     switch (aksort.getSelection()) {
-                    default:
-                    case AKSortPage.AUTO: {
-                        wk.getLaufliste().erzeugen();
-                        eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
-                        break;
-                    }
-                    case AKSortPage.BLOCKS: {
-                        boolean reordered = wk.getLaufliste().erzeugen(aksort.getBlocks());
-                        eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                | (reordered
-                                        ? UpdateEventConstants.REASON_AKS_CHANGED
-                                                | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED
-                                                | UpdateEventConstants.REASON_PENALTY
-                                                | UpdateEventConstants.REASON_POINTS_CHANGED
-                                                | UpdateEventConstants.REASON_SWIMMER_CHANGED
-                                        : UpdateEventConstants.NOTHING);
-                        break;
-                    }
-                    case AKSortPage.DETAILED: {
-                        boolean reordered = wk.getLaufliste().erzeugen(aksort.getReihenfolge());
-                        eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                | (reordered
-                                        ? UpdateEventConstants.REASON_AKS_CHANGED
-                                                | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED
-                                                | UpdateEventConstants.REASON_PENALTY
-                                                | UpdateEventConstants.REASON_POINTS_CHANGED
-                                                | UpdateEventConstants.REASON_SWIMMER_CHANGED
-                                        : UpdateEventConstants.NOTHING);
-                        break;
-                    }
+                        default:
+                        case AKSortPage.AUTO: {
+                            wk.getLaufliste().erzeugen();
+                            eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
+                            break;
+                        }
+                        case AKSortPage.BLOCKS: {
+                            boolean reordered = wk.getLaufliste().erzeugen(aksort.getBlocks());
+                            eventtype =
+                                    UpdateEventConstants.REASON_LAUF_LIST_CHANGED | (reordered ? UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED : UpdateEventConstants.NOTHING);
+                            break;
+                        }
+                        case AKSortPage.DETAILED: {
+                            boolean reordered = wk.getLaufliste().erzeugen(aksort.getReihenfolge());
+                            eventtype =
+                                    UpdateEventConstants.REASON_LAUF_LIST_CHANGED | (reordered ? UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_SWIMMER_CHANGED : UpdateEventConstants.NOTHING);
+                            break;
+                        }
                     }
                     origin.sendDataUpdateEvent("NewHeatlist", eventtype);
                 } catch (Exception e) {
@@ -1115,7 +1117,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         wk.setProperty(HEATS_FIRST_HEAT, numbers.getSelectedItem(1));
         int sorting = sort.getSelectedIndex();
         if (sorting + 1 == sort.getItemCount()) {
-            sorting = Laufliste.REIHENFOLGE_REGELWERK;
+            sorting = Reihenfolge.Regelwerk.getValue();
         }
         wk.setProperty(HEATS_SORTING_ORDER, sorting);
 

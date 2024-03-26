@@ -77,8 +77,8 @@ public class OWLauf<T extends ASchwimmer> implements Serializable {
         return scw;
     }
 
-    public T getSchwimmer(int y) {
-        return schwimmer[y];
+    public T getSchwimmer(int index) {
+        return schwimmer[index];
     }
 
     public int getLaufnummer() {
