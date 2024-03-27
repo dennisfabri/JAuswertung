@@ -26,6 +26,7 @@ import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 
+import static de.df.jauswertung.daten.laufliste.Reihenfolge.fromValue;
 import static java.util.Arrays.stream;
 
 class AKEditorPanel extends JPanel {
@@ -39,9 +40,9 @@ class AKEditorPanel extends JPanel {
     private JCheckBox strafeIstDisqualifikation;
     private JComboBox<String> laufsortierung;
     private JCheckBox laufrotation;
-    private JIntSpinner mindisz;
-    private JIntSpinner useddisz;
-    private JIntSpinner maxdisz;
+    private JIntSpinner minDisz;
+    private JIntSpinner usedDisz;
+    private JIntSpinner naxDisz;
 
     private JComboBox<String> resultgroup;
     private JComboBox<String> startgroup;
@@ -64,7 +65,7 @@ class AKEditorPanel extends JPanel {
     private int index;
 
     public AKEditorPanel(AKsEditorPanel parent, Altersklasse newAk, boolean einzel, int index, String[] start,
-                         String[] result) {
+            String[] result) {
         this.parent = parent;
         this.ak = newAk;
         this.einzel = einzel;
@@ -132,13 +133,13 @@ class AKEditorPanel extends JPanel {
             return true;
         }
         if (choiceAllowed.isSelected()) {
-            if (mindisz.getInt() != ak.getMinimalChosenDisciplines()) {
+            if (minDisz.getInt() != ak.getMinimalChosenDisciplines()) {
                 return true;
             }
-            if (useddisz.getInt() != ak.getUsedDisciplines()) {
+            if (usedDisz.getInt() != ak.getUsedDisciplines()) {
                 return true;
             }
-            if (maxdisz.getInt() != ak.getMaximalChosenDisciplines()) {
+            if (naxDisz.getInt() != ak.getMaximalChosenDisciplines()) {
                 return true;
             }
         }
@@ -212,12 +213,12 @@ class AKEditorPanel extends JPanel {
         strafeIstDisqualifikation.setSelected(ak.isStrafeIstDisqualifikation());
 
         choiceAllowed.setSelected(ak.isDisciplineChoiceAllowed());
-        mindisz = new JIntSpinner(ak.getMinimalChosenDisciplines(), 1, ak.getDiszAnzahl(), 1);
-        useddisz = new JIntSpinner(ak.getUsedDisciplines(), 1, ak.getDiszAnzahl(), 1);
-        maxdisz = new JIntSpinner(ak.getMaximalChosenDisciplines(), 1, ak.getDiszAnzahl(), 1);
-        mindisz.setEnabled(ak.isDisciplineChoiceAllowed());
-        useddisz.setEnabled(ak.isDisciplineChoiceAllowed());
-        maxdisz.setEnabled(ak.isDisciplineChoiceAllowed());
+        minDisz = new JIntSpinner(ak.getMinimalChosenDisciplines(), 1, ak.getDiszAnzahl(), 1);
+        usedDisz = new JIntSpinner(ak.getUsedDisciplines(), 1, ak.getDiszAnzahl(), 1);
+        naxDisz = new JIntSpinner(ak.getMaximalChosenDisciplines(), 1, ak.getDiszAnzahl(), 1);
+        minDisz.setEnabled(ak.isDisciplineChoiceAllowed());
+        usedDisz.setEnabled(ak.isDisciplineChoiceAllowed());
+        naxDisz.setEnabled(ak.isDisciplineChoiceAllowed());
 
         minMembers = new JIntSpinner(ak.getMinMembers(), 1, 32, 1);
         maxMembers = new JIntSpinner(ak.getMaxMembers(), 1, 32, 1);
@@ -241,10 +242,9 @@ class AKEditorPanel extends JPanel {
 
         laufsortierung = new JComboBox<>(
                 stream(Reihenfolge.values()).sorted(Comparator.comparing(Reihenfolge::getValue))
-                                            .filter(r -> r != Reihenfolge.Regelwerk)
-                                            .map(r -> I18n.get("Sorting." + r.name()))
-                                            .toArray(String[]::new)
-        );
+                        .filter(r -> r != Reihenfolge.Regelwerk)
+                        .map(r -> I18n.get("Sorting." + r.name()))
+                        .toArray(String[]::new));
         laufsortierung.setSelectedIndex(Math.max(0, ak.getLaufsortierung()));
 
         laufrotation = new JCheckBox();
@@ -280,7 +280,7 @@ class AKEditorPanel extends JPanel {
             return minAlter.getInt() <= value;
         });
         minAlterInSumme.setValidator((Validator) value -> (maxAlterInSumme.getInt() <= 0) || (value <= 0)
-                                                          || maxAlterInSumme.getInt() >= value);
+                || maxAlterInSumme.getInt() >= value);
         maxAlterInSumme.setValidator((Validator) value -> {
             if ((minAlterInSumme.getInt() <= 0) || (value <= 0)) {
                 return true;
@@ -292,9 +292,9 @@ class AKEditorPanel extends JPanel {
         zw.setToolTipText(I18n.getToolTip("TeilnahmeAnZW"));
         gesamt.setToolTipText(I18n.getToolTip("TeilnahmeAnGesamtwertung"));
         choiceAllowed.setToolTipText(I18n.getToolTip("DisziplinenauswahlErlauben"));
-        mindisz.setToolTipText(I18n.getToolTip("MinimaleAnzahlDisziplinen"));
-        useddisz.setToolTipText(I18n.getToolTip("BenutzteAnzahlDisziplinen"));
-        maxdisz.setToolTipText(I18n.getToolTip("MaximaleAnzahlDisziplinen"));
+        minDisz.setToolTipText(I18n.getToolTip("MinimaleAnzahlDisziplinen"));
+        usedDisz.setToolTipText(I18n.getToolTip("BenutzteAnzahlDisziplinen"));
+        naxDisz.setToolTipText(I18n.getToolTip("MaximaleAnzahlDisziplinen"));
         mehrkampf.setToolTipText(I18n.getToolTip("Mehrkampf"));
         einzelwertung.setToolTipText(I18n.getToolTip("WertungDerEinzeldisziplinen"));
         einzelwertungZw.setToolTipText(I18n.getToolTip("WertungDerEinzeldisziplinenErfordertZW"));
@@ -331,15 +331,15 @@ class AKEditorPanel extends JPanel {
             updateDiszChoice();
             notifyChange();
         });
-        mindisz.addChangeListener(e -> {
+        minDisz.addChangeListener(e -> {
             updateMinDiszChoice();
             notifyChange();
         });
-        useddisz.addChangeListener(e -> {
+        usedDisz.addChangeListener(e -> {
             updateUsedDiszChoice();
             notifyChange();
         });
-        maxdisz.addChangeListener(e -> {
+        naxDisz.addChangeListener(e -> {
             updateMaxDiszChoice();
             notifyChange();
         });
@@ -432,9 +432,9 @@ class AKEditorPanel extends JPanel {
 
         right.addSeparator(I18n.get("DisciplineChoice"));
         right.add(I18n.get("AllowChoiceOfDisciplines"), choiceAllowed);
-        right.add(I18n.get("MinimalDisciplines"), mindisz);
-        right.add(I18n.get("UsedDisciplines"), useddisz);
-        right.add(I18n.get("MaximalDisciplines"), maxdisz);
+        right.add(I18n.get("MinimalDisciplines"), minDisz);
+        right.add(I18n.get("UsedDisciplines"), usedDisz);
+        right.add(I18n.get("MaximalDisciplines"), naxDisz);
 
         right.addSeparator(I18n.get("Heatarrangement"));
         right.add(I18n.get("Startgroup"), startgroup);
@@ -448,8 +448,8 @@ class AKEditorPanel extends JPanel {
         }
 
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,10dlu,fill:default:grow,4dlu",
-                                           "4dlu,fill:default,4dlu,fill:default,4dlu");
-        layout.setColumnGroups(new int[][]{{2, 4}});
+                "4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout.setColumnGroups(new int[][] { { 2, 4 } });
 
         allgemein.setLayout(layout);
 
@@ -467,7 +467,7 @@ class AKEditorPanel extends JPanel {
 
     boolean checkAgeInSum() {
         return minAlterInSumme.getInt() <= 0 || maxAlterInSumme.getInt() <= 0
-               || minAlterInSumme.getInt() <= maxAlterInSumme.getInt();
+                || minAlterInSumme.getInt() <= maxAlterInSumme.getInt();
     }
 
     public Altersklasse getAK() {
@@ -487,7 +487,7 @@ class AKEditorPanel extends JPanel {
         }
         nak.setDisciplineChoiceAllowed(choiceAllowed.isSelected());
         if (choiceAllowed.isSelected()) {
-            nak.setChosenDisciplines(mindisz.getInt(), useddisz.getInt(), maxdisz.getInt());
+            nak.setChosenDisciplines(minDisz.getInt(), usedDisz.getInt(), naxDisz.getInt());
         } else {
             nak.setChosenDisciplines(disciplines.length, disciplines.length, disciplines.length);
         }
@@ -496,7 +496,7 @@ class AKEditorPanel extends JPanel {
         nak.setEinzelwertungHlw(einzelwertungZw.isSelected());
         nak.setStrafeIstDisqualifikation(strafeIstDisqualifikation.isSelected());
         nak.setLaufsortierung(laufsortierung.getSelectedIndex());
-        nak.setLaufrotation(laufrotation.isSelected());
+        nak.setLaufrotation(laufrotation.isSelected() && laufrotation.isEnabled());
 
         nak.setMaximumAlter(maxAlter.getInt());
         nak.setMinimumAlter(minAlter.getInt());
@@ -521,39 +521,39 @@ class AKEditorPanel extends JPanel {
 
     void updateDiszChoice() {
         boolean b = choiceAllowed.isSelected();
-        mindisz.setEnabled(b);
-        useddisz.setEnabled(b);
-        maxdisz.setEnabled(b);
+        minDisz.setEnabled(b);
+        usedDisz.setEnabled(b);
+        naxDisz.setEnabled(b);
     }
 
     void updateMinDiszChoice() {
-        int i = mindisz.getInt();
-        if (i > useddisz.getInt()) {
-            useddisz.setInt(i);
+        int i = minDisz.getInt();
+        if (i > usedDisz.getInt()) {
+            usedDisz.setInt(i);
         }
     }
 
     void updateUsedDiszChoice() {
-        int i = useddisz.getInt();
-        if (i > maxdisz.getInt()) {
-            maxdisz.setInt(i);
+        int i = usedDisz.getInt();
+        if (i > naxDisz.getInt()) {
+            naxDisz.setInt(i);
         }
-        if (i < mindisz.getInt()) {
-            mindisz.setInt(i);
+        if (i < minDisz.getInt()) {
+            minDisz.setInt(i);
         }
     }
 
     void updateMaxDiszChoice() {
-        int i = maxdisz.getInt();
-        if (i < useddisz.getInt()) {
-            useddisz.setInt(i);
+        int i = naxDisz.getInt();
+        if (i < usedDisz.getInt()) {
+            usedDisz.setInt(i);
         }
     }
 
     void setDisciplineCount(int count) {
-        mindisz.setMaximum(count);
-        useddisz.setMaximum(count);
-        maxdisz.setMaximum(count);
+        minDisz.setMaximum(count);
+        usedDisz.setMaximum(count);
+        naxDisz.setMaximum(count);
     }
 
     void updateEinzelwertung() {
@@ -569,11 +569,9 @@ class AKEditorPanel extends JPanel {
     }
 
     void updateLaufrotation() {
-        boolean b = laufsortierung.getSelectedIndex() != Reihenfolge.Meldezeiten.getValue();
+        boolean b = fromValue(laufsortierung.getSelectedIndex()).isRotatable();
         b = b && startgroup.getSelectedIndex() <= 0;
-        if (b != laufrotation.isEnabled()) {
-            laufrotation.setEnabled(b);
-        }
+        laufrotation.setEnabled(b);
     }
 
     public void updateStartGroups(String[] startgroups) {

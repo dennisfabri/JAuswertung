@@ -13,6 +13,7 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_REGISTERED_POINTS_
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICATIONS;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
+import static java.util.Arrays.stream;
 import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
@@ -78,6 +79,7 @@ public class FormelILSFinalsTest {
     private void erstelleWettkampf() {
         wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/International - Pool.rwe"),
                 InputManager.ladeStrafen("src/test/resources/rulebooks/International - Pool", true));
+        stream(wk.getRegelwerk().getAks()).forEach(ak -> ak.setLaufsortierung(Reihenfolge.ILSPool.getValue()));
     }
 
     private static void schwimmerHinzufuegen(EinzelWettkampf wk) {

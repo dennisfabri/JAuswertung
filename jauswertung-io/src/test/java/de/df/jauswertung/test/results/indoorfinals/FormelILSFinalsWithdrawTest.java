@@ -1,29 +1,20 @@
 package de.df.jauswertung.test.results.indoorfinals;
 
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_AAE_FASTEST_HEAT_UNTOUCHED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_AVOID_ALMOST_EMPTY;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_EMPTY_LIST;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_FIRST_HEAT;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_JOIN_HEATS;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_MIXED_IN_FRONT;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_NOT_COMPETING_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_REGISTERED_POINTS_INDEX;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICATIONS;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
-import static org.junit.Assert.assertEquals;
+import static de.df.jauswertung.daten.PropertyConstants.*;
+import static java.util.Arrays.stream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.laufliste.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWLauf;
+import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.JResultTable;
@@ -84,6 +75,7 @@ public class FormelILSFinalsWithdrawTest {
     private void erstelleWettkampf() {
         wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/International - Pool.rwe"),
                 InputManager.ladeStrafen("src/test/resources/rulebooks/International - Pool", true));
+        stream(wk.getRegelwerk().getAks()).forEach(ak -> ak.setLaufsortierung(Reihenfolge.ILSPool.getValue()));
     }
 
     private static void schwimmerHinzufuegen(EinzelWettkampf wk) {
@@ -297,7 +289,6 @@ public class FormelILSFinalsWithdrawTest {
     }
 
     @Test
-    @Disabled
     void ergebnisVorlauf() {
         assertEquals(AnzahlSchwimmer, ExpectedQualificationResult.length);
 
@@ -305,8 +296,8 @@ public class FormelILSFinalsWithdrawTest {
 
         for (int x = 0; x < AnzahlSchwimmer; x++) {
             assertEquals(String.format("Teilnehmer, %d", x + 1), ergebnisVorlauf.getResult(x).getSchwimmer().getName());
-            assertEquals(String.format("Index %d", x), ExpectedQualificationResult[x],
-                    ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount() - 1));
+            assertEquals(ExpectedQualificationResult[x],
+                    ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount() - 1), String.format("Index %d", x));
         }
         Strafe actual = ergebnisVorlauf.getResult(8).getSchwimmer().getAkkumulierteStrafe(0);
         assertEquals(Strafe.WITHDRAW.getArt(), actual.getArt());

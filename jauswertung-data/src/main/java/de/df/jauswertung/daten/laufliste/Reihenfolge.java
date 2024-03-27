@@ -6,15 +6,18 @@ import static java.util.Arrays.stream;
 
 @Getter
 public enum Reihenfolge {
-    Zufall(0), GleicheGliederungGegeneinander(1),
-    GleicheGliederungVerteilen(2),
-    Meldepunkte(3), Meldezeiten(4), ZufallJeDisziplin(5),
-    ILSPool(6), ILSPoolVorlauf(7), Regelwerk(99);
+    Zufall(0, true), GleicheGliederungGegeneinander(1, true),
+    GleicheGliederungVerteilen(2, true),
+    Meldepunkte(3, true), Meldezeiten(4, false), ZufallJeDisziplin(5, false),
+    ILSPool(6, false), ILSPoolVorlauf(7, false), ILSOpenWater(8, false), ILSOpenWaterVorlauf(9, false),
+    Regelwerk(99, true);
 
     private final int value;
+    private final boolean rotatable;
 
-    Reihenfolge(int v) {
+    Reihenfolge(int v, boolean rotatable) {
         value = v;
+        this.rotatable = rotatable;
     }
 
     public static int length() {

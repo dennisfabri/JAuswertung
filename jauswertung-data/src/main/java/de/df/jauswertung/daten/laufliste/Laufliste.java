@@ -1,18 +1,9 @@
 package de.df.jauswertung.daten.laufliste;
 
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_AAE_FASTEST_HEAT_UNTOUCHED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_AVOID_ALMOST_EMPTY;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_EMPTY_LIST;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_FIRST_HEAT;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_MIXED_IN_FRONT;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_NOT_COMPETING_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICATIONS;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
-import static java.util.Arrays.stream;
+import static de.df.jauswertung.daten.PropertyConstants.*;
+import static de.df.jauswertung.daten.laufliste.Reihenfolge.fromValue;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
@@ -38,12 +29,13 @@ import de.df.jauswertung.util.ergebnis.FormelILSOutdoorFinals;
  */
 public class Laufliste<T extends ASchwimmer> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2268666080913175340L;
 
     private final AWettkampf<T> wk;
-    private LinkedList<Lauf<T>> laufliste = null;
+    private LinkedList<Lauf<T>> laufliste;
 
-    private Einteilung[] verteilung = null;
+    private Einteilung[] verteilung;
     private BlockEinteilung[] blocks = null;
 
     private static final Random random = RandomUtils.getRandomNumberGenerator();
@@ -128,10 +120,9 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         @Override
         public boolean equals(Object obj) {
-            if (!(obj instanceof Einteilung)) {
+            if (!(obj instanceof Einteilung cmp)) {
                 return false;
             }
-            Einteilung cmp = (Einteilung) obj;
             if (startgroup != cmp.startgroup) {
                 return false;
             }
@@ -395,8 +386,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 for (int y = 0; y < anzahl; y++) {
                     for (int z = 0; z < 2; z++) {
                         int index = getSGIndex(sgs, y, z == 1);
-                        if ((index >= 0) && SearchUtils.hasSchwimmer(wk, startgruppen[index])
-                            && (diszArray[y] == mindisz + 1)) {
+                        if ((index >= 0) && SearchUtils.hasSchwimmer(wk,
+                                startgruppen[index]) && (diszArray[y] == mindisz + 1)) {
                             temp.addLast(new Einteilung(index, z == 1, x));
                         }
                     }
@@ -703,7 +694,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
         boolean respectQualifications = wk.getBooleanProperty(HEATS_RESPECT_QUALIFICATIONS)
-                                        && !wk.HasOpenQualifications();
+                && !wk.HasOpenQualifications();
 
         Hashtable<String, boolean[]> laneSelection = (Hashtable<String, boolean[]>) wk
                 .getProperty(PropertyConstants.HEATS_LANE_SELECTION);
@@ -728,8 +719,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         boolean rotieren = wk.getBooleanProperty(HEATS_ROTATE);
-        boolean rotierenJeAK =
-                wk.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER) == Reihenfolge.Regelwerk.getValue();
+        boolean rotierenJeAK = wk.getIntegerProperty(PropertyConstants.HEATS_SORTING_ORDER) == Reihenfolge.Regelwerk
+                .getValue();
 
         // Schwimmer auf die Läufe verteilen
         LinkedList<Lauf<T>>[][][] laeufe = new LinkedList[startgruppen.length][3][0];
@@ -750,16 +741,17 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 nachsortieren(wk, schwimmer[sg][0], startgruppen[sg], disz, dsmmode);
                 nachsortieren(wk, schwimmer[sg][1], startgruppen[sg], disz, dsmmode);
                 LinkedList<Lauf<T>>[] result = startgruppeVerteilen(wk,
-                                                                    disz,
-                                                                    akx.getDiszAnzahl(),
-                                                                    schwimmer[sg],
-                                                                    bahnen,
-                                                                    r,
-                                                                    getSelection(bahnen,
-                                                                                 laneSelection,
-                                                                                 akx.getDisziplin(disz, true)
-                                                                                    .getName()),
-                                                                    isFinal());
+                        disz,
+                        akx.getDiszAnzahl(),
+                        startgruppen[sg],
+                        schwimmer[sg],
+                        bahnen,
+                        r,
+                        getSelection(bahnen,
+                                laneSelection,
+                                akx.getDisziplin(disz, true)
+                                        .getName()),
+                        isFinal());
                 if (result != null) {
                     laeufe[sg][0][disz] = result[0];
                     laeufe[sg][1][disz] = result[1];
@@ -783,9 +775,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             LinkedList<Altersklasse> aks = wk.getRegelwerk().getAKsForStartgroup(startgruppen[sg]);
             Altersklasse ak = aks.getFirst();
 
-            assert sg >= 0;
             assert disz >= 0;
-            assert sg < startgruppen.length;
             assert disz < ak.getDiszAnzahl();
 
             if (mixedinfront) {
@@ -835,7 +825,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return false;
         }
         Object o = wk.getProperty(PropertyConstants.DSM_MODE_DATA);
-        if ((o == null) || !(o instanceof int[][][])) {
+        if ((o == null) || !(o instanceof int[][][] movements)) {
             return false;
         }
 
@@ -863,7 +853,6 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         Startgruppe[] startgruppen = wk.getRegelwerk().getEffektiveStartgruppen();
 
-        int[][][] movements = (int[][][]) o;
         LinkedList<T>[][] schwimmer = new LinkedList[startgruppen.length][2];
         for (int sg = 0; sg < schwimmer.length; sg++) {
             schwimmer[sg][0] = SearchUtils.getSchwimmer(wk, startgruppen[sg], false);
@@ -912,52 +901,51 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     private static <T extends ASchwimmer> void vorsortieren(AWettkampf<T> wk, LinkedList<T> schwimmer, Startgruppe sg,
-                                                            boolean dsmmode) {
-        Reihenfolge sort = Reihenfolge.fromValue(wk.getIntegerProperty(HEATS_SORTING_ORDER));
+            boolean dsmmode) {
+        Reihenfolge sort = fromValue(wk.getIntegerProperty(HEATS_SORTING_ORDER));
         if (wk.getIntegerProperty(HEATS_SORTING_ORDER) == Reihenfolge.Regelwerk.getValue()) {
-            sort = Reihenfolge.fromValue(sg.getLaufsortierung());
+            sort = fromValue(sg.getLaufsortierung());
         }
         vorsortieren(sort, wk, schwimmer, dsmmode);
     }
 
     private static <T extends ASchwimmer> void vorsortieren(Reihenfolge sort, AWettkampf<T> wk, LinkedList<T> schwimmer,
-                                                            boolean dsmmode) {
+            boolean dsmmode) {
         switch (sort) {
-            case ZufallJeDisziplin:
-            case Meldezeiten:
-            case ILSPool:
-            case ILSPoolVorlauf:
-                seed = random.nextLong();
-                break;
-            default:
-                break;
+        case ZufallJeDisziplin, Meldezeiten, ILSPool, ILSPoolVorlauf, ILSOpenWater, ILSOpenWaterVorlauf:
+            seed = random.nextLong();
+            break;
+        default:
+            break;
         }
         Collections.shuffle(schwimmer, RandomUtils.getRandomNumberGenerator(seed));
         switch (sort) {
-            case GleicheGliederungVerteilen:
-                try {
-                    vorsortierenVerteilt(wk, schwimmer);
-                } catch (RuntimeException re) {
-                    re.printStackTrace();
-                }
-                break;
-            case GleicheGliederungGegeneinander:
-                schwimmer.sort(Comparator.comparing(ASchwimmer::getGliederung));
-                break;
-            case Meldepunkte:
-                Comparator<ASchwimmer> comparator2 = new Meldesorter(
-                        wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0));
-                schwimmer.sort(comparator2);
-                break;
-            case Meldezeiten:
-            case ILSPool:
-            case ILSPoolVorlauf:
-                // Vorsortierung zufällig. So dass bei fehlenden Zeiten der Zufall
-                // entscheidet
-            case ZufallJeDisziplin:
-            case Zufall:
-            default:
-                break;
+        case GleicheGliederungVerteilen:
+            try {
+                vorsortierenVerteilt(wk, schwimmer);
+            } catch (RuntimeException re) {
+                re.printStackTrace();
+            }
+            break;
+        case GleicheGliederungGegeneinander:
+            schwimmer.sort(Comparator.comparing(ASchwimmer::getGliederung));
+            break;
+        case Meldepunkte:
+            Comparator<ASchwimmer> comparator2 = new Meldesorter(
+                    wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0));
+            schwimmer.sort(comparator2);
+            break;
+        case Meldezeiten:
+        case ILSPool:
+        case ILSPoolVorlauf:
+        case ILSOpenWater:
+        case ILSOpenWaterVorlauf:
+            // Vorsortierung zufällig. So dass bei fehlenden Zeiten der Zufall
+            // entscheidet
+        case ZufallJeDisziplin:
+        case Zufall:
+        default:
+            break;
         }
 
         // Normale und Schwimmer "außer Konkurrenz" trennen?
@@ -1059,20 +1047,20 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     private static <T extends ASchwimmer> void nachsortieren(AWettkampf<T> wk, LinkedList<T> schwimmer, Startgruppe sg,
-                                                             int disziplin, boolean dsmmode) {
-        Reihenfolge sort = Reihenfolge.fromValue(wk.getIntegerProperty(HEATS_SORTING_ORDER));
+            int disziplin, boolean dsmmode) {
+        Reihenfolge sort = fromValue(wk.getIntegerProperty(HEATS_SORTING_ORDER));
         if (sort == Reihenfolge.Regelwerk) {
-            sort = Reihenfolge.fromValue(sg.getLaufsortierung());
+            sort = fromValue(sg.getLaufsortierung());
         }
         switch (sort) {
-            default:
-                break;
-            case Meldezeiten:
-            case ILSPool:
-            case ILSPoolVorlauf:
-                Comparator<ASchwimmer> comparator = new MeldezeitenComparator(disziplin);
-                schwimmer.sort(comparator);
-                break;
+        default:
+            break;
+        case Meldezeiten:
+        case ILSPool:
+        case ILSPoolVorlauf:
+            Comparator<ASchwimmer> comparator = new MeldezeitenComparator(disziplin);
+            schwimmer.sort(comparator);
+            break;
         }
 
         // Normale und Schwimmer "außer Konkurrenz" trennen?
@@ -1088,22 +1076,17 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     @SuppressWarnings("unchecked")
     private static <T extends ASchwimmer> LinkedList<Lauf<T>>[] startgruppeVerteilen(AWettkampf<T> wk, int disziplin,
-                                                                                     int disziplinAnzahl, LinkedList<T>[] schwimmer, int bahnen, boolean rotieren, boolean[] laneSelection,
-                                                                                     boolean isFinal) {
-        LinkedList<Lauf<T>>[] result = new LinkedList[]{
-                new LinkedList<Lauf<T>>(), new LinkedList<Lauf<T>>(),
-                new LinkedList<Lauf<T>>()
+            int disziplinAnzahl, Startgruppe sg, LinkedList<T>[] schwimmer, int bahnen, boolean rotieren,
+            boolean[] laneSelection,
+            boolean isFinal) {
+        LinkedList<Lauf<T>>[] result = new LinkedList[] {
+                new LinkedList<Lauf<T>>(), new LinkedList<Lauf<T>>(), new LinkedList<Lauf<T>>()
         };
 
         if (schwimmer[0].isEmpty() && schwimmer[1].isEmpty()) {
             return result;
         }
-        T s = null;
-        if (schwimmer[0].isEmpty()) {
-            s = schwimmer[1].getFirst();
-        } else {
-            s = schwimmer[0].getFirst();
-        }
+        T s = schwimmer[0].isEmpty() ? schwimmer[1].getFirst() : schwimmer[0].getFirst();
 
         // Bei Disziplinenwahl nicht beteiligte Schwimmer entfernen
         if (s.getAK().isDisciplineChoiceAllowed()) {
@@ -1123,9 +1106,38 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             schwimmer = schwimmer2;
         }
 
-        // Duerfen Laeufe gemischt werden?
-        if (wk.getBooleanProperty(HEATS_MIXED)) {
-            // Wenn ja: ÜBerprüfung, ob sich das Zusammenlegen lohnt
+        Reihenfolge reihenfolge = fromValue(wk.getIntegerProperty(HEATS_SORTING_ORDER));
+        if (reihenfolge == Reihenfolge.Regelwerk) {
+            reihenfolge = fromValue(sg.getLaufsortierung());
+        }
+        if (!isFinal) {
+            if (reihenfolge == Reihenfolge.ILSPool) {
+                reihenfolge = Reihenfolge.ILSPoolVorlauf;
+            }
+            if (reihenfolge == Reihenfolge.ILSOpenWater) {
+                reihenfolge = Reihenfolge.ILSOpenWaterVorlauf;
+            }
+        }
+
+        Reihenfolge reihenfolgeFinal = switch (reihenfolge) {
+        case Regelwerk -> Reihenfolge.Regelwerk;
+        case Zufall -> Reihenfolge.Zufall;
+        case GleicheGliederungGegeneinander -> Reihenfolge.GleicheGliederungGegeneinander;
+        case GleicheGliederungVerteilen -> Reihenfolge.GleicheGliederungVerteilen;
+        case Meldepunkte -> Reihenfolge.Meldepunkte;
+        case Meldezeiten, ILSPool, ILSOpenWater -> Reihenfolge.Meldezeiten;
+        case ILSPoolVorlauf -> Reihenfolge.ILSPoolVorlauf;
+        case ILSOpenWaterVorlauf -> Reihenfolge.ILSOpenWaterVorlauf;
+        case ZufallJeDisziplin -> Reihenfolge.ZufallJeDisziplin;
+        };
+
+        rotieren = rotieren && reihenfolge.isRotatable();
+
+        boolean mixedHeats = wk.getBooleanProperty(HEATS_MIXED);
+
+        // Dürfen Läufe gemischt werden?
+        if (mixedHeats) {
+            // Wenn ja: Überprüfung, ob sich das Zusammenlegen lohnt
             int b = getBahnen(laneSelection, bahnen);
             int s1 = schwimmer[0].size() % b;
             int s2 = schwimmer[1].size() % b;
@@ -1146,13 +1158,29 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 }
 
                 // 1.
-                // Restliche Teilnehmer erst einzeln einsortieren
-                // Anschließend Läufe zusammenfassen
-                // => Bessere Verteilung auf die Bahnen
-                startgruppeVerteilen(wk, result[2], disziplin, disziplinAnzahl, rest1, bahnen, rotieren, laneSelection,
-                                     isFinal);
-                startgruppeVerteilen(wk, result[2], disziplin, disziplinAnzahl, rest2, bahnen, rotieren, laneSelection,
-                                     isFinal);
+                // Restliche Teilnehmer erst einzeln einsortieren,
+                // anschließend Läufe zusammenfassen
+                // -> Bessere Verteilung auf die Bahnen
+                startgruppeVerteilen(wk,
+                        result[2],
+                        disziplin,
+                        disziplinAnzahl,
+                        reihenfolgeFinal,
+                        rest1,
+                        bahnen,
+                        rotieren,
+                        laneSelection,
+                        isFinal);
+                startgruppeVerteilen(wk,
+                        result[2],
+                        disziplin,
+                        disziplinAnzahl,
+                        reihenfolgeFinal,
+                        rest2,
+                        bahnen,
+                        rotieren,
+                        laneSelection,
+                        isFinal);
                 ListIterator<Lauf<T>> li = result[2].listIterator(result[2].size());
                 Lauf<T> lauf1 = li.previous();
                 Lauf<T> lauf2 = li.previous();
@@ -1160,56 +1188,88 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                 li.remove();
 
                 // 2.
-                startgruppeVerteilen(wk, result[0], disziplin, disziplinAnzahl, l1, bahnen, rotieren, laneSelection,
-                                     isFinal);
+                startgruppeVerteilen(wk,
+                        result[0],
+                        disziplin,
+                        disziplinAnzahl,
+                        isFinal ? reihenfolgeFinal : reihenfolge,
+                        l1,
+                        bahnen,
+                        rotieren,
+                        laneSelection,
+                        isFinal);
 
                 // 3.
-                startgruppeVerteilen(wk, result[1], disziplin, disziplinAnzahl, l2, bahnen, rotieren, laneSelection,
-                                     isFinal);
+                startgruppeVerteilen(wk,
+                        result[1],
+                        disziplin,
+                        disziplinAnzahl,
+                        isFinal ? reihenfolgeFinal : reihenfolge,
+                        l2,
+                        bahnen,
+                        rotieren,
+                        laneSelection,
+                        isFinal);
                 return result;
             }
         }
-        startgruppeVerteilen(wk, result[0], disziplin, disziplinAnzahl, schwimmer[0], bahnen, rotieren, laneSelection,
-                             isFinal);
-        startgruppeVerteilen(wk, result[1], disziplin, disziplinAnzahl, schwimmer[1], bahnen, rotieren, laneSelection,
-                             isFinal);
+        startgruppeVerteilen(wk,
+                result[0],
+                disziplin,
+                disziplinAnzahl,
+                isFinal ? reihenfolgeFinal : reihenfolge,
+                schwimmer[0],
+                bahnen,
+                rotieren,
+                laneSelection,
+                isFinal);
+        startgruppeVerteilen(wk,
+                result[1],
+                disziplin,
+                disziplinAnzahl,
+                isFinal ? reihenfolgeFinal : reihenfolge,
+                schwimmer[1],
+                bahnen,
+                rotieren,
+                laneSelection,
+                isFinal);
         return result;
     }
 
     private static <T extends ASchwimmer> void startgruppeVerteilen(AWettkampf<T> wk, LinkedList<Lauf<T>> laufliste,
-                                                                    int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen, boolean rotieren,
-                                                                    boolean[] laneSelection, boolean isFinal) {
+            int disziplin, int disziplinAnzahl, Reihenfolge reihenfolge, LinkedList<T> schwimmer, int vBahnen,
+            boolean rotieren,
+            boolean[] laneSelection, boolean isFinal) {
         if (schwimmer.isEmpty()) {
             return;
         }
-        if (!isFinal && Reihenfolge.Regelwerk.equalsValue(wk.getIntegerProperty(HEATS_SORTING_ORDER))) {
-            switch (wk.getRegelwerk().getFormelID()) {
-                case FormelILSFinals.ID:
-                    startgruppeVerteilenILS(wk, laufliste, disziplin, disziplinAnzahl, schwimmer, vbahnen, rotieren,
-                                            laneSelection);
-                    return;
-                case FormelILSOutdoorFinals.ID:
-                    startgruppeVerteilenILSOutdoor(wk,
-                                                   laufliste,
-                                                   disziplin,
-                                                   disziplinAnzahl,
-                                                   schwimmer,
-                                                   vbahnen,
-                                                   rotieren,
-                                                   laneSelection);
-                    return;
-                default:
-                    break;
-            }
-        }
 
-        if (Reihenfolge.ILSPoolVorlauf.equalsValue(wk.getIntegerProperty(HEATS_SORTING_ORDER))) {
-            startgruppeVerteilenILS(wk, laufliste, disziplin, disziplinAnzahl, schwimmer, vbahnen, rotieren,
-                                    laneSelection);
+        switch (reihenfolge) {
+        case ILSPoolVorlauf: {
+            startgruppeVerteilenILS(wk,
+                    laufliste,
+                    disziplin,
+                    disziplinAnzahl,
+                    schwimmer,
+                    vBahnen,
+                    rotieren,
+                    laneSelection);
             return;
         }
+        case ILSOpenWaterVorlauf: {
+            startgruppeVerteilenILSOutdoor(wk,
+                    laufliste,
+                    disziplin,
+                    disziplinAnzahl,
+                    schwimmer,
+                    vBahnen,
+                    rotieren,
+                    laneSelection);
+            return;
+        }
+        }
 
-        int bahnen1 = Math.min(schwimmer.size(), vbahnen);
+        int bahnen1 = Math.min(schwimmer.size(), vBahnen);
 
         int rotationsWeite = 2;
         if (bahnen1 == 4) {
@@ -1219,14 +1279,14 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         LinkedList<Lauf<T>> ll = new LinkedList<>();
-        Lauf<T> lauf = new Lauf<>(vbahnen, 0, 0, laneSelection);
+        Lauf<T> lauf = new Lauf<>(vBahnen, 0, 0, laneSelection);
         ll.addFirst(lauf);
         for (T t : schwimmer) {
             if (lauf.isFull()) {
                 if (rotieren) {
                     lauf.rotieren(disziplinAnzahl - disziplin - 1, rotationsWeite);
                 }
-                lauf = new Lauf<>(vbahnen, 0, 0, laneSelection);
+                lauf = new Lauf<>(vBahnen, 0, 0, laneSelection);
                 ll.addFirst(lauf);
             }
             lauf.addSchwimmer(t, disziplin);
@@ -1239,7 +1299,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             // Verbesserte Verteilung auf die letzten beiden Läufe
             boolean fastestHeatUntouched = wk.getBooleanProperty(HEATS_AAE_FASTEST_HEAT_UNTOUCHED, false);
             if ((lauf.getAnzahl() < lauf.getBenutzbareBahnenAnzahl() - 2)
-                && (ll.size() >= (fastestHeatUntouched ? 3 : 2))) {
+                    && (ll.size() >= (fastestHeatUntouched ? 3 : 2))) {
                 Lauf<T> l1 = ll.get(0);
                 Lauf<T> l2 = ll.get(1);
                 int amount = l1.getAnzahl() + l2.getAnzahl();
@@ -1268,8 +1328,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     private static <T extends ASchwimmer> void startgruppeVerteilenILS(AWettkampf<T> wk, LinkedList<Lauf<T>> laufliste,
-                                                                       int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen, boolean rotieren,
-                                                                       boolean[] laneSelection) {
+            int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen, boolean rotieren,
+            boolean[] laneSelection) {
         if (schwimmer.isEmpty()) {
             return;
         }
@@ -1356,12 +1416,6 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             weite = 3;
         }
 
-        if (rotieren) {
-            for (Lauf<T> lauf : ll) {
-                lauf.rotieren(disziplinAnzahl - disziplin - 1, lauf.getAnzahl() == 4 ? 1 : weite);
-            }
-        }
-
         for (int x = 0; x < ll.length / 2; x++) {
             Lauf<T> l1 = ll[x];
             Lauf<T> l2 = ll[ll.length - 1 - x];
@@ -1374,8 +1428,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     private static <T extends ASchwimmer> void startgruppeVerteilenILSOutdoor(AWettkampf<T> wk,
-                                                                              LinkedList<Lauf<T>> laufliste, int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen,
-                                                                              boolean rotieren, boolean[] laneSelection) {
+            LinkedList<Lauf<T>> laufliste, int disziplin, int disziplinAnzahl, LinkedList<T> schwimmer, int vbahnen,
+            boolean rotieren, boolean[] laneSelection) {
         if (schwimmer.isEmpty()) {
             return;
         }
