@@ -67,7 +67,7 @@ public class OWLaufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public void check(boolean orderingChanged) {
-        if ((disziplinen == null) || (disziplinen.size() == 0)) {
+        if ((disziplinen == null) || disziplinen.isEmpty()) {
             return;
         }
         if (wk.getSchwimmeranzahl() == 0) {

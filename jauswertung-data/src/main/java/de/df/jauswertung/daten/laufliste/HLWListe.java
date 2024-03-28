@@ -14,13 +14,10 @@ import static de.df.jauswertung.daten.PropertyConstants.ZW_RESPECT_QUALIFICATION
 import static de.df.jauswertung.daten.PropertyConstants.ZW_SORTING_ORDER;
 import static de.df.jauswertung.daten.PropertyConstants.ZW_STARTTIME;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.dom4j.Element;
 
@@ -35,6 +32,7 @@ import de.df.jutils.data.ListUtils;
 
 public class HLWListe<T extends ASchwimmer> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -7412435828304184620L;
 
     public static final int REIHENFOLGE_ZUFALL = 0;
@@ -86,7 +84,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         }
 
         int zahl = 0;
-        while (ll.size() > 0) {
+        while (!ll.isEmpty()) {
             ListIterator<T> li = ll.listIterator();
             T temp = li.next();
             li.remove();
@@ -112,12 +110,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         LinkedList<T>[] listentemp = new LinkedList[amount];
         System.arraycopy(listen, 0, listentemp, 0, amount);
         listen = listentemp;
-        Arrays.sort(listen, new Comparator<LinkedList<T>>() {
-            @Override
-            public int compare(LinkedList<T> o1, LinkedList<T> o2) {
-                return o1.size() - o2.size();
-            }
-        });
+        Arrays.sort(listen, Comparator.comparingInt(LinkedList::size));
 
         int anzahl = size / bahnen;
         LinkedList<T> overflow = new LinkedList<>();
@@ -180,12 +173,12 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                     return o1.getGliederung().compareTo(o2.getGliederung());
                 }
             };
-            Collections.sort(ll, comparator1);
+            ll.sort(comparator1);
             break;
         case REIHENFOLGE_MELDUNG:
             Comparator<ASchwimmer> comparator2 = new Meldesorter(
                     wk.getIntegerProperty(PropertyConstants.ZW_REGISTERED_POINTS_INDEX, 0), false);
-            Collections.sort(ll, comparator2);
+            ll.sort(comparator2);
             break;
         case REIHENFOLGE_ZUSAMMEN:
         case REIHENFOLGE_ZUFALL:
@@ -211,13 +204,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         case REIHENFOLGE_MELDUNG:
             break;
         case REIHENFOLGE_ZUSAMMEN:
-            Comparator<ASchwimmer> comparator1 = new Comparator<ASchwimmer>() {
-                @Override
-                public int compare(ASchwimmer o1, ASchwimmer o2) {
-                    return o1.getGliederung().compareTo(o2.getGliederung());
-                }
-            };
-            Collections.sort(ll, comparator1);
+            ll.sort(Comparator.<ASchwimmer, String>comparing(ASchwimmer::getGliederung));
             break;
         case REIHENFOLGE_ZUFALL:
             break;
@@ -262,27 +249,11 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
 
         boolean ignoreak = wk.getBooleanProperty(ZW_IGNORE_AK_SWIMMERS);
 
-        int[][] restarttimes = null;
-        boolean[][] pauses = null;
-        {
-            Object tmppauses = wk.getProperty(ZW_PAUSE_AGEGROUPS);
-            pauses = checkPauses(tmppauses);
+        int[][] restarttimes;
+        boolean[][] pauses;
 
-            Object tmptimes = wk.getProperty(ZW_PAUSE_RESTARTS);
-            restarttimes = checkTimes(tmptimes);
-
-            // Fill with default values
-            if ((pauses == null) || (restarttimes == null)) {
-                pauses = new boolean[wk.getRegelwerk().size()][2];
-                restarttimes = new int[wk.getRegelwerk().size()][2];
-                for (int x = 0; x < pauses.length; x++) {
-                    for (int y = 0; y < 2; y++) {
-                        pauses[x][y] = false;
-                        restarttimes[x][y] = 0;
-                    }
-                }
-            }
-        }
+        pauses = checkPauses(wk.getProperty(ZW_PAUSE_AGEGROUPS));
+        restarttimes = checkTimes(wk.getProperty(ZW_PAUSE_RESTARTS));
 
         boolean respectQualifications = wk.getBooleanProperty(ZW_RESPECT_QUALIFICATIONS) && !wk.HasOpenQualifications();
 
@@ -298,20 +269,12 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                     SearchUtils.filterAusserKonkurrenz(w);
                 }
                 if (respectQualifications) {
-                    ListIterator<T> li = w.listIterator();
-                    while (li.hasNext()) {
-                        T t = li.next();
-                        if (!t.getQualifikation().isAccepted()) {
-                            li.remove();
-                        }
-                    }
+                    w.removeIf(t -> !t.getQualifikation().isAccepted());
                 }
 
                 w = vorsortieren(wk, w);
 
-                ListIterator<T> li = w.listIterator();
-                while (li.hasNext()) {
-                    T s = li.next();
+                for (T s : w) {
                     for (int y = 0; y < s.getMaximaleHLW(); y++) {
                         schwimmer.addLast(s);
                     }
@@ -399,8 +362,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         if (tmptimes != null) {
             if (tmptimes instanceof int[][]) {
                 restarttimes = (int[][]) tmptimes;
-            } else if (tmptimes instanceof int[]) {
-                int[] tmp = (int[]) tmptimes;
+            } else if (tmptimes instanceof int[] tmp) {
                 restarttimes = new int[tmp.length][2];
                 for (int x = 0; x < tmp.length; x++) {
                     restarttimes[x][0] = tmp[x];
@@ -414,13 +376,12 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         return restarttimes;
     }
 
-    public static boolean[][] checkPauses(Object tmppauses) {
+    public static boolean[][] checkPauses(Object tmpPauses) {
         boolean[][] pauses = null;
-        if (tmppauses != null) {
-            if (tmppauses instanceof boolean[][]) {
-                pauses = (boolean[][]) tmppauses;
-            } else if (tmppauses instanceof boolean[]) {
-                boolean[] tmp = (boolean[]) tmppauses;
+        if (tmpPauses != null) {
+            if (tmpPauses instanceof boolean[][]) {
+                pauses = (boolean[][]) tmpPauses;
+            } else if (tmpPauses instanceof boolean[] tmp) {
                 pauses = new boolean[tmp.length][2];
                 for (int x = 0; x < tmp.length; x++) {
                     pauses[x][0] = tmp[x];
@@ -442,13 +403,12 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         LinkedList<HLWLauf<T>> ll = new LinkedList<>();
         HLWLauf<T> lauf = new HLWLauf<>(puppen);
         ll.addFirst(lauf);
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
+        for (T t : schwimmer) {
             if (lauf.isFull()) {
                 lauf = new HLWLauf<>(puppen);
                 ll.addLast(lauf);
             }
-            lauf.addSchwimmer(li.next(), Lauf.HLW);
+            lauf.addSchwimmer(t, Lauf.HLW);
         }
 
         hlwliste.addAll(ll);
@@ -466,11 +426,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             return;
         }
 
-        ListIterator<LinkedList<HLWLauf<T>>> li = hlwliste.listIterator();
-        while (li.hasNext()) {
-            ListIterator<HLWLauf<T>> lli = li.next().listIterator();
-            while (lli.hasNext()) {
-                HLWLauf<T> l = lli.next();
+        for (LinkedList<HLWLauf<T>> hlwLaufs : hlwliste) {
+            for (HLWLauf<T> l : hlwLaufs) {
                 int zahl = l.getSchwimmer(s);
                 while (zahl > -1) {
                     l.removeSchwimmer(zahl);
@@ -520,8 +477,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         return hlwliste.listIterator();
     }
 
-    public ListIterator<LinkedList<HLWLauf<T>>> getIterator(int index) {
-        return hlwliste.listIterator(index);
+    public LinkedList<HLWLauf<T>> getMergedHeats() {
+        return hlwliste.stream().flatMap(Collection::stream).collect(Collectors.toCollection(LinkedList::new));
     }
 
     public synchronized void check(T s) {
@@ -550,11 +507,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             return;
         }
 
-        ListIterator<LinkedList<HLWLauf<T>>> lli = hlwliste.listIterator();
-        while (lli.hasNext()) {
-            ListIterator<HLWLauf<T>> li = lli.next().listIterator();
-            while (li.hasNext()) {
-                Lauf<T> l = li.next();
+        for (LinkedList<HLWLauf<T>> hlwLaufs : hlwliste) {
+            for (Lauf<T> l : hlwLaufs) {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T temp = l.getSchwimmer(x);
                     if (temp != null) {
@@ -699,7 +653,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                 daten.addLast(new Einteilung(x, true));
             }
         }
-        return daten.toArray(new Einteilung[daten.size()]);
+        return daten.toArray(Einteilung[]::new);
     }
 
     public Einteilung[] getVerteilung() {
@@ -716,8 +670,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         LinkedList<Einteilung> result = new LinkedList<>();
         for (Einteilung anAufteilung : aufteilung) {
             boolean found = false;
-            for (int y = 0; y < daten.length; y++) {
-                if (daten[y].equals(anAufteilung)) {
+            for (Einteilung einteilung : daten) {
+                if (einteilung.equals(anAufteilung)) {
                     found = true;
                     break;
                 }
@@ -730,8 +684,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         // Add missing entries
         for (Einteilung aDaten : daten) {
             boolean found = false;
-            for (int y = 0; y < aufteilung.length; y++) {
-                if (aDaten.equals(aufteilung[y])) {
+            for (Einteilung einteilung : aufteilung) {
+                if (aDaten.equals(einteilung)) {
                     found = true;
                     break;
                 }
@@ -740,7 +694,7 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
                 result.addLast(aDaten);
             }
         }
-        return result.toArray(new Einteilung[result.size()]);
+        return result.toArray(Einteilung[]::new);
     }
 
     public boolean hasStandardVerteilung() {
@@ -767,19 +721,8 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
         return (hlwliste == null) || (hlwliste.isEmpty()) || (hlwliste.getFirst().isEmpty());
     }
 
-    public int getHeatCount() {
-        int count = 0;
-
-        ListIterator<LinkedList<HLWLauf<T>>> lli = wk.getHLWListe().getIterator();
-
-        while (lli.hasNext()) {
-            LinkedList<HLWLauf<T>> ll = lli.next();
-            count += ll.size();
-        }
-        return count;
-    }
-
     public final class WettkampfChangeListener implements PropertyChangeListener {
+        @Serial
         private static final long serialVersionUID = -2220683491274451995L;
 
         @Override
@@ -787,11 +730,9 @@ public class HLWListe<T extends ASchwimmer> implements Serializable {
             if (ZW_LANES.equals(property)) {
                 int b = wk.getIntegerProperty(ZW_LANES);
                 if (hlwliste != null) {
-                    ListIterator<LinkedList<HLWLauf<T>>> li = hlwliste.listIterator();
-                    while (li.hasNext()) {
-                        ListIterator<HLWLauf<T>> lli = li.next().listIterator();
-                        while (lli.hasNext()) {
-                            lli.next().setBahnen(b);
+                    for (LinkedList<HLWLauf<T>> hlwLaufs : hlwliste) {
+                        for (HLWLauf<T> hlwLauf : hlwLaufs) {
+                            hlwLauf.setBahnen(b);
                         }
                     }
                 }

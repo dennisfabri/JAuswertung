@@ -264,7 +264,7 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
                     while (li.hasNext()) {
                         Lauf<T> l = li.next();
                         anzahl -= l.getAnzahl();
-                        if (!l.isOnlyOneDiscipline()) {
+                        if (l.isMoreThanOneDiscipline()) {
                             amount++;
                             mixed = true;
                         }

@@ -59,10 +59,10 @@ public class SchwimmerDisziplin<T extends ASchwimmer>
     private static <T extends ASchwimmer> int getMode(Lauf<T> l, boolean extended) {
         int mode = MODE_NORMAL;
         if (extended) {
-            if (!l.isOnlyOneAgeGroup() || l.isStartgroup()) {
+            if (l.isMoreThanOneAgeGroup() || l.isStartgroup()) {
                 mode = mode | MODE_EXTENDED_BY_AGEGROUP;
             }
-            if (!l.isOnlyOneDiscipline()) {
+            if (l.isMoreThanOneDiscipline()) {
                 mode = mode | MODE_EXTENDED_BY_DISCIPLINE;
             }
         }

@@ -1,7 +1,10 @@
 package de.df.jauswertung.daten.laufliste;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -68,13 +71,7 @@ public class OWLauf<T extends ASchwimmer> implements Serializable {
     }
 
     public LinkedList<T> getAllSchwimmer() {
-        LinkedList<T> scw = new LinkedList<>();
-        for (int x = 0; x < schwimmer.length; x++) {
-            if (schwimmer[x] != null) {
-                scw.add(schwimmer[x]);
-            }
-        }
-        return scw;
+        return Arrays.stream(schwimmer).filter(Objects::nonNull).collect(Collectors.toCollection(LinkedList::new));
     }
 
     public T getSchwimmer(int index) {
@@ -130,12 +127,7 @@ public class OWLauf<T extends ASchwimmer> implements Serializable {
     }
 
     public T getSchwimmer() {
-        for (int x = 0; x < schwimmer.length; x++) {
-            if (schwimmer[x] != null) {
-                return schwimmer[x];
-            }
-        }
-        return null;
+        return Arrays.stream(schwimmer).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     public void setSchwimmer(int x, T s) {

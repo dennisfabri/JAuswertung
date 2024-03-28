@@ -528,18 +528,16 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     private void initVergabeliste() {
-        vergabeliste = new JList();
+        vergabeliste = new JList<>();
         vergabeliste.setDragEnabled(true);
-        vergabeliste.setCellRenderer(new ComfortListCellRenderer());
+        vergabeliste.setCellRenderer(new ComfortListCellRenderer<>());
         DataTipManager.get().register(vergabeliste);
 
         Hashtable<Integer, Integer> daten = new Hashtable<>();
         LinkedList<T> ll = wk.getSchwimmer();
         ZWListModel<T> dlm = new ZWListModel<>();
 
-        ListIterator<T> li = ll.listIterator();
-        while (li.hasNext()) {
-            T s = li.next();
+        for (T s : ll) {
             if (s.getAK().hasHLW()) {
                 daten.put(s.getStartnummer(), s.getMaximaleHLW());
             }
@@ -549,9 +547,7 @@ class JHlwlisteBearbeiten<T extends ASchwimmer> extends JFrame {
             ListIterator<LinkedList<HLWLauf<T>>> lli = wk.getHLWListe().getIterator();
             while (lli.hasNext()) {
                 LinkedList<HLWLauf<T>> hlw = lli.next();
-                ListIterator<HLWLauf<T>> lh = hlw.listIterator();
-                while (lh.hasNext()) {
-                    HLWLauf<T> lauf = lh.next();
+                for (HLWLauf<T> lauf : hlw) {
                     for (int x = 0; x < lauf.getBahnen(); x++) {
                         T t = lauf.getSchwimmer(x);
                         if (t != null) {

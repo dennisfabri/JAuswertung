@@ -6,6 +6,7 @@ package de.df.jauswertung.gui.util;
 
 import static de.df.jauswertung.daten.PropertyConstants.ZW_LANES;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -68,14 +69,11 @@ public class PuppenListe<T extends ASchwimmer> {
 
                 int heats = laufliste.size();
 
-                for (int x = 0; x < heats; x++) {
+                for (HLWLauf<T> thlwLauf : laufliste) {
                     String[] o = new String[5];
-                    for (int y = 0; y < o.length; y++) {
-                        o[y] = "";
-                    }
-                    HLWLauf<T> hlw = laufliste.get(x);
-                    o[0] = hlw.getName();
-                    T s = hlw.getSchwimmer(puppe - 1);
+                    Arrays.fill(o, "");
+                    o[0] = thlwLauf.getName();
+                    T s = thlwLauf.getSchwimmer(puppe - 1);
                     if (s != null) {
                         o[1] = s.getName();
                         o[2] = s.getGliederung();

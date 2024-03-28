@@ -375,12 +375,12 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                     sb.append(": ");
                     if (s != null) {
                         sb.append(s.getName());
-                        if ((!lauf.isOnlyOneAgeGroup()) && (!lauf.isOnlyOneSex())) {
+                        if ((lauf.isMoreThanOneAgeGroup()) && (!lauf.isOnlyOneSex())) {
                             sb.append(" (");
                             sb.append(I18n.getAgeGroupAsStringShort(s));
                             sb.append(")");
                         } else {
-                            if (!lauf.isOnlyOneAgeGroup()) {
+                            if (lauf.isMoreThanOneAgeGroup()) {
                                 sb.append(" (");
                                 sb.append(s.getAK().getName());
                                 sb.append(")");

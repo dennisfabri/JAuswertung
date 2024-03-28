@@ -5,6 +5,7 @@ package de.df.jauswertung.gui.util;
 
 import static de.df.jauswertung.daten.PropertyConstants.ZW_LANES;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -52,18 +53,14 @@ public final class TableZWUtils {
         int phantoms = wk.getIntegerProperty(ZW_LANES);
 
         Object[] pause = new Object[phantoms + 2];
-        for (int x = 0; x < pause.length; x++) {
-            pause[x] = "";
-        }
+        Arrays.fill(pause, "");
         pause[1] = I18n.get("Pause");
 
         LinkedList<Object[]> daten = new LinkedList<>();
 
         ListIterator<LinkedList<HLWLauf<T>>> lli = laufliste.getIterator();
         while (lli.hasNext()) {
-            ListIterator<HLWLauf<T>> li = lli.next().listIterator();
-            while (li.hasNext()) {
-                HLWLauf<T> temp = li.next();
+            for (HLWLauf<T> temp : lli.next()) {
                 Object[] o = new Object[phantoms + 2];
                 if (temp != null) {
                     o[0] = temp.getName();
@@ -107,12 +104,11 @@ public final class TableZWUtils {
             LinkedList<Object> result = new LinkedList<>();
             while (lli.hasNext()) {
                 LinkedList<HLWLauf<T>> ll = lli.next();
-                ListIterator<HLWLauf<T>> li = ll.listIterator();
-                while (li.hasNext()) {
-                    result.addLast(new UniqueString(li.next().getName()));
+                for (HLWLauf<T> thlwLauf : ll) {
+                    result.addLast(new UniqueString(thlwLauf.getName()));
                 }
             }
-            return result.toArray(new Object[result.size()]);
+            return result.toArray(new Object[0]);
         }
 
         ListIterator<Lauf<T>> li = wk.getLaufliste().getLaufliste().listIterator();
@@ -120,7 +116,7 @@ public final class TableZWUtils {
         while (li.hasNext()) {
             result.addLast(new UniqueString(li.next().getName()));
         }
-        return result.toArray(new Object[result.size()]);
+        return result.toArray(new Object[0]);
     }
 
     /**
@@ -137,11 +133,6 @@ public final class TableZWUtils {
         @Override
         public String toString() {
             return text;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj == this;
         }
 
         @Override

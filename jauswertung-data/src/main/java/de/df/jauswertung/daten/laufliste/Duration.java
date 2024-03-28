@@ -1,18 +1,20 @@
-/*
- * Created on 06.01.2006
- */
 package de.df.jauswertung.daten.laufliste;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.df.jauswertung.gui.util.I18n;
 
+/*
+ * Created on 06.01.2006
+ */
 public class Duration implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 351707174206635887L;
 
-    private int minutes;
-    private int seconds;
+    private final int minutes;
+    private final int seconds;
 
     public Duration(double duration) {
         this((int) Math.floor(duration), (int) Math.round((duration - Math.floor(duration)) * 60));
@@ -28,10 +30,6 @@ public class Duration implements Serializable {
         }
         this.minutes = minutes;
         this.seconds = seconds;
-    }
-
-    public int getTimeInMinutes() {
-        return minutes;
     }
 
     public int getSeconds() {
@@ -67,12 +65,6 @@ public class Duration implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Duration) {
-            Duration t = (Duration) o;
-            if (t.minutes == minutes) {
-                return true;
-            }
-        }
-        return false;
+        return o instanceof Duration t && t.minutes == minutes && t.seconds == seconds;
     }
 }

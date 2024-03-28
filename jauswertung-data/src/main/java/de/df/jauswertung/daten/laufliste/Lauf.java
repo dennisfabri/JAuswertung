@@ -1,15 +1,8 @@
-/*
- * Lauf.java Created on 20. Juli 2001, 16:09
- */
-
 package de.df.jauswertung.daten.laufliste;
 
-/**
- * @author Dennis Fabri
- * @version 0.1
- */
-
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
@@ -17,8 +10,15 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.util.StringTools;
 
+/**
+ * Lauf.java Created on 20. Juli 2001, 16:09
+ *
+ * @author Dennis Fabri
+ * @version 0.1
+ */
 public class Lauf<T extends ASchwimmer> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 6116586299663275071L;
 
     public static final int HLW = -1;
@@ -31,7 +31,9 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     private boolean[] usable = null;
 
+    @Deprecated
     private boolean checked = false;
+    @Deprecated
     private boolean retyped = false;
 
     public Lauf(int bahnen, int lnummer, int lbuchstabe, boolean[] usable) {
@@ -92,7 +94,7 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return anzahl;
     }
 
-    public void resetUsable() {
+    void resetUsable() {
         usable = null;
     }
 
@@ -244,10 +246,10 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return ak + " " + I18n.geschlechtToString(getSchwimmer().getRegelwerk(), maennlich);
     }
 
-    public boolean isOnlyOneAgeGroup() {
+    public boolean isMoreThanOneAgeGroup() {
         ASchwimmer sw = getSchwimmer();
         if (sw == null) {
-            return true;
+            return false;
         }
 
         boolean akselector = true;
@@ -265,29 +267,26 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
             }
         }
 
-        if (!akselector) {
-            return false;
-        }
-        return true;
+        return !akselector;
     }
 
     public String getName() {
         final int zahl = laufbuchstabe;
-        return "" + laufnummer + StringTools.characterString(zahl);
+        return laufnummer + StringTools.characterString(zahl);
     }
 
     @Override
     public String toString() {
-        String s = getName() + ": " + getDisziplin() + " ";
-        for (ASchwimmer laufteily : laufteilies) {
-            if (laufteily != null) {
-                s = s + " - " + laufteily.getName();
+        StringBuilder s = new StringBuilder(getName() + ": " + getDisziplin() + " ");
+        for (ASchwimmer laufteili : laufteilies) {
+            if (laufteili != null) {
+                s.append(" - ").append(laufteili.getName());
             } else {
-                s = s + " - xxx";
+                s.append(" - xxx");
             }
         }
 
-        return s;
+        return s.toString();
     }
 
     @Override
@@ -327,7 +326,7 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean isOnlyOneDiscipline() {
+    public boolean isMoreThanOneDiscipline() {
         String disziplin = null;
 
         for (int x = 0; x < laufteilies.length; x++) {
@@ -337,12 +336,12 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
                 disziplin = (temp != null ? temp.trim() : null);
             } else {
                 if ((temp != null) && (!disziplin.equals(temp.trim()))) {
-                    return false;
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -387,12 +386,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return I18n.getDisziplinShort(disziplin);
     }
 
-    /**
-     * @param disz
-     * @param disziplinNumber
-     * @param swimmer
-     * @return
-     */
     private String checkDisziplin(int disziplinNumber, T swimmer) {
         if (swimmer != null) {
             Disziplin d = swimmer.getAK().getDisziplin(diszes[disziplinNumber], swimmer.isMaennlich());
@@ -409,11 +402,9 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     public boolean join(Lauf<T> l) {
         if (l.diszes.length != diszes.length) {
-            throw new IllegalArgumentException(
-                    "Unequal lanes: Amount should be " + diszes.length + " but was " + l.diszes.length);
-            // return false;
+            return false;
         }
-        boolean[] lanes = null;
+        boolean[] lanes;
         if (l.usable != null) {
             if (usable != null) {
                 lanes = new boolean[diszes.length];
@@ -428,9 +419,7 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
                 lanes = usable;
             } else {
                 lanes = new boolean[diszes.length];
-                for (int x = 0; x < lanes.length; x++) {
-                    lanes[x] = true;
-                }
+                Arrays.fill(lanes, true);
             }
         }
 
@@ -488,41 +477,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return true;
     }
 
-    public boolean isJoinable(Lauf<T> l) {
-        if (l.diszes.length != diszes.length) {
-            return false;
-        }
-        boolean[] lanes = null;
-        if (l.usable != null) {
-            if (usable != null) {
-                lanes = new boolean[diszes.length];
-                for (int x = 0; x < lanes.length; x++) {
-                    lanes[x] = l.usable[x] && usable[x];
-                }
-            } else {
-                lanes = l.usable;
-            }
-        } else {
-            if (usable != null) {
-                lanes = usable;
-            } else {
-                lanes = new boolean[diszes.length];
-                for (int x = 0; x < lanes.length; x++) {
-                    lanes[x] = true;
-                }
-            }
-        }
-
-        int amount = 0;
-        for (boolean lane : lanes) {
-            if (lane) {
-                amount++;
-            }
-        }
-
-        return amount >= l.getAnzahl() + getAnzahl();
-    }
-
     private synchronized boolean addSchwimmer(T s, int disziplin, boolean[] lanes) {
         if (s == null) {
             return false;
@@ -532,15 +486,13 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         }
         if (lanes == null) {
             lanes = new boolean[diszes.length];
-            for (int x = 0; x < lanes.length; x++) {
-                lanes[x] = true;
-            }
+            Arrays.fill(lanes, true);
         }
         if (isFull(lanes)) {
             return false;
         }
 
-        if (leftToRight) {
+        if (isLeftToRight()) {
             for (int x = 0; x < laufteilies.length; x++) {
                 if ((laufteilies[x] == null) && (lanes[x])) {
                     setSchwimmer(s, disziplin, x);
@@ -869,22 +821,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     @Override
     public int hashCode() {
         return getName().hashCode();
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    public boolean isRetyped() {
-        return retyped;
-    }
-
-    public void setRetyped(boolean retyped) {
-        this.retyped = retyped;
     }
 
     public boolean alleZeitenEingegeben() {

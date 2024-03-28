@@ -3,12 +3,14 @@
  */
 package de.df.jauswertung.daten.laufliste;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import de.df.jauswertung.gui.util.I18n;
 
 public class Time implements Comparable<Time>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = -6335301709914650979L;
 
     int hour;
@@ -49,11 +51,8 @@ public class Time implements Comparable<Time>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Time) {
-            Time t = (Time) o;
-            if ((t.hour == hour) && (t.minute == minute)) {
-                return true;
-            }
+        if (o instanceof Time t) {
+            return (t.hour == hour) && (t.minute == minute);
         }
         return false;
     }

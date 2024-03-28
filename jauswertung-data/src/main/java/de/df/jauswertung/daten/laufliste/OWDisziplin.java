@@ -47,7 +47,7 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
         if (isEmpty()) {
             return 0;
         }
-        return laeufe.get(0).getBahnen();
+        return laeufe.getFirst().getBahnen();
     }
 
     public LinkedList<OWLauf<T>> getLaeufe() {
@@ -55,9 +55,7 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
     }
 
     public void addSchwimmer(T t) {
-        if (!Schwimmer.contains(t)) {
-            Schwimmer.add(t);
-        }
+        Schwimmer.add(t);
     }
 
     public LinkedList<T> getSchwimmer() {

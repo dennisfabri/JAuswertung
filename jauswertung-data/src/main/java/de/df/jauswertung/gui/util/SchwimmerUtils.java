@@ -173,7 +173,7 @@ public final class SchwimmerUtils {
         }
         return ergebnis;
     }
-    
+
     private static <T extends ASchwimmer> SchwimmerInfo getSchwimmerInfo(AWettkampf<T> wk, T s) {
         String[] li = new String[s.getAK().getDiszAnzahl()];
         String[] bi = new String[s.getAK().getDiszAnzahl()];
@@ -193,7 +193,7 @@ public final class SchwimmerUtils {
         }
 
         return new SchwimmerInfo(s, li, bi);
-    }    
+    }
 
     public static <T extends ASchwimmer> LaufInfo getLaufInfo(AWettkampf<T> wk, T s, int disz) {
         LinkedList<Lauf<T>> laufliste = wk.getLaufliste().getLaufliste();
@@ -420,14 +420,7 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
-
-        {
-            ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
-            while (lli.hasNext()) {
-                merged.addAll(lli.next());
-            }
-        }
+        LinkedList<HLWLauf<T>> merged = ll.getMergedHeats();
 
         LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
 
@@ -477,14 +470,7 @@ public final class SchwimmerUtils {
             return null;
         }
 
-        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
-
-        {
-            ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
-            while (lli.hasNext()) {
-                merged.addAll(lli.next());
-            }
-        }
+        LinkedList<HLWLauf<T>> merged = ll.getMergedHeats();
 
         int[] first = new int[] { 0, 0 };
 
@@ -615,11 +601,7 @@ public final class SchwimmerUtils {
         LinkedList<HLWLauf<T>> merged = new LinkedList<>();
 
         {
-            LinkedList<HLWLauf<T>> temp = new LinkedList<>();
-            ListIterator<LinkedList<HLWLauf<T>>> lli = ll.getIterator();
-            while (lli.hasNext()) {
-                temp.addAll(lli.next());
-            }
+            LinkedList<HLWLauf<T>> temp = ll.getMergedHeats();
 
             int sindex = 0;
             int amount = temp.size();

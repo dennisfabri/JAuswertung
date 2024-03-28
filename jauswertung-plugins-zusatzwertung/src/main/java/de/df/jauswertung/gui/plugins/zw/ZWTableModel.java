@@ -46,7 +46,6 @@ class ZWTableModel<T extends ASchwimmer> implements TableModel {
 
     public int[] rowToIndex(int row) {
         int[] index = new int[2];
-        index[0] = 0;
         while ((hlw.getLauflistenCount() > index[0]) && (row >= hlw.getLaufliste(index[0]).size())) {
             row -= hlw.getLaufliste(index[0]).size();
             // remove the pause row
@@ -77,31 +76,6 @@ class ZWTableModel<T extends ASchwimmer> implements TableModel {
         int[] index = rowToIndex(row);
         hlw.split(index, restart);
         fireTableChange(row, true);
-    }
-
-    public void update(T s) {
-        if (hlw.isEmpty()) {
-            return;
-        }
-        ListIterator<LinkedList<HLWLauf<T>>> lli = hlw.getIterator();
-        int row = 0;
-        while (lli.hasNext()) {
-            ListIterator<HLWLauf<T>> li = lli.next().listIterator();
-            while (li.hasNext()) {
-                HLWLauf<T> lauf = li.next();
-                for (int x = 0; x < lauf.getBahnen(); x++) {
-                    if (lauf.getSchwimmer(x) == null) {
-                        fireTableChange(row, x + 2);
-                    } else {
-                        if (s.equals(lauf.getSchwimmer(x))) {
-                            fireTableChange(row, x + 2);
-                        }
-                    }
-                }
-                row++;
-            }
-            row++;
-        }
     }
 
     public void update() {

@@ -21,8 +21,6 @@ import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
-import de.df.jauswertung.util.ergebnis.FormelILSFinals;
-import de.df.jauswertung.util.ergebnis.FormelILSOutdoorFinals;
 
 /**
  * Erzeugt und verwaltet die Laufliste eines Wettkampfes
@@ -54,6 +52,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public final class WettkampfChangeListener implements PropertyChangeListener {
+        @Serial
         private static final long serialVersionUID = -2390423576945211763L;
 
         @Override
@@ -69,14 +68,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
     }
 
-    private static final class Meldesorter implements Comparator<ASchwimmer> {
-
-        private final int index;
-
-        public Meldesorter(int index) {
-            this.index = index;
-        }
-
+    private record Meldesorter(int index) implements Comparator<ASchwimmer> {
         @Override
         public int compare(ASchwimmer o1, ASchwimmer o2) {
             return (int) ((o2.getMeldepunkte(index) - o1.getMeldepunkte(index)) * 100);
@@ -129,10 +121,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             if (male != cmp.male) {
                 return false;
             }
-            if (discipline != cmp.discipline) {
-                return false;
-            }
-            return true;
+            return discipline == cmp.discipline;
         }
 
         @Override
@@ -162,7 +151,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     /**
      * Creates new Laufliste
      *
-     * @param wettkampf Der Wettkampf zu dem die Laufliste gehoert
+     * @param wettkampf Der Wettkampf zu dem die Laufliste gehört
      */
     public Laufliste(AWettkampf<T> wettkampf) {
         wk = wettkampf;
@@ -204,8 +193,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
         for (Einteilung aDaten : daten) {
             boolean found = false;
-            for (int y = 0; y < aufteilung.length; y++) {
-                if (aDaten.equals(aufteilung[y])) {
+            for (Einteilung einteilung : aufteilung) {
+                if (aDaten.equals(einteilung)) {
                     found = true;
                     break;
                 }
@@ -424,7 +413,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             daten.addAll(disciplines[x]);
         }
 
-        return daten.toArray(new Einteilung[daten.size()]);
+        return daten.toArray(Einteilung[]::new);
     }
 
     public synchronized void erzeugen() {
@@ -440,6 +429,9 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     private boolean isStandardVerteilung(Einteilung[] aufteilung) {
+        if (aufteilung == null) {
+            return true;
+        }
         Einteilung[] daten = getStandardVerteilung();
         if (aufteilung.length != daten.length) {
             return false;
@@ -752,19 +744,14 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                                 akx.getDisziplin(disz, true)
                                         .getName()),
                         isFinal());
-                if (result != null) {
-                    laeufe[sg][0][disz] = result[0];
-                    laeufe[sg][1][disz] = result[1];
-                    laeufe[sg][2][disz] = result[2];
-                } else {
-                    laeufe[sg][0][disz] = new LinkedList<>();
-                    laeufe[sg][1][disz] = new LinkedList<>();
-                    laeufe[sg][2][disz] = new LinkedList<>();
-                }
+
+                laeufe[sg][0][disz] = result[0];
+                laeufe[sg][1][disz] = result[1];
+                laeufe[sg][2][disz] = result[2];
             }
         }
 
-        boolean mixedinfront = wk.getBooleanProperty(HEATS_MIXED_IN_FRONT);
+        boolean mixedInFront = wk.getBooleanProperty(HEATS_MIXED_IN_FRONT);
 
         // Läufe zu einer Laufliste zusammenführen
         for (Einteilung anAufteilung : aufteilung) {
@@ -778,14 +765,14 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             assert disz >= 0;
             assert disz < ak.getDiszAnzahl();
 
-            if (mixedinfront) {
+            if (mixedInFront) {
                 if (laeufe[sg][2][disz] != null) {
                     laufliste.addAll(laeufe[sg][2][disz]);
                     laeufe[sg][2][disz] = null;
                 }
             }
             laufliste.addAll(laeufe[sg][male ? 1 : 0][disz]);
-            if (!mixedinfront) {
+            if (!mixedInFront) {
                 if (laeufe[sg][2][disz] != null) {
                     laufliste.addAll(laeufe[sg][2][disz]);
                     laeufe[sg][2][disz] = null;
@@ -798,8 +785,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             Lauf<T> previous = li.next();
             while (li.hasNext()) {
                 Lauf<T> current = li.next();
-                if (previous.isJoinable(current)) {
-                    previous.join(current);
+                if (previous.join(current)) {
                     li.remove();
                 } else {
                     previous = current;
@@ -809,9 +795,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
         stopDSMMode(dsmmode);
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            li.next().resetUsable();
+        for (Lauf<T> tLauf : laufliste) {
+            tLauf.resetUsable();
         }
 
         neueNummerierung();
@@ -825,17 +810,17 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return false;
         }
         Object o = wk.getProperty(PropertyConstants.DSM_MODE_DATA);
-        if ((o == null) || !(o instanceof int[][][] movements)) {
+        if (!(o instanceof int[][][] movements)) {
             return false;
         }
 
         {
             int[][][] ints = (int[][][]) o;
             boolean allzero = true;
-            for (int x = 0; x < ints.length; x++) {
-                for (int y = 0; y < ints[x].length; y++) {
-                    for (int z = 0; z < ints[x][y].length; z++) {
-                        if (ints[x][y][z] != 0) {
+            for (int[][] anInt : ints) {
+                for (int[] value : anInt) {
+                    for (int i : value) {
+                        if (i != 0) {
                             allzero = false;
                             break;
                         }
@@ -1095,13 +1080,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             schwimmer2[1] = new LinkedList<>(schwimmer[1]);
 
             for (int x = 0; x < 2; x++) {
-                ListIterator<T> li = schwimmer2[x].listIterator();
-                while (li.hasNext()) {
-                    T t = li.next();
-                    if (!t.isDisciplineChosen(disziplin)) {
-                        li.remove();
-                    }
-                }
+                schwimmer2[x].removeIf(t -> !t.isDisciplineChosen(disziplin));
             }
             schwimmer = schwimmer2;
         }
@@ -1408,14 +1387,6 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             ll[pos].addSchwimmer(li.next(), disziplin);
         }
 
-        int bahnen1 = Math.min(schwimmer.size(), vbahnen);
-        int weite = 2;
-        if (bahnen1 == 4) {
-            weite = 1;
-        } else if ((disziplinAnzahl == 3) && (bahnen1 == 8)) {
-            weite = 3;
-        }
-
         for (int x = 0; x < ll.length / 2; x++) {
             Lauf<T> l1 = ll[x];
             Lauf<T> l2 = ll[ll.length - 1 - x];
@@ -1461,16 +1432,13 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             pos++;
         }
 
-        Collections.sort(schwimmer, new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                if (o1.getGliederungMitQGliederung().equals(o2.getGliederungMitQGliederung())) {
-                    return 0;
-                }
-                int i1 = gld2Index.get(o1.getGliederungMitQGliederung());
-                int i2 = gld2Index.get(o2.getGliederungMitQGliederung());
-                return i1 - i2;
+        schwimmer.sort((o1, o2) -> {
+            if (o1.getGliederungMitQGliederung().equals(o2.getGliederungMitQGliederung())) {
+                return 0;
             }
+            int i1 = gld2Index.get(o1.getGliederungMitQGliederung());
+            int i2 = gld2Index.get(o2.getGliederungMitQGliederung());
+            return i1 - i2;
         });
 
         @SuppressWarnings("unchecked")
@@ -1526,14 +1494,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return;
         }
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> l = li.next();
-            int zahl = l.getSchwimmer(s);
-            while (zahl > -1) {
-                l.removeSchwimmer(zahl);
-                zahl = l.getSchwimmer(s);
-            }
+        for (Lauf<T> l : laufliste) {
+            l.removeSchwimmer(s);
         }
     }
 
@@ -1543,14 +1505,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public boolean hasMixedHeats() {
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> lauf = li.next();
-            if (!lauf.isOnlyOneAgeGroup() || !lauf.isOnlyOneSex() || lauf.isStartgroup()) {
-                return true;
-            }
-        }
-        return false;
+        return laufliste.stream()
+                .anyMatch(lauf -> lauf.isMoreThanOneAgeGroup() || !lauf.isOnlyOneSex() || lauf.isStartgroup());
     }
 
     public synchronized void check(T s) {
@@ -1563,9 +1519,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         int disz = s.getAK().getDiszAnzahl();
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> l = li.next();
+        for (Lauf<T> l : laufliste) {
             for (int x = 0; x < l.getBahnen(); x++) {
                 T temp = l.getSchwimmer(x);
                 if ((temp != null) && (s.equals(temp))) {
@@ -1595,9 +1549,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return;
         }
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> l = li.next();
+        for (Lauf<T> l : laufliste) {
             for (int x = 0; x < l.getBahnen(); x++) {
                 T temp = l.getSchwimmer(x);
                 if (temp != null) {
@@ -1624,7 +1576,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         Lauf<T> aktuell = null;
         int ln = 1;
         int lb = 0;
-        if (laufliste.size() > 0) {
+        if (!laufliste.isEmpty()) {
             if (index > 0) {
                 aktuell = laufliste.get(index - 1);
             } else {
@@ -1639,14 +1591,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public synchronized boolean isLaneUsed(int x) {
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> l = li.next();
-            if (l.getSchwimmer(x) != null) {
-                return true;
-            }
-        }
-        return false;
+        return laufliste.stream().anyMatch(l -> l.getSchwimmer(x) != null);
     }
 
     public synchronized Lauf<T> suche(T schwimmer, int disziplin) {
@@ -1654,15 +1599,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             return null;
         }
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> result = li.next();
-            if (result.includes(schwimmer, disziplin)) {
-                return result;
-            }
-        }
+        return laufliste.stream().filter(result -> result.includes(schwimmer, disziplin)).findFirst().orElse(null);
 
-        return null;
     }
 
     public synchronized int sucheIndex(T schwimmer, int disziplin) {
@@ -1671,9 +1609,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
 
         int index = 0;
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> result = li.next();
+        for (Lauf<T> result : laufliste) {
             if (result.includes(schwimmer, disziplin)) {
                 return index;
             }
@@ -1748,23 +1684,11 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         return neu;
     }
 
-    public synchronized boolean removeEmptyHeats() {
+    public synchronized void removeEmptyHeats() {
         if (laufliste == null) {
-            return false;
+            return;
         }
-
-        boolean removed = false;
-
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> l = li.next();
-            if (l.isEmpty()) {
-                li.remove();
-                removed = true;
-            }
-        }
-
-        return removed;
+        laufliste.removeIf(Lauf::isEmpty);
     }
 
     public synchronized boolean neueNummerierung() {
@@ -1818,9 +1742,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             }
         }
 
-        ListIterator<Lauf<T>> li = laufliste.listIterator();
-        while (li.hasNext()) {
-            Lauf<T> lauf = li.next();
+        for (Lauf<T> lauf : laufliste) {
             for (int x = 0; x < lauf.getBahnen(); x++) {
                 if (lauf.getSchwimmer(x) != null) {
                     T t = lauf.getSchwimmer(x);

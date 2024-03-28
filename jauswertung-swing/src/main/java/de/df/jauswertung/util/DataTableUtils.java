@@ -1305,13 +1305,11 @@ public final class DataTableUtils {
                 fb.showFeedback(I18n.get("Percent", y));
             }
             LinkedList<HLWLauf<T>> heats = lli.next();
-            ListIterator<HLWLauf<T>> li = heats.listIterator();
 
-            while (li.hasNext()) {
+            for (HLWLauf<T> heat : heats) {
                 counter++;
-                HLWLauf<T> lauf = li.next();
                 for (int x = 0; x < 3; x++) {
-                    result.addLast(zusatzwertungToLine(lauf, puppen, x));
+                    result.addLast(zusatzwertungToLine(heat, puppen, x));
                 }
             }
 
