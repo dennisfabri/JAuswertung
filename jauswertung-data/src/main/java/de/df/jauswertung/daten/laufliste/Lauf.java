@@ -275,12 +275,36 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return laufnummer + StringTools.characterString(zahl);
     }
 
+    private String getNameTens() {
+        final int zahl = laufbuchstabe;
+        int first = laufnummer / 10;
+        int second = laufnummer % 10;
+
+        return String.format("%d-%1d", first, second) + StringTools.characterString(zahl);
+    }
+
+    private String getNameHundreds() {
+        final int zahl = laufbuchstabe;
+        int first = laufnummer / 100;
+        int second = laufnummer % 100;
+
+        return String.format("%d-%02d", first, second) + StringTools.characterString(zahl);
+    }
+
+    public String getName(HeatsNumberingScheme scheme) {
+        return switch (scheme) {
+        case Standard -> getName();
+        case Tens -> getNameTens();
+        case Hundreds -> getNameHundreds();
+        };
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder(getName() + ": " + getDisziplin() + " ");
-        for (ASchwimmer laufteili : laufteilies) {
-            if (laufteili != null) {
-                s.append(" - ").append(laufteili.getName());
+        for (ASchwimmer schwimmer : laufteilies) {
+            if (schwimmer != null) {
+                s.append(" - ").append(schwimmer.getName());
             } else {
                 s.append(" - xxx");
             }

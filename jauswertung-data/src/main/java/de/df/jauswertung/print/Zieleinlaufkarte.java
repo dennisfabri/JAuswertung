@@ -4,6 +4,7 @@
 package de.df.jauswertung.print;
 
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 
 public class Zieleinlaufkarte {
@@ -13,16 +14,11 @@ public class Zieleinlaufkarte {
     private String disziplin;
     private String startgruppe;
 
-    /**
-     * @param lauf
-     * @param disziplin
-     * @param altersklasse
-     */
     @SuppressWarnings("rawtypes")
     public Zieleinlaufkarte(AWettkampf wk, Lauf lauf) {
         if (lauf != null) {
             this.event = wk.getIntegerProperty("roundId", 0);
-            this.lauf = lauf.getName();
+            this.lauf = lauf.getName(wk.getHeatsNumberingScheme());
             this.disziplin = lauf.getDisziplin();
             this.startgruppe = lauf.getStartgruppe();
         } else {

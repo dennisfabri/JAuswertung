@@ -19,6 +19,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
@@ -783,6 +784,8 @@ public final class TableHeatUtils {
      * @return
      */
     private static <T extends ASchwimmer> Object[][] lauflisteToData(AWettkampf<T> wk) {
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         Laufliste<T> laufliste = wk.getLaufliste();
         int heats = laufliste.getLaufliste().size();
         int lanes = wk.getIntegerProperty(HEATS_LANES);
@@ -790,7 +793,7 @@ public final class TableHeatUtils {
         for (int y = 0; y < laufliste.getLaufliste().size(); y++) {
             Lauf<T> lauf = laufliste.getLaufliste().get(y);
             if (lauf != null) {
-                o[y][0] = lauf.getName() + "  ";
+                o[y][0] = lauf.getName(scheme) + "  ";
                 o[y][1] = " ";
                 o[y][2] = " ";
                 if (lauf.getSchwimmer() != null) {
@@ -819,6 +822,8 @@ public final class TableHeatUtils {
      * @return
      */
     private static <T extends ASchwimmer> Object[][] lauflisteToTimes(AWettkampf<T> wk) {
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         Laufliste<T> laufliste = wk.getLaufliste();
         int heats = laufliste.getLaufliste().size();
         int lanes = wk.getIntegerProperty(HEATS_LANES);
@@ -826,7 +831,7 @@ public final class TableHeatUtils {
         for (int y = 0; y < laufliste.getLaufliste().size(); y++) {
             Lauf<T> temp = laufliste.getLaufliste().get(y);
             if (temp != null) {
-                o[y][0] = temp.getName();
+                o[y][0] = temp.getName(scheme);
                 o[y][1] = " ";
                 o[y][2] = " ";
                 if (temp.getSchwimmer() != null) {

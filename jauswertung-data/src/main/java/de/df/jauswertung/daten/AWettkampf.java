@@ -1341,4 +1341,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         }
         return max;
     }
+
+    public HeatsNumberingScheme getHeatsNumberingScheme() {
+        return HeatsNumberingScheme.fromString(getStringProperty(PropertyConstants.HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue()));
+    }
 }

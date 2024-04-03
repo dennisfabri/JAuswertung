@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -47,7 +48,8 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
     @Override
     public String getHeatname(int index) {
         Lauf<T> l = wk.getLaufliste().getLaufliste().get(Math.max(0, index));
-        return l.getName();
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+        return l.getName(scheme);
     }
 
     @Override
@@ -66,11 +68,13 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
     @Override
     public Heat[] generateHeats() {
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         Random rng = RandomUtils.getRandomNumberGenerator();
         Heat[] heats = new Heat[wk.getLaufliste().getLaufliste().size()];
         int x = 0;
         for (Lauf<T> lauf : wk.getLaufliste().getLaufliste()) {
-            Heat h = new Heat(lauf.getName(), lauf.getLaufnummer(), lauf.getLaufbuchstabe() + 1);
+            Heat h = new Heat(lauf.getName(scheme), lauf.getLaufnummer(), lauf.getLaufbuchstabe() + 1);
 
             for (int y = 0; y < lauf.getBahnen(); y++) {
                 // Einer von 100 erhält keine Zeiten
@@ -250,7 +254,7 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
     @Override
     public String[] getHeatnames() {
-        return wk.getLaufliste().getHeatNames();
+        return wk.getLaufliste().getHeatNames(wk.getHeatsNumberingScheme());
     }
 
     @Override

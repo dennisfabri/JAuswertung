@@ -36,11 +36,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Eingabe;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.TimelimitsContainer;
-import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLauf;
-import de.df.jauswertung.daten.laufliste.OWLaufliste;
+import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.UpdateEventConstants;
@@ -934,16 +930,12 @@ public class PHeatInputPlugin extends ANullPlugin {
 
             disciplines = Arrays.copyOf(disciplines, getBahnen());
 
+            HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
             Laufliste<T> ll = wk.getLaufliste();
             int index = heat.getSelectedIndex();
             heat.removeAllItems();
-            String[] items = new String[ll == null || ll.isEmpty() ? 0 : ll.getLaufliste().size()];
-            if (items.length > 0) {
-                ListIterator<Lauf<T>> li = ll.getLaufliste().listIterator();
-                for (int x = 0; li.hasNext(); x++) {
-                    items[x] = li.next().getName();
-                }
-            }
+            String[] items = ll.getLaufliste().stream().map(tLauf -> tLauf.getName(scheme)).toArray(String[]::new);
             heat.setModel(new DefaultComboBoxModel<>(items));
             if (index != -1) {
                 heat.setSelectedIndex(index);

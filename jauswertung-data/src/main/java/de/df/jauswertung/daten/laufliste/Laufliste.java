@@ -1787,14 +1787,14 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         return mode;
     }
 
-    public String[] getHeatNames() {
+    public String[] getHeatNames(HeatsNumberingScheme scheme) {
         if ((laufliste == null) || laufliste.isEmpty()) {
             return new String[0];
         }
         String[] result = new String[laufliste.size()];
         int x = 0;
         for (Lauf<T> l : laufliste) {
-            result[x] = l.getName();
+            result[x] = l.getName(scheme);
             x++;
         }
         return result;

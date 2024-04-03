@@ -19,6 +19,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -66,6 +67,8 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
             }
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
         if (heats == null) {
             // Do Nothing
@@ -75,7 +78,7 @@ public class JStartsViewer<T extends ASchwimmer> extends JDialog {
                     T s = l.getSchwimmer(x);
                     if (s == schwimmer) {
                         int i = l.getDisznummer(x);
-                        lauf[i] = l.getName();
+                        lauf[i] = l.getName(scheme);
                         bahn[i] = "" + (x + 1);
                     }
                 }

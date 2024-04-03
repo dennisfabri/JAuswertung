@@ -1,6 +1,3 @@
-/*
- * Created on 27.04.2005
- */
 package de.df.jauswertung.gui.plugins.heats;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
@@ -52,11 +49,13 @@ import de.df.jutils.gui.wizard.*;
 import de.df.jutils.plugin.IFeature;
 import de.df.jutils.util.ArrayUtils;
 import de.df.jutils.util.StringTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         implements FinishListener, CancelListener {
 
-    private static final long serialVersionUID = 3617856365452997169L;
+    private static final Logger logger = LoggerFactory.getLogger(JNewHeatsWizard.class);
 
     private static final boolean DSM = Utils.isInDevelopmentModeFor("DSM");
 
@@ -238,9 +237,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             }
 
             Object o = wkx.getProperty(PropertyConstants.DSM_MODE_DATA);
-            if ((o != null) && (o instanceof int[][][])) {
-                int[][][] data = (int[][][]) o;
-
+            if (o instanceof int[][][] data) {
                 for (int x = 0; x < Math.min(sgs.length, data.length); x++) {
                     for (int y = 0; y < Math.min(sgs.length, data[x].length); y++) {
                         for (int z = 0; z < 2; z++) {
@@ -276,23 +273,22 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
             @Override
             public void changedUpdate(DocumentEvent arg0) {
-                updateNumbers(x, y, z);
+                updateNumbers(y, z);
             }
 
             @Override
             public void insertUpdate(DocumentEvent arg0) {
-                updateNumbers(x, y, z);
+                updateNumbers(y, z);
             }
 
             @Override
             public void removeUpdate(DocumentEvent arg0) {
-                updateNumbers(x, y, z);
+                updateNumbers(y, z);
             }
         }
 
-        void updateNumbers(int a, int b, int c) {
-            // updateAKDisplay(a, c);
-            updateSGDisplay(b, c);
+        void updateNumbers(int y, int z) {
+            updateSGDisplay(y, z);
         }
 
         void updateSGDisplay(int a, int male) {
@@ -321,10 +317,10 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     }
                 }
                 if (amount[x][male] == 0) {
-                    for (int y = 0; y < input.length; y++) {
-                        input[y][x][male].setEnabled(false);
-                        if (input[y][x][male].getInt() != 0) {
-                            input[y][x][male].setText("");
+                    for (JIntegerField[][] jIntegerFields : input) {
+                        jIntegerFields[x][male].setEnabled(false);
+                        if (jIntegerFields[x][male].getInt() != 0) {
+                            jIntegerFields[x][male].setText("");
                         }
                     }
                 }
@@ -405,8 +401,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (e.getSource() instanceof JCheckBox) {
-                    JCheckBox cb = (JCheckBox) e.getSource();
+                if (e.getSource() instanceof JCheckBox cb) {
                     if (cb.isSelected() != state) {
                         state = !state;
                         boolean[] s = selection.get(name);
@@ -420,10 +415,9 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
         private JPanel panel = null;
         JPanel data = null;
-        private JRadioButton auto = null;
         JRadioButton custom = null;
 
-        private LinkedList<String> disciplines = new LinkedList<>();
+        private final LinkedList<String> disciplines = new LinkedList<>();
         Hashtable<String, boolean[]> selection;
         Object[][] selections = null;
 
@@ -494,7 +488,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         private void initDataPanel() {
             if (disciplines.isEmpty()) {
                 Hashtable<String, boolean[]> old = selection;
-                selection = new Hashtable<String, boolean[]>();
+                selection = new Hashtable<>();
                 Regelwerk aks = wk.getRegelwerk();
                 for (int x = 0; x < aks.size(); x++) {
                     for (int y = 0; y < aks.getAk(x).getDiszAnzahl(); y++) {
@@ -538,9 +532,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 }
 
                 LinkedList<Object[]> input = new LinkedList<>();
-                ListIterator<String> li = disciplines.listIterator();
-                while (li.hasNext()) {
-                    String name = li.next();
+                for (String name : disciplines) {
                     boolean[] s = selection.get(name);
 
                     Object[] o = new Object[bahnen + 1];
@@ -575,15 +567,13 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 layout.setRowGroups(new int[][] { { 2, 4 } });
                 panel = new JPanel(layout);
 
-                auto = new JRadioButton(I18n.get("UseAllLanes"), true);
+                JRadioButton auto = new JRadioButton(I18n.get("UseAllLanes"), true);
                 custom = new JRadioButton(I18n.get("Custom"), false);
                 custom.addItemListener(e -> {
                     data.setEnabled(custom.isSelected());
                 });
 
                 data = new JPanel() {
-                    private static final long serialVersionUID = -3188281347950780144L;
-
                     @Override
                     public void setEnabled(boolean arg0) {
                         super.setEnabled(arg0);
@@ -826,7 +816,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             panel.add(editor, CC.xy(2, 8));
         }
 
-        private JPanel getDescriptionPanel(JList list, String text) {
+        private <TX> JPanel getDescriptionPanel(JList<TX> list, String text) {
             JPanel p = new JPanel(new BorderLayout(5, 5));
             if (list != null) {
                 p.add(new JScrollPane(list), BorderLayout.CENTER);
@@ -836,19 +826,17 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         }
 
         private JList<Laufliste.Einteilung> getListCustom() {
-            JList<Laufliste.Einteilung> listex = new JSmoothList<>(wk.getLaufliste().getVerteilung());
-            listex.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-            JListUtils.setAlternatingListCellRenderer(listex, new DefaultListCellRenderer() {
-                private static final long serialVersionUID = -7154403278324249315L;
-
+            JList<Laufliste.Einteilung> einteilungListe = new JSmoothList<>(wk.getLaufliste().getVerteilung());
+            einteilungListe.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            JListUtils.setAlternatingListCellRenderer(einteilungListe, new DefaultListCellRenderer() {
                 @Override
                 public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected,
                         boolean cellHasFocus) {
                     Component c = super.getListCellRendererComponent(liste, value, index, isSelected, cellHasFocus);
-                    if (!(value instanceof Laufliste.Einteilung)) {
+                    if (!(value instanceof Laufliste.Einteilung data)) {
                         return c;
                     }
-                    JLabel l = null;
+                    JLabel l;
                     if (c instanceof JLabel) {
                         l = (JLabel) c;
                     } else {
@@ -857,7 +845,6 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                         l.setForeground(c.getForeground());
                         l.setFont(c.getFont());
                     }
-                    Laufliste.Einteilung data = (Laufliste.Einteilung) value;
                     Startgruppe sg = wk.getRegelwerk().getEffektiveStartgruppen()[data.getStartgruppe()];
                     Altersklasse ak = wk.getRegelwerk().getAKsForStartgroup(sg).getFirst();
                     l.setText(I18n.get("AgegroupSexDiscipline",
@@ -867,7 +854,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     return l;
                 }
             });
-            return listex;
+            return einteilungListe;
         }
 
         private JList<Laufliste.BlockEinteilung> getListBlocks() {
@@ -876,13 +863,11 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             JList<Laufliste.BlockEinteilung> listex = new JSmoothList<>(model);
             listex.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             JListUtils.setAlternatingListCellRenderer(listex, new DefaultListCellRenderer() {
-                private static final long serialVersionUID = -7154403278324249315L;
-
                 @Override
                 public Component getListCellRendererComponent(JList liste, Object value, int index, boolean isSelected,
                         boolean cellHasFocus) {
                     Component c = super.getListCellRendererComponent(liste, value, index, isSelected, cellHasFocus);
-                    if (!(value instanceof Laufliste.BlockEinteilung)) {
+                    if (!(value instanceof Laufliste.BlockEinteilung data)) {
                         return c;
                     }
                     JLabel l = null;
@@ -894,7 +879,6 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                         l.setForeground(c.getForeground());
                         l.setFont(c.getFont());
                     }
-                    Laufliste.BlockEinteilung data = (Laufliste.BlockEinteilung) value;
                     if (data.getStartgruppe() < 0) {
                         l.setText("--- Blockwechsel ---");
                     } else {
@@ -914,18 +898,16 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
         class BlocksPopup extends JPopupMenu {
 
-            private JMenuItem add = new JMenuItem(I18n.get("AddBlockswitch"), IconManager.getSmallIcon("new"));
-            private JMenuItem del = new JMenuItem(I18n.get("DeleteBlockswitch"), IconManager.getSmallIcon("delete"));
+            private final JMenuItem del = new JMenuItem(I18n.get("DeleteBlockswitch"), IconManager.getSmallIcon("delete"));
 
             public BlocksPopup() {
+                JMenuItem add = new JMenuItem(I18n.get("AddBlockswitch"), IconManager.getSmallIcon("new"));
                 add.addActionListener(e -> {
-                    @SuppressWarnings("unchecked")
                     ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
                             .getModel();
                     model.add(new Laufliste.BlockEinteilung(-1, false), listblocks.getSelectedIndex());
                 });
                 del.addActionListener(e -> {
-                    @SuppressWarnings("unchecked")
                     ModifiableListModel<Laufliste.BlockEinteilung> model = (ModifiableListModel<Laufliste.BlockEinteilung>) listblocks
                             .getModel();
                     model.remove(listblocks.getSelectedIndex());
@@ -941,7 +923,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     int index = listblocks.getSelectedIndex();
                     Laufliste.BlockEinteilung data = new Laufliste.BlockEinteilung(0, false);
                     if (index >= 0) {
-                        data = (Laufliste.BlockEinteilung) listblocks.getModel().getElementAt(index);
+                        data = listblocks.getModel().getElementAt(index);
                     }
                     del.setEnabled(data.getStartgruppe() < 0);
                 }
@@ -1000,11 +982,11 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             if (getSelection() != BLOCKS) {
                 throw new IllegalStateException();
             }
-            ListModel model = listblocks.getModel();
+            ListModel<Laufliste.BlockEinteilung> model = listblocks.getModel();
             int size = model.getSize();
             Laufliste.BlockEinteilung[] result = new Laufliste.BlockEinteilung[size];
             for (int x = 0; x < result.length; x++) {
-                result[x] = (Laufliste.BlockEinteilung) model.getElementAt(x);
+                result[x] = model.getElementAt(x);
             }
             return result;
         }
@@ -1016,10 +998,10 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
             if (getSelection() == AUTO) {
                 return wk.getLaufliste().getStandardVerteilung();
             }
-            ListModel model = listcustom.getModel();
+            ListModel<Laufliste.Einteilung> model = listcustom.getModel();
             Laufliste.Einteilung[] daten = new Laufliste.Einteilung[model.getSize()];
             for (int x = 0; x < daten.length; x++) {
-                daten[x] = (Laufliste.Einteilung) model.getElementAt(x);
+                daten[x] = model.getElementAt(x);
             }
             return daten;
         }
@@ -1031,9 +1013,9 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
         EDTUtils.executeOnEDT(this::finishHeats);
-        SwingWorker<Boolean, Object> sw = new SwingWorker<Boolean, Object>() {
+        SwingWorker<Boolean, Object> sw = new SwingWorker<>() {
             @Override
-            protected Boolean doInBackground() throws Exception {
+            protected Boolean doInBackground() {
                 try {
                     long eventtype = 0;
                     switch (aksort.getSelection()) {
@@ -1070,7 +1052,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                     }
                     origin.sendDataUpdateEvent("NewHeatlist", eventtype);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.warn("Error while finishing heats", e);
                 }
                 return null;
             }

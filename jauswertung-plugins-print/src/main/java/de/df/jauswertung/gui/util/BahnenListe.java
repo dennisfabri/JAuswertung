@@ -16,6 +16,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
@@ -60,6 +61,7 @@ public class BahnenListe<T extends ASchwimmer> {
             return null;
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         boolean isMultiline = wk.isMultiline();
 
         String[][] ergebnis = new String[laufliste.size()][6];
@@ -69,7 +71,7 @@ public class BahnenListe<T extends ASchwimmer> {
             }
             try {
                 Lauf<T> lauf = laufliste.get(x);
-                ergebnis[x][0] = lauf.getName();
+                ergebnis[x][0] = lauf.getName(scheme);
                 T s = lauf.getSchwimmer(puppe - 1);
                 if (s != null) {
                     Mannschaft m = isMultiline && s instanceof Mannschaft ? (Mannschaft) s : null;

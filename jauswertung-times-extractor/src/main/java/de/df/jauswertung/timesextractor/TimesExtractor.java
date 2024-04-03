@@ -13,6 +13,7 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
@@ -87,6 +88,7 @@ public class TimesExtractor {
     private <T extends ASchwimmer> Start determineStart(T schwimmer) {
         AWettkampf<T> wk = schwimmer.getWettkampf();
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         if (heats == null) {
             // Do Nothing
         } else {
@@ -94,7 +96,7 @@ public class TimesExtractor {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
                     if (s == schwimmer) {
-                        return new Start(l.getName(), x + 1);
+                        return new Start(l.getName(scheme), x + 1);
                     }
                 }
             }

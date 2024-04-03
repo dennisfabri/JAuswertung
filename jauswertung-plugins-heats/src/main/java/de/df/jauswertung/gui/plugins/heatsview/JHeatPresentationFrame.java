@@ -27,6 +27,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
@@ -286,8 +287,9 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                 page = 1;
             }
 
+            HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
             Lauf<?> lauf = wk.getLaufliste().getLaufliste().get(index - 1 + page);
-            String name = lauf.getName();
+            String name = lauf.getName(scheme);
             String ak = lauf.getAltersklasse();
             String dis = lauf.getDisziplin();
             String disx = lauf.getDisziplinShort();

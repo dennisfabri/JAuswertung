@@ -19,10 +19,7 @@ import java.util.ListIterator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.laufliste.HLWLauf;
-import de.df.jauswertung.daten.laufliste.HLWListe;
-import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -207,11 +204,13 @@ public final class SchwimmerUtils {
             return null;
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         for (Lauf<T> l : laufliste) {
             for (int x = 0; x < l.getBahnen(); x++) {
                 T temp = l.getSchwimmer(x);
                 if ((temp != null) && (s.getStartnummer() == temp.getStartnummer()) && disz == l.getDisznummer(x)) {
-                    return new LaufInfo(l.getName(), x + 1);
+                    return new LaufInfo(l.getName(scheme), x + 1);
                 }
             }
         }
@@ -290,6 +289,7 @@ public final class SchwimmerUtils {
             ListIterator<Lauf<T>> li = laufliste.listIterator(index);
 
             int roundId = wk.getIntegerProperty("roundId", 0);
+            HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
             while (li.hasNext() && (amount > 0)) {
                 amount--;
@@ -298,7 +298,7 @@ public final class SchwimmerUtils {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
                     if (s != null) {
-                        listen[x].addLast(new Startkarte(s, roundId, l.getDisznummer(x), l.getName(), x + 1));
+                        listen[x].addLast(new Startkarte(s, roundId, l, x + 1));
                     } else {
                         if (includeEmptyLanes) {
                             listen[x].addLast(new Startkarte(l, roundId, x + 1));

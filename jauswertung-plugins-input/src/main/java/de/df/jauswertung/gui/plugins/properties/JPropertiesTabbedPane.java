@@ -3,33 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.properties;
 
-import static de.df.jauswertung.daten.PropertyConstants.ART_DES_WETTKAMPFS;
-import static de.df.jauswertung.daten.PropertyConstants.AUSRICHTER;
-import static de.df.jauswertung.daten.PropertyConstants.BEGIN;
-import static de.df.jauswertung.daten.PropertyConstants.DATE;
-import static de.df.jauswertung.daten.PropertyConstants.DEPTH_OF_POOL;
-import static de.df.jauswertung.daten.PropertyConstants.ELEKTRONISCHE_ZEITNAHME;
-import static de.df.jauswertung.daten.PropertyConstants.END;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.INFOPAGE;
-import static de.df.jauswertung.daten.PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID;
-import static de.df.jauswertung.daten.PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER;
-import static de.df.jauswertung.daten.PropertyConstants.LENGTH_OF_POOL;
-import static de.df.jauswertung.daten.PropertyConstants.LOCATION;
-import static de.df.jauswertung.daten.PropertyConstants.NAME;
-import static de.df.jauswertung.daten.PropertyConstants.NAMENTLICHE_MELDUNG_STRIKT;
-import static de.df.jauswertung.daten.PropertyConstants.NAME_OF_POOL;
-import static de.df.jauswertung.daten.PropertyConstants.ORGANIZER;
-import static de.df.jauswertung.daten.PropertyConstants.OTHER_COMPETITION_INFO;
-import static de.df.jauswertung.daten.PropertyConstants.OTHER_LOCATION_INFO;
-import static de.df.jauswertung.daten.PropertyConstants.POSITION_OF_MANAKIN;
-import static de.df.jauswertung.daten.PropertyConstants.PRINT_REFEREES_COMPACT;
-import static de.df.jauswertung.daten.PropertyConstants.RESULT_MULTILINE;
-import static de.df.jauswertung.daten.PropertyConstants.SHORTNAME;
-import static de.df.jauswertung.daten.PropertyConstants.STARTNUMBERFORMAT;
-import static de.df.jauswertung.daten.PropertyConstants.WATERTEMPERATURE;
-import static de.df.jauswertung.daten.PropertyConstants.YEAR_OF_COMPETITION;
-
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionListener;
@@ -62,6 +35,7 @@ import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Wettkampfart;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jauswertung.web.iscupload.ISCUploadCredentialRepository;
@@ -73,11 +47,11 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.window.JOptionsDialog;
 
+import static de.df.jauswertung.daten.PropertyConstants.*;
+
 public final class JPropertiesTabbedPane extends JTabbedPane {
 
-    private static final long serialVersionUID = 3256442495306316086L;
-
-    private ISCUploadCredentialRepository authkeys = new ISCUploadCredentialRepository();
+    private final ISCUploadCredentialRepository authKeys = new ISCUploadCredentialRepository();
 
     private JComboBox<Wettkampfart> art;
     private JWarningTextField name;
@@ -89,22 +63,23 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     private JWarningTextField begin;
     private JWarningTextField end;
     private JTextPane competitionOther;
-    private JComboBox<String> nameregistration;
+    private JComboBox<String> nameRegistration;
     private JComboBox<String> printNamesInResults;
-    private JComboBox<String> snformat;
+    private JComboBox<String> snFormat;
+    private JComboBox<HeatsNumberingDisplay> heatNumberFormat;
     private JComboBox<String> printReferees;
 
-    private String[] snformats;
+    private String[] snFormats;
 
     private JComboBox<Integer> year;
 
     private JTextPane nameOfPool;
     private JTextPane depthOfPool;
     private JWarningTextField temperatureOfPool;
-    private JWarningTextField poollength;
-    private JIntSpinner numberoflanes;
+    private JWarningTextField poolLength;
+    private JIntSpinner numberOfLanes;
     private JCheckBox elektronischeZeitnahme;
-    JTextPane manakin;
+    private JTextPane manikin;
     private JTextPane locationOther;
 
     JTextPane infopage;
@@ -113,12 +88,12 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
     JOptionsDialog dialog;
 
-    private JWarningTextField edvnumber;
+    private JWarningTextField edvNumber;
     private JWarningTextField competitionId;
-    private JWarningTextField authkey;
+    private JWarningTextField authKey;
 
     @SuppressWarnings("rawtypes")
-    AWettkampf wk;
+    private AWettkampf wk;
 
     public JPropertiesTabbedPane(JOptionsDialog parent) {
         this.dialog = parent;
@@ -159,27 +134,28 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         end.getDocument().addDocumentListener(doc);
         competitionOther.getDocument().addDocumentListener(doc);
 
-        nameregistration.addItemListener(item);
+        nameRegistration.addItemListener(item);
         printNamesInResults.addActionListener(action);
-        snformat.addActionListener(action);
+        snFormat.addActionListener(action);
+        heatNumberFormat.addItemListener(item);
         year.addItemListener(item);
         printReferees.addActionListener(action);
 
         nameOfPool.getDocument().addDocumentListener(doc);
         depthOfPool.getDocument().addDocumentListener(doc);
-        poollength.getDocument().addDocumentListener(doc);
+        poolLength.getDocument().addDocumentListener(doc);
         temperatureOfPool.getDocument().addDocumentListener(doc);
-        numberoflanes.addChangeListener(change);
+        numberOfLanes.addChangeListener(change);
         elektronischeZeitnahme.addActionListener(action);
-        manakin.getDocument().addDocumentListener(doc);
+        manikin.getDocument().addDocumentListener(doc);
 
         infopage.getDocument().addDocumentListener(doc);
 
         image.addChangeListener(change);
 
-        edvnumber.getDocument().addDocumentListener(doc);
+        edvNumber.getDocument().addDocumentListener(doc);
         competitionId.getDocument().addDocumentListener(doc);
-        authkey.getDocument().addDocumentListener(doc);
+        authKey.getDocument().addDocumentListener(doc);
     }
 
     private void setTraversalKeys(JTextPane textArea) {
@@ -211,53 +187,54 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         begin = new JWarningTextField();
         end = new JWarningTextField();
         competitionOther = createTextPane();
-        nameregistration = new JComboBox<>(
+        nameRegistration = new JComboBox<>(
                 new String[] { I18n.get("TeammembersNamesOnly"), I18n.get("TeammembersStrict") });
         printNamesInResults = new JComboBox<>(
                 new String[] { I18n.get("TeamnameOnly"), I18n.get("TeamnameAndMembers") });
 
-        snformats = StartnumberFormatManager.getFormats();
-        String[] formats = new String[snformats.length];
+        snFormats = StartnumberFormatManager.getFormats();
+        String[] formats = new String[snFormats.length];
         for (int x = 0; x < formats.length; x++) {
-            String key = "Startnumberformat." + snformats[x];
+            String key = "Startnumberformat." + snFormats[x];
             formats[x] = I18n.get(key);
             if (formats[x].equals(key)) {
-                formats[x] = snformats[x];
+                formats[x] = snFormats[x];
             }
         }
-        snformat = new JComboBox<>(formats);
+        snFormat = new JComboBox<>(formats);
+        heatNumberFormat = new JComboBox<>(HeatsNumberingDisplay.values());
 
         printReferees = new JComboBox<>(
                 new String[] { I18n.get("Standard"), I18n.get("Compact"), I18n.get("VeryCompact") });
 
         nameOfPool = createTextPane();
         depthOfPool = createTextPane();
-        poollength = new JWarningTextField();
+        poolLength = new JWarningTextField();
         temperatureOfPool = new JWarningTextField();
-        numberoflanes = new JIntSpinner(6, 1, 99, 1);
+        numberOfLanes = new JIntSpinner(6, 1, 99, 1);
         elektronischeZeitnahme = new JCheckBox();
-        manakin = createTextPane();
-        manakin.addMouseListener(new ManakinMouseListener());
+        manikin = createTextPane();
+        manikin.addMouseListener(new ManikinMouseListener());
         locationOther = new JTextPane();
 
         infopage = new JTextPane();
 
         image = new JImagePanel();
 
-        edvnumber = new JWarningTextField();
+        edvNumber = new JWarningTextField();
         competitionId = new JWarningTextField();
-        authkey = new JWarningTextField();
+        authKey = new JWarningTextField();
 
         name.setAutoSelectAll(true);
         shortname.setAutoSelectAll(true);
         date.setAutoSelectAll(true);
         begin.setAutoSelectAll(true);
         end.setAutoSelectAll(true);
-        poollength.setAutoSelectAll(true);
+        poolLength.setAutoSelectAll(true);
         temperatureOfPool.setAutoSelectAll(true);
-        edvnumber.setAutoSelectAll(true);
+        edvNumber.setAutoSelectAll(true);
         competitionId.setAutoSelectAll(true);
-        authkey.setAutoSelectAll(true);
+        authKey.setAutoSelectAll(true);
     }
 
     private Integer[] createYears() {
@@ -284,9 +261,10 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         sfm.add(I18n.get("End"), end);
         sfm.add(I18n.get("Other"), new JScrollPane(competitionOther), SimpleFormBuilder.GrowModel.Resize);
         sfm.add(I18n.get("Year"), year);
-        sfm.add(I18n.get("Startnumberformat"), snformat);
+        sfm.add(I18n.get("Startnumberformat"), snFormat);
+        sfm.add(I18n.get("HeatsNumberingScheme"), heatNumberFormat);
         if (wk instanceof MannschaftWettkampf) {
-            sfm.add(I18n.get("TeamnameModeLabel"), nameregistration);
+            sfm.add(I18n.get("TeamnameModeLabel"), nameRegistration);
             sfm.add(I18n.get("PrintResults"), printNamesInResults);
         }
         sfm.add(I18n.get("PrintReferees"), printReferees);
@@ -299,11 +277,11 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
         sfm.add(I18n.get("NameOfPool"), new JScrollPane(nameOfPool), SimpleFormBuilder.GrowModel.Resize);
         sfm.add(I18n.get("DepthOfPool"), new JScrollPane(depthOfPool), SimpleFormBuilder.GrowModel.Resize);
-        sfm.add(I18n.get("Poollength"), poollength);
-        sfm.add(I18n.get("NumberOfLanes"), numberoflanes);
+        sfm.add(I18n.get("Poollength"), poolLength);
+        sfm.add(I18n.get("NumberOfLanes"), numberOfLanes);
         sfm.add(I18n.get("ElektronischeZeitnahme"), elektronischeZeitnahme);
         sfm.add(I18n.get("Watertemperature"), temperatureOfPool);
-        sfm.add(I18n.get("Puppenaufnahme"), new JScrollPane(manakin), SimpleFormBuilder.GrowModel.Resize);
+        sfm.add(I18n.get("Puppenaufnahme"), new JScrollPane(manikin), SimpleFormBuilder.GrowModel.Resize);
         sfm.add(I18n.get("Other"), new JScrollPane(locationOther), SimpleFormBuilder.GrowModel.Resize);
 
         return sfm.getPanel();
@@ -319,9 +297,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     private JPanel createISCPanel() {
         SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);
 
-        sfm.add(I18n.get("EDVNumber"), edvnumber);
+        sfm.add(I18n.get("EDVNumber"), edvNumber);
         sfm.add(I18n.get("CompetitionId"), competitionId);
-        sfm.add(I18n.get("ISCUploadAuthKey"), authkey);
+        sfm.add(I18n.get("ISCUploadAuthKey"), authKey);
         sfm.addText(I18n.get("ISCUploadAuthKey.Info"));
 
         return sfm.getPanel();
@@ -344,17 +322,18 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(BEGIN, begin.getText());
             wk.setProperty(END, end.getText());
             wk.setProperty(OTHER_COMPETITION_INFO, competitionOther.getText());
-            wk.setProperty(NAMENTLICHE_MELDUNG_STRIKT, nameregistration.getSelectedIndex() == 1);
+            wk.setProperty(NAMENTLICHE_MELDUNG_STRIKT, nameRegistration.getSelectedIndex() == 1);
             wk.setProperty(RESULT_MULTILINE, printNamesInResults.getSelectedIndex() == 1);
-            wk.setProperty(STARTNUMBERFORMAT, snformats[snformat.getSelectedIndex()]);
+            wk.setProperty(STARTNUMBERFORMAT, snFormats[snFormat.getSelectedIndex()]);
+            wk.setProperty(HEATS_NUMBERING_SCHEME, getHeatsNumberingScheme().getValue());
             wk.setProperty(PRINT_REFEREES_COMPACT, printReferees.getSelectedIndex());
 
             wk.setProperty(NAME_OF_POOL, nameOfPool.getText());
             wk.setProperty(DEPTH_OF_POOL, depthOfPool.getText());
-            wk.setProperty(LENGTH_OF_POOL, poollength.getText());
-            wk.setProperty(HEATS_LANES, numberoflanes.getInt());
+            wk.setProperty(LENGTH_OF_POOL, poolLength.getText());
+            wk.setProperty(HEATS_LANES, numberOfLanes.getInt());
             wk.setProperty(ELEKTRONISCHE_ZEITNAHME, elektronischeZeitnahme.isSelected());
-            wk.setProperty(POSITION_OF_MANAKIN, manakin.getText());
+            wk.setProperty(POSITION_OF_MANAKIN, manikin.getText());
             wk.setProperty(WATERTEMPERATURE, temperatureOfPool.getText());
             wk.setProperty(OTHER_LOCATION_INFO, locationOther.getText());
 
@@ -362,12 +341,20 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
             wk.setLogo(image.getImageData());
 
-            wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvnumber.getText());
+            wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvNumber.getText());
             wk.setProperty(ISC_RESULT_UPLOAD_COMPETITION_ID, competitionId.getText());
 
-            authkeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
-                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authkey.getText()));
+            authKeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
+                                                             wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authKey.getText()));
         }
+    }
+
+    private HeatsNumberingScheme getHeatsNumberingScheme() {
+        HeatsNumberingDisplay scheme = (HeatsNumberingDisplay) heatNumberFormat.getSelectedItem();
+        if (scheme == null) {
+            return HeatsNumberingScheme.Standard;
+        }
+        return scheme.getScheme();
     }
 
     public void update(@SuppressWarnings("rawtypes") AWettkampf wettkampf) {
@@ -404,27 +391,28 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             begin.setText(wk.getStringProperty(BEGIN));
             end.setText(wk.getStringProperty(END));
             competitionOther.setText(wk.getStringProperty(OTHER_COMPETITION_INFO));
-            nameregistration.setSelectedIndex(wk.getBooleanProperty(NAMENTLICHE_MELDUNG_STRIKT) ? 1 : 0);
+            nameRegistration.setSelectedIndex(wk.getBooleanProperty(NAMENTLICHE_MELDUNG_STRIKT) ? 1 : 0);
             printNamesInResults.setSelectedIndex(wk.getBooleanProperty(RESULT_MULTILINE) ? 1 : 0);
-            snformat.setSelectedIndex(
+            snFormat.setSelectedIndex(
                     StartnumberFormatManager.GetIndex(wk.getStringProperty(STARTNUMBERFORMAT, "Default")));
+            heatNumberFormat.setSelectedIndex(getHeatsNumberingSchemeIndex(wk.getStringProperty(HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue())));
             printReferees.setSelectedIndex(wk.getIntegerProperty(PRINT_REFEREES_COMPACT, 1));
 
             nameOfPool.setText(wk.getStringProperty(NAME_OF_POOL));
             depthOfPool.setText(wk.getStringProperty(DEPTH_OF_POOL));
-            poollength.setText(wk.getStringProperty(LENGTH_OF_POOL));
-            numberoflanes.setInt(wk.getIntegerProperty(HEATS_LANES));
+            poolLength.setText(wk.getStringProperty(LENGTH_OF_POOL));
+            numberOfLanes.setInt(wk.getIntegerProperty(HEATS_LANES));
             elektronischeZeitnahme.setSelected(wk.getBooleanProperty(ELEKTRONISCHE_ZEITNAHME));
             temperatureOfPool.setText(wk.getStringProperty(WATERTEMPERATURE));
-            manakin.setText(wk.getStringProperty(POSITION_OF_MANAKIN));
+            manikin.setText(wk.getStringProperty(POSITION_OF_MANAKIN));
             locationOther.setText(wk.getStringProperty(OTHER_LOCATION_INFO));
 
             infopage.setText(wk.getStringProperty(INFOPAGE));
 
-            edvnumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
+            edvNumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
             competitionId.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID));
-            authkey.setText(authkeys.getCredentials(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
-                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
+            authKey.setText(authKeys.getCredentials(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
+                                                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
 
             try {
                 image.setImageData(wk.getLogo());
@@ -437,18 +425,28 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         }
     }
 
-    class ManakinMouseListener extends MouseAdapter {
+    private int getHeatsNumberingSchemeIndex(String scheme) {
+        HeatsNumberingScheme[] values = HeatsNumberingScheme.values();
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].getValue().equalsIgnoreCase(scheme)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
-        private ManakinSinglePopup popup1 = new ManakinSinglePopup();
-        private ManakinTeamPopup popup2 = new ManakinTeamPopup();
+    class ManikinMouseListener extends MouseAdapter {
+
+        private final ManikinIndividualPopup individualPopup = new ManikinIndividualPopup();
+        private final ManikinTeamPopup teamPopup = new ManikinTeamPopup();
 
         @Override
         public void mousePressed(MouseEvent evt) {
             if (evt.isPopupTrigger()) {
                 if (wk instanceof EinzelWettkampf) {
-                    popup1.show(manakin, evt.getX(), evt.getY());
+                    individualPopup.show(manikin, evt.getX(), evt.getY());
                 } else {
-                    popup2.show(manakin, evt.getX(), evt.getY());
+                    teamPopup.show(manikin, evt.getX(), evt.getY());
                 }
             }
         }
@@ -471,39 +469,35 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         }
     }
 
-    class ManakinSinglePopup extends JPopupMenu {
+    class ManikinIndividualPopup extends JPopupMenu {
 
-        private static final long serialVersionUID = -1770264789718344382L;
-
-        public ManakinSinglePopup() {
+        public ManikinIndividualPopup() {
             JMenuItem toptop = new JMenuItem(I18n.get("ManakinTopTop"));
-            JMenuItem topbottom = new JMenuItem(I18n.get("ManakinTopBottom"));
-            JMenuItem bottomtop = new JMenuItem(I18n.get("ManakinBottomTop"));
-            JMenuItem bottombottom = new JMenuItem(I18n.get("ManakinBottomBottom"));
+            JMenuItem manikinTopBottom = new JMenuItem(I18n.get("ManakinTopBottom"));
+            JMenuItem manikinBottomTop = new JMenuItem(I18n.get("ManakinBottomTop"));
+            JMenuItem manikinBottomBottom = new JMenuItem(I18n.get("ManakinBottomBottom"));
             JMenuItem rescue = new JMenuItem(I18n.get("ManakinCombinedRescue"));
-            toptop.addActionListener(e -> append(manakin, I18n.get("ManakinTopTopText")));
-            topbottom.addActionListener(e -> append(manakin, I18n.get("ManakinTopBottomText")));
-            bottomtop.addActionListener(e -> append(manakin, I18n.get("ManakinBottomTopText")));
-            bottombottom.addActionListener(e -> append(manakin, I18n.get("ManakinBottomBottomText")));
-            rescue.addActionListener(e -> append(manakin, I18n.get("ManakinCombinedRescueText")));
+            toptop.addActionListener(e -> append(manikin, I18n.get("ManakinTopTopText")));
+            manikinTopBottom.addActionListener(e -> append(manikin, I18n.get("ManakinTopBottomText")));
+            manikinBottomTop.addActionListener(e -> append(manikin, I18n.get("ManakinBottomTopText")));
+            manikinBottomBottom.addActionListener(e -> append(manikin, I18n.get("ManakinBottomBottomText")));
+            rescue.addActionListener(e -> append(manikin, I18n.get("ManakinCombinedRescueText")));
 
             add(toptop);
-            add(topbottom);
-            add(bottomtop);
-            add(bottombottom);
+            add(manikinTopBottom);
+            add(manikinBottomTop);
+            add(manikinBottomBottom);
             add(rescue);
         }
     }
 
-    class ManakinTeamPopup extends JPopupMenu {
+    class ManikinTeamPopup extends JPopupMenu {
 
-        private static final long serialVersionUID = -1770264789718344382L;
-
-        public ManakinTeamPopup() {
+        public ManikinTeamPopup() {
             JMenuItem top = new JMenuItem(I18n.get("ManakinTeamTop"));
-            top.addActionListener(e -> append(manakin, I18n.get("ManakinTeamTopText")));
+            top.addActionListener(e -> append(manikin, I18n.get("ManakinTeamTopText")));
             JMenuItem bottom = new JMenuItem(I18n.get("ManakinTeamBottom"));
-            bottom.addActionListener(e -> append(manakin, I18n.get("ManakinTeamBottomText")));
+            bottom.addActionListener(e -> append(manikin, I18n.get("ManakinTeamBottomText")));
 
             add(top);
             add(bottom);

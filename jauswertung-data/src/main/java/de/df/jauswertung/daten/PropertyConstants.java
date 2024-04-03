@@ -41,6 +41,7 @@ public final class PropertyConstants {
     public static final String HEATS_AVOID_ALMOST_EMPTY = "HeatsAvoidAlmostEmpty";
     public static final String HEATS_AAE_FASTEST_HEAT_UNTOUCHED = "HeatsAAEFastestHeatUntouched";
     public static final String HEATS_REGISTERED_POINTS_INDEX = "HeatsRegisteredPointsIndex";
+    public static final String HEATS_NUMBERING_SCHEME = "HeatsNumberingScheme";
     public static final String ZW_CHANGE_BLOCKED = "HlwChangeBlocked";
     public static final String ZW_PAUSE_DURATION = "HlwPauseDuration";
     public static final String ZW_PAUSE_START = "HlwPauseStart";

@@ -26,6 +26,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
@@ -61,6 +62,8 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
             disziplintext = schwimmer.getAK().getDisziplinenNamen()[disziplin];
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
         if ((disziplin != ASchwimmer.DISCIPLINE_NUMBER_SELF) && (heats != null) && (heats.size() > 0)) {
             ListIterator<Lauf<T>> iterator = heats.listIterator();
@@ -71,7 +74,7 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
                     if (s.equals(t)) {
                         if (current.getDisznummer(x) == disziplin) {
                             lane = (x + 1);
-                            heat = current.getName();
+                            heat = current.getName(scheme);
                         }
                     }
                 }

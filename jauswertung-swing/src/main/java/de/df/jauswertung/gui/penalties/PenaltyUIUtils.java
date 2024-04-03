@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
@@ -199,6 +200,8 @@ public class PenaltyUIUtils {
             lauf = wk.getLaufliste().suche(s, discipline);
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         // Penaltyoffset for sorting
         int offset = 0;
 
@@ -211,7 +214,7 @@ public class PenaltyUIUtils {
                     sfm.setFont(PrintManager.getFont());
                 }
                 if (lauf != null) {
-                    sfm.addText(I18n.get("Heat") + " " + lauf.getName() + ", " + I18n.get("Lane") + " "
+                    sfm.addText(I18n.get("Heat") + " " + lauf.getName(scheme) + ", " + I18n.get("Lane") + " "
                             + (lauf.getIndex(s, discipline) + 1));
                 }
 
@@ -271,6 +274,8 @@ public class PenaltyUIUtils {
             lauf = wk.getLaufliste().suche(s, discipline);
         }
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
         // Penaltyoffset for sorting
         int offset = 0;
 
@@ -284,7 +289,7 @@ public class PenaltyUIUtils {
                 }
                 if (lauf != null) {
                     sfm.add(I18n.get("Heat") + " / " + I18n.get("Lane") + ":  ",
-                            lauf.getName() + " / " + (lauf.getIndex(s, discipline) + 1));
+                            lauf.getName(scheme) + " / " + (lauf.getIndex(s, discipline) + 1));
                 }
                 sfm.add(I18n.get("Name") + ":  ", s.getName());
                 sfm.add(I18n.get("Organisation") + ":  ", s.getGliederung());

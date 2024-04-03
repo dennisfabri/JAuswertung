@@ -33,6 +33,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
@@ -747,7 +748,9 @@ public final class PrintUtils {
             sgs[0].clear();
             sgs[1].clear();
 
-            first = lauf.getName();
+            HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+
+            first = lauf.getName(scheme);
             last = first;
 
             for (int x = 0; x < lauf.getBahnen(); x++) {

@@ -21,6 +21,7 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.FormelManager;
@@ -112,6 +113,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         int round = wk.getIntegerProperty("round", -1);
         int id = wk.getIntegerProperty("roundId", -1);
         int qualifiedPerHeat = wk.getIntegerProperty("qualifiedPerHeat", -1);
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {
@@ -130,7 +132,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         if (isFinal) {
             laufname = I18n.get("FinalNr", StringTools.asText(amountOfHeats - heatIndex - 1));
         } else {
-            laufname = I18n.get("HeatNr", lauf.getName(), 1) + qualified;
+            laufname = I18n.get("HeatNr", lauf.getName(scheme), 1) + qualified;
         }
 
         panel.add(createLabel(laufname), CC.xy(2, 2));

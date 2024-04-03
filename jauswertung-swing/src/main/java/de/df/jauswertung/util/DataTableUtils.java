@@ -30,13 +30,7 @@ import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.HLWLauf;
-import de.df.jauswertung.daten.laufliste.HLWListe;
-import de.df.jauswertung.daten.laufliste.Lauf;
-import de.df.jauswertung.daten.laufliste.Laufliste;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWLauf;
-import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
@@ -1202,9 +1196,15 @@ public final class DataTableUtils {
      */
     private static <T extends ASchwimmer> Object[] laufToLine(Lauf<T> lauf, int bahnen, int offset,
                                                               boolean mixedheats) {
+
+        HeatsNumberingScheme scheme = HeatsNumberingScheme.Standard;
+        if (lauf.getSchwimmer() != null) {
+            scheme = lauf.getSchwimmer().getWettkampf().getHeatsNumberingScheme();
+        }
+
         LinkedList<Object> row = new LinkedList<>();
         if (offset == (mixedheats ? 1 : 0)) {
-            row.addLast(lauf.getName());
+            row.addLast(lauf.getName(scheme));
         } else {
             row.addLast("");
         }
@@ -1233,7 +1233,7 @@ public final class DataTableUtils {
                         if (lauf.getSchwimmer(x) != null) {
                             String g = lauf.getSchwimmer(x).getGliederung();
                             String q = lauf.getSchwimmer(x).getQualifikationsebene().trim();
-                            if (q.length() > 0) {
+                            if (!q.isEmpty()) {
                                 g += " (" + q + ")";
                             }
                             row.addLast(g);
@@ -1562,6 +1562,8 @@ public final class DataTableUtils {
     private static <T extends ASchwimmer> Object[] startkarteToLine(T schwimmer, Lauf<T> lauf, int x) {
         int disz = lauf.getDisznummer(x);
 
+        HeatsNumberingScheme scheme = schwimmer.getWettkampf().getHeatsNumberingScheme();
+
         LinkedList<Object> row = new LinkedList<>();
         row.addLast(StartnumberFormatManager.format(schwimmer));
         row.addLast(schwimmer.getName());
@@ -1578,7 +1580,7 @@ public final class DataTableUtils {
         row.addLast(schwimmer.getBemerkung());
         row.addLast(schwimmer.getAK().getDisziplin(disz, schwimmer.isMaennlich()).getName());
         row.addLast(disz + 1);
-        row.addLast(lauf.getName());
+        row.addLast(lauf.getName(scheme));
         row.addLast(x + 1);
         return row.toArray();
     }

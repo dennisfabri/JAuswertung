@@ -5,11 +5,15 @@
 package de.df.jauswertung.util.valueobjects;
 
 import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;
+
+import java.util.Objects;
 
 /**
  * @author Dennis Fabri
@@ -21,6 +25,8 @@ public class Startkarte implements Comparable<Startkarte> {
     private final String ak;
     private final String disz;
     private final String lauf;
+
+    private final int laufId;
     private final String name;
     private final String gliederung;
     private final String qgld;
@@ -33,6 +39,7 @@ public class Startkarte implements Comparable<Startkarte> {
         ak = "";
         disz = "";
         lauf = "";
+        laufId = 0;
         name = "";
         gliederung = "";
         bahn = "";
@@ -42,17 +49,13 @@ public class Startkarte implements Comparable<Startkarte> {
         event = 0;
     }
 
-    public Startkarte(ASchwimmer s, int event, int diszNummer, String lauf, int bahn) {
-        if (lauf == null) {
-            this.lauf = "";
-        } else {
-            this.lauf = lauf;
-        }
-        if (bahn < 1) {
-            this.bahn = "";
-        } else {
-            this.bahn = "" + bahn;
-        }
+    public Startkarte(ASchwimmer s, int event, Lauf<?> l, int bahn) {
+        int diszNummer = l.getDisznummer(bahn - 1);
+
+        this.laufId = l.getLaufnummer() * 100 + l.getLaufbuchstabe();
+
+        this.lauf = Objects.requireNonNullElse(l.getName(s.getWettkampf().getHeatsNumberingScheme()), "");
+        this.bahn = bahn < 1 ? "" : "" + bahn;
 
         this.event = event;
 
@@ -64,8 +67,7 @@ public class Startkarte implements Comparable<Startkarte> {
             disz = d;
         }
         if (s.getWettkampf().isMultiline() && (s instanceof Mannschaft)) {
-            Mannschaft m = (Mannschaft) s;
-            name = StringTools.shorten(m.getStarterShort(diszNummer, ","), 25, "...");
+            name = StringTools.shorten(((Mannschaft) s).getStarterShort(diszNummer, ","), 25, "...");
         } else {
             name = s.getName() == null ? "" : s.getName();
         }
@@ -84,7 +86,11 @@ public class Startkarte implements Comparable<Startkarte> {
     }
 
     public Startkarte(Lauf<?> lauf, int event, int bahn) {
-        this.lauf = lauf.getName();
+        HeatsNumberingScheme scheme = lauf.getSchwimmer() != null ? lauf.getSchwimmer()
+                .getWettkampf()
+                .getHeatsNumberingScheme() : HeatsNumberingScheme.Standard;
+        this.laufId = lauf.getLaufnummer() * 100 + lauf.getLaufbuchstabe();
+        this.lauf = lauf.getName(scheme);
         if (bahn < 1) {
             this.bahn = "";
         } else {
@@ -172,27 +178,6 @@ public class Startkarte implements Comparable<Startkarte> {
             return event1 - event2;
         }
 
-        int lauf1 = 0;
-        int lauf2 = 0;
-        try {
-            lauf1 = Integer.parseInt(lauf);
-        } catch (RuntimeException re) {
-            lauf1 = Integer.parseInt(lauf.substring(0, lauf.length() - 1));
-        }
-        try {
-            lauf2 = Integer.parseInt(sk.lauf);
-        } catch (RuntimeException re) {
-            lauf2 = Integer.parseInt(sk.lauf.substring(0, sk.lauf.length() - 1));
-        }
-        if (lauf1 - lauf2 != 0) {
-            return lauf1 - lauf2;
-        }
-
-        int zahl = lauf.length() - sk.lauf.length();
-        if (zahl != 0) {
-            return zahl;
-        }
-
-        return lauf.compareTo(sk.lauf);
+        return laufId - sk.laufId;
     }
 }

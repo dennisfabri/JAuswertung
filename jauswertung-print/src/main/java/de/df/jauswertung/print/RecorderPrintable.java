@@ -21,6 +21,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.FormelManager;
@@ -70,6 +71,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         panel.setBackground(Color.WHITE);
         panel.setForeground(Color.BLACK);
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         boolean isFinal = wk.getBooleanProperty("isFinal", false);
         int round = wk.getIntegerProperty("round", -1);
         int id = wk.getIntegerProperty("roundId", -1);
@@ -88,7 +90,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
             qualified = " (" + I18n.get("QualifiedAmount", qualifiedPerHeat) + ")";
         }
 
-        panel.add(createLabel(I18n.get("HeatNr", lauf.getName(), 1) + qualified), CC.xy(2, 2));
+        panel.add(createLabel(I18n.get("HeatNr", lauf.getName(scheme), 1) + qualified), CC.xy(2, 2));
         panel.add(createLabel(lauf.getStartgruppe(), SwingConstants.CENTER), CC.xy(4, 2));
         panel.add(createLabel(disziplin, SwingConstants.RIGHT), CC.xy(6, 2));
         panel.add(getTablePanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showOrganisation),

@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.gui.util.I18n;
@@ -73,9 +74,10 @@ public class HeatTableModel<T extends ASchwimmer> implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         switch (columnIndex) {
         case 0:
-            return heats.getLaufliste().get(rowIndex).getName();
+            return heats.getLaufliste().get(rowIndex).getName(scheme);
         case 1:
             if (heats.getLaufliste().get(rowIndex).getStartgruppe() != null) {
                 return heats.getLaufliste().get(rowIndex).getStartgruppe();
