@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 @Getter
 public enum HeatsNumberingScheme {
-    Standard("Standard"), Tens("1-1"), Hundreds("1-01");
+    Standard("Standard"), Hundreds("1-01");
 
     private final String value;
 

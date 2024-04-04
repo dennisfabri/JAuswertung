@@ -294,7 +294,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     public String getName(HeatsNumberingScheme scheme) {
         return switch (scheme) {
         case Standard -> getName();
-        case Tens -> getNameTens();
         case Hundreds -> getNameHundreds();
         };
     }
