@@ -73,15 +73,6 @@ public final class PrinterUtils {
         laufliste.add(new FilledZieleinlaufkartenPrinter(controller, plugin));
         laufliste.doLayout();
 
-        PrinterCollection hlwliste = new PrinterCollection(I18n.get("ZWList"));
-        hlwliste.add(new ZWListenPrinter(controller, plugin));
-        hlwliste.add(new PuppenlistenPrinter(controller, plugin));
-        hlwliste.add(new FilledZWStartkartenPrinter(controller, plugin));
-        // hlwliste.add(new FilledHLWChecklistsPrinter(controller, plugin));
-        hlwliste.add(new FilledSimpleZWStartkartenPrinter(controller, plugin));
-        // hlwliste.add(new FilledSimpleHLWChecklistsPrinter(controller, plugin));
-        hlwliste.doLayout();
-
         PrinterCollection misc = createEmptyFormPrinters(controller);
 
         LinkedList<Printer> printers = new LinkedList<>();
@@ -89,17 +80,14 @@ public final class PrinterUtils {
         printers.addLast(protocol);
         printers.addLast(ergebnisse);
         printers.addLast(laufliste);
-        printers.addLast(hlwliste);
         printers.addLast(misc);
 
-        return printers.toArray(new Printer[printers.size()]);
+        return printers.toArray(new Printer[0]);
     }
 
     public static PrinterCollection createEmptyFormPrinters(IPluginManager controller) {
         PrinterCollection misc = new PrinterCollection(I18n.get("PrintForms"));
         misc.add(new StartkartenPrinter(controller));
-        misc.add(new ZWStartkartenPrinter(controller));
-        // misc.add(new HLWChecklistPrinter(controller));
         misc.add(new ZieleinlaufkartenPrinter(controller));
         misc.add(new FehlermeldekartenPrinter(controller));
         misc.doLayout();

@@ -27,14 +27,11 @@ import de.df.jutils.plugin.UpdateEvent;
 public class PZWInputPlugin extends ANullPlugin {
 
     private static final String INPUT1 = I18n.get("ZWInput");
-    private static final String INPUT2 = I18n.get("ZWBarcodeInput");
 
     IPluginManager controller = null;
     private CorePlugin core = null;
     JGlassPanel<JPanel> input1 = null;
-    JGlassPanel<JPanel> input2 = null;
     JSimpleInputPanel simple = null;
-    JZWBarcodeInputPanel barcode = null;
 
     public PZWInputPlugin() {
         super();
@@ -42,18 +39,13 @@ public class PZWInputPlugin extends ANullPlugin {
 
     void initPanel() {
         simple = new JSimpleInputPanel(this, controller, core);
-        barcode = new JZWBarcodeInputPanel(this, controller, core);
 
         input1 = new JGlassPanel<>(simple);
         input1.setName(INPUT1);
         input1.setEnabled(false);
 
-        input2 = new JGlassPanel<>(barcode);
-        input2.setName(INPUT1);
-        input2.setEnabled(false);
 
         addInfoToGlass(input1);
-        addInfoToGlass(input2);
     }
 
     private static void addInfoToGlass(JGlassPanel<JPanel> input1) {
@@ -82,17 +74,7 @@ public class PZWInputPlugin extends ANullPlugin {
                 }
                 return input1;
             }
-        }, new PanelInfo(INPUT2, IconManager.getBigIcon("zwinput"), true, false, 401) {
-
-            @Override
-            public JPanel getPanelI() {
-                if (input2 == null) {
-                    initPanel();
-                    dataUpdated(UpdateEventConstants.EVERYTHING_CHANGED);
-                }
-                return input2;
-            }
-        } };
+        }};
     }
 
     @Override
@@ -108,20 +90,17 @@ public class PZWInputPlugin extends ANullPlugin {
             return;
         }
         simple.dataUpdated(due);
-        barcode.dataUpdated(due);
         updateGUI();
 
         IPluginManager c = getController();
 
         if (c != null) {
             c.setPanelEnabled(INPUT1, core.getWettkampf().hasHLW());
-            c.setPanelEnabled(INPUT2, core.getWettkampf().hasHLW());
         }
     }
 
     void updateGUI() {
         boolean hasHLW = core.getWettkampf().hasHLW();
         input1.setEnabled(hasHLW);
-        input2.setEnabled(hasHLW);
     }
 }
