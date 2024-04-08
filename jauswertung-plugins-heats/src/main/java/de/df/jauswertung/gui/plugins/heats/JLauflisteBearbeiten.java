@@ -105,8 +105,6 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         }
     }
 
-    private static final long serialVersionUID = 4050200860149757749L;
-
     AWettkampf<T> wk = null;
     boolean darfAendern = false;
     private Window parent = null;
@@ -259,7 +257,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
         }
 
         int wert = DialogUtils.askForNumber(this, I18n.get("EnterHeatnumber"),
-                I18n.get("Information.EnterHeatnumber", min), min, min + 1000);
+                I18n.get("Information.EnterHeatnumber", min), min, min + 10000);
         if (wert >= min) {
             wk.getLaufliste().neueNummerierung(y, wert);
             JTableUtils.setPreferredRowHeight(tabelle);

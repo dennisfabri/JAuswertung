@@ -1,21 +1,8 @@
-/*
- * einzelTools.java Created on 21. Juni 2001, 13:58
- */
-
 package de.df.jauswertung.gui.util;
-
-/**
- * @author Dennis Fabri
- */
 
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -51,29 +38,22 @@ public final class SchwimmerUtils {
         }
 
         Strafe strafe1 = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-        if (strafe1 != null) {
-            switch (strafe1.getArt()) {
-            case AUSSCHLUSS:
-            case DISQUALIFIKATION:
-            case NICHT_ANGETRETEN:
-                return true;
-            default:
-                break;
-            }
+        if (isSeverePenalty(strafe1)) {
+            return isSeverePenalty(strafe1);
         }
 
         Strafe strafe2 = s.getAkkumulierteStrafe(disz);
-        if (strafe2 != null) {
-            switch (strafe2.getArt()) {
-            case AUSSCHLUSS:
-            case DISQUALIFIKATION:
-            case NICHT_ANGETRETEN:
-                return true;
-            default:
-                break;
-            }
+        return isSeverePenalty(strafe2);
+    }
+
+    private static boolean isSeverePenalty(Strafe strafe1) {
+        if (strafe1 == null) {
+            return false;
         }
-        return false;
+        return switch (strafe1.getArt()) {
+        case AUSSCHLUSS, DISQUALIFIKATION, NICHT_ANGETRETEN -> true;
+        default -> false;
+        };
     }
 
     public static <T extends ASchwimmer> boolean hasCompleteTime(T s, int disz) {
@@ -87,7 +67,7 @@ public final class SchwimmerUtils {
         if (jahrgang <= 0) {
             return 0;
         }
-        if ((jahrgang > 0) && (jahrgang < 100)) {
+        if (jahrgang < 100) {
             jahrgang += 1900;
             int jahr = Calendar.getInstance().get(Calendar.YEAR);
             while (jahrgang + 100 < jahr) {
@@ -95,35 +75,6 @@ public final class SchwimmerUtils {
             }
         }
         return jahrgang;
-    }
-
-    public static String getShortPenaltyString(Strafe strafe) {
-        if ((strafe == null) || (strafe.getArt() == Strafarten.NICHTS)) {
-            return "-";
-        }
-        if (strafe.getArt() == Strafarten.AUSSCHLUSS) {
-            return I18n.get("DebarmentShort");
-        }
-        if (strafe.getArt() == Strafarten.DISQUALIFIKATION) {
-            return I18n.get("DisqualifiedShort");
-        }
-        if (strafe.getArt() == Strafarten.NICHT_ANGETRETEN) {
-            return I18n.get("DidNotStartShort");
-        }
-        if (strafe.getStrafpunkte() == 0) {
-            return "-";
-        }
-
-        return "" + strafe.getStrafpunkte();
-    }
-
-    public static <T extends ASchwimmer> LinkedList<T> sortiereSchwimmerSN(final LinkedList<T> teilies) {
-        if (teilies == null) {
-            return null;
-        }
-        LinkedList<T> ergebnis = new LinkedList<>(teilies);
-        Collections.sort(ergebnis, new SchwimmerStartnummernVergleicher<>());
-        return ergebnis;
     }
 
     public static LinkedList<SchwimmerInfo> sortiereSchwimmerInfo(final LinkedList<SchwimmerInfo> si) {
@@ -136,7 +87,7 @@ public final class SchwimmerUtils {
 
         LinkedList<SchwimmerInfo> ergebnis = new LinkedList<>(si);
         // Collections.sort(ergebnis);
-        Collections.sort(ergebnis, new SchwimmerInfoStartnummernVergleicher());
+        ergebnis.sort(new SchwimmerInfoStartnummernVergleicher());
         return ergebnis;
     }
 
@@ -147,7 +98,7 @@ public final class SchwimmerUtils {
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 LinkedList<T> ll = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
-                if ((ll != null) && (ll.size() > 0)) {
+                if ((ll != null) && !ll.isEmpty()) {
                     anzahl++;
                 }
             }
@@ -227,9 +178,7 @@ public final class SchwimmerUtils {
 
         for (int i = 0; i < wk.getHLWListe().getLauflistenCount(); i++) {
             LinkedList<HLWLauf<T>> laufliste = wk.getHLWListe().getLaufliste(i);
-            ListIterator<HLWLauf<T>> li = laufliste.listIterator();
-            while (li.hasNext()) {
-                HLWLauf<T> l = li.next();
+            for (HLWLauf<T> l : laufliste) {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     ASchwimmer temp = l.getSchwimmer(x);
                     if ((temp != null) && (s.equals(temp))) {
@@ -289,7 +238,6 @@ public final class SchwimmerUtils {
             ListIterator<Lauf<T>> li = laufliste.listIterator(index);
 
             int roundId = wk.getIntegerProperty("roundId", 0);
-            HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
             while (li.hasNext() && (amount > 0)) {
                 amount--;
@@ -311,9 +259,7 @@ public final class SchwimmerUtils {
         LinkedList<Startkarte> temp = new LinkedList<>();
         for (LinkedList<Startkarte> aListen : listen) {
             Startkarte[] sk = aListen.stream().sorted().toArray(Startkarte[]::new);
-            for (Startkarte s : sk) {
-                temp.add(s);
-            }
+            temp.addAll(Arrays.asList(sk));
         }
         return repack(temp, perpage);
     }
@@ -345,17 +291,9 @@ public final class SchwimmerUtils {
             }
         }
         LinkedList<Zieleinlaufkarte> temp = new LinkedList<>();
-        Zieleinlaufkarte[] sk = karten.stream().sorted(new Comparator<Zieleinlaufkarte>() {
-
-            @Override
-            public int compare(Zieleinlaufkarte zk1, Zieleinlaufkarte zk2) {
-                return zk1.getEvent() - zk2.getEvent();
-            }
-
-        }).toArray(Zieleinlaufkarte[]::new);
-        for (Zieleinlaufkarte s : sk) {
-            temp.add(s);
-        }
+        Zieleinlaufkarte[] sk = karten.stream().sorted(Comparator.comparingInt(Zieleinlaufkarte::getEvent))
+                .toArray(Zieleinlaufkarte[]::new);
+        Collections.addAll(temp, sk);
         return repack(temp, perpage);
     }
 
@@ -567,12 +505,10 @@ public final class SchwimmerUtils {
         LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
 
         LinkedList<T> swimmers = wk.getSchwimmer();
-        Collections.sort(swimmers, new SchwimmerNameVergleicher<>());
-        Collections.sort(swimmers, new SchwimmerAKVergleicher<>());
-        ListIterator<T> li = swimmers.listIterator();
+        swimmers.sort(new SchwimmerNameVergleicher<>());
+        swimmers.sort(new SchwimmerAKVergleicher<>());
 
-        while (li.hasNext()) {
-            T s = li.next();
+        for (T s : swimmers) {
             if (s.getAK().hasHLW()) {
                 for (int index = 0; index < s.getMaximaleHLW(); index++) {
                     liste.addLast(new ZWStartkarte<>(s, null, 0, index));
@@ -580,15 +516,6 @@ public final class SchwimmerUtils {
             }
         }
         return liste;
-    }
-
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklist(HLWListe<T> ll,
-            boolean allheats, int minheat, int maxheat,
-            boolean byLane) {
-        if (byLane) {
-            return toZWStartkartenForChecklistByLane(ll, allheats, minheat, maxheat);
-        }
-        return toZWStartkartenForChecklistByHeat(ll, allheats, minheat, maxheat);
     }
 
     private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByHeat(HLWListe<T> ll,
@@ -640,33 +567,6 @@ public final class SchwimmerUtils {
                 }
             }
         }
-        return liste;
-    }
-
-    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByLane(HLWListe<T> ll,
-            boolean allheats, int minheat,
-            int maxheat) {
-        if (ll.isEmpty()) {
-            return null;
-        }
-
-        LinkedList<ZWStartkarte<T>> liste = toZWStartkartenForChecklistByHeat(ll, allheats, minheat, maxheat);
-
-        Collections.sort(liste, new Comparator<ZWStartkarte<T>>() {
-            @Override
-            public int compare(ZWStartkarte<T> o1, ZWStartkarte<T> o2) {
-                int l1 = o1.getBahnindex();
-                int l2 = o2.getBahnindex();
-                if (l1 < l2) {
-                    return -1;
-                }
-                if (l1 > l2) {
-                    return 1;
-                }
-                return 0;
-            }
-        });
-
         return liste;
     }
 
@@ -744,16 +644,4 @@ public final class SchwimmerUtils {
         return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getMeldezeit(x),
                 s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
     }
-
-    public static <T extends ASchwimmer> int getTeilgenommeneDisziplinenAnzahl(T s) {
-        int count = 0;
-        for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
-            if (hasCompleteTime(s, x) && s.isDisciplineChosen(x)
-                    && (s.getAkkumulierteStrafe(x).getArt() != Strafarten.NICHT_ANGETRETEN)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
 }

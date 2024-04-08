@@ -6,6 +6,10 @@ package de.df.jauswertung.gui.util;
 
 import de.df.jauswertung.daten.ASchwimmer;
 
+import java.util.Objects;
+
+import static java.lang.Math.min;
+
 /**
  * @author Dennis Fabri
  */
@@ -47,7 +51,7 @@ public class SchwimmerInfo implements Comparable<SchwimmerInfo> {
         if (lauf == null) {
             return -1;
         }
-        for (int x = 0; x < Math.min(s.lauf.length, lauf.length); x++) {
+        for (int x = 0; x < min(s.lauf.length, lauf.length); x++) {
             if ((s.lauf[x] == null) && (lauf[x] != null)) {
                 return 1;
             }
@@ -66,12 +70,12 @@ public class SchwimmerInfo implements Comparable<SchwimmerInfo> {
                     return zahl;
                 }
             } else {
-                if ((!lauf[x].equals("-")) || (!s.lauf[x].equals("-"))) {
+                if ((!lauf[x].equals("-")) || (!Objects.equals(s.lauf[x], "-"))) {
                     return (lauf[x].equals("-") ? 1 : -1);
                 }
             }
         }
-        for (int x = 0; x < Math.min(s.lauf.length, lauf.length); x++) {
+        for (int x = 0; x < min(s.lauf.length, lauf.length); x++) {
             if ((!lauf[x].equals("-")) && (!s.lauf[x].equals("-"))) {
                 int zahl = getHeatDifference(s, x);
                 if (zahl == 0) {
@@ -101,19 +105,19 @@ public class SchwimmerInfo implements Comparable<SchwimmerInfo> {
      * @return
      */
     public int getHeatDifference(SchwimmerInfo s, int x) {
-        int lauf1 = 0;
-        int lauf2 = 0;
+        return parseHeatNumber(s.lauf[x]) - parseHeatNumber(s.lauf[x]);
+    }
+
+    private int parseHeatNumber(String lauf) {
         try {
-            lauf1 = Integer.parseInt(lauf[x]);
+            try {
+                return Integer.parseInt(lauf.replace("-", ""));
+            } catch (RuntimeException re) {
+                return Integer.parseInt(lauf.replace("-", "").substring(0, lauf.length() - 1));
+            }
         } catch (RuntimeException re) {
-            lauf1 = Integer.parseInt(lauf[x].substring(0, lauf[x].length() - 1));
+            return 0;
         }
-        try {
-            lauf2 = Integer.parseInt(s.lauf[x]);
-        } catch (RuntimeException re) {
-            lauf2 = Integer.parseInt(s.lauf[x].substring(0, s.lauf[x].length() - 1));
-        }
-        return lauf1 - lauf2;
     }
 
     @Override
@@ -142,7 +146,7 @@ public class SchwimmerInfo implements Comparable<SchwimmerInfo> {
         if (s.lauf == null) {
             return false;
         }
-        for (int x = 0; x < Math.min(s.lauf.length, lauf.length); x++) {
+        for (int x = 0; x < min(s.lauf.length, lauf.length); x++) {
             if ((s.lauf[x] == null) && (lauf[x] != null)) {
                 return false;
             }

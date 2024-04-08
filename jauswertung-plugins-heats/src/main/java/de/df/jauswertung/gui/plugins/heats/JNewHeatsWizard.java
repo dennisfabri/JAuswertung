@@ -134,7 +134,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
     static Integer[][] createArrays() {
         Integer[][] result = new Integer[2][0];
         result[0] = ArrayUtils.createIntegerArray(99, 1);
-        result[1] = ArrayUtils.createIntegerArray(1000, 1);
+        result[1] = ArrayUtils.createIntegerArray(10000, 1);
         return result;
     }
 
