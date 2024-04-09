@@ -6,12 +6,8 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
-import java.util.ListIterator;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -36,12 +32,12 @@ import de.df.jutils.print.printables.JTablePrintable;
 
 /**
  * @author Dennis Fabri
- * @date 17.10.2004
+ * @since 17.10.2004
  */
 class ZWResultsPrinter implements Printer {
 
-    CorePlugin core = null;
-    IPluginManager controller = null;
+    private CorePlugin core = null;
+    private IPluginManager controller = null;
 
     private JPanel panel = null;
     private JButton print = null;
@@ -50,8 +46,8 @@ class ZWResultsPrinter implements Printer {
     private JLabel filter = null;
     private JCheckBox unterschrift = null;
 
-    JSelectionDialog printDialog = null;
-    JSelectionDialog previewDialog = null;
+    private JSelectionDialog printDialog = null;
+    private JSelectionDialog previewDialog = null;
 
     @SuppressWarnings("rawtypes")
     private void initDialogs() {
@@ -131,16 +127,8 @@ class ZWResultsPrinter implements Printer {
     @Override
     public <T extends ASchwimmer> void dataUpdated(UpdateEvent due, AWettkampf<T> wk, AWettkampf<T> filteredwk) {
         boolean result = false;
-        if (filteredwk != null) {
-            if (filteredwk.hasSchwimmer()) {
-                ListIterator<T> li = filteredwk.getSchwimmer().listIterator();
-                while (li.hasNext()) {
-                    if (li.next().getAK().hasHLW()) {
-                        result = true;
-                        break;
-                    }
-                }
-            }
+        if (filteredwk != null && filteredwk.hasSchwimmer()) {
+            result = filteredwk.getSchwimmer().stream().anyMatch(t -> t.getAK().hasHLW());
         }
 
         print.setEnabled(result);
@@ -151,16 +139,9 @@ class ZWResultsPrinter implements Printer {
     }
 
     <T extends ASchwimmer> void checkWarning(AWettkampf<T> wk) {
-        boolean check = false;
-        if (!wk.isHlwComplete()) {
-            check = true;
-        }
-        warning.setVisible(preview.isEnabled() && check);
+        warning.setVisible(preview.isEnabled() && !wk.isHlwComplete());
     }
 
-    /**
-     * @param selected
-     */
     Printable getPrintable(boolean[][] selected) {
         AWettkampf<?> wk = core.getFilteredWettkampf();
 
@@ -181,7 +162,7 @@ class ZWResultsPrinter implements Printer {
 
     private class PPrintableCreator implements PrintableCreator {
 
-        private boolean[][] selection;
+        private final boolean[][] selection;
 
         public PPrintableCreator(boolean[][] selection) {
             this.selection = selection;

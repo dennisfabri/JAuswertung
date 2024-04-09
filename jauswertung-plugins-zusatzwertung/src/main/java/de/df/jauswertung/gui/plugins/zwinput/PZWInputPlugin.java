@@ -1,6 +1,3 @@
-/*
- * Created on 05.04.2004
- */
 package de.df.jauswertung.gui.plugins.zwinput;
 
 import javax.swing.JLabel;
@@ -22,16 +19,16 @@ import de.df.jutils.plugin.UpdateEvent;
 
 /**
  * @author Dennis Fabri
- * @date 08.06.2005
+ * @since 05.04.2004
  */
 public class PZWInputPlugin extends ANullPlugin {
 
     private static final String INPUT1 = I18n.get("ZWInput");
 
-    IPluginManager controller = null;
+    private IPluginManager controller = null;
     private CorePlugin core = null;
-    JGlassPanel<JPanel> input1 = null;
-    JSimpleInputPanel simple = null;
+    private JGlassPanel<JPanel> input1 = null;
+    private JSimpleInputPanel simple = null;
 
     public PZWInputPlugin() {
         super();
@@ -49,17 +46,17 @@ public class PZWInputPlugin extends ANullPlugin {
     }
 
     private static void addInfoToGlass(JGlassPanel<JPanel> input1) {
-        JPanel infopanel = new JPanel();
-        infopanel.setName("Info");
-        infopanel.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information")));
-        infopanel.add(new JLabel(I18n.get("ZWInputInfo")));
+        JPanel infoPanel = new JPanel();
+        infoPanel.setName("Info");
+        infoPanel.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information")));
+        infoPanel.add(new JLabel(I18n.get("ZWInputInfo")));
 
         JPanel glass = input1.getGlassPanel();
         FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu:grow", "4dlu:grow,fill:default,4dlu:grow");
         layout.setRowGroups(new int[][] { { 1, 3 } });
         layout.setColumnGroups(new int[][] { { 1, 3 } });
         glass.setLayout(layout);
-        glass.add(infopanel, CC.xy(2, 2));
+        glass.add(infoPanel, CC.xy(2, 2));
     }
 
     @Override
