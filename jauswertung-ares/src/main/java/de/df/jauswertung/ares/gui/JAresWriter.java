@@ -8,6 +8,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import de.df.jauswertung.ares.export.AresWriter;
+import de.df.jauswertung.ares.export.AresWriterDefault2;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -156,22 +160,17 @@ public class JAresWriter extends JFrame {
     private void doExport() {
         String dir = directory.getText();
         try {
-            if (filesmodel == null || filesmodel.size() == 0) {
-                DialogUtils.warn(this, I18n.get("NoFilesSelected"), I18n.get("NoFilesSelected.Note"));
-                return;
+            String[] filenames = new String[filesmodel.size()];
+            for (int x = 0; x < filesmodel.size(); x++) {
+                filenames[x] = filesmodel.getElementAt(x).getFilename();
             }
 
-            AWettkampf[] wks = new AWettkampf[filesmodel.size()];
-            for (int x = 0; x < filesmodel.size(); x++) {
-                String filename = filesmodel.getElementAt(x).getFilename();
-                wks[x] = InputManager.ladeWettkampf(filename);
-                if (wks[x] == null) {
-                    DialogUtils.warn(this, I18n.get("CouldNotOpenFile", filename),
-                            I18n.get("CouldNotOpenFile.Note", filename));
-                    return;
-                }
-            }
-            writeAres(wks, dir);
+            new AresWriter().write(filenames, dir);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            DialogUtils.showException(this, I18n.get("Error"), ex.getMessage(),
+                    I18n.get("ExceptionDuringExport.Note"), ex);
+            return;
         } catch (Exception ex) {
             ex.printStackTrace();
             DialogUtils.showException(this, I18n.get("Error"), I18n.get("ExceptionDuringExport"),
@@ -195,21 +194,5 @@ public class JAresWriter extends JFrame {
         }
         filesmodel.remove(files.getSelectedIndex());
         checkStates();
-    }
-
-    private <T extends ASchwimmer> void writeAres(AWettkampf<T>[] wks, String dir) throws IOException {
-        boolean hasFinals = FormelManager.isHeatBased(wks[0].getRegelwerk().getFormelID());
-        for (int x = 1; x < wks.length; x++) {
-            if (hasFinals != FormelManager.isHeatBased(wks[x].getRegelwerk().getFormelID())) {
-                DialogUtils.warn(this, I18n.get("CouldNotOpenFile"), I18n.get("CouldNotOpenFile.Note"));
-                return;
-            }
-        }
-        if (hasFinals) {
-            AresWriterFinals.writeAres(wks, dir);
-            // AresWriterFinals.writeAnzeigetafel(wks, dir);
-        } else {
-            AresWriterDefault.writeAres(wks, dir);
-        }
     }
 }
