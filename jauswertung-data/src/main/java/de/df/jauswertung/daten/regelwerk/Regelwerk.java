@@ -73,7 +73,7 @@ public class Regelwerk implements Serializable {
     /**
      * Creates new Altersklassen
      * 
-     * @param _einzel Einzel- oder Mannschaftsaltersklassen
+     * @param isEinzel Einzel- oder Mannschaftsaltersklassen
      */
     public Regelwerk(boolean isEinzel, String formel) {
         einzel = isEinzel;
@@ -105,7 +105,7 @@ public class Regelwerk implements Serializable {
      * Erzeugt "anzahl" neue Altersklassen.
      * 
      * @param anzahl  Gibt die Anzahl der zu erzeugenden Altersklassen an.
-     * @param _einzel Mannschafts- oder Einzelaltersklassen
+     * @param isEinzel Mannschafts- oder Einzelaltersklassen
      */
     public Regelwerk(int anzahl, boolean isEinzel, String formel) {
         einzel = isEinzel;

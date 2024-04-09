@@ -1227,10 +1227,12 @@ public class PHeatInputPlugin extends ANullPlugin {
             heat.removeAllItems();
             Object[] items = owlaeufe.stream().map(l -> l.Item1).toArray();
             heat.setModel(new DefaultComboBoxModel(items));
-            if (index != -1) {
-                heat.setSelectedIndex(index);
-            } else {
-                heat.setSelectedIndex(0);
+            if (heat.getItemCount() > 0) {
+                if (index != -1) {
+                    heat.setSelectedIndex(index);
+                } else {
+                    heat.setSelectedIndex(0);
+                }
             }
         }
 
