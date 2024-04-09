@@ -1,42 +1,26 @@
 package de.df.jauswertung.ares.gui;
 
-import java.awt.Dimension;
-import java.awt.HeadlessException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import de.df.jauswertung.ares.export.AresWriter;
-import de.df.jauswertung.ares.export.AresWriterDefault2;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.ares.export.AresWriterDefault;
-import de.df.jauswertung.ares.export.AresWriterFinals;
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.ares.export.AresWriter;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.DialogUtils;

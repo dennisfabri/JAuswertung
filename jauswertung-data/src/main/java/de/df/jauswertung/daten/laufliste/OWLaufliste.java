@@ -9,8 +9,8 @@ import de.df.jauswertung.daten.PropertyConstants;
 
 public class OWLaufliste<T extends ASchwimmer> implements Serializable {
 
-    final AWettkampf<T> wk;
-    private Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<>();
+    private final AWettkampf<T> wk;
+    private final Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<>();
 
     public OWLaufliste(AWettkampf<T> wk) {
         if (wk == null) {

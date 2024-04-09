@@ -857,4 +857,8 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         }
         return true;
     }
+
+    public boolean[] getBenutzbareBahnen() {
+        return usable;
+    }
 }

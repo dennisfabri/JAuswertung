@@ -28,7 +28,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 
-public final class AresWriterFinals {
+final class AresWriterFinals {
 
     private AresWriterFinals() {
     }

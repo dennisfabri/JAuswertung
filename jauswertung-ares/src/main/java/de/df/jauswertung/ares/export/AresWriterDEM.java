@@ -4,7 +4,10 @@ import static java.util.Arrays.stream;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.laufliste.Lauf;
@@ -12,7 +15,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 
-class AresWriterDefault {
+class AresWriterDEM {
 
     private static final String CHARSET = "ISO-8859-1";
     private static final String CHARSET2 = "Cp850";

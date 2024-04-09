@@ -1,115 +1,30 @@
 package de.df.jauswertung.ares.export;
 
-import static java.util.Arrays.stream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.util.*;
-
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 
-public class AresWriterDefault2 {
-
-    private static class AresCompetition {
-        private final Map<String, Discipline> disciplineMap = new HashMap<>();
-        private final List<Discipline> disciplines = new ArrayList<>();
-        private final List<Laenge> lengths = new ArrayList<>();
-        private final Map<String, Integer> lengthIds = new HashMap<>();
-
-        public void addDiscipline(Discipline discipline) {
-            if (!disciplineMap.containsKey(discipline.name())) {
-                disciplineMap.put(discipline.name(), discipline);
-                disciplines.add(discipline);
-            }
-        }
-
-        public Discipline[] getDisciplines() {
-            return disciplines.toArray(Discipline[]::new);
-        }
-
-        public void calculateLengths() {
-            disciplineMap.values().stream().map(discipline -> new Laenge(discipline.length, discipline.getDistance()))
-                    .distinct().sorted().forEach(this::addLength);
-        }
-
-        private void addLength(Laenge l) {
-            lengthIds.put(l.distance, lengths.size());
-            lengths.add(l);
-        }
-
-        public Integer getLengthId(String distance) {
-            return lengthIds.get(distance);
-        }
-
-        public Integer getDisciplineId(String discipline) {
-            int x = 0;
-            for (Discipline d : disciplines) {
-                if (d.name().equals(discipline)) {
-                    return x;
-                }
-                x++;
-            }
-            for (Discipline discipline1 : disciplines) {
-                System.out.println(discipline1.name());
-            }
-            throw new IllegalArgumentException("Disziplin \"" + discipline + "\" nicht gefunden.");
-        }
-
-        public int getLengthIdByDiscipline(String disziplin) {
-            Discipline d = disciplineMap.get(disziplin);
-            if (d == null) {
-                throw new IllegalArgumentException("Disziplin \"" + disziplin + "\" nicht gefunden.");
-            }
-            return getLengthId(d.getDistance());
-        }
-    }
-
-    private record Laenge(int laenge, String distance) implements Comparable<Laenge> {
-        @Override
-        public int compareTo(Laenge o) {
-            return Integer.compare(laenge, o.laenge);
-        }
-
-    }
-
-    private record Discipline(String name, String aresDiscipline, int amount, int length) {
-        private Discipline(String name, String aresDiscipline, int amount, int length) {
-            this.name = name;
-            this.aresDiscipline = aresDiscipline;
-            this.amount = amount;
-            this.length = length;
-            if (length == 0) {
-                throw new IllegalArgumentException("Length must not be 0");
-            }
-        }
-
-        public String getDistance() {
-            if (amount > 1) {
-                return amount + "*" + length + "m";
-            }
-            return (amount * length) + "m";
-        }
-    }
-
-    private enum AresGender {
-        Male("männlich", 'M'), Female("weiblich", 'W'), Mixed("mixed", 'X');
-
-        private final String name;
-        private final char shortName;
-
-        AresGender(String name, char shortName) {
-            this.name = name;
-            this.shortName = shortName;
-        }
-
-        public String toLine() {
-            return "\"" + name + "\";\"" + shortName + "\"";
-        }
-    }
+class AresWriterDefaultOld {
 
     private static final String CHARSET = "ISO-8859-1";
     private static final String CHARSET2 = "Cp850";
@@ -119,18 +34,16 @@ public class AresWriterDefault2 {
 
         ensureUniqueStartnumbers(wks);
 
-        AresCompetition competition = new AresCompetition();
-
-        writeGenders(wks, dir);
-
-        determineLaengen(wks, competition);
+        fos = new FileOutputStream(dir + File.separator + "LSTCAT.TXT");
+        writeGenders(wks, fos);
+        fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "LSTLONG.TXT");
-        writeLaengen(competition, wks, fos);
+        Map<String, Integer> disziplinen = writeLaengen(wks, fos);
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "LSTSTYLE.TXT");
-        writeStyles(competition, fos);
+        writeStyles(disziplinen, fos);
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "Lstconc.TXT");
@@ -142,11 +55,11 @@ public class AresWriterDefault2 {
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "LSTRACE.TXT");
-        writeRaceList(competition, wks, fos);
+        writeRaceList(wks, disziplinen, fos);
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "lstrnum.txt");
-        writeNrList(competition, wks, fos);
+        writeNrList(wks, disziplinen, fos);
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "LSTROUND.TXT");
@@ -160,12 +73,12 @@ public class AresWriterDefault2 {
         fos = new FileOutputStream(dir + File.separator + "lsttitpr.txt");
         writeCompetitionInfo(wks, fos);
         fos.close();
-
+        
         // writeAnzeigetafel(wks, dir);
     }
 
     private static <T extends ASchwimmer> void ensureUniqueStartnumbers(AWettkampf<T>[] wks) {
-        int max = stream(wks)
+        int max = Arrays.stream(wks)
                 .map(wk -> wk.getSchwimmer().stream().map(ASchwimmer::getStartnummer).max(Integer::compare))
                 .map(m -> m.orElse(0)).mapToInt(i -> i).sum();
         for (AWettkampf<T> wk : wks) {
@@ -195,12 +108,17 @@ public class AresWriterDefault2 {
         writeNAMs(wks, dir);
     }
 
-    private static void writeGenders(AWettkampf<?>[] wks, String dir) throws IOException {
-        try (PrintStream ps = new PrintStream(new FileOutputStream(Path.of(dir, "LSTCAT.TXT").toFile()), true,
-                CHARSET)) {
-            ps.println("\"Category\";\"AbrevCat\"");
-            stream(AresGender.values()).map(AresGender::toLine).forEach(ps::println);
-        }
+    private static void writeGenders(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
+        PrintStream ps = new PrintStream(os, true, CHARSET);
+        ps.println("\"Category\";\"AbrevCat\"");
+        ps.println("\"männlich\";\"M\"");
+        ps.println("\"weiblich\";\"W\"");
+        ps.println("\"mixed\";\"X\"");
+        // ps.println("\"Kategorie\";\"AbrèvCat\"");
+        // int offset = 0;
+        // for (AWettkampf<?> wk : wks) {
+        // offset = writeAKs(wk.getRegelwerk(), ps, offset);
+        // }
     }
 
     @SuppressWarnings("unused")
@@ -217,42 +135,20 @@ public class AresWriterDefault2 {
     @SuppressWarnings("unused")
     private static int anschlaegeJe100m = 1;
 
-    private static void determineLaengen(AWettkampf<?>[] wks, AresCompetition competition) {
-        for (AWettkampf<?> wk : wks) {
-            determineLaengen(wk, competition);
-        }
-    }
-
-    private static void determineLaengen(AWettkampf<?> wk, AresCompetition competition) {
-        Regelwerk aks = wk.getRegelwerk();
-        for (int x = 0; x < aks.size(); x++) {
-            Altersklasse ak = aks.getAk(x);
-            for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-                Disziplin d = ak.getDisziplin(y, false);
-                if (d.getName().equals("Line Throw")) {
-                    anschlaegeJe100m = 2;
-                }
-                Discipline discipline = guessLength(d.getName());
-                // competition.disciplineMap.put(discipline.name(), discipline);
-                competition.addDiscipline(discipline);
-            }
-        }
-    }
-
-    private static void writeLaengen(AresCompetition competition, AWettkampf<?>[] wks, OutputStream os)
+    private static Map<String, Integer> writeLaengen(AWettkampf<?>[] wks, OutputStream os)
             throws UnsupportedEncodingException {
-        determineLaengen(wks, competition);
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
-        competition.calculateLengths();
-
-        for (Laenge length : competition.lengths) {
-            ps.println(competition.getLengthId(length.distance) + ";\"" + length.distance + "\";" + length.laenge
-                    + ";\"1\"");
+        // 0; "25 m" ; 25 ;1
+        Map<String, Integer> disziplinen = new HashMap<>();
+        for (AWettkampf<?> wk : wks) {
+            writeLaengen(wk.getRegelwerk(), ps, disziplinen, wk instanceof MannschaftWettkampf);
         }
+        return disziplinen;
     }
 
-    private static void writeLaengen(Regelwerk aks, PrintStream ps, Map<String, Integer> disziplinen) {
+    private static void writeLaengen(Regelwerk aks, PrintStream ps, Map<String, Integer> disziplinen,
+            boolean isMannschaft) {
         // 0; "25 m" ; 25 ;1
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
@@ -263,12 +159,16 @@ public class AresWriterDefault2 {
                     int id = disziplinen.size();
                     String laenge1 = getLaenge(d);
                     int laenge2 = getLaenge(laenge1);
-                    if (laenge1.isBlank()) {
+                    if (laenge1 == null || laenge1.isBlank()) {
                         Discipline discipline = guessLength(d.getName());
                         laenge1 = discipline.getDistance();
-                        laenge2 = discipline.amount() * discipline.length();
+                        laenge2 = discipline.getAmount() * discipline.getLength();
                     }
-                    final int teilnehmer = 1;
+                    if (d.getName().equals("Line Throw")) {
+                        laenge2 = 100;
+                    }
+                    // int teilnehmer = isMannschaft ? 4 : 1;
+                    int teilnehmer = 1;
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + teilnehmer);
                     disziplinen.put(d.getName().trim(), id);
                     System.out.println(id + " -> " + d.getName() + " / " + disziplinen.get(d.getName().trim()));
@@ -312,7 +212,7 @@ public class AresWriterDefault2 {
         return 0;
     }
 
-    private static void writeStyles(AresCompetition competition, OutputStream os)
+    private static void writeStyles(Map<String, Integer> disziplinen, OutputStream os)
             throws UnsupportedEncodingException {
         // idStyle;Style;StyleAbrév
         // 0; "Freistil " ;"FR"
@@ -327,14 +227,13 @@ public class AresWriterDefault2 {
         Map<Integer, String> reverse = new HashMap<>();
 
         LinkedList<Integer> ids = new LinkedList<>();
-        int x = 0;
-        for (Discipline discipline : competition.getDisciplines()) {
-            String d = discipline.name();
-            int id = x;
+        for (Map.Entry<String, Integer> entry : disziplinen.entrySet()) {
+            String d = entry.getKey();
+            int id = entry.getValue();
             ids.add(id);
             reverse.put(id, d);
-            x++;
         }
+        Collections.sort(ids);
 
         for (Integer id : ids) {
             String d = reverse.get(id);
@@ -400,11 +299,11 @@ public class AresWriterDefault2 {
             } else if (d.startsWith("200m ")) {
                 d = d.substring("200m ".length());
             }
-            ps.println(id + ";\"" + d + "\";\"" + key + "\";");
+            ps.println("" + id + ";\"" + d + "\";\"" + key + "\";");
         }
     }
 
-    private static <T extends ASchwimmer> void writeRaceList(AresCompetition competition, AWettkampf<T>[] wks,
+    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks, Map<String, Integer> disziplinen,
             OutputStream os)
             throws UnsupportedEncodingException {
         // event;round;nbHeat;idLen;idStyle;abCat;date;time
@@ -425,10 +324,14 @@ public class AresWriterDefault2 {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        ll.sort((l1, l2) -> {
-            int id1 = l1.getLaufnummer() * 100 + l1.getLaufbuchstabe();
-            int id2 = l2.getLaufnummer() * 100 + l2.getLaufbuchstabe();
-            return id1 - id2;
+        Collections.sort(ll, new Comparator<>() {
+
+            @Override
+            public int compare(Lauf<T> l1, Lauf<T> l2) {
+                int id1 = l1.getLaufnummer() * 100 + l1.getLaufbuchstabe();
+                int id2 = l2.getLaufnummer() * 100 + l2.getLaufbuchstabe();
+                return id1 - id2;
+            }
         });
 
         for (Lauf<T> lauf : ll) {
@@ -439,17 +342,17 @@ public class AresWriterDefault2 {
             // int ak = (lauf.isEmpty() ? 0 : lauf.getSchwimmer().getAKNummer());
             String akmw = (male ? "M" : "W");
 
-            Integer value = competition.getDisciplineId(lauf.getDisziplin());
+            Integer value = disziplinen.get(lauf.getDisziplin().trim());
             if (value == null) {
                 System.out.println("Disziplin \"" + lauf.getDisziplin() + "\" wurde nicht gefunden.");
                 value = 0;
             }
-            int idLen = competition.getLengthIdByDiscipline(lauf.getDisziplin());
-            int idStyle = value;
+            int idLen = value;
+            int idStyle = idLen;
             String date = "00/00/00";
             String time = "00:00";
 
-            ps.println(id1 + ";0;" + id2 + ";" + idLen + ";" + idStyle + ";\"" + akmw + "\";\"" + date + "\";\""
+            ps.println("" + id1 + ";0;" + id2 + ";" + idLen + ";" + idStyle + ";\"" + akmw + "\";\"" + date + "\";\""
                     + time + "\";");
         }
     }
@@ -500,7 +403,7 @@ public class AresWriterDefault2 {
         }
     }
 
-    private static <T extends ASchwimmer> void writeNrList(AresCompetition competition, AWettkampf<T>[] wks,
+    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Map<String, Integer> disziplinen,
             OutputStream os)
             throws UnsupportedEncodingException {
         // id;event;round ;heat
@@ -515,10 +418,14 @@ public class AresWriterDefault2 {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        ll.sort((l1, l2) -> {
-            int id1 = l1.getLaufnummer() * 100 + l1.getLaufbuchstabe();
-            int id2 = l2.getLaufnummer() * 100 + l2.getLaufbuchstabe();
-            return id1 - id2;
+        Collections.sort(ll, new Comparator<>() {
+
+            @Override
+            public int compare(Lauf<T> l1, Lauf<T> l2) {
+                int id1 = l1.getLaufnummer() * 100 + l1.getLaufbuchstabe();
+                int id2 = l2.getLaufnummer() * 100 + l2.getLaufbuchstabe();
+                return id1 - id2;
+            }
         });
 
         // Laufliste<T> liste = wk.getLaufliste();
@@ -528,7 +435,7 @@ public class AresWriterDefault2 {
             int id1 = lauf.getLaufnummer();
             int id2 = lauf.getLaufbuchstabe();
 
-            ps.println(x + " ;" + id1 + " ;0 ;" + id2 + " ;");
+            ps.println("" + x + " ;" + id1 + " ;0 ;" + id2 + " ;");
             x++;
         }
     }
@@ -638,8 +545,38 @@ public class AresWriterDefault2 {
 
     }
 
+    private static final class Discipline {
+        private final String name;
+        private final int amount;
+        private final int length;
+
+        private Discipline(String name, int amount, int length) {
+            this.name = name;
+            this.amount = amount;
+            this.length = length;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public int getLength() {
+            return length;
+        }
+
+        public String getDistance() {
+            if (amount > 1) {
+                return "" + amount + "*" + length + "m";
+            }
+            return "" + (amount * length) + "m";
+        }
+    }
+
     private static Discipline guessLength(String disziplin) {
-        String original = disziplin;
         int amount = 0;
         int length = 0;
         if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
@@ -658,25 +595,22 @@ public class AresWriterDefault2 {
             disziplin = disziplin.substring(8);
             amount = 4;
             length = 25;
-        } else if (disziplin.startsWith("25m") || disziplin.startsWith("25 m")) {
-            disziplin = disziplin.substring(4);
-            amount = 1;
-            length = 25;
-        } else if (disziplin.startsWith("50m") || disziplin.startsWith("50 m")) {
+        } else if (disziplin.startsWith("50m")) {
             disziplin = disziplin.substring(4);
             amount = 1;
             length = 50;
-        } else if (disziplin.startsWith("100m") || disziplin.startsWith("100 m")) {
+        } else if (disziplin.startsWith("100m")) {
             disziplin = disziplin.substring(5);
             amount = 1;
             length = 100;
-        } else if (disziplin.startsWith("200m") || disziplin.startsWith("200 m")) {
+        } else if (disziplin.startsWith("200m")) {
             disziplin = disziplin.substring(5);
             amount = 1;
             length = 200;
         } else if (disziplin.equals("Line Throw")) {
+            // disziplin = disziplin.substring(4);
             amount = 1;
-            length = 100;
+            length = 25;
         } else {
             System.err.println(disziplin);
         }
@@ -689,7 +623,7 @@ public class AresWriterDefault2 {
             disziplin = disziplin.substring(0, 15);
         }
 
-        return new Discipline(original, disziplin, amount, length);
+        return new Discipline(disziplin, amount, length);
     }
 
     private static void writeSteuerText(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
@@ -726,9 +660,9 @@ public class AresWriterDefault2 {
 
             String disziplin = lauf.getDisziplin();
             Discipline l = guessLength(disziplin);
-            String amount = "" + l.amount();
-            String length = "" + l.length() + "m";
-            disziplin = l.aresDiscipline();
+            String amount = "" + l.getAmount();
+            String length = "" + l.getLength() + "m";
+            disziplin = l.getName();
 
             resize(sb, 7 - amount.length(), ' ');
             sb.append(amount);
