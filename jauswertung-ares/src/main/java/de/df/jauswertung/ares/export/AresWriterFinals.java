@@ -1,25 +1,12 @@
 package de.df.jauswertung.ares.export;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
@@ -34,7 +21,6 @@ final class AresWriterFinals {
     }
 
     private static final String CHARSET = "ISO-8859-1";
-    private static final String CHARSET2 = "Cp850";
 
     public static <T extends ASchwimmer> void writeAres(AWettkampf<T>[] wks, String dir) throws IOException {
         FileOutputStream fos;
@@ -80,16 +66,6 @@ final class AresWriterFinals {
         fos.close();
     }
 
-    public static <T extends ASchwimmer> void writeAnzeigetafel(AWettkampf<T>[] wks, String dir) throws IOException {
-        FileOutputStream fos;
-
-        fos = new FileOutputStream(dir + File.separator + "steuer.txt");
-        writeSteuerText(wks, fos);
-        fos.close();
-
-        writeNAMs(wks, dir);
-    }
-
     private static void writeAKs(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"Kategorie\";\"AbrèvCat\"");
@@ -98,7 +74,7 @@ final class AresWriterFinals {
         }
     }
 
-    private static Map<String, Integer> akGenderToPos = new HashMap<>();
+    private static final Map<String, Integer> akGenderToPos = new HashMap<>();
 
     private static String akGenderToString(String ak, boolean isMale, Regelwerk aks) {
         return ak + " "
@@ -151,10 +127,9 @@ final class AresWriterFinals {
                 Integer i = disziplinen.get(d.getName());
                 if (i == null) {
                     int id = disziplinen.size();
-                    // String laenge1 = getLaenge(d);
-                    int laenge2 = d.getLaenge(); // getLaenge(laenge1);
-                    String laenge1 = "" + laenge2 + "m";
-                    int anschlaege = 1; // Math.max(1, laenge2 / 100 / anschlaegeJe100m);
+                    int laenge2 = d.getLaenge();
+                    String laenge1 = laenge2 + "m";
+                    int anschlaege = 1;
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + anschlaege);
                     disziplinen.put(d.getName(), id);
                     System.out.println(id + " -> " + d.getName().toUpperCase() + " / " + disziplinen.get(d.getName()));
@@ -163,7 +138,7 @@ final class AresWriterFinals {
         }
     }
 
-    private static String[][] shortnames = new String[][] { new String[] { "Obstacle Swim", "OS" },
+    private static final String[][] shortnames = new String[][] { new String[] { "Obstacle Swim", "OS" },
             new String[] { "Manikin Carry", "MC" },
             new String[] { "Manikin Carry with Fins", "MCF" }, new String[] { "Rescue Medley", "RM" },
             new String[] { "Manikin Tow with Fins", "MTF" }, new String[] { "Super Lifesaver", "SL" },
@@ -214,7 +189,7 @@ final class AresWriterFinals {
                 shortname = shorts.get(dlower);
             }
             d = d.replace("\"", "");
-            ps.println("" + id + ";\"" + d + "\";\"" + shortname + "\"");
+            ps.println(id + ";\"" + d + "\";\"" + shortname + "\"");
         }
     }
 
@@ -283,11 +258,8 @@ final class AresWriterFinals {
             int id1 = wk.getRegelwerk().getRundenId(owd);
             int id2 = owd.getLaeufe().size();
 
-            boolean male = owd.maennlich;
-            int ak = owd.akNummer;
             Disziplin d = wk.getRegelwerk().getAk(owd.akNummer).getDisziplin(owd.disziplin, owd.maennlich);
 
-            // int akmw = ak * 2 + (male ? 1 : 0);
             int akmw = akGenderToPosition(wk.getRegelwerk().getAk(owd.akNummer).getName(), owd.maennlich,
                     wk.getRegelwerk());
 
@@ -305,10 +277,9 @@ final class AresWriterFinals {
             }
             int round = getRound(wk, owd);
             int idLen = value;
-            int idStyle = idLen;
             String date = "10/18/09";
             String time = "00:00";
-            ps.println("" + id1 + " ;" + round + " ;" + id2 + " ;" + idLen + " ;" + idStyle + " ;\"" + akmw + "\" ;\""
+            ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + idLen + " ;" + idLen + " ;\"" + akmw + "\" ;\""
                     + date
                     + "\" ;\"" + time + "\" ;");
 
@@ -324,18 +295,14 @@ final class AresWriterFinals {
             }
         }
 
-        Collections.sort(ll, new Comparator<>() {
-
-            @Override
-            public int compare(DisciplineInfo<T> lx1, DisciplineInfo<T> lx2) {
-                AWettkampf<T> wk1 = lx1.getFirst();
-                AWettkampf<T> wk2 = lx2.getFirst();
-                OWDisziplin<T> l1 = lx1.getSecond();
-                OWDisziplin<T> l2 = lx2.getSecond();
-                int id1 = wk1.getRegelwerk().getRundenId(l1);
-                int id2 = wk2.getRegelwerk().getRundenId(l2);
-                return id1 - id2;
-            }
+        ll.sort((lx1, lx2) -> {
+            AWettkampf<T> wk1 = lx1.getFirst();
+            AWettkampf<T> wk2 = lx2.getFirst();
+            OWDisziplin<T> l1 = lx1.getSecond();
+            OWDisziplin<T> l2 = lx2.getSecond();
+            int id1 = wk1.getRegelwerk().getRundenId(l1);
+            int id2 = wk2.getRegelwerk().getRundenId(l2);
+            return id1 - id2;
         });
         return ll;
     }
@@ -351,42 +318,22 @@ final class AresWriterFinals {
             }
         }
 
-        Collections.sort(ll, new Comparator<>() {
-
-            @Override
-            public int compare(HeatInfo<T> lx1, HeatInfo<T> lx2) {
-                AWettkampf<T> wk1 = lx1.getFirst();
-                AWettkampf<T> wk2 = lx2.getFirst();
-                OWDisziplin<T> d1 = lx1.getSecond();
-                OWDisziplin<T> d2 = lx2.getSecond();
-                OWLauf<T> l1 = lx1.getThird();
-                OWLauf<T> l2 = lx2.getThird();
-                int id1 = wk1.getRegelwerk().getRundenId(d1) * 1000 + getLaufnummer(l1);
-                int id2 = wk2.getRegelwerk().getRundenId(d2) * 1000 + getLaufnummer(l2);
-                return id1 - id2;
-            }
+        ll.sort((lx1, lx2) -> {
+            AWettkampf<T> wk1 = lx1.getFirst();
+            AWettkampf<T> wk2 = lx2.getFirst();
+            OWDisziplin<T> d1 = lx1.getSecond();
+            OWDisziplin<T> d2 = lx2.getSecond();
+            OWLauf<T> l1 = lx1.getThird();
+            OWLauf<T> l2 = lx2.getThird();
+            int id1 = wk1.getRegelwerk().getRundenId(d1) * 1000 + getLaufnummer(l1);
+            int id2 = wk2.getRegelwerk().getRundenId(d2) * 1000 + getLaufnummer(l2);
+            return id1 - id2;
         });
         return ll;
     }
 
     private static <T extends ASchwimmer> int getLaufnummer(OWLauf<T> l1) {
-        int l = l1.getLaufnummer();
-        switch (l) {
-        case 51:
-            return 61;
-        case 31:
-            return 41;
-        case 131:
-            return 141;
-        case 271:
-            return 281;
-        case 311:
-            return 321;
-        case 331:
-            return 341;
-        default:
-            return l;
-        }
+        return l1.getLaufnummer();
     }
 
     private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os)
@@ -415,16 +362,15 @@ final class AresWriterFinals {
             for (int x = 0; x < lauf.getBahnen(); x++) {
                 T t = lauf.getSchwimmer(x);
                 if (t != null) {
-                    int relay = 0;// (t instanceof Teilnehmer ? 0 : 1);
+                    int relay = 0;
 
                     int lane = x + 1;
-                    String sn = "" + getId(t); // StartnumberFormatManager.format(t);
+                    String sn = "" + getId(t);
                     String date = "10/18/09";
                     String time = "00:00";
                     int round = getRound(wk, owd);
-                    ps.println(
-                            "" + id1 + " ;" + round + " ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
-                                    + "\" ; \"" + time + "\" ;");
+                    ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
+                            + "\" ; \"" + time + "\" ;");
                 }
             }
         }
@@ -453,7 +399,7 @@ final class AresWriterFinals {
 
             int round = getRound(wk, owd);
 
-            ps.println("" + x + " ;" + id1 + " ;" + round + " ;" + id2 + " ;");
+            ps.println(x + " ;" + id1 + " ;" + round + " ;" + id2 + " ;");
             x++;
         }
     }
@@ -483,7 +429,7 @@ final class AresWriterFinals {
     }
 
     private static String getKey(ASchwimmer t) {
-        return "" + t.getStartnummer() + "" + t.getName() + "+" + t.getAKNummer() + "+" + (t.isMaennlich() ? 1 : 0);
+        return t.getStartnummer() + "+" + t.getName() + "+" + t.getAKNummer() + "+" + (t.isMaennlich() ? 1 : 0);
     }
 
     private static int getId(ASchwimmer t) {
@@ -499,17 +445,15 @@ final class AresWriterFinals {
         return sn;
     }
 
-    private static Hashtable<String, Integer> snMapping = new Hashtable<>();
+    private static final Hashtable<String, Integer> snMapping = new Hashtable<>();
     private static int nextSN = 1;
 
-    private static <T extends ASchwimmer> int writeNames(AWettkampf<T> wk, PrintStream ps, int offset)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> int writeNames(AWettkampf<T> wk, PrintStream ps, int offset) {
         for (T t : wk.getSchwimmer()) {
             int sn = getId(t);
             int akmw = akGenderToPosition(t.getAK().getName(), t.isMaennlich(), wk.getRegelwerk());
-            ps.print("" + sn + ";\"" + sn + "\";");
-            if (t instanceof Teilnehmer) {
-                Teilnehmer tn = (Teilnehmer) t;
+            ps.print(sn + ";\"" + sn + "\";");
+            if (t instanceof Teilnehmer tn) {
                 int jg = tn.getJahrgang();
                 String vn = tn.getVorname().replace("\"", "");
                 String nn = tn.getNachname().replace("\"", "");
@@ -555,18 +499,16 @@ final class AresWriterFinals {
             default -> wk.isFinal(owd) ? "Final" : String.format("Round %d", owd.round + 1);
             };
 
-            String title = wk.getStringProperty(PropertyConstants.NAME);
-
             int id1 = wk.getRegelwerk().getRundenId(owd);
             int round = getRound(wk, owd);
 
             String text = disziplin + " " + gender + " - " + heat;
 
-            ps.println("" + id1 + " ;" + round + " ;\"" + text + "\" ;\"" + text + "\" ;\"\" ;");
+            ps.println(id1 + " ;" + round + " ;\"" + text + "\" ;\"" + text + "\" ;\"\" ;");
         }
     }
 
-    private static final String numbers = IntStream.range(1, 100).mapToObj(i -> "" + i + (i < 10 ? " " : ""))
+    private static final String numbers = IntStream.range(1, 100).mapToObj(i -> i + (i < 10 ? " " : ""))
             .collect(Collectors.joining(" "));
 
     private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os)
@@ -578,169 +520,6 @@ final class AresWriterFinals {
         ps.println("1; \"Vorlauf\"; \"VL\"; \"Vorlauf\";  \"" + numbers + "\"");
         ps.println("2; \"Zwischenlauf\"; \"ZL\"; \"Zwischenlauf\";  \"" + numbers + "\"");
         ps.println("3; \"Finale\"; \"F\"; \"Finale\";  \"" + numbers + "\"");
-    }
-
-    private static <T extends ASchwimmer> void writeSteuerText(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
-        // event;round;text
-        // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
-
-        PrintStream ps = new PrintStream(os, true, CHARSET2);
-        // Laufliste<T> liste = wk.getLaufliste();
-
-        LinkedList<HeatInfo<T>> ll = getHeats(wks);
-
-        for (HeatInfo<T> lx : ll) {
-            AWettkampf<T> wk = lx.getFirst();
-            OWDisziplin<T> owd = lx.getSecond();
-            OWLauf<T> lauf = lx.getThird();
-
-            // String title = wk.getStringProperty(PropertyConstants.NAME);
-
-            int id1 = lauf.getLaufnummer();
-            // int id2 = lauf.getLaufbuchstabe() + 1;
-
-            StringBuilder sb = new StringBuilder();
-            sb.append(id1);
-            resize(sb, 4, ' ');
-
-            Disziplin d = wk.getRegelwerk().getAk(owd.akNummer).getDisziplin(owd.disziplin, owd.maennlich);
-
-            String disziplin = d.getName();
-            String amount = "";
-            String length = "";
-            if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
-                disziplin = disziplin.substring(6);
-                amount = "4";
-                length = "50m";
-            } else if (disziplin.startsWith("4 x 50m") || disziplin.startsWith("4 * 50m")) {
-                disziplin = disziplin.substring(8);
-                amount = "4";
-                length = "50m";
-            } else if (disziplin.startsWith("4x25m") || disziplin.startsWith("4*25m")) {
-                disziplin = disziplin.substring(6);
-                amount = "4";
-                length = "25m";
-            } else if (disziplin.startsWith("4 x 25m") || disziplin.startsWith("4 * 25m")) {
-                disziplin = disziplin.substring(8);
-                amount = "4";
-                length = "25m";
-            } else if (disziplin.startsWith("25m")) {
-                disziplin = disziplin.substring(4);
-                amount = "1";
-                length = "25m";
-            } else if (disziplin.startsWith("50m")) {
-                disziplin = disziplin.substring(4);
-                amount = "1";
-                length = "50m";
-            } else if (disziplin.startsWith("100m")) {
-                disziplin = disziplin.substring(5);
-                amount = "1";
-                length = "100m";
-            } else if (disziplin.startsWith("200m")) {
-                disziplin = disziplin.substring(5);
-                amount = "1";
-                length = "200m";
-            } else if (disziplin.equals("Line Throw")) {
-                // disziplin = disziplin.substring(4);
-                amount = "1";
-                length = "25m";
-            } else {
-                System.err.println(disziplin);
-            }
-
-            if (disziplin.equals("Manikin Tow with Fins")) {
-                disziplin = "Lifesaver";
-            } else if (disziplin.equals("Manikin Carry with Fins")) {
-                disziplin = "Manikin Carry w Fins";
-            }
-
-            resize(sb, 7 - amount.length(), ' ');
-            sb.append(amount);
-            sb.append(" x ");
-            resize(sb, 15 - length.length(), ' ');
-            sb.append(length);
-            sb.append(" ");
-            sb.append(disziplin);
-            resize(sb, 37, ' ');
-            if (lauf.isEmpty()) {
-                sb.append("-");
-            } else {
-                T t = lauf.getSchwimmer();
-                sb.append(t.isMaennlich() ? "männlich" : "weiblich");
-            }
-
-            ps.println(sb.toString());
-        }
-    }
-
-    private static <T extends ASchwimmer> void writeNAMs(AWettkampf<T>[] wks, String dir)
-            throws UnsupportedEncodingException {
-        // event;round;text
-        // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
-
-        // Laufliste<T> liste = wk.getLaufliste();
-
-        LinkedList<HeatInfo<T>> ll = getHeats(wks);
-
-        for (HeatInfo<T> lx : ll) {
-            // AWettkampf<T> wk = lx.getFirst();
-            // OWDisziplin<T> owd = lx.getSecond();
-            OWLauf<T> lauf = lx.getThird();
-
-            // String title = wk.getStringProperty(PropertyConstants.NAME);
-
-            try {
-                String ln = "" + lauf.getLaufnummer();
-                String lb = "" + (lauf.getLaufbuchstabe() + 1);
-
-                StringBuilder name = new StringBuilder();
-                resize(name, 5 - ln.length(), '0');
-                name.append(ln);
-                resize(name, 8 - lb.length(), '0');
-                name.append(lb);
-
-                FileOutputStream os = new FileOutputStream(dir + File.separator + name.toString() + ".NAM");
-                PrintStream ps = new PrintStream(os, true, CHARSET2);
-
-                for (int x = 0; x < lauf.getBahnen(); x++) {
-                    T t = lauf.getSchwimmer(x);
-                    if (t != null) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(" ");
-                        sb.append(x + 1);
-                        if (t instanceof Mannschaft) {
-                            Mannschaft te = (Mannschaft) t;
-                            sb.append(te.getName());
-                            resize(sb, 33, ' ');
-                            sb.append("-");
-                        } else {
-                            Teilnehmer te = (Teilnehmer) t;
-                            sb.append(te.getNachname());
-                            resize(sb, 33, ' ');
-                            sb.append(te.getVorname());
-                        }
-                        resize(sb, 62, ' ');
-                        sb.append(t.getGliederung());
-                        resize(sb, 82, ' ');
-                        ps.println(sb.toString());
-                    }
-                }
-
-                os.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private static void resize(StringBuilder sb, int length, char filler) {
-        if (sb.length() > length) {
-            sb.setLength(length);
-        }
-        while (sb.length() < length) {
-            sb.append(filler);
-        }
     }
 
     private static class HeatInfo<T extends ASchwimmer> {

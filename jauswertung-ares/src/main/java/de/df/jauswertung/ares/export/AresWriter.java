@@ -12,9 +12,7 @@ import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.IOUtils;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelILSFinals;
@@ -47,6 +45,8 @@ public class AresWriter {
         }
 
         AWettkampf<T> newWk = Utils.copy(wk);
+        newWk.setProperty(PropertyConstants.HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue());
+
         newWk.getLaufliste().clear();
         newWk.getSchwimmer().forEach(schwimmer -> schwimmer.setAKNummer(0, true));
         newWk.getRegelwerk().setSize(1);
