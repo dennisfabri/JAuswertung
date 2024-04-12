@@ -82,7 +82,7 @@ import de.dm.ares.data.util.XStreamUtil;
  */
 public final class IOUtils {
 
-    private static Logger log = LoggerFactory.getLogger(IOUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(IOUtils.class);
 
     private static XStream instance = null;
 
@@ -104,11 +104,11 @@ public final class IOUtils {
 
         try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
                 InputStreamReader reader = new InputStreamReader(bis, charset)) {
-            return fromXML(reader, charset);
+            return fromXML(reader);
         }
     }
 
-    private static Object fromXML(Reader is, String charset) throws IOException {
+    private static Object fromXML(Reader is) throws IOException {
         VersionedDocument.xstream = getXStream();
         String xml = readText(is).replace("\n\n", "\n");
         if (xml.startsWith("PK")) {
@@ -117,23 +117,18 @@ public final class IOUtils {
         if (!xml.startsWith("<?xml")) {
             try {
                 String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-                String xml2 = xml;
-                int index = xml2.indexOf('>');
+                int index = xml.indexOf('>');
                 if (index > 0) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(prefix);
-                    sb.append(xml.substring(0, index));
-                    sb.append(" version=\"0\"");
-                    sb.append(xml.substring(index));
-                    Object o = VersionedDocument.fromXML(sb.toString()).toBean();
+                    String sb = "%s%s version=\"0\"%s".formatted(prefix, xml.substring(0, index), xml.substring(index));
+                    Object o = VersionedDocument.fromXML(sb).toBean();
                     if (o != null) {
                         return o;
                     }
                 }
             } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException crce) {
-                crce.printStackTrace();
+                log.debug("Cannot resolve class", crce);
             } catch (RuntimeException re) {
-                re.printStackTrace();
+                log.debug("Error parsing XML", re);
             }
         }
         try {
@@ -142,7 +137,7 @@ public final class IOUtils {
                 return o;
             }
         } catch (RuntimeException re) {
-            re.printStackTrace();
+            log.debug("Error parsing XML", re);
         }
         return VersionedDocument.xstream.fromXML(xml);
     }
@@ -299,7 +294,6 @@ public final class IOUtils {
             // Nothing to do
         }
 
-        @SuppressWarnings("rawtypes")
         @Override
         public boolean canConvert(Class clazz) {
             return clazz.equals(String.class);

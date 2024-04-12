@@ -619,6 +619,9 @@ public final class SchwimmerUtils {
         if (zeit <= 0.005) {
             return TimeStatus.NONE;
         }
+        if (rec <= 0.005) {
+            return TimeStatus.NONE;
+        }
         if (formelID.equals(FormelDLRG.ID) || formelID.equals(FormelDLRG2007.ID)) {
             if (zeit < rec) {
                 return TimeStatus.FAST;

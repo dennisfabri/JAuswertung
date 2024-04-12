@@ -20,4 +20,11 @@ public enum HeatsNumberingScheme {
                 .findFirst()
                 .orElse(Standard);
     }
+
+    public static boolean equals(Object value, HeatsNumberingScheme heatsNumberingScheme) {
+        if (value == null) {
+            return false;
+        }
+        return heatsNumberingScheme.value.equalsIgnoreCase("" + value);
+    }
 }

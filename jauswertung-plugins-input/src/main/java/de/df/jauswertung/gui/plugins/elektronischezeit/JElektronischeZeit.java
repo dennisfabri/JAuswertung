@@ -70,10 +70,8 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
         if (w.isHeatBased()) {
             strategy = new ETHeatStrategy(getController(), getPlugin(), this, w);
-        } else if (w.isDLRGBased()) {
-            strategy = new ETDLRGStrategy(getController(), getPlugin(), this, w);
         } else {
-            throw new NotEnabledException("This option is not implemented.");
+            strategy = new ETDLRGStrategy(getController(), getPlugin(), this, w);
         }
 
         switch (SourcesConfig.getSource()) {
@@ -84,7 +82,7 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
             source = new AresfileTimesSource();
             break;
         default:
-            throw new IllegalStateException("Unkown datasource");
+            throw new IllegalStateException("Unknown datasource");
         }
 
         createPanel();

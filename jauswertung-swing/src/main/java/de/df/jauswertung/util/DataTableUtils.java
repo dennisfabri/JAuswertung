@@ -76,11 +76,11 @@ public final class DataTableUtils {
     }
 
     static final class DataContainer {
-        private LinkedList<Integer> aligns = new LinkedList<>();
-        private LinkedList<String> formats = new LinkedList<>();
-        private LinkedList<Object> titles = new LinkedList<>();
-        private LinkedList<TitleCell> row1 = new LinkedList<>();
-        private LinkedList<TitleCell> row2 = new LinkedList<>();
+        private final LinkedList<Integer> aligns = new LinkedList<>();
+        private final LinkedList<String> formats = new LinkedList<>();
+        private final LinkedList<String> titles = new LinkedList<>();
+        private final LinkedList<TitleCell> row1 = new LinkedList<>();
+        private final LinkedList<TitleCell> row2 = new LinkedList<>();
 
         public void add(String title, int align, String format, String r, boolean mode) {
             add(title, null, align, format, r, mode);
@@ -118,22 +118,22 @@ public final class DataTableUtils {
         }
 
         public TitleRow[] getExtendedTitles() {
-            return new TitleRow[]{
-                    new TitleRow(row1.toArray(new TitleCell[row1.size()])),
-                    new TitleRow(row2.toArray(new TitleCell[row2.size()]))
+            return new TitleRow[] {
+                    new TitleRow(row1.toArray(new TitleCell[0])),
+                    new TitleRow(row2.toArray(new TitleCell[0]))
             };
         }
 
         public String[] getTitles() {
-            return titles.toArray(new String[titles.size()]);
+            return titles.toArray(new String[0]);
         }
 
         public String[] getFormats() {
-            return formats.toArray(new String[formats.size()]);
+            return formats.toArray(new String[0]);
         }
 
         public Integer[] getAlignments() {
-            return aligns.toArray(new Integer[aligns.size()]);
+            return aligns.toArray(new Integer[0]);
         }
     }
 
@@ -180,7 +180,7 @@ public final class DataTableUtils {
         boolean first = true;
         while (li.hasNext()) {
             String name = data[li.next()].trim().replace(';', ',');
-            if (name.length() > 0) {
+            if (!name.isEmpty()) {
                 if (first) {
                     first = false;
                 } else {
@@ -193,7 +193,7 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel results(AWettkampf<T> wk, boolean removeUnranked,
-                                                                    Feedback fb) {
+            Feedback fb) {
         if (wk == null) {
             return null;
         }
@@ -247,7 +247,7 @@ public final class DataTableUtils {
             dc.add("PenaltyNr", x, RIGHT, "0", "Penalty", false);
         }
         dc.addNoTranslate(wk.getRegelwerk().getZusatzwertungShort(), RIGHT, "0",
-                          wk.getRegelwerk().getZusatzwertungShort(), true);
+                wk.getRegelwerk().getZusatzwertungShort(), true);
         if (wk.isHeatBased()) {
             dc.add("Qualified", RIGHT, "", "Qualified", true);
         }
@@ -260,58 +260,52 @@ public final class DataTableUtils {
                 fb.showFeedback(aks.getAk(x).getName());
                 if (aks.getAk(x).hasMehrkampfwertung()) {
                     altersklasse(result, wk, aks.getAk(x), false, diszAnzahl, maxteammembers, false, true, true,
-                                 removeUnranked, 0);
+                            removeUnranked, 0);
                     altersklasse(result, wk, aks.getAk(x), true, diszAnzahl, maxteammembers, false, true, true,
-                                 removeUnranked, 0);
+                            removeUnranked, 0);
                 }
 
                 if (wk.isHeatBased()) {
-                    if (wk.isOpenWater()) {
-                        for (OWDisziplin<T> y : wk.getLauflisteOW().getDisziplinen()) {
-                            Altersklasse ak = wk.getRegelwerk().getAk(y.akNummer);
-                            int qualified = 0;
-                            int[] runden = ak.getDisziplin(y.disziplin, y.maennlich).getRunden();
-                            boolean isFinal = runden.length <= y.round;
-                            if (!isFinal) {
-                                qualified = runden[y.round];
-                            }
+                    for (OWDisziplin<T> y : wk.getLauflisteOW().getDisziplinen()) {
+                        Altersklasse ak = wk.getRegelwerk().getAk(y.akNummer);
+                        int qualified = 0;
+                        int[] runden = ak.getDisziplin(y.disziplin, y.maennlich).getRunden();
+                        boolean isFinal = runden.length <= y.round;
+                        if (!isFinal) {
+                            qualified = runden[y.round];
+                        }
 
-                            AWettkampf<T> wkl = ResultUtils.createCompetitionFor(wk,
-                                                                                 new OWSelection(wk.getRegelwerk()
-                                                                                                   .getAk(y.akNummer),
-                                                                                                 y.akNummer,
-                                                                                                 y.maennlich,
-                                                                                                 y.disziplin,
-                                                                                                 y.round,
-                                                                                                 isFinal));
+                        AWettkampf<T> wkl = ResultUtils.createCompetitionFor(wk,
+                                new OWSelection(wk.getRegelwerk()
+                                        .getAk(y.akNummer),
+                                        y.akNummer,
+                                        y.maennlich,
+                                        y.disziplin,
+                                        y.round,
+                                        isFinal));
 
-                            if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
-                                AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
-                                // if (!isFinal) {
-                                // ew.getRegelwerk().setFormelID(FormelILS.ID);
-                                // }
-                                if (ew != null) {
-                                    for (int i = 0; i < wkl.getRegelwerk().size(); i++) {
-                                        Altersklasse a = wkl.getRegelwerk().getAk(i);
-                                        for (Disziplin[] dx : a.getDisziplinen()) {
-                                            for (Disziplin d : dx) {
-                                                d.setName(d.getName());
-                                            }
+                        if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
+                            AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
+                            if (ew != null) {
+                                Regelwerk ewkAks = ew.getRegelwerk();
+                                for (int i = 0; i < ew.getRegelwerk().size(); i++) {
+                                    Altersklasse a = ew.getRegelwerk().getAk(i);
+                                    for (Disziplin[] dx : a.getDisziplinen()) {
+                                        for (Disziplin d : dx) {
+                                            d.setName(d.getName());
                                         }
-                                        if (a.getDiszAnzahl() == 0) {
-                                            break;
-                                        }
-                                        // isFinal = y.round >= ak.getDisziplin(y.disziplin,
-                                        // y.maennlich).getRunden().length;
-                                        String runde = " - " + I18n.getRound(y.round, isFinal);
-                                        a.setName(aks.getAk(i).getName() + " - " + a.getDisziplin(0, true).getName()
-                                                  + runde);
-
-                                        altersklasse(result, wkl, a, false, diszAnzahl, maxteammembers, false, true,
-                                                     true, removeUnranked, qualified);
-                                        altersklasse(result, wkl, a, true, diszAnzahl, maxteammembers, false, true,
-                                                     true, removeUnranked, qualified);
                                     }
+                                    if (a.getDiszAnzahl() == 0) {
+                                        break;
+                                    }
+                                    String runde = " - " + I18n.getRound(y.round, isFinal);
+                                    a.setName(ewkAks.getAk(i).getName() + " - " + a.getDisziplin(0, true).getName()
+                                            + runde);
+
+                                    altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true,
+                                            true, removeUnranked, qualified);
+                                    altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true,
+                                            true, removeUnranked, qualified);
                                 }
                             }
                         }
@@ -324,9 +318,9 @@ public final class DataTableUtils {
                                 Altersklasse a = ew.getRegelwerk().getAk(y);
                                 a.setName(aks.getAk(x).getName() + " - " + a.getDisziplin(0, true).getName());
                                 altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true, true,
-                                             removeUnranked, 0);
+                                        removeUnranked, 0);
                                 altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true, true,
-                                             removeUnranked, 0);
+                                        removeUnranked, 0);
                             }
                         }
                     }
@@ -339,13 +333,13 @@ public final class DataTableUtils {
             aks = wk.getRegelwerk();
             for (int x = 0; x < aks.size(); x++) {
                 LinkedList<T> teilies = SearchUtils.getSchwimmer(wk, aks.getAk(x));
-                if ((teilies != null) && (teilies.size() > 0)) {
+                if ((teilies != null) && !teilies.isEmpty()) {
                     fb.showFeedback(aks.getAk(x).getName());
                     if (aks.getAk(x).hasMehrkampfwertung()) {
                         altersklasse(result, wk, aks.getAk(x), false, diszAnzahl, maxteammembers, false, true, true,
-                                     removeUnranked, 0);
+                                removeUnranked, 0);
                         altersklasse(result, wk, aks.getAk(x), true, diszAnzahl, maxteammembers, false, true, true,
-                                     removeUnranked, 0);
+                                removeUnranked, 0);
                     }
 
                     if (aks.getAk(x).hasEinzelwertung()) {
@@ -355,9 +349,9 @@ public final class DataTableUtils {
                                 Altersklasse a = ew.getRegelwerk().getAk(y);
                                 a.setName(aks.getAk(x).getName() + " - " + a.getDisziplin(0, true).getName());
                                 altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true, true,
-                                             removeUnranked, 0);
+                                        removeUnranked, 0);
                                 altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true, true,
-                                             removeUnranked, 0);
+                                        removeUnranked, 0);
                             }
                         }
                     }
@@ -375,7 +369,7 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel results(AWettkampf<T> wk, Altersklasse ak, boolean male,
-                                                                    boolean removeUnranked, int qualified) {
+            boolean removeUnranked, int qualified) {
         if (wk == null) {
             return null;
         }
@@ -442,7 +436,7 @@ public final class DataTableUtils {
         }
         if (ak.hasHLW()) {
             dc.add(wk.getRegelwerk().getZusatzwertungShort(), RIGHT, "0", wk.getRegelwerk().getZusatzwertungShort(),
-                   fullSizeColumns);
+                    fullSizeColumns);
         }
         if (qualified > 0) {
             dc.add("Qualified", CENTER, "", "Qualified", fullSizeColumns);
@@ -462,8 +456,8 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel resultsEinzelwertung(AWettkampf<T> wk, Altersklasse ak,
-                                                                                 boolean male, int disz,
-                                                                                 boolean removeUnranked, int qualified) {
+            boolean male, int disz,
+            boolean removeUnranked, int qualified) {
         if (wk == null) {
             return null;
         }
@@ -484,7 +478,7 @@ public final class DataTableUtils {
         }
         Altersklasse a = w.getRegelwerk().getAk(disz);
         a.setName(a.getName() + " " + I18n.geschlechtToShortString(w.getRegelwerk(), male) + " - "
-                  + a.getDisziplin(0, male).getName());
+                + a.getDisziplin(0, male).getName());
         ExtendedTableModel etm = results(w, a, male, removeUnranked, qualified);
         if (etm == null) {
             return null;
@@ -498,9 +492,9 @@ public final class DataTableUtils {
     }
 
     private static synchronized <T extends ASchwimmer> void altersklasse(LinkedList<Object[]> result, AWettkampf<T> wk,
-                                                                         Altersklasse ak, boolean maennlich,
-                                                                         int maxdisz, int maxteammembers, boolean separate, boolean mustShowPoints, boolean zw,
-                                                                         boolean removeUnranked, int qualified) {
+            Altersklasse ak, boolean maennlich,
+            int maxdisz, int maxteammembers, boolean separate, boolean mustShowPoints, boolean zw,
+            boolean removeUnranked, int qualified) {
         if (maxdisz < ak.getDiszAnzahl()) {
             maxdisz = ak.getDiszAnzahl();
         }
@@ -514,7 +508,7 @@ public final class DataTableUtils {
         for (SchwimmerResult<T> result1 : results) {
             if ((!removeUnranked) || (!result1.hasKeineWertung())) {
                 Object[] row = platzToLine(result1, maxdisz, maxteammembers, points, separate, mustShowPoints,
-                                           qualified);
+                        qualified);
                 if (qualified > 0) {
                     boolean isQualified = result1.getPlace() <= qualified;
                     boolean hasWithdrawn = result1.getStrafe().isWithdraw();
@@ -528,8 +522,8 @@ public final class DataTableUtils {
     }
 
     private static <T extends ASchwimmer> Object[] platzToLine(SchwimmerResult<T> line, int maxdisz, int maxteammembers,
-                                                               double points, boolean separate,
-                                                               boolean mustShowPoints, int qualified) {
+            double points, boolean separate,
+            boolean mustShowPoints, int qualified) {
         ASchwimmer t = line.getSchwimmer();
         LinkedList<Object> row = new LinkedList<>();
         if (line.hasKeineWertung()) {
@@ -677,49 +671,49 @@ public final class DataTableUtils {
     public static KampfrichterStufe getLevel(String s) {
         s = s.replace(" ", "").replace(";", "").replace("&", "").replace(",", "").replace("/", "").toUpperCase();
 
-        if (s.equals("") || s.equals("-")) {
+        if (s.isEmpty() || s.equals("-")) {
             return KampfrichterStufe.KEINE;
         }
 
         KampfrichterStufe ks = KampfrichterStufe.KEINE;
-        if (s.indexOf("D123") >= 0) {
+        if (s.contains("D123")) {
             ks = ks.mit(KampfrichterStufe.D123);
             s = s.replace("D123", "");
         }
-        if (s.indexOf("D12") >= 0) {
+        if (s.contains("D12")) {
             ks = ks.mit(KampfrichterStufe.D12);
             s = s.replace("D12", "");
         }
-        if (s.indexOf("D1") >= 0) {
+        if (s.contains("D1")) {
             ks = ks.mit(KampfrichterStufe.D12);
             s = s.replace("D1", "");
         }
-        if (s.indexOf("D3") >= 0) {
+        if (s.contains("D3")) {
             ks = ks.mit(KampfrichterStufe.F1D3);
             s = s.replace("D3", "");
         }
-        if (s.indexOf("E123") >= 0) {
+        if (s.contains("E123")) {
             ks = ks.mit(KampfrichterStufe.E123);
             s = s.replace("E123", "");
         }
-        if (s.indexOf("E13") >= 0) {
+        if (s.contains("E13")) {
             ks = ks.mit(KampfrichterStufe.E13);
             s = s.replace("E13", "");
         }
-        if (s.indexOf("E12") >= 0) {
+        if (s.contains("E12")) {
             ks = ks.mit(KampfrichterStufe.E12);
             s = s.replace("E12", "");
         }
-        if (s.indexOf("E1") >= 0) {
+        if (s.contains("E1")) {
             ks = ks.mit(KampfrichterStufe.E1);
             s = s.replace("E1", "");
         }
-        if (s.indexOf("E3") >= 0) {
+        if (s.contains("E3")) {
             ks = ks.mit(KampfrichterStufe.F1E3);
             s = s.replace("E3", "");
         }
 
-        if (s.indexOf("F1") >= 0) {
+        if (s.contains("F1")) {
             ks = ks.mit(KampfrichterStufe.F1);
             s = s.replace("F1", "");
         }
@@ -942,7 +936,7 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel[] zusatzwertungResults(final AWettkampf<T> wk, Feedback fb,
-                                                                                   boolean extendedNames) {
+            boolean extendedNames) {
         boolean[][] all = new boolean[2][wk.getRegelwerk().size()];
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             for (int y = 0; y < 2; y++) {
@@ -953,8 +947,8 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel[] zusatzwertungResults(final AWettkampf<T> wk,
-                                                                                   boolean[][] selection, Feedback fb,
-                                                                                   boolean extendedNames) {
+            boolean[][] selection, Feedback fb,
+            boolean extendedNames) {
         if (wk == null) {
             return null;
         }
@@ -987,8 +981,8 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel zusatzwertungResults(final AWettkampf<T> wk,
-                                                                                 LinkedList<T> swimmers, Feedback fb, boolean full,
-                                                                                 boolean extendedNames) {
+            LinkedList<T> swimmers, Feedback fb, boolean full,
+            boolean extendedNames) {
         if (wk == null) {
             return null;
         }
@@ -1086,34 +1080,34 @@ public final class DataTableUtils {
                         row.addLast(I18n.geschlechtToString(t));
                     }
                     switch (t.getHLWState(x)) {
-                        case ENTERED: {
-                            double value = t.getHLWPunkte(x);
-                            if (Math.round(value * 100) % 100 == 0) {
-                                row.addLast((int) value);
-                            } else {
-                                row.addLast(value);
-                            }
-                            break;
+                    case ENTERED: {
+                        double value = t.getHLWPunkte(x);
+                        if (Math.round(value * 100) % 100 == 0) {
+                            row.addLast((int) value);
+                        } else {
+                            row.addLast(value);
                         }
-                        case NICHT_ANGETRETEN:
-                            if (wk.getRegelwerk().getFormelID().equals(FormelDLRG2007.ID)
+                        break;
+                    }
+                    case NICHT_ANGETRETEN:
+                        if (wk.getRegelwerk().getFormelID().equals(FormelDLRG2007.ID)
                                 && (wk.getStrafen().getStrafe("V1") != null)) {
-                                row.addLast("V1");
-                            } else {
-                                row.addLast("n.a.");
-                            }
-                            break;
-                        case DISQALIFIKATION:
-                            if (wk.getRegelwerk().getFormelID().equals(FormelDLRG2007.ID)
+                            row.addLast("V1");
+                        } else {
+                            row.addLast("n.a.");
+                        }
+                        break;
+                    case DISQALIFIKATION:
+                        if (wk.getRegelwerk().getFormelID().equals(FormelDLRG2007.ID)
                                 && (wk.getStrafen().getStrafe("S1") != null)) {
-                                row.addLast("S1");
-                            } else {
-                                row.addLast("disq.");
-                            }
-                            break;
-                        case NOT_ENTERED:
-                            row.addLast("-");
-                            break;
+                            row.addLast("S1");
+                        } else {
+                            row.addLast("disq.");
+                        }
+                        break;
+                    case NOT_ENTERED:
+                        row.addLast("-");
+                        break;
                     }
 
                     result.addLast(row.toArray());
@@ -1195,7 +1189,7 @@ public final class DataTableUtils {
      * @return
      */
     private static <T extends ASchwimmer> Object[] laufToLine(Lauf<T> lauf, int bahnen, int offset,
-                                                              boolean mixedheats) {
+            boolean mixedheats) {
 
         HeatsNumberingScheme scheme = HeatsNumberingScheme.Standard;
         if (lauf.getSchwimmer() != null) {
@@ -1222,33 +1216,33 @@ public final class DataTableUtils {
             }
             for (int x = 0; x < bahnen; x++) {
                 switch (offset) {
-                    case 0:
-                        if (lauf.getSchwimmer(x) != null) {
-                            row.addLast(lauf.getSchwimmer(x).getName());
-                        } else {
-                            row.addLast("");
+                case 0:
+                    if (lauf.getSchwimmer(x) != null) {
+                        row.addLast(lauf.getSchwimmer(x).getName());
+                    } else {
+                        row.addLast("");
+                    }
+                    break;
+                case 1:
+                    if (lauf.getSchwimmer(x) != null) {
+                        String g = lauf.getSchwimmer(x).getGliederung();
+                        String q = lauf.getSchwimmer(x).getQualifikationsebene().trim();
+                        if (!q.isEmpty()) {
+                            g += " (" + q + ")";
                         }
-                        break;
-                    case 1:
-                        if (lauf.getSchwimmer(x) != null) {
-                            String g = lauf.getSchwimmer(x).getGliederung();
-                            String q = lauf.getSchwimmer(x).getQualifikationsebene().trim();
-                            if (!q.isEmpty()) {
-                                g += " (" + q + ")";
-                            }
-                            row.addLast(g);
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    case 2:
-                        if (lauf.getSchwimmer(x) != null) {
-                            row.addLast(I18n.getAgeGroupAsString(lauf.getSchwimmer(x)));
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    default:
+                        row.addLast(g);
+                    } else {
+                        row.addLast("");
+                    }
+                    break;
+                case 2:
+                    if (lauf.getSchwimmer(x) != null) {
+                        row.addLast(I18n.getAgeGroupAsString(lauf.getSchwimmer(x)));
+                    } else {
+                        row.addLast("");
+                    }
+                    break;
+                default:
                 }
             }
         }
@@ -1392,7 +1386,7 @@ public final class DataTableUtils {
     }
 
     private static <T extends ASchwimmer> Object[] refereeToLine(String category, String[] content) {
-        return new String[]{category, content[0], content[1], content[2], content[3], content[4], content[5]};
+        return new String[] { category, content[0], content[1], content[2], content[3], content[4], content[5] };
     }
 
     /**
@@ -1421,35 +1415,35 @@ public final class DataTableUtils {
             for (int x = 0; x < puppen; x++) {
                 T schwimmer = lauf.getSchwimmer(x);
                 switch (offset) {
-                    case 0:
-                        if (schwimmer != null) {
-                            row.addLast(schwimmer.getName() + " (" + StartnumberFormatManager.format(schwimmer) + ")");
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    case 1:
-                        if (schwimmer != null) {
-                            String g = schwimmer.getGliederung();
-                            String q = schwimmer.getQualifikationsebene().trim();
-                            if (q.length() > 0) {
-                                g += " (" + q + ")";
-                            }
-                            row.addLast(g);
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    case 2:
-                        if (schwimmer != null) {
-                            row.addLast(I18n.getAgeGroupAsString(schwimmer));
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    default:
+                case 0:
+                    if (schwimmer != null) {
+                        row.addLast(schwimmer.getName() + " (" + StartnumberFormatManager.format(schwimmer) + ")");
+                    } else {
                         row.addLast("");
-                        break;
+                    }
+                    break;
+                case 1:
+                    if (schwimmer != null) {
+                        String g = schwimmer.getGliederung();
+                        String q = schwimmer.getQualifikationsebene().trim();
+                        if (q.length() > 0) {
+                            g += " (" + q + ")";
+                        }
+                        row.addLast(g);
+                    } else {
+                        row.addLast("");
+                    }
+                    break;
+                case 2:
+                    if (schwimmer != null) {
+                        row.addLast(I18n.getAgeGroupAsString(schwimmer));
+                    } else {
+                        row.addLast("");
+                    }
+                    break;
+                default:
+                    row.addLast("");
+                    break;
                 }
             }
         }
@@ -1586,7 +1580,7 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel zusatzwertungStartkarten(AWettkampf<T> wk,
-                                                                                     boolean printZWnames, Feedback fb) {
+            boolean printZWnames, Feedback fb) {
         if (wk == null) {
             return null;
         }
@@ -1709,14 +1703,14 @@ public final class DataTableUtils {
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel registration(AWettkampf<T> wk, LinkedList<T> schwimmer,
-                                                                         RegistrationDetails detail,
-                                                                         boolean[] columns, boolean members, Feedback fb) {
+            RegistrationDetails detail,
+            boolean[] columns, boolean members, Feedback fb) {
         return registration(wk, schwimmer, detail, columns, members, false, fb);
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel registration(AWettkampf<T> wk, LinkedList<T> schwimmer,
-                                                                         RegistrationDetails detail,
-                                                                         boolean[] columns, boolean members, boolean compact, Feedback fb) {
+            RegistrationDetails detail,
+            boolean[] columns, boolean members, boolean compact, Feedback fb) {
         if (wk == null) {
             return null;
         }
@@ -1825,7 +1819,7 @@ public final class DataTableUtils {
             formats.addLast("");
         }
         if ((detail == RegistrationDetails.EVERYTHING)
-            || (detail == RegistrationDetails.SHORT || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS))) {
+                || (detail == RegistrationDetails.SHORT || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS))) {
             titles.addLast(I18n.get("StartunterlagenkontrolleShort"));
             aligns.addLast(SwingConstants.LEFT);
             formats.addLast("");
@@ -1948,16 +1942,16 @@ public final class DataTableUtils {
                 row.addLast(t.getBemerkung());
             }
             if ((detail == RegistrationDetails.EVERYTHING) || (detail == RegistrationDetails.SHORT)
-                || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
+                    || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
                 Startunterlagen su = t.getStartunterlagen();
                 String text = "";
                 switch (su) {
-                    case PRUEFEN:
-                        text = I18n.get("yes");
-                        break;
-                    case NICHT_PRUEFEN:
-                        text = I18n.get("no");
-                        break;
+                case PRUEFEN:
+                    text = I18n.get("yes");
+                    break;
+                case NICHT_PRUEFEN:
+                    text = I18n.get("no");
+                    break;
                 }
                 row.addLast(text);
                 row.addLast(t.getQualifikation().toString());
@@ -1970,8 +1964,8 @@ public final class DataTableUtils {
                     if (t.isDisciplineChosen(x)) {
                         int meldezeit = t.getMeldezeit(x);
                         times[indizes.get(I18n.getDisziplinShort(ak.getDisziplin(x, true).getName()))] = (isOpenwater
-                                                                                                          || meldezeit <= 0) ? "+"
-                                : StringTools.zeitString(meldezeit);
+                                || meldezeit <= 0) ? "+"
+                                        : StringTools.zeitString(meldezeit);
                     }
                 }
                 for (String time : times) {
@@ -2057,7 +2051,7 @@ public final class DataTableUtils {
                     }
                     for (int z = 0; z < ak.getDiszAnzahl(); z++) {
                         JResultTable result = JResultTable.getResultTable(w, w.getRegelwerk().getAk(z), y == 1, print,
-                                                                          true, 0);
+                                true, 0);
                         if (result.getRowCount() > 0) {
                             ASchwimmer s = result.getResult(0).getSchwimmer();
                             int zeit = s.getZeit(0);
@@ -2070,7 +2064,7 @@ public final class DataTableUtils {
                             }
                             int pos = 1;
                             while ((pos < result.getRowCount())
-                                   && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
+                                    && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
                                 ASchwimmer schwimmer = result.getResult(pos).getSchwimmer();
                                 name.append(", ");
                                 name.append(schwimmer.getName());
@@ -2083,13 +2077,13 @@ public final class DataTableUtils {
                                 }
                                 pos++;
                             }
-                            mp.addLast(new Object[]{
+                            mp.addLast(new Object[] {
                                     name.toString(), gld.toString(), ak.getName(),
                                     I18n.geschlechtToShortString(aks, y == 1),
                                     ak.getDisziplin(z, y == 1).getName(), StringTools.zeitString(s.getZeit(0))
                             });
                         } else {
-                            mp.addLast(new Object[]{" ", " ", " ", " ", " ", " "});
+                            mp.addLast(new Object[] { " ", " ", " ", " ", " ", " " });
                         }
                     }
 
@@ -2101,17 +2095,17 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel etm = new ExtendedTableModel(mp.toArray(new Object[mp.size()][]),
-                                                        new Object[]{
-                                                                I18n.get("Name"), I18n.get("Organisation"),
-                                                                I18n.get("AgeGroup"), I18n.get("Sex"),
-                                                                I18n.get("Discipline"), I18n.get("Time")
-                                                        });
+                new Object[] {
+                        I18n.get("Name"), I18n.get("Organisation"),
+                        I18n.get("AgeGroup"), I18n.get("Sex"),
+                        I18n.get("Discipline"), I18n.get("Time")
+                });
         etm.setColumnAlignments(
-                new int[]{
+                new int[] {
                         SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
                         SwingConstants.LEFT, SwingConstants.RIGHT
                 });
-        etm.setColumnFormats(new String[]{"", "", "", "", "", "m:ss.00"});
+        etm.setColumnFormats(new String[] { "", "", "", "", "", "m:ss.00" });
         etm.setName(I18n.get("SchnellsteZeiten"));
         return etm;
     }
@@ -2130,14 +2124,14 @@ public final class DataTableUtils {
             @Override
             public int compare(Heattime ht1, Heattime ht2) {
                 return (ht1.CompetitionId - ht2.CompetitionId) * 100000 + (500 + ht1.Heat - ht2.Heat) * 100
-                       + (10 + ht1.Lane - ht2.Lane);
+                        + (10 + ht1.Lane - ht2.Lane);
             }
         });
 
         Object[][] data = new Object[times.length][0];
         for (int x = 0; x < data.length; x++) {
             Heattime time = times[x];
-            data[x] = new Object[]{
+            data[x] = new Object[] {
                     time.CompetitionId, time.CompetitionType, time.CompetitionName, time.Count,
                     time.Length, time.DisciplineChar,
                     time.Discipline, time.Lanecount, time.Abschnitt, time.Date, time.Heat, time.Lane, time.Bahnseite,
@@ -2152,27 +2146,27 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel etm = new ExtendedTableModel(data,
-                                                        new Object[]{
-                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
-                                                                "LageText", "AnzahlBahnen",
-                                                                "Abschnitt", "Datum", "Lauf", "Bahn",
-                                                                "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",
-                                                                "Geschlecht", "IstStaffel", "DsvId", "Verein",
-                                                                "Pseudoname", "Vereinsid", "Lsv",
-                                                                "Fina", "Kreisname", "ZeitArt", "Meter", "Zeit",
-                                                                "Status", "InterneWkId", "InternePersId",
-                                                                "InterneVereinsId", "InterneKreisId"
-                                                        }
-                                                        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
-                                                        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
-                                                        // I18n.get("Competition"),
-                                                        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
+                new Object[] {
+                        "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
+                        "LageText", "AnzahlBahnen",
+                        "Abschnitt", "Datum", "Lauf", "Bahn",
+                        "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",
+                        "Geschlecht", "IstStaffel", "DsvId", "Verein",
+                        "Pseudoname", "Vereinsid", "Lsv",
+                        "Fina", "Kreisname", "ZeitArt", "Meter", "Zeit",
+                        "Status", "InterneWkId", "InternePersId",
+                        "InterneVereinsId", "InterneKreisId"
+                }
+        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
+        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
+        // I18n.get("Competition"),
+        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
         );
         // etm.setColumnAlignments(new int[] { SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.RIGHT, SwingConstants.RIGHT,
         // SwingConstants.RIGHT, SwingConstants.LEFT });
-        etm.setColumnFormats(new String[]{
+        etm.setColumnFormats(new String[] {
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "",
                 "m:ss.00", "", "", "", "", ""
@@ -2195,14 +2189,14 @@ public final class DataTableUtils {
             @Override
             public int compare(Heattime ht1, Heattime ht2) {
                 return (ht1.CompetitionId - ht2.CompetitionId) * 100000 + (500 + ht1.Heat - ht2.Heat) * 100
-                       + (10 + ht1.Lane - ht2.Lane);
+                        + (10 + ht1.Lane - ht2.Lane);
             }
         });
 
         Object[][] data = new Object[times.length][0];
         for (int x = 0; x < data.length; x++) {
             Heattime time = times[x];
-            data[x] = new Object[]{
+            data[x] = new Object[] {
                     time.CompetitionId, time.CompetitionType, time.CompetitionName, time.Count,
                     time.Length, time.DisciplineChar,
                     time.Discipline, time.Lanecount, time.Abschnitt, time.Date, time.Heat, time.Lane, time.Bahnseite,
@@ -2217,27 +2211,27 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel etm = new ExtendedTableModel(data,
-                                                        new Object[]{
-                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
-                                                                "LageText", "AnzahlBahnen",
-                                                                "Abschnitt", "Datum", "Lauf", "Bahn",
-                                                                "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",
-                                                                "Geschlecht", "IstStaffel", "DsvId", "Verein",
-                                                                "Pseudoname", "Vereinsid", "Lsv",
-                                                                "Fina", "Kreisname", "ZeitArt", "Meter", "Zeit",
-                                                                "Status", "InterneWkId", "InternePersId",
-                                                                "InterneVereinsId", "InterneKreisId"
-                                                        }
-                                                        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
-                                                        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
-                                                        // I18n.get("Competition"),
-                                                        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
+                new Object[] {
+                        "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
+                        "LageText", "AnzahlBahnen",
+                        "Abschnitt", "Datum", "Lauf", "Bahn",
+                        "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",
+                        "Geschlecht", "IstStaffel", "DsvId", "Verein",
+                        "Pseudoname", "Vereinsid", "Lsv",
+                        "Fina", "Kreisname", "ZeitArt", "Meter", "Zeit",
+                        "Status", "InterneWkId", "InternePersId",
+                        "InterneVereinsId", "InterneKreisId"
+                }
+        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
+        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
+        // I18n.get("Competition"),
+        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
         );
         // etm.setColumnAlignments(new int[] { SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.RIGHT, SwingConstants.RIGHT,
         // SwingConstants.RIGHT, SwingConstants.LEFT });
-        etm.setColumnFormats(new String[]{
+        etm.setColumnFormats(new String[] {
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "",
                 "m:ss.00", "", "", "", "", ""
@@ -2262,7 +2256,7 @@ public final class DataTableUtils {
                         int heat = lauf.getLaufnummer();
                         Strafe s = t.getAkkumulierteStrafe(dis.Id);
                         Disziplin disziplin = wk.getRegelwerk().getAk(dis.akNummer).getDisziplin(dis.disziplin,
-                                                                                                 dis.maennlich);
+                                dis.maennlich);
 
                         int rounds = disziplin.getRunden().length + 1;
                         boolean isFinal = dis.round + 1 == rounds;

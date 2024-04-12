@@ -1,15 +1,10 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -140,7 +135,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         times = new JTimeField[lanes];
 
         for (int x = 0; x < ids.length; x++) {
-            String text = (ids[x].length() > 0 ? I18n.get(ids[x]) : "");
+            String text = (!ids[x].isEmpty() ? I18n.get(ids[x]) : "");
             p.add(new JLabel(text), CC.xy(2 + 2 * x, 2, "center,fill"));
         }
 
@@ -250,20 +245,12 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
             case KeyEvent.VK_UP:
                 if (index > 0) {
                     inputs[index - 1].requestFocus();
-                } else {
-                    // if (fl[index].checkTime()) {
-                    // previousHeat(false);
-                    // }
                 }
                 e.consume();
                 break;
             case KeyEvent.VK_DOWN:
                 if (index + 1 < times.length) {
                     inputs[index + 1].requestFocus();
-                } else {
-                    // if (fl[index].checkTime()) {
-                    // nextHeat();
-                    // }
                 }
                 e.consume();
                 break;
@@ -275,65 +262,44 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         @Override
         public void insertUpdate(DocumentEvent arg0) {
             int heatnr = heat.getSelectedIndex();
-            // @SuppressWarnings("rawtypes")
-            // Lauf lauf = wk.getLaufliste().getLaufliste().get(heatnr);
-            // ASchwimmer s = lauf.getSchwimmer(index);
-            // if (s == null) {
-            // return;
-            // }
             if (inputs[index].isValidInt() && times[index].isValidValue()) {
                 changeTime();
                 // updateHeat();
                 return;
             }
             String zeit = inputs[index].getText();
-            if (zeit.indexOf("p") > -1) {
+            if (zeit.contains("p")) {
                 setPenaltyPoints(heatnr, index, zeit);
                 return;
             }
-            if (zeit.indexOf("c") > -1) {
+            if (zeit.contains("c")) {
                 setPenaltyCode(heatnr, index, zeit);
                 return;
             }
-            if ((zeit.indexOf(",") > -1) || (zeit.indexOf("z") > -1)) {
+            if ((zeit.contains(",")) || (zeit.contains("z"))) {
                 showZieleinlauf(heatnr, index, zeit);
                 return;
             }
-            if (zeit.indexOf("#") > -1) {
+            if (zeit.contains("#")) {
                 setNoPenalty(heatnr, index, zeit);
                 return;
             }
-            if (zeit.indexOf("m") > -1) {
+            if (zeit.contains("m")) {
                 setMeanTime(heatnr, index, zeit);
                 return;
             }
-            if (zeit.indexOf("d") > -1) {
+            if (zeit.contains("d")) {
                 setDisqualifikation(heatnr, index, zeit);
                 return;
             }
-            if (zeit.indexOf("n") > -1) {
+            if (zeit.contains("n")) {
                 setNA(heatnr, index, zeit);
                 return;
             }
         }
 
         private void setPenaltyPoints(int heatnr, int row, String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'p'))) {
-                // SwingUtilities.invokeLater(new Runnable() {
-                // @Override
-                // public void run() {
-                // String x = StringTools.removeAll(
-                // inputs[index].getText(), 'p');
-                // int heatnr = heat.getSelectedIndex();
-                // Lauf lauf = wk.getLaufliste().getLaufliste()
-                // .get(heatnr);
-                // ASchwimmer s = lauf.getSchwimmer(index);
-                // inputs[index].setText(x);
-                // dialog.getEditor().runPenaltyPoints(s,
-                // lauf.getDisznummer(index));
-                // }
-                // });
-            } else {
+            if ((zeit.length() != 1) && !StringTools.isInteger(StringTools.removeAll(zeit, 'p'))) {
                 SwingUtilities.invokeLater(() -> {
                     String x = StringTools.removeAll(inputs[index].getText(), 'p');
                     inputs[index].setText(x);
@@ -343,22 +309,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         }
 
         private void setPenaltyCode(int heatnr, int row, String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'c'))) {
-                // SwingUtilities.invokeLater(new Runnable() {
-                // @Override
-                // public void run() {
-                // String x = StringTools.removeAll(
-                // inputs[index].getText(), 'c');
-                // int heatnr = heat.getSelectedIndex();
-                // Lauf lauf = wk.getLaufliste().getLaufliste()
-                // .get(heatnr);
-                // ASchwimmer s = lauf.getSchwimmer(index);
-                // inputs[index].setText(x);
-                // dialog.getEditor().runPenaltyCode(s,
-                // lauf.getDisznummer(index), wk.getStrafen());
-                // }
-                // });
-            } else {
+            if ((zeit.length() != 1) && !StringTools.isInteger(StringTools.removeAll(zeit, 'c'))) {
                 SwingUtilities.invokeLater(() -> {
                     String x = StringTools.removeAll(inputs[index].getText(), 'c');
                     inputs[index].setText(x);
@@ -368,22 +319,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         }
 
         private void setMeanTime(int heatnr, int row, String zeit) {
-            if ((zeit.length() == 1) || StringTools.isInteger(StringTools.removeAll(zeit, 'm'))) {
-                // SwingUtilities.invokeLater(new Runnable() {
-                // @Override
-                // public void run() {
-                // String x = StringTools.removeAll(
-                // inputs[index].getText(), 'm');
-                // inputs[index].setText(x);
-                // int heatnr = heat.getSelectedIndex();
-                // Lauf lauf = wk.getLaufliste().getLaufliste()
-                // .get(heatnr);
-                // ASchwimmer s = lauf.getSchwimmer(index);
-                // dialog.getEditor().runMeanTimeEditor(s,
-                // lauf.getDisznummer(index), null);
-                // }
-                // });
-            } else {
+            if ((zeit.length() != 1) && !StringTools.isInteger(StringTools.removeAll(zeit, 'm'))) {
                 SwingUtilities.invokeLater(() -> {
                     String x = StringTools.removeAll(inputs[index].getText(), 'm');
                     inputs[index].setText(x);
@@ -398,7 +334,6 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                 SwingUtilities.invokeLater(() -> {
                     String x = StringTools.removeAll(StringTools.removeAll(inputs[index].getText(), ','), 'z');
                     inputs[index].setText(x);
-                    // zeigeZieleinlauf();
                 });
             } else {
                 SwingUtilities.invokeLater(() -> {
@@ -508,6 +443,5 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
         updateHeat();
         parent.setChanging();
         parent.sendDataUpdate();
-
     }
 }

@@ -20,8 +20,12 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
 import de.dm.ares.data.Heat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class JTimePanel<T extends ASchwimmer> extends JPanel {
+
+    private static final Logger log = LoggerFactory.getLogger(JTimePanel.class);
 
     private HeatMatchingMode directMatching = HeatMatchingMode.Heat2Competition;
 
@@ -143,7 +147,7 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         Heat[] heats = parent.getHeats();
         String[] entries = new String[heats.length];
         for (int x = 0; x < heats.length; x++) {
-            entries[x] = "" + heats[x].getEvent() + "/" + heats[x].getHeat();
+            entries[x] = heats[x].getEvent() + "/" + heats[x].getHeat();
         }
         current.setModel(new DefaultComboBoxModel<>(entries));
         if (index >= entries.length) {
@@ -210,6 +214,27 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         }
     }
 
+    public boolean fits(Heat heat, String heatname) {
+        log.info(heat + " -> " + heatname);
+        heatname = heatname.replace("-", "");
+        if (heatname.equals("" + heat.getEvent())) {
+            return true;
+        } else if (heatname.equals("" + heat.getHeat())) {
+            return true;
+        } else {
+            while (heatname.startsWith("0")) {
+                heatname = heatname.substring(1);
+            }
+
+            String variant1 = heat.getEvent() + "/" + heat.getHeat();
+            String variant2 = String.format("%d%02d",
+                    heat.getEvent(),
+                    heat.getHeat());
+            log.info(variant1 + " or " + variant2);
+            return heatname.equals(variant1) || heatname.equals(variant2);
+        }
+    }
+
     void enterTimes() {
         Heat[] heats = parent.getHeats();
         if ((heats == null) || (heats.length == 0)) {
@@ -219,7 +244,7 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
         int index = Math.max(0, current.getSelectedIndex());
         Heat h = heats[index];
 
-        if (!h.fits(heat.getHeatname())) {
+        if (!fits(h, heat.getHeatname())) {
             boolean ok = DialogUtils.ask(parent, I18n.get("Question.HeatIDsDoNotMatch"),
                     I18n.get("Question.HeatIDsDoNotMatch.Note"));
             if (!ok) {
@@ -272,72 +297,84 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
             return;
         }
         String s;
-        switch (directMatching) {
-        default:
-        case Heat2Competition: {
-            s = "" + lauf + "/" + (offset + 1);
-            while (!timesExists(s)) {
-                if (offset > 0) {
-                    offset--;
-                } else {
-                    if (lauf > 1) {
-                        lauf--;
-                    } else {
-                        s = current.getItemAt(0);
-                        break;
-                        // current.setSelectedIndex(0);
-                        // return;
-                    }
-                }
-                s = "" + lauf + "/" + (offset + 1);
-            }
-        }
-            break;
-        case HeatModulo1002Competition: {
-            offset = (lauf / 100) - 1;
-            lauf = lauf % 100;
-            int laufx = lauf;
-
-            s = "" + lauf + "/" + (offset + 1);
-            while (!timesExists(s)) {
-                if (lauf > 1) {
-                    lauf--;
-                } else {
-                    if (offset > 1) {
-                        offset--;
-                        lauf = laufx;
-                    } else {
-                        s = current.getItemAt(0);
-                        break;
-                        // current.setSelectedIndex(0);
-                        // return;
-                    }
-                }
-                s = "" + lauf + "/" + (offset + 1);
-            }
-            break;
-        }
-        case Heat2Heat: {
-            s = "" + event + "/" + lauf;
-            while (!timesExists(s)) {
-                if (lauf > 1) {
-                    lauf--;
-                } else {
-                    if (event > 1) {
-                        event--;
-                        lauf = 100;
-                    } else {
-                        s = current.getItemAt(0);
-                        break;
-                        // current.setSelectedIndex(0);
-                        // return;
-                    }
-                }
-                s = "" + event + "/" + lauf;
-            }
-
-        }
-        }
+        s = switch (directMatching) {
+        case Heat2Competition -> getNameForHeat2Competition(lauf, offset);
+        case HeatModulo1002Competition -> getNameForHeatModulo1002Competition(lauf);
+        case Heat2Heat -> getNameForHeat2Heat(event, lauf);
+        case HeatModulo1002EventAndHeat -> getNameForHeatModulo1002EventAndHeat(lauf);
+        };
         current.setSelectedItem(s);
+    }
+
+    private String getNameForHeat2Heat(int event, int lauf) {
+        String s;
+        s = event + "/" + lauf;
+        while (!timesExists(s)) {
+            if (lauf > 1) {
+                lauf--;
+            } else {
+                if (event > 1) {
+                    event--;
+                    lauf = 100;
+                } else {
+                    s = current.getItemAt(0);
+                    break;
+                    // current.setSelectedIndex(0);
+                    // return;
+                }
+            }
+            s = event + "/" + lauf;
+        }
+        return s;
+    }
+
+    private String getNameForHeatModulo1002EventAndHeat(int lauf) {
+        int event = lauf / 100;
+        int heat = lauf % 100;
+        return event + "/" + heat;
+    }
+
+    private String getNameForHeatModulo1002Competition(int lauf) {
+        String s;
+        int offset;
+        offset = (lauf / 100) - 1;
+        lauf = lauf % 100;
+        int laufx = lauf;
+
+        s = lauf + "/" + (offset + 1);
+        while (!timesExists(s)) {
+            if (lauf > 1) {
+                lauf--;
+            } else {
+                if (offset > 1) {
+                    offset--;
+                    lauf = laufx;
+                } else {
+                    s = current.getItemAt(0);
+                    break;
+                }
+            }
+            s = lauf + "/" + (offset + 1);
+        }
+        return s;
+    }
+
+    private String getNameForHeat2Competition(int lauf, int offset) {
+        String s;
+        s = "" + lauf + "/" + (offset + 1);
+        while (!timesExists(s)) {
+            if (offset > 0) {
+                offset--;
+            } else {
+                if (lauf > 1) {
+                    lauf--;
+                } else {
+                    s = current.getItemAt(0);
+                    break;
+                }
+            }
+            s = lauf + "/" + (offset + 1);
+        }
+        return s;
     }
 }

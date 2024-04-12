@@ -45,7 +45,7 @@ public class CsvExporter extends EmptyExporter {
      * Exportiert die Schwimmer eines Wettkampfes in eine CSV-Datei.
      * 
      * @param name Name der Datei
-     * @param WK   Wettkampf
+     * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override

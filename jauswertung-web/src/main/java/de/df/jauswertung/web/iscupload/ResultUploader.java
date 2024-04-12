@@ -54,7 +54,7 @@ public class ResultUploader {
                 log.debug("Upload - edvnumber not configured");
                 return;
             }
-            if (competitionId == null || competitionId.trim().length() < 1) {
+            if (competitionId == null || competitionId.trim().isEmpty()) {
                 log.debug("Upload - competitionId not configured");
                 return;
             }

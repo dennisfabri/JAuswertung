@@ -54,6 +54,11 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 
     @Override
     public HeatMatchingMode isDirectMatching() {
+        if (HeatsNumberingScheme.equals(
+                wk.getProperty(PropertyConstants.HEATS_NUMBERING_SCHEME),
+                HeatsNumberingScheme.Hundreds)) {
+            return HeatMatchingMode.HeatModulo1002EventAndHeat;
+        }
         LinkedList<Lauf<T>> laufliste = wk.getLaufliste().getLaufliste();
         if (laufliste.getFirst().getLaufnummer() <= 100) {
             return HeatMatchingMode.Heat2Competition;

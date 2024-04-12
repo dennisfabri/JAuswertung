@@ -1,4 +1,4 @@
-<configuration>
+<configuration debug="true">
 
   <!-- Insert the current time formatted as "yyyyMMdd'T'HHmmss" under
        the key "bySecond" into the logger context. This value will be

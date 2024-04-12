@@ -41,12 +41,16 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Dennis Fabri
  * @date 21.01.2005
  */
 public class HttpServerPlugin extends ANullPlugin {
+
+    private static final Logger log = LoggerFactory.getLogger(HttpServerPlugin.class);
 
     private CorePlugin core;
     MOptionenPlugin optionen;
@@ -172,7 +176,9 @@ public class HttpServerPlugin extends ANullPlugin {
                     .register("*", requestHandler)
                     .setCanonicalHostName(InetAddress.getLocalHost().getHostName());
 
-            listInterfaces().forEach(ip -> httpServerBootstrap.registerVirtual(ip, "*", requestHandler));
+            for (String ip : listInterfaces()) {
+                httpServerBootstrap.registerVirtual(ip, "*", requestHandler);
+            }
 
             httpServer = httpServerBootstrap.create();
 
@@ -192,7 +198,7 @@ public class HttpServerPlugin extends ANullPlugin {
             filter.setEnabled(source.getExportMode() == ExportMode.Filtered);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("Could not start HTTP-Server", e);
             DialogUtils.wichtigeMeldung(null, I18n.get("HttpServerNotStartet"));
             shutDown();
             httpServer = null;
@@ -203,15 +209,29 @@ public class HttpServerPlugin extends ANullPlugin {
         }
     }
 
-    private static Stream<String> listInterfaces() throws SocketException {
+    private static List<String> listInterfaces() throws SocketException {
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-        return Collections.list(nets).stream().map(HttpServerPlugin::displayInterfaceInformation)
+        ArrayList<NetworkInterface> list = Collections.list(nets);
+        return list.stream().map(HttpServerPlugin::displayInterfaceInformation)
                 .flatMap(i -> i.stream())
-                .distinct();
+                .distinct().toList();
     }
 
     private static List<String> displayInterfaceInformation(NetworkInterface netint) {
         List<String> addresses = new ArrayList<>();
+        if (netint.getDisplayName().contains("Hyper-V")) {
+            return addresses;
+        }
+        if (netint.getDisplayName().contains("Microsoft Wi-Fi Direct Virtual Adapter")) {
+            return addresses;
+        }
+        if (netint.getDisplayName().contains("Loopback")) {
+            return addresses;
+        }
+        if (netint.getDisplayName().contains("WAN Miniport")) {
+            return addresses;
+        }
+        log.info(netint.getDisplayName());
         Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
         for (InetAddress inetAddress : Collections.list(inetAddresses)) {
             addresses.add(inetAddress.getCanonicalHostName());

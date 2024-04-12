@@ -231,7 +231,7 @@ public class PResulttablePlugin extends ANullPlugin {
                             return;
                         }
                         if (!isFinal) {
-                            Regelwerk rw = wk.getRegelwerk();
+                            Regelwerk rw = wkx.getRegelwerk();
                             rw.setFormelID(switch (rw.getFormelID()) {
                                 case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
                                 case FormelDLRG2007Finals.ID -> FormelDLRG2007.ID;

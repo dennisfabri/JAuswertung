@@ -127,8 +127,9 @@ final class AresWriterFinals {
                 Integer i = disziplinen.get(d.getName());
                 if (i == null) {
                     int id = disziplinen.size();
-                    int laenge2 = d.getLaenge();
-                    String laenge1 = laenge2 + "m";
+                    Discipline discipline = guessLength(d.getName());
+                    int laenge2 = discipline.length();
+                    String laenge1 = discipline.getDistance();
                     int anschlaege = 1;
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + anschlaege);
                     disziplinen.put(d.getName(), id);
@@ -137,6 +138,61 @@ final class AresWriterFinals {
             }
         }
     }
+
+    private static Discipline guessLength(String disziplin) {
+        String original = disziplin;
+        int amount = 0;
+        int length = 0;
+        if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
+            disziplin = disziplin.substring(6);
+            amount = 4;
+            length = 50;
+        } else if (disziplin.startsWith("4 x 50m") || disziplin.startsWith("4 * 50m")) {
+            disziplin = disziplin.substring(8);
+            amount = 4;
+            length = 50;
+        } else if (disziplin.startsWith("4x25m") || disziplin.startsWith("4*25m")) {
+            disziplin = disziplin.substring(6);
+            amount = 4;
+            length = 25;
+        } else if (disziplin.startsWith("4 x 25m") || disziplin.startsWith("4 * 25m")) {
+            disziplin = disziplin.substring(8);
+            amount = 4;
+            length = 25;
+        } else if (disziplin.startsWith("25m") || disziplin.startsWith("25 m")) {
+            disziplin = disziplin.substring(4);
+            amount = 1;
+            length = 25;
+        } else if (disziplin.startsWith("50m") || disziplin.startsWith("50 m")) {
+            disziplin = disziplin.substring(4);
+            amount = 1;
+            length = 50;
+        } else if (disziplin.startsWith("100m") || disziplin.startsWith("100 m")) {
+            disziplin = disziplin.substring(5);
+            amount = 1;
+            length = 100;
+        } else if (disziplin.startsWith("200m") || disziplin.startsWith("200 m")) {
+            disziplin = disziplin.substring(5);
+            amount = 1;
+            length = 200;
+        } else if (disziplin.equals("Line Throw")) {
+            amount = 1;
+            length = 100;
+        } else {
+            System.err.println(disziplin);
+        }
+        if (disziplin.equals("Manikin Tow with Fins")) {
+            disziplin = "Lifesaver";
+        } else if (disziplin.equals("Manikin Carry with Fins")) {
+            disziplin = "Manikin Carry w Fins";
+        }
+        if (disziplin.length() > 15) {
+            disziplin = disziplin.substring(0, 15);
+        }
+
+        return new Discipline(original, disziplin, amount, length);
+    }
+
 
     private static final String[][] shortnames = new String[][] { new String[] { "Obstacle Swim", "OS" },
             new String[] { "Manikin Carry", "MC" },

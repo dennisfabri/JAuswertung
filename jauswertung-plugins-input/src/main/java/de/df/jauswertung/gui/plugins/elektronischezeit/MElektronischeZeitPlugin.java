@@ -15,8 +15,12 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MElektronischeZeitPlugin extends ANullPlugin {
+
+    private static final Logger log = LoggerFactory.getLogger(MElektronischeZeitPlugin.class);
 
     private CorePlugin core = null;
     MOptionenPlugin optionen = null;
@@ -40,10 +44,6 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
     @Override
     protected IPluginManager getController() {
         return super.getController();
-    }
-
-    FEditorPlugin getEditor() {
-        return editor;
     }
 
     @Override
@@ -74,9 +74,8 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
         if (wk.hasSchwimmer()) {
             if (wk.isHeatBased()) {
                 isEnabled = !wk.getLauflisteOW().isEmpty();
-            } else if (wk.isDLRGBased()) {
+            } else
                 isEnabled = !wk.getLaufliste().isEmpty();
-            }
         }
 
         item.setEnabled(isEnabled);
