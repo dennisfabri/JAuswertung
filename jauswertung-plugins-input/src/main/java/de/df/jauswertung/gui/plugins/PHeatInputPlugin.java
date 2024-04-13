@@ -1228,6 +1228,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             Object[] items = owlaeufe.stream().map(l -> l.Item1).toArray();
             heat.setModel(new DefaultComboBoxModel(items));
             if (heat.getItemCount() > 0) {
+                index = Math.min(index, heat.getItemCount() - 1);
                 if (index != -1) {
                     heat.setSelectedIndex(index);
                 } else {
