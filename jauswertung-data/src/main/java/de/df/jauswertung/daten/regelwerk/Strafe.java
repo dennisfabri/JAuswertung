@@ -1,7 +1,3 @@
-/*
- * Strafe.java Created on 7. August 2001, 20:15
- */
-
 package de.df.jauswertung.daten.regelwerk;
 
 import java.io.Serial;
@@ -10,7 +6,8 @@ import java.util.Objects;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-/**
+/*
+ * Strafe.java Created on 7. August 2001, 20:15
  * @author Dennis Fabri
  */
 public class Strafe implements Serializable {
@@ -24,7 +21,8 @@ public class Strafe implements Serializable {
     public static final Strafe DISQUALIFIKATION = new Strafe("", "", Strafarten.DISQUALIFIKATION, 0);
     public static final Strafe AUSSCHLUSS = new Strafe("", "", Strafarten.AUSSCHLUSS, 0);
     public static final Strafe WITHDRAW = new Strafe("Withdraw", "WD", Strafarten.NICHTS, 0);
-    public static final Strafe WITHDRAW_BEFORE_FIRST_START = new Strafe("Withdraw before first start", "WD1S", Strafarten.NICHT_ANGETRETEN, 0);
+    public static final Strafe WITHDRAW_BEFORE_FIRST_START = new Strafe("Withdraw before first start", "WD1S",
+            Strafarten.NICHT_ANGETRETEN, 0);
 
     @XStreamAsAttribute
     private String name = "";
@@ -88,24 +86,24 @@ public class Strafe implements Serializable {
         String typeText;
 
         switch (art) {
-            case NICHTS:
-                typeText = "Keine Strafe";
-                break;
-            case STRAFPUNKTE:
-                typeText = "" + hoehe + " Strafpunkte";
-                break;
-            case NICHT_ANGETRETEN:
-                typeText = "Nicht Angetreten";
-                break;
-            case DISQUALIFIKATION:
-                typeText = "Disqualifikation";
-                break;
-            case AUSSCHLUSS:
-                typeText = "Ausschluss";
-                break;
-            default:
-                typeText = "Unbekannt";
-                break;
+        case NICHTS:
+            typeText = "Keine Strafe";
+            break;
+        case STRAFPUNKTE:
+            typeText = hoehe + " Strafpunkte";
+            break;
+        case NICHT_ANGETRETEN:
+            typeText = "Nicht Angetreten";
+            break;
+        case DISQUALIFIKATION:
+            typeText = "Disqualifikation";
+            break;
+        case AUSSCHLUSS:
+            typeText = "Ausschluss";
+            break;
+        default:
+            typeText = "Unbekannt";
+            break;
         }
 
         if (!s.isEmpty()) {
@@ -157,8 +155,8 @@ public class Strafe implements Serializable {
 
     public boolean cancelsPoints() {
         return switch (art) {
-            case NICHTS, STRAFPUNKTE -> false;
-            default -> true;
+        case NICHTS, STRAFPUNKTE -> false;
+        default -> true;
         };
     }
 
@@ -202,7 +200,6 @@ public class Strafe implements Serializable {
     private void setStrafpunkte(int sHoehe) {
         if (sHoehe <= 0) {
             sHoehe = 0;
-            // setArt(Strafarten.NICHTS);
         } else {
             setArt(Strafarten.STRAFPUNKTE);
         }
@@ -215,17 +212,17 @@ public class Strafe implements Serializable {
         Strafarten a = Strafarten.NICHTS;
         int p = 0;
 
-        if (n.length() == 0) {
+        if (n.isEmpty()) {
             n = s1.name;
         } else {
-            if (s1.name.length() > 0) {
+            if (!s1.name.isEmpty()) {
                 n += " & " + s1.name;
             }
         }
-        if (s.length() == 0) {
+        if (s.isEmpty()) {
             s = s1.shortname;
         } else {
-            if (s1.shortname.length() > 0) {
+            if (!s1.shortname.isEmpty()) {
                 s += " & " + s1.shortname;
             }
         }
