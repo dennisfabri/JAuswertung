@@ -128,7 +128,7 @@ final class AresWriterFinals {
                 if (i == null) {
                     int id = disziplinen.size();
                     Discipline discipline = guessLength(d.getName());
-                    int laenge2 = discipline.length();
+                    int laenge2 = discipline.length() * discipline.amount();
                     String laenge1 = discipline.getDistance();
                     int anschlaege = 1;
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + anschlaege);
