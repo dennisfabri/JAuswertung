@@ -55,11 +55,6 @@ public final class JResultTable extends JGroupableTable {
 
     public static boolean printRanksInResults = false;
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 4121138043332737080L;
-
     public static boolean resultsWithDecimals = false;
 
     Results<ASchwimmer> results = new Results<>();
@@ -75,15 +70,15 @@ public final class JResultTable extends JGroupableTable {
 
     boolean einzel = false;
 
-    private ResultUpdater resultUpdater = new ResultUpdater();
+    private final ResultUpdater resultUpdater = new ResultUpdater();
     private AlignmentCellRenderer acr;
 
     ColumnGroup[] disziplinen = null;
 
     public static final int RANK_OFFSET = 0;
     public static final int NAME_OFFSET = 1;
-    public static final int ORGRANISATION_OFFSET = 2;
-    public static final int QUALI_OFFSET = 3;
+    public static final int ORGANISATION_OFFSET = 2;
+    public static final int QUALIFICATION_OFFSET = 3;
     public static final int BIRTH_OFFSET = 4;
     public static final int SCORE_OFFSET = 4;
     public static final int DIFF_OFFSET = 5;
@@ -233,7 +228,7 @@ public final class JResultTable extends JGroupableTable {
         String[] headers = new String[getColumnCount(anzahl, hlw, einzel, qualification)];
         headers[RANK_OFFSET] = I18n.get("RankShort");
         headers[NAME_OFFSET] = I18n.get("Name");
-        headers[ORGRANISATION_OFFSET] = I18n.get("Organisation");
+        headers[ORGANISATION_OFFSET] = I18n.get("Organisation");
         int offset = 0;
         if (einzel) {
             headers[BIRTH_OFFSET] = I18n.get("YearOfBirthShort");
@@ -422,7 +417,8 @@ public final class JResultTable extends JGroupableTable {
             if (daten[x].getPoints() < 0.005) {
                 setValueAt("", y, PREFIX + D_POINTS_OFFSET + LENGTH * x + offset);
             } else {
-                setValueAt(StringTools.punkteString(daten[x].getPoints(), resultsWithDecimals), y, PREFIX + D_POINTS_OFFSET + LENGTH * x + offset);                
+                setValueAt(StringTools.punkteString(daten[x].getPoints(), resultsWithDecimals), y,
+                        PREFIX + D_POINTS_OFFSET + LENGTH * x + offset);
             }
             break;
         default:
@@ -646,8 +642,8 @@ public final class JResultTable extends JGroupableTable {
                     name += " (" + penalty + ")";
                 }
                 setValueAt(name, y, NAME_OFFSET);
-                setValueAt(s.getGliederung(), y, ORGRANISATION_OFFSET);
-                setValueAt(s.getQualifikationsebene(), y, QUALI_OFFSET);
+                setValueAt(s.getGliederung(), y, ORGANISATION_OFFSET);
+                setValueAt(s.getQualifikationsebene(), y, QUALIFICATION_OFFSET);
 
                 gliederunglength = Math.max(gliederunglength, s.getGliederung().length());
                 qualilength = Math.max(qualilength, s.getQualifikationsebene().length());
@@ -738,18 +734,18 @@ public final class JResultTable extends JGroupableTable {
             }
 
             if (gliederunglength < I18n.get("Organisation").length()) {
-                getColumnModel().getColumn(ORGRANISATION_OFFSET).setHeaderValue(I18n.get("OrganisationShort"));
+                getColumnModel().getColumn(ORGANISATION_OFFSET).setHeaderValue(I18n.get("OrganisationShort"));
             } else {
-                getColumnModel().getColumn(ORGRANISATION_OFFSET).setHeaderValue(I18n.get("Organisation"));
+                getColumnModel().getColumn(ORGANISATION_OFFSET).setHeaderValue(I18n.get("Organisation"));
             }
             if (qualilength < I18n.get("Qualifikationsebene").length()) {
                 if (qualilength < I18n.get("QualifikationsebeneShort").length()) {
-                    getColumnModel().getColumn(QUALI_OFFSET).setHeaderValue("");
+                    getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue("");
                 } else {
-                    getColumnModel().getColumn(QUALI_OFFSET).setHeaderValue(I18n.get("QualifikationsebeneShort"));
+                    getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue(I18n.get("QualifikationsebeneShort"));
                 }
             } else {
-                getColumnModel().getColumn(QUALI_OFFSET).setHeaderValue(I18n.get("Qualifikationsebene"));
+                getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue(I18n.get("Qualifikationsebene"));
             }
 
             JTableUtils.setPreferredCellWidths(JResultTable.this);

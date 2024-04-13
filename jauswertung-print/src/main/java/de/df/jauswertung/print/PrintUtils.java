@@ -561,7 +561,7 @@ public final class PrintUtils {
             }
         }
         if (!einzel && PrintUtils.printOmitOrganisationForTeams) {
-            JTableUtils.hideColumnAndRemoveData(tm, JResultTable.ORGRANISATION_OFFSET);
+            JTableUtils.hideColumnAndRemoveData(tm, JResultTable.ORGANISATION_OFFSET);
         }
         String title = resultstitle + " - " + ak.toString() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male)
                 + (wk.getCurrentFilterIndex() > 0 ? " (" + wk.getCurrentFilter().getName() + ")" : "");

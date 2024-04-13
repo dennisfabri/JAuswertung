@@ -528,7 +528,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     /**
      * Setzt eine Meldezeit.
      * 
-     * @param i Nummer der Disziplin @param c Zeit in Sekunden
+     * @param index Nummer der Disziplin @param c Zeit in Sekunden
      */
     public void setMeldezeit(int index, int zeit) {
         meldezeiten[index] = zeit;
@@ -1003,7 +1003,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
         Strafarten art = Strafarten.NICHTS;
         int punkte = 0;
-        String code = "";
+        StringBuilder code = new StringBuilder();
         ListIterator<Strafe> li = ls.listIterator();
         while (li.hasNext()) {
             Strafe s = li.next();
@@ -1032,24 +1032,24 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             }
             punkte += s.getStrafpunkte();
 
-            if (s.getShortname().length() == 0) {
+            if (s.getShortname().isEmpty()) {
                 hasnocode = true;
             } else {
                 hascode = true;
             }
 
-            if ((code.length() == 0) || (s.getShortname().length() == 0)) {
-                code = code + s.getShortname();
+            if (code.isEmpty() || s.getShortname().isEmpty()) {
+                code.append(s.getShortname());
             } else {
-                code = code + "," + s.getShortname();
+                code.append(",").append(s.getShortname());
             }
         }
 
         if (hasnocode && hascode) {
-            code += ",X";
+            code.append(",X");
         }
 
-        return new Strafe("", code, art, punkte);
+        return new Strafe("", code.toString(), art, punkte);
     }
 
     public boolean addStrafe(int disz, Strafe s) {

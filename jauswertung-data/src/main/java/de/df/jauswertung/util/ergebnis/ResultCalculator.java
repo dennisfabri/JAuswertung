@@ -75,7 +75,7 @@ public final class ResultCalculator {
             }
         }
 
-        T[] schwimmer = (T[]) swimmers.toArray(new ASchwimmer[swimmers.size()]);
+        T[] schwimmer = (T[]) swimmers.toArray(new ASchwimmer[0]);
         SchwimmerData<T>[][] ergebnisse = new SchwimmerData[ak.getDiszAnzahl()][0];
         for (int x = 0; x < ergebnisse.length; x++) {
             ergebnisse[x] = toResult(wk, schwimmer, ak.getDisziplin(x, maennlich), x, formel, select, zetable);

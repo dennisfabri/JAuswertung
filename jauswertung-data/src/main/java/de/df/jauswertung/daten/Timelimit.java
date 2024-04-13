@@ -13,6 +13,7 @@ public class Timelimit implements Serializable {
     private String agegroup = "";
     private boolean isMale = false;
 
+    @SuppressWarnings("unused")
     public Timelimit() {
     }
 
@@ -99,24 +100,15 @@ public class Timelimit implements Serializable {
                 return false;
             }
         }
-        if (s instanceof Teilnehmer) {
-            Teilnehmer t = (Teilnehmer) s;
+        if (s instanceof Teilnehmer t) {
             int age = t.getAlter(year);
             if (hasMinage()) {
-                if (age == 0) {
-                    return false;
-                }
-                if (age < getMinage()) {
+                if (age == 0 || age < getMinage()) {
                     return false;
                 }
             }
             if (hasMaxage()) {
-                if (age == 0) {
-                    return false;
-                }
-                if (age > getMaxage()) {
-                    return false;
-                }
+                return age != 0 && age <= getMaxage();
             }
         }
         return true;

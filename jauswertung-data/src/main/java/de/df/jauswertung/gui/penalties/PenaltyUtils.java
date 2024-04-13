@@ -153,21 +153,22 @@ public final class PenaltyUtils {
 
         String text1 = "";
         String text2 = "";
-        if (s.getShortname().length() > 0) {
+        if (!s.getShortname().isEmpty()) {
             text1 = s.getShortname();
-            // text.append(": ");
         }
         switch (s.getArt()) {
         case AUSSCHLUSS:
             text2 = I18n.get("DebarmentShort");
             break;
         case DISQUALIFIKATION:
-            if (!ak.isStrafeIstDisqualifikation() || s.getShortname().length() == 0) {
+            if (!ak.isStrafeIstDisqualifikation() || s.getShortname().isEmpty()) {
                 text2 = I18n.get("DisqualificationShort");
             }
             break;
         case NICHT_ANGETRETEN:
-            text2 = I18n.get("DidNotStartShort");
+            if (text1.isEmpty()) {
+                text2 = I18n.get("DidNotStartShort");
+            }
             break;
         case NICHTS:
             text2 = I18n.get("NoPenaltyShort");
@@ -181,7 +182,7 @@ public final class PenaltyUtils {
 
         StringBuilder text = new StringBuilder();
         text.append(text1);
-        if (text1.length() > 0 && text2.length() > 0) {
+        if (!text1.isEmpty() && !text2.isEmpty()) {
             text.append(": ");
         }
         text.append(text2);
