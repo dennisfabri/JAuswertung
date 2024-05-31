@@ -628,11 +628,6 @@ public class Altersklasse implements Serializable {
     }
 
     public boolean isFinal(int disziplin, boolean maennlich, int round) {
-        Disziplin dis = getDisziplin(disziplin, maennlich);
-        int[] runden = dis.getRunden();
-        if (runden == null) {
-            return false;
-        }
-        return runden.length == round;
+        return getDisziplin(disziplin, maennlich).isFinalRound(round);
     }
 }

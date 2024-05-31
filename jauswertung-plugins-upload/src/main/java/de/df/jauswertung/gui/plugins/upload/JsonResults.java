@@ -128,7 +128,7 @@ public class JsonResults {
 
                                 AWettkampf<T> wkl = ResultUtils.createCompetitionFor(wk,
                                         new OWSelection(wk.getRegelwerk().getAk(y.akNummer), y.akNummer, y.maennlich,
-                                                y.disziplin, y.round, isFinal));
+                                                y.disziplin, y.round));
 
                                 if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
                                     AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);

@@ -205,7 +205,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
             // First round: Nothing to do
             return;
         }
-        OWSelection t1 = new OWSelection(ows.ak, ows.akNummer, ows.male, ows.discipline, ows.round - 1, false);
+        OWSelection t1 = new OWSelection(ows.ak, ows.akNummer, ows.male, ows.discipline, ows.round - 1);
 
         AWettkampf<T> wk = createCompetitionFor(t1);
 

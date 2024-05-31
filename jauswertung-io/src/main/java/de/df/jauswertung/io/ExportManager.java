@@ -142,43 +142,28 @@ public class ExportManager {
         if (fb == null) {
             fb = new SystemOutFeedback();
         }
-        switch (datatype) {
-        case STARTKARTEN:
-            return ie.startkarten(os, wk, fb);
-        case HEATLIST:
-            return ie.heats(os, wk, fb);
-        case ZW_STARTKARTEN:
-            return ie.zusatzwertungStartkarten(os, wk, fb);
-        case ZWLIST:
-            return ie.zusatzwertung(os, wk, fb);
-        case PROTOCOL:
-            return ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case REGISTRATION:
-            return ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case BEST_TIMES:
-            return ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case RESULTS:
-            return ie.results(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case REFEREES:
-            return ie.referees(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case PENALTIES:
-            return ie.penalties(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case WEITERMELDUNG:
-            return ie.registration(os,
-                    ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(wk), false), fb);
-        case TEAMMEMBERS:
-            return ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case ZW_RESULTS:
-            return ie.zusatzwertungResults(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case HEATS_OVERVIEW:
-            return ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case HEATTIMES:
-            return ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case TIMES:
-            return ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        default:
-            return false;
-        }
+        return switch (datatype) {
+        case STARTKARTEN -> ie.startkarten(os, wk, fb);
+        case HEATLIST -> ie.heats(os, wk, fb);
+        case ZW_STARTKARTEN -> ie.zusatzwertungStartkarten(os, wk, fb);
+        case ZWLIST -> ie.zusatzwertung(os, wk, fb);
+        case PROTOCOL -> ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case REGISTRATION -> ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case BEST_TIMES -> ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case RESULTS -> ie.results(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case REFEREES -> ie.referees(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case PENALTIES -> ie.penalties(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case WEITERMELDUNG -> ie.registration(os,
+                ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(
+                        wk), false),
+                fb);
+        case TEAMMEMBERS -> ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case ZW_RESULTS -> ie.zusatzwertungResults(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case HEATS_OVERVIEW -> ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case HEATTIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case TIMES -> ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        default -> false;
+        };
     }
 
     public static <T extends ASchwimmer> boolean export(ImportExportTypes datatype, String name, String format,

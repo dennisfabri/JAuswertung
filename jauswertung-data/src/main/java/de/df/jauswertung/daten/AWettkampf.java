@@ -1288,15 +1288,13 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return d.getRunden().length <= t.round;
     }
 
-    public boolean isFinal(OWDisziplin<? extends T> o) {
-        Altersklasse ak = getRegelwerk().getAk(o.akNummer);
-        Disziplin d = ak.getDisziplin(o.disziplin, o.maennlich);
-        return d.getRunden().length <= o.round;
+    public boolean isFinal(OWDisziplin<T> t) {
+        return getRegelwerk().getAk(t.akNummer).isFinal(t.disziplin, t.maennlich,t.round);
     }
 
     public OWSelection toOWSelection(OWDisziplin<T> disziplin) {
         return new OWSelection(getRegelwerk().getAk(disziplin.akNummer), disziplin.akNummer, disziplin.maennlich,
-                disziplin.disziplin, disziplin.round, isFinal(disziplin));
+                disziplin.disziplin, disziplin.round);
     }
 
     public boolean isDLRGBased() {

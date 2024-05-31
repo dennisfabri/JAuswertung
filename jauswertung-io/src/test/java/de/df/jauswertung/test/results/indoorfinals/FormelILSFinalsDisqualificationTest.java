@@ -14,11 +14,12 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICAT
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
 import static java.util.Arrays.stream;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedList;
 
 import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.util.ergebnis.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,9 +36,6 @@ import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.data.HeatsUtils;
-import de.df.jauswertung.util.ergebnis.DataType;
-import de.df.jauswertung.util.ergebnis.FormelILS;
-import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jutils.gui.jtable.JTableUtils;
 
 public class FormelILSFinalsDisqualificationTest {
@@ -63,12 +61,12 @@ public class FormelILSFinalsDisqualificationTest {
         erstelleWettkampf();
         schwimmerHinzufuegen(wk);
 
-        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round, false);
+        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round);
         erzeugeLaufliste(wk, selectionVorlauf);
         trageZeitenEin(wk, selectionVorlauf);
         ergebnisVorlauf = erstelleErgebnis(wk, selectionVorlauf);
 
-        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1, true);
+        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1);
         erzeugeLaufliste(wk, selectionFinale);
         trageZeitenFinaleEin(wk, selectionFinale);
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
@@ -214,7 +212,7 @@ public class FormelILSFinalsDisqualificationTest {
                     discipline = 0;
                 } else {
                     isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
-                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
+                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round);
                     wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wkx, t);
                     if (wkx == null) {
                         return null;
@@ -340,10 +338,12 @@ public class FormelILSFinalsDisqualificationTest {
 
         assertEquals(String.format("Teilnehmer, %d", 2), ergebnisFinale.getResult(7).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 1), ergebnisFinale.getResult(6).getSchwimmer().getName());
-        for (int x = 2; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1),
-                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
-        }
+        assertEquals(String.format("Teilnehmer, %d", 3), ergebnisFinale.getResult(5).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 4), ergebnisFinale.getResult(4).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 5), ergebnisFinale.getResult(3).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 6), ergebnisFinale.getResult(2).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 7), ergebnisFinale.getResult(1).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 8), ergebnisFinale.getResult(0).getSchwimmer().getName());
     }
 
     @Test
@@ -353,10 +353,11 @@ public class FormelILSFinalsDisqualificationTest {
         assertEquals(String.format("Teilnehmer, %d", 9), ergebnisFinale.getResult(14).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 10), ergebnisFinale.getResult(13).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 11), ergebnisFinale.getResult(15).getSchwimmer().getName());
-        for (int x = 3; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9),
-                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
-        }
+        assertEquals(String.format("Teilnehmer, %d", 12), ergebnisFinale.getResult(12).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 13), ergebnisFinale.getResult(11).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 14), ergebnisFinale.getResult(10).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 15), ergebnisFinale.getResult(9).getSchwimmer().getName());
+        assertEquals(String.format("Teilnehmer, %d", 16), ergebnisFinale.getResult(8).getSchwimmer().getName());
     }
 
     @Test

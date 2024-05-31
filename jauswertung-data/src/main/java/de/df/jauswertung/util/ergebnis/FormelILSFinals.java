@@ -277,6 +277,8 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         }
     }
 
+    /** ----------------- */
+
     @SuppressWarnings({ "unchecked", "null" })
     @Override
     public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
@@ -307,7 +309,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         int rounds = d.getRunden().length + 1;
 
         for (int x = 0; x < rounds; x++) {
-            OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x, x == rounds - 1);
+            OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x);
             OWDisziplin<T> dx = wk.getLauflisteOW().getDisziplin(t);
             if (dx == null) {
                 for (SchwimmerData<T> sd : swimmer) {
@@ -322,7 +324,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
         ArrayList<SchwimmerResult<T>[]> results = new ArrayList<>();
         for (int x = 0; x < rounds; x++) {
-            OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x, x == rounds - 1);
+            OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x);
             AWettkampf<T> wkx = ResultUtils.createCompetitionFor(wk, t);
             if (!t.isFinal) {
                 wkx.getRegelwerk().setFormelID(FormelILS.ID);
@@ -408,7 +410,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     case AUSSCHLUSS:
                     case DISQUALIFIKATION:
                     case NICHT_ANGETRETEN:
-                        if (si != null && si.runde > 0) {
+                        if (si.runde > 0) {
                             // sd.overridePenalty(Strafe.NICHTS);
                             // sd.setPoints(0);
                             sd.setTime(0);

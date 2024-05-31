@@ -5,15 +5,20 @@ import java.util.Hashtable;
 
 public class Translation implements Serializable {
 
-    public Hashtable<String, String> translations = new Hashtable<>();
+    private final Hashtable<String, String> translations;
 
     public Translation() {
+        translations = new Hashtable<>();
         translations.put("Male", "Männlich");
         translations.put("male", "männlich");
         translations.put("maleShort", "m");
         translations.put("Female", "Weiblich");
         translations.put("female", "weiblich");
         translations.put("femaleShort", "w");
+    }
+
+    private Translation(Hashtable<String, String> translations) {
+        this.translations = translations;
     }
 
     public void put(String key, String value) {
@@ -25,5 +30,9 @@ public class Translation implements Serializable {
             return translations.get(key);
         }
         return defaultValue;
+    }
+
+    public Translation copyOf() {
+        return new Translation(new Hashtable<>(translations));
     }
 }

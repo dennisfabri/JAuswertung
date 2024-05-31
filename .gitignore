@@ -23,7 +23,7 @@ bin/
 ~*.docx
 
 *.txt.csv
-*.wk
+*-autosave.wk
 /*.html
 
 *.vs
@@ -31,3 +31,8 @@ bin/
 jauswertung-misc/src/test/resources/competitions/Ergebnisse.csv
 
 *.zip
+
+**/src/test/**/*_actual?.csv
+/jauswertung-misc/src/test/resources/competitions/*.wk
+/jauswertung-io/*.wk
+/jauswertung-io/src/test/resources/competitions/**/*_actual.csv

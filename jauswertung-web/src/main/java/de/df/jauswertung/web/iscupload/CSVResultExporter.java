@@ -2,8 +2,7 @@ package de.df.jauswertung.web.iscupload;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
+import java.nio.charset.StandardCharsets;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.io.ExportManager;
@@ -24,7 +23,7 @@ public class CSVResultExporter implements IExporter {
                 return null;
             }
 
-            return IOUtils.toString(bos.toByteArray(), "Cp1252");
+            return bos.toString(StandardCharsets.ISO_8859_1);
         }
     }
 

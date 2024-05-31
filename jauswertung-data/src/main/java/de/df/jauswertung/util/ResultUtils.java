@@ -5,7 +5,6 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -28,11 +27,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
-import de.df.jauswertung.util.ergebnis.FormelILS;
-import de.df.jauswertung.util.ergebnis.ResultCalculator;
-import de.df.jauswertung.util.ergebnis.Results;
-import de.df.jauswertung.util.ergebnis.SchwimmerData;
-import de.df.jauswertung.util.ergebnis.SchwimmerResult;
+import de.df.jauswertung.util.ergebnis.*;
 
 public class ResultUtils {
     public static <T extends ASchwimmer> AWettkampf<T> convertResultsToMeldung(AWettkampf<T> wk, boolean alltimes) {
@@ -85,14 +80,14 @@ public class ResultUtils {
         if (wk == null) {
             throw new NullPointerException();
         }
-        AWettkampf<T> temp = wk;
-        boolean einzel = temp instanceof EinzelWettkampf;
+        boolean einzel = wk instanceof EinzelWettkampf;
         Altersklasse ak = wk.getRegelwerk().getAk(akn);
         if (!ak.hasEinzelwertung()) {
             return null;
         }
         int anzahl = ak.getDiszAnzahl();
         Regelwerk aks = new Regelwerk(ak.getDiszAnzahl(), einzel, wk.getRegelwerk().getFormelID());
+        wk.getRegelwerk().copyTranslationsTo(aks);
         for (int x = 0; x < anzahl; x++) {
             Altersklasse a = aks.getAk(x);
             a.setMemberCounts(ak.getMinMembers(), ak.getMaxMembers());
@@ -150,9 +145,9 @@ public class ResultUtils {
         w.disableUpdates();
         for (int z = min; z < max; z++) {
             Results<T> results = new Results<>(ResultCalculator.getResults(wk, ak, z == 1, null, true));
-            for (int x = 0; x < results.size(); x++) {
-                ASchwimmer s = results.getSchwimmer(x);
-                if (removeEmpty && results.hasKeineWertung(x)) {
+            for (int y = 0; y < results.size(); y++) {
+                ASchwimmer s = results.getSchwimmer(y);
+                if (removeEmpty && results.hasKeineWertung(y)) {
                     continue;
                 }
                 if (forQualification && s.hasWithdrawn(0)) {
@@ -164,17 +159,17 @@ public class ResultUtils {
                         include = false;
                     }
                 }
-                for (int y = 0; y < anzahl; y++) {
+                for (int x = 0; x < anzahl; x++) {
                     if (include) {
-                        if (s.isDisciplineChosen(y)) {
+                        if (s.isDisciplineChosen(x)) {
                             ASchwimmer neu = null;
                             if (einzel) {
                                 Teilnehmer t = (Teilnehmer) s;
                                 neu = ewk.createTeilnehmer(t.getNachname(), t.getVorname(), t.getJahrgang(),
-                                        t.isMaennlich(), t.getGliederung(), y, t.getBemerkung());
+                                        t.isMaennlich(), t.getGliederung(), x, t.getBemerkung());
                             } else {
                                 Mannschaft t = (Mannschaft) s;
-                                neu = mwk.createMannschaft(t.getName(), t.isMaennlich(), t.getGliederung(), y,
+                                neu = mwk.createMannschaft(t.getName(), t.isMaennlich(), t.getGliederung(), x,
                                         t.getBemerkung());
                                 Mannschaft mneu = (Mannschaft) neu;
                                 for (int i = 0; i < t.getMaxMembers(); i++) {
@@ -183,12 +178,12 @@ public class ResultUtils {
                             }
 
                             neu.setAusserKonkurrenz(s.isAusserKonkurrenz());
-                            neu.setZeit(0, s.getZeit(y));
-                            neu.setStrafen(0, s.getStrafen(y));
+                            neu.setZeit(0, s.getZeit(x));
+                            neu.setStrafen(0, s.getStrafen(x));
                             neu.setStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF,
                                     s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
-                            neu.setStarter(0, s.getStarter(y));
-                            neu.setBemerkung("" + s.getStartnummer());// StartnumberFormatManager.format(s));
+                            neu.setStarter(0, s.getStarter(x));
+                            neu.setBemerkung("" + s.getStartnummer());
                             neu.setQualifikationsebene(s.getQualifikationsebene());
                             neu.setQualifikation(s.getQualifikation());
 
@@ -199,12 +194,12 @@ public class ResultUtils {
                                 OWLaufliste<T> llNeu = w.getLauflisteOW();
 
                                 for (OWDisziplin<T> owd : llow.getDisziplinen()) {
-                                    if (owd.akNummer == akn && owd.maennlich == s.isMaennlich() && owd.disziplin == y) {
+                                    if (owd.akNummer == akn && owd.maennlich == s.isMaennlich() && owd.disziplin == x) {
 
                                         Eingabe e1 = s.getEingabe(owd.Id);
                                         if (e1 != null) {
                                             Eingabe e = neu.getEingabe(
-                                                    OWDisziplin.getId(y, s.isMaennlich(), 0, owd.round), true);
+                                                    OWDisziplin.getId(x, s.isMaennlich(), 0, owd.round), true);
                                             e.setStarter(e1.getStarter());
                                             e.setZeit(e1.getZeit());
                                             for (Strafe str : e1.getStrafen()) {
@@ -247,9 +242,7 @@ public class ResultUtils {
 
         LinkedList<Zielrichterentscheid<T>> neuezes = new LinkedList<>();
         LinkedList<Zielrichterentscheid<T>> zes = ZielrichterentscheidUtils.checkZielrichterentscheide(wk)[0];
-        ListIterator<Zielrichterentscheid<T>> li = zes.listIterator();
-        while (li.hasNext()) {
-            Zielrichterentscheid<T> ze = li.next();
+        for (Zielrichterentscheid<T> ze : zes) {
             Zielrichterentscheid<T> neu = new Zielrichterentscheid<>();
             for (T t : ze.getSchwimmer()) {
                 if (t.getAKNummer() == akn) {
@@ -450,7 +443,7 @@ public class ResultUtils {
             wk.enableUpdates();
         } else {
             OWSelection t1 = new OWSelection(cwk.getRegelwerk().getAk(t.akNummer), t.akNummer, t.male, t.discipline,
-                    t.round - 1, false);
+                    t.round - 1);
             AWettkampf<T> wk1a = createCompetitionFor(cwk, t1);
 
             wk.disableUpdates();
@@ -551,6 +544,14 @@ public class ResultUtils {
         }
 
         wk.getLauflisteOW().clear();
+
+        Regelwerk rw = wk.getRegelwerk();
+        if (!t.isFinal || t.round == 0)
+            rw.setFormelID(switch (rw.getFormelID()) {
+            case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
+            case FormelDLRG2007Finals.ID -> FormelDLRG2007.ID;
+            default -> FormelILS.ID;
+            });
 
         return wk;
     }

@@ -18,14 +18,14 @@ public class OWSelection implements Comparable<OWSelection> {
         return id;
     }
 
-    public OWSelection(Altersklasse ak, int akNummer, boolean male, int discipline, int round, boolean isFinal) {
+    public OWSelection(Altersklasse ak, int akNummer, boolean male, int discipline, int round) {
         id = OWDisziplin.getId(akNummer, male, discipline, round);
         this.ak = ak;
         this.akNummer = akNummer;
         this.male = male;
         this.discipline = discipline;
         this.round = round;
-        this.isFinal = isFinal;
+        this.isFinal = ak.getDisziplin(discipline, male).isFinalRound(round);
     }
 
     @Override

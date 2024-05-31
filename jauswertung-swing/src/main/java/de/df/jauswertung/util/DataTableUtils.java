@@ -61,11 +61,15 @@ import de.df.jutils.io.csv.Seconds;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 import de.df.jutils.util.StringTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author dennis
  */
 public final class DataTableUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(DataTableUtils.class);
 
     public enum RegistrationDetails {
         SHORT, WITH_TIMES, EVERYTHING, SHORT_WITH_TEAMMEMBERS
@@ -255,19 +259,23 @@ public final class DataTableUtils {
         LinkedList<Object[]> result = new LinkedList<>();
 
         for (int x = 0; x < aks.size(); x++) {
-            LinkedList<T> teilies = SearchUtils.getSchwimmer(wk, aks.getAk(x));
+            Altersklasse ak = aks.getAk(x);
+            LinkedList<T> teilies = SearchUtils.getSchwimmer(wk, ak);
             if ((teilies != null) && (!teilies.isEmpty())) {
-                fb.showFeedback(aks.getAk(x).getName());
-                if (aks.getAk(x).hasMehrkampfwertung()) {
-                    altersklasse(result, wk, aks.getAk(x), false, diszAnzahl, maxteammembers, false, true, true,
+                fb.showFeedback(ak.getName());
+                if (ak.hasMehrkampfwertung()) {
+                    log.info("Exportiere Mehrkampfwertung {}", ak.getName());
+                    altersklasse(result, wk, ak, false, diszAnzahl, maxteammembers, false, true, true,
                             removeUnranked, 0);
-                    altersklasse(result, wk, aks.getAk(x), true, diszAnzahl, maxteammembers, false, true, true,
+                    altersklasse(result, wk, ak, true, diszAnzahl, maxteammembers, false, true, true,
                             removeUnranked, 0);
                 }
 
                 if (wk.isHeatBased()) {
                     for (OWDisziplin<T> y : wk.getLauflisteOW().getDisziplinen()) {
-                        Altersklasse ak = wk.getRegelwerk().getAk(y.akNummer);
+                        if (y.akNummer != x) {
+                            continue;
+                        }
                         int qualified = 0;
                         int[] runden = ak.getDisziplin(y.disziplin, y.maennlich).getRunden();
                         boolean isFinal = runden.length <= y.round;
@@ -275,48 +283,49 @@ public final class DataTableUtils {
                             qualified = runden[y.round];
                         }
 
+                        log.info("Exportiere Einzelwertung " + ak.getName() + " - "
+                                + ak.getDisziplin(y.disziplin, y.maennlich).getName() + " - "
+                                + I18n.getRound(y.round, isFinal));
+
                         AWettkampf<T> wkl = ResultUtils.createCompetitionFor(wk,
                                 new OWSelection(wk.getRegelwerk()
                                         .getAk(y.akNummer),
                                         y.akNummer,
                                         y.maennlich,
                                         y.disziplin,
-                                        y.round,
-                                        isFinal));
+                                        y.round));
 
-                        if (wkl.getRegelwerk().getAk(x).hasEinzelwertung()) {
-                            AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
-                            if (ew != null) {
-                                Regelwerk ewkAks = ew.getRegelwerk();
-                                for (int i = 0; i < ew.getRegelwerk().size(); i++) {
-                                    Altersklasse a = ew.getRegelwerk().getAk(i);
-                                    for (Disziplin[] dx : a.getDisziplinen()) {
-                                        for (Disziplin d : dx) {
-                                            d.setName(d.getName());
-                                        }
-                                    }
-                                    if (a.getDiszAnzahl() == 0) {
-                                        break;
-                                    }
-                                    String runde = " - " + I18n.getRound(y.round, isFinal);
-                                    a.setName(ewkAks.getAk(i).getName() + " - " + a.getDisziplin(0, true).getName()
-                                            + runde);
-
-                                    altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true,
-                                            true, removeUnranked, qualified);
-                                    altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true,
-                                            true, removeUnranked, qualified);
+                        Regelwerk ewkAks = wkl.getRegelwerk();
+                        if (ewkAks.getAk(x).hasEinzelwertung()) {
+                            for (int i = 0; i < ewkAks.size(); i++) {
+                                Altersklasse a = ewkAks.getAk(i);
+                                if (a.getDiszAnzahl() == 0) {
+                                    continue;
                                 }
+                                for (Disziplin[] dx : a.getDisziplinen()) {
+                                    for (Disziplin d : dx) {
+                                        d.setName(d.getName());
+                                    }
+                                }
+                                String runde = " - " + I18n.getRound(y.round, isFinal);
+                                a.setName(ewkAks.getAk(i).getName() + " - " + a.getDisziplin(0, true).getName()
+                                        + runde);
+
+                                altersklasse(result, wkl, a, y.maennlich, diszAnzahl, maxteammembers, false, true,
+                                             true, removeUnranked, qualified);
                             }
                         }
                     }
                 } else {
-                    if (aks.getAk(x).hasEinzelwertung()) {
+                    if (ak.hasEinzelwertung()) {
                         AWettkampf<T> ew = ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
                         if (ew != null) {
                             for (int y = 0; y < ew.getRegelwerk().size(); y++) {
                                 Altersklasse a = ew.getRegelwerk().getAk(y);
-                                a.setName(aks.getAk(x).getName() + " - " + a.getDisziplin(0, true).getName());
+                                a.setName(ak.getName() + " - " + a.getDisziplin(0, true).getName());
+
+                                log.info("Exportiere Einzelwertung " + a.getName());
+
                                 altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true, true,
                                         removeUnranked, 0);
                                 altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true, true,
@@ -336,6 +345,7 @@ public final class DataTableUtils {
                 if ((teilies != null) && !teilies.isEmpty()) {
                     fb.showFeedback(aks.getAk(x).getName());
                     if (aks.getAk(x).hasMehrkampfwertung()) {
+                        log.info("Exportiere Wertungsgruppen " + aks.getAk(x).getName());
                         altersklasse(result, wk, aks.getAk(x), false, diszAnzahl, maxteammembers, false, true, true,
                                 removeUnranked, 0);
                         altersklasse(result, wk, aks.getAk(x), true, diszAnzahl, maxteammembers, false, true, true,
@@ -348,6 +358,7 @@ public final class DataTableUtils {
                             for (int y = 0; y < ew.getRegelwerk().size(); y++) {
                                 Altersklasse a = ew.getRegelwerk().getAk(y);
                                 a.setName(aks.getAk(x).getName() + " - " + a.getDisziplin(0, true).getName());
+                                log.info("Exportiere Einzelwertung " + aks.getAk(x).getName());
                                 altersklasse(result, ew, a, false, diszAnzahl, maxteammembers, false, true, true,
                                         removeUnranked, 0);
                                 altersklasse(result, ew, a, true, diszAnzahl, maxteammembers, false, true, true,

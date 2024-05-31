@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -36,7 +37,7 @@ public final class HttpPostExport {
 
         ExportManager.export("XML", os, ImportExportTypes.RESULTS, wk, nf);
 
-        String text = new String(os.toByteArray(), "ISO-8859-1");
+        String text = os.toString(StandardCharsets.ISO_8859_1);
         text = text.replace("ISO-8859-1", "UTF-8");
         HttpUtils.post(destination, text);
 

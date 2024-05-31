@@ -57,12 +57,12 @@ public class FormelILSFinalsWithdrawTest {
         erstelleWettkampf();
         schwimmerHinzufuegen(wk);
 
-        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round, false);
+        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round);
         erzeugeLaufliste(wk, selectionVorlauf);
         trageZeitenEin(wk, selectionVorlauf);
         ergebnisVorlauf = erstelleErgebnis(wk, selectionVorlauf);
 
-        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1, true);
+        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1);
         erzeugeLaufliste(wk, selectionFinale);
         trageZeitenFinaleEin(wk, selectionFinale);
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
@@ -207,7 +207,7 @@ public class FormelILSFinalsWithdrawTest {
                     discipline = 0;
                 } else {
                     isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
-                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
+                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round);
                     wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wkx, t);
                     if (wkx == null) {
                         return null;

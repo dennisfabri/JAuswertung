@@ -209,7 +209,7 @@ public class PResulttablePlugin extends ANullPlugin {
                     round = runde.getSelectedIndex();
                     isCompleteDiscipline = round + 1 == runde.getItemCount();
                     if (round < 0) {
-                        // Todo
+                        // Should not exist
                     } else if (isCompleteDiscipline) {
                         wkx = ResultUtils.generateEinzelwertungswettkampf(wkx, index, maennlich, false);
                         if (wkx == null) {
@@ -220,8 +220,7 @@ public class PResulttablePlugin extends ANullPlugin {
                         ak = wkx.getRegelwerk().getAk(discipline);
                         discipline = 0;
                     } else {
-                        isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
-                        OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
+                        OWSelection t = new OWSelection(ak, index, maennlich, discipline, round);
                         wkx = ResultUtils.createCompetitionFor(wkx, t);
                         if (wkx == null) {
                             disableDisplay();
@@ -339,12 +338,11 @@ public class PResulttablePlugin extends ANullPlugin {
     private void initListeners() {
         mouseListener = new InternalMouseListener();
         ResultAKSexItemListener itemListener1 = new ResultAKSexItemListener();
-        ResultAKSexItemListener itemListener2 = itemListener1;
         ResultDisciplineItemListener itemListener3 = new ResultDisciplineItemListener();
         ResultRoundItemListener itemListener4 = new ResultRoundItemListener();
 
         altersklasse.addItemListener(itemListener1);
-        geschlecht.addItemListener(itemListener2);
+        geschlecht.addItemListener(itemListener1);
         disziplin.addItemListener(itemListener3);
         runde.addItemListener(itemListener4);
     }
@@ -776,11 +774,6 @@ public class PResulttablePlugin extends ANullPlugin {
     }
 
     private class JEditPopup extends JPopupMenu {
-
-        /**
-         * Comment for <code>serialVersionUID</code>
-         */
-        private static final long serialVersionUID = 3256441404417716535L;
 
         JMenuItem edit = null;
         JMenuItem delete = null;

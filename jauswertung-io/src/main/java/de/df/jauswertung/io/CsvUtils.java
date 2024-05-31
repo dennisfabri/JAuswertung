@@ -4,17 +4,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
 import javax.swing.table.TableModel;
 
 import de.df.jutils.io.FileUtils;
-import de.df.jutils.io.csv.CsvManager;
-import de.df.jutils.io.csv.CsvSimpleDoubleConverter;
-import de.df.jutils.io.csv.CsvSimpleIntegerConverter;
-import de.df.jutils.io.csv.CsvSimpleSecondsConverter;
-import de.df.jutils.io.csv.CsvWriter;
+import de.df.jutils.io.csv.*;
 import de.df.jutils.util.StringTools;
 
 public class CsvUtils {
@@ -69,7 +66,7 @@ public class CsvUtils {
     }
 
     public static void write(OutputStream os, TableModel tm) {
-        CsvWriter writer = null;
+        CsvWriter writer;
         if (CsvExporter.excelmode) {
             DecimalFormat df = new DecimalFormat();
             DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
@@ -86,7 +83,7 @@ public class CsvUtils {
             writer.addConverter(new CsvSimpleDoubleConverter('.', 2));
             writer.addConverter(new CsvSimpleSecondsConverter('.'));
         }
-        writer.write(tm, os);
+        writer.write(tm, os, StandardCharsets.ISO_8859_1);
     }
 
 }

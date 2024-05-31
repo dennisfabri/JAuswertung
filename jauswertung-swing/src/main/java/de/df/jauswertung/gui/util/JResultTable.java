@@ -7,10 +7,7 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 import java.util.zip.CRC32;
 
 import javax.swing.JComponent;
@@ -343,13 +340,8 @@ public final class JResultTable extends JGroupableTable {
             einzel = wk instanceof EinzelWettkampf;
 
             if (select == null) {
-                select = new boolean[0];
-                if (ak != null) {
-                    select = new boolean[ak.getDiszAnzahl()];
-                    for (int x = 0; x < select.length; x++) {
-                        select[x] = true;
-                    }
-                }
+                select = new boolean[ak == null ? 0 : ak.getDiszAnzahl()];
+                Arrays.fill(select, true);
             }
 
             resultUpdater.setData(w, ak, maennlich, select, hlw, qualification);
@@ -376,17 +368,12 @@ public final class JResultTable extends JGroupableTable {
     @Override
     public void setValueAt(Object value, int row, int column) {
         String text = (value == null ? "" : value.toString().trim());
-        if (print && (text.length() > 0)) {
+        if (print && (!text.isEmpty())) {
             text += " ";
         }
         super.setValueAt(text, row, column);
     }
 
-    /**
-     * @param x
-     * @param y
-     * @param daten
-     */
     <T extends ASchwimmer> void updateDiscipline(int x, int y, SchwimmerData<T>[] daten, int offset, boolean choice,
             @SuppressWarnings("rawtypes") SchwimmerResult result) {
         if (!choice) {
@@ -742,7 +729,8 @@ public final class JResultTable extends JGroupableTable {
                 if (qualilength < I18n.get("QualifikationsebeneShort").length()) {
                     getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue("");
                 } else {
-                    getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue(I18n.get("QualifikationsebeneShort"));
+                    getColumnModel().getColumn(QUALIFICATION_OFFSET)
+                            .setHeaderValue(I18n.get("QualifikationsebeneShort"));
                 }
             } else {
                 getColumnModel().getColumn(QUALIFICATION_OFFSET).setHeaderValue(I18n.get("Qualifikationsebene"));

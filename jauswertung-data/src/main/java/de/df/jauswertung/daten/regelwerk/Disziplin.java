@@ -208,11 +208,13 @@ public class Disziplin implements Serializable {
         return getRundenIds()[round];
     }
 
-    public void copyFrom(Disziplin disziplin) {
-        name = disziplin.name;
-        rec = disziplin.rec;
-        laenge = disziplin.laenge;
-        runden = Arrays.copyOf(disziplin.runden, disziplin.runden.length);
-        rundenIds = Arrays.copyOf(disziplin.rundenIds, disziplin.rundenIds.length);
+    public boolean isFinalRound(int round) {
+        if (round < 0) {
+            throw new IllegalArgumentException("Runde darf nicht negativ sein.");
+        }
+        if (round > getRunden().length) {
+            throw new IllegalArgumentException("Runde darf nicht groesser als die Anzahl der Runden sein.");
+        }
+        return round == getRunden().length;
     }
 }

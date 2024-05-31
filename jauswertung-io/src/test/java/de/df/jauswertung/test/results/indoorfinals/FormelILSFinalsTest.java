@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.LinkedList;
 
 import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.util.ergebnis.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,9 +34,6 @@ import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.data.HeatsUtils;
-import de.df.jauswertung.util.ergebnis.DataType;
-import de.df.jauswertung.util.ergebnis.FormelILS;
-import de.df.jauswertung.util.ergebnis.FormelILSOutdoor;
 import de.df.jutils.gui.jtable.JTableUtils;
 
 public class FormelILSFinalsTest {
@@ -61,12 +59,12 @@ public class FormelILSFinalsTest {
         erstelleWettkampf();
         schwimmerHinzufuegen(wk);
 
-        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round, false);
+        selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round);
         erzeugeLaufliste(wk, selectionVorlauf);
         trageZeitenEin(wk, selectionVorlauf);
         ergebnisVorlauf = erstelleErgebnis(wk, selectionVorlauf);
 
-        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1, true);
+        selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1);
         erzeugeLaufliste(wk, selectionFinale);
         trageZeitenFinaleEin(wk, selectionFinale);
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
@@ -207,7 +205,7 @@ public class FormelILSFinalsTest {
                     discipline = 0;
                 } else {
                     isFinal = round == ak.getDisziplin(discipline, maennlich).getRunden().length;
-                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round, isFinal);
+                    OWSelection t = new OWSelection(ak, index, maennlich, discipline, round);
                     wkx = (EinzelWettkampf) ResultUtils.createCompetitionFor(wkx, t);
                     if (wkx == null) {
                         return null;

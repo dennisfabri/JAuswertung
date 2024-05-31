@@ -80,7 +80,7 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
                     Disziplin disziplin = ak.getDisziplin(d, s == 1);
                     int[] runden = disziplin.getRunden();
                     for (int r = 0; r <= runden.length; r++) {
-                        OWSelection selection = new OWSelection(ak, x, s == 1, d, r, r == runden.length);
+                        OWSelection selection = new OWSelection(ak, x, s == 1, d, r);
                         OWDisziplin<T> owd = ll.getDisziplin(selection);
                         if (owd != null && !owd.isEmpty()) {
                             int roundId = wk.getRegelwerk().getRundenId(owd);

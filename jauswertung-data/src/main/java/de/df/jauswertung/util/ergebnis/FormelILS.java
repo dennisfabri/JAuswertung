@@ -56,6 +56,33 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             if (sd1.isWithdraw() != sd2.isWithdraw()) {
                 // return sd1.isWithdraw() ? 1 : -1;
             }
+            if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
+                return 0;
+            }
+            boolean zeroed1 = false;
+            boolean zeroed2 = false;
+            if (sd1.getStrafart() != Strafarten.NICHTS) {
+                zeroed1 = true;
+            }
+            if (sd2.getStrafart() != Strafarten.NICHTS) {
+                zeroed2 = true;
+            }
+            if (sd1.getTime() == 0) {
+                zeroed1 = true;
+            }
+            if (sd2.getTime() == 0) {
+                zeroed2 = true;
+            }
+
+            if (zeroed1 && zeroed2) {
+                return 0;
+            }
+            if (zeroed1) {
+                return 1;
+            }
+            if (zeroed2) {
+                return -1;
+            }
             return sd1.getTime() - sd2.getTime();
         }
     }
@@ -103,6 +130,8 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     }
 
     private static final double Epsilon = 0.005;
+
+    /** ----------------- */
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override

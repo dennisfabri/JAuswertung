@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.DataTableUtils;
@@ -44,21 +45,21 @@ public class CsvExporter extends EmptyExporter {
     /**
      * Exportiert die Schwimmer eines Wettkampfes in eine CSV-Datei.
      * 
-     * @param name Name der Datei
-     * @param wk   Wettkampf
+     * @param os OutputStream
+     * @param wk Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
-    public synchronized <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
+    public synchronized <T extends ASchwimmer> boolean results(OutputStream os, AWettkampf<T> wk, Feedback fb) {
         if (wk == null) {
             return false;
         }
         try {
-            TableModel tm = DataTableUtils.results(wk, false, fb);
+            TableModel tm = DataTableUtils.results(wk, false, null);
             if (tm == null) {
                 return false;
             }
-            CsvUtils.write(name, tm);
+            CsvUtils.write(os, tm);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

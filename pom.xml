@@ -16,18 +16,18 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
-		<jutils.version>16.2.4</jutils.version>
-		<alphaserver.version>16.2.4</alphaserver.version>
+		<jutils.version>16.3.2</jutils.version>
+		<alphaserver.version>16.3.2</alphaserver.version>
 		<poi.version>5.2.5</poi.version>
 		<jersey.version>3.1.6</jersey.version>
 		<batik.version>1.14</batik.version>
 		<slf4j.version>2.0.13</slf4j.version>
 		<logback.version>1.5.6</logback.version>
-		<javafx.version>21.0.2</javafx.version>
-		<jackson.version>2.17.0</jackson.version>
+		<javafx.version>21.0.3</javafx.version>
+		<jackson.version>2.17.1</jackson.version>
 		<lombok.version>1.18.32</lombok.version>
 		<junit.version>5.10.2</junit.version>
-		<mockito.version>5.11.0</mockito.version>
+		<mockito.version>5.12.0</mockito.version>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -554,12 +554,19 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>3.1.1</version>
+					<version>3.1.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.sonatype.install4j</groupId>
 					<artifactId>install4j-maven-plugin</artifactId>
 					<version>1.1.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<!-- Fixed to version 3.9.1 because of doxia version problem
+					with maven-project-info-reports-plugin -->
+					<version>3.9.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -570,13 +577,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
 					<version>3.4.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<!-- Fixed to version 3.9.1 because of doxia version problem
-					with maven-project-info-reports-plugin -->
-					<version>3.9.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -593,7 +593,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.1.1</version>
+					<version>3.1.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -626,7 +626,7 @@
 				<plugin>
 					<groupId>org.openrewrite.maven</groupId>
 					<artifactId>rewrite-maven-plugin</artifactId>
-					<version>5.28.0</version>
+					<version>5.32.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -725,7 +725,7 @@
 					<dependency>
 						<groupId>org.openrewrite.recipe</groupId>
 						<artifactId>rewrite-migrate-java</artifactId>
-						<version>2.11.0</version>
+						<version>2.16.0</version>
 					</dependency>
 				</dependencies>
 			</plugin>

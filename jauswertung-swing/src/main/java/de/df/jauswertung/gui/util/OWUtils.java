@@ -76,7 +76,7 @@ public final class OWUtils {
                 boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
                         .getRunden().length;
                 daten.add(
-                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
+                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round));
             }
         }
         Collections.sort(daten);
@@ -97,7 +97,7 @@ public final class OWUtils {
                 boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
                         .getRunden().length;
                 daten.add(
-                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round, isFinal));
+                        new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round));
             }
         }
         Collections.sort(daten);
@@ -133,7 +133,7 @@ public final class OWUtils {
                                 if (ok) {
                                     boolean isFinal = i == wk.getRegelwerk().getAk(x).getDisziplin(z, y == 1)
                                             .getRunden().length;
-                                    daten.add(new OWSelection(ak, x, y == 1, z, i, isFinal));
+                                    daten.add(new OWSelection(ak, x, y == 1, z, i));
                                 }
                             }
                         }

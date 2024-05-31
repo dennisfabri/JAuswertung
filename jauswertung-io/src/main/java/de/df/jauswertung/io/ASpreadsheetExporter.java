@@ -280,10 +280,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                              .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100)
                              .toArray(OWDisziplin[]::new);
                 for (OWDisziplin<T> owd : owds) {
-                    int rounds = ak.getDisziplin(owd.disziplin, owd.maennlich).getRunden().length + 1;
-                    boolean isFinal = owd.round + 1 == rounds;
-                    OWSelection ows = new OWSelection(ak, owd.akNummer, owd.maennlich, owd.disziplin, owd.round,
-                                                      isFinal);
+                    OWSelection ows = new OWSelection(ak, owd.akNummer, owd.maennlich, owd.disziplin, owd.round);
                     ExtendedTableModel tm = generateRound(wk, ows, fb);
                     if (tm != null) {
                         etm.add(tm);
@@ -311,17 +308,18 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         }
 
         Altersklasse ak = wk.getRegelwerk().getAk(ows.akNummer);
+        int discipline = 0;
         boolean maennlich = ows.male;
         int round = ows.round;
         int qualification = 0;
-        Disziplin d = ak.getDisziplin(0, maennlich);
+        Disziplin d = ak.getDisziplin(discipline, maennlich);
         int[] runden = d.getRunden();
         if (round < runden.length) {
             qualification = runden[round];
         }
         boolean isFinal = ows.isFinal;
         d.setName(d.getName() + " - " + I18n.getRound(round, isFinal));
-        if (!isFinal) {
+        if (!isFinal || round == 0) {
             Regelwerk rw = wk.getRegelwerk();
             rw.setFormelID(switch (rw.getFormelID()) {
                 case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
@@ -333,7 +331,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, maennlich);
         if ((llak != null) && (!llak.isEmpty())) {
             ak = wk.getRegelwerk().getAk(ows.akNummer);
-            return DataTableUtils.results(wk, ak, maennlich, false, qualification);
+            return DataTableUtils.resultsEinzelwertung(wk, ak, maennlich, discipline,false, qualification);
         }
         return null;
     }

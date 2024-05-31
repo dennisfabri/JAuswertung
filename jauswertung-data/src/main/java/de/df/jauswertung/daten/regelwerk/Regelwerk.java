@@ -735,4 +735,8 @@ public class Regelwerk implements Serializable {
             return 0;
         }
     }
+
+    public void copyTranslationsTo(Regelwerk aks) {
+        aks.translations = translations.copyOf();
+    }
 }
