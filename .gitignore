@@ -36,3 +36,5 @@ jauswertung-misc/src/test/resources/competitions/Ergebnisse.csv
 /jauswertung-misc/src/test/resources/competitions/*.wk
 /jauswertung-io/*.wk
 /jauswertung-io/src/test/resources/competitions/**/*_actual.csv
+
+jauswertung-io/src/test/resources/competitions/dem24/?.xls

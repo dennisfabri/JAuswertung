@@ -5,7 +5,9 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -232,6 +234,36 @@ public class ResultUtils {
                         }
                     }
                 }
+            }
+        }
+
+        if (!w.getLaufliste().isEmpty()) {
+            w.getLaufliste().removeEmptyHeats();
+            w.getLaufliste().neueNummerierung();
+        }
+
+        if (!wk.getLaufliste().isEmpty() && wk.isHeatBased()) {
+            int index = 0;
+            w.getLaufliste().resetAll();
+            for (Lauf<T> lauf : wk.getLaufliste().getLaufliste()) {
+                Lauf<T> laufNeu = w.getLaufliste().add(index);
+                laufNeu.setLaufnummer(lauf.getLaufnummer());
+                laufNeu.setLaufbuchstabe(lauf.getLaufbuchstabe());
+                for (int b = 0; b < lauf.getBahnen(); b++) {
+                    boolean hasSwimmerAtLane = lauf.getSchwimmer(b) != null;
+                    if (hasSwimmerAtLane) {
+                        final int laneNumber = b;
+                        Stream<T> stream = w.getSchwimmer().stream();
+                        Stream<T> ts = stream
+                                .filter(sw -> sw.getBemerkung().equals("" + lauf.getSchwimmer(laneNumber).getStartnummer()));
+                        T t = ts.filter(sw -> sw.getAKNummer() == lauf.getDisznummer(laneNumber)).toList().getFirst();
+                        boolean disciplinesMatch = t != null;
+                        if (disciplinesMatch) {
+                            laufNeu.setSchwimmer(t, 0, b);
+                        }
+                    }
+                }
+                index++;
             }
         }
 
