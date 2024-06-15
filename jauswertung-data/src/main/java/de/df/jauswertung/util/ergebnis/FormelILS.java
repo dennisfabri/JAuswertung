@@ -411,16 +411,24 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         case STRAFPUNKTE:
             break;
         }
-        return getPoints(rank);
+        return getPoints(rank, amount);
     }
 
     protected static final int[] POINTS = new int[] { 20, 18, 16, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1 };
 
     protected double getPoints(int rank) {
-        if ((rank > 0) && (rank <= POINTS.length)) {
-            return POINTS[rank - 1];
+        return getPoints(rank, 1);
+    }
+
+    protected double getPoints(int rank, int amount) {
+        if (!((rank > 0) && (rank <= POINTS.length))) {
+            return 0;
         }
-        return 0;
+        double sum = 0;
+        for (int x = rank - 1; x < Math.min(rank + amount - 1, POINTS.length); x++) {
+            sum += POINTS[x];
+        }
+        return Math.round(100.0 * sum / amount) / 100.0;
     }
 
     @Override
