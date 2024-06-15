@@ -145,17 +145,17 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         }
     }
 
-    StrafenPanel strafen = null;
-    CodePanel code = null;
-    ASchwimmer schwimmer = null;
+    private StrafenPanel strafen = null;
+    private CodePanel code = null;
+    private ASchwimmer schwimmer = null;
     @SuppressWarnings("rawtypes")
-    AWettkampf wk = null;
+    private AWettkampf wk = null;
 
     private boolean printOnFinish = false;
 
     private IPluginManager controller = null;
-    JWizardDialog window = null;
-    JWizard wizard = null;
+    private JWizardDialog window = null;
+    private JWizard wizard = null;
     private IPenaltyWizardStrategy strategy = null;
 
     private int steps = 0;
@@ -169,15 +169,6 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         wizard = new JWizard(WizardUIElementsProvider.getInstance());
         window = new JWizardDialog(parent, I18n.get("Penalty"), wizard, false);
         window.setAnimated(false);
-        init(c, wk, s, printOnFinish, fullmode);
-    }
-
-    @SuppressWarnings("rawtypes")
-    public JPenaltyWizard(JDialog parent, IPluginManager c, AWettkampf wk, ASchwimmer s, boolean printOnFinish,
-            boolean fullmode) {
-        super();
-        wizard = new JWizard(WizardUIElementsProvider.getInstance());
-        window = new JWizardDialog(parent, I18n.get("Penalty"), wizard, false);
         init(c, wk, s, printOnFinish, fullmode);
     }
 
@@ -213,7 +204,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
     }
 
     void setSelectedDisziplin(String id) {
-        if (id.equals("")) {
+        if (id.isEmpty()) {
             setSelectedDisziplin(ASchwimmer.DISCIPLINE_NUMBER_SELF);
         } else {
             @SuppressWarnings("rawtypes")
@@ -326,7 +317,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         }
     }
 
-    private class CodePanel extends AWizardPage implements PageSwitchListener {
+    private class CodePanel extends AWizardPage implements UpdateListener, PageSwitchListener {
 
         private JComboBox<Strafe> penalties = null;
         private JPanel page = null;
@@ -364,6 +355,16 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         public void pageSwitch(boolean forward) {
             if (wizard.isCurrentPage(this)) {
                 penalties.requestFocus();
+            }
+            wizard.setFinishButtonEnabled(true);
+            wizard.setNextButtonEnabled(true);
+        }
+
+        @Override
+        public void update() {
+            if (wizard.isCurrentPage(this)) {
+                wizard.setFinishButtonEnabled(true);
+                wizard.setNextButtonEnabled(true);
             }
         }
     }
@@ -457,20 +458,14 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         }
 
         private Strafarten getType() {
-            switch (type.getSelectedIndex()) {
-            case 0:
-                return Strafarten.NICHTS;
-            case 1:
-                return Strafarten.STRAFPUNKTE;
-            case 2:
-                return Strafarten.NICHT_ANGETRETEN;
-            case 3:
-                return Strafarten.DISQUALIFIKATION;
-            case 4:
-                return Strafarten.AUSSCHLUSS;
-            default:
-                return Strafarten.NICHTS;
-            }
+            return switch (type.getSelectedIndex()) {
+            case 0 -> Strafarten.NICHTS;
+            case 1 -> Strafarten.STRAFPUNKTE;
+            case 2 -> Strafarten.NICHT_ANGETRETEN;
+            case 3 -> Strafarten.DISQUALIFIKATION;
+            case 4 -> Strafarten.AUSSCHLUSS;
+            default -> Strafarten.NICHTS;
+            };
         }
 
         public Strafe getStrafe() {
@@ -494,7 +489,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
 
         private class PenaltyUpdate implements Runnable {
 
-            private Strafe strafe;
+            private final Strafe strafe;
 
             public PenaltyUpdate(Strafe s) {
                 strafe = s;
@@ -538,29 +533,18 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         @Override
         public void update() {
             if (wizard.isCurrentPage(this)) {
-                boolean e2 = true;
-                boolean enable = false;
-                switch (type.getSelectedIndex()) {
-                default:
-                case 0:
-                    e2 = true;
-                    break;
-                case 1:
-                    enable = true;
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                    break;
-                }
-                points.setEnabled(enable && e2);
-                paragraph.setEnabled(e2);
-                description.setEnabled(e2);
+                boolean isPointsSelected = type.getSelectedIndex() == 1;
+                paragraph.setEnabled(true);
+                description.setEnabled(true);
 
-                if (type.getSelectedIndex() == 1) {
+                if (isPointsSelected) {
+                    points.setEnabled(true);
                     wizard.setFinishButtonEnabled(points.isValidInt());
+                    wizard.setPrevioustButtonEnabled(points.isValidInt());
                 } else {
+                    points.setEnabled(false);
                     wizard.setFinishButtonEnabled(true);
+                    wizard.setPrevioustButtonEnabled(true);
                 }
                 wizard.setNextButtonEnabled(true);
             }

@@ -1,6 +1,3 @@
-/*
- * Created on 05.04.2004
- */
 package de.df.jauswertung.gui.plugins;
 
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
@@ -19,7 +16,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -179,9 +175,9 @@ public class PHeatInputPlugin extends ANullPlugin {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    for (int x = 0; x < inputs.length; x++) {
-                        if (inputs[x].isEnabled()) {
-                            inputs[x].requestFocus();
+                    for (JIntegerField input : inputs) {
+                        if (input.isEnabled()) {
+                            input.requestFocus();
                             break;
                         }
                     }
@@ -479,14 +475,6 @@ public class PHeatInputPlugin extends ANullPlugin {
         return previousLane(currentLane(), switchheat);
     }
 
-    boolean nextLane(int index) {
-        return hasNextLane(index, false);
-    }
-
-    boolean previousLane(int index) {
-        return previousLane(index, false);
-    }
-
     boolean hasNextLane(int index, boolean switchheat) {
         int i = index;
 
@@ -531,11 +519,11 @@ public class PHeatInputPlugin extends ANullPlugin {
         return false;
     }
 
-    private synchronized void setInput(int x, String value) {
-        if (!value.equals(inputs[x].getText())) {
+    private synchronized void clearInput(int x) {
+        if (!"".equals(inputs[x].getText())) {
             inputs[x].getDocument().removeDocumentListener(dl[x]);
-            inputs[x].setText(value);
-            dl[x].updateWith(value);
+            inputs[x].setText("");
+            dl[x].updateWith("");
             inputs[x].getDocument().addDocumentListener(dl[x]);
         }
     }
@@ -971,7 +959,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 if (swimmers[x] == null) {
                     inputs[x].setEnabled(false);
                     penalties[x].setEnabled(false);
-                    setInput(x, "");
+                    clearInput(x);
                     names[x].setText("");
                     organisations[x].setText("");
                     agegroups[x].setText("");
@@ -985,13 +973,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                     ASchwimmer s = swimmers[x];
 
                     if (s.getZeit(disciplines[x]) == 0) {
-                        setInput(x, "");
+                        clearInput(x);
                     } else {
                         setTime(x, s.getZeit(disciplines[x]));
                     }
                     names[x].setText(s.getName());
                     String q = s.getQualifikationsebene();
-                    if (q.length() > 0) {
+                    if (!q.isEmpty()) {
                         q = " (" + q + ")";
                     }
                     organisations[x].setText(s.getGliederung() + q);
@@ -1205,10 +1193,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                         return diff;
                     }
                     diff = o1.round - o2.round;
-                    if (diff != 0) {
-                        return diff;
-                    }
-                    return 0;
+                    return diff;
                 }
             });
 
@@ -1255,9 +1240,9 @@ public class PHeatInputPlugin extends ANullPlugin {
 
             if (wk.isOpenWater()) {
                 LinkedList<T> schwimmer = current.getAllSchwimmer();
-                Collections.sort(schwimmer, new SchwimmerStartnummernVergleicher<>());
+                schwimmer.sort(new SchwimmerStartnummernVergleicher<>());
 
-                values = schwimmer.toArray(new ASchwimmer[schwimmer.size()]);
+                values = schwimmer.toArray(new ASchwimmer[0]);
             } else {
                 values = new ASchwimmer[current.getBahnen()];
                 for (int x = 0; x < values.length; x++) {
@@ -1271,7 +1256,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 if (swimmers[x] == null) {
                     inputs[x].setEnabled(false);
                     penalties[x].setEnabled(false);
-                    setInput(x, "");
+                    clearInput(x);
                     names[x].setText("");
                     organisations[x].setText("");
                     agegroups[x].setText("");
@@ -1284,13 +1269,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                     ASchwimmer s = swimmers[x];
 
                     if (s.getZeit(d.Id) == 0) {
-                        setInput(x, "");
+                        clearInput(x);
                     } else {
                         setTime(x, s.getZeit(d.Id));
                     }
                     names[x].setText(s.getName());
                     String q = s.getQualifikationsebene();
-                    if (q.length() > 0) {
+                    if (!q.isEmpty()) {
                         q = " (" + q + ")";
                     }
                     organisations[x].setText(s.getGliederung() + q);
@@ -1408,6 +1393,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyEditor(wk, swimmers[lane], d.Id);
+            focus(lane);
         }
 
         @SuppressWarnings("unchecked")
@@ -1416,6 +1402,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyPoints(wk, swimmers[lane], d.Id);
+            focus(lane);
         }
 
         @SuppressWarnings("unchecked")
@@ -1424,6 +1411,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             editor.runPenaltyCode(wk, swimmers[lane], d.Id, wk.getStrafen());
+            focus(lane);
         }
 
         @Override
@@ -1450,16 +1438,22 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public String getSortingLabel() {
-            if (wk.isOpenWater()) {
-                return I18n.get("NumberShort");
-            }
-            return I18n.get("Lane");
+            return wk.isOpenWater() ? I18n.get("NumberShort") : I18n.get("Lane");
         }
 
         @Override
         public void runMeanTimeEditor(int index, BooleanConsumer iSimpleCallback) {
             // editor.runMeanTimeEditor(swimmers[index], strategy.getDiscipline(index),
             // iSimpleCallback);
+        }
+    }
+
+    private void focus(int lane) {
+        if (lane >= 0 && lane < inputs.length) {
+            EDTUtils.waitOnEDT();
+            EDTUtils.executeOnEDTAsync(() -> {
+                inputs[lane].requestFocus();
+            });
         }
     }
 

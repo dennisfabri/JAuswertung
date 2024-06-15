@@ -211,7 +211,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                 datas.addLast(data);
             }
         }
-        Object[] titles = new Object[] { I18n.get("Lane"), I18n.get("Name"), I18n.get("Organisation"),
+        Object[] titles = new Object[] { showSN ? I18n.get("StartnumberShort") : I18n.get("Lane"), I18n.get("Name"), I18n.get("Organisation"),
                 I18n.get("QualifikationsebeneShort"),
                 I18n.get("AgeGroupShort"), I18n.get("YearOfBirthShort"), I18n.get("Discipline", ""),
                 I18n.get("Meldezeit"), I18n.get("Notes") };

@@ -45,7 +45,6 @@ public class ISCUploadCredentialRepository {
             }
             return new String(Files.readAllBytes(generateFilename(edvnumber, competitionId)), StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            ex.printStackTrace();
             return "";
         }
     }

@@ -17,6 +17,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
+import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.UIStateUtils;
@@ -41,25 +42,37 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         }
     }
 
-    private static final long serialVersionUID = 4830320298919358601L;
-
     private JFrame parent;
 
     public JZieleinlaufDialog(JFrame parent, Lauf<T> lauf, BooleanConsumer cb) {
         super(parent, I18n.get("Zieleinlauf"), true);
-        String[][] data = getData(lauf);
+        String[][] data = getData(lauf, isOpenWater(lauf));
 
-        init(parent, data, cb);
+        init(parent, data, isOpenWater(lauf), cb);
     }
 
     public JZieleinlaufDialog(JFrame parent, OWLauf<T> lauf, BooleanConsumer cb) {
         super(parent, I18n.get("Zieleinlauf"), true);
-        String[][] data = getData(lauf);
+        String[][] data = getData(lauf, isOpenWater(lauf));
 
-        init(parent, data, cb);
+        init(parent, data, isOpenWater(lauf), cb);
     }
 
-    private void init(JFrame parent, String[][] data, BooleanConsumer cb) {
+    private boolean isOpenWater(Lauf<T> lauf) {
+        if (lauf.getSchwimmer() == null) {
+            return false;
+        }
+        return lauf.getSchwimmer().getWettkampf().isOpenWater();
+    }
+
+    private boolean isOpenWater(OWLauf<T> lauf) {
+        if (lauf.getSchwimmer() == null) {
+            return false;
+        }
+        return lauf.getSchwimmer().getWettkampf().isOpenWater();
+    }
+
+    private void init(JFrame parent, String[][] data, boolean isOpenWater, BooleanConsumer cb) {
         this.parent = parent;
 
         int rows = data.length;
@@ -92,7 +105,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         setLayout(layout);
 
         add(new JLabel(I18n.get("Rank")), CC.xy(2, 2));
-        add(new JLabel(I18n.get("Lane")), CC.xy(4, 2));
+        add(new JLabel(I18n.get(isOpenWater ? "StartnumberShort" : "Lane")), CC.xy(4, 2));
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < 2; y++) {
                 add(new JLabel(data[x][y]), CC.xy(2 + 2 * y, 4 + 2 * x));
@@ -154,10 +167,10 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         return s.getAkkumulierteStrafe(f.getDisciplineId()).getArt();
     }
 
-    private String[][] getData(Object lauf) {
+    private String[][] getData(Object lauf, boolean isOpenWater) {
         String[][] result = new String[getBahnen(lauf)][2];
         for (int x = 0; x < result.length; x++) {
-            result[x][0] = "" + (x + 1) + ".";
+            result[x][0] = (x + 1) + ".";
             result[x][1] = "";
         }
 
@@ -202,10 +215,10 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
                             zeit = Long.MAX_VALUE;
                         }
                         if (zeit == low) {
-                            if (result[index][1].equals("")) {
-                                result[index][1] = "" + (x + 1);
+                            if (result[index][1].isEmpty()) {
+                                result[index][1] = "" + (!isOpenWater ? (x + 1) : StartnumberFormatManager.format(s));
                             } else {
-                                result[index][1] += ", " + (x + 1);
+                                result[index][1] += ", " + (!isOpenWater ? (x + 1) : StartnumberFormatManager.format(s));
                                 result[nextindex][0] = "-";
                                 result[nextindex][1] = "-";
                             }

@@ -6,8 +6,7 @@ package de.df.jauswertung.gui.plugins.editor;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PENALTY;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
 
-import java.awt.FlowLayout;
-import java.awt.Window;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,16 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -46,25 +36,23 @@ import de.df.jutils.plugin.IPluginManager;
 
 public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
-    private static final long serialVersionUID = 3879690726009652858L;
-
     final Window parent;
     final T swimmer;
-    final boolean printpenalties;
+    final boolean printPenalties;
     final IPluginManager controller;
     final AWettkampf<T> wk;
 
     private final ArrayList<String> ids = new ArrayList<>();
 
-    private final JTabbedPane penaltytabs;
+    private final JTabbedPane penaltyTabs;
 
     public JPenaltyEditor(Window parent, IPluginManager controller, AWettkampf<T> wk, T swimmer, int discipline,
             boolean print) {
         this(parent, controller, wk, swimmer, print);
         if (discipline >= 0) {
-            penaltytabs.setSelectedIndex(discipline + 1);
+            penaltyTabs.setSelectedIndex(discipline + 1);
         } else {
-            penaltytabs.setSelectedIndex(0);
+            penaltyTabs.setSelectedIndex(0);
         }
     }
 
@@ -74,9 +62,9 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         this.parent = parent;
         this.swimmer = swimmer;
         this.wk = wk;
-        this.printpenalties = print;
+        this.printPenalties = print;
 
-        penaltytabs = new JTabbedPane();
+        penaltyTabs = new JTabbedPane();
 
         boolean alwaysDisq = swimmer.getAK().isStrafeIstDisqualifikation();
 
@@ -93,13 +81,13 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         if (discipline != null) {
             for (int x = 0; x < ids.size(); x++) {
                 if (ids.get(x).equals(discipline)) {
-                    penaltytabs.setSelectedIndex(x + 1);
+                    penaltyTabs.setSelectedIndex(x + 1);
                     break;
 
                 }
             }
         } else {
-            penaltytabs.setSelectedIndex(0);
+            penaltyTabs.setSelectedIndex(0);
         }
     }
 
@@ -132,24 +120,24 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
     private JTabbedPane createPenaltyPanels(boolean alwaysDisq) {
         JPanel p = new JPenaltyDisciplineEditor(ASchwimmer.DISCIPLINE_NUMBER_SELF, alwaysDisq);
-        penaltytabs.addTab(p.getName(), p);
+        penaltyTabs.addTab(p.getName(), p);
         if (wk.isHeatBased()) {
             OWDisziplin<T>[] dx = wk.getLauflisteOW().getDisziplinen();
             Arrays.sort(dx);
             for (OWDisziplin<T> d : dx) {
                 if (d.Schwimmer.contains(swimmer)) {
                     p = new JPenaltyDisciplineEditor(d.Id, alwaysDisq);
-                    penaltytabs.addTab(p.getName(), p);
+                    penaltyTabs.addTab(p.getName(), p);
                     ids.add(d.Id);
                 }
             }
         } else {
             for (int x = 0; x < swimmer.getAK().getDiszAnzahl(); x++) {
                 p = new JPenaltyDisciplineEditor(x, alwaysDisq);
-                penaltytabs.addTab(p.getName(), p);
+                penaltyTabs.addTab(p.getName(), p);
             }
         }
-        return penaltytabs;
+        return penaltyTabs;
     }
 
     private JPanel createButtons() {
@@ -159,7 +147,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
             setVisible(false);
         });
 
-        JPanel p = new JPanel(new FlowLayout(SwingConstants.RIGHT, 0, 0));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.TRAILING, 0, 0));
         p.add(close);
         return p;
     }
@@ -188,7 +176,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
         private class PenaltyDisciplineEditorByTime implements IPenaltyDisciplineEditorStrategy {
 
-            private int discipline;
+            private final int discipline;
 
             public PenaltyDisciplineEditorByTime(int discipline) {
                 this.discipline = discipline;
@@ -208,7 +196,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer,
-                                printpenalties, false);
+                                                                printPenalties, false);
                         npw.setSelectedDisziplin(discipline);
                         npw.start();
                         updatePenalties();
@@ -241,8 +229,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public void edit() {
-                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties,
-                        false);
+                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printPenalties,
+                                                        false);
                 npw.setSelectedDisziplin(discipline);
                 npw.setPenalty(penalties.getSelectedIndex());
                 npw.start();
@@ -254,9 +242,9 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 int index = penalties.getSelectedIndex();
 
                 LinkedList<Strafe> strafen = swimmer.getStrafen(discipline);
-                penalties.setListData(strafen.toArray(new Strafe[strafen.size()]));
+                penalties.setListData(strafen.toArray(new Strafe[0]));
 
-                if ((index >= 0) && (strafen.size() > 0)) {
+                if ((index >= 0) && (!strafen.isEmpty())) {
                     index = Math.min(strafen.size() - 1, index);
                     penalties.setSelectedIndex(index);
                 }
@@ -289,7 +277,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer,
-                                printpenalties, false);
+                                                                printPenalties, false);
                         npw.setSelectedDisziplin(id);
                         npw.start();
                         updatePenalties();
@@ -299,8 +287,8 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
             @Override
             public void edit() {
-                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printpenalties,
-                        false);
+                JPenaltyWizard npw = new JPenaltyWizard(JPenaltyEditor.this, controller, wk, swimmer, printPenalties,
+                                                        false);
                 npw.setSelectedDisziplin(id);
                 npw.setPenalty(penalties.getSelectedIndex());
                 npw.start();
@@ -335,9 +323,9 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 int index = penalties.getSelectedIndex();
 
                 LinkedList<Strafe> strafen = swimmer.getStrafen(id);
-                penalties.setListData(strafen.toArray(new Strafe[strafen.size()]));
+                penalties.setListData(strafen.toArray(new Strafe[0]));
 
-                if ((index >= 0) && (strafen.size() > 0)) {
+                if ((index >= 0) && (!strafen.isEmpty())) {
                     index = Math.min(strafen.size() - 1, index);
                     penalties.setSelectedIndex(index);
                 }
@@ -348,8 +336,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 return id;
             }
         }
-
-        private static final long serialVersionUID = 6959364812083918875L;
 
         final IPenaltyDisciplineEditorStrategy editor;
 
@@ -373,7 +359,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
             init(alwaysDisq);
         }
 
-        @SuppressWarnings("unchecked")
         private void init(boolean alwaysDisq) {
             setName(editor.getName());
 
@@ -431,7 +416,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                 tools.add(new JLabel(I18n.get("DisciplineNotChosen")));
             }
 
-            penalties.setCellRenderer(new PenaltyImageListCellRenderer(alwaysDisq));
+            penalties.setCellRenderer(new PenaltyImageListCellRenderer<>(alwaysDisq));
             editor.updatePenalties();
 
             FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
