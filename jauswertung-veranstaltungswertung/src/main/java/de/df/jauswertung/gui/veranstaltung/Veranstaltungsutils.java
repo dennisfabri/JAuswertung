@@ -36,7 +36,7 @@ class Veranstaltungsutils {
                     LinkedList<ASchwimmer> swimmers = wk.getSchwimmer();
                     for (ListIterator<ASchwimmer> li = swimmers.listIterator(); li.hasNext();) {
                         ASchwimmer s = li.next();
-                        if (s.getQualifikationsebene().length() == 0) {
+                        if (s.getQualifikationsebene().isEmpty()) {
                             li.remove();
                         } else {
                             s.setGliederung(s.getQualifikationsebene());
@@ -99,10 +99,12 @@ class Veranstaltungsutils {
                                         s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
 
                                 for (int z = 0; z < m.getAK().getDiszAnzahl(); z++) {
-                                    LinkedList<Strafe> strafen = new LinkedList<>();
                                     Strafe strafe = sr.getResults()[z].getStrafe();
-                                    strafen.add(strafe);
-                                    m.setStrafen(z, strafen);
+                                    if (strafe.getArt() != Strafarten.DISQUALIFIKATION) {
+                                        LinkedList<Strafe> strafen = new LinkedList<>();
+                                        strafen.add(strafe);
+                                        m.setStrafen(z, strafen);
+                                    }
 
                                     int points = (int) Math.round(sr.getResults()[z].getPoints() * 100);
                                     if (strafe.getArt() == Strafarten.STRAFPUNKTE) {

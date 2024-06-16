@@ -57,14 +57,17 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         }
 
         LinkedList<Component> components = new LinkedList<>();
+        int index = 0;
         for (Lauf<T> lauf : laufliste) {
-            components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showOrganisation));
+            components.addLast(getPanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showOrganisation, index, laufliste.size()));
+            index++;
         }
-        return components.toArray(new Component[components.size()]);
+        return components.toArray(new Component[0]);
     }
 
     private static <T extends ASchwimmer> JPanel getPanel(AWettkampf<T> wk, Lauf<T> lauf, boolean[] lanes,
-            boolean showDisciplines, boolean showTimes, boolean showQuali, boolean showOrganisation) {
+            boolean showDisciplines, boolean showTimes, boolean showQuali, boolean showOrganisation, int heatIndex,
+            int amountOfHeats) {
         FormLayout layout = new FormLayout("1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu,fill:default:grow,1dlu",
                 "1dlu,fill:default,1dlu,fill:default,4dlu");
         JPanel panel = new JPanel(layout);
@@ -79,9 +82,9 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {
-            String heattext = String.format("%03d-%02d%s", id, lauf.getLaufnummer(),
+            String heatText = String.format("%03d-%02d%s", id, lauf.getLaufnummer(),
                     StringTools.characterString(lauf.getLaufbuchstabe()));
-            disziplin = lauf.getDisziplin() + " - " + I18n.getRound(round, isFinal) + " - " + heattext;
+            disziplin = lauf.getDisziplin() + " - " + I18n.getRound(round, isFinal) + " - " + heatText;
         }
 
         boolean isOpenwater = FormelManager.isOpenwater(wk.getRegelwerk().getFormelID());
@@ -90,7 +93,14 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
             qualified = " (" + I18n.get("QualifiedAmount", qualifiedPerHeat) + ")";
         }
 
-        panel.add(createLabel(I18n.get("HeatNr", lauf.getName(scheme), 1) + qualified), CC.xy(2, 2));
+        String laufname = "";
+        if (isFinal) {
+            laufname = I18n.get("FinalNr", StringTools.asText(amountOfHeats - heatIndex - 1));
+        } else {
+            laufname = I18n.get("HeatNr", lauf.getName(scheme), 1) + qualified;
+        }
+
+        panel.add(createLabel(laufname), CC.xy(2, 2));
         panel.add(createLabel(lauf.getStartgruppe(), SwingConstants.CENTER), CC.xy(4, 2));
         panel.add(createLabel(disziplin, SwingConstants.RIGHT), CC.xy(6, 2));
         panel.add(getTablePanel(wk, lauf, lanes, showDisciplines, showTimes, showQuali, showOrganisation),
@@ -143,7 +153,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         boolean isMultiline = wk.isMultiline();
 
         for (int x = 0; x < lauf.getBahnen(); x++) {
-            Object[] data = new Object[8];
+            Object[] data = new Object[7];
             T s = lauf.getSchwimmer(x);
             if (s != null) {
                 data[0] = StartnumberFormatManager.format(s);
@@ -152,7 +162,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
                     if (s.getName().equals(s.getGliederung())) {
                         data[1] = m.getStarterShort(lauf.getDisznummer(x), ", ");
                     } else {
-                        data[1] = data[1] = I18n.get("TeamnameMultiline", s.getName(),
+                        data[1] = I18n.get("TeamnameMultiline", s.getName(),
                                 m.getStarterShort(lauf.getDisznummer(x), ", "));
                     }
                 } else {
@@ -160,30 +170,20 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
                 }
                 data[2] = s.getGliederung();
                 data[3] = s.getQualifikationsebene();
-                String ak = s.getAK().toString();
-                if (ak.toLowerCase().startsWith("ak ")) {
-                    ak = ak.substring(3);
-                }
-                data[4] = ak + " " + I18n.geschlechtToShortString(s);
-                data[5] = I18n
+                data[4] = I18n
                         .getDisziplinShort(s.getAK().getDisziplin(lauf.getDisznummer(x), s.isMaennlich()).toString());
-                data[6] = StringTools.zeitString(s.getMeldezeit(lauf.getDisznummer(x)));
+                data[5] = StringTools.zeitString(s.getMeldezeit(lauf.getDisznummer(x)));
                 if (lauf.getBahnen() > 24) {
-                    data[7] = "               ";
+                    data[6] = "               ";
                 } else {
-                    data[7] = "<html><body>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</body></html>";
+                    data[6] = "<html><body>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</body></html>";
                 }
 
                 swimmers.add(new SwimmerTableRow<>(s, data));
             }
         }
 
-        swimmers.sort(new Comparator<SwimmerTableRow<T>>() {
-            @Override
-            public int compare(SwimmerTableRow<T> o1, SwimmerTableRow<T> o2) {
-                return o1.getSwimmer().getStartnummer() - o2.getSwimmer().getStartnummer();
-            }
-        });
+        swimmers.sort(Comparator.comparingInt(o -> o.getSwimmer().getStartnummer()));
 
         LinkedList<Object[]> datas = new LinkedList<>();
 
@@ -192,14 +192,14 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         }
 
         Object[] titles = new Object[] { I18n.get("StartnumberShort"), I18n.get("Name"), I18n.get("Organisation"),
-                I18n.get("QualifikationsebeneShort"), I18n.get("AgeGroupShort"), I18n.get("Discipline", ""),
+                I18n.get("QualifikationsebeneShort"), I18n.get("Discipline", ""),
                 I18n.get("Meldezeit"), I18n.get("Rank") };
         JTable table = new JTable(datas.toArray(new Object[datas.size()][0]), titles);
         if (!showTimes) {
-            JTableUtils.hideColumnAndRemoveData(table, 6);
+            JTableUtils.hideColumnAndRemoveData(table, 5);
         }
         if (!showDisciplines) {
-            JTableUtils.hideColumnAndRemoveData(table, 5);
+            JTableUtils.hideColumnAndRemoveData(table, 4);
         }
         if (!showQuali) {
             JTableUtils.hideColumnAndRemoveData(table, 3);

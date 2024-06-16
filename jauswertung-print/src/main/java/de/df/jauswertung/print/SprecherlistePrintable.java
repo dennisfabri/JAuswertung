@@ -95,7 +95,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                     index, laufliste.size()));
             index++;
         }
-        return components.toArray(new Component[components.size()]);
+        return components.toArray(new Component[0]);
     }
 
     private static <T extends ASchwimmer> JPanel getPanel(AWettkampf<T> wk, Lauf<T> lauf, boolean[] lanes,
@@ -108,18 +108,18 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
         panel.setBackground(Color.WHITE);
         panel.setForeground(Color.BLACK);
 
+        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         boolean showSN = wk.isOpenWater();
         boolean isFinal = wk.getBooleanProperty("isFinal", false);
         int round = wk.getIntegerProperty("round", -1);
         int id = wk.getIntegerProperty("roundId", -1);
         int qualifiedPerHeat = wk.getIntegerProperty("qualifiedPerHeat", -1);
-        HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {
-            String heattext = String.format("%03d-%02d%s", id, lauf.getLaufnummer(),
+            String heatText = String.format("%03d-%02d%s", id, lauf.getLaufnummer(),
                     StringTools.characterString(lauf.getLaufbuchstabe()));
-            disziplin = lauf.getDisziplin() + " - " + I18n.getRound(round, isFinal) + " - " + heattext;
+            disziplin = lauf.getDisziplin() + " - " + I18n.getRound(round, isFinal) + " - " + heatText;
         }
 
         boolean isOpenwater = FormelManager.isOpenwater(wk.getRegelwerk().getFormelID());
