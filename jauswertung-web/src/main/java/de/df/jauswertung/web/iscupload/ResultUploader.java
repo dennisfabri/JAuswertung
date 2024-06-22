@@ -8,11 +8,11 @@ import de.df.jauswertung.daten.PropertyConstants;
 
 public class ResultUploader {
 
-    private static Logger log = LoggerFactory.getLogger(ResultUploader.class);
+    private static final Logger log = LoggerFactory.getLogger(ResultUploader.class);
 
     private static final String URL = "https://dlrg.net/service.php?doc=apps/liveergebnisse&modus=upload&edvnummer={edvnummer}&wkid={wkid}&auth={authkey}";
 
-    private final ISCUploadCredentialRepository authkeys;
+    private final ISCUploadCredentialRepository authKeys;
     private final IExporter exporter;
     private final SimpleHttpClient httpClient;
 
@@ -25,9 +25,9 @@ public class ResultUploader {
         this(new CSVResultExporter(), new ISCUploadCredentialRepository(), new SimpleHttpClient());
     }
 
-    public ResultUploader(IExporter exporter, ISCUploadCredentialRepository authkeys, SimpleHttpClient httpClient) {
+    public ResultUploader(IExporter exporter, ISCUploadCredentialRepository authKeys, SimpleHttpClient httpClient) {
         this.exporter = exporter;
-        this.authkeys = authkeys;
+        this.authKeys = authKeys;
         this.httpClient = httpClient;
     }
 
@@ -47,24 +47,24 @@ public class ResultUploader {
                 return;
             }
 
-            String edvnumber = wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER);
+            String edvNumber = wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER);
             String competitionId = wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID);
 
-            if (edvnumber == null || edvnumber.trim().length() < 5) {
-                log.debug("Upload - edvnumber not configured");
+            if (edvNumber == null || edvNumber.trim().length() < 5) {
+                log.debug("Upload - edvNumber not configured");
                 return;
             }
             if (competitionId == null || competitionId.trim().isEmpty()) {
                 log.debug("Upload - competitionId not configured");
                 return;
             }
-            String authkey = authkeys.getCredentials(edvnumber, competitionId);
+            String authkey = authKeys.getCredentials(edvNumber, competitionId);
             if (authkey == null || authkey.trim().length() < 5) {
                 log.debug("Upload - authkey not configured");
                 return;
             }
 
-            String url = URL.replace("{edvnummer}", edvnumber).replace("{wkid}", competitionId).replace("{authkey}",
+            String url = URL.replace("{edvnummer}", edvNumber).replace("{wkid}", competitionId).replace("{authkey}",
                     authkey);
 
             if (!exporter.canExport(wk)) {

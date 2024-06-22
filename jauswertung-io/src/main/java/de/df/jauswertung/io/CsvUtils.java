@@ -83,7 +83,7 @@ public class CsvUtils {
             writer.addConverter(new CsvSimpleDoubleConverter('.', 2));
             writer.addConverter(new CsvSimpleSecondsConverter('.'));
         }
-        writer.write(tm, os, StandardCharsets.ISO_8859_1);
+        writer.write(tm, os, StandardCharsets.UTF_8);
     }
 
 }

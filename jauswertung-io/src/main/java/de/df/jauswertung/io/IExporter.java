@@ -50,4 +50,6 @@ public interface IExporter {
     <T extends ASchwimmer> boolean zusatzwertungResults(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
     <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb);
+
+    <T extends ASchwimmer> boolean starter(OutputStream os, AWettkampf<T> wk, Feedback fb);
 }
