@@ -23,8 +23,8 @@ public class OWLaufliste<T extends ASchwimmer> implements Serializable {
         return getDisziplin(sel.akNummer, sel.male, sel.discipline, sel.round);
     }
 
-    public OWDisziplin<T> getDisziplin(int akNummer, boolean m, int disz, int round) {
-        String id = OWDisziplin.getId(akNummer, m, disz, round);
+    public OWDisziplin<T> getDisziplin(int akNummer, boolean isMale, int disz, int round) {
+        String id = OWDisziplin.getId(akNummer, isMale, disz, round);
         return getDisziplin(id);
     }
 

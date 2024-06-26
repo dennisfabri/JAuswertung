@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>16.3.2</version>
+	<version>17.0.0</version>
 	<packaging>pom</packaging>
 	<name>JAuswertung</name>
 	<description />
@@ -16,8 +16,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
-		<jutils.version>16.3.2</jutils.version>
-		<alphaserver.version>16.3.2</alphaserver.version>
+		<jutils.version>17.0.0</jutils.version>
+		<alphaserver.version>17.0.0</alphaserver.version>
 		<poi.version>5.2.5</poi.version>
 		<jersey.version>3.1.6</jersey.version>
 		<batik.version>1.14</batik.version>

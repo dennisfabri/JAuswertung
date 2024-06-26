@@ -5,6 +5,7 @@ package de.df.jauswertung.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -34,8 +35,7 @@ public final class CsvImporter implements IImporter {
 
     static {
         NumberFormat nf = NumberFormat.getInstance();
-        if (nf instanceof DecimalFormat) {
-            DecimalFormat df = (DecimalFormat) nf;
+        if (nf instanceof DecimalFormat df) {
             DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
             SEPARATORS[0] = dfs.getPatternSeparator();
         }
@@ -82,7 +82,7 @@ public final class CsvImporter implements IImporter {
         filename = filename.trim();
         fb.showFeedback(I18n.get("LoadingFileWithFilename", filename.length(), filename));
 
-        String[] lines = FileUtils.readTextFile(name);
+        String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
         if ((lines == null) || (lines.length <= 1)) {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
@@ -207,7 +207,7 @@ public final class CsvImporter implements IImporter {
         filename = filename.trim();
         fb.showFeedback(I18n.get("LoadingFileWithFilename", filename.length(), filename));
 
-        String[] lines = FileUtils.readTextFile(name);
+        String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
         if ((lines == null) || (lines.length <= 1)) {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;

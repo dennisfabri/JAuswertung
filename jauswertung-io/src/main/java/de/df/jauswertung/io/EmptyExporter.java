@@ -82,4 +82,9 @@ public abstract class EmptyExporter implements IExporter {
     public <T extends ASchwimmer> boolean heattimes(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return false;
     }
+
+    @Override
+    public <T extends ASchwimmer> boolean starter(OutputStream os, AWettkampf<T> wk, Feedback fb) {
+        return false;
+    }
 }

@@ -97,6 +97,8 @@ public class ExportManager {
             return true;
         case TEAMMEMBERS:
             return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
+        case STARTERS:
+            return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
         case ZW_RESULTS:
             if (!wk.hasSchwimmer()) {
                 return false;
@@ -162,6 +164,7 @@ public class ExportManager {
         case HEATS_OVERVIEW -> ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case HEATTIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case TIMES -> ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case STARTERS -> wk instanceof MannschaftWettkampf && ie.starter(os, CompetitionUtils.getFilteredInstance(wk), fb);
         default -> false;
         };
     }

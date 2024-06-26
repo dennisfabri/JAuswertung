@@ -1,27 +1,33 @@
-/*
- * Export.java Created on 3. Oktober 2002, 12:52
- */
-
 package de.df.jauswertung.io;
 
 import java.io.OutputStream;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-import javax.swing.JTable;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.MannschaftWettkampf;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.DataTableUtils.RegistrationDetails;
+import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.util.Feedback;
 
 /**
+ * Export.java Created on 3. Oktober 2002, 12:52
+ * 
  * @author dennis
  */
 public class CsvExporter extends EmptyExporter {
@@ -85,11 +91,11 @@ public class CsvExporter extends EmptyExporter {
         }
         try {
             LinkedList<T> schwimmer = wk.getSchwimmer();
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_STARTNUMMER);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
+            schwimmer.sort(CompetitionUtils.VERGLEICHER_STARTNUMMER);
+            schwimmer.sort(CompetitionUtils.VERGLEICHER_NAME);
+            schwimmer.sort(CompetitionUtils.VERGLEICHER_GLIEDERUNG);
+            schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
+            schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
             ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null,
                     true, fb);
             if (tm == null) {
@@ -235,23 +241,11 @@ public class CsvExporter extends EmptyExporter {
      */
     @Override
     public boolean isSupported(ImportExportTypes type) {
-        switch (type) {
-        case HEATLIST:
-        case ZWLIST:
-        case STARTKARTEN:
-        case REGISTRATION:
-        case RESULTS:
-        case ZW_STARTKARTEN:
-        case REFEREES:
-        case TEAMMEMBERS:
-        case BEST_TIMES:
-        case ZW_RESULTS:
-        case HEATS_OVERVIEW:
-            return true;
-        case HEATTIMES:
-        default:
-            return false;
-        }
+        return switch (type) {
+        case STARTERS -> Utils.isInDevelopmentMode();
+        case HEATLIST, ZWLIST, STARTKARTEN, REGISTRATION, RESULTS, ZW_STARTKARTEN, REFEREES, TEAMMEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
+        default -> false;
+        };
     }
 
     @Override
@@ -346,5 +340,48 @@ public class CsvExporter extends EmptyExporter {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public <T extends ASchwimmer> boolean starter(OutputStream os, AWettkampf<T> wk, Feedback fb) {
+        if (!(wk instanceof MannschaftWettkampf)) {
+            return false;
+        }
+        List<Object[]> data = new ArrayList<>();
+        MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
+        for (Mannschaft s : mwk.getSchwimmer()) {
+            for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
+                if (s.isDisciplineChosen(x)) {
+                    List<String> row = new ArrayList<>();
+                    row.add(StartnumberFormatManager.format(s));
+                    row.add(s.getName());
+                    row.add(I18n.geschlechtToString(s));
+                    row.add(s.getAK().getDisziplin(x, s.isMaennlich()).getName());
+                    row.add("0");
+                    row.add(isStraightFinal(mwk, s.getAKNummer(), x, s.isMaennlich()) ? "true": "false");
+                    int[] starters = s.getStarter(x);
+                    for (int starter : starters) {
+                        if (starter == 0) {
+                            row.add("");
+                            continue;
+                        }
+                        row.add("" + starter);
+                    }
+                    data.add(row.toArray());
+                }
+            }
+        }
+        CsvUtils.write(os,
+                new DefaultTableModel(data.toArray(new Object[0][0]),
+                        new String[] { "S#", I18n.get("Name"), I18n.get("Sex"), I18n.get("Discipline"), "round","final",
+                                "Id1", "Id2", "Id3", "Id4", "Id5", "Id6" }));
+        return true;
+    }
+
+    private boolean isStraightFinal(MannschaftWettkampf mwk, int akNummer, int disciplineIndex, boolean male) {
+        if (!mwk.isHeatBased()) {
+            return true;
+        }
+        return mwk.isFinal(new OWSelection(mwk.getRegelwerk().getAk(akNummer), akNummer, male, disciplineIndex, 0 ));
     }
 }
