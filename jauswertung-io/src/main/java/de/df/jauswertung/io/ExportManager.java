@@ -81,9 +81,6 @@ public class ExportManager {
             return !wk.getLaufliste().isEmpty();
         case HEATTIMES:
             return wk.isHeatBased() && wk.hasLaufliste();
-        case ZWLIST:
-        case ZW_STARTKARTEN:
-            return !wk.getHLWListe().isEmpty();
         case PROTOCOL:
         case REGISTRATION:
         case RESULTS:
@@ -147,8 +144,6 @@ public class ExportManager {
         return switch (datatype) {
         case STARTKARTEN -> ie.startkarten(os, wk, fb);
         case HEATLIST -> ie.heats(os, wk, fb);
-        case ZW_STARTKARTEN -> ie.zusatzwertungStartkarten(os, wk, fb);
-        case ZWLIST -> ie.zusatzwertung(os, wk, fb);
         case PROTOCOL -> ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case REGISTRATION -> ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case BEST_TIMES -> ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);

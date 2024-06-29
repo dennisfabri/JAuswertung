@@ -242,11 +242,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
                             null);
                     break;
-                case ZWLIST:
-                    core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_ZW_LIST_CHANGED, data, null,
-                            null);
-                    break;
                 case HEATTIMES:
                 case RESULTS:
                     core.setWettkampf((AWettkampf) data, false, "Import");
@@ -302,12 +297,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JFormatChooser extends WizardOptionPage implements PageSwitchListener {
 
-        /**
-         * @param wc
-         * @param title
-         * @param options
-         * @param enabled
-         */
         public JFormatChooser() {
             super(getWizard(), I18n.get("ChooseAFormat"), I18n.get("Import.ChooseAFormat.Information"),
                     ImportManager.getSupportedFormats());
@@ -333,9 +322,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         private JPanel panel = null;
 
-        /**
-         * @param arg0
-         */
         public JFilePage() {
             super(I18n.get("ChooseAFile"), I18n.get("Import.ChooseAFile.Information"));
             FileAutoCompleter.addFileAutoCompleter(filename);

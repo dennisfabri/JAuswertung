@@ -194,7 +194,7 @@ abstract class ASelectionlistPrinter implements Printer {
                 wk.removeSchwimmer(s);
             }
         }
-        return TableHeatUtils.getLaufeinteilungTabelle(wk, false);
+        return TableHeatUtils.getLaufeinteilungTabelle(wk);
     }
 
     private JTable getTable(boolean[] selected) {

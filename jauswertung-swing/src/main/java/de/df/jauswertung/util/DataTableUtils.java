@@ -5,50 +5,27 @@
 package de.df.jauswertung.util;
 
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_LANES;
-import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.SwingConstants.LEFT;
-import static javax.swing.SwingConstants.RIGHT;
+import static javax.swing.SwingConstants.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.EinzelWettkampf;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.Mannschaftsmitglied;
-import de.df.jauswertung.daten.Teilnehmer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.Disziplin;
-import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Startunterlagen;
-import de.df.jauswertung.daten.regelwerk.Strafarten;
-import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.JResultTable;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.util.data.Heattime;
-import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
-import de.df.jauswertung.util.ergebnis.FormelManager;
-import de.df.jauswertung.util.ergebnis.ResultCalculator;
-import de.df.jauswertung.util.ergebnis.SchwimmerData;
-import de.df.jauswertung.util.ergebnis.SchwimmerResult;
+import de.df.jauswertung.util.ergebnis.*;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
-import de.df.jauswertung.util.valueobjects.ZWStartkarte;
 import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
 import de.df.jauswertung.util.vergleicher.SchwimmerGeschlechtVergleicher;
 import de.df.jauswertung.util.vergleicher.SchwimmerNameVergleicher;
@@ -61,8 +38,6 @@ import de.df.jutils.io.csv.Seconds;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 import de.df.jutils.util.StringTools;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author dennis
@@ -312,7 +287,7 @@ public final class DataTableUtils {
                                         + runde);
 
                                 altersklasse(result, wkl, a, y.maennlich, diszAnzahl, maxteammembers, false, true,
-                                             true, removeUnranked, qualified);
+                                        true, removeUnranked, qualified);
                             }
                         }
                     }
@@ -1260,82 +1235,6 @@ public final class DataTableUtils {
         return row.toArray();
     }
 
-    public static <T extends ASchwimmer> ExtendedTableModel zusatzwertung(AWettkampf<T> wk, Feedback fb) {
-        if (wk == null) {
-            return null;
-        }
-        if (wk.getHLWListe().isEmpty()) {
-            return null;
-        }
-
-        HLWListe<T> laufe = wk.getHLWListe();
-        if (laufe == null) {
-            return null;
-        }
-
-        int defaultalign = SwingConstants.CENTER;
-        if (Utils.getPreferences().getBoolean("HHListLeftAlign", false)) {
-            defaultalign = SwingConstants.LEFT;
-        }
-
-        DataContainer dc = new DataContainer();
-        dc.add("TimeOfDay", RIGHT, "", "TimeOfDay", true);
-        dc.add("AgeGroup", LEFT, "", "AgeGroup", true);
-        dc.addTitle("Lanes", wk.getIntegerProperty(ZW_LANES));
-        for (int x = 1; x <= wk.getIntegerProperty(ZW_LANES); x++) {
-            dc.addI(I18n.get("LaneNumber", x), defaultalign, "", "" + x, false);
-        }
-
-        LinkedList<Object[]> result = new LinkedList<>();
-
-        int puppen = wk.getIntegerProperty(ZW_LANES);
-
-        Object[][] pause = new Object[3][2 + puppen];
-        for (int x = 0; x < pause.length; x++) {
-            for (int y = 0; y < 3; y++) {
-                pause[y][x] = "";
-            }
-        }
-        pause[1][1] = I18n.get("Pause");
-
-        int length = laufe.getLauflistenCount();
-        int counter = 0;
-        ListIterator<LinkedList<HLWLauf<T>>> lli = laufe.getIterator();
-        while (lli.hasNext()) {
-            int percent = 0;
-            int per = (counter * 100) / length;
-            if (per > percent) {
-                percent = per;
-                double y = ((double) percent) / 100;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            LinkedList<HLWLauf<T>> heats = lli.next();
-
-            for (HLWLauf<T> heat : heats) {
-                counter++;
-                for (int x = 0; x < 3; x++) {
-                    result.addLast(zusatzwertungToLine(heat, puppen, x));
-                }
-            }
-
-            for (int x = 0; x < 3; x++) {
-                result.addLast(pause[x]);
-            }
-        }
-
-        for (int x = 0; x < 3; x++) {
-            result.removeLast();
-        }
-
-        ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), dc.getTitles());
-        tm.setColumnAlignments(dc.getAlignments());
-        tm.setColumnFormats(dc.getFormats());
-        tm.setLandscape(false);
-        tm.setExtendedTitles(dc.getExtendedTitles());
-
-        return tm;
-    }
-
     public static <T extends ASchwimmer> ExtendedTableModel referees(AWettkampf<T> wk, Feedback fb) {
         if (wk == null) {
             return null;
@@ -1587,129 +1486,6 @@ public final class DataTableUtils {
         row.addLast(disz + 1);
         row.addLast(lauf.getName(scheme));
         row.addLast(x + 1);
-        return row.toArray();
-    }
-
-    public static <T extends ASchwimmer> ExtendedTableModel zusatzwertungStartkarten(AWettkampf<T> wk,
-            boolean printZWnames, Feedback fb) {
-        if (wk == null) {
-            return null;
-        }
-        HLWListe<T> laufe = wk.getHLWListe();
-        if (laufe == null) {
-            return null;
-        }
-
-        LinkedList<Object> titles = new LinkedList<>();
-        LinkedList<Integer> aligns = new LinkedList<>();
-        LinkedList<String> formats = new LinkedList<>();
-
-        titles.addLast(I18n.get("Startnumber"));
-        aligns.addLast(SwingConstants.RIGHT);
-        formats.addLast("0");
-        titles.addLast(I18n.get("Name"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Surname"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("FirstName"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("YearOfBirth"));
-        aligns.addLast(SwingConstants.RIGHT);
-        formats.addLast("00");
-        titles.addLast(I18n.get("Organisation"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("QualifikationsebeneShort"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("AgeGroup"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Sex"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Comment"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("TimeOfDay"));
-        aligns.addLast(SwingConstants.CENTER);
-        formats.addLast("");
-        titles.addLast(I18n.get("Lane"));
-        aligns.addLast(SwingConstants.CENTER);
-        formats.addLast("");
-
-        LinkedList<Object[]> result = new LinkedList<>();
-
-        LinkedList<ZWStartkarte<T>> sk = SchwimmerUtils.toZWStartkarten(wk.getHLWListe(), 1, true, 0, 0, true);
-        Collections.sort(sk, new Comparator<ZWStartkarte<T>>() {
-            @Override
-            public int compare(ZWStartkarte<T> sk1, ZWStartkarte<T> sk2) {
-                int skt2 = sk2.getTimecode();
-                int skt1 = sk1.getTimecode();
-
-                if (skt1 != skt2) {
-                    return skt1 * 100 - skt2 * 100;
-                }
-
-                return sk1.getBahnindex() - sk2.getBahnindex();
-            }
-        });
-        ListIterator<ZWStartkarte<T>> li = sk.listIterator();
-
-        int length = sk.size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent) {
-                percent = per;
-                double y = ((double) percent) / 100;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
-
-            ZWStartkarte<T> lauf = li.next();
-            result.addLast(startkarteZWToLine(lauf, printZWnames));
-        }
-
-        ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
-        tm.setColumnFormats(formats.toArray(new String[0]));
-        return tm;
-    }
-
-    private static <T extends ASchwimmer> Object[] startkarteZWToLine(ZWStartkarte<T> sk, boolean printZWnames) {
-        T schwimmer = sk.getSchwimmer();
-
-        LinkedList<Object> row = new LinkedList<>();
-
-        try {
-            row.addLast(Integer.parseInt(sk.getStartnummer()));
-        } catch (RuntimeException re) {
-            row.addLast(sk.getStartnummer());
-        }
-        if (printZWnames) {
-            row.addLast(sk.getExtendedName());
-        } else {
-            row.addLast(sk.getName());
-        }
-        row.addLast(sk.getNachname());
-        row.addLast(sk.getVorname());
-        row.addLast(I18n.yearToShortObject(sk.getJahrgang()));
-        row.addLast(sk.getGliederung());
-        row.addLast(sk.getQualifikationsebene());
-        row.addLast(sk.getAK());
-        row.addLast(I18n.geschlechtToString(schwimmer));
-        row.addLast(schwimmer.getBemerkung());
-        row.addLast(sk.getUhrzeit());
-        if (sk.getBahnindex() >= 0) {
-            row.addLast(sk.getBahnindex() + 1);
-        } else {
-            row.addLast(sk.getBahn());
-        }
         return row.toArray();
     }
 

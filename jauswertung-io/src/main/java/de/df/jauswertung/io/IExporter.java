@@ -27,8 +27,6 @@ public interface IExporter {
 
     <T extends ASchwimmer> boolean heatsoverview(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
-    <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb);
-
     <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
     <T extends ASchwimmer> boolean zeiten(OutputStream name, AWettkampf<T> wk, Feedback fb);
@@ -38,8 +36,6 @@ public interface IExporter {
     <T extends ASchwimmer> boolean protocol(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
     <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb);
-
-    <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb);
 
     <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk, Feedback fb);
 

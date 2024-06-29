@@ -405,7 +405,7 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
                     imagegraphics.transform(AffineTransform.getScaleInstance(1.0 * pwidth / length, 1.0));
                 }
                 for (int x = 0; x < bahnen; x++) {
-                    imagegraphics.drawString(text[x], xpos, (int) (pheight * 6 / 10 - height / 2 + size * (x + 0.5)));
+                    imagegraphics.drawString(text[x], xpos, (int) (6.0* pheight / 10 - height / 2.0 + size * (x + 0.5)));
                 }
 
                 break;

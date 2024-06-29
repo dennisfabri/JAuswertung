@@ -3,16 +3,9 @@
  */
 package de.df.jauswertung.gui.util;
 
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.*;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -36,7 +29,7 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
 
     private boolean isok = false;
 
-    public JDetailsDialog(JFrame parent, AWettkampf<T> wk, String whattoprint, boolean hlw) {
+    public JDetailsDialog(JFrame parent, AWettkampf<T> wk, String whattoprint) {
         super(parent, whattoprint, true);
 
         FormLayout layout = new FormLayout("4dlu,20dlu,fill:default,4dlu,fill:default,0dlu:grow,4dlu",
@@ -59,8 +52,8 @@ public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
 
         all.setSelected(true);
 
-        from = new JComboBox(TableZWUtils.getHeatNames(wk, hlw));
-        to = new JComboBox(TableZWUtils.getHeatNames(wk, hlw));
+        from = new JComboBox(TableZWUtils.getHeatNames(wk));
+        to = new JComboBox(TableZWUtils.getHeatNames(wk));
 
         from.setEnabled(false);
         to.setEnabled(false);

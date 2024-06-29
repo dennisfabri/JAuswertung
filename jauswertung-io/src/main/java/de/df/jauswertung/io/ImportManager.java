@@ -75,7 +75,6 @@ public class ImportManager {
             return false;
         }
         switch (datatype) {
-        case ZWLIST:
         case ZW_RESULTS:
             return wk.hasSchwimmer() && wk.hasHLW();
         case REGISTRATION:
@@ -128,8 +127,6 @@ public class ImportManager {
         switch (datatype) {
         case HEATLIST:
             return importer.heats(is, wk, fb);
-        case ZWLIST:
-            return importer.zusatzwertung(is, wk, fb);
         case REGISTRATION:
             return importer.registration(is, wk, fb, (LinkedList<T>) data, filename);
         case RESULTS:
@@ -263,7 +260,6 @@ public class ImportManager {
             return true;
         }
         case RESULTS:
-        case ZWLIST:
         case HEATLIST:
         case HEATTIMES:
             return data;

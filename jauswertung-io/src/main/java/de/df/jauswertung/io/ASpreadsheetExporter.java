@@ -125,7 +125,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             }
             tm.setName(I18n.get("Seriendruck"));
             tm.setExtendedTitles(null);
-            tms.addLast(new ExtendedTableModel[]{tm});
+            tms.addLast(new ExtendedTableModel[] { tm });
             repeatRows.addLast(1);
             repeatCols.addLast(wk instanceof MannschaftWettkampf ? 2 : 3);
             titles.addLast(tm.getName());
@@ -136,7 +136,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             tm = DataTableUtils.results(wk, false, null);
             tm.setName(I18n.get("Data"));
             tm.setExtendedTitles(null);
-            tms.addLast(new ExtendedTableModel[]{tm});
+            tms.addLast(new ExtendedTableModel[] { tm });
             repeatRows.addLast(1);
             repeatCols.addLast(wk instanceof MannschaftWettkampf ? 2 : 3);
             titles.addLast(tm.getName());
@@ -174,7 +174,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                         }
                         tm.setName(I18n.get("Seriendruck") + " - " + wky.getCurrentFilter().getName());
                         tm.setExtendedTitles(null);
-                        tms.addLast(new ExtendedTableModel[]{tm});
+                        tms.addLast(new ExtendedTableModel[] { tm });
                         repeatRows.addLast(1);
                         repeatCols.addLast(wkz instanceof MannschaftWettkampf ? 2 : 3);
                         titles.addLast(tm.getName());
@@ -185,7 +185,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                         tm = DataTableUtils.results(wkz, false, null);
                         tm.setName(I18n.get("Data") + " - " + wky.getCurrentFilter().getName());
                         tm.setExtendedTitles(null);
-                        tms.addLast(new ExtendedTableModel[]{tm});
+                        tms.addLast(new ExtendedTableModel[] { tm });
                         repeatRows.addLast(1);
                         repeatCols.addLast(wkz instanceof MannschaftWettkampf ? 2 : 3);
                         titles.addLast(tm.getName());
@@ -194,9 +194,9 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             }
 
             write(name, tms.toArray(new ExtendedTableModel[tms.size()][0]), 1,
-                  repeatRows.toArray(new Integer[0]),
-                  repeatCols.toArray(new Integer[0]), titles.toArray(new String[0]),
-                  wk.getStringProperty(PropertyConstants.NAME));
+                    repeatRows.toArray(new Integer[0]),
+                    repeatCols.toArray(new Integer[0]), titles.toArray(new String[0]),
+                    wk.getStringProperty(PropertyConstants.NAME));
 
             return true;
         } catch (RuntimeException | IOException e) {
@@ -205,7 +205,9 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         }
     }
 
-    private static <T extends ASchwimmer> int processCompetition(AWettkampf<T> wk, Feedback fb, Regelwerk aks, int page, LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols, LinkedList<String> titles) {
+    private static <T extends ASchwimmer> int processCompetition(AWettkampf<T> wk, Feedback fb, Regelwerk aks, int page,
+            LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
+            LinkedList<String> titles) {
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
             if (ak.hasMehrkampfwertung()) {
@@ -216,7 +218,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
                         fb.showFeedback(I18n.get("PageNr", page));
                         ExtendedTableModel tm = DataTableUtils.results(wk, ak, y == 1, false, 0);
                         if (tm != null) {
-                            tms.addLast(new ExtendedTableModel[]{tm});
+                            tms.addLast(new ExtendedTableModel[] { tm });
                             repeatRows.addLast(2);
                             repeatCols.addLast(wk instanceof MannschaftWettkampf ? 2 : 3);
                             titles.addLast(tm.getName());
@@ -229,8 +231,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     }
 
     private <T extends ASchwimmer> int generateEinzelwertung(AWettkampf<T> wk, Feedback fb,
-                                                             LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
-                                                             LinkedList<String> titles, Regelwerk aks, int page) {
+            LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
+            LinkedList<String> titles, Regelwerk aks, int page) {
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
             if (ak.hasEinzelwertung()) {
@@ -262,8 +264,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
 
     @SuppressWarnings("unchecked")
     private <T extends ASchwimmer> int generateRounds(AWettkampf<T> wk, Feedback fb,
-                                                      LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
-                                                      LinkedList<String> titles, int page) {
+            LinkedList<ExtendedTableModel[]> tms, LinkedList<Integer> repeatRows, LinkedList<Integer> repeatCols,
+            LinkedList<String> titles, int page) {
         Regelwerk aks = wk.getRegelwerk();
         for (int akNummer = 0; akNummer < aks.size(); akNummer++) {
             Altersklasse ak = aks.getAk(akNummer);
@@ -277,8 +279,8 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
 
                 OWDisziplin<T>[] owds = wk.getLauflisteOW().getDisziplinen();
                 owds = Arrays.stream(owds).filter(y -> y.akNummer == akn && y.maennlich == male)
-                             .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100)
-                             .toArray(OWDisziplin[]::new);
+                        .sorted((o1, o2) -> (o1.disziplin - o2.disziplin) + (o2.round - o1.round) * 100)
+                        .toArray(OWDisziplin[]::new);
                 for (OWDisziplin<T> owd : owds) {
                     OWSelection ows = new OWSelection(ak, owd.akNummer, owd.maennlich, owd.disziplin, owd.round);
                     ExtendedTableModel tm = generateRound(wk, ows, fb);
@@ -322,16 +324,16 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         if (!isFinal || round == 0) {
             Regelwerk rw = wk.getRegelwerk();
             rw.setFormelID(switch (rw.getFormelID()) {
-                case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
-                case FormelDLRG2007Finals.ID -> FormelDLRG2007.ID;
-                default -> FormelILS.ID;
+            case FormelILSOutdoorFinals.ID -> FormelILSOutdoor.ID;
+            case FormelDLRG2007Finals.ID -> FormelDLRG2007.ID;
+            default -> FormelILS.ID;
             });
         }
 
         LinkedList<T> llak = SearchUtils.getSchwimmer(wk, ak, maennlich);
         if ((llak != null) && (!llak.isEmpty())) {
             ak = wk.getRegelwerk().getAk(ows.akNummer);
-            return DataTableUtils.resultsEinzelwertung(wk, ak, maennlich, discipline,false, qualification);
+            return DataTableUtils.resultsEinzelwertung(wk, ak, maennlich, discipline, false, qualification);
         }
         return null;
     }
@@ -353,7 +355,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
             schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
             ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null,
-                                                                true, fb);
+                    true, fb);
             if (tm == null) {
                 return false;
             }
@@ -368,15 +370,15 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     }
 
     private void write(OutputStream name, ExtendedTableModel tm, int groupsize, int repeatrows,
-                       int repeatcols, String competition) throws IOException {
-        write(name, new ExtendedTableModel[]{tm}, groupsize, repeatrows, repeatcols, competition);
+            int repeatcols, String competition) throws IOException {
+        write(name, new ExtendedTableModel[] { tm }, groupsize, repeatrows, repeatcols, competition);
     }
 
     protected abstract void write(OutputStream name, ExtendedTableModel[] tms, int groupsize, int repeatrows,
-                                  int repeatcols, String competition) throws IOException;
+            int repeatcols, String competition) throws IOException;
 
     protected abstract void write(OutputStream name, ExtendedTableModel[][] tms, int groupsize, Integer[] repeatrows,
-                                  Integer[] repeatcols, String[] titles, String competition) throws IOException;
+            Integer[] repeatcols, String[] titles, String competition) throws IOException;
 
     @Override
     public final <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
@@ -402,35 +404,10 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     }
 
     @Override
-    public final <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk,
-                                                                         Feedback fb) {
-        if (wk == null) {
-            return false;
-        }
-        if (name == null) {
-            return false;
-        }
-        try {
-            ExtendedTableModel tm = DataTableUtils.zusatzwertungStartkarten(wk, PrintUtils.printZWnames, fb);
-            if (tm == null) {
-                return false;
-            }
-            tm.setName(I18n.get("ZWStartkarten"));
-            tm.setLandscape(false);
-            write(name, tm, 1, 1, 1, wk.getStringProperty(PropertyConstants.NAME));
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
     public final boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-            case REGISTRATION, HEATLIST, ZWLIST, STARTKARTEN, ZW_STARTKARTEN, RESULTS, REFEREES, TEAMMEMBERS, ZW_RESULTS, BEST_TIMES, HEATS_OVERVIEW ->
-                    true;
-            default -> false;
+        case REGISTRATION, HEATLIST, STARTKARTEN, RESULTS, REFEREES, TEAMMEMBERS, ZW_RESULTS, BEST_TIMES, HEATS_OVERVIEW -> true;
+        default -> false;
         };
     }
 
@@ -450,7 +427,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             tm.setName(I18n.get("Laufliste"));
             tm.setLandscape(true);
             write(name, tm, wk.getLaufliste().hasMixedHeats() ? 3 : 2, 2, 3,
-                  wk.getStringProperty(PropertyConstants.NAME));
+                    wk.getStringProperty(PropertyConstants.NAME));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -483,29 +460,6 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
         }
     }
 
-    @Override
-    public final <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        if (wk == null) {
-            return false;
-        }
-        if (name == null) {
-            return false;
-        }
-        try {
-            ExtendedTableModel tm = DataTableUtils.zusatzwertung(wk, fb);
-            if (tm == null) {
-                return false;
-            }
-            tm.setName(I18n.get("ZWList"));
-            tm.setLandscape(true);
-            write(name, tm, 3, 2, 2, wk.getStringProperty(PropertyConstants.NAME));
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     /**
      * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
      *
@@ -515,7 +469,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
      */
     @Override
     public final synchronized <T extends ASchwimmer> boolean referees(OutputStream name, AWettkampf<T> wk,
-                                                                      Feedback fb) {
+            Feedback fb) {
         if (wk == null) {
             return false;
         }

@@ -132,7 +132,7 @@ abstract class AFilledKartenPrinter implements Printer {
             int minheat, int maxheat);
 
     <T extends ASchwimmer> boolean askForDetails(AWettkampf<T> wk) {
-        JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text, false);
+        JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text);
         EDTUtils.setVisible(details, true);
         if (details.isOk()) {
             allheats = details.printAllHeats();

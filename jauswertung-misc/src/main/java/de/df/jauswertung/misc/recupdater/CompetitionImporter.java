@@ -44,8 +44,8 @@ public class CompetitionImporter implements IImporter {
 
     private static String[] merge(String[] first, String[] second) {
         List<String> result = new ArrayList<>();
-        Arrays.stream(first).forEach(result::add);
-        Arrays.stream(second).forEach(result::add);
+        result.addAll(Arrays.asList(first));
+        result.addAll(Arrays.asList(second));
         return result.toArray(String[]::new);
     }
 

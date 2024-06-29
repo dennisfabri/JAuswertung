@@ -42,17 +42,6 @@ public final class PropertyConstants {
     public static final String HEATS_AAE_FASTEST_HEAT_UNTOUCHED = "HeatsAAEFastestHeatUntouched";
     public static final String HEATS_REGISTERED_POINTS_INDEX = "HeatsRegisteredPointsIndex";
     public static final String HEATS_NUMBERING_SCHEME = "HeatsNumberingScheme";
-    public static final String ZW_CHANGE_BLOCKED = "HlwChangeBlocked";
-    public static final String ZW_PAUSE_DURATION = "HlwPauseDuration";
-    public static final String ZW_PAUSE_START = "HlwPauseStart";
-    public static final String ZW_PAUSE = "HlwDoPause";
-    public static final String ZW_SORTING_ORDER = "HlwSortingOrder";
-    public static final String ZW_LANES = "HlwPhantoms";
-    public static final String ZW_DURATION = "HlwDuration";
-    public static final String ZW_STARTTIME = "HlwStarttime";
-    public static final String ZW_EMPTY_LIST = "HlwEmptyList";
-    public static final String ZW_PAUSE_AGEGROUPS = "HlwPauseAgegroups";
-    public static final String ZW_PAUSE_RESTARTS = "HlwPauseRestarts";
     public static final String ZW_RESPECT_QUALIFICATIONS = "HlwRespectQualifications";
     public static final String ZW_PAUSE_MODE = "HlwPauseMode";
     public static final String ZW_IGNORE_AK_SWIMMERS = "HlwIgnoreAKSwimmers";
@@ -69,7 +58,6 @@ public final class PropertyConstants {
     public static final String YEAR_OF_COMPETITION = "YearOfCompetition";
     public static final String ZULASSUNG_REGISTERED_POINTS_INDEX = "ZulassungRegisteredPointsIndex";
     public static final String DOPING_REGISTERED_POINTS_INDEX = "DopingRegisteredPointsIndex";
-    public static final String SUK_ALLE = "StartunterlagenkontrolleAlle";
     public static final String SUK_REGISTERED_POINTS_INDEX = "StartunterlagenkontrolleRegisteredPointsIndex";
     public static final String DSM_MODE_DATA = "DSMModeData";
     public static final String NAMENTLICHE_MELDUNG_STRIKT = "NamentlicheMeldungStrikt";

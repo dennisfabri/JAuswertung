@@ -37,7 +37,7 @@ public final class HttpMassExport {
 
     public static void main(String[] args) {
         int minutes = (int) Double.parseDouble(args[1]);
-        long time = 1L * minutes * 60 * 1000;
+        long time = (long) minutes * 60 * 1000;
         System.out.println("JAuswertung HttpMassExport");
         System.out.println("  Source host:             " + args[0]);
         System.out.println("  Output directory:        " + args[2]);

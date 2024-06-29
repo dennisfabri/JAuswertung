@@ -161,7 +161,7 @@ class LauflistenPrinter implements Printer {
 
     final class PreviewActionListener implements ActionListener {
 
-        class PPrintableCreator implements PrintableCreator {
+        static class PPrintableCreator implements PrintableCreator {
 
             private AWettkampf[] wkx;
 

@@ -121,7 +121,7 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         }
     }
 
-    private class IdSelection {
+    private static class IdSelection {
 
         private final int roundId;
         private final OWSelection selection;
@@ -149,7 +149,7 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
 
     }
 
-    private class OWInfo {
+    private static class OWInfo {
 
         private final OWSelection selection;
         private final int laufIndex;

@@ -22,7 +22,6 @@ import de.df.jauswertung.print.PrintableCreator;
 import de.df.jauswertung.print.ProtocolPrintable;
 import de.df.jauswertung.print.RefereesPrintableCreator;
 import de.df.jauswertung.print.StartkartenPrintable;
-import de.df.jauswertung.print.ZWStartkartenPrintable;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.io.PdfOutput;
@@ -49,22 +48,10 @@ public class PdfExporter extends EmptyExporter {
 
     @Override
     public boolean isSupported(ImportExportTypes type) {
-        switch (type) {
-        case HEATLIST:
-        case ZWLIST:
-        case REGISTRATION:
-        case STARTKARTEN:
-        case RESULTS:
-        case PROTOCOL:
-        case ZW_STARTKARTEN:
-        case PENALTIES:
-        case REFEREES:
-        case ZW_RESULTS:
-        case BEST_TIMES:
-            return true;
-        default:
-            return false;
-        }
+        return switch (type) {
+        case HEATLIST, REGISTRATION, STARTKARTEN, RESULTS, PROTOCOL, PENALTIES, REFEREES, ZW_RESULTS, BEST_TIMES -> true;
+        default -> false;
+        };
     }
 
     @Override
@@ -99,15 +86,6 @@ public class PdfExporter extends EmptyExporter {
     }
 
     @Override
-    public <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        Printable p = PrintManager.getPrintable(TableZWUtils.getZWUebersicht(wk), (String) null,
-                JTablePrintable.OPT_ALL, true, true);
-        return PdfOutput.write(name,
-                PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("ZWList"), I18n.get("ZWList")),
-                false, fb);
-    }
-
-    @Override
     public <T extends ASchwimmer> boolean results(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return PdfOutput.write(name,
                 PrintManager.getFinalPrintable(PrintUtils.getResultsPrintable(wk, false, true, false, 0),
@@ -119,14 +97,6 @@ public class PdfExporter extends EmptyExporter {
     public <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return PdfOutput.write(name,
                 new StartkartenPrintable(wk, PageMode.FOUR_PER_PAGE, PrintUtils.printEmptyCards, true, 0, 0), true, fb);
-    }
-
-    @Override
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return PdfOutput.write(name,
-                new ZWStartkartenPrintable(wk, PageMode.FOUR_PER_PAGE, true, 0, 0, true, false, PrintUtils.barcodeType),
-                true, fb);
     }
 
     @Override

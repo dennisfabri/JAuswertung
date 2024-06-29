@@ -158,9 +158,9 @@ class LaufergebnissePrinter implements Printer {
 
     final class PreviewActionListener implements ActionListener {
 
-        class PPrintableCreator implements PrintableCreator {
+        static class PPrintableCreator implements PrintableCreator {
 
-            private AWettkampf[] wkx;
+            private final AWettkampf[] wkx;
 
             public PPrintableCreator(AWettkampf[] wk) {
                 this.wkx = wk;
