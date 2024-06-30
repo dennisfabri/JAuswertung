@@ -2,9 +2,6 @@ package de.df.jauswertung.gui.veranstaltung;
 
 public class Veranstaltungswertung {
 
-    /**
-     * @param args
-     */
     public static void start() {
         new JVeranstaltungswertung().setVisible(true);
     }

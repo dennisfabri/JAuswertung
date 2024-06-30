@@ -26,7 +26,18 @@ import de.df.jauswertung.util.ergebnis.FormelMedaillen;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 
+import static java.util.Arrays.stream;
+
 public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
+
+    public boolean doesNotHaveAnyPoints() {
+        for (SchwimmerResult<ASchwimmer>[] r : results) {
+            if (stream(r).anyMatch(x -> x.getPoints() > 0.005)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     static final class GesamtwertungSchwimmerComparator implements Comparator<Object> {
         @Override

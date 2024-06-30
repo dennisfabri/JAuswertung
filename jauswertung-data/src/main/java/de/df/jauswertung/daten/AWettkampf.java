@@ -7,6 +7,9 @@ import static de.df.jauswertung.daten.PropertyConstants.*;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.BooleanSupplier;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.dom4j.Element;
 
@@ -608,6 +611,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             removeSchwimmerI(aT);
         }
         changedNow(true);
+    }
+
+    public final synchronized void removeSchwimmer(Predicate<T> condition) {
+        removeSchwimmer(getSchwimmer().stream().filter(condition).toList());
     }
 
     public final synchronized boolean removeSchwimmer(T t) {

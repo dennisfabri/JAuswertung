@@ -1,17 +1,10 @@
-/*
- * Altersklassen.java Created on 10. Februar 2001, 02:15
- */
-
 package de.df.jauswertung.daten.regelwerk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Stack;
+import java.util.*;
 import java.util.zip.CRC32;
 
 import org.dom4j.Element;
@@ -32,6 +25,7 @@ import de.df.jutils.util.StringTools;
  */
 public class Regelwerk implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2388841285709038732L;
 
     /**
@@ -104,7 +98,7 @@ public class Regelwerk implements Serializable {
     /**
      * Erzeugt "anzahl" neue Altersklassen.
      * 
-     * @param anzahl  Gibt die Anzahl der zu erzeugenden Altersklassen an.
+     * @param anzahl   Gibt die Anzahl der zu erzeugenden Altersklassen an.
      * @param isEinzel Mannschafts- oder Einzelaltersklassen
      */
     public Regelwerk(int anzahl, boolean isEinzel, String formel) {
@@ -116,47 +110,11 @@ public class Regelwerk implements Serializable {
         }
     }
 
-    public boolean addStartgruppe(Startgruppe name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name must not be null!");
-        }
-        if (startgruppen == null) {
-            startgruppen = new LinkedList<>();
-        }
-        if (startgruppen.contains(name)) {
-            return false;
-        }
-        startgruppen.add(name);
-        return true;
-    }
-
-    public boolean removeStartgruppe(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name must not be null!");
-        }
-        if (name.trim().length() == 0) {
-            throw new IllegalArgumentException("Name must not be empty!");
-        }
-        if (startgruppen == null) {
-            startgruppen = new LinkedList<>();
-        }
-        boolean found = false;
-        ListIterator<Startgruppe> li = startgruppen.listIterator();
-        while (li.hasNext()) {
-            Startgruppe sg = li.next();
-            if (sg.getName().equals(name)) {
-                li.remove();
-                found = true;
-            }
-        }
-        return found;
-    }
-
     public Startgruppe[] getStartgruppen() {
         if (startgruppen == null) {
             return new Startgruppe[0];
         }
-        return startgruppen.toArray(new Startgruppe[startgruppen.size()]);
+        return startgruppen.toArray(new Startgruppe[0]);
     }
 
     public int getStartgruppenindex(String name) {
@@ -174,7 +132,7 @@ public class Regelwerk implements Serializable {
     }
 
     public Startgruppe getStartgruppe(String name) {
-        if ((name == null) || (name.length() == 0)) {
+        if ((name == null) || name.isEmpty()) {
             throw new IllegalArgumentException("Name of startgroup must not be null or empty but was <" + name + ">.");
         }
         if (startgruppen == null) {
@@ -190,16 +148,14 @@ public class Regelwerk implements Serializable {
 
     public void setStartgruppen(Startgruppe[] gruppen) {
         startgruppen = new LinkedList<>();
-        for (Startgruppe gruppe : gruppen) {
-            startgruppen.add(gruppe);
-        }
-        for (int x = 0; x < aks.length; x++) {
-            if (aks[x].getStartgruppe() != null) {
-                String name = aks[x].getStartgruppe();
-                aks[x].setStartgruppe(null);
+        Collections.addAll(startgruppen, gruppen);
+        for (Altersklasse ak : aks) {
+            if (ak.getStartgruppe() != null) {
+                String name = ak.getStartgruppe();
+                ak.setStartgruppe(null);
                 for (Startgruppe gruppe : startgruppen) {
                     if (name.equals(gruppe.getName())) {
-                        aks[x].setStartgruppe(gruppe.getName());
+                        ak.setStartgruppe(gruppe.getName());
                     }
                 }
             }
@@ -221,48 +177,25 @@ public class Regelwerk implements Serializable {
                     wgs.add(wg);
                 }
             }
-            return wgs.toArray(new Wertungsgruppe[wgs.size()]);
+            return wgs.toArray(new Wertungsgruppe[0]);
         }
-        return wertungsgruppen.toArray(new Wertungsgruppe[wertungsgruppen.size()]);
+        return wertungsgruppen.toArray(new Wertungsgruppe[0]);
     }
 
     public void setWertungsgruppen(Wertungsgruppe[] gruppen) {
         wertungsgruppen = new LinkedList<>();
-        for (Wertungsgruppe gruppe : gruppen) {
-            wertungsgruppen.add(gruppe);
-        }
-        for (int x = 0; x < aks.length; x++) {
-            if (aks[x].getWertungsgruppe() != null) {
-                String name = aks[x].getWertungsgruppe();
-                aks[x].setWertungsgruppe(null);
+        Collections.addAll(wertungsgruppen, gruppen);
+        for (Altersklasse ak : aks) {
+            if (ak.getWertungsgruppe() != null) {
+                String name = ak.getWertungsgruppe();
+                ak.setWertungsgruppe(null);
                 for (Wertungsgruppe gruppe : wertungsgruppen) {
                     if (name.equals(gruppe.getName())) {
-                        aks[x].setWertungsgruppe(gruppe.getName());
+                        ak.setWertungsgruppe(gruppe.getName());
                     }
                 }
             }
         }
-    }
-
-    public boolean addWertungsgruppe(Wertungsgruppe gruppe) {
-        if (wertungsgruppen == null) {
-            wertungsgruppen = new LinkedList<>();
-        }
-        if (wertungsgruppen.contains(gruppe)) {
-            return false;
-        }
-        wertungsgruppen.add(gruppe);
-        return true;
-    }
-
-    public boolean removeWertungsgruppe(Wertungsgruppe gruppe) {
-        if (gruppe == null) {
-            throw new IllegalArgumentException("Group must not be null!");
-        }
-        if (wertungsgruppen == null) {
-            wertungsgruppen = new LinkedList<>();
-        }
-        return wertungsgruppen.remove(gruppe);
     }
 
     public void setSize(int count) {
@@ -372,17 +305,6 @@ public class Regelwerk implements Serializable {
         return false;
     }
 
-    public int getHLWCount() {
-        int count = 0;
-        for (Altersklasse ak : aks) {
-            if (ak.hasHLW()) {
-                count++;
-            }
-        }
-        return count;
-
-    }
-
     /**
      * @return Returns the einzel.
      */
@@ -469,8 +391,7 @@ public class Regelwerk implements Serializable {
     }
 
     public String getChecksum(String[] aknames) {
-        LinkedList<Altersklasse> akx = new LinkedList<>();
-        akx.addAll(Arrays.asList(aks));
+        LinkedList<Altersklasse> akx = new LinkedList<>(Arrays.asList(aks));
         ListIterator<Altersklasse> li = akx.listIterator();
         while (li.hasNext()) {
             Altersklasse ak = li.next();
@@ -492,17 +413,12 @@ public class Regelwerk implements Serializable {
             return "-";
         }
 
-        return getChecksum(akx.toArray(new Altersklasse[akx.size()]));
+        return getChecksum(akx.toArray(new Altersklasse[0]));
     }
 
     private static String getChecksum(Altersklasse[] aks) {
         Altersklasse[] temp = Arrays.copyOf(aks, aks.length);
-        Arrays.sort(temp, new Comparator<Altersklasse>() {
-            @Override
-            public int compare(Altersklasse o1, Altersklasse o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        Arrays.sort(temp, Comparator.comparing(Altersklasse::getName));
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
         PrintStream ps = new PrintStream(bos);
@@ -523,8 +439,8 @@ public class Regelwerk implements Serializable {
     public static void migrator1(Element node) {
         node.addElement("startgruppen");
         node.addElement("wertungsgruppen");
-        for (Object ak : node.element("aks").elements()) {
-            Altersklasse.migrator1((Element) ak);
+        for (Element ak : node.element("aks").elements()) {
+            Altersklasse.migrator1(ak);
         }
     }
 
@@ -537,8 +453,8 @@ public class Regelwerk implements Serializable {
         node.addElement("zusatzwertung").setText("HLW");
         node.addElement("zusatzwertungKurz").setText("HLW");
         node.addElement("zusatzwertungBasispunkte").setText("200");
-        for (Object ak : node.element("aks").elements()) {
-            Altersklasse.migrator2((Element) ak);
+        for (Element ak : node.element("aks").elements()) {
+            Altersklasse.migrator2(ak);
         }
     }
 
@@ -573,7 +489,6 @@ public class Regelwerk implements Serializable {
                             for (int y = 0; y < 2; y++) {
                                 Disziplin dx = base.getDisziplin(x, y == 1);
                                 Disziplin dy = ak.getDisziplin(x, y == 1);
-                                // if (!dx.equals(dy)) {
                                 if (!dx.getName().equals(dy.getName())) {
                                     return false;
                                 }
@@ -598,6 +513,9 @@ public class Regelwerk implements Serializable {
                     if (base == null) {
                         base = ak;
                     } else {
+                        if (base.hasHLW() != ak.hasHLW()) {
+                            return false;
+                        }
                         if (base.getDiszAnzahl() != ak.getDiszAnzahl()) {
                             return false;
                         }
@@ -637,22 +555,8 @@ public class Regelwerk implements Serializable {
 
     public Altersklasse[] getAks() {
         Altersklasse[] result = new Altersklasse[aks.length];
-        for (int x = 0; x < aks.length; x++) {
-            result[x] = aks[x];
-        }
+        System.arraycopy(aks, 0, result, 0, aks.length);
         return result;
-    }
-
-    public synchronized void addAk(Altersklasse ak) {
-        if (ak == null) {
-            throw new IllegalArgumentException("Agegroup must not be null.");
-        }
-        Altersklasse[] naks = new Altersklasse[aks.length + 1];
-        for (int x = 0; x < aks.length; x++) {
-            naks[x] = aks[x];
-        }
-        naks[aks.length] = ak;
-        aks = naks;
     }
 
     public synchronized Startgruppe[] getEffektiveStartgruppen() {
@@ -663,7 +567,7 @@ public class Regelwerk implements Serializable {
                 sgs.add(sg);
             }
         }
-        return sgs.toArray(new Startgruppe[sgs.size()]);
+        return sgs.toArray(new Startgruppe[0]);
     }
 
     public Startgruppe getStartgruppe(Altersklasse ak) {
