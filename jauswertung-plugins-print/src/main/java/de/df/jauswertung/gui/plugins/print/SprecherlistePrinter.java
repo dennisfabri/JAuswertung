@@ -182,9 +182,9 @@ class SprecherlistePrinter implements Printer {
                         printLaufliste(t, false, discipline, times);
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
             }
@@ -219,9 +219,9 @@ class SprecherlistePrinter implements Printer {
                                 getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), getName(),
                         IconManager.getIconBundle(), IconManager.getTitleImages());

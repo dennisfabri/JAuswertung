@@ -143,8 +143,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 }
             }
         };
-        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen",
-                OWUtils.getCurrentRounds(wk), cb);
+        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen",
+                                       OWUtils.getCurrentRounds(wk), cb);
     }
 
     <T extends ASchwimmer> void loescheLaufliste(OWSelection t) {
@@ -169,8 +169,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 bearbeiteLaufliste(s);
             }
         };
-        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
-                OWUtils.getCurrentRounds(wk), cb);
+        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
+                                  OWUtils.getCurrentRounds(wk), cb);
     }
 
     private void zeigeLaufliste() {
@@ -190,8 +190,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 zeigeLaufliste(s);
             }
         };
-        OWUtils.ShowRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",
-                OWUtils.getCreatedRounds(wk, true), cb);
+        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",
+                                  OWUtils.getCreatedRounds(wk, true), cb);
     }
 
     private <T extends ASchwimmer> void bearbeiteLaufliste(OWSelection t) {
@@ -270,8 +270,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     neueLaufliste(t, askForPrint);
             }
         };
-        OWUtils.ShowRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
-                OWUtils.getCreatableRounds(wk), cb);
+        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
+                                       OWUtils.getCreatableRounds(wk), cb);
     }
 
     <T extends ASchwimmer> void neueLaufliste(OWSelection t, boolean askForPrint) {

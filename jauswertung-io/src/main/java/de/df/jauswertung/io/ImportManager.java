@@ -81,14 +81,14 @@ public class ImportManager {
             return true;
         case REFEREES:
             return wk.getKampfrichterverwaltung() != null;
-        case TEAMMEMBERS:
+        case TEAM_MEMBERS:
             return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
         case STARTERS:
             return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf && Utils.isInDevelopmentMode();
-        case HEATTIMES:
+        case HEAT_TIMES:
             return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
         case RESULTS:
-        case HEATLIST:
+        case HEAT_LIST:
             return wk.hasSchwimmer();
         case REGISTRATION_UPDATE:
             return wk.hasSchwimmer() && Utils.isInDevelopmentMode();
@@ -125,7 +125,7 @@ public class ImportManager {
             fb = new NullFeedback();
         }
         switch (datatype) {
-        case HEATLIST:
+        case HEAT_LIST:
             return importer.heats(is, wk, fb);
         case REGISTRATION:
             return importer.registration(is, wk, fb, (LinkedList<T>) data, filename);
@@ -133,11 +133,11 @@ public class ImportManager {
             return importer.results(is, wk, fb);
         case REFEREES:
             return importer.referees(is, wk, fb);
-        case TEAMMEMBERS:
+        case TEAM_MEMBERS:
             return importer.teammembers(is, wk, fb);
         case ZW_RESULTS:
             return importer.zusatzwertungResults(is, wk, fb);
-        case HEATTIMES:
+        case HEAT_TIMES:
             return importer.heattimes(is, wk, fb);
         case REGISTRATION_UPDATE:
             return importer.registrationUpdate(is, wk, fb, (LinkedList<T>) data, filename);
@@ -208,7 +208,7 @@ public class ImportManager {
             }
             break;
         }
-        case TEAMMEMBERS: {
+        case TEAM_MEMBERS: {
             Hashtable<String, String[]> names = (Hashtable<String, String[]>) data;
             Enumeration<String> keys = names.keys();
             while (keys.hasMoreElements()) {
@@ -260,8 +260,8 @@ public class ImportManager {
             return true;
         }
         case RESULTS:
-        case HEATLIST:
-        case HEATTIMES:
+        case HEAT_LIST:
+        case HEAT_TIMES:
             return data;
         case REFEREES:
             wk.setKampfrichterverwaltung((KampfrichterVerwaltung) data);

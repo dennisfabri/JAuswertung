@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.*;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.PrintUtils;
@@ -218,7 +217,7 @@ public class CsvExporter extends EmptyExporter {
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
         case STARTERS -> Utils.isInDevelopmentMode();
-        case HEATLIST, STARTKARTEN, REGISTRATION, RESULTS, REFEREES, TEAMMEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
+        case HEAT_LIST, STARTKARTEN, REGISTRATION, RESULTS, REFEREES, TEAM_MEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
         default -> false;
         };
     }

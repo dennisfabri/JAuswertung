@@ -36,7 +36,7 @@ public class CsvUtils {
 
     public static Object[][] read(InputStream name) {
 
-        String[] lines = FileUtils.readTextFile(name);
+        String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
         if ((lines == null) || (lines.length <= 1)) {
             return null;
         }

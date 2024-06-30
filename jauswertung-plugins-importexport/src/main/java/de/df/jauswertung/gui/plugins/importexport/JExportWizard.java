@@ -242,7 +242,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
                 @SuppressWarnings("rawtypes")
                 AWettkampf wk = core.getWettkampf();
                 for (ImportExportTypes type : ImportExportTypes.values()) {
-                    boolean enabled = (mode == ImportExportMode.Normal) || (type == ImportExportTypes.TEAMMEMBERS);
+                    boolean enabled = (mode == ImportExportMode.Normal) || (type == ImportExportTypes.TEAM_MEMBERS);
                     setEnabled(type.getValue(), enabled && ExportManager.isEnabled(wk, type));
                 }
                 update();

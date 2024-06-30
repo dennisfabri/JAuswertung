@@ -184,7 +184,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         EDTUtils.setEnabled(this, false);
 
-        SwingWorker<Boolean, Object> sw = new SwingWorker<Boolean, Object>() {
+        SwingWorker<Boolean, Object> sw = new SwingWorker<>() {
 
             @Override
             protected Boolean doInBackground() throws Exception {
@@ -237,12 +237,12 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                             UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
                             null, null);
                     break;
-                case HEATLIST:
+                case HEAT_LIST:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
                             null);
                     break;
-                case HEATTIMES:
+                case HEAT_TIMES:
                 case RESULTS:
                     core.setWettkampf((AWettkampf) data, false, "Import");
                     controller.sendDataUpdateEvent("Import",
@@ -253,7 +253,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
                             null);
                     break;
-                case TEAMMEMBERS:
+                case TEAM_MEMBERS:
                     controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
                             null);
                     break;
@@ -280,7 +280,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     ExportManager.NAMES);
             this.mode = mode;
             for (ImportExportTypes t : ImportExportTypes.values()) {
-                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAMMEMBERS);
+                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAM_MEMBERS);
                 setEnabled(t.getValue(), enabled && ImportManager.isEnabled(core.getWettkampf(), t));
             }
         }
@@ -288,7 +288,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         @Override
         public void update() {
             for (ImportExportTypes t : ImportExportTypes.values()) {
-                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAMMEMBERS);
+                boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAM_MEMBERS);
                 setEnabled(t.getValue(), enabled && ImportManager.isEnabled(core.getWettkampf(), t));
             }
             super.update();
@@ -707,7 +707,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     amount.setText("" + r.size());
                     break;
                 }
-                case TEAMMEMBERS: {
+                case TEAM_MEMBERS: {
                     @SuppressWarnings("unchecked")
                     Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
                     Enumeration<String> sns = names.keys();

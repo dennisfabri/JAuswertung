@@ -24,7 +24,7 @@ public class EasyWKExporter extends EmptyExporter {
     @Override
     public final boolean isSupported(ImportExportTypes type) {
         switch (type) {
-        case HEATTIMES:
+        case HEAT_TIMES:
             return true;
         default:
             return false;

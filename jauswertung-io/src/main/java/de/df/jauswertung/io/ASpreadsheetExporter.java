@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.swing.JTable;
@@ -389,6 +388,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             return false;
         }
         try {
+
             ExtendedTableModel tm = DataTableUtils.startkarten(wk, fb);
             if (tm == null) {
                 return false;
@@ -406,7 +406,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
     @Override
     public final boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-        case REGISTRATION, HEATLIST, STARTKARTEN, RESULTS, REFEREES, TEAMMEMBERS, ZW_RESULTS, BEST_TIMES, HEATS_OVERVIEW -> true;
+        case REGISTRATION, HEAT_LIST, STARTKARTEN, RESULTS, REFEREES, TEAM_MEMBERS, ZW_RESULTS, BEST_TIMES, HEATS_OVERVIEW -> true;
         default -> false;
         };
     }

@@ -150,9 +150,9 @@ class LauflistenPrinter implements Printer {
                         printLaufliste(t);
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.print(getPrintable(), I18n.get("Laufliste"), true, controller.getWindow());
             }
@@ -190,9 +190,9 @@ class LauflistenPrinter implements Printer {
                                 I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }),
                         I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());

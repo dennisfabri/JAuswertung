@@ -15,7 +15,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.TableHeatUtils;
-import de.df.jauswertung.gui.util.TableZWUtils;
 import de.df.jauswertung.print.PenaltyCatalogPrintable;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.PrintableCreator;
@@ -49,7 +48,7 @@ public class PdfExporter extends EmptyExporter {
     @Override
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-        case HEATLIST, REGISTRATION, STARTKARTEN, RESULTS, PROTOCOL, PENALTIES, REFEREES, ZW_RESULTS, BEST_TIMES -> true;
+        case HEAT_LIST, REGISTRATION, STARTKARTEN, RESULTS, PROTOCOL, PENALTIES, REFEREES, ZW_RESULTS, BEST_TIMES -> true;
         default -> false;
         };
     }

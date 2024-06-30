@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum ImportExportTypes {
 
     REGISTRATION(0),
-    HEATLIST(1),
+    HEAT_LIST(1),
     STARTKARTEN(2),
     HEATS_OVERVIEW(3),
     RESULTS(4),
@@ -14,9 +14,9 @@ public enum ImportExportTypes {
     REFEREES(7),
     WEITERMELDUNG(8),
     PENALTIES(9),
-    TEAMMEMBERS(10),
+    TEAM_MEMBERS(10),
     BEST_TIMES(11),
-    HEATTIMES(12),
+    HEAT_TIMES(12),
     TIMES(13),
     REGISTRATION_UPDATE(14),
     STARTERS(15);

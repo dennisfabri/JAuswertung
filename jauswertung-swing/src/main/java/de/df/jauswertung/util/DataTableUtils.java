@@ -116,27 +116,6 @@ public final class DataTableUtils {
         }
     }
 
-    public static String detectMitglieder(String[] titles, Object[] data) {
-        String[] dat = new String[data.length];
-        for (int x = 0; x < data.length; x++) {
-            if (data[x] != null) {
-                dat[x] = data[x].toString();
-            } else {
-                dat[x] = "";
-            }
-        }
-        return detectMitglieder(titles, dat);
-    }
-
-    public static int identify(String[] titles, String title) {
-        for (int x = 0; x < titles.length; x++) {
-            if (titles[x].equalsIgnoreCase(title)) {
-                return x;
-            }
-        }
-        return -1;
-    }
-
     public static String detectMitglieder(String[] titles, String[] data) {
         LinkedList<Integer> index = new LinkedList<>();
         boolean found = true;
@@ -155,10 +134,9 @@ public final class DataTableUtils {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        ListIterator<Integer> li = index.listIterator();
         boolean first = true;
-        while (li.hasNext()) {
-            String name = data[li.next()].trim().replace(';', ',');
+        for (Integer i : index) {
+            String name = data[i].trim().replace(';', ',');
             if (!name.isEmpty()) {
                 if (first) {
                     first = false;
@@ -703,12 +681,12 @@ public final class DataTableUtils {
             ks = ks.mit(KampfrichterStufe.F1);
             s = s.replace("F1", "");
         }
-        if (s.indexOf("E2") >= 0) {
+        if (s.contains("E2")) {
             ks = ks.mit(KampfrichterStufe.E2);
             s = s.replace("E2", "");
         }
 
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             return null;
         }
         return ks;
@@ -768,21 +746,11 @@ public final class DataTableUtils {
         aligns.addLast(SwingConstants.CENTER);
         formats.addLast("");
 
-        ListIterator<Mannschaft> li = schwimmer.listIterator();
-
         int length = schwimmer.size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent + 5) {
-                percent = per;
-                double y = ((double) percent) / 110;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
 
-            Mannschaft t = li.next();
+        Progress progress = new Progress(fb, (int) (1.1 * length), 5);
+        for (Mannschaft t : schwimmer) {
+            progress.increase();
 
             for (int i = 0; i < maxteamsize; i++) {
                 LinkedList<Object> row = new LinkedList<>();
@@ -871,24 +839,14 @@ public final class DataTableUtils {
         aligns.addLast(SwingConstants.CENTER);
         formats.addLast("");
 
-        ListIterator<Mannschaft> li = schwimmer.listIterator();
-
         int length = schwimmer.size();
-        int percent = 0;
-        int counter = 0;
+
+        Progress progress = new Progress(fb, 1.1 * length, 5);
 
         LinkedList<Object> row = new LinkedList<>();
 
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent + 5) {
-                percent = per;
-                double y = ((double) percent) / 110;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
-
-            Mannschaft t = li.next();
+        for (Mannschaft t : schwimmer) {
+            progress.increase();
 
             int max = t.getMaxMembers();
             for (int x = 0; x < max; x++) {
@@ -1023,31 +981,19 @@ public final class DataTableUtils {
         aligns.addLast(SwingConstants.LEFT);
         formats.addLast("0.0");
 
-        ListIterator<T> li = swimmers.listIterator();
-
         int length = swimmers.size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent + 5) {
-                percent = per;
-                double y = ((double) percent) / 110;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
-
-            T t = li.next();
+        Progress progress = new Progress(fb, 1.1 * length, 5);
+        for (T t : swimmers) {
+            progress.increase();
 
             if (t.getAK().hasHLW()) {
                 for (int x = 0; x < t.getMaximaleHLW(); x++) {
                     LinkedList<Object> row = new LinkedList<>();
 
                     if (t.getMaximaleHLW() > 1) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(StartnumberFormatManager.format(t));
-                        sb.append(StringTools.ABC[x]);
-                        row.addLast(sb.toString());
+                        String sb = StartnumberFormatManager.format(t) +
+                                StringTools.ABC[x];
+                        row.addLast(sb);
                     } else {
                         row.addLast(StartnumberFormatManager.format(t));
                     }
@@ -1132,33 +1078,23 @@ public final class DataTableUtils {
             dc.addI(I18n.get("LaneNumber", x), defaultalign, "", "" + x, false);
         }
 
-        boolean mixedheats = laufe.hasMixedHeats();
+        boolean mixedHeats = laufe.hasMixedHeats();
         int groupsize = 2;
-        if (mixedheats) {
+        if (mixedHeats) {
             groupsize = 3;
         }
-
-        ListIterator<Lauf<T>> li = laufe.getLaufliste().listIterator();
 
         LinkedList<Object[]> data = new LinkedList<>();
 
         int bahnen = wk.getIntegerProperty(HEATS_LANES);
 
-        int length = laufe.getLaufliste().size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent) {
-                percent = per;
-                double y = ((double) percent) / 100;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
+        Progress progress = new Progress(fb, laufe.getLaufliste().size(), 1);
 
-            Lauf<T> lauf = li.next();
+        for (Lauf<T> lauf : laufe.getLaufliste()) {
+            progress.increase();
+
             for (int x = 0; x < groupsize; x++) {
-                data.addLast(laufToLine(lauf, bahnen, x, mixedheats));
+                data.addLast(laufToLine(lauf, bahnen, x, mixedHeats));
             }
         }
 
@@ -1273,15 +1209,11 @@ public final class DataTableUtils {
 
         KampfrichterVerwaltung kv = wk.getKampfrichterverwaltung();
 
-        int percent = 0;
+        Progress progress = new Progress(fb, kv.getEinheitenCount(), 1);
 
         for (int y = 0; y < kv.getEinheitenCount(); y++) {
-            int per = (y * 100) / kv.getEinheitenCount();
-            if (per > percent) {
-                percent = per;
-                double z = ((double) percent) / 100;
-                fb.showFeedback(I18n.get("Percent", z));
-            }
+            progress.increase();
+
             KampfrichterEinheit ke = kv.getEinheit(y);
             String[][] content = ke.getInhalt();
             for (String[] aContent : content) {
@@ -1297,67 +1229,6 @@ public final class DataTableUtils {
 
     private static <T extends ASchwimmer> Object[] refereeToLine(String category, String[] content) {
         return new String[] { category, content[0], content[1], content[2], content[3], content[4], content[5] };
-    }
-
-    /**
-     * @param lauf
-     * @param puppen
-     * @param offset
-     * @return
-     */
-    private static <T extends ASchwimmer> Object[] zusatzwertungToLine(Lauf<T> lauf, int puppen, int offset) {
-        LinkedList<Object> row = new LinkedList<>();
-        if (offset == 1) {
-            row.addLast(lauf.getName());
-        } else {
-            row.addLast("");
-        }
-        if (lauf.isEmpty()) {
-            for (int x = 0; x < puppen + 1; x++) {
-                row.addLast("");
-            }
-        } else {
-            if (offset == 1) {
-                row.addLast(lauf.getAltersklasse());
-            } else {
-                row.addLast("");
-            }
-            for (int x = 0; x < puppen; x++) {
-                T schwimmer = lauf.getSchwimmer(x);
-                switch (offset) {
-                case 0:
-                    if (schwimmer != null) {
-                        row.addLast(schwimmer.getName() + " (" + StartnumberFormatManager.format(schwimmer) + ")");
-                    } else {
-                        row.addLast("");
-                    }
-                    break;
-                case 1:
-                    if (schwimmer != null) {
-                        String g = schwimmer.getGliederung();
-                        String q = schwimmer.getQualifikationsebene().trim();
-                        if (q.length() > 0) {
-                            g += " (" + q + ")";
-                        }
-                        row.addLast(g);
-                    } else {
-                        row.addLast("");
-                    }
-                    break;
-                case 2:
-                    if (schwimmer != null) {
-                        row.addLast(I18n.getAgeGroupAsString(schwimmer));
-                    } else {
-                        row.addLast("");
-                    }
-                    break;
-                default:
-                    row.addLast("");
-                    break;
-                }
-            }
-        }
-        return row.toArray();
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel startkarten(AWettkampf<T> wk, Feedback fb) {
@@ -1419,26 +1290,34 @@ public final class DataTableUtils {
         titles.addLast(I18n.get("Lane"));
         aligns.addLast(SwingConstants.RIGHT);
         formats.addLast("");
+        titles.addLast(I18n.get("Round"));
+        aligns.addLast(SwingConstants.LEFT);
+        formats.addLast("");
 
-        ListIterator<Lauf<T>> li = laufe.getLaufliste().listIterator();
+        List<Lauf<T>> allHeats = new ArrayList<>();
+
+        if (!wk.getLaufliste().isEmpty() && wk.getLaufliste().getLaufliste() != null) {
+            allHeats.addAll(wk.getLaufliste().getLaufliste());
+        }
+        if (!wk.getLauflisteOW().isEmpty()) {
+            for (OWDisziplin<T> disziplin : wk.getLauflisteOW().getDisziplinen()) {
+                OWSelection sel = wk.toOWSelection(disziplin);
+                AWettkampf<T> wkx = ResultUtils.createCompetitionFor(wk, sel);
+                if (!wkx.getLaufliste().isEmpty() && wkx.getLaufliste().getLaufliste() != null) {
+                    allHeats.addAll(wkx.getLaufliste().getLaufliste());
+                }
+
+            }
+        }
 
         LinkedList<Object[]> result = new LinkedList<>();
 
-        int length = laufe.getLaufliste().size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent) {
-                percent = per;
-                double y = ((double) percent) / 100;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
-
-            Lauf<T> lauf = li.next();
+        Progress progress = new Progress(fb, allHeats.size(), 1);
+        allHeats.forEach(lauf -> {
+            progress.increase();
             startkartenLaufToLines(result, lauf);
-        }
+
+        });
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
         tm.setColumnAlignments(aligns.toArray(new Integer[0]));
@@ -1457,22 +1336,22 @@ public final class DataTableUtils {
         }
     }
 
-    /**
-     * @param schwimmer
-     * @param lauf
-     * @param x
-     * @return
-     */
-    private static <T extends ASchwimmer> Object[] startkarteToLine(T schwimmer, Lauf<T> lauf, int x) {
-        int disz = lauf.getDisznummer(x);
+    private static <T extends ASchwimmer> Object[] startkarteToLine(T schwimmer, Lauf<T> lauf, int bahnIndex) {
+        int disz = lauf.getDisznummer(bahnIndex);
+
+        AWettkampf<T> wk = schwimmer.getWettkampf();
+
+        int event = wk.getIntegerProperty("roundId", disz + 1);
+
+        boolean isFinal = wk.getBooleanProperty("isFinal", true);
+        int round = wk.getIntegerProperty("round", 0);
 
         HeatsNumberingScheme scheme = schwimmer.getWettkampf().getHeatsNumberingScheme();
 
         LinkedList<Object> row = new LinkedList<>();
         row.addLast(StartnumberFormatManager.format(schwimmer));
         row.addLast(schwimmer.getName());
-        if (schwimmer instanceof Teilnehmer) {
-            Teilnehmer t = (Teilnehmer) schwimmer;
+        if (schwimmer instanceof Teilnehmer t) {
             row.addLast(t.getNachname());
             row.addLast(t.getVorname());
             row.addLast(I18n.yearToShortObject(t.getJahrgang()));
@@ -1483,9 +1362,10 @@ public final class DataTableUtils {
         row.addLast(I18n.geschlechtToString(schwimmer));
         row.addLast(schwimmer.getBemerkung());
         row.addLast(schwimmer.getAK().getDisziplin(disz, schwimmer.isMaennlich()).getName());
-        row.addLast(disz + 1);
+        row.addLast(event);
         row.addLast(lauf.getName(scheme));
-        row.addLast(x + 1);
+        row.addLast(bahnIndex + 1);
+        row.addLast(I18n.getRound(round, isFinal));
         return row.toArray();
     }
 
@@ -1644,21 +1524,10 @@ public final class DataTableUtils {
             }
         }
 
-        ListIterator<T> li = schwimmer.listIterator();
-
         int length = schwimmer.size();
-        int percent = 0;
-        int counter = 0;
-        while (li.hasNext()) {
-            int per = (counter * 100) / length;
-            if (per > percent + 5) {
-                percent = per;
-                double y = ((double) percent) / 110;
-                fb.showFeedback(I18n.get("Percent", y));
-            }
-            counter++;
-
-            T t = li.next();
+        Progress progress = new Progress(fb, 1.1 * length, 5);
+        for (T t : schwimmer) {
+            progress.increase();
 
             LinkedList<Object> row = new LinkedList<>();
 
@@ -1907,22 +1776,24 @@ public final class DataTableUtils {
         if (times == null || times.length == 0) {
             return null;
         }
-        Arrays.sort(times, new Comparator<Heattime>() {
-            @Override
-            public int compare(Heattime ht1, Heattime ht2) {
-                return (ht1.CompetitionId - ht2.CompetitionId) * 100000 + (500 + ht1.Heat - ht2.Heat) * 100
-                        + (10 + ht1.Lane - ht2.Lane);
-            }
+        Arrays.sort(times, (ht1, ht2) -> {
+            int diff1 = ht1.CompetitionId - ht2.CompetitionId;
+            int diff2 = ht1.Heat - ht2.Heat;
+            int diff3 = ht1.Lane - ht2.Lane;
+
+            return ((diff1 * 1000) + diff2) * 1000 + diff3;
         });
 
         Object[][] data = new Object[times.length][0];
         for (int x = 0; x < data.length; x++) {
             Heattime time = times[x];
+            String surname = time.Surname == null || time.Surname.isBlank() ? time.Organization : time.Surname;
+            String firstName = time.Firstname == null || time.Firstname.isBlank() ? time.Organization : time.Firstname;
             data[x] = new Object[] {
                     time.CompetitionId, time.CompetitionType, time.CompetitionName, time.Count,
                     time.Length, time.DisciplineChar,
                     time.Discipline, time.Lanecount, time.Abschnitt, time.Date, time.Heat, time.Lane, time.Bahnseite,
-                    time.Surname, time.Firstname,
+                    surname, firstName,
                     time.YearOfBirth, time.Agegroup, time.Sex, time.IsRelay ? I18n.get("yes") : I18n.get("No"),
                     time.DsvId, time.Organization,
                     time.Organization, time.OrganizationId, time.Lsv, time.Country, time.Kreisname, time.Timetype,
@@ -2064,8 +1935,8 @@ public final class DataTableUtils {
                         ht.Lane = x + 1;
                         ht.Name = t.getName();
                         ht.Length = disziplin.getLaenge();
-                        ht.Organization = t.getGliederungMitQGliederung();
-                        ht.Time = t.getMeldezeit(dis.disziplin); // t.getZeit(dis.Id);
+                        ht.Organization = t.getGliederung();
+                        ht.Time = t.getMeldezeit(dis.disziplin);
                         ht.Lanecount = lauf.getBahnen();
                         ht.IsRelay = tn == null;
                         ht.Penalty = (s == null || s.getArt() == Strafarten.NICHTS) ? "" : s.getShortname();

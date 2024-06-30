@@ -101,14 +101,11 @@ class StartkartenPrinter implements Printer {
     }
 
     private PageMode getMode() {
-        switch (pages.getSelectedIndex()) {
-        case 0:
-            return PageMode.ONE_PER_PAGE;
-        case 1:
-            return PageMode.TWO_PER_PAGE;
-        default:
-            return PageMode.FOUR_PER_PAGE;
-        }
+        return switch (pages.getSelectedIndex()) {
+            case 0 -> PageMode.ONE_PER_PAGE;
+            case 1 -> PageMode.TWO_PER_PAGE;
+            default -> PageMode.FOUR_PER_PAGE;
+        };
     }
 
     final class EmptyActionListener implements ActionListener {
