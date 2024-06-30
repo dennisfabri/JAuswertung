@@ -628,6 +628,10 @@
 					<artifactId>rewrite-maven-plugin</artifactId>
 					<version>5.32.1</version>
 				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.4.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -755,6 +759,22 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>.</directory>
+							<includes>
+								<include>.apt_generated/**</include>
+								<include>.apt_generated_tests/**</include>
+								<include>pom.xml.versionsBackup</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
