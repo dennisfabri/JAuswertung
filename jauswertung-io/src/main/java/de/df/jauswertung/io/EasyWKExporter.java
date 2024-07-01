@@ -46,7 +46,7 @@ public class EasyWKExporter extends EmptyExporter {
             return false;
         }
         try {
-            ExtendedTableModel etm = DataTableUtils.easywkHeattimes(wk, false);
+            ExtendedTableModel etm = DataTableUtils.easywkHeattimes(wk);
             if (etm == null) {
                 return false;
             }

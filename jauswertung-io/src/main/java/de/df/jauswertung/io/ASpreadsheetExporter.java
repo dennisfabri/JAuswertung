@@ -564,7 +564,7 @@ public abstract class ASpreadsheetExporter extends EmptyExporter {
             return false;
         }
         try {
-            ExtendedTableModel etm = DataTableUtils.heattimes(wk, false);
+            ExtendedTableModel etm = DataTableUtils.heattimes(wk);
             if (etm == null) {
                 return false;
             }

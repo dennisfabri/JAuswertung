@@ -131,7 +131,7 @@ abstract class AFilledKartenPrinter implements Printer {
     protected abstract Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
             int minheat, int maxheat);
 
-    <T extends ASchwimmer> boolean askForDetails(AWettkampf<T> wk) {
+    <T extends ASchwimmer> boolean setPrintAllHeats(AWettkampf<T> wk) {
         JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text);
         EDTUtils.setVisible(details, true);
         if (details.isOk()) {
@@ -143,12 +143,10 @@ abstract class AFilledKartenPrinter implements Printer {
         return false;
     }
 
-    @SuppressWarnings("rawtypes")
-    <T extends ASchwimmer> boolean askForDetails(AWettkampf[] wk) {
+    private void setPrintAllHeats() {
         allheats = true;
         minheat = 0;
         maxheat = 0;
-        return true;
     }
 
     <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(OWSelection t) {
@@ -170,9 +168,8 @@ abstract class AFilledKartenPrinter implements Printer {
         @SuppressWarnings("rawtypes")
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t) {
             AWettkampf[] wks = createCompetitionsFor(t);
-            if (askForDetails(wks)) {
-                PrintExecutor.print(getPrintable(wks), text, true, controller.getWindow());
-            }
+            setPrintAllHeats();
+            PrintExecutor.print(getPrintable(wks), text, true, controller.getWindow());
         }
 
         @Override
@@ -185,10 +182,10 @@ abstract class AFilledKartenPrinter implements Printer {
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                                               "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                        "Laufliste zum Drucken auswählen",
+                        OWUtils.getCreatedRounds(wk, true), cb);
             } else {
-                if (askForDetails(wk)) {
+                if (setPrintAllHeats(wk)) {
                     PrintExecutor.print(getPrintable(new AWettkampf[] { wk }), text, true, controller.getWindow());
                 }
             }
@@ -220,20 +217,19 @@ abstract class AFilledKartenPrinter implements Printer {
                 Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         AWettkampf[] wkx = createCompetitionsFor(t);
-                        if (askForDetails(wkx)) {
-                            PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
-                                    IconManager.getIconBundle(), IconManager.getTitleImages());
-                        }
+                        setPrintAllHeats();
+                        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
+                                IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                                               "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                        "Laufliste zum Drucken auswählen",
+                        OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk),
                 // I18n.get("Laufzeiten"),
                 // IconManager.getIconBundle(), IconManager.getTitleImages());
-                if (askForDetails(wk)) {
+                if (setPrintAllHeats(wk)) {
                     PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), text,
                             IconManager.getIconBundle(), IconManager.getTitleImages());
                 }

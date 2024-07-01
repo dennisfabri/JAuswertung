@@ -282,7 +282,7 @@ public class CsvExporter extends EmptyExporter {
             return false;
         }
         try {
-            TableModel tm = DataTableUtils.easywkHeattimes(wk, false);
+            TableModel tm = DataTableUtils.easywkHeattimes(wk);
             if (tm == null) {
                 return false;
             }

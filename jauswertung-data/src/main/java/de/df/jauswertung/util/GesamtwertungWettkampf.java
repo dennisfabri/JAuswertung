@@ -1,32 +1,22 @@
-/*
- * Gesamtwertung.java Created on 24. Juni 2003, 14:16
- */
-
 package de.df.jauswertung.util;
 
+import static java.util.Arrays.stream;
+
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
-import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
-import de.df.jauswertung.daten.regelwerk.Strafarten;
-import de.df.jauswertung.daten.regelwerk.Strafe;
-import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.util.ergebnis.FormelILS;
 import de.df.jauswertung.util.ergebnis.FormelMedaillen;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-
-import static java.util.Arrays.stream;
 
 public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 
@@ -66,13 +56,14 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         }
     }
 
+    @Serial
     private static final long serialVersionUID = 2735741444352316840L;
 
     @SuppressWarnings("rawtypes")
     private AWettkampf wk;
     private Regelwerk aks;
 
-    private SchwimmerResult<ASchwimmer>[][] results;
+    private final SchwimmerResult<ASchwimmer>[][] results;
 
     private GroupEvaluationMode modus;
 
@@ -85,9 +76,7 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
         }
 
         wk = Utils.copy(wettkampf);
-        ListIterator<ASchwimmer> li = wk.getSchwimmer().listIterator();
-        while (li.hasNext()) {
-            ASchwimmer s = li.next();
+        for (ASchwimmer s : (Iterable<ASchwimmer>) wk.getSchwimmer()) {
             if (s.isAusserKonkurrenz()
                     || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF).getArt() == Strafarten.AUSSCHLUSS)
                     || (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF)
@@ -310,9 +299,8 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
             return;
         }
         LinkedList<String> gliederungen = wk.getGliederungenMitQGliederung();
-        ListIterator<String> li = gliederungen.listIterator();
-        while (li.hasNext()) {
-            GesamtwertungSchwimmer gs = berechneGliederung(li.next());
+        for (String s : gliederungen) {
+            GesamtwertungSchwimmer gs = berechneGliederung(s);
             addSchwimmer(gs);
         }
     }
@@ -396,7 +384,7 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 
     public GesamtwertungSchwimmer[] getResult() {
         LinkedList<GesamtwertungSchwimmer> s = getSchwimmer();
-        GesamtwertungSchwimmer[] gs = s.toArray(new GesamtwertungSchwimmer[s.size()]);
+        GesamtwertungSchwimmer[] gs = s.toArray(new GesamtwertungSchwimmer[0]);
         Arrays.sort(gs, new GesamtwertungSchwimmerComparator());
         return gs;
     }

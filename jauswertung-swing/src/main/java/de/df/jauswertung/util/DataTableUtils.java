@@ -11,6 +11,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,39 +117,6 @@ public final class DataTableUtils {
         }
     }
 
-    public static String detectMitglieder(String[] titles, String[] data) {
-        LinkedList<Integer> index = new LinkedList<>();
-        boolean found = true;
-        while (found) {
-            found = false;
-            String line = I18n.get("MemberNr", index.size() + 1);
-            for (int x = 0; x < titles.length; x++) {
-                if (titles[x].equalsIgnoreCase(line)) {
-                    index.addLast(x);
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if (index.isEmpty()) {
-            return "";
-        }
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for (Integer i : index) {
-            String name = data[i].trim().replace(';', ',');
-            if (!name.isEmpty()) {
-                if (first) {
-                    first = false;
-                } else {
-                    result.append(";");
-                }
-                result.append(name);
-            }
-        }
-        return result.toString();
-    }
-
     public static <T extends ASchwimmer> ExtendedTableModel results(AWettkampf<T> wk, boolean removeUnranked,
             Feedback fb) {
         if (wk == null) {
@@ -161,7 +129,7 @@ public final class DataTableUtils {
         AWettkampf w = wk;
         boolean einzel = (w instanceof EinzelWettkampf);
 
-        int maxteammembers = getMaximumMembers(wk, wk.getSchwimmer());
+        int maxteammembers = getMaximumMembers(wk);
 
         Regelwerk aks = wk.getRegelwerk();
         int diszAnzahl = 0;
@@ -601,10 +569,6 @@ public final class DataTableUtils {
         return row.toArray();
     }
 
-    public static <T extends ASchwimmer> ExtendedTableModel registration(AWettkampf<T> wk, Feedback fb) {
-        return registration(wk, null, RegistrationDetails.EVERYTHING, null, true, fb);
-    }
-
     private static Object[] remove(Object[] source, boolean[] columns) {
         if (columns == null) {
             return source;
@@ -776,104 +740,6 @@ public final class DataTableUtils {
         tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
         tm.setColumnFormats(formats.toArray(new String[formats.size()]));
         tm.setName(I18n.get("Teammembers"));
-        tm.setLandscape(false);
-
-        return tm;
-    }
-
-    public static <T extends ASchwimmer> ExtendedTableModel teammemberssingle(AWettkampf<T> wk, Feedback fb) {
-        if (wk == null) {
-            return null;
-        }
-        if (!(wk instanceof MannschaftWettkampf)) {
-            return null;
-        }
-        if (fb == null) {
-            fb = new NullFeedback();
-        }
-
-        MannschaftWettkampf w = (MannschaftWettkampf) wk;
-        LinkedList<Mannschaft> schwimmer = w.getSchwimmer();
-
-        int maxteamsize = 0;
-        {
-            for (int x = 1; x < wk.getRegelwerk().size(); x++) {
-                maxteamsize = Math.max(maxteamsize, wk.getRegelwerk().getAk(x).getMaxMembers());
-            }
-        }
-
-        LinkedList<Integer> aligns = new LinkedList<>();
-        LinkedList<String> formats = new LinkedList<>();
-        LinkedList<Object> titles = new LinkedList<>();
-
-        LinkedList<Object[]> result = new LinkedList<>();
-
-        titles.addLast(I18n.get("StartnumberShort"));
-        aligns.addLast(SwingConstants.RIGHT);
-        formats.addLast("0");
-        titles.addLast(I18n.get("Surname"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Firstname"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Sex"));
-        aligns.addLast(SwingConstants.CENTER);
-        formats.addLast("");
-        titles.addLast(I18n.get("YearOfBirth"));
-        aligns.addLast(SwingConstants.RIGHT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Team"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Organisation"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("Qualifikationsebene"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
-        titles.addLast(I18n.get("AgeGroup"));
-        aligns.addLast(SwingConstants.CENTER);
-        formats.addLast("");
-        titles.addLast(I18n.get("Sex"));
-        aligns.addLast(SwingConstants.CENTER);
-        formats.addLast("");
-
-        int length = schwimmer.size();
-
-        Progress progress = new Progress(fb, 1.1 * length, 5);
-
-        LinkedList<Object> row = new LinkedList<>();
-
-        for (Mannschaft t : schwimmer) {
-            progress.increase();
-
-            int max = t.getMaxMembers();
-            for (int x = 0; x < max; x++) {
-                row.clear();
-
-                row.addLast(StartnumberFormatManager.format(t) + StringTools.asText(x));
-
-                Mannschaftsmitglied m = t.getMannschaftsmitglied(x);
-                row.addLast(m.getNachname());
-                row.addLast(m.getVorname());
-                row.addLast(I18n.getSexShortString(m.getGeschlecht()));
-                row.addLast(m.getJahrgang() > 0 ? m.getJahrgang() : "");
-
-                row.addLast(t.getName());
-                row.addLast(t.getGliederung());
-                row.addLast(t.getQualifikationsebene());
-                row.addLast(t.getAK().toString());
-                row.addLast(I18n.geschlechtToString(t));
-
-                result.addLast(row.toArray());
-            }
-        }
-
-        ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
-        tm.setName(I18n.get("TeammembersSingle"));
         tm.setLandscape(false);
 
         return tm;
@@ -1393,7 +1259,7 @@ public final class DataTableUtils {
         boolean einzel = (w instanceof EinzelWettkampf);
         boolean isOpenwater = FormelManager.isOpenwater(w.getRegelwerk().getFormelID());
 
-        int maxteamsize = getMaximumMembers(wk, schwimmer);
+        int maxteamsize = getMaximumMembers(wk);
         int maxregs = 1; // getMaximumRegisteredPoints(wk, schwimmer);
 
         LinkedList<Integer> aligns = new LinkedList<>();
@@ -1660,7 +1526,7 @@ public final class DataTableUtils {
         return tm;
     }
 
-    private static <T extends ASchwimmer> int getMaximumMembers(AWettkampf<T> wk, LinkedList<T> schwimmer) {
+    private static <T extends ASchwimmer> int getMaximumMembers(AWettkampf<T> wk) {
         if (!(wk instanceof MannschaftWettkampf)) {
             return 0;
         }
@@ -1766,7 +1632,7 @@ public final class DataTableUtils {
         return etm;
     }
 
-    public static <T extends ASchwimmer> ExtendedTableModel easywkHeattimes(AWettkampf<T> wk, boolean print) {
+    public static <T extends ASchwimmer> ExtendedTableModel easywkHeattimes(AWettkampf<T> wk) {
         Heattime[] times;
         if (wk.isHeatBased()) {
             times = heattimesOW(wk);
@@ -1833,7 +1699,7 @@ public final class DataTableUtils {
         return etm;
     }
 
-    public static <T extends ASchwimmer> ExtendedTableModel heattimes(AWettkampf<T> wk, boolean print) {
+    public static <T extends ASchwimmer> ExtendedTableModel heattimes(AWettkampf<T> wk) {
         Heattime[] times;
         if (wk.isHeatBased()) {
             times = heattimesOW(wk);
@@ -1899,7 +1765,7 @@ public final class DataTableUtils {
     }
 
     private static <T extends ASchwimmer> Heattime[] heattimesPool(AWettkampf<T> wk) {
-        return new Heattime[0];
+        throw new NotImplementedException();
     }
 
     private static <T extends ASchwimmer> Heattime[] heattimesOW(AWettkampf<T> wk) {

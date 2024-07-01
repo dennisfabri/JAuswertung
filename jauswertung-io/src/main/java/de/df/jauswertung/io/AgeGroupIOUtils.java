@@ -43,8 +43,4 @@ public final class AgeGroupIOUtils {
         }
         return aks;
     }
-
-    public static Regelwerk getAKs(String name, boolean einzel) {
-        return getAKs(name + (einzel ? ".rwe" : ".rwm"));
-    }
 }
