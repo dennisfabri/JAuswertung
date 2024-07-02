@@ -329,6 +329,7 @@ public final class PrintUtils {
             mwk = new MannschaftWettkampf(aks, wk.getStrafen());
             nwk = (AWettkampf<T>) mwk;
         }
+        wk.copyPropertiesTo(nwk);
 
         // Schwimmer hinzufügen
         for (int x = 0; x < selected[0].length; x++) {

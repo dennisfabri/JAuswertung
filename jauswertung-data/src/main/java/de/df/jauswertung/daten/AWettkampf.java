@@ -7,8 +7,6 @@ import static de.df.jauswertung.daten.PropertyConstants.*;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.function.BooleanSupplier;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.dom4j.Element;
@@ -1239,13 +1237,13 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     @SuppressWarnings("rawtypes")
-    public void copyProperties(AWettkampf w) {
+    public void copyPropertiesTo(AWettkampf target) {
 
         for (String key : properties.keySet()) {
             try {
-                w.setProperty(key, Utils.copy(getProperty(key)));
+                target.setProperty(key, Utils.copy(getProperty(key)));
             } catch (Exception ex) {
-                w.setProperty(key, getProperty(key));
+                target.setProperty(key, getProperty(key));
             }
         }
     }

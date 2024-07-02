@@ -310,30 +310,34 @@ public class FormelILSFinalsDisqualificationTest {
 
         LinkedList<OWLauf<Teilnehmer>> laufliste = disziplin.getLaeufe();
         assertEquals(2, laufliste.size());
-        assertEquals(8, laufliste.get(0).getAllSchwimmer().size());
-        assertEquals(8, laufliste.get(1).getAllSchwimmer().size());
 
-        assertEquals(1, laufliste.get(1).getSchwimmer(3).getStartnummer());
-        assertEquals(2, laufliste.get(1).getSchwimmer(4).getStartnummer());
-        assertEquals(3, laufliste.get(1).getSchwimmer(2).getStartnummer());
-        assertEquals(4, laufliste.get(1).getSchwimmer(5).getStartnummer());
-        assertEquals(5, laufliste.get(1).getSchwimmer(1).getStartnummer());
-        assertEquals(6, laufliste.get(1).getSchwimmer(6).getStartnummer());
-        assertEquals(7, laufliste.get(1).getSchwimmer(0).getStartnummer());
-        assertEquals(8, laufliste.get(1).getSchwimmer(7).getStartnummer());
+        OWLauf<Teilnehmer> finalB = laufliste.get(0);
+        OWLauf<Teilnehmer> finalA = laufliste.get(1);
 
-        assertEquals(9, laufliste.get(0).getSchwimmer(3).getStartnummer());
-        assertEquals(10, laufliste.get(0).getSchwimmer(4).getStartnummer());
-        assertEquals(11, laufliste.get(0).getSchwimmer(2).getStartnummer());
-        assertEquals(12, laufliste.get(0).getSchwimmer(5).getStartnummer());
-        assertEquals(13, laufliste.get(0).getSchwimmer(1).getStartnummer());
-        assertEquals(14, laufliste.get(0).getSchwimmer(6).getStartnummer());
-        assertEquals(15, laufliste.get(0).getSchwimmer(0).getStartnummer());
-        assertEquals(16, laufliste.get(0).getSchwimmer(7).getStartnummer());
+        assertEquals(8, finalB.getAllSchwimmer().size());
+        assertEquals(8, finalA.getAllSchwimmer().size());
+
+        assertEquals(1, finalA.getSchwimmer(3).getStartnummer());
+        assertEquals(2, finalA.getSchwimmer(4).getStartnummer());
+        assertEquals(3, finalA.getSchwimmer(2).getStartnummer());
+        assertEquals(4, finalA.getSchwimmer(5).getStartnummer());
+        assertEquals(5, finalA.getSchwimmer(1).getStartnummer());
+        assertEquals(6, finalA.getSchwimmer(6).getStartnummer());
+        assertEquals(7, finalA.getSchwimmer(0).getStartnummer());
+        assertEquals(8, finalA.getSchwimmer(7).getStartnummer());
+
+        assertEquals(9, finalB.getSchwimmer(3).getStartnummer());
+        assertEquals(10, finalB.getSchwimmer(4).getStartnummer());
+        assertEquals(11, finalB.getSchwimmer(2).getStartnummer());
+        assertEquals(12, finalB.getSchwimmer(5).getStartnummer());
+        assertEquals(13, finalB.getSchwimmer(1).getStartnummer());
+        assertEquals(14, finalB.getSchwimmer(6).getStartnummer());
+        assertEquals(15, finalB.getSchwimmer(0).getStartnummer());
+        assertEquals(16, finalB.getSchwimmer(7).getStartnummer());
     }
 
     @Test
-    void ergebnisAFinale() {
+    void ergebnisAFinalePlatzierungen() {
         assertEquals(16, ergebnisFinale.getRowCount());
 
         assertEquals(String.format("Teilnehmer, %d", 2), ergebnisFinale.getResult(7).getSchwimmer().getName());
@@ -347,17 +351,45 @@ public class FormelILSFinalsDisqualificationTest {
     }
 
     @Test
-    void ergebnisBFinale() {
+    void ergebnisAFinalePunkte() {
         assertEquals(16, ergebnisFinale.getRowCount());
 
+        assertEquals(10, ergebnisFinale.getResult(7).getPoints());
+        assertEquals(11, ergebnisFinale.getResult(6).getPoints());
+        assertEquals(12, ergebnisFinale.getResult(5).getPoints());
+        assertEquals(13, ergebnisFinale.getResult(4).getPoints());
+        assertEquals(14, ergebnisFinale.getResult(3).getPoints());
+        assertEquals(16, ergebnisFinale.getResult(2).getPoints());
+        assertEquals(18, ergebnisFinale.getResult(1).getPoints());
+        assertEquals(20, ergebnisFinale.getResult(0).getPoints());
+    }
+
+    @Test
+    void ergebnisBFinalePlatzierungen() {
+        assertEquals(16, ergebnisFinale.getRowCount());
+
+        assertEquals(String.format("Teilnehmer, %d", 11), ergebnisFinale.getResult(15).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 9), ergebnisFinale.getResult(14).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 10), ergebnisFinale.getResult(13).getSchwimmer().getName());
-        assertEquals(String.format("Teilnehmer, %d", 11), ergebnisFinale.getResult(15).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 12), ergebnisFinale.getResult(12).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 13), ergebnisFinale.getResult(11).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 14), ergebnisFinale.getResult(10).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 15), ergebnisFinale.getResult(9).getSchwimmer().getName());
         assertEquals(String.format("Teilnehmer, %d", 16), ergebnisFinale.getResult(8).getSchwimmer().getName());
+    }
+
+    @Test
+    void ergebnisBFinalePunkte() {
+        assertEquals(16, ergebnisFinale.getRowCount());
+
+        assertEquals(1, ergebnisFinale.getResult(15).getPoints());
+        assertEquals(2, ergebnisFinale.getResult(14).getPoints());
+        assertEquals(3, ergebnisFinale.getResult(13).getPoints());
+        assertEquals(4, ergebnisFinale.getResult(12).getPoints());
+        assertEquals(5, ergebnisFinale.getResult(11).getPoints());
+        assertEquals(6, ergebnisFinale.getResult(10).getPoints());
+        assertEquals(7, ergebnisFinale.getResult(9).getPoints());
+        assertEquals(8, ergebnisFinale.getResult(8).getPoints());
     }
 
     @Test

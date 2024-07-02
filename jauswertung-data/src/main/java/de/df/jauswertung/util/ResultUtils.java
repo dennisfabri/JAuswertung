@@ -5,7 +5,7 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -111,6 +111,7 @@ public class ResultUtils {
             w = new MannschaftWettkampf(aks, wk.getStrafen());
             mwk = (MannschaftWettkampf) w;
         }
+        wk.copyPropertiesTo(w);
         int min = 0;
         int max = 2;
         switch (filter) {
@@ -164,7 +165,7 @@ public class ResultUtils {
                 for (int x = 0; x < anzahl; x++) {
                     if (include) {
                         if (s.isDisciplineChosen(x)) {
-                            ASchwimmer neu = null;
+                            ASchwimmer neu;
                             if (einzel) {
                                 Teilnehmer t = (Teilnehmer) s;
                                 neu = ewk.createTeilnehmer(t.getNachname(), t.getVorname(), t.getJahrgang(),
@@ -255,7 +256,8 @@ public class ResultUtils {
                         final int laneNumber = b;
                         Stream<T> stream = w.getSchwimmer().stream();
                         Stream<T> ts = stream
-                                .filter(sw -> sw.getBemerkung().equals("" + lauf.getSchwimmer(laneNumber).getStartnummer()));
+                                .filter(sw -> sw.getBemerkung()
+                                        .equals("" + lauf.getSchwimmer(laneNumber).getStartnummer()));
                         T t = ts.filter(sw -> sw.getAKNummer() == lauf.getDisznummer(laneNumber)).toList().getFirst();
                         boolean disciplinesMatch = t != null;
                         if (disciplinesMatch) {
@@ -291,7 +293,7 @@ public class ResultUtils {
         }
         w.setZielrichterentscheide(neuezes);
 
-        wk.copyProperties(w);
+        wk.copyPropertiesTo(w);
 
         w.setFilter(wk.getFilter());
         w.setCurrentFilterIndex(wk.getCurrentFilterIndex());
@@ -321,14 +323,12 @@ public class ResultUtils {
             boolean removeEmpty) {
         wk = Utils.copy(wk);
         Wertungsgruppe wg = wk.getRegelwerk().getWertungsgruppe(wgname);
-        LinkedList<T> teilnehmer = new LinkedList<>();
         int index = -1;
         wk.disableUpdates();
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             Altersklasse ak = wk.getRegelwerk().getAk(x);
             if (wg.getName().equals(ak.getWertungsgruppe())) {
                 LinkedList<T> temp = SearchUtils.getSchwimmer(wk, ak);
-                teilnehmer.addAll(temp);
                 if (index < 0) {
                     index = x;
                     ak.setEinzelwertung(wg.isProtokollMitEinzelwertung());
@@ -451,6 +451,7 @@ public class ResultUtils {
         wk.setProperty("round", t.round);
         wk.setProperty("roundId", disziplin.getRundenId(t.round));
         wk.setProperty(PropertyConstants.HEATS_EMPTY_LIST, false);
+        wk.setProperty(HEATS_LANES, d == null ? cwk.getIntegerProperty(HEATS_LANES, 99) : d.getBahnen());
 
         if (t.round < 0) {
             throw new IllegalArgumentException("round must be at least 0.");
@@ -465,13 +466,8 @@ public class ResultUtils {
             wk.enableUpdates();
         } else if (d != null) {
             wk.disableUpdates();
-            HashSet<Integer> sn = new HashSet<>(
-                    d.getSchwimmer().stream().map(s -> s.getStartnummer()).collect(Collectors.toList()));
-            for (T s : wk.getSchwimmer()) {
-                if (!sn.contains(s.getStartnummer())) {
-                    wk.removeSchwimmer(s);
-                }
-            }
+            Set<Integer> sn = d.getSchwimmer().stream().map(ASchwimmer::getStartnummer).collect(Collectors.toSet());
+            wk.removeSchwimmer(s -> !sn.contains(s.getStartnummer()));
             wk.enableUpdates();
         } else {
             OWSelection t1 = new OWSelection(cwk.getRegelwerk().getAk(t.akNummer), t.akNummer, t.male, t.discipline,

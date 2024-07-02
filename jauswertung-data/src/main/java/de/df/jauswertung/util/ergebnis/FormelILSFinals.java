@@ -1,20 +1,11 @@
-/*
- * Created on 05.06.2004
- */
 package de.df.jauswertung.util.ergebnis;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
@@ -26,10 +17,6 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 
-/**
- * @author Dennis Fabri
- * @date 10.06.2007
- */
 public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     class ComparatorT implements Comparator<SchwimmerData<T>> {
@@ -117,9 +104,6 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     return -1;
                 }
             }
-            if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                // return sd1.isWithdraw() ? 1 : -1;
-            }
             if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
                 return 0;
             }
@@ -162,16 +146,6 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
-     */
-    @Override
-    public String getFormel() {
-        return "Platz 1: 20 Punkte, Platz 2: 18 Punkte, ..., Platz 16: 1 Punkt";
-    }
-
     @Override
     public String getName() {
         return "ILS Regelwerk - Indoor (mit Finals)";
@@ -183,8 +157,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
     }
 
     private void setPointsDirect(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
-            Hashtable<String, Zielrichterentscheid<T>> zes, boolean isQualified,
-            boolean isFinal, int round) {
+            boolean isQualified, boolean isFinal, int round) {
         T s = swimmer[0].getSchwimmer();
         Altersklasse ak = s.getAK();
         boolean male = s.isMaennlich();
@@ -242,23 +215,30 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         ArrayList<SchwimmerData<T>> current = null;
         SchwimmerData<T> sdx = null;
 
-        for (int x = 0; x < swimmer.length; x++) {
-            if (sdx == null || current == null || comp.compare(sdx, swimmer[x]) != 0) {
+        for (SchwimmerData<T> tSchwimmerData : swimmer) {
+            if (sdx == null || comp.compare(sdx, tSchwimmerData) != 0) {
                 current = new ArrayList<>();
                 xxl.add(current);
-                sdx = swimmer[x];
+                sdx = tSchwimmerData;
                 current.add(sdx);
             } else {
-                current.add(swimmer[x]);
+                current.add(tSchwimmerData);
             }
         }
+
+        OWDisziplin<T> owDisziplin= wk.getLauflisteOW().getDisziplin(OWDisziplin.getId(s.getAKNummer(), male, disz, round));
+        int heatSize = wk.getIntegerProperty(PropertyConstants.HEATS_LANES, 6);
+        if (owDisziplin != null) {
+            heatSize = owDisziplin.getBahnen();
+        }
+        //int heatSize = wk.getLauflisteOW().getMaximaleAnzahlBahnen();
 
         int rank = 1;
         for (ArrayList<SchwimmerData<T>> asd : xxl) {
             int amount = asd.size();
             for (SchwimmerData<T> sd : asd) {
                 sd.setRank(rank);
-                sd.setPoints(getPoints(sd.getTime(), d.getRec(), rank, amount, sd.getStrafe()));
+                sd.setPoints(getPoints(sd.getTime(), d.getRec(), rank, amount, sd.getStrafe(), heatSize));
                 switch (sd.getStrafart()) {
                 case AUSSCHLUSS:
                 case DISQUALIFIKATION:
@@ -287,7 +267,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             return;
         }
         if (wk.getLauflisteOW().isEmpty() && wk.getLaufliste() != null && !wk.getLaufliste().isEmpty()) {
-            setPointsDirect(wk, swimmer, d, zes, wk.getBooleanProperty("isQualified"), wk.getBooleanProperty("isFinal"),
+            setPointsDirect(wk, swimmer, d, wk.getBooleanProperty("isQualified"), wk.getBooleanProperty("isFinal"),
                     wk.getIntegerProperty("round"));
             return;
         }
@@ -385,16 +365,33 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
         List<SchwimmerData<T>> current = null;
         SchwimmerData<T> sdx = null;
 
-        for (int x = 0; x < swimmer.length; x++) {
-            if (sdx == null || comp.compare(sdx, swimmer[x]) != 0) {
+        for (SchwimmerData<T> tSchwimmerData : swimmer) {
+            if (sdx == null || comp.compare(sdx, tSchwimmerData) != 0) {
                 current = new ArrayList<>();
                 xxl.add(current);
-                sdx = swimmer[x];
+                sdx = tSchwimmerData;
                 current.add(sdx);
             } else {
-                current.add(swimmer[x]);
+                current.add(tSchwimmerData);
             }
         }
+
+
+        int round = 0;
+        for (int x = 0; x < rounds; x++) {
+            OWSelection t = new OWSelection(ak, s.getAKNummer(), s.isMaennlich(), disz, x);
+            OWDisziplin<T> dx = wk.getLauflisteOW().getDisziplin(t);
+            if (dx != null) {
+                round = x;
+            }
+        }
+
+        OWDisziplin<T> owDisziplin= wk.getLauflisteOW().getDisziplin(OWDisziplin.getId(s.getAKNummer(), male, disz, round));
+        int heatSize = wk.getIntegerProperty(PropertyConstants.HEATS_LANES, 6);
+        if (owDisziplin != null) {
+            heatSize = owDisziplin.getBahnen();
+        }
+        //int heatSize = wk.getLauflisteOW().getMaximaleAnzahlBahnen();
 
         int rank = 1;
         for (List<SchwimmerData<T>> asd : xxl) {
@@ -405,7 +402,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     sd.setTime(si.zeit);
                     sd.overridePenalty(si.strafe);
                     sd.setRank(rank);
-                    sd.setPoints(getPoints(si.zeit, d.getRec(), rank, amount, si.strafe));
+                    sd.setPoints(getPoints(si.zeit, d.getRec(), rank, amount, si.strafe, heatSize));
                     switch (sd.getStrafart()) {
                     case AUSSCHLUSS:
                     case DISQUALIFIKATION:

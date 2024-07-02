@@ -333,7 +333,7 @@ public final class JResultTable extends JGroupableTable {
     }
 
     public <T extends ASchwimmer> void updateResult(AWettkampf<T> w, @SuppressWarnings("hiding") Altersklasse ak,
-            @SuppressWarnings("hiding") boolean maennlich, @SuppressWarnings("hiding") boolean[] select, boolean hlw,
+            @SuppressWarnings("hiding") boolean male, @SuppressWarnings("hiding") boolean[] select, boolean hlw,
             @SuppressWarnings("hiding") int qualification) {
         synchronized (this) {
             this.wk = w;
@@ -344,7 +344,7 @@ public final class JResultTable extends JGroupableTable {
                 Arrays.fill(select, true);
             }
 
-            resultUpdater.setData(w, ak, maennlich, select, hlw, qualification);
+            resultUpdater.setData(w, ak, male, select, hlw, qualification);
         }
         EDTUtils.executeOnEDT(resultUpdater);
     }
@@ -615,7 +615,7 @@ public final class JResultTable extends JGroupableTable {
                     String namen = "";
                     if (ak.getDiszAnzahl() == 1) {
                         namen = m.getStarterShort(0, ", ");
-                        if (namen.length() == 0) {
+                        if (namen.isEmpty()) {
                             namen = m.getMitgliedernamenShort(", ");
                         }
                     } else {
@@ -625,7 +625,7 @@ public final class JResultTable extends JGroupableTable {
                 }
                 String penalty = PenaltyUtils
                         .getPenaltyMediumText(s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF), s.getAK());
-                if ((penalty.trim().length() > 0) && (!penalty.equals("-"))) {
+                if (!penalty.isBlank() && !penalty.equals("-")) {
                     name += " (" + penalty + ")";
                 }
                 setValueAt(name, y, NAME_OFFSET);
@@ -678,7 +678,7 @@ public final class JResultTable extends JGroupableTable {
                         case NICHT_ANGETRETEN: {
                             String text = I18n.get("DidNotStartShort");
                             Strafe na = wk.getStrafen().getNichtAngetreten();
-                            if (na.getShortname().length() > 0) {
+                            if (!na.getShortname().isEmpty()) {
                                 text = na.getShortname();
                             }
                             setValueAt(text, y, PREFIX + ak.getDiszAnzahl() * LENGTH + offset);
@@ -687,7 +687,7 @@ public final class JResultTable extends JGroupableTable {
                         case DISQALIFIKATION: {
                             String text = I18n.get("DisqualificationShort");
                             Strafe na = wk.getStrafen().getDisqualifiziert();
-                            if (na.getShortname().length() > 0) {
+                            if (!na.getShortname().isEmpty()) {
                                 text = na.getShortname();
                             }
                             setValueAt(text, y, PREFIX + ak.getDiszAnzahl() * LENGTH + offset);
@@ -755,8 +755,7 @@ public final class JResultTable extends JGroupableTable {
             for (int column = 0; column < getColumnCount(); column++) {
                 Component comp = prepareRenderer(getCellRenderer(row, column), row, column);
                 int height = comp.getPreferredSize().height;
-                if (comp instanceof JComponent) {
-                    JComponent jc = (JComponent) comp;
+                if (comp instanceof JComponent jc) {
                     Insets i = jc.getInsets();
                     height += i.top + i.bottom;
                 }

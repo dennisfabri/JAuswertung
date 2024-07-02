@@ -14,7 +14,7 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_RESPECT_QUALIFICAT
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
 import static java.util.Arrays.stream;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedList;
 
@@ -303,26 +303,30 @@ public class FormelILSFinalsTest {
 
         LinkedList<OWLauf<Teilnehmer>> laufliste = disziplin.getLaeufe();
         assertEquals(2, laufliste.size());
-        assertEquals(8, laufliste.get(0).getAllSchwimmer().size());
-        assertEquals(8, laufliste.get(1).getAllSchwimmer().size());
 
-        assertEquals(1, laufliste.get(1).getSchwimmer(3).getStartnummer());
-        assertEquals(2, laufliste.get(1).getSchwimmer(4).getStartnummer());
-        assertEquals(3, laufliste.get(1).getSchwimmer(2).getStartnummer());
-        assertEquals(4, laufliste.get(1).getSchwimmer(5).getStartnummer());
-        assertEquals(5, laufliste.get(1).getSchwimmer(1).getStartnummer());
-        assertEquals(6, laufliste.get(1).getSchwimmer(6).getStartnummer());
-        assertEquals(7, laufliste.get(1).getSchwimmer(0).getStartnummer());
-        assertEquals(8, laufliste.get(1).getSchwimmer(7).getStartnummer());
+        OWLauf<Teilnehmer> finalB = laufliste.get(0);
+        OWLauf<Teilnehmer> finalA = laufliste.get(1);
 
-        assertEquals(9, laufliste.get(0).getSchwimmer(3).getStartnummer());
-        assertEquals(10, laufliste.get(0).getSchwimmer(4).getStartnummer());
-        assertEquals(11, laufliste.get(0).getSchwimmer(2).getStartnummer());
-        assertEquals(12, laufliste.get(0).getSchwimmer(5).getStartnummer());
-        assertEquals(13, laufliste.get(0).getSchwimmer(1).getStartnummer());
-        assertEquals(14, laufliste.get(0).getSchwimmer(6).getStartnummer());
-        assertEquals(15, laufliste.get(0).getSchwimmer(0).getStartnummer());
-        assertEquals(16, laufliste.get(0).getSchwimmer(7).getStartnummer());
+        assertEquals(8, finalB.getAllSchwimmer().size());
+        assertEquals(8, finalA.getAllSchwimmer().size());
+
+        assertEquals(1, finalA.getSchwimmer(3).getStartnummer());
+        assertEquals(2, finalA.getSchwimmer(4).getStartnummer());
+        assertEquals(3, finalA.getSchwimmer(2).getStartnummer());
+        assertEquals(4, finalA.getSchwimmer(5).getStartnummer());
+        assertEquals(5, finalA.getSchwimmer(1).getStartnummer());
+        assertEquals(6, finalA.getSchwimmer(6).getStartnummer());
+        assertEquals(7, finalA.getSchwimmer(0).getStartnummer());
+        assertEquals(8, finalA.getSchwimmer(7).getStartnummer());
+
+        assertEquals(9, finalB.getSchwimmer(3).getStartnummer());
+        assertEquals(10, finalB.getSchwimmer(4).getStartnummer());
+        assertEquals(11, finalB.getSchwimmer(2).getStartnummer());
+        assertEquals(12, finalB.getSchwimmer(5).getStartnummer());
+        assertEquals(13, finalB.getSchwimmer(1).getStartnummer());
+        assertEquals(14, finalB.getSchwimmer(6).getStartnummer());
+        assertEquals(15, finalB.getSchwimmer(0).getStartnummer());
+        assertEquals(16, finalB.getSchwimmer(7).getStartnummer());
     }
 
     @Test

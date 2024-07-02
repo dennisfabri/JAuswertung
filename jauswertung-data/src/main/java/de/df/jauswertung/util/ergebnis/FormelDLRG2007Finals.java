@@ -40,7 +40,7 @@ public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<
      * double)
      */
     @Override
-    protected double getPoints(int time, int rec, int rank, int amount, Strafe str) {
+    protected double getPoints(int time, int rec, int rank, int amount, Strafe str, int heatSize) {
         if (rec == 0) {
             return 0.0;
         }
