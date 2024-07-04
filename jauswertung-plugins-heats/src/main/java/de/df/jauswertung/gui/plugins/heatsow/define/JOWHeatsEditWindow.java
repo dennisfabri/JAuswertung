@@ -30,6 +30,8 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 
+import static java.lang.String.format;
+
 public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
 
     private JList<String> aks;
@@ -161,35 +163,36 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
         return p;
     }
 
-    private boolean isInputOk() {
+    private ValidationResult isInputOk() {
+        ValidationResult result = ValidationResult.OK;
         ArrayList<Integer> ids = new ArrayList<>();
-        for (int x = 0; x < panels.length; x++) {
-            if (!panels[x].isInputValid()) {
-                return false;
-            }
-            ids.addAll(panels[x].GetIds());
+        for (JOWHeatsAKEditPanel panel : panels) {
+            result = result.merge(panel.isInputValid());
+            ids.addAll(panel.GetIds());
         }
         int last = -1;
         Collections.sort(ids);
         for (Integer i : ids) {
             if (i == last) {
-                return false;
+                return new ValidationResult(format("Id %d ist doppelt vergeben.", i));
             }
             last = i;
         }
-        return true;
+        return result;
     }
 
     private void doOk() {
-        if (!isInputOk()) {
+        ValidationResult validation = isInputOk();
+        if (!validation.isValid()) {
             DialogUtils.warn(this, "Die eingegebenen Daten sind nicht korrekt und können nicht gespeichert werden.",
-                    "Bitte korrigieren Sie die Eingabe.");
+                    validation.getMessage()+
+                    "\n\nBitte korrigieren Sie die Eingabe.");
             return;
         }
         isOk = true;
 
-        for (int x = 0; x < panels.length; x++) {
-            panels[x].doSave();
+        for (JOWHeatsAKEditPanel panel : panels) {
+            panel.doSave();
         }
 
         if (callback != null) {

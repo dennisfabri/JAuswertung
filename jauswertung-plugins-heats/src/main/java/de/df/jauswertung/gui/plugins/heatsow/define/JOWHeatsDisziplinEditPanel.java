@@ -2,10 +2,7 @@ package de.df.jauswertung.gui.plugins.heatsow.define;
 
 import java.util.Arrays;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -13,40 +10,45 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.regelwerk.Disziplin;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
+import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
+import static java.lang.String.format;
+
 public class JOWHeatsDisziplinEditPanel extends JPanel {
 
-    private Disziplin disziplin;
+    private final Regelwerk rwk;
+    private final Disziplin disziplin;
+    private final boolean male;
 
     private int[] runden;
     private int[] rundenIds;
 
     private JIntegerField[] input1 = new JIntegerField[0];
     private JIntegerField[] input2 = new JIntegerField[0];
-    private JButton add;
-    private JButton remove;
+    private final JButton add;
+    private final JButton remove;
 
-    public JOWHeatsDisziplinEditPanel(Disziplin d, boolean male) {
+    public JOWHeatsDisziplinEditPanel(Regelwerk rwk, Disziplin d, boolean male) {
         setBorder(BorderUtils.createLabeledBorder(d.getName()));
 
+        this.rwk = rwk;
         disziplin = d;
+        this.male = male;
+
         runden = null;
         rundenIds = null;
 
         add = new JTransparentButton(IconManager.getSmallIcon("more"));
         remove = new JTransparentButton(IconManager.getSmallIcon("less"));
 
-        add.addActionListener(e -> {
-            addRound();
-        });
-        remove.addActionListener(e -> {
-            removeRound();
-        });
+        add.addActionListener(e -> addRound());
+        remove.addActionListener(e -> removeRound());
 
         rebuildUI();
     }
@@ -85,18 +87,17 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
         rundenIds[x] = input2[x].getInt();
     }
 
-    public boolean isInputValid() {
+    public ValidationResult isInputValid() {
+        ValidationResult result = ValidationResult.OK;
         for (int x = 0; x <= runden.length; x++) {
-            if (!validate(x, x < runden.length ? runden[x] : 1, true)
-                    || !validate(x, x < runden.length ? runden[x] : 1, false)) {
-                return false;
-            }
+            result = result.merge(validate(x, x < runden.length ? runden[x] : 1, true));
+            result = result.merge(validate(x, x < runden.length ? runden[x] : 1, false));
         }
-        return true;
+        return result;
     }
 
     public void doSave() {
-        if (isInputValid()) {
+        if (isInputValid().isValid()) {
             disziplin.setRunden(runden, rundenIds);
         }
     }
@@ -161,32 +162,36 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
         updateUI();
     }
 
-    private boolean validateLeft(int row, int value) {
+    private ValidationResult validateLeft(int row, int value) {
         if (row > 0) {
             if (row < input1.length) {
                 if (input1[row - 1].getInt() < value) {
-                    return false;
+                    return new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss kleiner als Runde " + row + " sein.");
                 }
             }
             if (input2[row - 1].getInt() <= 0) {
-                return false;
+                return new ValidationResult(getValidationPrefix() + "Id " + (row + 1) + " muss größer als 0 sein.");
             }
         }
-        return value > 0;
+        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss größer als 0 sein.");
     }
 
-    private boolean validateRight(int row, int value) {
-        return value > 0;
+    private String getValidationPrefix() {
+        return format("%s %s: ", disziplin.getName(), I18n.geschlechtToString(rwk, male));
     }
 
-    private boolean validate(int row, int value, boolean left) {
+    private ValidationResult validateRight(int row, int value) {
+        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss größer als 0 sein.");
+    }
+
+    private ValidationResult validate(int row, int value, boolean left) {
         return left ? validateLeft(row, value) : validateRight(row, value);
     }
 
     private final class InputValidator implements JIntegerField.Validator {
 
-        private int row;
-        private boolean left;
+        private final int row;
+        private final boolean left;
 
         public InputValidator(int x, boolean left) {
             row = x;
@@ -195,13 +200,13 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
 
         @Override
         public boolean validate(int value) {
-            return JOWHeatsDisziplinEditPanel.this.validate(row, value, left);
+            return JOWHeatsDisziplinEditPanel.this.validate(row, value, left).isValid();
         }
     }
 
     private final class InputChangedListener implements DocumentListener {
 
-        private int row;
+        private final int row;
 
         public InputChangedListener(int x) {
             row = x;
