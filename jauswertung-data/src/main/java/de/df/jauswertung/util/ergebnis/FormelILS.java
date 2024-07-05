@@ -115,7 +115,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r IndoorwettkÃ¤mpfe der ILS ohne Finals";
+        return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS ohne Finals";
     }
 
     private static final double Epsilon = 0.005;
@@ -405,18 +405,10 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     protected static final int[] POINTS = new int[] { 20, 18, 16, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1 };
 
     protected double getPoints(int rank) {
-        return getPoints(rank, 1);
-    }
-
-    protected double getPoints(int rank, int amount) {
-        if (!((rank > 0) && (rank <= POINTS.length))) {
-            return 0;
+        if ((rank > 0) && (rank <= POINTS.length)) {
+            return POINTS[rank - 1];
         }
-        double sum = 0;
-        for (int x = rank - 1; x < Math.min(rank + amount - 1, POINTS.length); x++) {
-            sum += POINTS[x];
-        }
-        return Math.round(100.0 * sum / amount) / 100.0;
+        return 0;
     }
 
     @Override
