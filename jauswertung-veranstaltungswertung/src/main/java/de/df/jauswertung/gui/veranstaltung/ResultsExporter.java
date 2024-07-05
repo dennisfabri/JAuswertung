@@ -59,10 +59,10 @@ class ResultsExporter implements Printer {
     }
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf getResult() {
+    private AWettkampf[] getResult() {
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
-        return Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen);
+        return VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen,false);
     }
 
     @SuppressWarnings("rawtypes")
@@ -82,11 +82,13 @@ class ResultsExporter implements Printer {
     }
 
     private void print() {
-        AWettkampf p = getResult();
-        if (p == null) {
+        AWettkampf[] wks = getResult();
+        if (wks == null || wks.length == 0) {
             DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
             return;
         }
+
+        AWettkampf p = wks[0];
         String filename = FileChooserUtils.saveFile(parent, new SimpleFileFilter("Competition-Datei", ".competition"));
         if (filename != null) {
             Competition c = getGesamtwertung(p, parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0);
@@ -97,7 +99,7 @@ class ResultsExporter implements Printer {
     @SuppressWarnings({ "unchecked", "null", "rawtypes" })
     private static <T extends ASchwimmer> Competition getGesamtwertung(AWettkampf<T> wk, Veranstaltung vs,
             boolean gliederung) {
-        AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
+        AWettkampf[] wks = VeranstaltungsUtils.getWettkaempfe(vs.getCompetitions());
         String[] nx = vs.getCompetitionNames();
         LinkedList<Integer> sizes = new LinkedList<>();
         LinkedList<String> names = new LinkedList<>();

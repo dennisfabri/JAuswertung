@@ -24,11 +24,6 @@ public abstract class EmptyExporter implements IExporter {
     }
 
     @Override
-    public <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
     public <T extends ASchwimmer> boolean bestezeiten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return false;
     }
@@ -50,11 +45,6 @@ public abstract class EmptyExporter implements IExporter {
 
     @Override
     public <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        return false;
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         return false;
     }
 

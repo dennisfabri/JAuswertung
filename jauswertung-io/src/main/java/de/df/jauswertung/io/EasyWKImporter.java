@@ -108,7 +108,7 @@ public final class EasyWKImporter implements IImporter {
     @Override
     public boolean isSupported(ImportExportTypes type) {
         switch (type) {
-        case HEATTIMES:
+        case HEAT_TIMES:
             return true;
         default:
             return false;

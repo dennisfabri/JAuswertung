@@ -40,17 +40,17 @@ public final class OWUtils {
         }
     }
 
-    public static <T extends ASchwimmer> boolean ShowRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
-            String text, OWSelection[] data,
-            Consumer<OWSelection[]> cb) {
+    public static <T extends ASchwimmer> boolean showRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
+                                                                        String text, OWSelection[] data,
+                                                                        Consumer<OWSelection[]> cb) {
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, true, cb);
         ModalFrameUtil.showAsModal(ds, owner);
         return ds.isCancelled();
     }
 
-    public static <T extends ASchwimmer> boolean ShowRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
-            String text, OWSelection[] data,
-            Consumer<OWSelection> cb) {
+    public static <T extends ASchwimmer> boolean showRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
+                                                                   String text, OWSelection[] data,
+                                                                   Consumer<OWSelection> cb) {
         Consumer<OWSelection[]> cbx = new OWSelectionCallbackProxy(cb);
         JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, false, cbx);
         ModalFrameUtil.showAsModal(ds, owner);
@@ -73,8 +73,6 @@ public final class OWUtils {
                 }
             }
             if (selected) {
-                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
-                        .getRunden().length;
                 daten.add(
                         new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round));
             }

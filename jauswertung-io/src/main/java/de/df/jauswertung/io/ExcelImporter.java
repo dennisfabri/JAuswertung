@@ -188,7 +188,7 @@ public final class ExcelImporter implements IImporter {
         switch (type) {
         case ZW_RESULTS:
         case REGISTRATION:
-        case TEAMMEMBERS:
+        case TEAM_MEMBERS:
         case REFEREES:
             return true;
         default:

@@ -114,7 +114,7 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         }
     }
 
-    private class NameInfo {
+    private static class NameInfo {
         // result[0][0]
         public boolean SurnameIsSurname = false;
         // result[1][0]

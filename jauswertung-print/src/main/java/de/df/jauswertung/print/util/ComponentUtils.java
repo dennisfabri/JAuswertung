@@ -21,10 +21,6 @@ public final class ComponentUtils {
         // Hide constructor
     }
 
-    public static JComponent createCheckBox() {
-        return createCheckBox("");
-    }
-
     public static JComponent createCheckBox(String text) {
         return createCheckBox(text, SwingConstants.LEFT);
     }
@@ -33,21 +29,5 @@ public final class ComponentUtils {
         JLabel l = new JLabel(text, IMAGE_BOX, align);
         l.setBackground(Color.WHITE);
         return l;
-    }
-
-    public static Border createBorder() {
-        return createBorder(false);
-    }
-
-    public static Border createBorder(boolean important) {
-        int thickness = 1;
-        if (important) {
-            thickness = 3;
-        }
-        int top = 1;
-        int left = 5;
-        int bottom = 5;
-        int right = 5;
-        return new CompoundBorder(new LineBorder(Color.BLACK, thickness), new EmptyBorder(top, left, bottom, right));
     }
 }

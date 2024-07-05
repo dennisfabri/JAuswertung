@@ -5,10 +5,7 @@ package de.df.jauswertung.gui.util;
 
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -66,14 +63,14 @@ public final class TableHeatUtils {
     }
 
     private static <T extends ASchwimmer> Object[][] laufeinteilungToData(int diszAnzahl, SchwimmerInfo[] schwimmer,
-            boolean numbering, boolean withAgegroup, boolean withOrganisation, int meldeindex, boolean zw,
+            boolean numbering, boolean withAgegroup, boolean withOrganisation, int meldeindex,
             boolean showSN) {
         int offsetName = 1;
         int offsetAgegroup = (withAgegroup ? 1 : 0);
         int offsetOrganisation = (withOrganisation ? 2 : 0);
         int offset = (numbering ? 1 : 0) + offsetName + offsetAgegroup + offsetOrganisation + 1;
 
-        Object[][] data = new Object[schwimmer.length][offset + diszAnzahl + (zw ? 1 : 0) + (showSN ? 1 : 0)];
+        Object[][] data = new Object[schwimmer.length][offset + diszAnzahl + (showSN ? 1 : 0)];
 
         for (int y = 0; y < data.length; y++) {
             for (int x = 0; x < data[y].length; x++) {
@@ -135,32 +132,12 @@ public final class TableHeatUtils {
                         data[y][pos + x] = " ";
                     }
                 }
-                if (zw) {
-                    if (t.getAK().hasHLW()) {
-                        ZWInfo[] infos = SchwimmerUtils.getZWInfo(t.getWettkampf(), t);
-
-                        // Only display first time
-                        StringBuilder sb = new StringBuilder();
-                        if ((infos != null) && (infos.length > 0) && (infos[0] != null)
-                                && (infos[0].getZeit() != null)) {
-                            sb.append(infos[0].getZeit().trim());
-                        }
-                        if (sb.length() == 0) {
-                            sb.append("-");
-                        }
-
-                        data[y][data[y].length - 1] = sb.toString();
-                    } else {
-                        data[y][data[y].length - 1] = " ";
-                    }
-                }
             }
         }
         return data;
     }
 
-    private static <T extends ASchwimmer> SimpleTableModel[] buildLaufeinteilungTabellen(final AWettkampf<T> wk,
-            boolean zw) {
+    private static <T extends ASchwimmer> SimpleTableModel[] buildLaufeinteilungTabellen(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
@@ -269,8 +246,8 @@ public final class TableHeatUtils {
         SimpleTableModel[] models = new SimpleTableModel[result.size()];
         ListIterator<SchwimmerInfo[]> tables = result.listIterator();
         for (int x = 0; x < models.length; x++) {
-            Object[][] data = laufeinteilungToData(diszAnzahl, tables.next(), false, true, true, meldeindex, zw, false);
-            Object[] titel = new Object[5 + diszAnzahl + (zw ? 1 : 0)];
+            Object[][] data = laufeinteilungToData(diszAnzahl, tables.next(), false, true, true, meldeindex, false);
+            Object[] titel = new Object[5 + diszAnzahl];
 
             titel[0] = I18n.get("Name");
             titel[1] = I18n.get("Organisation");
@@ -281,30 +258,26 @@ public final class TableHeatUtils {
                 titel[5 + y] = I18n.get("HeatShort") + " / " + I18n.get("LaneShort");
                 // titel[4 + 2 * y] = I18n.get("LaneShort");
             }
-            if (zw) {
-                titel[titel.length - 1] = wk.getRegelwerk().getZusatzwertungShort();
-            }
             models[x] = new SimpleTableModel(data, titel);
         }
 
         return models;
     }
 
-    public static <T extends ASchwimmer> JTable getLaufeinteilungTabelle(final AWettkampf<T> wk, boolean zw) {
+    public static <T extends ASchwimmer> JTable getLaufeinteilungTabelle(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
 
-        SimpleTableModel model = buildLaufeinteilungTabelle(wk, zw);
+        SimpleTableModel model = buildLaufeinteilungTabelle(wk);
 
         JTable table = new JGroupableTable(model);
         TableColumnModel cm = table.getColumnModel();
         GroupableTableHeader header = (GroupableTableHeader) table.getTableHeader();
         ColumnGroup disziplinen = new ColumnGroup(I18n.get("Discipline"));
-        for (int x = 0; x < (table.getColumnCount() - 5 - (zw ? 1 : 0)); x++) {
+        for (int x = 0; x < (table.getColumnCount() - 5); x++) {
             ColumnGroup nummer = new ColumnGroup("" + (x + 1));
             nummer.add(cm.getColumn(5 + x));
-            // nummer.add(cm.getColumn(4 + 2 * x));
             disziplinen.add(nummer);
         }
         header.addColumnGroup(disziplinen);
@@ -316,8 +289,7 @@ public final class TableHeatUtils {
         return table;
     }
 
-    private static <T extends ASchwimmer> SimpleTableModel buildLaufeinteilungTabelle(final AWettkampf<T> wk,
-            boolean zw) {
+    private static <T extends ASchwimmer> SimpleTableModel buildLaufeinteilungTabelle(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
@@ -343,31 +315,26 @@ public final class TableHeatUtils {
             return null;
         }
 
-        Collections.sort(result, new Comparator<SchwimmerInfo[]>() {
-            @Override
-            public int compare(SchwimmerInfo[] o1, SchwimmerInfo[] o2) {
-                SchwimmerInfo s1 = o1[0];
-                SchwimmerInfo s2 = o2[0];
+        result.sort((o1, o2) -> {
+            SchwimmerInfo s1 = o1[0];
+            SchwimmerInfo s2 = o2[0];
 
-                if ((s1 == null) || (s2 == null)) {
-                    return (s1 == null ? 1 : -1);
-                }
-                int i = s1.getSchwimmer().getAKNummer() - s2.getSchwimmer().getAKNummer();
-                if (i != 0) {
-                    return i * 2;
-                }
-                int g1 = s1.getSchwimmer().isMaennlich() ? 1 : 0;
-                int g2 = s2.getSchwimmer().isMaennlich() ? 1 : 0;
-                return g1 - g2;
+            if ((s1 == null) || (s2 == null)) {
+                return (s1 == null ? 1 : -1);
             }
+            int i = s1.getSchwimmer().getAKNummer() - s2.getSchwimmer().getAKNummer();
+            if (i != 0) {
+                return i * 2;
+            }
+            int g1 = s1.getSchwimmer().isMaennlich() ? 1 : 0;
+            int g2 = s2.getSchwimmer().isMaennlich() ? 1 : 0;
+            return g1 - g2;
         });
 
         // Ggf. fast leere Tabellen zusammenfassen
         if ((bahnen > 4) && (result.size() >= 2)) {
             String[] nothing = new String[bahnen];
-            for (int x = 0; x < nothing.length; x++) {
-                nothing[x] = "";
-            }
+            Arrays.fill(nothing, "");
             SchwimmerInfo empty = new SchwimmerInfo(null, nothing);
 
             ListIterator<SchwimmerInfo[]> rli = result.listIterator();
@@ -404,8 +371,8 @@ public final class TableHeatUtils {
         ListIterator<SchwimmerInfo[]> tables = result.listIterator();
 
         for (int x = 0; x < models.length; x++) {
-            Object[][] data = laufeinteilungToData(diszAnzahl, tables.next(), false, true, true, meldeindex, zw, false);
-            Object[] titel = new Object[5 + diszAnzahl + (zw ? 1 : 0)];
+            Object[][] data = laufeinteilungToData(diszAnzahl, tables.next(), false, true, true, meldeindex, false);
+            Object[] titel = new Object[5 + diszAnzahl];
 
             titel[0] = I18n.get("Name");
             titel[1] = I18n.get("Organisation");
@@ -415,9 +382,6 @@ public final class TableHeatUtils {
             for (int y = 0; y < diszAnzahl; y++) {
                 titel[5 + y] = I18n.get("HeatShort") + " / " + I18n.get("LaneShort");
                 // titel[4 + 2 * y] = I18n.get("LaneShort");
-            }
-            if (zw) {
-                titel[titel.length - 1] = wk.getRegelwerk().getZusatzwertungShort();
             }
             models[x] = new SimpleTableModel(data, titel);
         }
@@ -450,8 +414,7 @@ public final class TableHeatUtils {
         list.addFirst(si);
     }
 
-    private static <T extends ASchwimmer> ExtendedTableModel[] buildLaufeinteilungTabellenJeAK(final AWettkampf<T> wk,
-            boolean zw) {
+    private static <T extends ASchwimmer> ExtendedTableModel[] buildLaufeinteilungTabellenJeAK(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
@@ -502,8 +465,8 @@ public final class TableHeatUtils {
                     new Meldesorter(wk.getIntegerProperty(PropertyConstants.HEATS_REGISTERED_POINTS_INDEX, 0)));
 
             Object[][] data = laufeinteilungToData(diszAnzahl, lsi.toArray(new SchwimmerInfo[lsi.size()]), true, false,
-                    true, meldeindex, zw, false);
-            Object[] titel = new Object[5 + diszAnzahl + (zw ? 1 : 0)];
+                    true, meldeindex, false);
+            Object[] titel = new Object[5 + diszAnzahl];
 
             titel[0] = I18n.get("NumberShort");
             titel[1] = I18n.get("Name");
@@ -512,9 +475,6 @@ public final class TableHeatUtils {
             titel[4] = I18n.get("Points");
             for (int y = 0; y < diszAnzahl; y++) {
                 titel[5 + y] = I18n.get("HeatShort") + " / " + I18n.get("LaneShort");
-            }
-            if (zw) {
-                titel[titel.length - 1] = wk.getRegelwerk().getZusatzwertungShort();
             }
             models[x] = new ExtendedTableModel(data, titel);
             models[x].setName(aks.getAk(ak).getName() + " " + I18n.geschlechtToString(t));
@@ -525,7 +485,7 @@ public final class TableHeatUtils {
 
     @SuppressWarnings("unchecked")
     private static <T extends ASchwimmer> ExtendedTableModel[] buildLaufeinteilungTabellenJeGliederung(
-            final AWettkampf<T> wk, boolean zw) {
+            final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
@@ -562,8 +522,8 @@ public final class TableHeatUtils {
                 int diszAnzahl = aks.getMaxDisciplineCount();
 
                 Object[][] data = laufeinteilungToData(diszAnzahl, lsi.toArray(new SchwimmerInfo[lsi.size()]), false,
-                        true, false, meldeindex, zw, true);
-                Object[] titel = new Object[4 + diszAnzahl + (zw ? 1 : 0)];
+                        true, false, meldeindex, true);
+                Object[] titel = new Object[4 + diszAnzahl];
 
                 titel[0] = I18n.get("StartnumberShort");
                 titel[1] = I18n.get("Name");
@@ -571,10 +531,6 @@ public final class TableHeatUtils {
                 titel[3] = I18n.get("Points");
                 for (int y = 0; y < diszAnzahl; y++) {
                     titel[4 + y] = I18n.get("HeatShort") + " / " + I18n.get("LaneShort");
-                    // titel[3 + 2 * y] = I18n.get("LaneShort");
-                }
-                if (zw) {
-                    titel[titel.length - 1] = wk.getRegelwerk().getZusatzwertungShort();
                 }
                 ExtendedTableModel model = new ExtendedTableModel(data, titel);
                 model.setColumnAlignment(0, SwingConstants.RIGHT);
@@ -596,22 +552,21 @@ public final class TableHeatUtils {
         return length;
     }
 
-    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellen(final AWettkampf<T> wk, boolean zw) {
+    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellen(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
 
-        SimpleTableModel[] models = buildLaufeinteilungTabellen(wk, zw);
+        SimpleTableModel[] models = buildLaufeinteilungTabellen(wk);
         JTable[] tables = new JTable[models.length];
         for (int y = 0; y < models.length; y++) {
             JTable table = new JGroupableTable(models[y]);
             TableColumnModel cm = table.getColumnModel();
             GroupableTableHeader header = (GroupableTableHeader) table.getTableHeader();
             ColumnGroup disziplinen = new ColumnGroup(I18n.get("Discipline"));
-            for (int x = 0; x < (table.getColumnCount() - 5 - (zw ? 1 : 0)); x++) {
+            for (int x = 0; x < (table.getColumnCount() - 5); x++) {
                 ColumnGroup nummer = new ColumnGroup("" + (x + 1));
                 nummer.add(cm.getColumn(5 + x));
-                // nummer.add(cm.getColumn(4 + 2 * x));
                 disziplinen.add(nummer);
             }
             header.addColumnGroup(disziplinen);
@@ -625,19 +580,19 @@ public final class TableHeatUtils {
         return tables;
     }
 
-    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellenJeAK(final AWettkampf<T> wk, boolean zw) {
+    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellenJeAK(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
 
-        ExtendedTableModel[] models = buildLaufeinteilungTabellenJeAK(wk, zw);
+        ExtendedTableModel[] models = buildLaufeinteilungTabellenJeAK(wk);
         JTable[] tables = new JTable[models.length];
         for (int y = 0; y < models.length; y++) {
             JTable table = new JGroupableTable(models[y]);
             TableColumnModel cm = table.getColumnModel();
             GroupableTableHeader header = (GroupableTableHeader) table.getTableHeader();
             ColumnGroup disziplinen = new ColumnGroup(I18n.get("Discipline"));
-            for (int x = 0; x < (table.getColumnCount() - 5 - (zw ? 1 : 0)); x++) {
+            for (int x = 0; x < (table.getColumnCount() - 5); x++) {
                 ColumnGroup nummer = new ColumnGroup("" + (x + 1));
                 nummer.add(cm.getColumn(5 + x));
                 // nummer.add(cm.getColumn(3 + 2 * x));
@@ -654,13 +609,12 @@ public final class TableHeatUtils {
         return tables;
     }
 
-    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellenJeGliederung(final AWettkampf<T> wk,
-            boolean zw) {
+    public static <T extends ASchwimmer> JTable[] getLaufeinteilungTabellenJeGliederung(final AWettkampf<T> wk) {
         if (wk == null) {
             return null;
         }
 
-        ExtendedTableModel[] models = buildLaufeinteilungTabellenJeGliederung(wk, zw);
+        ExtendedTableModel[] models = buildLaufeinteilungTabellenJeGliederung(wk);
 
         JTable[] tables = new JTable[models.length];
         for (int y = 0; y < models.length; y++) {
@@ -668,7 +622,7 @@ public final class TableHeatUtils {
             TableColumnModel cm = table.getColumnModel();
             GroupableTableHeader header = (GroupableTableHeader) table.getTableHeader();
             ColumnGroup disziplinen = new ColumnGroup(I18n.get("Discipline"));
-            for (int x = 0; x < (table.getColumnCount() - 4 - (zw ? 1 : 0)); x++) {
+            for (int x = 0; x < (table.getColumnCount() - 4); x++) {
                 ColumnGroup nummer = new ColumnGroup("" + (x + 1));
                 nummer.add(cm.getColumn(4 + x));
                 // nummer.add(cm.getColumn(3 + 2 * x));
@@ -778,11 +732,6 @@ public final class TableHeatUtils {
         return table;
     }
 
-    /**
-     * @param <T>
-     * @param laufliste
-     * @return
-     */
     private static <T extends ASchwimmer> Object[][] lauflisteToData(AWettkampf<T> wk) {
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
@@ -816,11 +765,6 @@ public final class TableHeatUtils {
         return o;
     }
 
-    /**
-     * @param <T>
-     * @param laufliste
-     * @return
-     */
     private static <T extends ASchwimmer> Object[][] lauflisteToTimes(AWettkampf<T> wk) {
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 

@@ -88,7 +88,7 @@ class ResultsPrinter implements Printer {
     public static <T extends ASchwimmer> Printable getGesamtwertungPrintable(AWettkampf<T> wk, Veranstaltung vs,
             boolean gliederung) {
 
-        AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
+        AWettkampf[] wks = VeranstaltungsUtils.getWettkaempfe(vs.getCompetitions());
         String[] nx = vs.getCompetitionNames();
         LinkedList<Integer> sizes = new LinkedList<>();
         LinkedList<String> names = new LinkedList<>();
@@ -174,10 +174,20 @@ class ResultsPrinter implements Printer {
     Printable getPrintableCompact() {
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
-        AWettkampf wk = Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen);
+        AWettkampf[] wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
         Font f = parent.getSelectedFont();
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        return getPrintableCompact(vs, wk, title, f);
+        return getPrintableCompact(vs, wks, title, f);
+    }
+
+    private static MultiplePrintable getPrintableCompact(Veranstaltung vs, AWettkampf[] wks, String title, Font f) {
+        MultiplePrintable mp = new MultiplePrintable();
+        for (AWettkampf wk : wks) {
+            if (wk.hasSchwimmer()) {
+                mp.add(getPrintableCompact(vs, wk, title, f));
+            }
+        }
+        return mp;
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -282,7 +292,7 @@ class ResultsPrinter implements Printer {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private Printable veranstaltung2Printable(Veranstaltung vs, boolean gliederungen) {
-        AWettkampf[] wks = Veranstaltungsutils.getWettkaempfe(vs.getCompetitions());
+        AWettkampf[] wks = VeranstaltungsUtils.getWettkaempfe(vs.getCompetitions());
         if (!gliederungen) {
             for (AWettkampf wk : wks) {
                 if (wk != null) {
@@ -324,7 +334,7 @@ class ResultsPrinter implements Printer {
     private final class CompactPrintableCreator implements PrintableCreator {
 
         @SuppressWarnings("rawtypes")
-        private final AWettkampf wk;
+        private final AWettkampf[] wks;
         private final Veranstaltung vs;
         private final String t;
         private final Font f;
@@ -335,7 +345,7 @@ class ResultsPrinter implements Printer {
             System.out.println("Veranstaltung: " + (System.currentTimeMillis() - start));
             start = System.currentTimeMillis();
             boolean gliederungen = resultmodus.getSelectedIndex() == 0;
-            wk = Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen);
+            wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
             System.out.println("Wettkämpfe: " + (System.currentTimeMillis() - start));
             start = System.currentTimeMillis();
             f = parent.getSelectedFont();
@@ -346,7 +356,7 @@ class ResultsPrinter implements Printer {
 
         @Override
         public Printable create() {
-            return getPrintableCompact(vs, wk, t, f);
+            return getPrintableCompact(vs, wks, t, f);
         }
     }
 

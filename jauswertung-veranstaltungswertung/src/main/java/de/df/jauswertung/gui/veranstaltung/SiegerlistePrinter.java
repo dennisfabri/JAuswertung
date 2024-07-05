@@ -35,6 +35,7 @@ import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.ComponentListPrintable;
 import de.df.jutils.print.printables.EmptyPrintable;
 import de.df.jutils.print.printables.HeaderFooterPrintable;
+import de.df.jutils.print.printables.MultiplePrintable;
 import de.df.jutils.util.StringTools;
 
 class SiegerlistePrinter implements Printer {
@@ -216,8 +217,18 @@ class SiegerlistePrinter implements Printer {
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        return getPrintable(vs, Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen), title,
+        return getPrintable(vs, VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true), title,
                 getSelectedFont());
+    }
+
+    Printable getPrintable(Veranstaltung vs, AWettkampf[] wks, String title, Font f) {
+        MultiplePrintable mp = new MultiplePrintable();
+        for (AWettkampf wk : wks) {
+            if (wk.hasSchwimmer()) {
+                mp.add(getPrintable(vs, wk, title, f));
+            }
+        }
+        return mp;
     }
 
     @SuppressWarnings("rawtypes")
@@ -282,7 +293,7 @@ class SiegerlistePrinter implements Printer {
     private final class SiegerlistePrintableCreator implements PrintableCreator {
 
         @SuppressWarnings("rawtypes")
-        private final AWettkampf wk;
+        private final AWettkampf[] wks;
         private final Veranstaltung vs;
         private final String t;
         private final Font f;
@@ -293,7 +304,7 @@ class SiegerlistePrinter implements Printer {
             System.out.println("Veranstaltung: " + (System.currentTimeMillis() - start));
             start = System.currentTimeMillis();
             boolean gliederungen = resultmodus.getSelectedIndex() == 0;
-            wk = Veranstaltungsutils.veranstaltung2Wettkampf(vs, gliederungen);
+            wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
             System.out.println("Wettkämpfe: " + (System.currentTimeMillis() - start));
             start = System.currentTimeMillis();
             f = getSelectedFont();
@@ -304,7 +315,7 @@ class SiegerlistePrinter implements Printer {
 
         @Override
         public Printable create() {
-            return getPrintable(vs, wk, t, f);
+            return getPrintable(vs, wks, t, f);
         }
     }
 }

@@ -435,8 +435,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         printResult(t);
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                                               "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPrintSelectionDialog();
             }
@@ -454,8 +454,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         export(t);
                     }
                 };
-                OWUtils.ShowRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                                          "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 // export();
             }
@@ -489,8 +489,8 @@ abstract class APerDisciplinePrinter implements Printer {
                                 IconManager.getTitleImages());
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                        "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
+                                               "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPreviewSelectionDialog();
             }

@@ -341,7 +341,7 @@ public class PPrintPlugin extends ANullPlugin {
         }
     }
 
-    private final class StatusTextChanger implements Runnable {
+    private static class StatusTextChanger implements Runnable {
 
         private final JPFrame frame;
         private final String text;

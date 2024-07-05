@@ -147,9 +147,9 @@ class LaufergebnissePrinter implements Printer {
                         printLaufliste(t);
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, false), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, false), cb);
             } else {
                 PrintExecutor.print(getPrintable(wk), I18n.get("Laufzeiten"), true, controller.getWindow());
             }
@@ -158,9 +158,9 @@ class LaufergebnissePrinter implements Printer {
 
     final class PreviewActionListener implements ActionListener {
 
-        class PPrintableCreator implements PrintableCreator {
+        static class PPrintableCreator implements PrintableCreator {
 
-            private AWettkampf[] wkx;
+            private final AWettkampf[] wkx;
 
             public PPrintableCreator(AWettkampf[] wk) {
                 this.wkx = wk;
@@ -187,9 +187,9 @@ class LaufergebnissePrinter implements Printer {
                                 I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
-                OWUtils.ShowRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, false), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
+                                               "Laufliste zum Drucken auswählen",
+                                               OWUtils.getCreatedRounds(wk, false), cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }),
                         I18n.get("Laufzeiten"), IconManager.getIconBundle(), IconManager.getTitleImages());

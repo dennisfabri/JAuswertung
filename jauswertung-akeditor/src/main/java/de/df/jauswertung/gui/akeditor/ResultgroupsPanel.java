@@ -76,7 +76,7 @@ public class ResultgroupsPanel extends JPanel {
         add(scr, CC.xyw(2, 4, 7));
     }
 
-    private class Editor extends JDialog {
+    private static class Editor extends JDialog {
 
         private Wertungsgruppe result = null;
 

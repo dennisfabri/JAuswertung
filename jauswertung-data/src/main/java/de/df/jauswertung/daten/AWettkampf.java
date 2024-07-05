@@ -3,42 +3,12 @@
  */
 package de.df.jauswertung.daten;
 
-import static de.df.jauswertung.daten.PropertyConstants.ART_DES_WETTKAMPFS;
-import static de.df.jauswertung.daten.PropertyConstants.ELEKTRONISCHE_ZEITNAHME;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_EMPTY_LIST;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_FIRST_HEAT;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_NOT_COMPETING_MIXED;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
-import static de.df.jauswertung.daten.PropertyConstants.LAST_CHANGE;
-import static de.df.jauswertung.daten.PropertyConstants.VERSION;
-import static de.df.jauswertung.daten.PropertyConstants.YEAR_OF_COMPETITION;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_DURATION;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_EMPTY_LIST;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_LANES;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE_AGEGROUPS;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE_DURATION;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE_MODE;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE_RESTARTS;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_PAUSE_START;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_SORTING_ORDER;
-import static de.df.jauswertung.daten.PropertyConstants.ZW_STARTTIME;
+import static de.df.jauswertung.daten.PropertyConstants.*;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Stack;
+import java.util.*;
+import java.util.function.Predicate;
 
-import de.df.jauswertung.daten.laufliste.*;
 import org.dom4j.Element;
 
 import com.pmease.commons.xmt.VersionedDocument;
@@ -47,13 +17,8 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.Disziplin;
-import de.df.jauswertung.daten.regelwerk.Einspruch;
-import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Startgruppe;
-import de.df.jauswertung.daten.regelwerk.Strafe;
-import de.df.jauswertung.daten.regelwerk.Strafen;
+import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.util.SearchUtils;
@@ -95,24 +60,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         setProperty(HEATS_NOT_COMPETING_MIXED, true);
         setProperty(HEATS_EMPTY_LIST, false);
         setProperty(HEATS_FIRST_HEAT, 1);
-        setProperty(ZW_EMPTY_LIST, false);
-        setProperty(ZW_STARTTIME, 480);
-        setProperty(ZW_DURATION, 5);
-        setProperty(ZW_LANES, 5);
-        setProperty(ZW_SORTING_ORDER, HLWListe.REIHENFOLGE_GEGEN);
-        setProperty(ZW_PAUSE, false);
-        setProperty(ZW_PAUSE_MODE, HLWListe.PAUSE_MODE_AGEGROUP);
-        setProperty(ZW_PAUSE_START, 600);
-        setProperty(ZW_PAUSE_DURATION, 30);
 
         setProperty(YEAR_OF_COMPETITION, Calendar.getInstance().get(Calendar.YEAR));
 
         int[] times = new int[altersklassen.size()];
-        for (int x = 0; x < times.length; x++) {
-            times[x] = 8 * 60;
-        }
-        setProperty(ZW_PAUSE_RESTARTS, times);
-        setProperty(ZW_PAUSE_AGEGROUPS, new boolean[altersklassen.size()]);
+        Arrays.fill(times, 8 * 60);
         setProperty(LAST_CHANGE, new Date());
 
         filter = new Filter[] { new Filter(I18n.get("Filter.NoFilter"), null) };
@@ -254,7 +206,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     private boolean changing = false;
 
-    private final void changedNow(boolean update) {
+    private void changedNow(boolean update) {
         if (changing) {
             return;
         }
@@ -326,9 +278,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin alle Zeiten eingetragen
      * wurden.
-     * 
-     * @param disz Nummer der Disziplin @return true, wenn alle Zeiten eingegeben
-     *             wurden. false sonst.
      */
     public final int getToDisciplineComplete() {
         for (int x = 0; x < disciplinesComplete.length; x++) {
@@ -364,9 +313,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin alle Zeiten eingetragen
      * wurden.
-     * 
-     * @param disz Nummer der Disziplin @return true, wenn alle Zeiten eingegeben
-     *             wurden. false sonst.
      */
     public final int getToDisciplineComplete(int ak, boolean male) {
         for (int x = 0; x < disciplinesAgeGroupComplete[ak].length; x++) {
@@ -380,9 +326,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin alle Zeiten eingetragen
      * wurden.
-     * 
-     * @param disz Nummer der Disziplin @return true, wenn alle Zeiten eingegeben
-     *             wurden. false sonst.
      */
     public final boolean isDisciplinesComplete() {
         for (boolean aDisciplinesComplete : disciplinesComplete) {
@@ -668,6 +611,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         changedNow(true);
     }
 
+    public final synchronized void removeSchwimmer(Predicate<T> condition) {
+        removeSchwimmer(getSchwimmer().stream().filter(condition).toList());
+    }
+
     public final synchronized boolean removeSchwimmer(T t) {
         boolean b = removeSchwimmerI(t);
         if (b) {
@@ -676,7 +623,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return b;
     }
 
-    private final synchronized boolean removeSchwimmerI(T t) {
+    private synchronized boolean removeSchwimmerI(T t) {
         boolean geloescht = false;
         ListIterator<T> li = schwimmer.listIterator();
         while ((!geloescht) && (li.hasNext())) {
@@ -780,9 +727,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert die gesuchte Gliederung.
-     * 
-     * @param name Der Name der gesuchten Gliederung. @return Liefert die gesuchte
-     *             Gliederung.
      */
     public final String getGliederung(String vergleicher) {
         ListIterator<T> li = schwimmer.listIterator();
@@ -798,8 +742,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Liefert die gesuchte Gliederung.
      * 
-     * @param name Der Name der gesuchten Gliederung. @return Liefert die gesuchte
-     *             Gliederung.
      */
     final String getQualifikationsebene(String vergleicher) {
         ListIterator<T> li = schwimmer.listIterator();
@@ -893,7 +835,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return getDoubleProperty(name, 0);
     }
 
-    private final double getDoubleProperty(String name, double fallback) {
+    private double getDoubleProperty(String name, double fallback) {
         Object o = getProperty(name);
         if ((o == null) || (!(o instanceof Number))) {
             return fallback;
@@ -984,10 +926,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         }
         return (getLaufliste() != null) && (getLaufliste().getLaufliste() != null)
                 && (!(getLaufliste().getLaufliste().isEmpty()));
-    }
-
-    public final boolean hasHLWListe() {
-        return (getHLWListe() != null) && (getHLWListe().getLauflistenCount() > 0);
     }
 
     public final void check() {
@@ -1249,7 +1187,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public static void migrator3(Element node) {
         Laufliste.migrator3(node.element("laufliste"));
-        // Laufliste.migrator3(node.element("hlwliste"));
     }
 
     public boolean HasOpenQualifications() {
@@ -1259,20 +1196,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             }
         }
         return false;
-    }
-
-    public Ergebnisfreigabe getExportfreigabe() {
-        if (exportfreigabe == null) {
-            exportfreigabe = new Ergebnisfreigabe();
-        }
-        return exportfreigabe;
-    }
-
-    public Ergebnisfreigabe getWebfreigabe() {
-        if (webfreigabe == null) {
-            webfreigabe = new Ergebnisfreigabe();
-        }
-        return webfreigabe;
     }
 
     public void removeDiscipline(String id) {
@@ -1289,7 +1212,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public boolean isFinal(OWDisziplin<T> t) {
-        return getRegelwerk().getAk(t.akNummer).isFinal(t.disziplin, t.maennlich,t.round);
+        return getRegelwerk().getAk(t.akNummer).isFinal(t.disziplin, t.maennlich, t.round);
     }
 
     public OWSelection toOWSelection(OWDisziplin<T> disziplin) {
@@ -1314,13 +1237,13 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     @SuppressWarnings("rawtypes")
-    public void copyProperties(AWettkampf w) {
+    public void copyPropertiesTo(AWettkampf target) {
 
         for (String key : properties.keySet()) {
             try {
-                w.setProperty(key, Utils.copy(getProperty(key)));
+                target.setProperty(key, Utils.copy(getProperty(key)));
             } catch (Exception ex) {
-                w.setProperty(key, getProperty(key));
+                target.setProperty(key, getProperty(key));
             }
         }
     }
@@ -1341,6 +1264,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public HeatsNumberingScheme getHeatsNumberingScheme() {
-        return HeatsNumberingScheme.fromString(getStringProperty(PropertyConstants.HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue()));
+        return HeatsNumberingScheme.fromString(
+                getStringProperty(PropertyConstants.HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue()));
     }
 }

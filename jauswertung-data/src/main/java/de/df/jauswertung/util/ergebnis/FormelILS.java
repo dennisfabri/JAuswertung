@@ -1,34 +1,26 @@
-/*
- * Created on 05.06.2004
- */
 package de.df.jauswertung.util.ergebnis;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Eingabe;
-import de.df.jauswertung.daten.HLWStates;
-import de.df.jauswertung.daten.Zielrichterentscheid;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
-/**
- * @author Dennis Fabri
- * @date 10.06.2007
- */
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     private static final class ILSComparator<T extends ASchwimmer>
             implements Comparator<SchwimmerData<T>>, Serializable {
 
+        @Serial
         private static final long serialVersionUID = -7952635514437923875L;
 
         @Override
@@ -52,9 +44,6 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 if ((sd2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
                     return -1;
                 }
-            }
-            if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                // return sd1.isWithdraw() ? 1 : -1;
             }
             if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
                 return 0;
@@ -126,7 +115,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS ohne Finals";
+        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r IndoorwettkÃ¤mpfe der ILS ohne Finals";
     }
 
     private static final double Epsilon = 0.005;
@@ -161,11 +150,13 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 }
             }
         }
-        SchwimmerData<T>[] other = others.toArray(new SchwimmerData[others.size()]);
+        SchwimmerData<T>[] other = others.toArray(new SchwimmerData[0]);
         Arrays.sort(other, comparator);
 
-        swimmer = sd.toArray(new SchwimmerData[sd.size()]);
+        swimmer = sd.toArray(new SchwimmerData[0]);
         Arrays.sort(swimmer, comparator);
+
+        int heatSize = wk.getIntegerProperty(PropertyConstants.HEATS_LANES, 8);
 
         double oldResults = Double.MIN_VALUE;
         int disCounter = 0;
@@ -176,7 +167,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                     if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                             || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                         swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos, x - pos + 1 - disCounter,
-                                Strafe.NICHTS));
+                                Strafe.NICHTS, heatSize));
                     }
                 }
                 disCounter = 0;
@@ -198,7 +189,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                     || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                 swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos,
-                        swimmer.length - pos + 1 - disCounter, Strafe.NICHTS));
+                        swimmer.length - pos + 1 - disCounter, Strafe.NICHTS, heatSize));
             }
         }
 
@@ -315,73 +306,67 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 results[x].setKeineWertung(results[x].getPlace() <= 0);
             }
 
-            Arrays.sort(results, new Comparator<SchwimmerResult>() {
-                @Override
-                public int compare(SchwimmerResult sd1, SchwimmerResult sd2) {
-                    if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        if (sd1.getSchwimmer().isAusserKonkurrenz()) {
-                            return 1;
-                        }
-                        if (sd2.getSchwimmer().isAusserKonkurrenz()) {
-                            return -1;
-                        }
+            Arrays.sort(results, (Comparator<SchwimmerResult>) (sd1, sd2) -> {
+                if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
+                    if (sd1.getSchwimmer().isAusserKonkurrenz()) {
+                        return 1;
                     }
-
-                    int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
-                    if (points != 0) {
-                        return points;
-                    }
-                    int rank = sd1.getPlace() - sd2.getPlace();
-                    if (rank != 0) {
-                        if (sd1.getPlace() <= 0) {
-                            return 1;
-                        }
-                        if (sd2.getPlace() <= 0) {
-                            return -1;
-                        }
-                        return rank;
-                    }
-                    if (sd1.getDnf() != sd2.getDnf()) {
-                        return sd1.getDnf() - sd2.getDnf();
-                    }
-                    if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
-                        if (sd1.hasKeineWertung()) {
-                            return 1;
-                        }
+                    if (sd2.getSchwimmer().isAusserKonkurrenz()) {
                         return -1;
                     }
-                    return 0;
                 }
+
+                int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
+                if (points != 0) {
+                    return points;
+                }
+                int rank = sd1.getPlace() - sd2.getPlace();
+                if (rank != 0) {
+                    if (sd1.getPlace() <= 0) {
+                        return 1;
+                    }
+                    if (sd2.getPlace() <= 0) {
+                        return -1;
+                    }
+                    return rank;
+                }
+                if (sd1.getDnf() != sd2.getDnf()) {
+                    return sd1.getDnf() - sd2.getDnf();
+                }
+                if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
+                    if (sd1.hasKeineWertung()) {
+                        return 1;
+                    }
+                    return -1;
+                }
+                return 0;
             });
         } else {
-            Arrays.sort(results, new Comparator<>() {
-                @Override
-                public int compare(SchwimmerResult sd1, SchwimmerResult sd2) {
-                    if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
-                        if (sd1.getSchwimmer().isAusserKonkurrenz()) {
-                            return 1;
-                        }
-                        if (sd2.getSchwimmer().isAusserKonkurrenz()) {
-                            return -1;
-                        }
+            Arrays.sort(results, (sd1, sd2) -> {
+                if (sd1.getSchwimmer().isAusserKonkurrenz() != sd2.getSchwimmer().isAusserKonkurrenz()) {
+                    if (sd1.getSchwimmer().isAusserKonkurrenz()) {
+                        return 1;
                     }
-
-                    int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
-                    if (points != 0) {
-                        return points;
-                    }
-                    if (sd1.getDnf() != sd1.getDnf()) {
-                        return sd1.getDnf() - sd2.getDnf();
-                    }
-
-                    if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
-                        if (sd1.hasKeineWertung()) {
-                            return 1;
-                        }
+                    if (sd2.getSchwimmer().isAusserKonkurrenz()) {
                         return -1;
                     }
-                    return 0;
                 }
+
+                int points = (int) ((sd2.getPoints() - sd1.getPoints()) * 100);
+                if (points != 0) {
+                    return points;
+                }
+                if (sd1.getDnf() != sd1.getDnf()) {
+                    return sd1.getDnf() - sd2.getDnf();
+                }
+
+                if (sd1.hasKeineWertung() != sd2.hasKeineWertung()) {
+                    if (sd1.hasKeineWertung()) {
+                        return 1;
+                    }
+                    return -1;
+                }
+                return 0;
             });
             double oldResults = Double.MAX_VALUE;
             int pos = 0;
@@ -398,20 +383,23 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         return results;
     }
 
-    protected double getPoints(int time, int rec, int rank, int amount, Strafe s) {
-        switch (s.getArt()) {
-        case AUSSCHLUSS:
-            return 0;
-        case DISQUALIFIKATION:
-            return getPoints(rank + amount - 1);
-        case NICHT_ANGETRETEN:
-            return 0;
-        case NICHTS:
-            break;
-        case STRAFPUNKTE:
-            break;
-        }
-        return getPoints(rank, amount);
+    protected double getPoints(int time, int rec, int rank, int amount, Strafe s, int heatSize) {
+        // heatSize = 8;
+        double points = switch (s.getArt()) {
+            case AUSSCHLUSS, NICHT_ANGETRETEN -> 0;
+            case DISQUALIFIKATION -> {
+                if (rank < 0 || rank > 16) {
+                    yield 0;
+                }
+                int lastRankInHeat = heatSize;
+                while (rank > lastRankInHeat) {
+                    lastRankInHeat += heatSize;
+                }
+                yield getPoints(lastRankInHeat);
+            }
+            default -> getPoints(rank);
+        };
+        return points;
     }
 
     protected static final int[] POINTS = new int[] { 20, 18, 16, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1 };

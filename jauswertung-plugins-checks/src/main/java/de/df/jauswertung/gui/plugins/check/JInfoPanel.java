@@ -277,49 +277,6 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
                 text[LISTS_HEATS_MIXED] = amount;
             }
 
-            {
-                // Check HLW-List
-                int anzahl = 0;
-
-                boolean ignoreAk = wk.getBooleanProperty(PropertyConstants.ZW_IGNORE_AK_SWIMMERS);
-
-                ListIterator<T> swimmers = wk.getSchwimmer().listIterator();
-                while (swimmers.hasNext()) {
-                    T s = swimmers.next();
-                    if (s.getAK().hasHLW()) {
-                        if ((!ignoreAk) || (!s.isAusserKonkurrenz())) {
-                            anzahl += s.getMinMembers();
-                        }
-                    }
-                }
-
-                if (wk.getHLWListe() != null) {
-                    for (int x = 0; x < wk.getHLWListe().getLauflistenCount(); x++) {
-                        LinkedList<HLWLauf<T>> liste = wk.getHLWListe().getLaufliste(x);
-
-                        if (liste != null) {
-                            ListIterator<HLWLauf<T>> li = liste.listIterator();
-                            while (li.hasNext()) {
-                                Lauf<?> l = li.next();
-                                if (!ignoreAk) {
-                                    anzahl -= l.getAnzahl();
-                                } else {
-                                    for (int y = 0; y < l.getBahnen(); y++) {
-                                        ASchwimmer s = l.getSchwimmer(y);
-                                        if ((s != null) && (!s.isAusserKonkurrenz())) {
-                                            anzahl--;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                state[LISTS_HLW_ALL] = (anzahl == 0);
-                text[LISTS_HLW_ALL] = anzahl;
-            }
-
             // Check years of birth
             if (wk instanceof EinzelWettkampf) {
                 int amount = 0;

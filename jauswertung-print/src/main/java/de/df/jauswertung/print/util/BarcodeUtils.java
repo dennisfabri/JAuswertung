@@ -25,87 +25,6 @@ public class BarcodeUtils {
         OK, NOT_OK, DNS
     }
 
-    public static class ZWResult {
-
-        public final int sn;
-        public final int offset;
-        public final ZWResultType ok;
-
-        public ZWResult(int sn, int offset, ZWResultType ok) {
-            this.sn = sn;
-            this.offset = offset;
-            this.ok = ok;
-        }
-    }
-
-    public static String toCode(int sn, int offset, ZWResultType ok) {
-        if (offset > 9) {
-            throw new IllegalArgumentException("Offset must not be bigger than 9 but was " + offset + ".");
-        }
-        if (offset < 0) {
-            throw new IllegalArgumentException("Offset must not be lower than 0 but was " + offset + ".");
-        }
-        if (sn < 0) {
-            throw new IllegalArgumentException("Startnumber must not be lower than 0 but was " + sn + ".");
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append(sn);
-        sb.append(offset);
-        switch (ok) {
-        case OK:
-            sb.append(VALUE_OK);
-            break;
-        case NOT_OK:
-            sb.append(VALUE_NOT_OK);
-            break;
-        case DNS:
-            sb.append(VALUE_DNS);
-            break;
-        }
-
-        sb.append(calculateChecksum(Integer.parseInt(sb.toString())));
-
-        if (sb.length() % 2 != 0) {
-            sb.insert(0, '0');
-        }
-
-        return sb.toString();
-    }
-
-    public static ZWResult fromZWCode(String code) {
-        try {
-            if (!checkZWCode(code)) {
-                return null;
-            }
-            code = code.trim();
-            String ssn = code.substring(0, code.length() - 3);
-            String sof = code.substring(code.length() - 3, code.length() - 2);
-            String sok = code.substring(code.length() - 2, code.length() - 1);
-
-            int sn = Integer.parseInt(ssn);
-            int offset = Integer.parseInt(sof);
-            int ok = Integer.parseInt(sok);
-            ZWResultType type;
-            switch (ok) {
-            default:
-                return null;
-            case VALUE_DNS:
-                type = ZWResultType.DNS;
-                break;
-            case VALUE_OK:
-                type = ZWResultType.OK;
-                break;
-            case VALUE_NOT_OK:
-                type = ZWResultType.NOT_OK;
-                break;
-            }
-
-            return new ZWResult(sn, offset, type);
-        } catch (RuntimeException re) {
-            return null;
-        }
-    }
-
     private static int calculateChecksum(int i) {
         int cs = 0;
         int index = 0;
@@ -135,29 +54,6 @@ public class BarcodeUtils {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public static boolean checkZWCode(int code) {
-        if (code < 10) {
-            return false;
-        }
-        int value = code / 10;
-        int cs = code % 10;
-        return (cs == calculateChecksum(value));
-    }
-
-    public static JComponent getBarcode(String key, BarcodeType type) {
-        if ((key == null) || (key.trim().length() == 0)) {
-            return null;
-        }
-
-        switch (type) {
-        case NONE:
-            return null;
-        case CODE128:
-            return getBarcode(key);
-        }
-        return new JLabel(key);
     }
 
     public static JComponent getBarcode(String key) {

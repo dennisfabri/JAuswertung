@@ -48,7 +48,6 @@ class LaufeinteilungPrinter implements Printer {
     private JButton print;
     private JButton preview;
     private JComboBox<String> selection;
-    private JCheckBox hlw;
 
     public LaufeinteilungPrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -68,19 +67,15 @@ class LaufeinteilungPrinter implements Printer {
         selection = new JComboBox<>(new String[] { I18n.get("Heats"), I18n.get("AgeGroups"),
                 I18n.get("Organization"), I18n.get("Compact") });
 
-        hlw = new JCheckBox(I18n.get("PrintLaufeinteilungIncludeZW"));
-
         FormLayout layout = new FormLayout(
-                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,"
-                        + "4dlu,fill:default,4dlu",
+                "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(new JLabel(I18n.get("GroupedBy")), CC.xy(2, 2));
         panel.add(selection, CC.xy(4, 2));
-        panel.add(hlw, CC.xy(6, 2));
-        panel.add(preview, CC.xy(8, 2));
-        panel.add(print, CC.xy(10, 2));
+        panel.add(preview, CC.xy(6, 2));
+        panel.add(print, CC.xy(8, 2));
     }
 
     @SuppressWarnings("rawtypes")
@@ -90,8 +85,6 @@ class LaufeinteilungPrinter implements Printer {
         print.setEnabled(b);
         preview.setEnabled(b);
         selection.setEnabled(b);
-
-        hlw.setEnabled(b && wk.hasHLW() && wk.hasHLWListe());
     }
 
     /*
@@ -121,13 +114,12 @@ class LaufeinteilungPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        boolean withhlw = hlw.isSelected() && hlw.isEnabled();
         Printable internal = null;
         switch (selection.getSelectedIndex()) {
         case 1: {
             // Altersklasse
             AWettkampf<?> wk = core.getWettkampf();
-            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellenJeAK(wk, withhlw);
+            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellenJeAK(wk);
             Component[] titles = new Component[tables.length];
             int ak = 0;
             int male = -1;
@@ -155,7 +147,7 @@ class LaufeinteilungPrinter implements Printer {
         case 2: {
             // Gliederung
             AWettkampf<?> wk = core.getWettkampf();
-            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellenJeGliederung(wk, withhlw);
+            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellenJeGliederung(wk);
             String[] titles = new String[tables.length];
             for (int x = 0; x < tables.length; x++) {
                 ExtendedTableModel etm = (ExtendedTableModel) tables[x].getModel();
@@ -167,14 +159,14 @@ class LaufeinteilungPrinter implements Printer {
         case 3: {
             // Kompakt
             AWettkampf<?> wk = core.getWettkampf();
-            JTable table = TableHeatUtils.getLaufeinteilungTabelle(wk, withhlw);
+            JTable table = TableHeatUtils.getLaufeinteilungTabelle(wk);
             // SimpleTableModel etm = (SimpleTableModel) table.getModel();
             internal = PrintManager.getPrintable(table, (String) null, JTablePrintable.OPT_ALL, true, true);
             break;
         }
         default: {
             // Läufe
-            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellen(core.getWettkampf(), withhlw);
+            JTable[] tables = TableHeatUtils.getLaufeinteilungTabellen(core.getWettkampf());
             Component[] components = new Component[tables.length];
             for (int x = 0; x < tables.length; x++) {
                 if (PrintManager.getFont() != null) {

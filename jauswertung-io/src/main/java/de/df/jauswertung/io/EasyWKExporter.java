@@ -24,7 +24,7 @@ public class EasyWKExporter extends EmptyExporter {
     @Override
     public final boolean isSupported(ImportExportTypes type) {
         switch (type) {
-        case HEATTIMES:
+        case HEAT_TIMES:
             return true;
         default:
             return false;
@@ -46,7 +46,7 @@ public class EasyWKExporter extends EmptyExporter {
             return false;
         }
         try {
-            ExtendedTableModel etm = DataTableUtils.easywkHeattimes(wk, false);
+            ExtendedTableModel etm = DataTableUtils.easywkHeattimes(wk);
             if (etm == null) {
                 return false;
             }

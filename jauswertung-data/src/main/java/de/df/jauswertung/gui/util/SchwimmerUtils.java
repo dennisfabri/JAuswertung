@@ -1,25 +1,21 @@
 package de.df.jauswertung.gui.util;
 
-import java.awt.Toolkit;
-import java.awt.Window;
+import java.awt.*;
 import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
+import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.print.Zieleinlaufkarte;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
 import de.df.jauswertung.util.valueobjects.Startkarte;
-import de.df.jauswertung.util.valueobjects.ZWStartkarte;
-import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
 import de.df.jauswertung.util.vergleicher.SchwimmerInfoStartnummernVergleicher;
-import de.df.jauswertung.util.vergleicher.SchwimmerNameVergleicher;
-import de.df.jauswertung.util.vergleicher.SchwimmerStartnummernVergleicher;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
 
@@ -168,32 +164,6 @@ public final class SchwimmerUtils {
         return null;
     }
 
-    public static <T extends ASchwimmer> ZWInfo[] getZWInfo(AWettkampf<T> wk, ASchwimmer s) {
-        if (wk.getHLWListe().isEmpty()) {
-            return null;
-        }
-
-        ZWInfo[] zw = new ZWInfo[s.getMaximaleHLW()];
-        int index = 0;
-
-        for (int i = 0; i < wk.getHLWListe().getLauflistenCount(); i++) {
-            LinkedList<HLWLauf<T>> laufliste = wk.getHLWListe().getLaufliste(i);
-            for (HLWLauf<T> l : laufliste) {
-                for (int x = 0; x < l.getBahnen(); x++) {
-                    ASchwimmer temp = l.getSchwimmer(x);
-                    if ((temp != null) && (s.equals(temp))) {
-                        zw[index] = new ZWInfo(l.getTime().toString(), x + 1);
-                        index++;
-                    }
-                }
-            }
-        }
-        for (int x = index; x < zw.length; x++) {
-            zw[x] = new ZWInfo();
-        }
-        return zw;
-    }
-
     @SuppressWarnings("unchecked")
     public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage,
             boolean includeEmptyLanes, boolean allheats,
@@ -298,7 +268,7 @@ public final class SchwimmerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T extends Object> LinkedList<T> repack(LinkedList<T> temp, int perpage) {
+    private static <T> LinkedList<T> repack(LinkedList<T> temp, int perpage) {
         if (perpage <= 1) {
             return temp;
         }
@@ -342,241 +312,10 @@ public final class SchwimmerUtils {
         return ergebnis;
     }
 
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkarten(HLWListe<T> ll, int perpage,
-            boolean allheats, int minheat, int maxheat,
-            boolean bylane) {
-        if (bylane) {
-            return toZWStartkartenByLane(ll, perpage, allheats, minheat, maxheat);
-        }
-        return toZWStartkartenByHeat(ll, perpage, allheats, minheat, maxheat);
-    }
-
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByHeat(HLWListe<T> ll, int perpage,
-            boolean allheats, int minheat,
-            int maxheat) {
-        if (ll.isEmpty()) {
-            return null;
-        }
-
-        LinkedList<HLWLauf<T>> merged = ll.getMergedHeats();
-
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
-
-        if (merged.isEmpty()) {
-            return null;
-        }
-
-        int sindex = 0;
-        int amount = merged.size();
-        if (!allheats) {
-            sindex = minheat;
-            amount = maxheat - minheat + 1;
-        }
-
-        ListIterator<HLWLauf<T>> li = merged.listIterator(sindex);
-
-        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
-
-        while (li.hasNext() && (amount > 0)) {
-            amount--;
-
-            HLWLauf<T> l = li.next();
-            for (int x = 0; x < l.getBahnen(); x++) {
-                T s = l.getSchwimmer(x);
-                if (s != null) {
-                    int index = 0;
-                    if (zaehler.get(s.getStartnummer()) != null) {
-                        index = zaehler.get(s.getStartnummer()) + 1;
-                        zaehler.put(s.getStartnummer(), index);
-                    } else {
-                        zaehler.put(s.getStartnummer(), 0);
-                    }
-
-                    liste.addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
-                }
-            }
-        }
-
-        return repack(liste, perpage);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenByLane(HLWListe<T> ll, int perpage,
-            boolean allheats, int minheat,
-            int maxheat) {
-        if (ll.isEmpty()) {
-            return null;
-        }
-
-        LinkedList<HLWLauf<T>> merged = ll.getMergedHeats();
-
-        int[] first = new int[] { 0, 0 };
-
-        LinkedList<ZWStartkarte<T>>[] listen = new LinkedList[ll.get(first).getBahnen()];
-        for (int x = 0; x < listen.length; x++) {
-            listen[x] = new LinkedList<>();
-        }
-
-        if (merged.isEmpty()) {
-            return null;
-        }
-
-        int sindex = 0;
-        int amount = merged.size();
-        if (!allheats) {
-            sindex = minheat;
-            amount = maxheat - minheat + 1;
-        }
-
-        ListIterator<HLWLauf<T>> li = merged.listIterator(sindex);
-
-        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
-
-        while (li.hasNext() && (amount > 0)) {
-            amount--;
-
-            HLWLauf<T> l = li.next();
-            for (int x = 0; x < l.getBahnen(); x++) {
-                T s = l.getSchwimmer(x);
-                if (s != null) {
-                    int index = 0;
-                    if (zaehler.get(s.getStartnummer()) != null) {
-                        index = zaehler.get(s.getStartnummer()) + 1;
-                        zaehler.put(s.getStartnummer(), index);
-                    } else {
-                        zaehler.put(s.getStartnummer(), 0);
-                    }
-
-                    listen[x].addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
-                }
-            }
-        }
-
-        LinkedList<ZWStartkarte<T>> temp = new LinkedList<>();
-        for (LinkedList<ZWStartkarte<T>> aListen : listen) {
-            temp.addAll(aListen);
-        }
-        return repack(temp, perpage);
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkarten(AWettkampf<T> wk, int perPage) {
-        LinkedList<ZWStartkarte<T>> liste = toZWStartkarten(wk);
-        if (liste == null) {
-            return liste;
-        }
-        if (perPage <= 1) {
-            return liste;
-        }
-
-        int size = liste.size();
-        int rest = size % perPage;
-        int[] sizes = new int[perPage];
-        for (int x = 0; x < perPage; x++) {
-            sizes[x] = size / perPage;
-            if (rest > x) {
-                sizes[x]++;
-            }
-        }
-
-        ZWStartkarte<T>[][] listen = new ZWStartkarte[perPage][size + (rest > 0 ? 1 : 0)];
-        ListIterator<ZWStartkarte<T>> li = liste.listIterator();
-        for (int x = 0; x < perPage; x++) {
-            for (int y = 0; y < sizes[x]; y++) {
-                listen[x][y] = li.next();
-            }
-        }
-        liste.clear();
-        for (int y = 0; y < sizes[0]; y++) {
-            for (int x = 0; x < perPage; x++) {
-                if (sizes[x] > y) {
-                    liste.addLast(listen[x][y]);
-                }
-            }
-        }
-        return liste;
-    }
-
-    public static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkarten(AWettkampf<T> wk) {
-        if (!wk.hasSchwimmer()) {
-            return null;
-        }
-
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
-
-        LinkedList<T> swimmers = wk.getSchwimmer();
-        swimmers.sort(new SchwimmerNameVergleicher<>());
-        swimmers.sort(new SchwimmerAKVergleicher<>());
-
-        for (T s : swimmers) {
-            if (s.getAK().hasHLW()) {
-                for (int index = 0; index < s.getMaximaleHLW(); index++) {
-                    liste.addLast(new ZWStartkarte<>(s, null, 0, index));
-                }
-            }
-        }
-        return liste;
-    }
-
-    private static <T extends ASchwimmer> LinkedList<ZWStartkarte<T>> toZWStartkartenForChecklistByHeat(HLWListe<T> ll,
-            boolean allheats, int minheat,
-            int maxheat) {
-        if (ll.isEmpty()) {
-            return null;
-        }
-
-        LinkedList<HLWLauf<T>> merged = new LinkedList<>();
-
-        {
-            LinkedList<HLWLauf<T>> temp = ll.getMergedHeats();
-
-            int sindex = 0;
-            int amount = temp.size();
-            if (!allheats) {
-                sindex = minheat;
-                amount = maxheat - minheat + 1;
-            }
-
-            ListIterator<HLWLauf<T>> xli = temp.listIterator(sindex);
-            while (xli.hasNext() && (amount > 0)) {
-                merged.addLast(xli.next());
-                amount--;
-            }
-        }
-
-        LinkedList<ZWStartkarte<T>> liste = new LinkedList<>();
-
-        ListIterator<HLWLauf<T>> li = merged.listIterator();
-
-        Hashtable<Integer, Integer> zaehler = new Hashtable<>();
-
-        while (li.hasNext()) {
-            HLWLauf<T> l = li.next();
-            for (int x = 0; x < l.getBahnen(); x++) {
-                T s = l.getSchwimmer(x);
-                if (s != null) {
-                    int index = 0;
-                    if (zaehler.get(s.getStartnummer()) != null) {
-                        index = zaehler.get(s.getStartnummer()) + 1;
-                        zaehler.put(s.getStartnummer(), index);
-                    } else {
-                        zaehler.put(s.getStartnummer(), 0);
-                    }
-
-                    liste.addLast(new ZWStartkarte<>(s, l.getTime(), x + 1, index));
-                }
-            }
-        }
-        return liste;
-    }
 
     /**
      * Ueberprueft die eingegebene Zeit darauf, ob sie den Rec-Wert deutlich
      * unterbietet.
-     * 
-     * @param s
-     * @param disz
-     * @return
      */
     public static boolean checkTime(ASchwimmer s, int disz) {
         if (!s.getWettkampf().isDLRGBased()) {

@@ -39,7 +39,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
         Incomplete, TooYoung, TooOld, WrongSex
     }
 
-    private class TeamContainer {
+    private static class TeamContainer {
         Mannschaft team;
         Error error;
 

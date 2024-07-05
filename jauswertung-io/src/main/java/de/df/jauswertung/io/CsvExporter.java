@@ -9,11 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.print.PrintUtils;
@@ -191,28 +187,6 @@ public class CsvExporter extends EmptyExporter {
     }
 
     @Override
-    public synchronized <T extends ASchwimmer> boolean zusatzwertung(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        if (wk == null) {
-            return false;
-        }
-        if (name == null) {
-            return false;
-        }
-
-        try {
-            TableModel tm = DataTableUtils.zusatzwertung(wk, fb);
-            if (tm == null) {
-                return false;
-            }
-            CsvUtils.write(name, tm);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
     public synchronized <T extends ASchwimmer> boolean startkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         if (wk == null) {
             return false;
@@ -243,31 +217,9 @@ public class CsvExporter extends EmptyExporter {
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
         case STARTERS -> Utils.isInDevelopmentMode();
-        case HEATLIST, ZWLIST, STARTKARTEN, REGISTRATION, RESULTS, ZW_STARTKARTEN, REFEREES, TEAMMEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
+        case HEAT_LIST, STARTKARTEN, REGISTRATION, RESULTS, REFEREES, TEAM_MEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
         default -> false;
         };
-    }
-
-    @Override
-    public <T extends ASchwimmer> boolean zusatzwertungStartkarten(OutputStream name, AWettkampf<T> wk, Feedback fb) {
-        if (wk == null) {
-            return false;
-        }
-        if (name == null) {
-            return false;
-        }
-
-        try {
-            TableModel tm = DataTableUtils.zusatzwertungStartkarten(wk, PrintUtils.printZWnames, fb);
-            if (tm == null) {
-                return false;
-            }
-            CsvUtils.write(name, tm);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override
@@ -330,7 +282,7 @@ public class CsvExporter extends EmptyExporter {
             return false;
         }
         try {
-            TableModel tm = DataTableUtils.easywkHeattimes(wk, false);
+            TableModel tm = DataTableUtils.easywkHeattimes(wk);
             if (tm == null) {
                 return false;
             }
@@ -358,14 +310,19 @@ public class CsvExporter extends EmptyExporter {
                     row.add(I18n.geschlechtToString(s));
                     row.add(s.getAK().getDisziplin(x, s.isMaennlich()).getName());
                     row.add("0");
-                    row.add(isStraightFinal(mwk, s.getAKNummer(), x, s.isMaennlich()) ? "true": "false");
+                    row.add(isStraightFinal(mwk, s.getAKNummer(), x, s.isMaennlich()) ? "true" : "false");
                     int[] starters = s.getStarter(x);
                     for (int starter : starters) {
                         if (starter == 0) {
                             row.add("");
                             continue;
                         }
-                        row.add("" + starter);
+                        Mannschaftsmitglied mm = s.getMannschaftsmitglied(starter - 1);
+                        if (mm != null) {
+                            row.add(String.format("%s, %s", mm.getNachname(), mm.getVorname()));
+                        } else {
+                            row.add("");
+                        }
                     }
                     data.add(row.toArray());
                 }
@@ -373,7 +330,8 @@ public class CsvExporter extends EmptyExporter {
         }
         CsvUtils.write(os,
                 new DefaultTableModel(data.toArray(new Object[0][0]),
-                        new String[] { "S#", I18n.get("Name"), I18n.get("Sex"), I18n.get("Discipline"), "round","final",
+                        new String[] { "S#", I18n.get("Name"), I18n.get("Sex"), I18n.get("Discipline"), "round",
+                                "final",
                                 "Id1", "Id2", "Id3", "Id4", "Id5", "Id6" }));
         return true;
     }
@@ -382,6 +340,6 @@ public class CsvExporter extends EmptyExporter {
         if (!mwk.isHeatBased()) {
             return true;
         }
-        return mwk.isFinal(new OWSelection(mwk.getRegelwerk().getAk(akNummer), akNummer, male, disciplineIndex, 0 ));
+        return mwk.isFinal(new OWSelection(mwk.getRegelwerk().getAk(akNummer), akNummer, male, disciplineIndex, 0));
     }
 }

@@ -16,7 +16,7 @@ public class TeammembersExporter extends EmptyExporter {
 
     @Override
     public boolean isSupported(ImportExportTypes type) {
-        return type == ImportExportTypes.TEAMMEMBERS;
+        return type == ImportExportTypes.TEAM_MEMBERS;
     }
 
     @Override

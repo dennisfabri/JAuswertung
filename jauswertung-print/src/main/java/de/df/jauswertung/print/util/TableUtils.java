@@ -67,6 +67,9 @@ public final class TableUtils {
             return null;
         }
         GesamtwertungWettkampf gesamt = new GesamtwertungWettkampf(wettkampf);
+        if (gesamt.doesNotHaveAnyPoints()) {
+            return null;
+        }
         Altersklasse ak = gesamt.getRegelwerk().getAk(0);
         GesamtwertungSchwimmer[] schwimmer = gesamt.getResult();
         if ((schwimmer != null) && (schwimmer.length > 0)) {

@@ -1,0 +1,710 @@
+{
+  "name": "Pool - Einzel",
+  "ruleset": {
+    "ageGroups": [
+      {
+        "name": "AK 12",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 0,
+          "maxAge": 12,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 13/14",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 13,
+          "maxAge": 14,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 15/16",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 15,
+          "maxAge": 16,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 17/18",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 17,
+          "maxAge": 18,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK Offen",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 19,
+          "maxAge": 24,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "200m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 25",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 29,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 30",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 30,
+          "maxAge": 34,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 35",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 35,
+          "maxAge": 39,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 40",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 40,
+          "maxAge": 44,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 45",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 45,
+          "maxAge": 49,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 50",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 50,
+          "maxAge": 54,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 55",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 55,
+          "maxAge": 59,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "100m Hindernisschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 60",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 60,
+          "maxAge": 64,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 65",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 65,
+          "maxAge": 69,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 70",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 70,
+          "maxAge": 74,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 75",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 75,
+          "maxAge": 79,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 80",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 80,
+          "maxAge": 84,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 85",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 85,
+          "maxAge": 89,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 90",
+        "type": "SINGLE",
+        "ageLimits": {
+          "minAge": 90,
+          "maxAge": 94,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "50m Freistilschwimmen",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": null
+          }
+        ],
+        "admissionConditionType": "ALL"
+      }
+    ]
+  }
+}

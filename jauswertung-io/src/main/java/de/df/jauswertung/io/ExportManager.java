@@ -33,7 +33,7 @@ import de.df.jutils.util.SystemOutFeedback;
 public class ExportManager {
 
     public static final String[] NAMES = new String[] { I18n.get("Registrations"), I18n.get("Laufliste"),
-            I18n.get("Startkarten"), I18n.get("Heatoverview"), I18n.get("ZWList"), I18n.get("ZWStartkarten"),
+            I18n.get("Startkarten"), I18n.get("Heatoverview"),
             I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"), I18n.get("Referees"),
             I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"),
             I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate"),
@@ -76,14 +76,11 @@ public class ExportManager {
             return false;
         }
         switch (datatype) {
-        case HEATLIST:
+        case HEAT_LIST:
         case STARTKARTEN:
-            return !wk.getLaufliste().isEmpty();
-        case HEATTIMES:
+            return !wk.getLaufliste().isEmpty() || !wk.getLauflisteOW().isEmpty();
+        case HEAT_TIMES:
             return wk.isHeatBased() && wk.hasLaufliste();
-        case ZWLIST:
-        case ZW_STARTKARTEN:
-            return !wk.getHLWListe().isEmpty();
         case PROTOCOL:
         case REGISTRATION:
         case RESULTS:
@@ -95,7 +92,7 @@ public class ExportManager {
             return wk.getKampfrichterverwaltung() != null;
         case PENALTIES:
             return true;
-        case TEAMMEMBERS:
+        case TEAM_MEMBERS:
             return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
         case STARTERS:
             return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
@@ -146,9 +143,7 @@ public class ExportManager {
         }
         return switch (datatype) {
         case STARTKARTEN -> ie.startkarten(os, wk, fb);
-        case HEATLIST -> ie.heats(os, wk, fb);
-        case ZW_STARTKARTEN -> ie.zusatzwertungStartkarten(os, wk, fb);
-        case ZWLIST -> ie.zusatzwertung(os, wk, fb);
+        case HEAT_LIST -> ie.heats(os, wk, fb);
         case PROTOCOL -> ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case REGISTRATION -> ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case BEST_TIMES -> ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
@@ -159,10 +154,10 @@ public class ExportManager {
                 ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(
                         wk), false),
                 fb);
-        case TEAMMEMBERS -> ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case TEAM_MEMBERS -> ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case ZW_RESULTS -> ie.zusatzwertungResults(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case HEATS_OVERVIEW -> ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case HEATTIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
+        case HEAT_TIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case TIMES -> ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
         case STARTERS -> wk instanceof MannschaftWettkampf && ie.starter(os, CompetitionUtils.getFilteredInstance(wk), fb);
         default -> false;

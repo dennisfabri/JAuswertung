@@ -53,10 +53,10 @@ public final class Utils {
         if (s1 == null || s2 == null) {
             return false;
         }
-        if (s1.indexOf(s2) >= 0) {
+        if (s1.contains(s2)) {
             return true;
         }
-        if (s2.indexOf(s1) >= 0) {
+        if (s2.contains(s1)) {
             return true;
         }
         if (AreMarked(s1, s2)) {

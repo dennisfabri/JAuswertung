@@ -5,23 +5,21 @@ import java.util.Arrays;
 public enum ImportExportTypes {
 
     REGISTRATION(0),
-    HEATLIST(1),
+    HEAT_LIST(1),
     STARTKARTEN(2),
     HEATS_OVERVIEW(3),
-    ZWLIST(4),
-    ZW_STARTKARTEN(5),
-    RESULTS(6),
-    ZW_RESULTS(7),
-    PROTOCOL(8),
-    REFEREES(9),
-    WEITERMELDUNG(10),
-    PENALTIES(11),
-    TEAMMEMBERS(12),
-    BEST_TIMES(13),
-    HEATTIMES(14),
-    TIMES(15),
-    REGISTRATION_UPDATE(16),
-    STARTERS(17);
+    RESULTS(4),
+    ZW_RESULTS(5),
+    PROTOCOL(6),
+    REFEREES(7),
+    WEITERMELDUNG(8),
+    PENALTIES(9),
+    TEAM_MEMBERS(10),
+    BEST_TIMES(11),
+    HEAT_TIMES(12),
+    TIMES(13),
+    REGISTRATION_UPDATE(14),
+    STARTERS(15);
 
     private final int value;
 

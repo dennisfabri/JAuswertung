@@ -17,10 +17,6 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 
-/**
- * @author Dennis Fabri
- * @date 10.06.2007
- */
 public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings("rawtypes")
@@ -105,10 +101,10 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
                 }
             }
         }
-        SchwimmerData[] other = others.toArray(new SchwimmerData[others.size()]);
+        SchwimmerData[] other = others.toArray(new SchwimmerData[0]);
         Arrays.sort(other, new ILSComparator());
 
-        swimmer = sd.toArray(new SchwimmerData[sd.size()]);
+        swimmer = sd.toArray(new SchwimmerData[0]);
         Arrays.sort(swimmer, new ILSComparator());
 
         double oldResults = Double.MIN_VALUE;
@@ -211,9 +207,6 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
                     if (zw) {
                         if (result.getSchwimmer().getHLWState() == HLWStates.NICHT_ANGETRETEN) {
                             points = 0;
-                        } else {
-                            // points +=
-                            // results[x].getSchwimmer().getHLWPunkte();
                         }
                     }
                 }
@@ -272,16 +265,12 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
     }
 
     private static double getPoints(int rank) {
-        switch (rank) {
-        case 1:
-            return 3;
-        case 2:
-            return 2;
-        case 3:
-            return 1;
-        default:
-            return 0;
-        }
+        return switch (rank) {
+            case 1 -> 3;
+            case 2 -> 2;
+            case 3 -> 1;
+            default -> 0;
+        };
     }
 
     @Override

@@ -28,6 +28,7 @@ public class AresWriter {
         AWettkampf<T>[] wks = new AWettkampf[filenames.length];
         for (int x = 0; x < filenames.length; x++) {
             String filename = filenames[x];
+            System.out.println("Reading file: " + filename);
             wks[x] = InputManager.ladeWettkampf(filename);
             if (wks[x] == null) {
                 throw new IOException(I18n.get("CouldNotOpenFile", filename));

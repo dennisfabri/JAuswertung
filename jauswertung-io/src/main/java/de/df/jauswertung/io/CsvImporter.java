@@ -171,7 +171,7 @@ public final class CsvImporter implements IImporter {
         switch (type) {
         case ZW_RESULTS:
         case REGISTRATION:
-        case TEAMMEMBERS:
+        case TEAM_MEMBERS:
         case REFEREES:
         case REGISTRATION_UPDATE:
         case STARTERS:
@@ -200,7 +200,7 @@ public final class CsvImporter implements IImporter {
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
             LinkedList<T> data2, String filename)
-            throws TableFormatException, TableEntryException, TableException {
+            throws TableEntryException, TableException {
         if (filename == null) {
             filename = "";
         }
