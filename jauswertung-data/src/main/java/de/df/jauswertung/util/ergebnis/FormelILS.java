@@ -397,7 +397,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 }
                 yield getPoints(lastRankInHeat);
             }
-            default -> getPoints(rank);
+            default -> getPoints(rank, amount);
         };
         return points;
     }
