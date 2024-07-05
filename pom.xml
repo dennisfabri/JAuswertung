@@ -650,10 +650,6 @@
 					<artifactId>rewrite-maven-plugin</artifactId>
 					<version>5.34.1</version>
 				</plugin>
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.4.0</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
