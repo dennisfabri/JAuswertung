@@ -1432,6 +1432,926 @@
           }
         ],
         "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 12",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 0,
+          "maxAge": 12,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 13/14",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 0,
+          "maxAge": 14,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 15/16",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 13,
+          "maxAge": 16,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 17/18",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 15,
+          "maxAge": 18,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK Offen",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 17,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 100",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 120",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 140",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 170",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 200",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 4,
+          "maxNumberOfDisciplines": 4
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 240",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      },
+      {
+        "name": "AK 280+",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 25,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 3,
+          "maxNumberOfDisciplines": 3
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 5
+        },
+        "maxNumberOfParticipantsPerOrganization": 5,
+        "disciplines": [
+          {
+            "gender": "Female",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
       }
     ]
   }

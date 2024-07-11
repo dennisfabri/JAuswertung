@@ -51,9 +51,11 @@ public class ExportRuleset {
     private Collection<Discipline> getDisciplines(Regelwerk rwk, Disziplin[][] disziplinen, AgeGroupType type) {
         List<Discipline> disciplines = new ArrayList<>();
         int index = 0;
-        for (Disziplin[] disziplin : disziplinen) {
-            disciplines.add(new Discipline(toGender(rwk, 0), index, disziplin[0].getName(), RatingType.TIME,
-                    type.equals(AgeGroupType.SINGLE) ? null : 4));
+        for (int x = 0; x < disziplinen[0].length;x++) {
+            for (int y = 0; y < disziplinen.length; y++) {
+                disciplines.add(new Discipline(toGender(rwk, y), index, disziplinen[y][x].getName(), RatingType.TIME,
+                                               type.equals(AgeGroupType.SINGLE) ? null : 4));
+            }
             index++;
         }
         return disciplines;

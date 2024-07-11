@@ -30,9 +30,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*25m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -67,9 +109,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -104,9 +188,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -141,9 +267,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -178,9 +346,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -215,9 +425,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -252,9 +504,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -289,9 +583,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -326,9 +662,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -363,9 +741,51 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Hindernisstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Hindernisstaffel",
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Puppenstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*50m Gurtretterstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 3,
+            "name": "4*50m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -400,9 +820,37 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Freistilstaffel",
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }
@@ -437,9 +885,37 @@
             "numberOfTeamMembers": 4
           },
           {
+            "gender": "Male",
+            "index": 0,
+            "name": "4*50m Freistilstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
             "gender": "Female",
             "index": 1,
-            "name": "4*50m Freistilstaffel",
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 1,
+            "name": "4*25m Rückenlage ohne Armtätigkeit",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Female",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 2,
+            "name": "4*25m Rettungsstaffel",
             "ratingType": "TIME",
             "numberOfTeamMembers": 4
           }

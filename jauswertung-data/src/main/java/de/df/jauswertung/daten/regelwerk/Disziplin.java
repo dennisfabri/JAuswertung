@@ -49,8 +49,6 @@ public class Disziplin implements Serializable {
     /**
      * Creates new Disziplin
      * 
-     * @param _name Enthaelt den Namen der Disziplin
-     * @param _rec  Enthaelt den zugehoerigen rec-Wert
      */
     public Disziplin(String disziplinName, int recwert, int laenge, int runden) {
         setRec(recwert);

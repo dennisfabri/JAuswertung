@@ -15,8 +15,14 @@ public class ExportRulesetTests {
         ExportRuleset exportRuleset = new ExportRuleset();
         String filename = "./src/test/resources/rulesets/DLRG 2024.rwe";
         RulesetTemplate actual = exportRuleset.toRuleSetTemplate(filename);
-        RulesetTemplate expected = JsonObjectMapper.getInstance().readValue(Path.of("./src/test/resources/rulesets/DLRG-2024-Individual.json").toUri().toURL(), RulesetTemplate.class);
+        RulesetTemplate expected = JsonObjectMapper.getInstance()
+                                                   .readValue(Path.of(
+                                                                          "./src/test/resources/rulesets/DLRG-2024-Individual.json")
+                                                                  .toUri()
+                                                                  .toURL(), RulesetTemplate.class);
         System.out.println(JsonObjectMapper.getInstance().writeValueAsString(actual));
+        assertEquals(JsonObjectMapper.getInstance().writerWithDefaultPrettyPrinter().writeValueAsString(expected),
+                     JsonObjectMapper.getInstance().writerWithDefaultPrettyPrinter().writeValueAsString(actual));
         assertEquals(expected, actual);
     }
 
@@ -25,8 +31,15 @@ public class ExportRulesetTests {
         ExportRuleset exportRuleset = new ExportRuleset();
         String filename = "./src/test/resources/rulesets/DLRG 2024.rwm";
         RulesetTemplate actual = exportRuleset.toRuleSetTemplate(filename);
-        RulesetTemplate expected = JsonObjectMapper.getInstance().readValue(Path.of("./src/test/resources/rulesets/DLRG-2024-Team.json").toUri().toURL(), RulesetTemplate.class);
+        RulesetTemplate expected = JsonObjectMapper.getInstance()
+                                                   .readValue(Path.of(
+                                                                          "./src/test/resources/rulesets/DLRG-2024-Team.json")
+                                                                  .toUri()
+                                                                  .toURL(), RulesetTemplate.class);
         System.out.println(JsonObjectMapper.getInstance().writeValueAsString(actual));
+        assertEquals(JsonObjectMapper.getInstance().writerWithDefaultPrettyPrinter().writeValueAsString(expected),
+                     JsonObjectMapper.getInstance().writerWithDefaultPrettyPrinter().writeValueAsString(actual));
         assertEquals(expected, actual);
     }
+
 }
