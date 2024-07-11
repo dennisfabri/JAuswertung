@@ -387,16 +387,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         // heatSize = 8;
         double points = switch (s.getArt()) {
             case AUSSCHLUSS, NICHT_ANGETRETEN -> 0;
-            case DISQUALIFIKATION -> {
-                if (rank < 0 || rank > 16) {
-                    yield 0;
-                }
-                int lastRankInHeat = heatSize;
-                while (rank > lastRankInHeat) {
-                    lastRankInHeat += heatSize;
-                }
-                yield getPoints(lastRankInHeat);
-            }
+            case DISQUALIFIKATION -> getPoints(rank + amount - 1);
             default -> getPoints(rank, amount);
         };
         return points;
