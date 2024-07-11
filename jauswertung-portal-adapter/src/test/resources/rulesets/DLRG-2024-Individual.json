@@ -30,37 +30,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Flossenschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Flossenschwimmen",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -95,37 +67,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -160,79 +104,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "200m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -267,79 +141,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "200m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -374,79 +178,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "200m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Kombinierte Rettungsübung",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 4,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 5,
-            "name": "200m Super-Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -481,51 +215,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -560,51 +252,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -639,51 +289,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -718,51 +326,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -797,51 +363,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "100m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 3,
-            "name": "100m Lifesaver",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 3,
-            "name": "100m Lifesaver",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -876,37 +400,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -941,37 +437,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "100m Hindernisschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Retten",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "50m Retten mit Flossen",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1006,37 +474,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1071,37 +511,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1136,37 +548,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1201,37 +585,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1266,37 +622,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1331,37 +659,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }
@@ -1396,37 +696,9 @@
             "numberOfTeamMembers": null
           },
           {
-            "gender": "Male",
-            "index": 0,
+            "gender": "Female",
+            "index": 1,
             "name": "50m Freistilschwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 1,
-            "name": "50m Kombiniertes Schwimmen",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Female",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
-            "ratingType": "TIME",
-            "numberOfTeamMembers": null
-          },
-          {
-            "gender": "Male",
-            "index": 2,
-            "name": "25m Schleppen einer Puppe",
             "ratingType": "TIME",
             "numberOfTeamMembers": null
           }

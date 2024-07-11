@@ -1,0 +1,99 @@
+{
+  "name" : "International Ocean",
+  "ruleset" : {
+    "ageGroups" : [ {
+      "name" : "Open",
+      "type" : "SINGLE",
+      "ageLimits" : {
+        "minAge" : 15,
+        "maxAge" : 0,
+        "minAgeSum" : null,
+        "maxAgeSum" : null
+      },
+      "disciplineSelectionConfiguration" : {
+        "minNumberOfDisciplines" : 1,
+        "maxNumberOfDisciplines" : 6
+      },
+      "teamMemberConfiguration" : {
+        "registrationRequired" : false,
+        "minNumberOfTeamMembers" : 4,
+        "maxNumberOfTeamMembers" : 5
+      },
+      "maxNumberOfParticipantsPerOrganization" : 5,
+      "disciplines" : [ {
+        "gender" : "Female",
+        "index" : 0,
+        "name" : "Surf Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 0,
+        "name" : "Surf Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Female",
+        "index" : 1,
+        "name" : "Board Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 1,
+        "name" : "Board Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Female",
+        "index" : 2,
+        "name" : "Surf Ski Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 2,
+        "name" : "Surf Ski Race",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Female",
+        "index" : 3,
+        "name" : "Oceanman",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 3,
+        "name" : "Oceanman",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Female",
+        "index" : 4,
+        "name" : "Beach Flags",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 4,
+        "name" : "Beach Flags",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Female",
+        "index" : 5,
+        "name" : "Beach Sprint",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      }, {
+        "gender" : "Male",
+        "index" : 5,
+        "name" : "Beach Sprint",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : null
+      } ],
+      "admissionConditionType" : "ALL"
+    } ]
+  }
+}

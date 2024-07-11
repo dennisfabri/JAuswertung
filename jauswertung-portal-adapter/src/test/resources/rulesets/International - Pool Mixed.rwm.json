@@ -1,0 +1,44 @@
+{
+  "name": "International Pool",
+  "ruleset": {
+    "ageGroups": [
+      {
+        "name": "Open",
+        "type": "TEAM",
+        "ageLimits": {
+          "minAge": 0,
+          "maxAge": 0,
+          "minAgeSum": null,
+          "maxAgeSum": null
+        },
+        "disciplineSelectionConfiguration": {
+          "minNumberOfDisciplines": 1,
+          "maxNumberOfDisciplines": 1
+        },
+        "teamMemberConfiguration": {
+          "registrationRequired": false,
+          "minNumberOfTeamMembers": 4,
+          "maxNumberOfTeamMembers": 12
+        },
+        "maxNumberOfParticipantsPerOrganization": 12,
+        "disciplines": [
+          {
+            "gender": "Mixed",
+            "index": 0,
+            "name": "Pool Lifesaver Relay",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          },
+          {
+            "gender": "Male",
+            "index": 0,
+            "name": "Pool Lifesaver Relay",
+            "ratingType": "TIME",
+            "numberOfTeamMembers": 4
+          }
+        ],
+        "admissionConditionType": "ALL"
+      }
+    ]
+  }
+}

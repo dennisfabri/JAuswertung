@@ -1,0 +1,75 @@
+{
+  "name" : "International Pool",
+  "ruleset" : {
+    "ageGroups" : [ {
+      "name" : "Open",
+      "type" : "TEAM",
+      "ageLimits" : {
+        "minAge" : 0,
+        "maxAge" : 0,
+        "minAgeSum" : null,
+        "maxAgeSum" : null
+      },
+      "disciplineSelectionConfiguration" : {
+        "minNumberOfDisciplines" : 1,
+        "maxNumberOfDisciplines" : 4
+      },
+      "teamMemberConfiguration" : {
+        "registrationRequired" : false,
+        "minNumberOfTeamMembers" : 4,
+        "maxNumberOfTeamMembers" : 6
+      },
+      "maxNumberOfParticipantsPerOrganization" : 6,
+      "disciplines" : [ {
+        "gender" : "Female",
+        "index" : 0,
+        "name" : "Line Throw",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Male",
+        "index" : 0,
+        "name" : "Line Throw",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Female",
+        "index" : 1,
+        "name" : "Manikin Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Male",
+        "index" : 1,
+        "name" : "Manikin Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Female",
+        "index" : 2,
+        "name" : "Obstacle Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Male",
+        "index" : 2,
+        "name" : "Obstacle Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Female",
+        "index" : 3,
+        "name" : "Medley Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      }, {
+        "gender" : "Male",
+        "index" : 3,
+        "name" : "Medley Relay",
+        "ratingType" : "TIME",
+        "numberOfTeamMembers" : 4
+      } ],
+      "admissionConditionType" : "ALL"
+    } ]
+  }
+}
