@@ -96,7 +96,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
 
+    @Deprecated
+    @SuppressWarnings("unused")
     private Ergebnisfreigabe exportfreigabe;
+    @Deprecated
+    @SuppressWarnings("unused")
     private Ergebnisfreigabe webfreigabe;
 
     private PropertyChangeManager pcManager;

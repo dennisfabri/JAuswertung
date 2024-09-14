@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.Reihenfolge;
 
 public class Startgruppe implements Serializable {

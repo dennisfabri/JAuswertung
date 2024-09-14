@@ -4,7 +4,6 @@
 package de.df.jauswertung.print;
 
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 
 public class Zieleinlaufkarte {

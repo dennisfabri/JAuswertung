@@ -4,16 +4,15 @@
 
 package de.df.jauswertung.util.valueobjects;
 
+import java.util.Objects;
+
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.util.StringTools;
-
-import java.util.Objects;
 
 /**
  * @author Dennis Fabri

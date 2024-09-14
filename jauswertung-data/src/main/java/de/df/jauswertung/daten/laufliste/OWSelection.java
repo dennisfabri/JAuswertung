@@ -1,7 +1,5 @@
 package de.df.jauswertung.daten.laufliste;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 
 public class OWSelection implements Comparable<OWSelection> {

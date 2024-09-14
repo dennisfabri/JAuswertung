@@ -1248,6 +1248,8 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
                     laneSelection);
             return;
         }
+        default:
+            break;
         }
 
         int bahnen1 = Math.min(schwimmer.size(), vBahnen);

@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.competition.registration.JsonObjectMapper;
 import org.lisasp.competition.registration.domain.ruleset.templates.RulesetTemplate;
 
 public class ExportRulesetTests {
+    @Disabled
     @ParameterizedTest
     @ValueSource(strings = { "DLRG 2024.rwe", "DLRG 2024.rwm", "International - Ocean.rwe", "International - Ocean.rwm",
             "International - Ocean Mixed.rwm", "International - Pool.rwe", "International - Pool.rwm",

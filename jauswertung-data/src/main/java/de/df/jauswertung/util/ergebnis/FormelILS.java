@@ -7,9 +7,13 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.Eingabe;
+import de.df.jauswertung.daten.HLWStates;
+import de.df.jauswertung.daten.PropertyConstants;
+import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
@@ -233,7 +237,6 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         for (SchwimmerResult result : results) {
             SchwimmerData[] daten = result.getResults();
             int dnf = 0;
-            int dns = 0;
             double[] ps = new double[daten.length];
             for (int y = 0; y < daten.length; y++) {
                 ps[y] = daten[y].getPoints();
@@ -247,7 +250,6 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                     break;
                 case NICHT_ANGETRETEN:
                     dnf++;
-                    dns++;
                     break;
                 default:
                 }

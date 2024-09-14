@@ -5,15 +5,14 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Stack;
 
-import de.df.jauswertung.daten.laufliste.Reihenfolge;
-import lombok.Getter;
 import org.dom4j.Element;
 
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.laufliste.Laufliste;
+import de.df.jauswertung.daten.laufliste.Reihenfolge;
 import de.df.jutils.util.StringTools;
+import lombok.Getter;
 
 /**
  *

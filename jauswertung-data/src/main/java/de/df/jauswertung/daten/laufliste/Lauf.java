@@ -32,8 +32,10 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     private boolean[] usable = null;
 
     @Deprecated
+    @SuppressWarnings("unused")
     private boolean checked = false;
     @Deprecated
+    @SuppressWarnings("unused")
     private boolean retyped = false;
 
     public Lauf(int bahnen, int lnummer, int lbuchstabe, boolean[] usable) {
@@ -273,14 +275,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     public String getName() {
         final int zahl = laufbuchstabe;
         return laufnummer + StringTools.characterString(zahl);
-    }
-
-    private String getNameTens() {
-        final int zahl = laufbuchstabe;
-        int first = laufnummer / 10;
-        int second = laufnummer % 10;
-
-        return String.format("%d-%1d", first, second) + StringTools.characterString(zahl);
     }
 
     private String getNameHundreds() {
