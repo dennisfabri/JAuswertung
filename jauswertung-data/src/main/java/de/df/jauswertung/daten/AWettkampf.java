@@ -615,7 +615,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         changedNow(true);
     }
 
-    public final synchronized void removeSchwimmer(Predicate<T> condition) {
+    public final synchronized void removeSchwimmerWhen(Predicate<T> condition) {
         removeSchwimmer(getSchwimmer().stream().filter(condition).toList());
     }
 

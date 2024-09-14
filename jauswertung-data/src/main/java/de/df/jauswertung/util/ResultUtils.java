@@ -467,7 +467,7 @@ public class ResultUtils {
         } else if (d != null) {
             wk.disableUpdates();
             Set<Integer> sn = d.getSchwimmer().stream().map(ASchwimmer::getStartnummer).collect(Collectors.toSet());
-            wk.removeSchwimmer(s -> !sn.contains(s.getStartnummer()));
+            wk.removeSchwimmerWhen(s -> !sn.contains(s.getStartnummer()));
             wk.enableUpdates();
         } else {
             OWSelection t1 = new OWSelection(cwk.getRegelwerk().getAk(t.akNummer), t.akNummer, t.male, t.discipline,

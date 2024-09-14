@@ -66,10 +66,10 @@ class VeranstaltungsUtils {
                                .equals(gender);
 
         if (!keepMale) {
-            wk.removeSchwimmer(s -> s.isMaennlich());
+            wk.removeSchwimmerWhen(s -> s.isMaennlich());
         }
         if (!keepFemale) {
-            wk.removeSchwimmer(s -> !s.isMaennlich());
+            wk.removeSchwimmerWhen(s -> !s.isMaennlich());
         }
     }
 
@@ -87,14 +87,14 @@ class VeranstaltungsUtils {
             Veranstaltung vs) {
         for (AWettkampf<?> wk : wks) {
             if (wk != null) {
-                wk.removeSchwimmer(ASchwimmer::isAusserKonkurrenz);
+                wk.removeSchwimmerWhen(ASchwimmer::isAusserKonkurrenz);
             }
         }
 
         if (!gliederungen) {
             for (AWettkampf<?> wk : wks) {
                 if (wk != null) {
-                    wk.removeSchwimmer(t -> t.getQualifikationsebene().isEmpty());
+                    wk.removeSchwimmerWhen(t -> t.getQualifikationsebene().isEmpty());
                     wk.getSchwimmer().forEach(s -> {
                         s.setGliederung(s.getQualifikationsebene());
                         s.setQualifikationsebene("");
