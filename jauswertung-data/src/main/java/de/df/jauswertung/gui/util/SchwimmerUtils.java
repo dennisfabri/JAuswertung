@@ -19,6 +19,8 @@ import de.df.jauswertung.util.vergleicher.SchwimmerInfoStartnummernVergleicher;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
 
+import static de.df.jauswertung.daten.PropertyConstants.ROUND_ID;
+
 /**
  * Enthaelt Methoden fuer die Einzelauswertung
  */
@@ -207,7 +209,7 @@ public final class SchwimmerUtils {
             }
             ListIterator<Lauf<T>> li = laufliste.listIterator(index);
 
-            int roundId = wk.getIntegerProperty("roundId", 0);
+            int roundId = wk.getIntegerProperty(ROUND_ID, 0);
 
             while (li.hasNext() && (amount > 0)) {
                 amount--;

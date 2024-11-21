@@ -19,6 +19,9 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
+import static de.df.jauswertung.daten.PropertyConstants.IS_FINAL;
+import static de.df.jauswertung.daten.PropertyConstants.IS_QUALIFIED;
+
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     private static final class ILSComparator<T extends ASchwimmer>
@@ -230,7 +233,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
     public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
             Hashtable<String, Zielrichterentscheid<T>> zes, boolean zw) {
 
-        boolean isRealFinal = wk.getBooleanProperty("isFinal", false) && wk.getBooleanProperty("isQualified", false);
+        boolean isRealFinal = wk.getBooleanProperty(IS_FINAL, false) && wk.getBooleanProperty(IS_QUALIFIED, false);
 
         boolean oneDiscipline = ak.getDiszAnzahl() == 1 && !ak.hasHLW();
 

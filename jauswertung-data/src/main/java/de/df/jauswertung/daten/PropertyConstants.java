@@ -42,10 +42,6 @@ public final class PropertyConstants {
     public static final String HEATS_AAE_FASTEST_HEAT_UNTOUCHED = "HeatsAAEFastestHeatUntouched";
     public static final String HEATS_REGISTERED_POINTS_INDEX = "HeatsRegisteredPointsIndex";
     public static final String HEATS_NUMBERING_SCHEME = "HeatsNumberingScheme";
-    public static final String ZW_RESPECT_QUALIFICATIONS = "HlwRespectQualifications";
-    public static final String ZW_PAUSE_MODE = "HlwPauseMode";
-    public static final String ZW_IGNORE_AK_SWIMMERS = "HlwIgnoreAKSwimmers";
-    public static final String ZW_REGISTERED_POINTS_INDEX = "HlwRegisteredPointsIndex";
     public static final String LAST_CHANGE = "LastChange";
     public static final String INFOPAGE = "Infopage";
     public static final String LOGO = "Logo";
@@ -66,4 +62,10 @@ public final class PropertyConstants {
     public static final String PRINT_REFEREES_COMPACT = "PrintRefereesCompact";
     public static final String ISC_RESULT_UPLOAD_EDVNUMBER = "ISCResultUploadEDVNumber";
     public static final String ISC_RESULT_UPLOAD_COMPETITION_ID = "ISCResultUploadCompetitionId";
+
+    public static final String ROUND_ID = "roundId";
+    public static final String IS_FINAL = "isFinal";
+    public static final String ROUND = "round";
+    public static final String IS_QUALIFIED = "isQualified";
+    public static final String QUALIFIED_PER_HEAT = "qualifiedPerHeat";
 }

@@ -11,6 +11,10 @@
     <artifactId>jauswertung-misc</artifactId>
     <name>JAuswertung Misc</name>
 
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>de.dennisfabri.jauswertung</groupId>

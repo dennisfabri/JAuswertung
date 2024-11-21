@@ -98,4 +98,8 @@ public class Namengenerator {
             gliederungen = gl.toArray(new String[gl.size()]);
         }
     }
+
+    public String generateCompetitorId() {
+        return "" + zufall.nextInt(100000) + 100000;
+    }
 }

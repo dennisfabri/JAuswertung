@@ -1,4 +1,4 @@
-package de.df.jauswertung.timesextractor;
+package de.df.jauswertung.timesextractor.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,23 +10,23 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class Event {
+public class JAuswertungEvent {
     private final String agegroup;
-    private final CompetitorType competitorType;
+    private final JAuswertungCompetitorType competitorType;
     private final String sex;
     private final String discipline;
     private final int round;
     private final boolean isFinal;
-    private final ValueTypes valueType;
-    private final List<Entry> times = new ArrayList<>();
+    private final JAuswertungValueTypes valueType;
+    private final List<JAuswertungEntry> times = new ArrayList<>();
 
-    public boolean merge(Event event) {
+    public boolean merge(JAuswertungEvent event) {
         if (!isSame(event)) {
             return false;
         }
         assertMergable(event);
 
-        Map<String, Entry> result = new HashMap<>();
+        Map<String, JAuswertungEntry> result = new HashMap<>();
         times.forEach(entry -> result.put(entry.getStartnumber(), entry));
         event.times.forEach(entry -> result.put(entry.getStartnumber(), entry));
         times.clear();
@@ -35,7 +35,7 @@ public class Event {
         return true;
     }
 
-    private boolean isSame(Event event) {
+    private boolean isSame(JAuswertungEvent event) {
         if (!event.agegroup.equals(agegroup)) {
             return false;
         }
@@ -51,7 +51,7 @@ public class Event {
         return true;
     }
 
-    private void assertMergable(Event event) {
+    private void assertMergable(JAuswertungEvent event) {
         if (event.isFinal != isFinal) {
             throw new IllegalStateException();
         }
@@ -60,7 +60,7 @@ public class Event {
         }
     }
 
-    public void addTime(Entry entry) {
+    public void addTime(JAuswertungEntry entry) {
         times.stream().filter(e -> e.getStartnumber().equals(entry.getStartnumber())).findFirst()
                 .ifPresent(times::remove);
         times.add(entry);

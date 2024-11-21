@@ -17,6 +17,9 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 
+import static de.df.jauswertung.daten.PropertyConstants.IS_FINAL;
+import static de.df.jauswertung.daten.PropertyConstants.IS_QUALIFIED;
+
 public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     class ComparatorT implements Comparator<SchwimmerData<T>> {
@@ -267,8 +270,8 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             return;
         }
         if (wk.getLauflisteOW().isEmpty() && wk.getLaufliste() != null && !wk.getLaufliste().isEmpty()) {
-            setPointsDirect(wk, swimmer, d, wk.getBooleanProperty("isQualified"), wk.getBooleanProperty("isFinal"),
-                    wk.getIntegerProperty("round"));
+            setPointsDirect(wk, swimmer, d, wk.getBooleanProperty(IS_QUALIFIED), wk.getBooleanProperty(IS_FINAL),
+                    wk.getIntegerProperty(PropertyConstants.ROUND));
             return;
         }
 

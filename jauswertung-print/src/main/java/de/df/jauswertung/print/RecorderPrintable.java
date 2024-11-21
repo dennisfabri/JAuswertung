@@ -34,6 +34,8 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.printables.ComponentPackingPrintable;
 import de.df.jutils.util.StringTools;
 
+import static de.df.jauswertung.daten.PropertyConstants.*;
+
 public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPackingPrintable {
 
     public RecorderPrintable(AWettkampf<T> wk, boolean showDisciplines, boolean showTimes, boolean showQuali,
@@ -75,10 +77,10 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         panel.setForeground(Color.BLACK);
 
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
-        boolean isFinal = wk.getBooleanProperty("isFinal", false);
-        int round = wk.getIntegerProperty("round", -1);
-        int id = wk.getIntegerProperty("roundId", -1);
-        int qualifiedPerHeat = wk.getIntegerProperty("qualifiedPerHeat", -1);
+        boolean isFinal = wk.getBooleanProperty(IS_FINAL, false);
+        int round = wk.getIntegerProperty(ROUND, -1);
+        int id = wk.getIntegerProperty(ROUND_ID, -1);
+        int qualifiedPerHeat = wk.getIntegerProperty(QUALIFIED_PER_HEAT, -1);
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {

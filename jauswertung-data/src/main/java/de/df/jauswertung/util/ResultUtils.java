@@ -1,7 +1,5 @@
 package de.df.jauswertung.util;
 
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -31,7 +29,10 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.util.ergebnis.*;
 
+import static de.df.jauswertung.daten.PropertyConstants.*;
+
 public class ResultUtils {
+
     public static <T extends ASchwimmer> AWettkampf<T> convertResultsToMeldung(AWettkampf<T> wk, boolean alltimes) {
         wk = Utils.copy(wk);
         Regelwerk aks = wk.getRegelwerk();
@@ -168,7 +169,7 @@ public class ResultUtils {
                             ASchwimmer neu;
                             if (einzel) {
                                 Teilnehmer t = (Teilnehmer) s;
-                                neu = ewk.createTeilnehmer(t.getNachname(), t.getVorname(), t.getJahrgang(),
+                                neu = ewk.createTeilnehmer(t.getCompetitorId(), t.getNachname(), t.getVorname(), t.getJahrgang(),
                                         t.isMaennlich(), t.getGliederung(), x, t.getBemerkung());
                             } else {
                                 Mannschaft t = (Mannschaft) s;
@@ -445,11 +446,11 @@ public class ResultUtils {
         wk.getLaufliste().clear();
         wk.getLaufliste().resetAll();
         wk.getLaufliste().setIsFinal(cwk.isFinal(t));
-        wk.setProperty("isQualified", t.round > 0);
-        wk.setProperty("qualifiedPerHeat", qualifiedPerHeat);
-        wk.setProperty("isFinal", t.isFinal);
-        wk.setProperty("round", t.round);
-        wk.setProperty("roundId", disziplin.getRundenId(t.round));
+        wk.setProperty(IS_QUALIFIED, t.round > 0);
+        wk.setProperty(QUALIFIED_PER_HEAT, qualifiedPerHeat);
+        wk.setProperty(IS_FINAL, t.isFinal);
+        wk.setProperty(ROUND, t.round);
+        wk.setProperty(ROUND_ID, disziplin.getRundenId(t.round));
         wk.setProperty(PropertyConstants.HEATS_EMPTY_LIST, false);
         wk.setProperty(HEATS_LANES, d == null ? cwk.getIntegerProperty(HEATS_LANES, 99) : d.getBahnen());
 

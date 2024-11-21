@@ -132,12 +132,12 @@ public class CorePlugin extends AFeature {
         return (MannschaftWettkampf) wk;
     }
 
-    public Teilnehmer addTeilnehmer(String nachname, String vorname, int jahrgang, String gliederung, String qualiebene,
+    public Teilnehmer addTeilnehmer(String competitorId, String nachname, String vorname, int jahrgang, String gliederung, String qualiebene,
             boolean maennlich, int ak,
             String bemerkung, int sn, double punkte, boolean[] selection, int[] meldezeiten, boolean ausserkonkurrenz) {
         EinzelWettkampf ewk = getEinzelWettkampf();
         String g = ewk.getGliederung(gliederung);
-        Teilnehmer tn = ewk.createTeilnehmer(nachname, vorname, jahrgang, maennlich, g, ak, bemerkung);
+        Teilnehmer tn = ewk.createTeilnehmer(competitorId, nachname, vorname, jahrgang, maennlich, g, ak, bemerkung);
         tn.setMeldepunkte(0, punkte);
         if (selection != null) {
             tn.setDisciplineChoice(selection);

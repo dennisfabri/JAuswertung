@@ -43,6 +43,8 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     @XStreamAsAttribute
     private String gliederung;
     @XStreamAsAttribute
+    private String nationality;
+    @XStreamAsAttribute
     private boolean maennlich;
     @XStreamAsAttribute
     private int aknummer;
@@ -1250,6 +1252,20 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     public boolean hasWithdrawn(int discipline) {
-        return getStrafen(discipline).stream().anyMatch(s -> s.isWithdraw());
+        return getStrafen(discipline).stream().anyMatch(Strafe::isWithdraw);
+    }
+
+    public String getNationality() {
+        if (nationality == null) {
+            return "";
+        }
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        if (nationality == null) {
+            throw new NullPointerException("Nationality must not be null!");
+        }
+        this.nationality = nationality;
     }
 }

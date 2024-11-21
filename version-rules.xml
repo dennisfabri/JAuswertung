@@ -11,4 +11,13 @@
     <ignoreVersion type="regex">.*-M\d+</ignoreVersion>
     <ignoreVersion type="regex">.*-ea\+.+</ignoreVersion>
   </ignoreVersions>
+  <rules>
+    <!-- Prevent javafx to update to newer jdks -->
+    <rule groupId="org.openjfx" artifactId="javafx-controls">
+      <ignoreVersions>
+        <ignoreVersion type="regex">22.*</ignoreVersion>
+        <ignoreVersion type="regex">23.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+  </rules>
 </ruleset>

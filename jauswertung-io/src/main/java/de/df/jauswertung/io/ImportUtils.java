@@ -524,11 +524,12 @@ public class ImportUtils {
 
             ASchwimmer s = null;
             if (w instanceof EinzelWettkampf) {
+                String competitorId = "";
                 int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
                 String vorname = data[indizes[VORNAME]].toString();
                 String nachname = data[indizes[NACHNAME]].toString();
                 EinzelWettkampf ewk = (EinzelWettkampf) w;
-                s = ewk.createTeilnehmer(nachname, vorname, jahrgang, maennlich, gliederung, ak, bemerkung);
+                s = ewk.createTeilnehmer(competitorId, nachname, vorname, jahrgang, maennlich, gliederung, ak, bemerkung);
             } else {
                 String name = data[indizes[NAME]].toString();
                 MannschaftWettkampf mwk = (MannschaftWettkampf) w;

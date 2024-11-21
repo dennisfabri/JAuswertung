@@ -4,7 +4,7 @@
 
 package de.df.jauswertung.util;
 
-import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
+import static de.df.jauswertung.daten.PropertyConstants.*;
 import static javax.swing.SwingConstants.*;
 
 import java.util.*;
@@ -1207,10 +1207,10 @@ public final class DataTableUtils {
 
         AWettkampf<T> wk = schwimmer.getWettkampf();
 
-        int event = wk.getIntegerProperty("roundId", disz + 1);
+        int event = wk.getIntegerProperty(ROUND_ID, disz + 1);
 
-        boolean isFinal = wk.getBooleanProperty("isFinal", true);
-        int round = wk.getIntegerProperty("round", 0);
+        boolean isFinal = wk.getBooleanProperty(IS_FINAL, true);
+        int round = wk.getIntegerProperty(ROUND, 0);
 
         HeatsNumberingScheme scheme = schwimmer.getWettkampf().getHeatsNumberingScheme();
 

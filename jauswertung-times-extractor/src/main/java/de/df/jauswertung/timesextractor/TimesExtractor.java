@@ -19,10 +19,16 @@ import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.timesextractor.model.*;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
+import de.df.jutils.util.StringTools;
+import org.apache.commons.lang3.StringUtils;
+
+import static de.df.jauswertung.daten.PropertyConstants.IS_FINAL;
+import static de.df.jauswertung.daten.PropertyConstants.ROUND;
 
 public class TimesExtractor {
 
@@ -39,15 +45,18 @@ public class TimesExtractor {
         return new AWettkampf[] { wk };
     }
 
-    public <T extends ASchwimmer> Competition getZeiten(AWettkampf<T> wk) {
+    public <T extends ASchwimmer> JAuswertungCompetition getZeiten(AWettkampf<T> wk) {
         if (wk == null) {
-            return new Competition();
+            return new JAuswertungCompetition();
         }
 
         wk = Utils.copy(wk);
         AWettkampf<T>[] competitions = createAllCompetitions(wk);
 
-        Competition competition = new Competition(wk.getStringProperty(PropertyConstants.NAME), wk.getStringProperty(PropertyConstants.SHORTNAME));
+        JAuswertungCompetition competition = new JAuswertungCompetition(wk.getStringProperty(PropertyConstants.NAME),
+                wk.getStringProperty(PropertyConstants.SHORTNAME),
+                wk.getStringProperty(PropertyConstants.LENGTH_OF_POOL),
+                wk.getStringProperty(PropertyConstants.DATE));
         for (AWettkampf<T> wkx : competitions) {
             for (ASchwimmer s : wkx.getSchwimmer()) {
                 extractTimes(s, competition);
@@ -56,28 +65,35 @@ public class TimesExtractor {
         return competition;
     }
 
-    private Collection<? extends Entry> extractTimes(ASchwimmer s, Competition competition) {
-        List<Entry> times = new ArrayList<>();
-        ValueTypes type = s.getWettkampf().getDataType() == DataType.RANK ? ValueTypes.Rank : ValueTypes.TimeInMillis;
+    private Collection<? extends JAuswertungEntry> extractTimes(ASchwimmer s, JAuswertungCompetition competition) {
+        List<JAuswertungEntry> times = new ArrayList<>();
+        JAuswertungValueTypes type = s.getWettkampf().getDataType() == DataType.RANK ? JAuswertungValueTypes.Rank
+                : JAuswertungValueTypes.TimeInMillis;
 
         Altersklasse ak = s.getAK();
         for (int x = 0; x < ak.getDiszAnzahl(); x++) {
             if (s.isDisciplineChosen(x)) {
                 int value = s.getZeit(x);
-                if (type == ValueTypes.TimeInMillis) {
+                if (type == JAuswertungValueTypes.TimeInMillis) {
                     value *= 10;
                 }
-                Penalty[] penalties = getPenalties(s, x);
-                int round = s.getWettkampf().getIntegerProperty("round", 0);
-                boolean isFinal = s.getWettkampf().getBooleanProperty("isFinal", true);
+                JAuswertungPenalty[] penalties = getPenalties(s, x);
+                int round = s.getWettkampf().getIntegerProperty(ROUND, 0);
+                boolean isFinal = s.getWettkampf().getBooleanProperty(IS_FINAL, true);
 
-                Start start = determineStart(s);
-                CompetitorType competitorType = s instanceof Mannschaft ? CompetitorType.Team
-                        : CompetitorType.Individual;
+                JAuswertungStart start = determineStart(s);
+                JAuswertungCompetitorType competitorType = s instanceof Mannschaft ? JAuswertungCompetitorType.Team
+                        : JAuswertungCompetitorType.Individual;
+
+                String competitorId = "";
+                if (s instanceof Teilnehmer t) {
+                    competitorId = t.getCompetitorId();
+                }
 
                 competition.addTime(ak.getName(), competitorType, I18n.geschlechtToShortString(s),
                         ak.getDisziplin(x, s.isMaennlich()).getName(), round, isFinal, type,
-                        new Entry(StartnumberFormatManager.format(s), s.getName(), s.getGliederungMitQGliederung(),
+                        new JAuswertungEntry(competitorId, StartnumberFormatManager.format(s), s.getName(),
+                                s.getGliederungMitQGliederung(), s.getNationality(),
                                 value, penalties,
                                 getSwimmer(s), start));
             }
@@ -85,10 +101,11 @@ public class TimesExtractor {
         return times;
     }
 
-    private <T extends ASchwimmer> Start determineStart(T schwimmer) {
+    private <T extends ASchwimmer> JAuswertungStart determineStart(T schwimmer) {
         AWettkampf<T> wk = schwimmer.getWettkampf();
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
+        int roundId = wk.getIntegerProperty(PropertyConstants.ROUND_ID, -1);
         if (heats == null) {
             // Do Nothing
         } else {
@@ -96,7 +113,7 @@ public class TimesExtractor {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
                     if (s == schwimmer) {
-                        return new Start(l.getName(scheme), x + 1);
+                        return new JAuswertungStart(getHeatName(roundId, l, scheme), x + 1);
                     }
                 }
             }
@@ -104,32 +121,41 @@ public class TimesExtractor {
         return null;
     }
 
-    private Penalty[] getPenalties(ASchwimmer s, int x) {
+    private static <T extends ASchwimmer> String getHeatName(int roundId, Lauf<T> lauf, HeatsNumberingScheme scheme) {
+        if (roundId > 0) {
+            return String.format("%03d-%02d%s", roundId, lauf.getLaufnummer(),
+                    StringTools.characterString(lauf.getLaufbuchstabe()));
+        }
+        return lauf.getName(scheme);
+    }
+
+    private JAuswertungPenalty[] getPenalties(ASchwimmer s, int x) {
         List<Strafe> penalties = new ArrayList<>();
         penalties.addAll(s.getStrafen(x));
         penalties.addAll(s.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF));
-        return penalties.stream().map(this::toPenalty).toArray(Penalty[]::new);
+        return penalties.stream().map(this::toPenalty).toArray(JAuswertungPenalty[]::new);
     }
 
-    private Penalty toPenalty(Strafe str) {
-        PenaltyType type = switch (str.getArt()) {
-        case DISQUALIFIKATION -> PenaltyType.Disqualified;
-        case NICHT_ANGETRETEN -> PenaltyType.DidNotStart;
-        case AUSSCHLUSS -> PenaltyType.Disqualified;
-        case NICHTS -> PenaltyType.None;
-        case STRAFPUNKTE -> PenaltyType.Points;
+    private JAuswertungPenalty toPenalty(Strafe str) {
+        JAuswertungPenaltyType type = switch (str.getArt()) {
+        case DISQUALIFIKATION -> JAuswertungPenaltyType.Disqualified;
+        case NICHT_ANGETRETEN -> JAuswertungPenaltyType.DidNotStart;
+        case AUSSCHLUSS -> JAuswertungPenaltyType.Disqualified;
+        case NICHTS -> JAuswertungPenaltyType.None;
+        case STRAFPUNKTE -> JAuswertungPenaltyType.Points;
         };
-        return new Penalty(str.getShortname(), type, str.getStrafpunkte());
+        return new JAuswertungPenalty(str.getShortname(), type, str.getStrafpunkte());
     }
 
-    private Swimmer[] getSwimmer(ASchwimmer s) {
+    private JAuswertungSwimmer[] getSwimmer(ASchwimmer s) {
         if (s instanceof Teilnehmer t) {
-            return new Swimmer[] { new Swimmer(StartnumberFormatManager.format(t), t.getVorname(), t.getNachname(),
-                    I18n.geschlechtToShortString(t), t.getJahrgang()) };
+            return new JAuswertungSwimmer[] {
+                    new JAuswertungSwimmer(t.getCompetitorId(), StartnumberFormatManager.format(t), t.getVorname(),
+                            t.getNachname(), I18n.geschlechtToShortString(t), t.getJahrgang()) };
         }
         if (s instanceof Mannschaft m && m.hasMannschaftsmitglieder()) {
             int amount = m.getMannschaftsmitgliederAnzahl();
-            List<Swimmer> swimmer = new ArrayList<>();
+            List<JAuswertungSwimmer> swimmer = new ArrayList<>();
             for (int x = 0; x < amount; x++) {
                 Mannschaftsmitglied mitglied = m.getMannschaftsmitglied(x);
                 if (mitglied.isEmpty()) {
@@ -148,12 +174,11 @@ public class TimesExtractor {
                     break;
 
                 }
-                swimmer.add(new Swimmer("", mitglied.getVorname(),
-                        mitglied.getNachname(),
-                        gender, mitglied.getJahrgang()));
+                swimmer.add(new JAuswertungSwimmer("", "", mitglied.getVorname(),
+                        mitglied.getNachname(), gender, mitglied.getJahrgang()));
             }
-            return swimmer.toArray(new Swimmer[swimmer.size()]);
+            return swimmer.toArray(JAuswertungSwimmer[]::new);
         }
-        return new Swimmer[0];
+        return new JAuswertungSwimmer[0];
     }
 }

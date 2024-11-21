@@ -6,24 +6,12 @@ package de.df.jauswertung.gui.plugins.registration;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_AKS_CHANGED;
 import static de.df.jauswertung.gui.UpdateEventConstants.REASON_GLIEDERUNG_CHANGED;
 
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Calendar;
 import java.util.ListIterator;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -334,6 +322,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         EinzelWettkampf ewk = core.getEinzelWettkampf();
 
         int sn = startnummer.getInt();
+        String competitorId = "";
         String nachname = name.getText();
         String vname = vorname.getText();
         String g = "";
@@ -348,13 +337,13 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             startnummer.requestFocus();
             return;
         }
-        if (nachname.length() == 0) {
+        if (nachname.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("FamilyNameMustNotBeEmpty"),
                     I18n.get("FamilyNameMustNotBeEmpty.Note"));
             name.requestFocus();
             return;
         }
-        if (vname.length() == 0) {
+        if (vname.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("FirstNameMustNotBeEmpty"),
                     I18n.get("FirstNameMustNotBeEmpty.Note"));
             vorname.requestFocus();
@@ -365,14 +354,14 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("YearOfBirthTooHigh"), I18n.get("YearOfBirthTooHigh.Note"));
             return;
         }
-        if (g.length() == 0) {
+        if (g.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
                     I18n.get("OrganisationMustNotBeEmpty.Note"));
             gliederung.requestFocus();
             return;
         }
 
-        core.addTeilnehmer(name.getText(), vorname.getText(), jahrgang.getInt(),
+        core.addTeilnehmer(competitorId, name.getText(), vorname.getText(), jahrgang.getInt(),
                 gliederung.getSelectedItem().toString(), qualiebene.getText(),
                 geschlecht.getSelectedIndex() == 1, altersklasse.getSelectedIndex(), bemerkung.getText(),
                 startnummer.getInt(), melde.getDouble(),

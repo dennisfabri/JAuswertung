@@ -7,13 +7,12 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
@@ -81,7 +80,7 @@ public class FormelILSOutdoorFinalsTest {
     private static void schwimmerHinzufuegen(EinzelWettkampf wk) {
         Altersklasse ak = wk.getRegelwerk().getAk(AK);
         for (int x = 1; x <= AnzahlSchwimmer; x++) {
-            Teilnehmer t = wk.createTeilnehmer("Teilnehmer", "" + x, 2000, true, "Test", 0, "");
+            Teilnehmer t = wk.createTeilnehmer("", "Teilnehmer", "" + x, 2000, true, "Test", 0, "");
             for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                 t.setDisciplineChoice(y, y == Discipline);
             }

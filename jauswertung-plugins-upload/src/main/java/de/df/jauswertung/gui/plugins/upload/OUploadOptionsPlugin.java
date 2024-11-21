@@ -13,6 +13,7 @@ import de.df.jutils.plugin.AFeature;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 
+@SuppressWarnings("unused")
 public class OUploadOptionsPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
     JPanel optionsPanel = null;

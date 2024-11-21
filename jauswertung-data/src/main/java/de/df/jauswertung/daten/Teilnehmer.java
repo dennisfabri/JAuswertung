@@ -21,11 +21,14 @@ public class Teilnehmer extends ASchwimmer {
     private String vorname;
     @XStreamAsAttribute
     private String nachname;
+    @XStreamAsAttribute
+    private String competitorId = "";
 
     /** Creates new Teilnehmer */
-    Teilnehmer(EinzelWettkampf ewk, String name, String vname, int tJahrgang, boolean geschlecht, String gliederung,
+    Teilnehmer(EinzelWettkampf ewk, String competitorId, String name, String vname, int tJahrgang, boolean geschlecht, String gliederung,
             int ak, String bemerkung) {
         super(ewk, geschlecht, gliederung, ak, bemerkung);
+        setCompetitorId(competitorId);
         setVorname(vname.trim());
         setNachname(name.trim());
         setJahrgang(tJahrgang);
@@ -110,5 +113,16 @@ public class Teilnehmer extends ASchwimmer {
             return 0;
         }
         return Math.max(0, year - getJahrgang());
+    }
+
+    public String getCompetitorId() {
+        if (competitorId == null) {
+            return "";
+        }
+        return competitorId;
+    }
+
+    public void setCompetitorId(String competitorId) {
+        this.competitorId = competitorId;
     }
 }

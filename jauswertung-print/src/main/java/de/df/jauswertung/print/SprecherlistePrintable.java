@@ -34,6 +34,8 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.printables.ComponentPackingPrintable;
 import de.df.jutils.util.StringTools;
 
+import static de.df.jauswertung.daten.PropertyConstants.*;
+
 public final class SprecherlistePrintable<T extends ASchwimmer> extends ComponentPackingPrintable {
 
     public SprecherlistePrintable(AWettkampf<T> wk, boolean showDisciplines, boolean showTimes, boolean showQuali,
@@ -110,10 +112,10 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
 
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         boolean showSN = wk.isOpenWater();
-        boolean isFinal = wk.getBooleanProperty("isFinal", false);
-        int round = wk.getIntegerProperty("round", -1);
-        int id = wk.getIntegerProperty("roundId", -1);
-        int qualifiedPerHeat = wk.getIntegerProperty("qualifiedPerHeat", -1);
+        boolean isFinal = wk.getBooleanProperty(IS_FINAL, false);
+        int round = wk.getIntegerProperty(ROUND, -1);
+        int id = wk.getIntegerProperty(ROUND_ID, -1);
+        int qualifiedPerHeat = wk.getIntegerProperty(QUALIFIED_PER_HEAT, -1);
 
         String disziplin = lauf.getDisziplin();
         if (round >= 0) {
@@ -211,7 +213,8 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                 datas.addLast(data);
             }
         }
-        Object[] titles = new Object[] { showSN ? I18n.get("StartnumberShort") : I18n.get("Lane"), I18n.get("Name"), I18n.get("Organisation"),
+        Object[] titles = new Object[] { showSN ? I18n.get("StartnumberShort") : I18n.get("Lane"), I18n.get("Name"),
+                I18n.get("Organisation"),
                 I18n.get("QualifikationsebeneShort"),
                 I18n.get("AgeGroupShort"), I18n.get("YearOfBirthShort"), I18n.get("Discipline", ""),
                 I18n.get("Meldezeit"), I18n.get("Notes") };

@@ -136,7 +136,7 @@ public final class ErzeugeWettkaempfe {
         for (int a = 0; a < 5; a++) {
             for (int g = 0; g < 2; g++) {
                 for (int x = 0; x < anzahl; x++) {
-                    Teilnehmer tn = ewk.createTeilnehmer(n.generateNachname(), n.generateVorname(g == 1),
+                    Teilnehmer tn = ewk.createTeilnehmer(n.generateCompetitorId(), n.generateNachname(), n.generateVorname(g == 1),
                             getJahrgang(ewk, a), g == 1, n.generateGliederung(), a, "");
                     tn.setQualifikationsebene(n.generateLV(tn.getGliederung()));
                     ewk.addSchwimmer(tn);

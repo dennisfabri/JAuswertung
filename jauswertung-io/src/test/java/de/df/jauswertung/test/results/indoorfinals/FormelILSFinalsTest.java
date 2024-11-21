@@ -83,7 +83,7 @@ public class FormelILSFinalsTest {
     private static void schwimmerHinzufuegen(EinzelWettkampf wk) {
         Altersklasse ak = wk.getRegelwerk().getAk(AK);
         for (int x = 1; x <= AnzahlSchwimmer; x++) {
-            Teilnehmer t = wk.createTeilnehmer("Teilnehmer", "" + x, 2000, true, "Test", 0, "");
+            Teilnehmer t = wk.createTeilnehmer("", "Teilnehmer", "" + x, 2000, true, "Test", 0, "");
             for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                 t.setDisciplineChoice(y, y == Discipline);
             }

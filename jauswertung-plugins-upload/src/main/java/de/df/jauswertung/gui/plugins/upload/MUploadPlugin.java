@@ -19,6 +19,7 @@ import de.df.jutils.plugin.ButtonInfo;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 
+@SuppressWarnings("unused")
 public class MUploadPlugin extends ANullPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(MUploadPlugin.class);

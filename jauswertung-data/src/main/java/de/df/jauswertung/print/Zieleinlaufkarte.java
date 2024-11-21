@@ -6,6 +6,8 @@ package de.df.jauswertung.print;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Lauf;
 
+import static de.df.jauswertung.daten.PropertyConstants.ROUND_ID;
+
 public class Zieleinlaufkarte {
 
     private int event;
@@ -16,7 +18,7 @@ public class Zieleinlaufkarte {
     @SuppressWarnings("rawtypes")
     public Zieleinlaufkarte(AWettkampf wk, Lauf lauf) {
         if (lauf != null) {
-            this.event = wk.getIntegerProperty("roundId", 0);
+            this.event = wk.getIntegerProperty(ROUND_ID, 0);
             this.lauf = lauf.getName(wk.getHeatsNumberingScheme());
             this.disziplin = lauf.getDisziplin();
             this.startgruppe = lauf.getStartgruppe();

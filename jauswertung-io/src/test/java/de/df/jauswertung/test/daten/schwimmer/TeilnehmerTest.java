@@ -23,7 +23,7 @@ public class TeilnehmerTest extends TestCase {
 
     @Override
     protected void setUp() {
-        s = wk.createTeilnehmer("Name", "Vorname", 1999, true, "Gliederung", 0, "Bemerkung");
+        s = wk.createTeilnehmer("13","Name", "Vorname", 1999, true, "Gliederung", 0, "Bemerkung");
     }
 
     @Override
@@ -32,6 +32,7 @@ public class TeilnehmerTest extends TestCase {
     }
 
     public void testTeilnehmer() {
+        assertEquals(s.getCompetitorId(), "13");
         assertEquals(s.getName(), "Name, Vorname");
         assertEquals(s.getVorname(), "Vorname");
         assertEquals(s.getNachname(), "Name");

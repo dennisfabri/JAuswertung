@@ -8,12 +8,12 @@ import java.util.Locale;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.misc.times.Time;
-import de.df.jauswertung.timesextractor.Competition;
-import de.df.jauswertung.timesextractor.CompetitorType;
-import de.df.jauswertung.timesextractor.Entry;
-import de.df.jauswertung.timesextractor.Event;
+import de.df.jauswertung.timesextractor.model.JAuswertungCompetition;
+import de.df.jauswertung.timesextractor.model.JAuswertungCompetitorType;
+import de.df.jauswertung.timesextractor.model.JAuswertungEntry;
+import de.df.jauswertung.timesextractor.model.JAuswertungEvent;
 import de.df.jauswertung.timesextractor.TimesExtractor;
-import de.df.jauswertung.timesextractor.ValueTypes;
+import de.df.jauswertung.timesextractor.model.JAuswertungValueTypes;
 
 public class CompetitionImporter implements IImporter {
 
@@ -30,11 +30,11 @@ public class CompetitionImporter implements IImporter {
         System.out.println("Lade Wettkampf " + filename);
         AWettkampf wk = InputManager.ladeWettkampf(filename);
 
-        Competition competition = new TimesExtractor().getZeiten(wk);
+        JAuswertungCompetition competition = new TimesExtractor().getZeiten(wk);
 
         List<Time> times = new ArrayList<>();
-        for (Event event : competition.getEvents()) {
-            if (event.getValueType() == ValueTypes.TimeInMillis) {
+        for (JAuswertungEvent event : competition.getEvents()) {
+            if (event.getValueType() == JAuswertungValueTypes.TimeInMillis) {
                 times.addAll(toTimes(event));
             }
         }
@@ -54,13 +54,13 @@ public class CompetitionImporter implements IImporter {
 
     private static String[] sexes = merge(males, females);
 
-    private List<Time> toTimes(Event event) {
-        boolean isTeam = event.getCompetitorType().equals(CompetitorType.Team);
+    private List<Time> toTimes(JAuswertungEvent event) {
+        boolean isTeam = event.getCompetitorType().equals(JAuswertungCompetitorType.Team);
         
         List<Time> result = new ArrayList<>();
         if (isKnownSex(event.getSex())) {
             boolean male = isMale(event.getSex());
-            for (Entry entry : event.getTimes()) {                
+            for (JAuswertungEntry entry : event.getTimes()) {
                 result.add(new Time(competition, isTeam, entry.getName(), "", entry.getOrganization(),
                         event.getAgegroup(), male, event.getDiscipline(), entry.getValue() / 10, entry.getPenalties()));
             }

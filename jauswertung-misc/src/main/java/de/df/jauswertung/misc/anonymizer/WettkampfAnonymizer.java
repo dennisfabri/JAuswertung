@@ -11,6 +11,9 @@ public class WettkampfAnonymizer {
     public static void main(String[] args) {
         // anonymizeWettkampf("jauswertung-io/src/test/resources/competitions/dem24/DEM2024_Mannschaft_Vorlauf_Final.wk");
         // anonymizeWettkampf("jauswertung-io/src/test/resources/competitions/dem24/DEM2024_Mixed_Vorlauf_Final.wk");
+
+        anonymizeWettkampf("./data/TROPHY2024_3_Einzel.wk");
+        anonymizeWettkampf("./data/TROPHY2024_3_Mannschaft.wk");
     }
 
     private static void anonymizeWettkampf(String filename) {

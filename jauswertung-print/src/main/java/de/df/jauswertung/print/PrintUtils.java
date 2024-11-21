@@ -342,7 +342,7 @@ public final class PrintUtils {
                             T t = null;
                             if (wk instanceof EinzelWettkampf) {
                                 Teilnehmer sx = (Teilnehmer) s;
-                                t = (T) ewk.createTeilnehmer(sx.getNachname(), sx.getVorname(), sx.getJahrgang(),
+                                t = (T) ewk.createTeilnehmer(sx.getCompetitorId(), sx.getNachname(), sx.getVorname(), sx.getJahrgang(),
                                         sx.isMaennlich(), sx.getGliederung(),
                                         swimmer.get(ak.getDisziplin(a, sx.isMaennlich()).getName()), sx.getBemerkung());
                             } else {
