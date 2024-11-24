@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import javax.swing.JToggleButton;
 
+import de.df.jauswertung.gui.plugins.upload.competitiondlrgnet.TimesUploader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,12 +36,17 @@ public class MUploadPlugin extends ANullPlugin {
 
     private ResultUploader iscResultUploader = new ResultUploader();
 
+    private TimesUploader timesUploader = new TimesUploader("https://dev.lisasp.org");
+
     private Timer uploadTimer;
 
     public MUploadPlugin() {
         uploadButton = new JToggleButton(IconManager.getSmallIcon("upload"));
         uploadButton.setToolTipText(I18n.getToolTip("ISCUpload"));
-        uploadButton.addActionListener(event -> iscResultUploader.setActive(uploadButton.isSelected()));
+        uploadButton.addActionListener(event -> {
+            iscResultUploader.setActive(uploadButton.isSelected());
+            timesUploader.setActive(uploadButton.isSelected());
+        });
 
         buttons = new ButtonInfo[1];
         buttons[0] = new ButtonInfo(uploadButton, 1010);
@@ -54,15 +60,25 @@ public class MUploadPlugin extends ANullPlugin {
                 try {
                     uploadResultsToISC();
                 } catch (Exception ex) {
-                    log.warn("Could not execute upload", ex);
+                    log.warn("Could not execute isc-upload", ex);
+                }
+                try {
+                    uploadResultsToCompetitionDlrgNet();
+                } catch (Exception ex) {
+                    log.warn("Could not execute results-upload", ex);
                 }
             }
         }, period, period);
     }
 
     private void uploadResultsToISC() {
-        AWettkampf<?> wk = core.getFilteredWettkampf();
+        AWettkampf<?> wk = core.getWettkampf();
         iscResultUploader.uploadResultsToISC(wk);
+    }
+
+    private void uploadResultsToCompetitionDlrgNet() {
+        AWettkampf<?> wk = core.getFilteredWettkampf();
+        timesUploader.uploadJson(wk);
     }
 
     @Override

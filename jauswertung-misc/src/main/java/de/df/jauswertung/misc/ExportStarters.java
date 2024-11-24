@@ -2,19 +2,13 @@ package de.df.jauswertung.misc;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
@@ -22,9 +16,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.IOUtils;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.util.format.StartnumberDigits;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import lombok.Value;
 

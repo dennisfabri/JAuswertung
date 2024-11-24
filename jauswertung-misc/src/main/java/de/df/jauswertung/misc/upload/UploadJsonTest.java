@@ -3,18 +3,8 @@ package de.df.jauswertung.misc.upload;
 import static de.df.jauswertung.io.InputManager.ladeWettkampf;
 import static java.lang.Thread.sleep;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.Duration;
-
+import de.df.jauswertung.gui.plugins.upload.competitiondlrgnet.TimesUploader;
 import org.slf4j.Logger;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.timesextractor.model.JAuswertungCompetition;

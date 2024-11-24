@@ -81,7 +81,7 @@ public class TimesExtractor {
                 int round = s.getWettkampf().getIntegerProperty(ROUND, 0);
                 boolean isFinal = s.getWettkampf().getBooleanProperty(IS_FINAL, true);
 
-                JAuswertungStart start = determineStart(s);
+                JAuswertungStart start = determineStart(s, x);
                 JAuswertungCompetitorType competitorType = s instanceof Mannschaft ? JAuswertungCompetitorType.Team
                         : JAuswertungCompetitorType.Individual;
 
@@ -101,7 +101,7 @@ public class TimesExtractor {
         return times;
     }
 
-    private <T extends ASchwimmer> JAuswertungStart determineStart(T schwimmer) {
+    private <T extends ASchwimmer> JAuswertungStart determineStart(T schwimmer, int discipline) {
         AWettkampf<T> wk = schwimmer.getWettkampf();
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
@@ -112,7 +112,7 @@ public class TimesExtractor {
             for (Lauf<T> l : heats) {
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
-                    if (s == schwimmer) {
+                    if (s == schwimmer && l.getDisznummer(x) == discipline) {
                         return new JAuswertungStart(getHeatName(roundId, l, scheme), x + 1);
                     }
                 }

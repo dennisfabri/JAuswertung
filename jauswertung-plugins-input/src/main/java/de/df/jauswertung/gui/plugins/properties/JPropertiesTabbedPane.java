@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -43,6 +44,7 @@ import de.df.jauswertung.web.iscupload.ISCUploadCredentials;
 import de.df.jutils.gui.JImagePanel;
 import de.df.jutils.gui.JIntSpinner;
 import de.df.jutils.gui.JWarningTextField;
+import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.window.JOptionsDialog;
@@ -91,6 +93,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     private JWarningTextField edvNumber;
     private JWarningTextField competitionId;
     private JWarningTextField authKey;
+
+    private JWarningTextField uploadId;
+    private JIntSpinner uploadIndex;
 
     @SuppressWarnings("rawtypes")
     private AWettkampf wk;
@@ -156,6 +161,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         edvNumber.getDocument().addDocumentListener(doc);
         competitionId.getDocument().addDocumentListener(doc);
         authKey.getDocument().addDocumentListener(doc);
+
+        uploadId.getDocument().addDocumentListener(doc);
+        uploadIndex.addChangeListener(change);
     }
 
     private void setTraversalKeys(JTextPane textArea) {
@@ -225,6 +233,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         competitionId = new JWarningTextField();
         authKey = new JWarningTextField();
 
+        uploadId = new JWarningTextField();
+        uploadIndex = new JIntSpinner(0, 0, 99, 1);
+
         name.setAutoSelectAll(true);
         shortname.setAutoSelectAll(true);
         date.setAutoSelectAll(true);
@@ -235,6 +246,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         edvNumber.setAutoSelectAll(true);
         competitionId.setAutoSelectAll(true);
         authKey.setAutoSelectAll(true);
+
+        uploadId.setAutoSelectAll(true);
     }
 
     private Integer[] createYears() {
@@ -294,6 +307,22 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         return p;
     }
 
+    private JPanel createUploadPanel() {
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu,fill:default,4dlu");
+        JPanel p = new JPanel(layout);
+
+        p.add(addBorder(createISCPanel(), "ISCUpload"), CC.xy(2, 2));
+        p.add(addBorder(createCompetitionDlrgNetPanel(), "competition.dlrg.net"), CC.xy(2, 4));
+
+        return p;
+    }
+
+    private JPanel addBorder(JPanel panel, String s) {
+        Border border = BorderUtils.createLabeledBorder(I18n.get(s));
+        panel.setBorder(border);
+        return panel;
+    }
+
     private JPanel createISCPanel() {
         SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);
 
@@ -301,6 +330,15 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         sfm.add(I18n.get("CompetitionId"), competitionId);
         sfm.add(I18n.get("ISCUploadAuthKey"), authKey);
         sfm.addText(I18n.get("ISCUploadAuthKey.Info"));
+
+        return sfm.getPanel();
+    }
+
+    private JPanel createCompetitionDlrgNetPanel() {
+        SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);
+
+        sfm.add(I18n.get("UploadId"), uploadId);
+        sfm.add(I18n.get("Index"), uploadIndex);
 
         return sfm.getPanel();
     }
@@ -344,8 +382,11 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(ISC_RESULT_UPLOAD_EDVNUMBER, edvNumber.getText());
             wk.setProperty(ISC_RESULT_UPLOAD_COMPETITION_ID, competitionId.getText());
 
+            wk.setProperty(UPLOAD_ID, uploadId.getText());
+            wk.setProperty(UPLOAD_INDEX, uploadIndex.getInt());
+
             authKeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
-                                                             wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authKey.getText()));
+                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authKey.getText()));
         }
     }
 
@@ -377,7 +418,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         addTab(I18n.get("LocationOfCompetition"), createOrtPanel());
         addTab(I18n.get("Infopage"), createInformationPanel());
         addTab(I18n.get("Logo"), createImagePanel());
-        addTab(I18n.get("ISCUpload"), createISCPanel());
+        addTab(I18n.get("LiveUpload"), createUploadPanel());
 
         if (change) {
             art.setSelectedItem(wk.getProperty(ART_DES_WETTKAMPFS));
@@ -395,7 +436,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             printNamesInResults.setSelectedIndex(wk.getBooleanProperty(RESULT_MULTILINE) ? 1 : 0);
             snFormat.setSelectedIndex(
                     StartnumberFormatManager.GetIndex(wk.getStringProperty(STARTNUMBERFORMAT, "Default")));
-            heatNumberFormat.setSelectedIndex(getHeatsNumberingSchemeIndex(wk.getStringProperty(HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue())));
+            heatNumberFormat.setSelectedIndex(getHeatsNumberingSchemeIndex(
+                    wk.getStringProperty(HEATS_NUMBERING_SCHEME, HeatsNumberingScheme.Standard.getValue())));
             printReferees.setSelectedIndex(wk.getIntegerProperty(PRINT_REFEREES_COMPACT, 1));
 
             nameOfPool.setText(wk.getStringProperty(NAME_OF_POOL));
@@ -412,7 +454,10 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             edvNumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
             competitionId.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID));
             authKey.setText(authKeys.getCredentials(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
-                                                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
+                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
+
+            uploadId.setText(wk.getStringProperty(UPLOAD_ID));
+            uploadIndex.setInt(wk.getIntegerProperty(UPLOAD_INDEX));
 
             try {
                 image.setImageData(wk.getLogo());

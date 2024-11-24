@@ -7,7 +7,7 @@ package de.df.jauswertung.daten;
  */
 public final class PropertyConstants {
 
-    private PropertyConstants() {
+        private PropertyConstants() {
         // Hide
     }
 
@@ -68,4 +68,7 @@ public final class PropertyConstants {
     public static final String ROUND = "round";
     public static final String IS_QUALIFIED = "isQualified";
     public static final String QUALIFIED_PER_HEAT = "qualifiedPerHeat";
+
+    public static final String UPLOAD_ID = "UploadId";
+    public static final String UPLOAD_INDEX = "UploadIndex";
 }
