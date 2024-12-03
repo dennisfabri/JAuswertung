@@ -13,7 +13,7 @@ import de.df.jauswertung.io.OutputManager;
 
 public class UpdateRecWerte {
 
-    private static final int YEAR = 2024;
+    private static final int YEAR = 2025;
 
     private static final String PathToCsv = "src\\test\\resources\\rec-werte\\";
     private static final String PathToRulebook = "..\\jauswertung-files\\src\\main\\resources\\aks\\";
