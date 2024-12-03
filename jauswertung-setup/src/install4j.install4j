@@ -1123,7 +1123,7 @@ return console.askYesNo(message, true);
     </windows>
   </mediaSets>
   <buildIds buildAll="false">
-    <mediaSet refId="1385" />
+    <mediaSet refId="583" />
   </buildIds>
   <buildOptions verbose="true" />
 </install4j>

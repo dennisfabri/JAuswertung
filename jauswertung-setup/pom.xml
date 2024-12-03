@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
@@ -48,7 +50,8 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/main/libs</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/main/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -63,7 +66,8 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/linux/libs</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/linux/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -78,7 +82,8 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/windows/libs</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/windows/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -93,7 +98,8 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/macos/libs</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/macos/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -115,7 +121,8 @@
 									<version>${project.version}</version>
 									<classifier>files</classifier>
 									<type>zip</type>
-									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+									<outputDirectory>
+										${project.build.directory}/distribution/main</outputDirectory>
 									<excludes>**/*.sh</excludes>
 								</artifactItem>
 							</artifactItems>
@@ -139,7 +146,8 @@
 									<version>${project.version}</version>
 									<classifier>site</classifier>
 									<type>zip</type>
-									<outputDirectory>${project.build.directory}/distribution/main/handbuch</outputDirectory>
+									<outputDirectory>
+										${project.build.directory}/distribution/main/handbuch</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 							<includes>**/*.*</includes>
@@ -162,7 +170,8 @@
 									<version>${alphaserver.version}</version>
 									<classifier>files</classifier>
 									<type>zip</type>
-									<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+									<outputDirectory>
+										${project.build.directory}/distribution/main</outputDirectory>
 									<excludes>**/*.sh</excludes>
 								</artifactItem>
 							</artifactItems>
@@ -186,10 +195,12 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/main</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/main</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.basedir}../jauswertung-files/src/main/files</directory>
+									<directory>
+										${project.basedir}../jauswertung-files/src/main/files</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
@@ -202,7 +213,8 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/distribution/main/libs</outputDirectory>
+							<outputDirectory>
+								${project.build.directory}/distribution/main/libs</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${project.basedir}/target</directory>
@@ -217,8 +229,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.sonatype.install4j</groupId>
-				<artifactId>install4j-maven-plugin</artifactId>
+				<groupId>com.install4j</groupId>
+				<artifactId>install4j-maven</artifactId>
 				<executions>
 					<execution>
 						<id>compile-setups</id>
@@ -228,7 +240,7 @@
 						</goals>
 						<configuration>
 							<projectFile>${project.basedir}/src/install4j.install4j</projectFile>
-							<destination>target/</destination>
+							<destination>${project.build.directory}</destination>
 							<debug>false</debug>
 							<buildIds>windows,macos,unix</buildIds>
 							<release>${project.version}</release>
@@ -266,11 +278,17 @@
 						</goals>
 						<configuration>
 							<target>
-								<move file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar" tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar" />
-								<delete file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
-								<delete file="${project.build.directory}/sha256sums" />
-								<delete file="${project.build.directory}/output.txt" />
-								<delete file="${project.build.directory}/updates.xml" />
+								<move
+									file="${project.build.directory}/jauswertung-setup-${project.version}-Setup.tar"
+									tofile="${project.build.directory}/JAuswertung-${project.version}-Setup.tar" />
+								<delete
+									file="${project.build.directory}/JAuswertung-${project.version}-Setup.sh" />
+								<delete
+									file="${project.build.directory}/sha256sums" />
+								<delete
+									file="${project.build.directory}/output.txt" />
+								<delete
+									file="${project.build.directory}/updates.xml" />
 							</target>
 						</configuration>
 					</execution>
