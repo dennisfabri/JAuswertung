@@ -32,6 +32,7 @@ import de.df.jauswertung.util.Utils;
  */
 public final class InputManager {
 
+    private static final String LOGO_FILENAME = "logo.png";
     private static Logger log = LoggerFactory.getLogger(InputManager.class);
 
     private InputManager() {
@@ -94,8 +95,8 @@ public final class InputManager {
             return null;
         }
         AWettkampf wk = (AWettkampf) data.get("data.xml");
-        if (data.get("logo.png") instanceof byte[]) {
-            wk.setProperty(PropertyConstants.LOGO, data.get("logo.png"));
+        if (data.get(LOGO_FILENAME) instanceof byte[]) {
+            wk.setProperty(PropertyConstants.LOGO, data.get(LOGO_FILENAME));
         }
         return wk;
     }
@@ -107,8 +108,8 @@ public final class InputManager {
             return null;
         }
         AWettkampf wk = (AWettkampf) data.get("data.xml");
-        if (data.get("logo.png") instanceof byte[]) {
-            wk.setProperty(PropertyConstants.LOGO, data.get("logo.png"));
+        if (data.get(LOGO_FILENAME) instanceof byte[]) {
+            wk.setProperty(PropertyConstants.LOGO, data.get(LOGO_FILENAME));
         }
         return wk;
     }

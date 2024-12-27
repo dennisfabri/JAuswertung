@@ -29,6 +29,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
+import de.df.jauswertung.io.portal.PortalImporter;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
@@ -50,6 +51,7 @@ public class ImportManager {
         put(new CsvImporter());
         put(new ExcelImporter());
         put(new EasyWKImporter());
+        put(new PortalImporter());
     }
 
     public synchronized void put(IImporter e) {
@@ -97,13 +99,6 @@ public class ImportManager {
         }
     }
 
-    public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
-            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb)
-            throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException,
-            TableEntryException, TableException, IOException {
-        return importData(importer, is, datatype, wk, fb, null, "");
-    }
-
     @SuppressWarnings({ "unchecked" })
     public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
             ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, Object data, String filename)
@@ -145,18 +140,6 @@ public class ImportManager {
             return importer.starters(is, wk, fb);
         default:
             return null;
-        }
-    }
-
-    public static <T extends ASchwimmer> Object importData(ImportExportTypes datatype, String filename, String format,
-            AWettkampf<T> wk, Feedback fb) throws IOException, NullPointerException, NotSupportedException,
-            NotEnabledException, TableFormatException, TableEntryException, TableException {
-        IImporter e = getImporter(format);
-        if (e == null) {
-            throw new NullPointerException();
-        }
-        try (InputStream input = new FileInputStream(filename)) {
-            return importData(e, input, datatype, wk, fb, null, filename);
         }
     }
 

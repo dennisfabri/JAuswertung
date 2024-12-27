@@ -295,7 +295,7 @@ public final class IOUtils {
         }
 
         @Override
-        public boolean canConvert(Class clazz) {
+        public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
             return clazz.equals(String.class);
         }
 

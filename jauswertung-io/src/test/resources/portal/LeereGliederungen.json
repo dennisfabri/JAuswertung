@@ -1,0 +1,33 @@
+{
+	"acronym": "MW2025",
+	"name": "Mannschaftswettkampf",
+	"nationality": {
+		"alpha2Code": "DE",
+		"iocCode": "DE",
+		"name": "DE"
+	},
+	"organizer": "Bezirk 1",
+	"registrations": [
+		{
+			"athletes": [],
+			"isCompleted": false,
+			"nationality": null,
+			"organization": "OG 1",
+			"teams": []
+		},
+		{
+			"athletes": [],
+			"isCompleted": false,
+			"nationality": null,
+			"organization": "OG 2",
+			"teams": []
+		},
+		{
+			"athletes": [],
+			"isCompleted": false,
+			"nationality": null,
+			"organization": "OG 3",
+			"teams": []
+		}
+	]
+}
