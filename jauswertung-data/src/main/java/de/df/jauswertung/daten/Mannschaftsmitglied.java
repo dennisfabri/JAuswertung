@@ -15,9 +15,18 @@ public class Mannschaftsmitglied implements Serializable {
     private Geschlecht geschlecht;
     @XStreamAsAttribute
     private int Jahrgang;
+    @XStreamAsAttribute
+    private String importId;
 
     public Mannschaftsmitglied() {
         clear();
+    }
+
+    public Mannschaftsmitglied(String vorname, String nachname, Geschlecht geschlecht, int jahrgang, String importId) {
+        Vorname = vorname;
+        Nachname = nachname;
+        this.geschlecht = geschlecht;
+        Jahrgang = jahrgang;
     }
 
     public boolean isEmpty() {
@@ -87,6 +96,20 @@ public class Mannschaftsmitglied implements Serializable {
         Jahrgang = jahrgang;
     }
 
+    public String getImportId() {
+        if (importId == null) {
+            return "";
+        }
+        return importId;
+    }
+
+    public void setImportId(String importId) {
+        if (importId == null) {
+            importId = "";
+        }
+        this.importId = importId;
+    }
+
     public String getName() {
         boolean v = !Vorname.isEmpty();
         boolean n = !Nachname.isEmpty();
@@ -107,6 +130,7 @@ public class Mannschaftsmitglied implements Serializable {
         mannschaftsmitglied.Jahrgang = this.Jahrgang;
         mannschaftsmitglied.Nachname = this.Nachname;
         mannschaftsmitglied.Vorname = this.Vorname;
+        mannschaftsmitglied.importId = this.importId;
     }
 
     @Override
@@ -131,6 +155,7 @@ public class Mannschaftsmitglied implements Serializable {
         Vorname = "";
         Jahrgang = 0;
         geschlecht = Geschlecht.unbekannt;
+        importId = "";
     }
 
     public boolean isComplete() {

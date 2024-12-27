@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
-		<version>17.0.1</version>
+		<version>17.1.0</version>
 	</parent>
 	<artifactId>jauswertung-setup</artifactId>
 	<packaging>pom</packaging>

@@ -33,9 +33,11 @@ public class EinzelWettkampf extends AWettkampf<Teilnehmer> {
         super(AltersklassenUtils.checkAKs(aks, true), s);
     }
 
-    public Teilnehmer createTeilnehmer(String competitorId,String name, String vname, int tJahrgang, boolean geschlecht, String gliederung,
+    public Teilnehmer createTeilnehmer(String competitorId, String name, String vname, int tJahrgang,
+            boolean geschlecht, String gliederung,
             int ak, String bemerkung) {
-        return new Teilnehmer(this, competitorId, name.trim(), vname.trim(), tJahrgang, geschlecht, gliederung.trim(), ak,
+        return new Teilnehmer(this, competitorId, name.trim(), vname.trim(), tJahrgang, geschlecht, gliederung.trim(),
+                ak,
                 bemerkung.trim());
     }
 

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dennisfabri.jauswertung</groupId>
 	<artifactId>jauswertung-project</artifactId>
-	<version>17.0.1</version>
+	<version>17.1.0</version>
 	<packaging>pom</packaging>
 	<name>JAuswertung</name>
 	<description />
@@ -26,7 +26,7 @@
 		<javafx.version>21.0.5</javafx.version>
 		<jackson.version>2.18.2</jackson.version>
 		<lombok.version>1.18.36</lombok.version>
-		<junit.version>5.11.3</junit.version>
+		<junit.version>5.11.4</junit.version>
 		<mockito.version>5.14.2</mockito.version>
 		<opencsv.version>5.9</opencsv.version>
 		<nv-i18n.version>1.29</nv-i18n.version>
@@ -397,7 +397,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
-				<version>1.12.0</version>
+				<version>1.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
@@ -571,7 +571,7 @@
 				<plugin>
 					<groupId>com.install4j</groupId>
 					<artifactId>install4j-maven</artifactId>
-					<version>11.0</version>
+					<version>11.0.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -648,7 +648,7 @@
 				<plugin>
 					<groupId>org.openrewrite.maven</groupId>
 					<artifactId>rewrite-maven-plugin</artifactId>
-					<version>5.46.1</version>
+					<version>5.46.3</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

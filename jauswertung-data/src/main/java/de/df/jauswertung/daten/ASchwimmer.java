@@ -45,6 +45,8 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     @XStreamAsAttribute
     private String nationality;
     @XStreamAsAttribute
+    private String importId;
+    @XStreamAsAttribute
     private boolean maennlich;
     @XStreamAsAttribute
     private int aknummer;
@@ -1267,5 +1269,13 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             throw new NullPointerException("Nationality must not be null!");
         }
         this.nationality = nationality;
+    }
+
+    public String getImportId() {
+        return importId;
+    }
+
+    public void setImportId(String importId) {
+        this.importId = importId;
     }
 }

@@ -38,10 +38,13 @@ public class RecordsUpdater {
         // records.print();
 
         LinkedList<IImporter> importers = new LinkedList<>();
-        // importers.add(new CompetitionImporter("dem2023-einzel.wk", "DEM2023"));
-        // importers.add(new CompetitionImporter("dem2023-mannschaft.wk", "DEM2023"));
-        // importers.add(new CompetitionImporter("dmm2023_einzel.wk", "DMM2023"));
-        // importers.add(new CompetitionImporter("dmm2023_mannschaft.wk", "DMM2023"));
+        //importers.add(new CompetitionImporter("dem2024_einzel_final.wk", "DEM2024"));
+        //importers.add(new CompetitionImporter("dem2024_einzel_vorlauf.wk", "DEM2024"));
+        //importers.add(new CompetitionImporter("dem2024_mannschaft_vorlauf_final.wk", "DEM2024"));
+        importers.add(new CompetitionImporter("dmm2024_einzel.wk", "DMM2024"));
+        importers.add(new CompetitionImporter("dmm2024_mannschaft.wk", "DMM2024"));
+        importers.add(new CompetitionImporter("dp2024_einzel.wk", "DP2024"));
+        importers.add(new CompetitionImporter("dp2024_mannschaft.wk", "DP2024"));
         importers.add(new CompetitionImporter("dsm2024_einzel.wk", "DSM2024"));
         importers.add(new CompetitionImporter("dsm2024_mannschaft.wk", "DSM2024"));
         // importers.add(new
