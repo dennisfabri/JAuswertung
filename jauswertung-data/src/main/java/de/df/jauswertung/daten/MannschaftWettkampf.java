@@ -28,7 +28,7 @@ public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
     }
 
     public Mannschaft createMannschaft(String name, boolean geschlecht, String gliederung, int ak, String bemerkung) {
-        return new Mannschaft(this, name.trim(), geschlecht, gliederung.trim(), ak, bemerkung.trim());
+        return new Mannschaft(this, name.trim(), geschlecht, gliederung.trim(), ak, bemerkung == null ? "" : bemerkung.trim());
     }
 
     public String[] getTeammembersRegistrationIds() {

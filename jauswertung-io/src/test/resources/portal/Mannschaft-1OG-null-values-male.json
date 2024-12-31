@@ -1,0 +1,106 @@
+{
+	"acronym": "MW2025",
+	"name": "Mannschaftswettkampf",
+	"nationality": {
+		"alpha2Code": "DE",
+		"iocCode": "DE",
+		"name": "DE"
+	},
+	"organizer": "Test-OG",
+	"registrations": [
+		{
+			"athletes": [
+				{
+					"ageGroup": null,
+					"athleteId": null,
+					"disciplines": [],
+					"firstName": "VN3",
+					"gender": "Male",
+					"id": "05cfdfd9-bb1e-4dd7-989d-faab7f17c1f7",
+					"lastName": "NN3",
+					"place": null,
+					"points": null,
+					"yearOfBirth": null
+				},
+				{
+					"ageGroup": null,
+					"athleteId": null,
+					"disciplines": [],
+					"firstName": "VN2",
+					"gender": "Male",
+					"id": "375424bc-f631-4488-ad1f-74f28ae336ff",
+					"lastName": "NN2",
+					"place": null,
+					"points": null,
+					"yearOfBirth": null
+				},
+				{
+					"ageGroup": null,
+					"athleteId": null,
+					"disciplines": [],
+					"firstName": "VN1",
+					"gender": "Male",
+					"id": "407c7e5b-e4f7-4e2a-9d14-1c5f9cfc2f4c",
+					"lastName": "NN1",
+					"place": null,
+					"points": null,
+					"yearOfBirth": null
+				},
+				{
+					"ageGroup": null,
+					"athleteId": null,
+					"disciplines": [],
+					"firstName": "VN4",
+					"gender": "Male",
+					"id": "77b0a206-f8ec-4a8c-8cc3-5f7e4f7f6edf",
+					"lastName": "NN4",
+					"place": null,
+					"points": null,
+					"yearOfBirth": null
+				}
+			],
+			"isCompleted": false,
+			"nationality": null,
+			"organization": "Test-OG",
+			"teams": [
+				{
+					"ageGroup": "AK Offen",
+                    "comment": null,
+					"place": null,
+					"points": null,
+					"disciplines": [
+						{
+							"isSelected": true,
+							"name": "4*50m Hindernisstaffel",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": true,
+							"name": "4*25m Puppenstaffel",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": true,
+							"name": "4*50m Gurtretterstaffel",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": true,
+							"name": "4*50m Rettungsstaffel",
+							"timeInMilliseconds": null
+						}
+					],
+					"gender": "Male",
+					"id": "8e15a3a2-905a-48be-9f4e-1065ea2b194b",
+					"memberIds": [
+						"05cfdfd9-bb1e-4dd7-989d-faab7f17c1f7",
+						"375424bc-f631-4488-ad1f-74f28ae336ff",
+						"407c7e5b-e4f7-4e2a-9d14-1c5f9cfc2f4c",
+						"77b0a206-f8ec-4a8c-8cc3-5f7e4f7f6edf"
+					],
+					"name": "Test-Team"
+				}
+			]
+		}
+	]
+}

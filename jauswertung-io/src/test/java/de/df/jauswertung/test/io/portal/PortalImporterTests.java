@@ -137,6 +137,69 @@ class PortalImporterTests {
 
     @ParameterizedTest
     @ValueSource(booleans = { true, false })
+    void importiereMeldungMitEinerMannschaftUndLeerenFeldern(boolean maennlich)
+            throws IOException, TableFormatException, TableEntryException, TableException {
+        Strafen strafen = new Strafen();
+        Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwm");
+        MannschaftWettkampf wk = new MannschaftWettkampf(aks, strafen);
+        Feedback fb = null;
+        try (InputStream is = getClass()
+                .getResourceAsStream(
+                        "/portal/Mannschaft-1OG-null-values-" + (maennlich ? "male" : "female") + ".json")) {
+            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, null, "Mannschaft-1OG-Null");
+
+            assertNotNull(actual);
+            assertEquals(1, actual.size());
+
+            Mannschaft m1 = actual.get(0);
+            assertEquals("Test-Team", m1.getName());
+            assertEquals("Test-OG", m1.getGliederung());
+            assertEquals("", m1.getQualifikationsebene());
+            assertEquals(maennlich, m1.isMaennlich());
+            assertEquals("AK Offen", m1.getAK().getName());
+            assertEquals(0.0, m1.getMeldepunkte(0));
+            assertEquals("8e15a3a2-905a-48be-9f4e-1065ea2b194b", m1.getImportId());
+            assertEquals("", m1.getBemerkung());
+
+            assertEquals(0, m1.getMeldezeit(0));
+            assertEquals(0, m1.getMeldezeit(1));
+            assertEquals(0, m1.getMeldezeit(2));
+            assertEquals(0, m1.getMeldezeit(3));
+
+            assertEquals(4, m1.getMannschaftsmitgliederAnzahl());
+
+            List<Mannschaftsmitglied> mitglieder = List.of(m1.getMannschaftsmitglied(0), m1.getMannschaftsmitglied(1),
+                    m1.getMannschaftsmitglied(2), m1.getMannschaftsmitglied(3)).stream()
+                    .sorted(Comparator.comparing(Mannschaftsmitglied::getVorname)).toList();
+            Mannschaftsmitglied mm1 = mitglieder.get(0);
+            Mannschaftsmitglied mm2 = mitglieder.get(1);
+            Mannschaftsmitglied mm3 = mitglieder.get(2);
+            Mannschaftsmitglied mm4 = mitglieder.get(3);
+
+            assertEquals("VN1 NN1", mm1.getName());
+            assertEquals(maennlich ? Geschlecht.maennlich : Geschlecht.weiblich, mm1.getGeschlecht());
+            assertEquals(0, mm1.getJahrgang());
+            assertEquals("407c7e5b-e4f7-4e2a-9d14-1c5f9cfc2f4c", mm1.getImportId());
+
+            assertEquals("VN2 NN2", mm2.getName());
+            assertEquals(maennlich ? Geschlecht.maennlich : Geschlecht.weiblich, mm2.getGeschlecht());
+            assertEquals(0, mm2.getJahrgang());
+            assertEquals("375424bc-f631-4488-ad1f-74f28ae336ff", mm2.getImportId());
+
+            assertEquals("VN3 NN3", mm3.getName());
+            assertEquals(maennlich ? Geschlecht.maennlich : Geschlecht.weiblich, mm3.getGeschlecht());
+            assertEquals(0, mm3.getJahrgang());
+            assertEquals("05cfdfd9-bb1e-4dd7-989d-faab7f17c1f7", mm3.getImportId());
+
+            assertEquals("VN4 NN4", mm4.getName());
+            assertEquals(maennlich ? Geschlecht.maennlich : Geschlecht.weiblich, mm4.getGeschlecht());
+            assertEquals(0, mm4.getJahrgang());
+            assertEquals("77b0a206-f8ec-4a8c-8cc3-5f7e4f7f6edf", mm4.getImportId());
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { true, false })
     void importiereMeldungMitEinemTeilnehmer(boolean maennlich)
             throws IOException, TableFormatException, TableEntryException, TableException {
         Strafen strafen = new Strafen();
@@ -165,6 +228,76 @@ class PortalImporterTests {
             assertEquals(12000, m1.getMeldezeit(0));
             assertEquals(166999, m1.getMeldezeit(2));
             assertEquals(8345, m1.getMeldezeit(3));
+            assertEquals(358949, m1.getMeldezeit(4));
+        }
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { true, false })
+    void importiereMeldungMitEinemTeilnehmerUndLeerenFeldern(boolean maennlich)
+            throws IOException, TableFormatException, TableEntryException, TableException {
+        Strafen strafen = new Strafen();
+        Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwe");
+        EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
+        Feedback fb = null;
+        try (InputStream is = getClass()
+                .getResourceAsStream("/portal/Einzel-1OG-null-values-" + (maennlich ? "male" : "female") + ".json")) {
+            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-Null");
+
+            assertNotNull(actual);
+            assertEquals(1, actual.size());
+
+            Teilnehmer m1 = actual.get(0);
+            assertEquals("NX1, TN1", m1.getName());
+            assertEquals("Beispiel OG", m1.getGliederung());
+            assertEquals("", m1.getQualifikationsebene());
+            assertEquals(maennlich, m1.isMaennlich());
+            assertEquals("AK 17/18", m1.getAK().getName());
+            assertEquals(0.0, m1.getMeldepunkte(0));
+            assertEquals("6acc739a-b0f2-4695-9a65-5bde3f923f66", m1.getImportId());
+            assertEquals("", m1.getBemerkung());
+
+            assertArrayEquals(new boolean[] { true, false, true, true, true, false }, m1.getDisciplineChoice());
+
+            assertEquals(0, m1.getMeldezeit(0));
+            assertEquals(0, m1.getMeldezeit(2));
+            assertEquals(0, m1.getMeldezeit(3));
+            assertEquals(0, m1.getMeldezeit(4));
+        }
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { true, false })
+    void importiereMeldungOhnePlatzierungUndPunkte(boolean maennlich)
+            throws IOException, TableFormatException, TableEntryException, TableException {
+        Strafen strafen = new Strafen();
+        Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwe");
+        EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
+        Feedback fb = null;
+        try (InputStream is = getClass()
+                .getResourceAsStream("/portal/Einzel-1OG-no-points-" + (maennlich ? "male" : "female") + ".json")) {
+            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-no-points");
+
+            assertNotNull(actual);
+            assertEquals(1, actual.size());
+
+            Teilnehmer m1 = actual.get(0);
+            assertEquals("NX1, TN1", m1.getName());
+            assertEquals("Beispiel OG", m1.getGliederung());
+            assertEquals("", m1.getQualifikationsebene());
+            assertEquals(maennlich, m1.isMaennlich());
+            assertEquals("AK 17/18", m1.getAK().getName());
+            assertEquals(0.0, m1.getMeldepunkte(0));
+            assertEquals("6acc739a-b0f2-4695-9a65-5bde3f923f66", m1.getImportId());
+            assertEquals("Bemerkungstest Einzel", m1.getBemerkung());
+
+            assertArrayEquals(new boolean[] { true, false, true, true, true, false }, m1.getDisciplineChoice());
+
+            assertEquals(0, m1.getMeldezeit(0));
+            assertEquals(166999, m1.getMeldezeit(2));
+            assertEquals(0, m1.getMeldezeit(3));
             assertEquals(358949, m1.getMeldezeit(4));
         }
     }

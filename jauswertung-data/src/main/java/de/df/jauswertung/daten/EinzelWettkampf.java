@@ -37,8 +37,7 @@ public class EinzelWettkampf extends AWettkampf<Teilnehmer> {
             boolean geschlecht, String gliederung,
             int ak, String bemerkung) {
         return new Teilnehmer(this, competitorId, name.trim(), vname.trim(), tJahrgang, geschlecht, gliederung.trim(),
-                ak,
-                bemerkung.trim());
+                ak, bemerkung == null ? "" : bemerkung.trim());
     }
 
     @Override

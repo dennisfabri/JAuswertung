@@ -1,0 +1,62 @@
+{
+	"acronym": "EW2025",
+	"name": "Einzelwettkampf",
+	"nationality": {
+		"alpha2Code": "DE",
+		"iocCode": "DE",
+		"name": "DE"
+	},
+	"organizer": "Andere OG",
+	"registrations": [
+		{
+			"athletes": [
+				{
+					"ageGroup": "AK 17/18",
+					"comment": "Bemerkungstest Einzel",
+					"athleteId": null,
+					"disciplines": [
+						{
+							"isSelected": true,
+							"name": "200m Hindernisschwimmen",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": false,
+							"name": "100m Lifesaver",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": true,
+							"name": "50m Retten",
+							"timeInMilliseconds": 1669990
+						},
+						{
+							"isSelected": true,
+							"name": "100m Kombinierte Rettungsübung",
+							"timeInMilliseconds": null
+						},
+						{
+							"isSelected": true,
+							"name": "100m Retten mit Flossen",
+							"timeInMilliseconds": 3589490
+						},
+						{
+							"isSelected": false,
+							"name": "200m Super-Lifesaver",
+							"timeInMilliseconds": null
+						}
+					],
+					"firstName": "TN1",
+					"gender": "Female",
+					"id": "6acc739a-b0f2-4695-9a65-5bde3f923f66",
+					"lastName": "NX1",
+					"yearOfBirth": 2007
+				}
+			],
+			"isCompleted": false,
+			"nationality": null,
+			"organization": "Beispiel OG",
+			"teams": []
+		}
+	]
+}

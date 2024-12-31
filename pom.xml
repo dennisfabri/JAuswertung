@@ -16,8 +16,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
-		<jutils.version>${project.version}</jutils.version>
-		<alphaserver.version>${project.version}</alphaserver.version>
+		<jutils.version>17.1.0</jutils.version>
+		<alphaserver.version>${jutils.version}</alphaserver.version>
 		<poi.version>5.3.0</poi.version>
 		<jersey.version>3.1.9</jersey.version>
 		<batik.version>1.14</batik.version>
