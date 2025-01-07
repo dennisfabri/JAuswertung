@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.dennisfabri.jauswertung</groupId>
         <artifactId>jauswertung-project</artifactId>
-        <version>17.1.0</version>
+        <version>17.1.1</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>jauswertung-misc</artifactId>

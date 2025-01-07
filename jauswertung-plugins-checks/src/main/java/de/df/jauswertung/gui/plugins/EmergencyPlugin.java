@@ -26,7 +26,7 @@ public class EmergencyPlugin extends ANullPlugin {
             try {
                 @SuppressWarnings("rawtypes")
                 AWettkampf wk = core.getWettkampf();
-                new Check(this, this.getController(), core, "2022").check(wk);
+                new Check(this, this.getController(), core, "2025").check(wk);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

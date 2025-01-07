@@ -12,5 +12,6 @@ class RecWert {
     public String Altersklasse;
     public String Disziplin;
     public boolean Maennlich;
+    public int FalscheZeit = 0;
     public int Zeit;
 }

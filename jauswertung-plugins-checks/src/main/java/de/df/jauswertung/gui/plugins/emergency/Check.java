@@ -56,6 +56,8 @@ public class Check {
                         }
                         if (d == null || d.getRec() == rec.Zeit) {
                             li.remove();
+                        } else {
+                            rec.FalscheZeit = d.getRec();
                         }
                     }
                 } catch (Exception ex) {
@@ -91,11 +93,12 @@ public class Check {
     void showRecWarningI() {
         StringBuilder sb = new StringBuilder();
         for (RecWert rec : recs) {
-            sb.append(" - " + rec.Altersklasse + " " + (rec.Maennlich ? "m" : "w") + " - " + rec.Disziplin + "");
+            sb.append(" - " + rec.Altersklasse + " " + (rec.Maennlich ? "m" : "w") + ", " + rec.Disziplin + ": "
+                    + format(rec.FalscheZeit) + " -> " + format(rec.Zeit));
             sb.append("\n");
         }
         boolean ok = DialogUtils.ask(controller.getWindow(), "Fehler in den Rec-Werten " + jahr,
-                "In den Rec-Werten ist leider ein Fehler aufgefallen:\n\n" + sb.toString()
+                "In den Rec-Werten ist ein Fehler aufgefallen:\n\n" + sb.toString()
                         + "\nSollen die Werte jetzt korrigiert werden?");
         if (ok) {
             boolean changed = korrigiereWettkampf();
@@ -104,6 +107,13 @@ public class Check {
                         parent);
             }
         }
+    }
+
+    private String format(int zeit) {
+        int min = zeit / 6000;
+        int sec = (zeit / 100) % 60;
+        int ms = zeit % 100;
+        return String.format("%d:%02d.%02d", min, sec, ms);
     }
 
     private boolean korrigiereWettkampf() {
