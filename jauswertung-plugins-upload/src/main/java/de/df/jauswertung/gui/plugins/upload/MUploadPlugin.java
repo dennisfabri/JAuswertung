@@ -36,7 +36,9 @@ public class MUploadPlugin extends ANullPlugin {
 
     private ResultUploader iscResultUploader = new ResultUploader();
 
-    private TimesUploader timesUploader = new TimesUploader("https://dev.lisasp.org");
+    //private TimesUploader timesUploader = new TimesUploader("https://dev.lisasp.org");
+    private TimesUploader timesUploader = new TimesUploader("https://competition.dlrg.net");
+    //private TimesUploader timesUploader = new TimesUploader("http://localhost:9001");
 
     private Timer uploadTimer;
 

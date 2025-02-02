@@ -23,7 +23,7 @@ public class PunkteRechnerExport {
         Regelwerk einzel = AgeGroupIOUtils.getDefaultAKs(true);
         Regelwerk mannschaft = AgeGroupIOUtils.getDefaultAKs(false);
 
-        int jahr = 2024;
+        int jahr = 2025;
 
         // System.out.println("Einzel");
         System.out.println("  new Year(" + jahr + ", [");

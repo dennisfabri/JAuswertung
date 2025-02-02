@@ -114,7 +114,7 @@ public final class ErzeugeStrafen {
     }
 
     public static void main(String[] args) throws IOException {
-        int jahr = 2024;
+        int jahr = 2025;
 
         strafen("jauswertung/src/test/files/Strafen/Strafen " + jahr + ".xls",
                 "jauswertung-files/src/main/resources/penalties/default.def",

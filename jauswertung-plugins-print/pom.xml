@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
-		<version>17.1.1</version>
+		<version>17.1.2</version>
 	</parent>
 	<artifactId>jauswertung-plugins-print</artifactId>
 

@@ -28,7 +28,7 @@ public final class AgeGroupIOUtils {
     }
 
     public static String getDefaultAKsName() {
-        return "DLRG 2024";
+        return "DLRG 2025";
     }
 
     public static Regelwerk getDefaultAKs(boolean einzel) {
