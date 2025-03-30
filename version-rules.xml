@@ -17,6 +17,14 @@
       <ignoreVersions>
         <ignoreVersion type="regex">22.*</ignoreVersion>
         <ignoreVersion type="regex">23.*</ignoreVersion>
+        <ignoreVersion type="regex">24.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <!-- prevent updates to incompatible changes-->
+    <rule groupId="org.xhtmlrenderer" artifactId="flying-saucer-core">
+      <ignoreVersions>
+        <ignoreVersion type="regex">9.10.*</ignoreVersion>
+        <ignoreVersion type="regex">9.11.*</ignoreVersion>
       </ignoreVersions>
     </rule>
   </rules>
