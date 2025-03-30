@@ -79,7 +79,7 @@ public class MUploadPlugin extends ANullPlugin {
     }
 
     private void uploadResultsToCompetitionDlrgNet() {
-        AWettkampf<?> wk = core.getFilteredWettkampf();
+        AWettkampf<?> wk = core.getWettkampf();
         timesUploader.uploadJson(wk);
     }
 

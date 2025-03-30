@@ -24,7 +24,10 @@ public class CountryCodesDto {
     public CountryCodes toCountryCodes() {
         String alpha2 = "DE";
         try {
-            alpha2 = CountryCode.getByCode(iso3Code, false).getAlpha2();
+            CountryCode byCode = CountryCode.getByCode(iso3Code, false);
+            if (byCode != null) {
+                alpha2 = byCode.getAlpha2();
+            }
         } catch (RuntimeException re) {
             log.info("Could not find alpha2 code for {}", iso3Code, re);
         }

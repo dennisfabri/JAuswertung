@@ -66,11 +66,13 @@ class RegistrationExportModel {
         private String name;
         @JsonProperty("isSelected")
         private boolean selected;
+        private String comment;
         private Integer timeInMilliseconds;
 
-        public Discipline(String name, Integer timeInMilliseconds, boolean selected) {
+        public Discipline(String name, Integer timeInMilliseconds, String comment, boolean selected) {
             this.name = name;
             this.timeInMilliseconds = timeInMilliseconds;
+            this.comment = comment;
             this.selected = selected;
         }
     }
