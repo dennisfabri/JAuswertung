@@ -60,6 +60,9 @@ public class AresWriter {
         newWk.getRegelwerk().setStartgruppen(new Startgruppe[0]);
         newWk.getRegelwerk().setWertungsgruppen(new Wertungsgruppe[0]);
 
+        if (wk.getLaufliste() == null || wk.getLaufliste().getLaufliste() == null) {
+            return wk;
+        }
         for (Lauf<T> lauf : wk.getLaufliste().getLaufliste()) {
             int roundId = lauf.getLaufnummer() / 100;
             int heatId = lauf.getLaufnummer() % 100;

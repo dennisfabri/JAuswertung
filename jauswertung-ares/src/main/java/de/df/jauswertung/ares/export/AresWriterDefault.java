@@ -97,7 +97,7 @@ class AresWriterDefault {
             Altersklasse ak = aks.getAk(x);
             for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                 Disziplin d = ak.getDisziplin(y, false);
-                Discipline discipline = guessLength(d.getName());
+                Discipline discipline = LengthUtil.guessLength(d.getName());
                 competition.addDiscipline(discipline);
             }
         }
@@ -156,6 +156,7 @@ class AresWriterDefault {
                         d = d.replace(kv[0], kv[1]);
                     }
                 }
+                d = d.replace(" - Preheat", "");
                 String key = "";
                 if (d.equalsIgnoreCase("4*25m Rettungsstaffel")) {
                     key = "RE";
@@ -197,6 +198,22 @@ class AresWriterDefault {
                     key = "KR";
                 } else if (d.equalsIgnoreCase("200m Super-Lifesaver")) {
                     key = "SL";
+                } else if (d.equalsIgnoreCase("Obstacle Swim")) {
+                    key = "OS";
+                } else if (d.equalsIgnoreCase("Manikin Tow with Fins")) {
+                    key = "MT";
+                } else if (d.equalsIgnoreCase("Manikin Carry")) {
+                    key = "MC";
+                } else if (d.equalsIgnoreCase("Super Lifesaver")) {
+                    key = "SL";
+                } else if (d.equalsIgnoreCase("Manikin Carry with Fins")) {
+                    key = "MC";
+                } else if (d.equalsIgnoreCase("Rescue Medley")) {
+                    key = "RM";
+                }
+
+                if (key.isEmpty()) {
+                    System.out.println("Kürzel nicht gefunden: "+ d);
                 }
 
                 if (d.startsWith("4*25m ")) {
@@ -432,60 +449,6 @@ class AresWriterDefault {
         }
     }
 
-    private static Discipline guessLength(String disziplin) {
-        String original = disziplin;
-        int amount = 0;
-        int length = 0;
-        if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
-            disziplin = disziplin.substring(6);
-            amount = 4;
-            length = 50;
-        } else if (disziplin.startsWith("4 x 50m") || disziplin.startsWith("4 * 50m")) {
-            disziplin = disziplin.substring(8);
-            amount = 4;
-            length = 50;
-        } else if (disziplin.startsWith("4x25m") || disziplin.startsWith("4*25m")) {
-            disziplin = disziplin.substring(6);
-            amount = 4;
-            length = 25;
-        } else if (disziplin.startsWith("4 x 25m") || disziplin.startsWith("4 * 25m")) {
-            disziplin = disziplin.substring(8);
-            amount = 4;
-            length = 25;
-        } else if (disziplin.startsWith("25m") || disziplin.startsWith("25 m")) {
-            disziplin = disziplin.substring(4);
-            amount = 1;
-            length = 25;
-        } else if (disziplin.startsWith("50m") || disziplin.startsWith("50 m")) {
-            disziplin = disziplin.substring(4);
-            amount = 1;
-            length = 50;
-        } else if (disziplin.startsWith("100m") || disziplin.startsWith("100 m")) {
-            disziplin = disziplin.substring(5);
-            amount = 1;
-            length = 100;
-        } else if (disziplin.startsWith("200m") || disziplin.startsWith("200 m")) {
-            disziplin = disziplin.substring(5);
-            amount = 1;
-            length = 200;
-        } else if (disziplin.equals("Line Throw")) {
-            amount = 1;
-            length = 100;
-        } else {
-            System.err.println(disziplin);
-        }
-        if (disziplin.equals("Manikin Tow with Fins")) {
-            disziplin = "Lifesaver";
-        } else if (disziplin.equals("Manikin Carry with Fins")) {
-            disziplin = "Manikin Carry w Fins";
-        }
-        if (disziplin.length() > 15) {
-            disziplin = disziplin.substring(0, 15);
-        }
-
-        return new Discipline(original, disziplin, amount, length);
-    }
-
     private static void writeSteuerText(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
@@ -519,7 +482,7 @@ class AresWriterDefault {
             resize(sb, 4, ' ');
 
             String disziplin = lauf.getDisziplin();
-            Discipline l = guessLength(disziplin);
+            Discipline l = LengthUtil.guessLength(disziplin);
             String amount = "" + l.amount();
             String length = l.length() + "m";
             disziplin = l.aresDiscipline();

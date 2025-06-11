@@ -22,7 +22,9 @@ public class Mannschaft extends ASchwimmer {
     private String mitglieder = "";
     private Mannschaftsmitglied[] mitglieder2;
 
-    /** Creates new Mannschaft */
+    /**
+     * Creates new Mannschaft
+     */
     Mannschaft(MannschaftWettkampf mwk, String name, boolean geschlecht, String gliederung, int ak, String bemerkung) {
         super(mwk, geschlecht, gliederung, ak, bemerkung);
         setName(name);
@@ -42,7 +44,7 @@ public class Mannschaft extends ASchwimmer {
 
     /**
      * Gibt an, wie oft der Schwimmer an der HLW teilnehmen muss.
-     * 
+     *
      * @return Anzahl der HLW-Teilnahmen.
      */
     @Override
@@ -110,6 +112,10 @@ public class Mannschaft extends ASchwimmer {
     public String getMitgliedsname(int index) {
         initMembers();
 
+        if (index >= mitglieder2.length) {
+            return "";
+        }
+
         return mitglieder2[index].getName();
     }
 
@@ -121,15 +127,14 @@ public class Mannschaft extends ASchwimmer {
         }
         ArrayList<Mannschaftsmitglied> mm = new ArrayList<>();
         boolean[] marker = new boolean[mitglieder2.length];
-        for (int x = 0; x < starter.length; x++) {
-            int index = starter[x];
+        for (int index : starter) {
             if (index > 0 && index <= mitglieder2.length && !marker[index - 1]) {
                 mm.add(mitglieder2[index - 1]);
                 marker[index - 1] = true;
             }
         }
         if (!mm.isEmpty()) {
-            return getMitgliedernamenShort(mm.toArray(new Mannschaftsmitglied[mm.size()]), separator);
+            return getMitgliedernamenShort(mm.toArray(Mannschaftsmitglied[]::new), separator);
         }
         if (getDisciplineChoiceCount() > 1) {
             return "";
@@ -152,13 +157,13 @@ public class Mannschaft extends ASchwimmer {
                     StringBuilder name = new StringBuilder();
                     if (additional > 0) {
                         String v = m.getVorname();
-                        if (v.length() > 0) {
+                        if (!v.isEmpty()) {
                             maxlength = Math.max(maxlength, v.length());
                             if (v.length() <= additional) {
                                 name.append(v);
                                 name.append(" ");
                             } else {
-                                name.append(v.substring(0, additional));
+                                name.append(v, 0, additional);
                                 name.append(".");
                             }
                         }

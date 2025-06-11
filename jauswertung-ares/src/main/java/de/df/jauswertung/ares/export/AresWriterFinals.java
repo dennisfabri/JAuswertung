@@ -34,7 +34,7 @@ final class AresWriterFinals {
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "LSTSTYLE.TXT");
-        writeStyles(disziplinen, fos);
+        LengthUtil.writeStyles(disziplinen, fos);
         fos.close();
 
         fos = new FileOutputStream(dir + File.separator + "Lstconc.TXT");
@@ -77,8 +77,7 @@ final class AresWriterFinals {
     private static final Map<String, Integer> akGenderToPos = new HashMap<>();
 
     private static String akGenderToString(String ak, boolean isMale, Regelwerk aks) {
-        return ak + " "
-                + (isMale ? aks.getTranslation("maleShort", "m") : aks.getTranslation("femaleShort", "w"));
+        return ak + " " + (isMale ? aks.getTranslation("maleShort", "m") : aks.getTranslation("femaleShort", "w"));
     }
 
     private static int akGenderToPosition(String ak, boolean isMale, Regelwerk aks) {
@@ -97,16 +96,15 @@ final class AresWriterFinals {
             for (int y = 0; y < 2; y++) {
                 if (akGenderToPosition(ak, y == 1, aks) < 0) {
                     addAkGenderPos(ak, y == 1, aks);
-                    ps.println("\"" + akGenderToString(ak, y == 1, aks)
-                            + "\";\""
-                            + akGenderToPosition(ak, y == 1, aks) + "\"");
+                    ps.println("\"" + akGenderToString(ak, y == 1, aks) + "\";\"" + akGenderToPosition(ak,
+                                                                                                       y == 1,
+                                                                                                       aks) + "\"");
                 }
             }
         }
     }
 
-    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("\"idLength\";\"Longueur\";\"Mlongueur\";\"Relais\"");
         // 0; "25 m" ; 25 ;1
@@ -117,8 +115,7 @@ final class AresWriterFinals {
         return disziplinen;
     }
 
-    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen)
-            throws UnsupportedEncodingException {
+    private static void writeLaengen(Regelwerk aks, PrintStream ps, Hashtable<String, Integer> disziplinen) throws UnsupportedEncodingException {
         // 0; "25 m" ; 25 ;1
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
@@ -127,7 +124,7 @@ final class AresWriterFinals {
                 Integer i = disziplinen.get(d.getName());
                 if (i == null) {
                     int id = disziplinen.size();
-                    Discipline discipline = guessLength(d.getName());
+                    Discipline discipline = LengthUtil.guessLength(d.getName());
                     int laenge2 = discipline.length() * discipline.amount();
                     String laenge1 = discipline.getDistance();
                     int anschlaege = 1;
@@ -139,159 +136,7 @@ final class AresWriterFinals {
         }
     }
 
-    private static Discipline guessLength(String disziplin) {
-        String original = disziplin;
-        int amount = 0;
-        int length = 0;
-        if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
-            disziplin = disziplin.substring(6);
-            amount = 4;
-            length = 50;
-        } else if (disziplin.startsWith("4 x 50m") || disziplin.startsWith("4 * 50m")) {
-            disziplin = disziplin.substring(8);
-            amount = 4;
-            length = 50;
-        } else if (disziplin.startsWith("4x25m") || disziplin.startsWith("4*25m")) {
-            disziplin = disziplin.substring(6);
-            amount = 4;
-            length = 25;
-        } else if (disziplin.startsWith("4 x 25m") || disziplin.startsWith("4 * 25m")) {
-            disziplin = disziplin.substring(8);
-            amount = 4;
-            length = 25;
-        } else if (disziplin.startsWith("25m") || disziplin.startsWith("25 m")) {
-            disziplin = disziplin.substring(4);
-            amount = 1;
-            length = 25;
-        } else if (disziplin.startsWith("50m") || disziplin.startsWith("50 m")) {
-            disziplin = disziplin.substring(4);
-            amount = 1;
-            length = 50;
-        } else if (disziplin.startsWith("100m") || disziplin.startsWith("100 m")) {
-            disziplin = disziplin.substring(5);
-            amount = 1;
-            length = 100;
-        } else if (disziplin.startsWith("200m") || disziplin.startsWith("200 m")) {
-            disziplin = disziplin.substring(5);
-            amount = 1;
-            length = 200;
-        } else if (disziplin.equals("Line Throw")) {
-            amount = 1;
-            length = 100;
-        } else {
-            System.err.println(disziplin);
-        }
-        if (disziplin.equals("Manikin Tow with Fins")) {
-            disziplin = "Lifesaver";
-        } else if (disziplin.equals("Manikin Carry with Fins")) {
-            disziplin = "Manikin Carry w Fins";
-        }
-        if (disziplin.length() > 15) {
-            disziplin = disziplin.substring(0, 15);
-        }
-
-        return new Discipline(original, disziplin, amount, length);
-    }
-
-
-    private static final String[][] shortnames = new String[][] { new String[] { "Obstacle Swim", "OS" },
-            new String[] { "Manikin Carry", "MC" },
-            new String[] { "Manikin Carry with Fins", "MCF" }, new String[] { "Rescue Medley", "RM" },
-            new String[] { "Manikin Tow with Fins", "MTF" }, new String[] { "Super Lifesaver", "SL" },
-            new String[] { "Line Throw", "LT" },
-            new String[] { "Obstacle Relay", "OR" }, new String[] { "Manikin Relay", "MKR" },
-            new String[] { "Medley Relay", "MER" },
-            new String[] { "Mixed Pool Lifesaver Relay", "MLR" },
-            new String[] { "Pool Lifesaver Relay", "MLR" },
-            new String[] { "Mixed Lifesaver Relay", "MLR" },
-            new String[] { "Lifesaver Relay", "MLR" },
-    };
-
-    private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
-            throws UnsupportedEncodingException {
-        // idStyle;Style;StyleAbrév
-        // 0; "Freistil " ;"FR"
-        // 1; "Hindernis " ;"HI"
-        // 2; "Rückenlage o.A. " ;"RU"
-        // 3; "Schleppen e Puppe" ;"SP"
-        // 4; "Vermischt " ;"ME"
-
-        Hashtable<String, String> shorts = new Hashtable<>();
-        for (String[] sn : shortnames) {
-            shorts.put(sn[0].toLowerCase(), sn[1]);
-        }
-
-        PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("idStyle;Style;StyleAbrév");
-        Enumeration<String> dis = disziplinen.keys();
-
-        Hashtable<Integer, String> reverse = new Hashtable<>();
-
-        LinkedList<Integer> ids = new LinkedList<>();
-        while (dis.hasMoreElements()) {
-            String d = dis.nextElement();
-            int id = disziplinen.get(d);
-            System.out.println(id + " => " + d);
-            ids.add(id);
-            reverse.put(id, d);
-        }
-        Collections.sort(ids);
-
-        for (Integer id : ids) {
-            String d = shortenDiscipline(reverse.get(id));
-            String dlower = d.toLowerCase();
-            String shortname = "";
-            if (shorts.containsKey(dlower)) {
-                shortname = shorts.get(dlower);
-            }
-            d = d.replace("\"", "");
-            ps.println(id + ";\"" + d + "\";\"" + shortname + "\"");
-        }
-    }
-
-    private static String shortenDiscipline(String d) {
-        if (d.startsWith("200m ")) {
-            d = d.substring("200m ".length());
-        }
-        if (d.startsWith("100m ")) {
-            d = d.substring("100m ".length());
-        }
-        if (d.startsWith("50m ")) {
-            d = d.substring("50m ".length());
-        }
-        if (d.startsWith("200 m ")) {
-            d = d.substring("200 m ".length());
-        }
-        if (d.startsWith("100 m ")) {
-            d = d.substring("100 m ".length());
-        }
-        if (d.startsWith("50 m ")) {
-            d = d.substring("50 m ".length());
-        }
-        if (d.startsWith("4x25m ")) {
-            d = d.substring("4x25m ".length());
-        }
-        if (d.startsWith("4x50m ")) {
-            d = d.substring("4x50m ".length());
-        }
-        if (d.startsWith("4 x 25 m ")) {
-            d = d.substring("4 x 25 m ".length());
-        }
-        if (d.startsWith("4 x 50 m ")) {
-            d = d.substring("4 x 50 m ".length());
-        }
-        if (d.startsWith("4 x 25m ")) {
-            d = d.substring("4 x 25m ".length());
-        }
-        if (d.startsWith("4 x 50m ")) {
-            d = d.substring("4 x 50m ".length());
-        }
-        return d;
-    }
-
-    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks,
-            Hashtable<String, Integer> disziplinen, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRaceList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
         // event;round;nbHeat;idLen;idStyle;abCat;date;time
         // 1 ;0 ;1 ;0 ;0 ;"0" ;"04/27/09" ;"00:00" ;
         // 2 ;0 ;1 ;0 ;0 ;"0" ;"04/27/09" ;"00:00" ;
@@ -314,15 +159,14 @@ final class AresWriterFinals {
             int id1 = wk.getRegelwerk().getRundenId(owd);
             int id2 = owd.getLaeufe().size();
 
-            Disziplin d = wk.getRegelwerk().getAk(owd.akNummer).getDisziplin(owd.disziplin, owd.maennlich);
+            Altersklasse ak = wk.getRegelwerk().getAk(0);
+            Disziplin d = ak.getDisziplin(owd.disziplin, owd.maennlich);
 
-            int akmw = akGenderToPosition(wk.getRegelwerk().getAk(owd.akNummer).getName(), owd.maennlich,
-                    wk.getRegelwerk());
+            int akmw = akGenderToPosition(ak.getName(), owd.maennlich, wk.getRegelwerk());
 
             if (akmw < 0) {
                 System.out.print("akmw -> " + akmw);
-                System.out.println(" " + akGenderToString(wk.getRegelwerk().getAk(owd.akNummer).getName(),
-                        owd.maennlich, wk.getRegelwerk()));
+                System.out.println(" " + akGenderToString(ak.getName(), owd.maennlich, wk.getRegelwerk()));
             }
 
             Integer value = disziplinen.get(d.getName());
@@ -335,9 +179,7 @@ final class AresWriterFinals {
             int idLen = value;
             String date = "10/18/09";
             String time = "00:00";
-            ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + idLen + " ;" + idLen + " ;\"" + akmw + "\" ;\""
-                    + date
-                    + "\" ;\"" + time + "\" ;");
+            ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + idLen + " ;" + idLen + " ;\"" + akmw + "\" ;\"" + date + "\" ;\"" + time + "\" ;");
 
         }
     }
@@ -392,8 +234,7 @@ final class AresWriterFinals {
         return l1.getLaufnummer();
     }
 
-    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeHeatList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // event;round;heat;lane;relais;idBib
         // 4 ;1 ;0 ;1 ;0 ;3 ;
         // 4 ;1 ;0 ;2 ;0 ;106 ;
@@ -425,16 +266,13 @@ final class AresWriterFinals {
                     String date = "10/18/09";
                     String time = "00:00";
                     int round = getRound(wk, owd);
-                    ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
-                            + "\" ; \"" + time + "\" ;");
+                    ps.println(id1 + " ;" + round + " ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date + "\" ; \"" + time + "\" ;");
                 }
             }
         }
     }
 
-    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen,
-            OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNrList(AWettkampf<T>[] wks, Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
         // id;event;round ;heat
         // 1 ;1 ;0 ;0 ;
         // 2 ;1 ;0 ;0 ;
@@ -472,8 +310,7 @@ final class AresWriterFinals {
         return round;
     }
 
-    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeNames(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // id;bib;lastname;firstname;birthyear;abNat;abCat
         // 1 ;"257" ;"POPOV" ;"Alexander" ;"1971" ;"RUS" ;"M" ;
         PrintStream ps = new PrintStream(os, true, CHARSET);
@@ -511,27 +348,40 @@ final class AresWriterFinals {
             ps.print(sn + ";\"" + sn + "\";");
             if (t instanceof Teilnehmer tn) {
                 int jg = tn.getJahrgang();
-                String vn = tn.getVorname().replace("\"", "");
-                String nn = tn.getNachname().replace("\"", "");
+                String vn = cleanupName(tn.getVorname().replace("\"", ""));
+                String nn = cleanupName(tn.getNachname().replace("\"", ""));
                 ps.print("\"" + nn + "\";\"" + vn + "\";\"" + (jg > 0 ? "" + jg : "") + "\"");
             } else {
-                ps.print("\"" + t.getName() + "\";\"\";\"\"");
+                ps.print("\"" + cleanupName(t.getName()) + "\";\"\";\"\"");
             }
-            ps.println(";\"" + t.getGliederung() + "\";\""
-                    + akmw + "\"");
+            ps.println(";\"" + cleanupName(t.getGliederung()) + "\";\"" + akmw + "\"");
         }
         return wk.getRegelwerk().size() * 2 + offset;
     }
 
-    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static String cleanupName(String name) {
+        if (name.startsWith("WOPR Wroc")) {
+            return "Wroclawska Drucyna Ratownicza";
+        }
+        return name
+                .replace("\"", "")
+                .replace("DLRG ", "")
+                .replace("SLSGB ", "")
+                .replace("KNBRD ", "")
+                .replace("FINS ", "")
+                .replace(" VZW (BRC VZW)", "")
+                .replace("BLSF ", "")
+                .replace("Bereitsschafts-Polizei", "BePo")
+                .trim();
+    }
+
+    private static <T extends ASchwimmer> void writeRecs(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idLen;idStyle;idRec;abCat;time;name;date;place");
     }
 
-    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeCompetitionInfo(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // event;round;text
         // 1;6;"Open Nederlandse Kampioenschappen Korte Baan 2007";"";""
 
@@ -547,12 +397,12 @@ final class AresWriterFinals {
 
             Regelwerk aks = wk.getRegelwerk();
             String disziplin = aks.getAk(owd.akNummer).getDisziplin(owd.disziplin, owd.maennlich).getName();
-            String gender = owd.maennlich ? aks.getTranslation("maleShort", "m")
-                    : aks.getTranslation("femaleShort", "w");
+            String gender =
+                    owd.maennlich ? aks.getTranslation("maleShort", "m") : aks.getTranslation("femaleShort", "w");
 
             String heat = switch (owd.round) {
-            case 0 -> "Preheat";
-            default -> wk.isFinal(owd) ? "Final" : String.format("Round %d", owd.round + 1);
+                case 0 -> "Preheat";
+                default -> wk.isFinal(owd) ? "Final" : String.format("Round %d", owd.round + 1);
             };
 
             int id1 = wk.getRegelwerk().getRundenId(owd);
@@ -564,11 +414,10 @@ final class AresWriterFinals {
         }
     }
 
-    private static final String numbers = IntStream.range(1, 100).mapToObj(i -> i + (i < 10 ? " " : ""))
-            .collect(Collectors.joining(" "));
+    private static final String numbers =
+            IntStream.range(1, 100).mapToObj(i -> i + (i < 10 ? " " : "")).collect(Collectors.joining(" "));
 
-    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os)
-            throws UnsupportedEncodingException {
+    private static <T extends ASchwimmer> void writeRoundList(AWettkampf<T>[] wks, OutputStream os) throws UnsupportedEncodingException {
         // idLen;idStyle;idRec;abCat;time;name;date;place
         PrintStream ps = new PrintStream(os, true, CHARSET);
         ps.println("idRound;TITLE;RoundAbrev;roundtext; sequence");

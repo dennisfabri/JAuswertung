@@ -89,6 +89,8 @@ public class OWDisziplin<T extends ASchwimmer> implements Serializable, Comparab
             return false;
         }
         return laeufe.stream()
-                .anyMatch(l -> l.getAllSchwimmer().stream().anyMatch(s -> s.getStartnummer() == m.getStartnummer()));
+                     .anyMatch(l -> l.getAllSchwimmer()
+                                     .stream()
+                                     .anyMatch(s -> s.getStartnummer() == m.getStartnummer()));
     }
 }

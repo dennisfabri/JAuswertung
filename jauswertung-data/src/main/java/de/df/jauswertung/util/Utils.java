@@ -187,14 +187,11 @@ public final class Utils {
     }
 
     public static UIPerformanceMode getUIPerformanceMode() {
-        switch (getPreferences().getInt("UIPerformanceMode", UIPerformanceMode.Default.value)) {
-        default:
-            return UIPerformanceMode.Default;
-        case 1:
-            return UIPerformanceMode.Software;
-        case 2:
-            return UIPerformanceMode.OpenGL;
-        }
+        return switch (getPreferences().getInt("UIPerformanceMode", UIPerformanceMode.Default.value)) {
+            case 1 -> UIPerformanceMode.Software;
+            case 2 -> UIPerformanceMode.OpenGL;
+            default -> UIPerformanceMode.Default;
+        };
     }
 
     public static void setUIPerformanceMode(UIPerformanceMode mode) {
