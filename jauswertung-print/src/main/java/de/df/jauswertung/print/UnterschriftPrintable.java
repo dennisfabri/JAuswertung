@@ -27,6 +27,7 @@ public class UnterschriftPrintable extends ExtendedHeaderFooterPrintable {
         if (PrintManager.getFont() != null) {
             l.setFont(PrintManager.getFont());
         }
+        l.setForeground(Color.BLACK);
         return l;
     }
 

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Verzeichnis festlegen (aktuelles Verzeichnis, falls nichts angegeben)
+DIR="${1:-.}"
+
+# Optional: rekursiv alle .txt-Dateien finden und konvertieren
+find "$DIR" -type f -name "*.xml" | while read -r file; do
+    echo "Konvertiere: $file"
+    # In-place Konvertierung von CRLF zu LF
+    sed -i 's/\r$//' "$file"
+done
+
+echo "Fertig mit der Konvertierung."

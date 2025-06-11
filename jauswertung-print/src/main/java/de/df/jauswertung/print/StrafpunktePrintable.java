@@ -65,10 +65,8 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
 
         LinkedList<Lauf<T>> heats = wk.getLaufliste().getLaufliste();
-        if ((disziplin != ASchwimmer.DISCIPLINE_NUMBER_SELF) && (heats != null) && (heats.size() > 0)) {
-            ListIterator<Lauf<T>> iterator = heats.listIterator();
-            while (iterator.hasNext()) {
-                Lauf<T> current = iterator.next();
+        if ((disziplin != ASchwimmer.DISCIPLINE_NUMBER_SELF) && (heats != null) && !heats.isEmpty()) {
+            for (Lauf<T> current : heats) {
                 for (int x = 0; x < current.getBahnen(); x++) {
                     T t = current.getSchwimmer(x);
                     if (s.equals(t)) {
@@ -95,10 +93,8 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
         OWDisziplin<T> d = wk.getLauflisteOW().getDisziplin(id);
 
         LinkedList<OWLauf<T>> heats = d.getLaeufe();
-        if ((heats != null) && (heats.size() > 0)) {
-            ListIterator<OWLauf<T>> iterator = heats.listIterator();
-            while (iterator.hasNext()) {
-                OWLauf<T> current = iterator.next();
+        if (heats != null && !heats.isEmpty()) {
+            for (OWLauf<T> current : heats) {
                 for (int x = 0; x < current.getBahnen(); x++) {
                     T t = current.getSchwimmer(x);
                     if (s.equals(t)) {
@@ -193,6 +189,7 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
         y += 2;
 
         JTextArea text = new JTextArea(strafe.getName());
+        text.setBackground(Color.WHITE);
         text.setWrapStyleWord(true);
         text.setLineWrap(true);
         text.setBorder(null);

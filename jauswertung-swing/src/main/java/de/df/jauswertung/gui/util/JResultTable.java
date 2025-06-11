@@ -3,47 +3,28 @@
  */
 package de.df.jauswertung.gui.util;
 
-import java.awt.Component;
-import java.awt.Insets;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.*;
-import java.util.zip.CRC32;
-
-import javax.swing.JComponent;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.event.TableModelEvent;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-
 import com.xduke.xswing.DataTipManager;
-
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.EinzelWettkampf;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
-import de.df.jauswertung.util.ergebnis.DataType;
-import de.df.jauswertung.util.ergebnis.FormelManager;
-import de.df.jauswertung.util.ergebnis.ResultCalculator;
-import de.df.jauswertung.util.ergebnis.Results;
-import de.df.jauswertung.util.ergebnis.SchwimmerData;
-import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.gui.jtable.ColumnFittingMouseAdapter;
-import de.df.jutils.gui.jtable.ColumnGroup;
-import de.df.jutils.gui.jtable.GroupableTableHeader;
-import de.df.jutils.gui.jtable.JGroupableTable;
-import de.df.jutils.gui.jtable.JTableUtils;
-import de.df.jutils.gui.jtable.SimpleTableModel;
+import de.df.jauswertung.util.ergebnis.*;
+import de.df.jutils.gui.jtable.*;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
+
+import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.*;
+import java.util.List;
+import java.util.zip.CRC32;
 
 /**
  * @author Dennis Fabri @date 28.10.2004
@@ -308,6 +289,8 @@ public final class JResultTable extends JGroupableTable {
         JTableUtils.setAlternatingTableCellRenderer(table);
 
         table.setACR(acr);
+
+        JPrintTable.initPrintableJTable(table);
 
         return table;
     }
