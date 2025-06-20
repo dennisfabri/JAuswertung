@@ -215,7 +215,7 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
             isOk = false;
         }
         super.setVisible(v);
-        if (v == false) {
+        if (!v) {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
     }

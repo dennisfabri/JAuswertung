@@ -92,6 +92,9 @@ class LengthUtil {
         } else if (disziplin.equalsIgnoreCase("Obstacle Relay")) {
             amount = 4;
             length = 50;
+        } else if (disziplin.equalsIgnoreCase("Mixed Pool Lifesaver Relay")) {
+            amount = 4;
+            length = 50;
         } else if (disziplin.equalsIgnoreCase("Medley Relay")) {
             amount = 4;
             length = 50;
