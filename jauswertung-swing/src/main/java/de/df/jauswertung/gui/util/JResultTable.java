@@ -287,10 +287,7 @@ public final class JResultTable extends JGroupableTable {
 
         JTableUtils.setTableCellRenderer(table, acr);
         JTableUtils.setAlternatingTableCellRenderer(table);
-
         table.setACR(acr);
-
-        JPrintTable.initPrintableJTable(table);
 
         return table;
     }

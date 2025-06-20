@@ -11,6 +11,7 @@ import java.text.MessageFormat;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 
+import org.lisasp.swing.filechooser.FileChooser;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
@@ -69,12 +70,7 @@ public final class DefaultInit {
     }
 
     private static void initFileChooser() {
-        if (OSUtils.isWindows()) {
-            FileChooserUtils.initialize(new FileChooserJFX());
-        } else {
-            FileChooserUtils.initialize(new FileChooserL2f());
-
-        }
+        FileChooserUtils.initialize(determineFileChooser());
         SwingUtilities.invokeLater(() -> {
             try {
                 new JFileChooser();
@@ -82,6 +78,17 @@ public final class DefaultInit {
                 re.printStackTrace();
             }
         });
+    }
+
+    private static FileChooser determineFileChooser() {
+        if (OSUtils.isWindows()) {
+            return new FileChooserJFX();
+        }
+        if (OSUtils.isLinux()) {
+            return new FileChooserJFX();
+        }
+        return new FileChooserL2f();
+
     }
 
     static void initPrintManager() {
