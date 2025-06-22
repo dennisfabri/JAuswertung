@@ -35,36 +35,26 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
         super(mode);
         if (wks != null && wks.length > 0) {
             LinkedList<Zieleinlaufkarte> sk = SchwimmerUtils.toZieleinlauf(wks, getPagesPerPage(), allheats, minheat,
-                    maxheat);
+                                                                           maxheat);
             if (!sk.isEmpty()) {
-                karten = sk.toArray(new Zieleinlaufkarte[sk.size()]);
+                karten = sk.toArray(new Zieleinlaufkarte[0]);
             } else {
                 karten = new Zieleinlaufkarte[0];
             }
         }
     }
 
-    static JComponent getUnderline() {
+    private static JComponent getUnderline() {
         JLabel label = new JLabel();
         label.setBorder(new ExtendedLineBorder(Color.BLACK, 0, 0, 1, 0));
         return label;
     }
 
-    static JComponent getMiddleline() {
+    private static JComponent getMiddleline() {
         return new JMiddleline();
     }
 
-    static JPanel getPanel() {
-        return getPanel(null);
-    }
-
-    static JPanel getEmptyPanel() {
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        return panel;
-    }
-
-    static JPanel getPanel(Zieleinlaufkarte karte) {
+    private static JPanel getPanel(Zieleinlaufkarte karte) {
         JPanel panel = new JPanel() {
             private static final long serialVersionUID = 1L;
 
@@ -74,6 +64,7 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
                 if (font != null) {
                     comp.setFont(font);
                 }
+                setForeground(Color.BLACK);
                 super.add(comp, constraints);
             }
         };
@@ -130,7 +121,12 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
         tb.addSeparator(getMiddleline());
         tb.add(I18n.get("ProgrammerShortInfo"), true, "right,center");
 
-        return tb.getPanel(karte == null);
+        JPanel p = tb.getPanel(karte == null);
+        for (Component c : p.getComponents()) {
+            c.setFont(PrintManager.getFont());
+            c.setForeground(Color.BLACK);
+        }
+        return p;
     }
 
     @Override

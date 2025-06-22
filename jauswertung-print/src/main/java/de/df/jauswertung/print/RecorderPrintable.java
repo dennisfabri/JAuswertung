@@ -120,6 +120,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
         if (PrintManager.getFont() != null) {
             l.setFont(PrintManager.getFont());
         }
+        l.setForeground(Color.BLACK);
         l.setHorizontalAlignment(align);
         return l;
     }

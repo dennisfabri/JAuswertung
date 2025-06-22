@@ -25,6 +25,7 @@ import de.df.jutils.print.printables.HeaderFooterPrintable;
 import de.df.jutils.util.StringTools;
 
 public class RulebookSettingsPrintable extends HeaderFooterPrintable {
+
     public RulebookSettingsPrintable(Regelwerk aks, boolean header) {
         super(new ComponentListPrintable2(false, generateEntries(aks)),
                 header ? new MessageFormat(I18n.get("RulebookSettings")) : null, null, null);
@@ -49,6 +50,7 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
 
             JPanel p = new JPanel(new BorderLayout(0, 0));
             p.setOpaque(false);
+            p.setForeground(Color.BLACK);
             p.setBackground(Color.WHITE);
 
             p.add(createTop(aks, ak, aks.hasGesamtwertung()), BorderLayout.NORTH);
@@ -63,6 +65,7 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
     private static JPanel createPropertiesPanel(Regelwerk aks) {
         SimpleFormBuilder sfm = new SimpleFormBuilder(false, true, 1);
         sfm.setFont(PrintManager.getFont());
+        sfm.setColor(Color.BLACK);
 
         sfm.add(I18n.get("Description") + ": ", aks.getBeschreibung());
         Formel formel = FormelManager.getInstance().get(aks.getFormelID());
@@ -115,13 +118,13 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
             gesamtwertung1.append(I18n.get("No"));
         }
         sfm.add(I18n.get("GroupEvaluation") + ": ", gesamtwertung1.toString());
-        if (gesamtwertung2.length() > 0) {
+        if (!gesamtwertung2.isEmpty()) {
             sfm.add("", gesamtwertung2.toString(), true);
         }
-        if (gesamtwertung3.length() > 0) {
+        if (!gesamtwertung3.isEmpty()) {
             sfm.add("", gesamtwertung3.toString(), true);
         }
-        if (gesamtwertung4.length() > 0) {
+        if (!gesamtwertung4.isEmpty()) {
             sfm.add("", gesamtwertung4.toString(), true);
         }
 
@@ -131,6 +134,7 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
     private static JPanel createTop(Regelwerk aks, Altersklasse ak, boolean gesamtwertung) {
         SimpleFormBuilder sfb = new SimpleFormBuilder(false, false, 1);
         sfb.setFont(PrintManager.getFont());
+        sfb.setColor(Color.BLACK);
 
         sfb.addSeparator(ak.getName());
 
@@ -145,13 +149,11 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
         }
 
         if (gesamtwertung) {
-            if (first) {
-                first = false;
-            } else {
+            if (!first) {
                 properties.append(", ");
             }
 
-            String gw = I18n.get("No");
+            String gw;
             if (ak.getGesamtwertung(true) && ak.getGesamtwertung(false)) {
                 gw = I18n.geschlechtToString(aks, false) + " & " + I18n.geschlechtToString(aks, true);
             } else if (!ak.getGesamtwertung(true) && ak.getGesamtwertung(false)) {
@@ -164,7 +166,7 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
             properties.append(I18n.get("GroupEvaluation")).append(" (").append(gw).append(")");
         }
 
-        if (properties.length() > 0) {
+        if (!properties.isEmpty()) {
             sfb.addText(properties.toString());
         }
 

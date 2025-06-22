@@ -49,6 +49,7 @@ final class FirstPagePrintable extends ComponentPagePrintable {
             f = f.deriveFont(f.getSize2D() * factor);
             l.setFont(f);
         }
+        l.setForeground(Color.BLACK);
         return l;
     }
 

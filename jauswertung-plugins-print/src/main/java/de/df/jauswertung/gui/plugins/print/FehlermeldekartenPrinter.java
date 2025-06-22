@@ -53,7 +53,7 @@ class FehlermeldekartenPrinter implements Printer {
         JButton preview = new JButton(I18n.get("Preview"));
         preview.addActionListener(new PreviewActionListener());
 
-        pages = new JComboBox(new String[] { "1", "2", "4" });
+        pages = new JComboBox(new String[]{"1", "2", "4"});
         pages.setSelectedIndex(2);
 
         panel.add(pages, CC.xy(2, 2));
@@ -64,7 +64,7 @@ class FehlermeldekartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -74,7 +74,7 @@ class FehlermeldekartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -93,14 +93,11 @@ class FehlermeldekartenPrinter implements Printer {
     }
 
     private PageMode getMode() {
-        switch (pages.getSelectedIndex()) {
-        case 0:
-            return PageMode.ONE_PER_PAGE;
-        case 1:
-            return PageMode.TWO_PER_PAGE;
-        default:
-            return PageMode.FOUR_PER_PAGE;
-        }
+        return switch (pages.getSelectedIndex()) {
+            case 0 -> PageMode.ONE_PER_PAGE;
+            case 1 -> PageMode.TWO_PER_PAGE;
+            default -> PageMode.FOUR_PER_PAGE;
+        };
     }
 
     final class EmptyActionListener implements ActionListener {
@@ -117,7 +114,7 @@ class FehlermeldekartenPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             PrintableCreator pc = FehlermeldekartenPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Fehlermeldekarten"),
-                    IconManager.getIconBundle(), IconManager.getTitleImages());
+                                  IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 }

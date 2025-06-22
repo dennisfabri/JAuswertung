@@ -28,6 +28,7 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
     static JComponent getUnderline() {
         JLabel label = new JLabel(" ");
         label.setBorder(new ExtendedLineBorder(Color.BLACK, 0, 0, 1, 0));
+        label.setForeground(Color.BLACK);
         return label;
     }
 
@@ -94,7 +95,11 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
         tb.addSeparator(getMiddleline());
         tb.add(I18n.get("ProgrammerShortInfo"), true, "right,center");
 
-        return tb.getPanel(false, false);
+        JPanel p = tb.getPanel(false, false);
+        for (Component c : p.getComponents()) {
+            c.setForeground(Color.BLACK);
+        }
+        return p;
     }
 
     @Override

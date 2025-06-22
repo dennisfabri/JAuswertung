@@ -56,7 +56,7 @@ class ResultsPrinter implements Printer {
     private JPanel panel = null;
     private JButton print = null;
     private JButton preview = null;
-    private JComboBox<String> diszipline = null;
+    private JComboBox<String> discipline = null;
     private JLabel warning = null;
     private JLabel filter = null;
     private JCheckBox unterschrift = null;
@@ -105,8 +105,8 @@ class ResultsPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        diszipline = new JComboBox<>();
-        diszipline.addItemListener(arg0 -> {
+        discipline = new JComboBox<>();
+        discipline.addItemListener(arg0 -> {
             if (isUpdating) {
                 return;
             }
@@ -123,7 +123,7 @@ class ResultsPrinter implements Printer {
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
         panel.add(unterschrift, CC.xy(6, 2));
-        panel.add(diszipline, CC.xy(8, 2));
+        panel.add(discipline, CC.xy(8, 2));
         panel.add(preview, CC.xy(10, 2));
         panel.add(print, CC.xy(12, 2));
     }
@@ -172,29 +172,29 @@ class ResultsPrinter implements Printer {
             if ((due.getChangeReason() & (REASON_AKS_CHANGED | REASON_FILTER_SELECTION | REASON_FILTERS_CHANGED)) > 0) {
                 Regelwerk aks = filteredwk.getRegelwerk();
                 int length = aks.getMaxDisciplineCount();
-                if (length != diszipline.getItemCount() - 1) {
-                    boolean max = (diszipline.getSelectedIndex() == diszipline.getItemCount() - 1)
-                            && (diszipline.getItemCount() != 0);
-                    diszipline.removeAllItems();
+                if (length != discipline.getItemCount() - 1) {
+                    boolean max = (discipline.getSelectedIndex() == discipline.getItemCount() - 1)
+                            && (discipline.getItemCount() != 0);
+                    discipline.removeAllItems();
 
-                    diszipline.addItem(I18n.get("Automatic"));
-                    while (diszipline.getItemCount() - 1 < length) {
-                        diszipline.addItem(I18n.get("Discipline1toN", diszipline.getItemCount()));
+                    discipline.addItem(I18n.get("Automatic"));
+                    while (discipline.getItemCount() - 1 < length) {
+                        discipline.addItem(I18n.get("Discipline1toN", discipline.getItemCount()));
                     }
-                    while (length < diszipline.getItemCount()) {
-                        diszipline.removeItemAt(diszipline.getItemCount() - 1);
+                    while (length < discipline.getItemCount()) {
+                        discipline.removeItemAt(discipline.getItemCount() - 1);
                     }
 
-                    diszipline.addItem(I18n.get("FinalResult"));
+                    discipline.addItem(I18n.get("FinalResult"));
                     if (max) {
-                        diszipline.setSelectedIndex(length);
+                        discipline.setSelectedIndex(length);
                     } else {
-                        diszipline.setSelectedIndex(0);
+                        discipline.setSelectedIndex(0);
                     }
                 }
             }
 
-            diszipline.setEnabled(result);
+            discipline.setEnabled(result);
             print.setEnabled(result);
             preview.setEnabled(result);
             unterschrift.setEnabled(result);
@@ -208,7 +208,7 @@ class ResultsPrinter implements Printer {
     @SuppressWarnings("rawtypes")
     void checkWarning(AWettkampf wk) {
         boolean check = false;
-        int index = diszipline.getSelectedIndex();
+        int index = discipline.getSelectedIndex();
         if (index >= 0) {
             if (index == 0) {
                 Regelwerk aks = wk.getRegelwerk();
@@ -220,7 +220,7 @@ class ResultsPrinter implements Printer {
                 }
                 // check = (wk.getToDisciplineComplete() == 0);
             } else {
-                if (index < diszipline.getItemCount() - 1) {
+                if (index < discipline.getItemCount() - 1) {
                     check = !wk.isToDisciplineComplete(index - 1);
                 } else {
                     check = !wk.isCompetitionComplete();
@@ -237,10 +237,10 @@ class ResultsPrinter implements Printer {
         AWettkampf<T> wk = getWettkampf();
 
         LinkedList<Printable> ps = null;
-        if (diszipline.getSelectedIndex() == diszipline.getItemCount() - 1) {
+        if (discipline.getSelectedIndex() == discipline.getItemCount() - 1) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
-            if (diszipline.getSelectedIndex() == 0) {
+            if (discipline.getSelectedIndex() == 0) {
                 boolean selectedcomplete = true;
                 for (int x = 0; x < selected.length; x++) {
                     for (int y = 0; y < 2; y++) {
@@ -265,10 +265,10 @@ class ResultsPrinter implements Printer {
                     ps = PrintUtils.getIntermediateResults(selected, wk, 0, true, true, 0);
                 }
             } else {
-                ps = PrintUtils.getIntermediateResults(selected, wk, diszipline.getSelectedIndex(), true, true, 0);
+                ps = PrintUtils.getIntermediateResults(selected, wk, discipline.getSelectedIndex(), true, true, 0);
             }
         }
-        Printable p = null;
+        Printable p;
         if (ps.size() == 1) {
             p = ps.getFirst();
         } else {
@@ -318,14 +318,14 @@ class ResultsPrinter implements Printer {
             return;
         }
 
-        if (diszipline.getSelectedIndex() == 0) {
+        if (discipline.getSelectedIndex() == 0) {
             warn.information(controller.getWindow(), I18n.get("AutomaticResultsPrinting.Title"),
                     I18n.get("AutomaticResultsPrinting.Text"),
                     I18n.get("AutomaticResultsPrinting.Note"), "AutomaticResultsPrinting");
         }
 
-        int disz = diszipline.getSelectedIndex();
-        if (disz + 1 == diszipline.getItemCount()) {
+        int disz = discipline.getSelectedIndex();
+        if (disz + 1 == discipline.getItemCount()) {
             disz = JSelectionDialog.ALL_DISCIPLINES;
         } else {
             if (disz == 0) {
