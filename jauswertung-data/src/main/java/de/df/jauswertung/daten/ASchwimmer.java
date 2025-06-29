@@ -74,7 +74,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     @XStreamAsAttribute
     private boolean dopingkontrolle = false;
 
-    private int meldePlatz = -1;
+    private int meldePlatz = 0;
     private double[] meldepunkte;
     private boolean[] meldungMitProtokoll;
 
