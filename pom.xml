@@ -18,17 +18,17 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <jutils.version>17.1.3</jutils.version>
         <alphaserver.version>${jutils.version}</alphaserver.version>
-        <poi.version>5.4.0</poi.version>
+        <poi.version>5.4.1</poi.version>
         <jersey.version>3.1.10</jersey.version>
         <batik.version>1.14</batik.version>
         <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.18</logback.version>
-        <javafx.version>21.0.6</javafx.version>
-        <jackson.version>2.18.3</jackson.version>
-        <lombok.version>1.18.36</lombok.version>
-        <junit.version>5.12.1</junit.version>
-        <mockito.version>5.16.1</mockito.version>
-        <opencsv.version>5.10</opencsv.version>
+        <javafx.version>21.0.7</javafx.version>
+        <jackson.version>2.19.1</jackson.version>
+        <lombok.version>1.18.38</lombok.version>
+        <junit.version>5.13.2</junit.version>
+        <mockito.version>5.18.0</mockito.version>
+        <opencsv.version>5.11.2</opencsv.version>
         <nv-i18n.version>1.29</nv-i18n.version>
     </properties>
     <distributionManagement>
@@ -362,7 +362,7 @@
             <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
-                <version>5.4.2</version>
+                <version>5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
@@ -397,7 +397,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.13.0</version>
+                <version>1.13.1</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.jersey.core</groupId>
@@ -571,7 +571,7 @@
                 <plugin>
                     <groupId>com.install4j</groupId>
                     <artifactId>install4j-maven</artifactId>
-                    <version>11.0.2</version>
+                    <version>11.0.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -589,6 +589,13 @@
                     <!-- Fixed to version 3.9.1 because of doxia version problem
                     with maven-project-info-reports-plugin -->
                     <version>3.21.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-module-markdown</artifactId>
+                            <version>1.12.0</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -611,7 +618,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -633,7 +640,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>3.5.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -648,7 +655,7 @@
                 <plugin>
                     <groupId>org.openrewrite.maven</groupId>
                     <artifactId>rewrite-maven-plugin</artifactId>
-                    <version>6.3.2</version>
+                    <version>6.12.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -739,7 +746,7 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-migrate-java</artifactId>
-                        <version>3.4.0</version>
+                        <version>3.12.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
