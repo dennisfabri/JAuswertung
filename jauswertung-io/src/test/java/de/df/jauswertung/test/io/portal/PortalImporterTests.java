@@ -207,7 +207,7 @@ class PortalImporterTests {
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
         Feedback fb = null;
         try (InputStream is = getClass()
-                .getResourceAsStream("/portal/Einzel-1OG-" + (maennlich ? "male" : "female") + ".json")) {
+                .getResourceAsStream("/portal/Einzel-1OG-" + (maennlich ? "Male" : "Female") + ".json")) {
             LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG");
 
             assertNotNull(actual);
@@ -242,7 +242,7 @@ class PortalImporterTests {
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
         Feedback fb = null;
         try (InputStream is = getClass()
-                .getResourceAsStream("/portal/Einzel-1OG-null-values-" + (maennlich ? "male" : "female") + ".json")) {
+                .getResourceAsStream("/portal/Einzel-1OG-null-values-" + (maennlich ? "Male" : "Female") + ".json")) {
             LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-Null");
 
             assertNotNull(actual);
@@ -277,7 +277,7 @@ class PortalImporterTests {
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
         Feedback fb = null;
         try (InputStream is = getClass()
-                .getResourceAsStream("/portal/Einzel-1OG-no-points-" + (maennlich ? "male" : "female") + ".json")) {
+                .getResourceAsStream("/portal/Einzel-1OG-no-points-" + (maennlich ? "Male" : "Female") + ".json")) {
             LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-no-points");
 
             assertNotNull(actual);
