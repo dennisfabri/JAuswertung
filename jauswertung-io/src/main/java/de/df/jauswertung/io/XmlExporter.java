@@ -154,7 +154,7 @@ public class XmlExporter extends EmptyExporter {
         addInfos(xmldoc);
         Element e = addNames(xmldoc, wk);
         e.setAttributeNS(null, "agegroup",
-                wk.getRegelwerk().getAk(agegroup).getName() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male));
+                         wk.getRegelwerk().getAk(agegroup).getName() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male));
 
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
@@ -240,12 +240,12 @@ public class XmlExporter extends EmptyExporter {
     @Override
     public boolean isSupported(ImportExportTypes type) {
         switch (type) {
-        case REGISTRATION:
-        case RESULTS:
-        case PENALTIES:
-            return true;
-        default:
-            return false;
+            case REGISTRATION:
+            case RESULTS:
+            case PENALTIES:
+                return true;
+            default:
+                return false;
         }
     }
 
@@ -256,12 +256,12 @@ public class XmlExporter extends EmptyExporter {
 
     @Override
     public String[] getSuffixes() {
-        return new String[] { "xml" };
+        return new String[]{"xml"};
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.io.Exporter#registration(java.lang.String,
      * de.df.jauswertung.daten.Wettkampf)
      */
@@ -308,7 +308,7 @@ public class XmlExporter extends EmptyExporter {
     }
 
     private static <T extends ASchwimmer> Element createAgegroupResults(AWettkampf<T> wk, Document xmldoc,
-            Altersklasse ak, boolean male, int quali) {
+                                                                        Altersklasse ak, boolean male, int quali) {
 
         SchwimmerResult<T>[] results = ResultCalculator.getResults(wk, ak, male);
 
@@ -382,6 +382,7 @@ public class XmlExporter extends EmptyExporter {
                 e.setAttributeNS(null, "penalty", I18n.getPenaltyShort(results[i].getStrafe()));
                 e.setAttributeNS(null, "number", StartnumberFormatManager.format(s));
                 e.setAttributeNS(null, "regpoints", doubleFormat.format(s.getMeldepunkte(0)));
+                e.setAttributeNS(null, "regrank", "" + s.getMeldePlatz());
                 e.setAttributeNS(null, "comment", s.getBemerkung());
                 e.setAttributeNS(null, "organisation", s.getGliederung());
                 e.setAttributeNS(null, "qualificationorganisation", s.getQualifikationsebene());
@@ -394,36 +395,36 @@ public class XmlExporter extends EmptyExporter {
 
                         dis.setAttributeNS(null, "number", integerFormat.format(z + 1));
                         dis.setAttributeNS(null, "penalty",
-                                PenaltyUtils.getPenaltyMediumText(daten[z].getStrafe(), ak));
+                                           PenaltyUtils.getPenaltyMediumText(daten[z].getStrafe(), ak));
                         switch (daten[z].getStrafart()) {
-                        case AUSSCHLUSS:
-                            dis.setAttributeNS(null, "points", "");
-                            dis.setAttributeNS(null, "pointsshort", "");
-                            dis.setAttributeNS(null, "time", "");
-                            dis.setAttributeNS(null, "rank", "");
-                            break;
-                        case DISQUALIFIKATION:
-                            dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort",
-                                    integerFormat.format(Math.floor(daten[z].getPoints())));
-                            dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
-                            dis.setAttributeNS(null, "rank", "");
-                            break;
-                        case NICHT_ANGETRETEN:
-                            dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort",
-                                    integerFormat.format(Math.floor(daten[z].getPoints())));
+                            case AUSSCHLUSS:
+                                dis.setAttributeNS(null, "points", "");
+                                dis.setAttributeNS(null, "pointsshort", "");
+                                dis.setAttributeNS(null, "time", "");
+                                dis.setAttributeNS(null, "rank", "");
+                                break;
+                            case DISQUALIFIKATION:
+                                dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
+                                dis.setAttributeNS(null, "pointsshort",
+                                                   integerFormat.format(Math.floor(daten[z].getPoints())));
+                                dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
+                                dis.setAttributeNS(null, "rank", "");
+                                break;
+                            case NICHT_ANGETRETEN:
+                                dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
+                                dis.setAttributeNS(null, "pointsshort",
+                                                   integerFormat.format(Math.floor(daten[z].getPoints())));
 
-                            dis.setAttributeNS(null, "time", "");
-                            dis.setAttributeNS(null, "rank", "");
-                            break;
-                        default:
-                            dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
-                            dis.setAttributeNS(null, "pointsshort",
-                                    integerFormat.format(Math.floor(daten[z].getPoints())));
-                            dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
-                            dis.setAttributeNS(null, "rank", integerFormat.format(daten[z].getRank()));
-                            break;
+                                dis.setAttributeNS(null, "time", "");
+                                dis.setAttributeNS(null, "rank", "");
+                                break;
+                            default:
+                                dis.setAttributeNS(null, "points", doubleFormat.format(daten[z].getPoints()));
+                                dis.setAttributeNS(null, "pointsshort",
+                                                   integerFormat.format(Math.floor(daten[z].getPoints())));
+                                dis.setAttributeNS(null, "time", StringTools.zeitString(daten[z].getTime()));
+                                dis.setAttributeNS(null, "rank", integerFormat.format(daten[z].getRank()));
+                                break;
                         }
                     } else {
                         dis.setAttributeNS(null, "chosen", "0");
@@ -507,6 +508,7 @@ public class XmlExporter extends EmptyExporter {
             e.setAttributeNS(null, "agegroup", aReg.getAK().toString());
             e.setAttributeNS(null, "number", StartnumberFormatManager.format(aReg));
             e.setAttributeNS(null, "regpoints", doubleFormat.format(aReg.getMeldepunkte(0)));
+            e.setAttributeNS(null, "regrank", "" + aReg.getMeldePlatz());
             e.setAttributeNS(null, "comment", aReg.getBemerkung());
             e.setAttributeNS(null, "organisation", aReg.getGliederung());
             e.setAttributeNS(null, "ak", "" + aReg.isAusserKonkurrenz());
@@ -572,7 +574,7 @@ public class XmlExporter extends EmptyExporter {
 
                 e.setAttributeNS(null, "malesupported", "" + supported);
                 e.setAttributeNS(null, "malename",
-                        aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), true));
+                                 aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), true));
                 if (supported) {
                     e.setAttributeNS(null, "malelink", "male" + i + ".html");
                 }
@@ -581,7 +583,7 @@ public class XmlExporter extends EmptyExporter {
 
                 e.setAttributeNS(null, "femalesupported", "" + supported);
                 e.setAttributeNS(null, "femalename",
-                        aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
+                                 aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
                 if (supported) {
                     e.setAttributeNS(null, "femalelink", "female" + i + ".html");
                 }
@@ -690,7 +692,7 @@ public class XmlExporter extends EmptyExporter {
 
             e.setAttributeNS(null, "femalesupported", "" + supported);
             e.setAttributeNS(null, "femalename",
-                    aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
+                             aks.getAk(i) + " " + I18n.geschlechtToString(wk.getRegelwerk(), false));
             if (supported) {
                 e.setAttributeNS(null, "femalelink", "female" + i + ".html");
             }

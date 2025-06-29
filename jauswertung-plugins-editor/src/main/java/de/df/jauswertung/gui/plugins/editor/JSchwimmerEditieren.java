@@ -83,6 +83,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private JComboBox<String> quali = new JComboBox<>(new String[] {
             I18n.get("Quali.Open"), I18n.get("Quali.NotQualified"), I18n.get("Quali.Qualified"),
             I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker") });
+    private JIntegerField meldePlatz = new JIntegerField(1000, false, true);
     private JDoubleField[] melde1 = new JDoubleField[] {
             new JDoubleField(), new JDoubleField() };
     private JCheckBox[] protokoll1 = new JCheckBox[] {
@@ -206,6 +207,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             // members.setText(((Mannschaft) schwimmer).getMitglieder());
             members.setBorder(BorderUtils.createLabeledBorder("Mannschaftsmitglieder"));
         }
+        meldePlatz.setInt(schwimmer.getMeldePlatz());
         for (int x = 0; x < melde1.length; x++) {
             if (schwimmer.getMeldepunkte(x) > 0.005) {
                 melde1[x].setDouble(schwimmer.getMeldepunkte(x));
@@ -336,6 +338,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         sfb.add(startpass);
 
         SimpleFormBuilder sfb2 = new SimpleFormBuilder(true, false);
+        sfb2.add(I18n.get("ReportedRank"), meldePlatz);
         for (int x = 0; x < melde1.length; x++) {
             sfb2.add(I18n.get("AnouncedPointsNr", StringTools.ABC[x]), melde1[x]);
             sfb2.add(protokoll1[x], true);
@@ -454,6 +457,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             // m.setMitglieder(members.getText());
         }
         schwimmer.setMaennlich(geschlecht.getSelectedIndex() == 1);
+        schwimmer.setMeldePlatz(meldePlatz.getInt());
         for (int x = 0; x < melde1.length; x++) {
             schwimmer.setMeldepunkte(x, melde1[x].getDouble());
             schwimmer.setMeldungMitProtokoll(x, protokoll1[x].isSelected());
@@ -546,6 +550,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         bemerkung.setAutoSelectAll(true);
         gliederung.setAutoSelectAll(true);
         startnummer.setAutoSelectAll(true);
+        meldePlatz.setAutoSelectAll(true);
         for (int x = 0; x < melde1.length; x++) {
             melde1[x].setAutoSelectAll(true);
         }

@@ -43,6 +43,7 @@ public class SchwimmerTest extends TestCase {
         assertEquals(s1.getBemerkung(), "Bemerkung 1");
         assertEquals(s1.isAusserKonkurrenz(), false);
         assertEquals(s1.getMeldepunkte(0), 0, 0.001);
+        assertEquals(s1.getMeldePlatz(), 0);
         for (int x = 0; x < s1.getAK().getDiszAnzahl(); x++) {
             assertEquals(s1.getZeit(x), 0);
         }

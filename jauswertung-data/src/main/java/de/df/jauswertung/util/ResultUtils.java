@@ -43,6 +43,7 @@ public class ResultUtils {
                 // false, true, 0);
                 for (int z = 0; z < results.size(); z++) {
                     ASchwimmer s = results.getSchwimmer(z);
+                    s.setMeldePlatz(results.getPlace(z));
                     s.setMeldepunkte(0, results.getPoints(z));
                     s.setMeldungMitProtokoll(0, true);
                     for (int w = 0; w < s.getAK().getDiszAnzahl(); w++) {

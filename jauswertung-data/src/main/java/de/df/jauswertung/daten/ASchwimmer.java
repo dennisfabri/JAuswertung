@@ -74,6 +74,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     @XStreamAsAttribute
     private boolean dopingkontrolle = false;
 
+    private int meldePlatz = -1;
     private double[] meldepunkte;
     private boolean[] meldungMitProtokoll;
 
@@ -262,6 +263,17 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
      */
     public void setAusserKonkurrenz(boolean sAk) {
         ausserkonkurrenz = sAk;
+    }
+
+    public int getMeldePlatz() {
+        return meldePlatz;
+    }
+
+    public void setMeldePlatz(int platz) {
+        if (platz < 0) {
+            platz = 0;
+        }
+        meldePlatz = platz;
     }
 
     /**

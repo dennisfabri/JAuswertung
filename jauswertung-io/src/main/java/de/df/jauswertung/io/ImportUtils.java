@@ -1,83 +1,5 @@
 package de.df.jauswertung.io;
 
-import static de.df.jauswertung.io.ImportConstants.ALTERSKLASSE;
-import static de.df.jauswertung.io.ImportConstants.AUSSER_KONKURRENZ;
-import static de.df.jauswertung.io.ImportConstants.BEMERKUNG;
-import static de.df.jauswertung.io.ImportConstants.CATEGORY;
-import static de.df.jauswertung.io.ImportConstants.DISCIPLINE;
-import static de.df.jauswertung.io.ImportConstants.DISCIPLINES;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT1;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT10;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT11;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT12;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT2;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT3;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT4;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT5;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT6;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT7;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT8;
-import static de.df.jauswertung.io.ImportConstants.GESCHLECHT9;
-import static de.df.jauswertung.io.ImportConstants.GLIEDERUNG;
-import static de.df.jauswertung.io.ImportConstants.INDEX_COUNT;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG1;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG10;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG11;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG12;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG2;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG3;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG4;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG5;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG6;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG7;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG8;
-import static de.df.jauswertung.io.ImportConstants.JAHRGANG9;
-import static de.df.jauswertung.io.ImportConstants.MAX_INDEX;
-import static de.df.jauswertung.io.ImportConstants.MELDEZEITEN;
-import static de.df.jauswertung.io.ImportConstants.MEMBERS;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME1;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME10;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME11;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME12;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME2;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME3;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME4;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME5;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME6;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME7;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME8;
-import static de.df.jauswertung.io.ImportConstants.NACHNAME9;
-import static de.df.jauswertung.io.ImportConstants.NAME;
-import static de.df.jauswertung.io.ImportConstants.POSITION;
-import static de.df.jauswertung.io.ImportConstants.PROTOCOL1;
-import static de.df.jauswertung.io.ImportConstants.PROTOCOL2;
-import static de.df.jauswertung.io.ImportConstants.PUNKTE1;
-import static de.df.jauswertung.io.ImportConstants.PUNKTE2;
-import static de.df.jauswertung.io.ImportConstants.QUALI;
-import static de.df.jauswertung.io.ImportConstants.QUALI_LEVEL;
-import static de.df.jauswertung.io.ImportConstants.STARTNUMMER;
-import static de.df.jauswertung.io.ImportConstants.STARTPASS;
-import static de.df.jauswertung.io.ImportConstants.STUFE;
-import static de.df.jauswertung.io.ImportConstants.VORNAME;
-import static de.df.jauswertung.io.ImportConstants.VORNAME1;
-import static de.df.jauswertung.io.ImportConstants.VORNAME10;
-import static de.df.jauswertung.io.ImportConstants.VORNAME11;
-import static de.df.jauswertung.io.ImportConstants.VORNAME12;
-import static de.df.jauswertung.io.ImportConstants.VORNAME2;
-import static de.df.jauswertung.io.ImportConstants.VORNAME3;
-import static de.df.jauswertung.io.ImportConstants.VORNAME4;
-import static de.df.jauswertung.io.ImportConstants.VORNAME5;
-import static de.df.jauswertung.io.ImportConstants.VORNAME6;
-import static de.df.jauswertung.io.ImportConstants.VORNAME7;
-import static de.df.jauswertung.io.ImportConstants.VORNAME8;
-import static de.df.jauswertung.io.ImportConstants.VORNAME9;
-import static de.df.jauswertung.io.ImportConstants.ZW;
-import static de.df.jauswertung.io.ImportConstants.getRequiredIndizes;
-import static de.df.jauswertung.io.ImportConstants.getRequiredIndizesForUpdate;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -125,6 +47,8 @@ import de.df.jutils.io.csv.CsvManager;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
+
+import static de.df.jauswertung.io.ImportConstants.*;
 
 public class ImportUtils {
 
@@ -402,7 +326,7 @@ public class ImportUtils {
                 if (used) {
                     Object aData = data[x];
                     String temp = aData.toString().trim();
-                    if (temp.length() > 0) {
+                    if (!temp.isEmpty()) {
                         empty = false;
                         break;
                     }
@@ -430,14 +354,14 @@ public class ImportUtils {
             }
             if (w instanceof EinzelWettkampf) {
                 String vorname = data[indizes[VORNAME]].toString();
-                if (vorname.equals("")) {
+                if (vorname.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("FirstName"),
                                     StringTools.getCellName(sheet, row, indizes[VORNAME])),
                             file, sheet, row, indizes[VORNAME]);
                 }
                 String nachname = data[indizes[NACHNAME]].toString();
-                if (nachname.equals("")) {
+                if (nachname.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Surname"),
                                     StringTools.getCellName(sheet, row, indizes[NACHNAME])),
@@ -445,7 +369,7 @@ public class ImportUtils {
                 }
             } else {
                 String name = data[indizes[NAME]].toString();
-                if (name.equals("")) {
+                if (name.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Name"),
                                     StringTools.getCellName(sheet, row, indizes[NAME])),
@@ -458,13 +382,13 @@ public class ImportUtils {
             if (indizes[GLIEDERUNG] >= 0) {
                 gname = data[indizes[GLIEDERUNG]].toString();
             }
-            if (gname.equals("")) {
+            if (gname.isEmpty()) {
                 if (w instanceof MannschaftWettkampf) {
 
                     gname = name2Gliederung(data[indizes[NAME]].toString());
                 }
             }
-            if (gname.equals("")) {
+            if (gname.isEmpty()) {
                 throw new TableEntryException(
                         I18n.get("MissingEntry", I18n.get("Organisation"),
                                 StringTools.getCellName(sheet, row, indizes[GLIEDERUNG])),
@@ -486,7 +410,7 @@ public class ImportUtils {
                 }
             }
             if (ak < 0) {
-                if (ako.toString().trim().length() == 0) {
+                if (ako.toString().isBlank()) {
                     if ((wk instanceof EinzelWettkampf) && (indizes[JAHRGANG] >= 0)) {
                         int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
                         if (jahrgang > 0) {
@@ -519,6 +443,7 @@ public class ImportUtils {
             }
 
             String bemerkung = getBemerkung(data, indizes[BEMERKUNG]);
+            int platz = getRank(data, indizes[PLATZIERUNG], row, sheet, file);
             double punkte1 = getPunkte(data, indizes[PUNKTE1], row, sheet, file);
             double punkte2 = getPunkte(data, indizes[PUNKTE2], row, sheet, file);
 
@@ -629,6 +554,7 @@ public class ImportUtils {
             }
             s.setMeldungMitProtokoll(0, getBoolean(data, indizes[PROTOCOL1], row, sheet, file, false));
             s.setMeldungMitProtokoll(1, getBoolean(data, indizes[PROTOCOL2], row, sheet, file, false));
+            s.setMeldePlatz(platz);
             s.setMeldepunkte(0, punkte1);
             s.setMeldepunkte(1, punkte2);
             s.setAusserKonkurrenz(ausserKonkurrenz);
@@ -1011,7 +937,37 @@ public class ImportUtils {
             return Double.parseDouble(text);
         } catch (RuntimeException re) {
             throw new TableEntryException("Konnte Punkte in Zelle " + StringTools.getCellName(sheet, row, index)
-                    + " nicht umwandeln: " + data[index].toString(), file, sheet, row, index);
+                                                  + " nicht umwandeln: " + data[index].toString(), file, sheet, row, index);
+        }
+    }
+
+    private static int getRank(Object[] data, int index, int row, String sheet, String file)
+            throws TableEntryException {
+        if (index < 0) {
+            return 0;
+        }
+        if (data[index] instanceof Number) {
+            Number n = (Number) data[index];
+            return n.intValue();
+        }
+        String text = data[index].toString().trim().toLowerCase();
+        if (text.isEmpty()) {
+            return 0;
+        }
+        // Compatibility with ChaosSoftware
+        if (text.startsWith("ausschlu") || text.startsWith("ausschluss") || text.startsWith("disq")) {
+            return 0;
+        }
+        try {
+            NumberFormat nf = NumberFormat.getInstance();
+            if (nf instanceof DecimalFormat df) {
+                DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+                text = text.replace(dfs.getDecimalSeparator(), '.');
+            }
+            return Integer.parseInt(text);
+        } catch (RuntimeException re) {
+            throw new TableEntryException("Konnte Platzierung in Zelle " + StringTools.getCellName(sheet, row, index)
+                                                  + " nicht umwandeln: " + data[index].toString(), file, sheet, row, index);
         }
     }
 
@@ -2071,6 +2027,10 @@ public class ImportUtils {
         }
         if (title.equalsIgnoreCase("FirstName")) {
             indizes[VORNAME] = x;
+            return;
+        }
+        if (title.equals(I18n.get("Meldeplatz").toLowerCase())) {
+            indizes[PLATZIERUNG] = x;
             return;
         }
         if (title.equals(I18n.get("Points").toLowerCase())) {

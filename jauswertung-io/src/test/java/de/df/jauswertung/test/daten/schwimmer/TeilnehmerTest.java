@@ -42,6 +42,7 @@ public class TeilnehmerTest extends TestCase {
         assertEquals(s.getBemerkung(), "Bemerkung");
         assertEquals(s.isAusserKonkurrenz(), false);
         assertEquals(s.getMeldepunkte(0), 0, 0.001);
+        assertEquals(s.getMeldePlatz(), 0);
         assertEquals(s.getJahrgang(), 1999);
         assertEquals(s.getMaximaleHLW(), 1);
         for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
