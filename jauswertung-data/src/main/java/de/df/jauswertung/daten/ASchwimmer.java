@@ -1132,6 +1132,13 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         return false;
     }
 
+    public boolean isDisqualified() {
+        if (getAkkumulierteStrafe(DISCIPLINE_NUMBER_SELF).getArt().equals(Strafarten.DISQUALIFIKATION)) {
+            return true;
+        }
+        return false;
+    }
+
     public void setQualifikationsebene(String qualifikationsebene) {
         if (qualifikationsebene == null) {
             throw new NullPointerException();
@@ -1290,4 +1297,5 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public void setImportId(String importId) {
         this.importId = importId;
     }
+
 }

@@ -277,7 +277,9 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                 count = s.getAK().getDiszAnzahl();
             }
             boolean isOk = (ak.getMinimalChosenDisciplines() <= count)
-                    && (ak.getMaximalChosenDisciplines() >= chosenAmount);
+                    && (ak.getMaximalChosenDisciplines() >= chosenAmount)
+                    && !result.getSchwimmer().isAusgeschlossen()
+                    && !result.getSchwimmer().isDisqualified();
             if (isOk || isRealFinal) {
                 // not enough or too many disciplines lead to disqualification
                 Arrays.sort(ps);
