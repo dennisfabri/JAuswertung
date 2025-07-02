@@ -28,7 +28,7 @@ public class PrintableCreator {
 
     public static <T extends ASchwimmer> Printable createInfoPagePrintable(AWettkampf<T> wk) {
         String s = wk.getStringProperty(INFOPAGE);
-        if ((s == null) || (s.length() == 0)) {
+        if ((s == null) || s.isEmpty()) {
             return EmptyPrintable.Instance;
         }
         return new TextPrintable(s, PrintManager.getFont());
@@ -53,6 +53,7 @@ public class PrintableCreator {
         Component[] cs = new Component[panels.length];
         for (int x = 0; x < panels.length; x++) {
             panels[x].setOpaque(false);
+            panels[x].setForeground(Color.BLACK);
             panels[x].setBackground(Color.WHITE);
             panels[x].setBorder(new LineBorder(Color.BLACK, 1));
             cs[x] = panels[x];

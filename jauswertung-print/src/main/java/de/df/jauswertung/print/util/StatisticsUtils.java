@@ -3,6 +3,7 @@ package de.df.jauswertung.print.util;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -34,10 +35,10 @@ import de.df.jutils.print.PrintManager;
 public class StatisticsUtils {
 
     public static <T extends ASchwimmer> LinkedList<JComponent> createLVOverviewPage(AWettkampf<T> wk, int max,
-            boolean print) {
+                                                                                     boolean print) {
         wk = Utils.copy(wk);
         for (T t : wk.getSchwimmer()) {
-            if (t.getQualifikationsebene().length() > 0) {
+            if (!t.getQualifikationsebene().isEmpty()) {
                 t.setGliederung(t.getQualifikationsebene());
                 t.setQualifikationsebene("");
             } else {
@@ -48,7 +49,7 @@ public class StatisticsUtils {
         return createOverviewPage(wk, max, print);
     }
 
-    public static <T extends ASchwimmer> PenaltyCounter[][] countPenaltiesPerAgegroup(AWettkampf<T> wk) {
+    public static <T extends ASchwimmer> PenaltyCounter[][] countPenaltiesPerAgeGroup(AWettkampf<T> wk) {
         Regelwerk aks = wk.getRegelwerk();
         PenaltyCounter[][] counter = new PenaltyCounter[aks.size()][2];
         for (int x = 0; x < counter.length; x++) {
@@ -58,8 +59,7 @@ public class StatisticsUtils {
         }
 
         for (T s : wk.getSchwimmer()) {
-            LinkedList<Strafe> strafen = new LinkedList<>();
-            strafen.addAll(s.getAllgemeineStrafen());
+            LinkedList<Strafe> strafen = new LinkedList<>(s.getAllgemeineStrafen());
             for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                 strafen.addAll(s.getStrafen(x));
             }
@@ -78,9 +78,7 @@ public class StatisticsUtils {
         }
         if (max < counter.length) {
             PenaltyCounter[][] newcounter = new PenaltyCounter[max][2];
-            for (int x = 0; x < max; x++) {
-                newcounter[x] = counter[x];
-            }
+            System.arraycopy(counter, 0, newcounter, 0, max);
             counter = newcounter;
         }
 
@@ -137,9 +135,7 @@ public class StatisticsUtils {
         }
         if (maxak < counter.length) {
             PenaltyCounter[][][] pcnew = new PenaltyCounter[maxak + 1][0][0];
-            for (int x = 0; x < maxak + 1; x++) {
-                pcnew[x] = counter[x];
-            }
+            System.arraycopy(counter, 0, pcnew, 0, maxak + 1);
             counter = pcnew;
         }
         return counter;
@@ -150,15 +146,15 @@ public class StatisticsUtils {
 
         int lanes = wk.getIntegerProperty(PropertyConstants.HEATS_LANES);
         int rows = 3;
-        for (int x = 0; x < counter.length; x++) {
-            rows += counter[x].length + 3;
+        for (PenaltyCounter[][] penaltyCounters : counter) {
+            rows += penaltyCounters.length + 3;
         }
         int[][] groups = new int[1][lanes + 1];
         for (int x = 0; x < lanes + 1; x++) {
             groups[0][x] = 2 * x + 6;
         }
         FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(3 + lanes),
-                FormLayoutUtils.createLayoutString(rows));
+                                           FormLayoutUtils.createLayoutString(rows));
         layout.setColumnGroups(groups);
         JPanel panel = new JPanel(layout);
         panel.setName(I18n.get("PenaltiesPerLane"));
@@ -213,7 +209,7 @@ public class StatisticsUtils {
             }
             panel.add(
                     createLabel(I18n.get("Sum"),
-                            ColorUtils.calculateColor(Color.LIGHT_GRAY, Color.LIGHT_GRAY.brighter(), 0.5)),
+                                ColorUtils.calculateColor(Color.LIGHT_GRAY, Color.LIGHT_GRAY.brighter(), 0.5)),
                     CC.xyw(4, row, 3 + 2 * lanes));
             // panel.add(new JLabel(I18n.get("Sum")), CC.xy(4, row));
             row += 4;
@@ -234,11 +230,11 @@ public class StatisticsUtils {
     public static <T extends ASchwimmer> JComponent createPenaltiesPerAgegroupPanel(AWettkampf<T> wk) {
         Regelwerk rw = wk.getRegelwerk();
 
-        PenaltyCounter[][] counter = countPenaltiesPerAgegroup(wk);
+        PenaltyCounter[][] counter = countPenaltiesPerAgeGroup(wk);
 
         FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(17),
-                FormLayoutUtils.createLayoutString(3 + counter.length + 1));
-        layout.setColumnGroups(new int[][] { { 6, 8, 10, 12, 16, 18, 20, 22, 26, 28, 30, 32 } });
+                                           FormLayoutUtils.createLayoutString(3 + counter.length + 1));
+        layout.setColumnGroups(new int[][]{{6, 8, 10, 12, 16, 18, 20, 22, 26, 28, 30, 32}});
         JPanel panel = new JPanel(layout);
         panel.setName(I18n.get("Penalties"));
 
@@ -281,19 +277,19 @@ public class StatisticsUtils {
             for (int y = 0; y < 2; y++) {
                 for (int z = 0; z < 4; z++) {
                     int amount = 0;
-                    for (int x = 0; x < counter.length; x++) {
-                        amount += counter[x][y].getAmount(z);
+                    for (PenaltyCounter[] penaltyCounters : counter) {
+                        amount += penaltyCounters[y].getAmount(z);
                     }
                     if (amount > 0) {
                         panel.add(new JLabel("" + amount),
-                                CC.xy(6 + 2 * z + 10 * y, 8 + 2 * counter.length, "center,center"));
+                                  CC.xy(6 + 2 * z + 10 * y, 8 + 2 * counter.length, "center,center"));
                     }
                 }
             }
             for (int z = 0; z < 4; z++) {
                 int amount = 0;
-                for (int x = 0; x < counter.length; x++) {
-                    amount += counter[x][0].getAmount(z) + counter[x][1].getAmount(z);
+                for (PenaltyCounter[] penaltyCounters : counter) {
+                    amount += penaltyCounters[0].getAmount(z) + penaltyCounters[1].getAmount(z);
                 }
                 if (amount > 0) {
                     panel.add(new JLabel("" + amount), CC.xy(26 + 2 * z, 8 + 2 * counter.length, "center,center"));
@@ -305,7 +301,7 @@ public class StatisticsUtils {
     }
 
     public static <T extends ASchwimmer> LinkedList<JComponent> createOverviewPage(AWettkampf<T> wk, int max,
-            boolean print) {
+                                                                                   boolean print) {
         Regelwerk aks = wk.getRegelwerk();
 
         if (!wk.hasSchwimmer()) {
@@ -356,7 +352,7 @@ public class StatisticsUtils {
         int tsize = checkBlocksize(max, amount);
         while (amount > 0) {
             JComponent px = overviewToPage(aks, size, gliederungsliste, longgld, glds, statssum, stats, statsall,
-                    offset, tsize, tsize == amount, print);
+                                           offset, tsize, tsize == amount, print);
             ps.addLast(px);
 
             offset += tsize;
@@ -367,7 +363,7 @@ public class StatisticsUtils {
     }
 
     public static <T extends ASchwimmer> JComponent createStatistics(LinkedList<T> swimmer, Regelwerk aks, String title,
-            boolean print) {
+                                                                     boolean print) {
         int starts = 0;
         ListIterator<T> li = swimmer.listIterator();
 
@@ -400,30 +396,16 @@ public class StatisticsUtils {
         // 1 blank line
         // 2 Headers
         // anzahl Table contents
-        int rows = (title == null ? 1 : 1) + (anzahlGliederungen > 1 ? 1 : 0) + 2 + 1 + 2 + anzahl;
+        int rows = 1 + (anzahlGliederungen > 1 ? 1 : 0) + 2 + 1 + 2 + anzahl;
         int space = (print ? 1 : 4);
         FormLayout layout = new FormLayout(
-                "0dlu:grow,fill:default," + space + "dlu,center:default," + "" + space + "dlu,center:default," + space
-                        + "dlu,center:default," + "" + space + "dlu,center:default,0dlu:grow",
+                "0dlu:grow,fill:default," + space + "dlu,center:default," + space + "dlu,center:default," + space
+                        + "dlu,center:default," + space + "dlu,center:default,0dlu:grow",
                 FormLayoutUtils.createLayoutString(rows, space));
-        layout.setColumnGroups(new int[][] { { 1, 11 }, { 4, 6, 8, 10 } });
-        JPanel p = null;
+        layout.setColumnGroups(new int[][]{{1, 11}, {4, 6, 8, 10}});
+        JPanel p;
         if (print) {
-            p = new JPanel(layout) {
-                private static final long serialVersionUID = 5430202481734186620L;
-
-                @Override
-                public void setFont(Font font) {
-                    if (font == null) {
-                        return;
-                    }
-                    super.setFont(font);
-                    for (Component c : getComponents()) {
-                        c.setFont(font);
-                    }
-                }
-            };
-            p.setBackground(Color.WHITE);
+            p = createPrintPanel(layout);
         } else {
             p = new JPanel(layout);
         }
@@ -476,6 +458,41 @@ public class StatisticsUtils {
         return p;
     }
 
+    private static JPanel createPrintPanel() {
+        return createPrintPanel(null);
+    }
+
+    private static JPanel createPrintPanel(FormLayout layout) {
+        JPanel p = new JPanel() {
+            @Override
+            public void setFont(Font font) {
+                if (font == null) {
+                    return;
+                }
+                super.setFont(font);
+                for (Component c : getComponents()) {
+                    Font f = font;
+                    if ((c.getFont() != null) && (c.getFont().isItalic() || c.getFont().isBold())) {
+                        if (c.getFont().isItalic()) {
+                            f = font.deriveFont(Font.ITALIC);
+                        } else {
+                            f = font.deriveFont(Font.BOLD);
+                        }
+                    }
+                    c.setForeground(Color.BLACK);
+                    c.setFont(f);
+                }
+
+            }
+        };
+        if (layout != null) {
+            p.setLayout(layout);
+        }
+        p.setForeground(Color.BLACK);
+        p.setBackground(Color.WHITE);
+        return p;
+    }
+
     public static <T extends ASchwimmer> JComponent getStarts(LinkedList<T> swimmer, Regelwerk aks, boolean print) {
 
         int max = 0;
@@ -484,9 +501,7 @@ public class StatisticsUtils {
             int anzahl = aks.getAk(x).getDiszAnzahl();
             for (int y = 0; y < 2; y++) {
                 starts[x][y] = new int[anzahl];
-                for (int z = 0; z < starts[x][y].length; z++) {
-                    starts[x][y][z] = 0;
-                }
+                Arrays.fill(starts[x][y], 0);
             }
             if (anzahl > max) {
                 max = anzahl;
@@ -528,31 +543,14 @@ public class StatisticsUtils {
 
         int space = (print ? 1 : 4);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("0dlu:grow,");
-        for (int x = 0; x < max; x++) {
-            sb.append("fill:default," + space + "dlu,");
-        }
-        sb.append("fill:default,0dlu:grow");
+        String sb = "0dlu:grow," +
+                ("fill:default," + space + "dlu,").repeat(max) +
+                "fill:default,0dlu:grow";
 
-        FormLayout layout = new FormLayout(sb.toString(), FormLayoutUtils.createLayoutString(rows + 3, space));
+        FormLayout layout = new FormLayout(sb, FormLayoutUtils.createLayoutString(rows + 3, space));
         JPanel p = null;
         if (print) {
-            p = new JPanel(layout) {
-                private static final long serialVersionUID = 5430202481734186620L;
-
-                @Override
-                public void setFont(Font font) {
-                    if (font == null) {
-                        return;
-                    }
-                    super.setFont(font);
-                    for (Component c : getComponents()) {
-                        c.setFont(font);
-                    }
-                }
-            };
-            p.setBackground(Color.WHITE);
+            p = createPrintPanel(layout);
         } else {
             p = new JPanel(layout);
         }
@@ -568,7 +566,7 @@ public class StatisticsUtils {
             p.add(ak, CC.xy(2, row * 2 + 8));
             for (int z = 0; z < starts[row][0].length; z++) {
                 p.add(new JLabel(" " + starts[row][0][z] + " / " + starts[row][1][z] + " "),
-                        CC.xy(4 + 2 * z, row * 2 + 8, "center,fill"));
+                      CC.xy(4 + 2 * z, row * 2 + 8, "center,fill"));
             }
         }
 
@@ -594,31 +592,12 @@ public class StatisticsUtils {
     }
 
     private static JPanel overviewToPage(Regelwerk aks, int size, LinkedList<String> gliederungsliste, boolean longgld,
-            int glds, int[] statssum,
-            int[][][] stats, int[][] statsall, int toffset, int tsize, boolean last, boolean print) {
+                                         int glds, int[] statssum,
+                                         int[][][] stats, int[][] statsall, int toffset, int tsize, boolean last, boolean print) {
         glds = tsize;
         JPanel p = null;
         if (print) {
-            p = new JPanel() {
-                @Override
-                public void setFont(Font font) {
-                    if (font == null) {
-                        return;
-                    }
-                    super.setFont(font);
-                    for (Component c : getComponents()) {
-                        Font f = font;
-                        if ((c.getFont() != null) && (c.getFont().isItalic() || c.getFont().isBold())) {
-                            if (c.getFont().isItalic()) {
-                                f = font.deriveFont(Font.ITALIC);
-                            } else {
-                                f = font.deriveFont(Font.BOLD);
-                            }
-                        }
-                        c.setFont(f);
-                    }
-                }
-            };
+            p = createPrintPanel();
         } else {
             p = new JPanel();
         }
@@ -626,13 +605,12 @@ public class StatisticsUtils {
         int space = (print ? 1 : 4);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("" + space + "dlu:grow,fill:default," + space + "dlu,center:default");
+        sb.append(space).append("dlu:grow,fill:default,").append(space).append("dlu,center:default");
         for (int x = 0; x < size; x++) {
-            sb.append("," + space + "dlu,center:default");
+            sb.append(",").append(space).append("dlu,center:default");
         }
-        sb.append("," + space + "dlu:grow");
+        sb.append(",").append(space).append("dlu:grow");
         FormLayout layout = new FormLayout(sb.toString(), FormLayoutUtils.createLayoutString(tsize + 5, space));
-        // layout.setRowGroups(FormLayoutUtils.createGroups(glds + 5));
         p.setLayout(layout);
 
         p.add(new JLabel(I18n.get("RegistrationsPerOrganisation")), CC.xywh(2, 2, size * 2 + 3, 1, "center,center"));
@@ -640,7 +618,7 @@ public class StatisticsUtils {
         int offset = 4;
 
         p.add(new JLabel(I18n.get(longgld ? "Organisation" : "OrganisationShort")),
-                CC.xywh(2, 2 + offset, 1, 3, "center,center"));
+              CC.xywh(2, 2 + offset, 1, 3, "center,center"));
         p.add(new JLabel(I18n.get("SumSign")), CC.xywh(4, 2 + offset, 1, 3, "center,center"));
         String sexesheader = " " + I18n.geschlechtToShortString(aks, false) + " / "
                 + I18n.geschlechtToShortString(aks, true) + " ";
@@ -662,12 +640,13 @@ public class StatisticsUtils {
             p.add(new JLabel("" + statssum[y + toffset]), CC.xy(4, 6 + offset + 2 * y));
             for (int x = 0; x < size; x++) {
                 p.add(new JLabel(stats[y + toffset][x][0] + " / " + stats[y + toffset][x][1]),
-                        CC.xy(6 + 2 * x, 6 + offset + 2 * y));
+                      CC.xy(6 + 2 * x, 6 + offset + 2 * y));
             }
         }
 
         if (print) {
             p.setBackground(Color.WHITE);
+            p.setForeground(Color.BLACK);
             p.setFont(PrintManager.getFont());
         }
         return p;
@@ -684,39 +663,9 @@ public class StatisticsUtils {
         return g;
     }
 
-    public static <T extends ASchwimmer> LinkedList<String> getQualiGliederungenWithSwimmers(AWettkampf<T> wk) {
-        LinkedList<String> g = wk.getQualigliederungen();
-        ListIterator<String> li = g.listIterator();
-        while (li.hasNext()) {
-            if (!SearchUtils.hasSchwimmerForQGld(wk, li.next())) {
-                li.remove();
-            }
-        }
-        return g;
-    }
-
-    public static <T extends ASchwimmer> JComponent generateQualiGliederungStats(AWettkampf<T> wk, String gliederung) {
-        wk = Utils.copy(wk);
-
-        LinkedList<T> g = wk.getSchwimmer();
-        ListIterator<T> li = g.listIterator();
-        while (li.hasNext()) {
-            T t = li.next();
-            if (t.getQualifikationsebene().equals(gliederung)) {
-                t.setGliederung(gliederung);
-                t.setQualifikationsebene("");
-            } else {
-                li.remove();
-            }
-        }
-        // TODO: Check QGld
-        return createStatistics(SearchUtils.getSchwimmer(wk, new String[] { gliederung }, false), wk.getRegelwerk(),
-                gliederung, false);
-    }
-
     public static <T extends ASchwimmer> JComponent generateGliederungStats(AWettkampf<T> wk, String gliederung) {
-        return createStatistics(SearchUtils.getSchwimmer(wk, new String[] { gliederung }, true), wk.getRegelwerk(),
-                gliederung, false);
+        return createStatistics(SearchUtils.getSchwimmer(wk, new String[]{gliederung}, true), wk.getRegelwerk(),
+                                gliederung, false);
     }
 
     public static class PenaltyCounter {
@@ -734,35 +683,35 @@ public class StatisticsUtils {
                 p = new Strafe(p, true);
             }
             switch (p.getArt()) {
-            case AUSSCHLUSS:
-                excluded++;
-                break;
-            case DISQUALIFIKATION:
-                disqualified++;
-                break;
-            case NICHT_ANGETRETEN:
-                didNotStart++;
-                break;
-            case NICHTS:
-                break;
-            case STRAFPUNKTE:
-                if (p.getStrafpunkte() > 0) {
-                    points++;
-                }
-                break;
+                case AUSSCHLUSS:
+                    excluded++;
+                    break;
+                case DISQUALIFIKATION:
+                    disqualified++;
+                    break;
+                case NICHT_ANGETRETEN:
+                    didNotStart++;
+                    break;
+                case NICHTS:
+                    break;
+                case STRAFPUNKTE:
+                    if (p.getStrafpunkte() > 0) {
+                        points++;
+                    }
+                    break;
             }
         }
 
         public int getAmount(int pos) {
             switch (pos) {
-            case 0:
-                return getPoints();
-            case 1:
-                return getDisqualified();
-            case 2:
-                return getExcluded();
-            case 3:
-                return getSumOfPenalties();
+                case 0:
+                    return getPoints();
+                case 1:
+                    return getDisqualified();
+                case 2:
+                    return getExcluded();
+                case 3:
+                    return getSumOfPenalties();
             }
             return -1;
         }

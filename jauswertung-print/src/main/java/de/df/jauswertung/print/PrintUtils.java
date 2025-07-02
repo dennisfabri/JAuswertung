@@ -111,7 +111,7 @@ public final class PrintUtils {
     }
 
     public static <T extends ASchwimmer> Printable getNormalResultsPrintable(AWettkampf<T> wk, boolean reducedview,
-            boolean points, int qualification) {
+                                                                             boolean points, int qualification) {
         wk = Utils.copy(wk);
         Regelwerk aks = wk.getRegelwerk();
 
@@ -122,7 +122,7 @@ public final class PrintUtils {
             if (ak.hasMehrkampfwertung()) {
                 for (int a = 0; a < 2; a++) {
                     GetFullPrintable<T> gfp = new GetFullPrintable<>(wk, ak, a == 1, reducedview, points,
-                            qualification);
+                                                                     qualification);
                     EDTUtils.executeOnEDT(gfp);
                     Printable p = gfp.printable;
                     if (p != null) {
@@ -138,7 +138,7 @@ public final class PrintUtils {
     }
 
     public static <T extends ASchwimmer> Printable getResultsPrintable(AWettkampf<T> wk, boolean reducedview,
-            boolean points, boolean removeEmpty, int qualification) {
+                                                                       boolean points, boolean removeEmpty, int qualification) {
         if (wk == null) {
             return EmptyPrintable.Instance;
         }
@@ -152,7 +152,7 @@ public final class PrintUtils {
             if (ak.hasMehrkampfwertung()) {
                 for (int a = 0; a < 2; a++) {
                     GetFullPrintable<T> gfp = new GetFullPrintable<>(wk, ak, a == 1, reducedview, points,
-                            qualification);
+                                                                     qualification);
                     EDTUtils.executeOnEDT(gfp);
                     Printable p = gfp.printable;
                     if (p != null) {
@@ -170,7 +170,7 @@ public final class PrintUtils {
                 if (ak.hasMehrkampfwertung()) {
                     for (int a = 0; a < 2; a++) {
                         GetFullPrintable<T> gfp = new GetFullPrintable<>(wkx, ak, a == 1, reducedview, points,
-                                qualification);
+                                                                         qualification);
                         EDTUtils.executeOnEDT(gfp);
                         Printable p = gfp.printable;
                         if (p != null) {
@@ -202,8 +202,8 @@ public final class PrintUtils {
             return EmptyPrintable.Instance;
         }
         return PrintManager.getPrintable(table,
-                titel + (wk.getCurrentFilterIndex() > 0 ? " (" + wk.getCurrentFilter().getName() + ")" : ""),
-                JTablePrintable.OPT_ALL, true, true);
+                                         titel + (wk.getCurrentFilterIndex() > 0 ? " (" + wk.getCurrentFilter().getName() + ")" : ""),
+                                         JTablePrintable.OPT_ALL, true, true);
     }
 
     private static class GetFullPrintable<T extends ASchwimmer> implements Runnable {
@@ -219,7 +219,7 @@ public final class PrintUtils {
         Printable printable;
 
         public GetFullPrintable(AWettkampf<T> w, Altersklasse a, boolean m, boolean reducedview, boolean points,
-                int qualification) {
+                                int qualification) {
             wk = w;
             ak = a;
             male = m;
@@ -241,7 +241,11 @@ public final class PrintUtils {
      * @param cc
      */
     public static <T extends ASchwimmer> LinkedList<Printable> getIntermediateResults(boolean[][] selected,
-            AWettkampf<T> wk, int max, boolean reducedview, boolean points, int qualification) {
+                                                                                      AWettkampf<T> wk,
+                                                                                      int max,
+                                                                                      boolean reducedview,
+                                                                                      boolean points,
+                                                                                      int qualification) {
         wk = Utils.copy(wk);
         LinkedList<Printable> ps = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
@@ -250,7 +254,7 @@ public final class PrintUtils {
             for (int a = 0; a < 2; a++) {
                 if (selected[a][y]) {
                     Printable p = getIntermediatePrintable(wk, max, ak, a == 1, reducedview, points, printChecksum,
-                            qualification);
+                                                           qualification);
                     if (p != null) {
                         ps.addLast(p);
                     }
@@ -260,9 +264,9 @@ public final class PrintUtils {
         return ps;
     }
 
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({"unchecked", "null"})
     public static <T extends ASchwimmer> LinkedList<Printable> getBestOfDisciplineResultsPrintable(boolean[][] selected,
-            AWettkampf<T> wk, boolean reducedview, boolean points) {
+                                                                                                   AWettkampf<T> wk, boolean reducedview, boolean points) {
 
         // Disziplinen erkennen
         boolean strafeIstDisqualifikation = false;
@@ -290,7 +294,7 @@ public final class PrintUtils {
                             d[1].setRec(m.getRec());
                         }
                     } else {
-                        disziplinen.put(m.getName(), new Disziplin[] { f, m });
+                        disziplinen.put(m.getName(), new Disziplin[]{f, m});
                     }
                 }
             }
@@ -306,7 +310,7 @@ public final class PrintUtils {
             while (keys.hasMoreElements()) {
                 String name = keys.nextElement();
                 Disziplin[] d = disziplinen.get(name);
-                Altersklasse ak = new Altersklasse("", new Disziplin[][] { { d[0] }, { d[1] } }, false);
+                Altersklasse ak = new Altersklasse("", new Disziplin[][]{{d[0]}, {d[1]}}, false);
                 ak.setStrafeIstDisqualifikation(strafeIstDisqualifikation);
                 ak.setEinzelwertung(true);
                 ak.setChosenDisciplines(1, 1, 1);
@@ -343,11 +347,11 @@ public final class PrintUtils {
                             if (wk instanceof EinzelWettkampf) {
                                 Teilnehmer sx = (Teilnehmer) s;
                                 t = (T) ewk.createTeilnehmer(sx.getCompetitorId(), sx.getNachname(), sx.getVorname(), sx.getJahrgang(),
-                                        sx.isMaennlich(), sx.getGliederung(),
-                                        swimmer.get(ak.getDisziplin(a, sx.isMaennlich()).getName()), sx.getBemerkung());
+                                                             sx.isMaennlich(), sx.getGliederung(),
+                                                             swimmer.get(ak.getDisziplin(a, sx.isMaennlich()).getName()), sx.getBemerkung());
                             } else {
                                 t = (T) mwk.createMannschaft(s.getName(), s.isMaennlich(), s.getGliederung(),
-                                        swimmer.get(ak.getDisziplin(a, s.isMaennlich()).getName()), s.getBemerkung());
+                                                             swimmer.get(ak.getDisziplin(a, s.isMaennlich()).getName()), s.getBemerkung());
                             }
                             t.setDisciplineChoice(0, true);
                             t.setZeit(0, s.getZeit(a));
@@ -376,7 +380,10 @@ public final class PrintUtils {
      * @param cc
      */
     public static <T extends ASchwimmer> LinkedList<Printable> getFullResultsPrintable(boolean[][] selected,
-            AWettkampf<T> wkx, boolean reducedview, boolean points, int qualification) {
+                                                                                       AWettkampf<T> wkx,
+                                                                                       boolean reducedview,
+                                                                                       boolean points,
+                                                                                       int qualification) {
         final AWettkampf<T> wk = Utils.copy(wkx);
         LinkedList<Printable> ps = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
@@ -397,7 +404,7 @@ public final class PrintUtils {
     }
 
     static <T extends ASchwimmer> Printable getIntermediatePrintable(AWettkampf<T> wk, int max, Altersklasse ak,
-            boolean male, boolean reducedview, boolean points, boolean checksum, int qualification) {
+                                                                     boolean male, boolean reducedview, boolean points, boolean checksum, int qualification) {
         if (SearchUtils.getSchwimmer(wk, ak, male).isEmpty()) {
             return null;
         }
@@ -421,16 +428,16 @@ public final class PrintUtils {
         JResultTable tm = JResultTable.getResultTable(wk, ak, male, select, true, hlw, qualification);
 
         return getResultsPrintable(wk, ak, male, reducedview, points, checksum, qualification, tm,
-                I18n.get("IntermediateResults"));
+                                   I18n.get("IntermediateResults"));
     }
 
     public static JPanel createHeaderPanel(Regelwerk aks, Altersklasse ak, boolean male, boolean reducedview,
-            boolean includeAkName) {
+                                           boolean includeAkName) {
         return createHeaderPanel(aks, ak, male, reducedview, includeAkName, printChecksum);
     }
 
     public static JPanel createHeaderPanel(Regelwerk aks, Altersklasse ak, boolean male, boolean reducedview,
-            boolean includeAkName, boolean checksum) {
+                                           boolean includeAkName, boolean checksum) {
         StringBuilder sb = new StringBuilder("fill:default");
         if (includeAkName) {
             sb.append(",1dlu,fill:default");
@@ -449,30 +456,30 @@ public final class PrintUtils {
         int offset = 0;
         if (includeAkName) {
             headerpanel.add(PrintManager.getPrintLabel(ak.getName() + " " + I18n.geschlechtToString(aks, male)),
-                    CC.xyw(1, 1 + offset, 7, "center,fill"));
+                            CC.xyw(1, 1 + offset, 7, "center,fill"));
             offset += 2;
         }
 
         if ((ak.getDiszAnzahl() == 1) && (reducedview)) {
             headerpanel.add(PrintManager.getPrintLabel(ak.getDisziplin(0, male).getName()),
-                    CC.xyw(1, 1 + offset, 7, "center,fill"));
+                            CC.xyw(1, 1 + offset, 7, "center,fill"));
         } else {
             for (int z = 0; z < min; z++) {
                 headerpanel.add(PrintManager.getPrintLabel(I18n.get("DisciplineNumber", (z + 1)) + "    "),
-                        CC.xy(1, z + 1 + offset));
+                                CC.xy(1, z + 1 + offset));
                 Disziplin d = ak.getDisziplin(z, male);
                 headerpanel.add(PrintManager.getPrintLabel(
-                        I18n.get("DisciplineDescription", d.getName(), StringTools.zeitString(d.getRec()), d.getRec())
-                                + "  "),
-                        CC.xy(3, z + 1 + offset));
+                                        I18n.get("DisciplineDescription", d.getName(), StringTools.zeitString(d.getRec()), d.getRec())
+                                                + "  "),
+                                CC.xy(3, z + 1 + offset));
             }
             for (int z = min; z < ak.getDiszAnzahl(); z++) {
                 headerpanel.add(PrintManager.getPrintLabel("    " + I18n.get("DisciplineNumber", (z + 1)) + "    "),
-                        CC.xy(5, z - min + 1 + offset));
+                                CC.xy(5, z - min + 1 + offset));
                 Disziplin d = ak.getDisziplin(z, male);
                 headerpanel.add(
                         PrintManager.getPrintLabel(I18n.get("DisciplineDescription", d.getName(),
-                                StringTools.zeitString(d.getRec()), d.getRec()) + "  "),
+                                                            StringTools.zeitString(d.getRec()), d.getRec()) + "  "),
                         CC.xy(7, z - min + 1 + offset));
             }
         }
@@ -486,7 +493,7 @@ public final class PrintUtils {
     }
 
     private static JPanel createFooterPanel(Regelwerk aks, Altersklasse ak, boolean male, boolean reducedview,
-            JResultTable rt, boolean checksum) {
+                                            JResultTable rt, boolean checksum) {
         JPanel footerpanel = new JPanel(new FormLayout("0dlu,fill:default:grow,0dlu", "1dlu,fill:default,0dlu"));
         footerpanel.setOpaque(false);
 
@@ -505,7 +512,7 @@ public final class PrintUtils {
     }
 
     static <T extends ASchwimmer> Printable getFullPrintable(AWettkampf<T> wk, Altersklasse ak, boolean male,
-            boolean reducedview, boolean points, boolean checksum, int qualification) {
+                                                             boolean reducedview, boolean points, boolean checksum, int qualification) {
         if (SearchUtils.getSchwimmer(wk, ak, male).isEmpty()) {
             return null;
         }
@@ -514,9 +521,15 @@ public final class PrintUtils {
         return getResultsPrintable(wk, ak, male, reducedview, points, checksum, qualification, tm, I18n.get("Results"));
     }
 
-    private static <T extends ASchwimmer> Printable getResultsPrintable(AWettkampf<T> wk, Altersklasse ak, boolean male,
-            boolean reducedview, boolean points, boolean checksum, int qualification, JResultTable tm,
-            String resultstitle) {
+    private static <T extends ASchwimmer> Printable getResultsPrintable(AWettkampf<T> wk,
+                                                                        Altersklasse ak,
+                                                                        boolean male,
+                                                                        boolean reducedview,
+                                                                        boolean points,
+                                                                        boolean checksum,
+                                                                        int qualification,
+                                                                        JResultTable tm,
+                                                                        String resultstitle) {
         boolean times = true;
         if (FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getDataType().equals(DataType.RANK)) {
             times = false;
@@ -535,13 +548,13 @@ public final class PrintUtils {
 
             if (!ak.hasHLW()) {
                 JTableUtils.hideColumnAndRemoveData(tm,
-                        JResultTable.PREFIX + JResultTable.D_POINTS_OFFSET + (einzel ? 1 : 0));
+                                                    JResultTable.PREFIX + JResultTable.D_POINTS_OFFSET + (einzel ? 1 : 0));
             }
             JTableUtils.hideColumnAndRemoveData(tm,
-                    JResultTable.PREFIX + JResultTable.D_RANK_OFFSET + (einzel ? 1 : 0));
+                                                JResultTable.PREFIX + JResultTable.D_RANK_OFFSET + (einzel ? 1 : 0));
             if (!times) {
                 JTableUtils.hideColumnAndRemoveData(tm,
-                        JResultTable.PREFIX + (einzel ? 1 : 0) + JResultTable.D_TIME_OFFSET);
+                                                    JResultTable.PREFIX + (einzel ? 1 : 0) + JResultTable.D_TIME_OFFSET);
             }
             if (!points) {
                 JTableUtils.hideColumnAndRemoveData(tm, JResultTable.DIFF_OFFSET + (einzel ? 1 : 0));
@@ -567,20 +580,24 @@ public final class PrintUtils {
         String title = resultstitle + " - " + ak.toString() + " " + I18n.geschlechtToString(wk.getRegelwerk(), male)
                 + (wk.getCurrentFilterIndex() > 0 ? " (" + wk.getCurrentFilter().getName() + ")" : "");
         Printable p = PrintManager.getPrintable(tm, (String) null, JTablePrintable.OPT_ALL, true, true);
-        ExtendedHeaderFooterPrintable hfp = new ExtendedHeaderFooterPrintable(p, headerpanel, footerpanel,
-                ExtendedHeaderFooterPrintable.LEFT, ExtendedHeaderFooterPrintable.LEFT, PrintManager.getFont());
+        ExtendedHeaderFooterPrintable hfp = new ExtendedHeaderFooterPrintable(p,
+                                                                              headerpanel,
+                                                                              footerpanel,
+                                                                              ExtendedHeaderFooterPrintable.LEFT,
+                                                                              ExtendedHeaderFooterPrintable.LEFT,
+                                                                              PrintManager.getFont());
         return new HeaderFooterPrintable(hfp, new MessageFormat(title), null, PrintManager.getFont());
     }
 
     public static <T extends ASchwimmer> LinkedList<Printable> getEinzelwertungPrintables(AWettkampf<T> wk,
-            boolean removeEmpty, int qualification) {
+                                                                                          boolean removeEmpty, int qualification) {
         LinkedList<Printable> mp = new LinkedList<>();
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < aks.size(); x++) {
             AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, x, removeEmpty);
             if (w != null) {
                 Printable p = getResultsPrintable(w, true, PrintUtils.printPointsInDisciplineResults, removeEmpty,
-                        qualification);
+                                                  qualification);
                 if (p != null) {
                     mp.add(p);
                 }
@@ -590,7 +607,7 @@ public final class PrintUtils {
             AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, wg.getName(), removeEmpty);
             if (w != null) {
                 Printable p = getResultsPrintable(w, true, PrintUtils.printPointsInDisciplineResults, removeEmpty,
-                        qualification);
+                                                  qualification);
                 if (p != null) {
                     mp.add(p);
                 }
@@ -600,7 +617,7 @@ public final class PrintUtils {
     }
 
     public static <T extends ASchwimmer> Printable getWertungsgruppenPrintables(AWettkampf<T> wk, boolean removeEmpty,
-            int qualification) {
+                                                                                int qualification) {
         Printable mp = null;
         AWettkampf<T> w = CompetitionUtils.generateWertungsgruppenwettkampf(wk, true);
         if (w != null) {
@@ -616,6 +633,7 @@ public final class PrintUtils {
         if (wk == null) {
             return null;
         }
+
         {
             wk = Utils.copy(wk);
             LinkedList<T> sw = wk.getSchwimmer();
@@ -651,7 +669,7 @@ public final class PrintUtils {
                     Object[][] data = new Object[ak.getDiszAnzahl()][];
                     for (int z = 0; z < ak.getDiszAnzahl(); z++) {
                         JResultTable result = JResultTable.getResultTable(w, w.getRegelwerk().getAk(z), y == 1, true,
-                                true, 0);
+                                                                          true, 0);
                         if (result.getRowCount() > 0) {
                             ASchwimmer s = result.getResult(0).getSchwimmer();
                             int zeit = s.getZeit(0);
@@ -666,18 +684,18 @@ public final class PrintUtils {
                                 gld.append(result.getResult(pos).getSchwimmer().getGliederung());
                                 pos++;
                             }
-                            data[z] = new Object[] { name.toString(), gld.toString(),
-                                    ak.getDisziplin(z, y == 1).getName(), StringTools.zeitString(s.getZeit(0)) };
+                            data[z] = new Object[]{name.toString(), gld.toString(),
+                                    ak.getDisziplin(z, y == 1).getName(), StringTools.zeitString(s.getZeit(0))};
                         } else {
-                            data[z] = new Object[] { " ", " ", ak.getDisziplin(z, y == 1).getName(), " " };
+                            data[z] = new Object[]{" ", " ", ak.getDisziplin(z, y == 1).getName(), " "};
                         }
                     }
 
-                    JTable t = new JTable(new DefaultTableModel(data, new Object[] { I18n.get("Name"),
-                            I18n.get("Organisation"), I18n.get("Discipline"), I18n.get("Time") }));
+                    JTable t = new JTable(new DefaultTableModel(data, new Object[]{I18n.get("Name"),
+                            I18n.get("Organisation"), I18n.get("Discipline"), I18n.get("Time")}));
                     JTableUtils.setAlignmentRenderer(t,
-                            new int[] { SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT },
-                            SwingConstants.RIGHT);
+                                                     new int[]{SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT},
+                                                     SwingConstants.RIGHT);
                     JPrintTable.initPrintableJTable(t);
                     t.getTableHeader().setBorder(new ExtendedLineBorder(Color.BLACK, 1, 1, 0, 1));
                     t.setBorder(new LineBorder(Color.BLACK, 1));
@@ -689,18 +707,19 @@ public final class PrintUtils {
                     }
 
                     JPanel p = new JPanel(new FormLayout("1dlu,fill:default:grow,1dlu",
-                            "1dlu,fill:default,1dlu,fill:default,0dlu,fill:default,4dlu")) {
-                        private static final long serialVersionUID = -3026983883651885669L;
-
+                                                         "1dlu,fill:default,1dlu,fill:default,0dlu,fill:default,4dlu")) {
                         @Override
                         public void setFont(Font font) {
                             super.setFont(font);
+                            setForeground(Color.black);
                             for (Component c : getComponents()) {
                                 c.setFont(font);
                             }
                         }
                     };
-                    p.add(new JLabel(I18n.getAgeGroupAsString(aks, ak, y == 1) + "   "), CC.xy(2, 2, "center, fill"));
+                    JLabel title = new JLabel(I18n.getAgeGroupAsString(aks, ak, y == 1) + "   ");
+                    title.setForeground(Color.black);
+                    p.add(title, CC.xy(2, 2, "center, fill"));
                     p.add(t.getTableHeader(), CC.xy(2, 4));
                     p.add(t, CC.xy(2, 6));
 
@@ -719,13 +738,13 @@ public final class PrintUtils {
     }
 
     public static <T extends ASchwimmer> LinkedList<Printable> getEinzelwertungPrintables(AWettkampf<T> wk, int ak,
-            boolean removeEmpty, int qualification) {
+                                                                                          boolean removeEmpty, int qualification) {
         LinkedList<Printable> mp = new LinkedList<>();
         for (int y = 0; y < 2; y++) {
             AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, ak, y == 1);
             if (w != null) {
                 Printable p = getResultsPrintable(w, true, PrintUtils.printPointsInDisciplineResults, removeEmpty,
-                        qualification);
+                                                  qualification);
                 if (p != null) {
                     mp.add(p);
                 }
@@ -745,7 +764,7 @@ public final class PrintUtils {
         public LaufInfo(AWettkampf<T> wk, Lauf<T> lauf) {
             this.wk = wk;
             int sgsize = wk.getRegelwerk().getStartgruppen().length;
-            sgs = new BitSet[] { new BitSet(sgsize), new BitSet(sgsize) };
+            sgs = new BitSet[]{new BitSet(sgsize), new BitSet(sgsize)};
             sgs[0].clear();
             sgs[1].clear();
 
@@ -906,36 +925,36 @@ public final class PrintUtils {
         for (LaufInfo<T> lauf : data) {
             String[] aks = lauf.getStartgruppen();
             switch (aks.length) {
-            case 0:
-                temp[x][0] = "";
-                break;
-            case 1:
-                temp[x][0] = aks[0];
-                break;
-            default:
-                temp[x][0] = aks;
-                break;
+                case 0:
+                    temp[x][0] = "";
+                    break;
+                case 1:
+                    temp[x][0] = aks[0];
+                    break;
+                default:
+                    temp[x][0] = aks;
+                    break;
             }
             String[] disziplinen = lauf.getDisziplinen();
             switch (disziplinen.length) {
-            case 0:
-                temp[x][1] = "";
-                break;
-            case 1:
-                temp[x][1] = disziplinen[0];
-                break;
-            default:
-                temp[x][1] = disziplinen;
-                break;
+                case 0:
+                    temp[x][1] = "";
+                    break;
+                case 1:
+                    temp[x][1] = disziplinen[0];
+                    break;
+                default:
+                    temp[x][1] = disziplinen;
+                    break;
             }
             temp[x][2] = lauf.getFirstHeat() + " - " + lauf.getLastHeat();
             x++;
         }
 
         JPrintTable t = new JPrintTable(temp,
-                new Object[] { I18n.get("AgeGroup"), I18n.get("Discipline"), I18n.get("Heats") });
+                                        new Object[]{I18n.get("AgeGroup"), I18n.get("Discipline"), I18n.get("Heats")});
         JTableUtils.setAlignmentRenderer(t,
-                new int[] { SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER }, SwingConstants.CENTER);
+                                         new int[]{SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER}, SwingConstants.CENTER);
         t.setOpaque(true);
         t.setBackground(Color.WHITE);
         return t;

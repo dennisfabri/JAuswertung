@@ -219,6 +219,7 @@ public class PenaltylistePrinter implements Printer {
         Component[] cs = new Component[panels.length];
         for (int x = 0; x < panels.length; x++) {
             panels[x].setOpaque(false);
+            panels[x].setForeground(Color.BLACK);
             panels[x].setBackground(Color.WHITE);
             panels[x].setBorder(new LineBorder(Color.BLACK, 1));
             cs[x] = panels[x];

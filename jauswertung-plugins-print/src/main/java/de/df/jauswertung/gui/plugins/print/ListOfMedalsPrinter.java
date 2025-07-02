@@ -269,6 +269,8 @@ class ListOfMedalsPrinter implements Printer {
         for (int x = 0; x < etm.length; x++) {
 
             JLabel title = new JLabel(etm[x].getName());
+            title.setForeground(Color.BLACK);
+            title.setBackground(Color.WHITE);
             Font f = PrintManager.getFont();
             title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
 

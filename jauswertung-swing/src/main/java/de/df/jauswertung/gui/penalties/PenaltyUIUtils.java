@@ -1,5 +1,6 @@
 package de.df.jauswertung.gui.penalties;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
@@ -57,7 +58,7 @@ public class PenaltyUIUtils {
         return pci.getStrafe();
     }
 
-    public static interface IPenaltyCallback {
+    public interface IPenaltyCallback {
         void setStrafe(Strafe s);
     }
 
@@ -86,19 +87,11 @@ public class PenaltyUIUtils {
     }
 
     public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
-            boolean ignoreNA) {
-        return getPenalties(wk, index, selected, ignoreNA, false);
-    }
-
-    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
             boolean ignoreNA, boolean kurz) {
         Hashtable<String, JPanel> panels = new Hashtable<>();
         add(panels, wk, index, selected, false, null, ignoreNA, kurz);
 
-        LinkedList<String> indizes = new LinkedList<>();
-        for (String key : panels.keySet()) {
-            indizes.add(key);
-        }
+        LinkedList<String> indizes = new LinkedList<>(panels.keySet());
         Collections.sort(indizes);
 
         if (indizes.isEmpty()) {
@@ -106,17 +99,11 @@ public class PenaltyUIUtils {
         }
 
         LinkedList<JPanel> result = new LinkedList<>();
-        ListIterator<String> li = indizes.listIterator();
-        while (li.hasNext()) {
-            result.addLast(panels.get(li.next()));
+        for (String indize : indizes) {
+            result.addLast(panels.get(indize));
         }
 
-        return result.toArray(new JPanel[result.size()]);
-    }
-
-    public static <T extends ASchwimmer> JPanel[] getPenaltiesShort(AWettkampf<T> wk, int index, boolean[][] selected,
-            boolean ignoreNA) {
-        return getPenalties(wk, index, selected, ignoreNA, true);
+        return result.toArray(new JPanel[0]);
     }
 
     @SuppressWarnings({})
@@ -138,10 +125,9 @@ public class PenaltyUIUtils {
 
                     Collections.sort(liste, new SchwimmerNameVergleicher<>());
 
-                    if ((liste != null) && (liste.size() > 0)) {
-                        ListIterator<T> li = liste.listIterator();
-                        while (li.hasNext()) {
-                            add(panels, wk, index, li.next(), border, pl, ignoreNA, kurz);
+                    if (!liste.isEmpty()) {
+                        for (T t : liste) {
+                            add(panels, wk, index, t, border, pl, ignoreNA, kurz);
                         }
                     }
                 }
@@ -210,6 +196,7 @@ public class PenaltyUIUtils {
 
             if ((strafe.getArt() != Strafarten.NICHT_ANGETRETEN) || (!ignoreNA)) {
                 SimpleListBuilder sfm = new SimpleListBuilder(pl == null ? 1 : 4);
+                sfm.setColor(Color.BLACK);
                 if (pl == null) {
                     sfm.setFont(PrintManager.getFont());
                 }
@@ -270,7 +257,7 @@ public class PenaltyUIUtils {
         LinkedList<Strafe> ls = s.getStrafen(discipline);
         ListIterator<Strafe> li = ls.listIterator();
         Lauf<T> lauf = null;
-        if ((ls.size() > 0) && (discipline >= 0)) {
+        if ((!ls.isEmpty()) && (discipline >= 0)) {
             lauf = wk.getLaufliste().suche(s, discipline);
         }
 
@@ -284,6 +271,7 @@ public class PenaltyUIUtils {
 
             if ((strafe.getArt() != Strafarten.NICHT_ANGETRETEN) || (!ignoreNA)) {
                 SimpleFormBuilder sfm = new SimpleFormBuilder(pl == null ? 1 : 4);
+                sfm.setColor(Color.BLACK);
                 if (pl == null) {
                     sfm.setFont(PrintManager.getFont());
                 }

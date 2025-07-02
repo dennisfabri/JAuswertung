@@ -1,17 +1,7 @@
 package de.df.jauswertung.print;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.text.MessageFormat;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
@@ -23,6 +13,10 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.printables.ComponentListPrintable2;
 import de.df.jutils.print.printables.HeaderFooterPrintable;
 import de.df.jutils.util.StringTools;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.MessageFormat;
 
 public class RulebookSettingsPrintable extends HeaderFooterPrintable {
 
@@ -41,12 +35,6 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
 
         for (int x = 0; x < aks.size(); x++) {
             Altersklasse ak = aks.getAk(x);
-
-            TitledBorder border = new TitledBorder(ak.getName());
-            border.setTitleColor(Color.BLACK);
-            if (PrintManager.getFont() != null) {
-                border.setTitleFont(PrintManager.getFont());
-            }
 
             JPanel p = new JPanel(new BorderLayout(0, 0));
             p.setOpaque(false);

@@ -103,7 +103,7 @@ class StatisticsPrinter implements Printer {
     }
 
     <T extends ASchwimmer> Printable getPrintable() {
-        return PrintManager.getFinalPrintable(new StatisticsPrintable<ASchwimmer>(core.getFilteredWettkampf()),
+        return PrintManager.getFinalPrintable(new StatisticsPrintable<>(core.getFilteredWettkampf()),
                 core.getLastChangedDate(),
                 I18n.get("Statistics"), I18n.get("Statistics"));
     }
