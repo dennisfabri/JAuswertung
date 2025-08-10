@@ -2,10 +2,7 @@ package de.df.jauswertung.io.portal;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.lisasp.competition.base.api.type.Gender;
@@ -42,7 +39,7 @@ public class PortalImporter implements IImporter {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream input, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+                                                             LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
@@ -56,33 +53,40 @@ public class PortalImporter implements IImporter {
     }
 
     private LinkedList<Mannschaft> registrationTeam(RegistrationExportModel model, MannschaftWettkampf wk, Feedback fb,
-            LinkedList<Mannschaft> data, String filename) {
+                                                    LinkedList<Mannschaft> data, String filename) {
         LinkedList<Mannschaft> teams = new LinkedList<>();
         for (Registration registration : model.getRegistrations()) {
-            registration.getTeams().forEach(team -> {
+            for (RegistrationExportModel.Team team : registration.getTeams()) {
+                if (team.getAgeGroup() == null || team.getAgeGroup().isBlank()) {
+                    continue;
+                }
                 int akNummer = findAkNummer(wk, team.getAgeGroup());
                 if (akNummer < 0) {
                     fb.showFeedback(
                             "Altersklasse " + team.getAgeGroup() + " für " + team.getName() + " (" + team.getGender()
                                     + ") nicht gefunden");
-                    return;
+                    continue;
                 }
                 Boolean isMale = findGender(wk, team.getGender());
                 if (isMale == null) {
                     fb.showFeedback(
                             "Geschlecht " + team.getGender() + " für " + team.getName() + " (" + team.getAgeGroup()
                                     + ") nicht gefunden");
-                    return;                    
+                    continue;
                 }
                 Mannschaft m = wk.createMannschaft(team.getName(), isMale,
-                        registration.getOrganization(),
-                        akNummer, team.getComment());
+                                                   fixGliederung(registration.getOrganization()),
+                                                   akNummer, team.getComment());
+                if (team.getSubOrganization() != null && !team.getSubOrganization().isBlank()) {
+                    m.setQualifikationsebene(fixGliederung(m.getGliederung()));
+                    m.setGliederung(team.getSubOrganization());
+                }
                 importRegistrationEntry(team, m);
                 for (int x = 0; x < team.getMemberIds().size(); x++) {
                     importMannschaftsmitglied(m.getMannschaftsmitglied(x), registration, team.getMemberIds().get(x));
                 }
                 teams.add(m);
-            });
+            }
         }
         return teams;
     }
@@ -92,34 +96,34 @@ public class PortalImporter implements IImporter {
         String trueValue = I18n.geschlechtToShortString(rw, true);
         String falseValue = I18n.geschlechtToShortString(rw, false);
         return switch (gender) {
-        case Male -> {
-            if (trueValue.equalsIgnoreCase("m")) {
-                yield Boolean.TRUE;
-            } else if (falseValue.equalsIgnoreCase("m")) {
-                yield Boolean.FALSE;
-            } else {
-                yield null;
+            case Male -> {
+                if (trueValue.equalsIgnoreCase("m")) {
+                    yield Boolean.TRUE;
+                } else if (falseValue.equalsIgnoreCase("m")) {
+                    yield Boolean.FALSE;
+                } else {
+                    yield null;
+                }
             }
-        }
-        case Female -> {
-            if (trueValue.equalsIgnoreCase("w") || trueValue.equalsIgnoreCase("f")) {
-                yield Boolean.TRUE;
-            } else if (falseValue.equalsIgnoreCase("w") || falseValue.equalsIgnoreCase("f")) {
-                yield Boolean.FALSE;
-            } else {
-                yield null;
+            case Female -> {
+                if (trueValue.equalsIgnoreCase("w") || trueValue.equalsIgnoreCase("f")) {
+                    yield Boolean.TRUE;
+                } else if (falseValue.equalsIgnoreCase("w") || falseValue.equalsIgnoreCase("f")) {
+                    yield Boolean.FALSE;
+                } else {
+                    yield null;
+                }
             }
-        }
-        case Mixed -> {
-            if (trueValue.equalsIgnoreCase("x")) {
-                yield Boolean.TRUE;
-            } else if (falseValue.equalsIgnoreCase("x")) {
-                yield Boolean.FALSE;
-            } else {
-                yield null;
+            case Mixed -> {
+                if (trueValue.equalsIgnoreCase("x")) {
+                    yield Boolean.TRUE;
+                } else if (falseValue.equalsIgnoreCase("x")) {
+                    yield Boolean.FALSE;
+                } else {
+                    yield null;
+                }
             }
-        }
-        case Unknown -> null;
+            case Unknown -> null;
         };
     }
 
@@ -145,7 +149,7 @@ public class PortalImporter implements IImporter {
     }
 
     private void importMannschaftsmitglied(Mannschaftsmitglied mitglied,
-            RegistrationExportModel.Registration registration, String id) {
+                                           RegistrationExportModel.Registration registration, String id) {
         Optional<RegistrationExportModel.Athlete> maybeAthlete = registration.getAthletes().stream()
                 .filter(a -> a.getId().equals(id))
                 .findFirst();
@@ -179,15 +183,18 @@ public class PortalImporter implements IImporter {
     }
 
     private LinkedList<Teilnehmer> registrationIndividual(RegistrationExportModel model,
-            EinzelWettkampf wk, Feedback fb, LinkedList<Teilnehmer> data, String filename) {
+                                                          EinzelWettkampf wk, Feedback fb, LinkedList<Teilnehmer> data, String filename) {
         LinkedList<Teilnehmer> teilnehmerListe = new LinkedList<>();
         for (Registration registration : model.getRegistrations()) {
             for (RegistrationExportModel.Athlete athlete : registration.getAthletes()) {
+                if (athlete.getAgeGroup() == null || athlete.getAgeGroup().isBlank()) {
+                    continue;
+                }
                 int akNummer = findAkNummer(wk, athlete.getAgeGroup());
                 if (akNummer < 0) {
                     fb.showFeedback("Altersklasse " + athlete.getAgeGroup() + " für " + athlete.getFirstName() + " "
-                            + athlete.getLastName() + " " + athlete.getGender()
-                            + " nicht gefunden");
+                                            + athlete.getLastName() + " " + athlete.getGender()
+                                            + " nicht gefunden");
                     continue;
                 }
                 Boolean isMale = findGender(wk, athlete.getGender());
@@ -196,14 +203,18 @@ public class PortalImporter implements IImporter {
                             "Geschlecht " + athlete.getGender() + " für " + athlete.getFirstName() + " "
                                     + athlete.getLastName() + " (" + athlete.getAgeGroup()
                                     + ") nicht gefunden");
-                    continue;                    
+                    continue;
                 }
                 Teilnehmer t = wk.createTeilnehmer(athlete.getAthleteId(), athlete.getLastName(),
-                        athlete.getFirstName(),
-                        athlete.getYearOfBirth() == null ? 0 : athlete.getYearOfBirth(),
-                        athlete.getGender() == Gender.Male,
-                        registration.getOrganization(),
-                        akNummer, athlete.getComment());
+                                                   athlete.getFirstName(),
+                                                   athlete.getYearOfBirth() == null ? 0 : athlete.getYearOfBirth(),
+                                                   athlete.getGender() == Gender.Male,
+                                                   fixGliederung(registration.getOrganization()),
+                                                   akNummer, athlete.getComment());
+                if (athlete.getSubOrganization() != null && !athlete.getSubOrganization().isBlank()) {
+                    t.setQualifikationsebene(fixGliederung(t.getGliederung()));
+                    t.setGliederung(athlete.getSubOrganization());
+                }
                 importRegistrationEntry(athlete, t);
                 teilnehmerListe.add(t);
             }
@@ -211,22 +222,40 @@ public class PortalImporter implements IImporter {
         return teilnehmerListe;
     }
 
+    private static final Set<String> ORGANIZATION_LEVEL = Set.of("bundesverband", "bv",
+                                                                 "landesverband", "lv",
+                                                                 "bezirk", "bz", "bez",
+                                                                 "ortsgruppe", "og", "sp");
+
+    private String fixGliederung(String gliederung) {
+        if (gliederung == null || gliederung.isBlank()) {
+            return "";
+        }
+        for (String level : ORGANIZATION_LEVEL) {
+            if (gliederung.toLowerCase().startsWith(level)) {
+                return gliederung.substring(level.length()).trim();
+            }
+        }
+        return gliederung;
+    }
+
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+                                                                   LinkedList<T> data, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         throw new NotImplementedException();
     }
 
     @Override
     public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk,
-            Feedback fb) throws TableFormatException, TableEntryException, TableException, IOException {
+                                                                          Feedback fb)
+            throws TableFormatException, TableEntryException, TableException, IOException {
         throw new NotImplementedException();
     }
 
     @Override
     public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name,
-            AWettkampf<T> wk, Feedback fb)
+                                                                                        AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         throw new NotImplementedException();
     }
@@ -273,10 +302,10 @@ public class PortalImporter implements IImporter {
             return false;
         }
         switch (type) {
-        case REGISTRATION:
-            return true;
-        default:
-            return false;
+            case REGISTRATION:
+                return true;
+            default:
+                return false;
         }
     }
 
@@ -287,7 +316,7 @@ public class PortalImporter implements IImporter {
 
     @Override
     public String[] getSuffixes() {
-        return new String[] { ".json" };
+        return new String[]{".json"};
     }
 
 }

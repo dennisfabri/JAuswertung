@@ -37,6 +37,7 @@ class RegistrationExportModel {
         private Gender gender;
         @JsonInclude(Include.ALWAYS)
         private String ageGroup;
+        private String subOrganization;
         private Double points;
         private Integer place;
         private String comment;
