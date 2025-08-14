@@ -25,12 +25,6 @@ public class Altersklasse implements Serializable {
 
     private static final long serialVersionUID = -3984390739372155907L;
 
-    /**
-     * -- GETTER --
-     *  Liefert den Namen zurueck.
-     *
-     * @return Gibt den Namen ohne Geschlecht zurueck.
-     */
     @Getter
     @XStreamAsAttribute
     private String name;

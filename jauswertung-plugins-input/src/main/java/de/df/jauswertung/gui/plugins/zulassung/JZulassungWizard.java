@@ -290,7 +290,7 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
 
             panel.add(single, CC.xyw(2, 2, 12));
 
-            panel.add(new JLabel(I18n.get("Zulassung")), CC.xy(4, 4));
+            panel.add(new JLabel(I18n.get("Amount")), CC.xy(4, 4));
             panel.add(simpleInput, CC.xy(6, 4));
 
             panel.add(multi, CC.xyw(2, 6, 12));

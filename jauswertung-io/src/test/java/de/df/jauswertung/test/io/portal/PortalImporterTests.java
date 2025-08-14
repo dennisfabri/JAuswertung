@@ -12,6 +12,8 @@ import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.Teilnehmer;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import de.df.jutils.util.NullFeedback;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -49,9 +51,9 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwm");
         MannschaftWettkampf wk = new MannschaftWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass().getResourceAsStream("/portal/Empty.json")) {
-            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, null, "Empty");
+            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, "Empty");
 
             assertNotNull(actual);
             assertEquals(0, actual.size());
@@ -64,9 +66,9 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwm");
         MannschaftWettkampf wk = new MannschaftWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass().getResourceAsStream("/portal/LeereGliederungen.json")) {
-            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, null, "LeereGliederungen");
+            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, "LeereGliederungen");
 
             assertNotNull(actual);
             assertEquals(0, actual.size());
@@ -80,10 +82,10 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwm");
         MannschaftWettkampf wk = new MannschaftWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass()
                 .getResourceAsStream("/portal/Mannschaft-1OG-" + (maennlich ? "male" : "female") + ".json")) {
-            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, null, "Mannschaft-1OG");
+            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, "Mannschaft-1OG");
 
             assertNotNull(actual);
             assertEquals(1, actual.size());
@@ -142,11 +144,11 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwm");
         MannschaftWettkampf wk = new MannschaftWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass()
                 .getResourceAsStream(
                         "/portal/Mannschaft-1OG-null-values-" + (maennlich ? "male" : "female") + ".json")) {
-            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, null, "Mannschaft-1OG-Null");
+            LinkedList<Mannschaft> actual = importer.registration(is, wk, fb, "Mannschaft-1OG-Null");
 
             assertNotNull(actual);
             assertEquals(1, actual.size());
@@ -205,10 +207,10 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwe");
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass()
                 .getResourceAsStream("/portal/Einzel-1OG-" + (maennlich ? "Male" : "Female") + ".json")) {
-            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG");
+            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, "Einzel-1OG");
 
             assertNotNull(actual);
             assertEquals(1, actual.size());
@@ -240,10 +242,10 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwe");
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass()
                 .getResourceAsStream("/portal/Einzel-1OG-null-values-" + (maennlich ? "Male" : "Female") + ".json")) {
-            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-Null");
+            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, "Einzel-1OG-Null");
 
             assertNotNull(actual);
             assertEquals(1, actual.size());
@@ -275,10 +277,10 @@ class PortalImporterTests {
         Strafen strafen = new Strafen();
         Regelwerk aks = InputManager.ladeAKs("/src/test/resources/rulebooks/DLRG 2023.rwe");
         EinzelWettkampf wk = new EinzelWettkampf(aks, strafen);
-        Feedback fb = null;
+        Feedback fb = new NullFeedback();
         try (InputStream is = getClass()
                 .getResourceAsStream("/portal/Einzel-1OG-no-points-" + (maennlich ? "Male" : "Female") + ".json")) {
-            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, null, "Einzel-1OG-no-points");
+            LinkedList<Teilnehmer> actual = importer.registration(is, wk, fb, "Einzel-1OG-no-points");
 
             assertNotNull(actual);
             assertEquals(1, actual.size());

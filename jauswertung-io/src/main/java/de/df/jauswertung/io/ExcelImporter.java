@@ -100,7 +100,7 @@ public final class ExcelImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream is, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data2, String filename)
+            String filename)
             throws IOException, TableFormatException, TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -129,12 +129,6 @@ public final class ExcelImporter implements IImporter {
                 titles[x] = wb.getSheetName(x);
             }
             result = ImportUtils.tablesToRegistration(wk, fb, titles, tables, filename);
-        }
-        if (result == null) {
-            return data2;
-        }
-        if (data2 != null) {
-            result.addAll(data2);
         }
         return result;
     }
@@ -214,7 +208,7 @@ public final class ExcelImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+            String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }

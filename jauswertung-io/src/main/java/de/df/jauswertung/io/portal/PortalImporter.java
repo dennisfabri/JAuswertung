@@ -39,21 +39,22 @@ public class PortalImporter implements IImporter {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream input, AWettkampf<T> wk, Feedback fb,
-                                                             LinkedList<T> data, String filename)
+                                                             String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
+        LinkedList<T> data = new LinkedList<>();
         ObjectMapper mapper = new ObjectMapper();
         RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
         if (wk instanceof MannschaftWettkampf mwk) {
-            return (LinkedList<T>) registrationTeam(model, mwk, fb, (LinkedList<Mannschaft>) data, filename);
+            return (LinkedList<T>) registrationTeam(model, mwk, fb);
         }
         if (wk instanceof EinzelWettkampf ewk) {
-            return (LinkedList<T>) registrationIndividual(model, ewk, fb, (LinkedList<Teilnehmer>) data, filename);
+            return (LinkedList<T>) registrationIndividual(model, ewk, fb);
         }
-        return data != null ? data : new LinkedList<>();
+        return data;
     }
 
-    private LinkedList<Mannschaft> registrationTeam(RegistrationExportModel model, MannschaftWettkampf wk, Feedback fb,
-                                                    LinkedList<Mannschaft> data, String filename) {
+    private LinkedList<Mannschaft> registrationTeam(RegistrationExportModel model, MannschaftWettkampf wk, Feedback fb) {
+        fb.showFeedback("Importiere Mannschaften");
         LinkedList<Mannschaft> teams = new LinkedList<>();
         for (Registration registration : model.getRegistrations()) {
             for (RegistrationExportModel.Team team : registration.getTeams()) {
@@ -88,6 +89,7 @@ public class PortalImporter implements IImporter {
                 teams.add(m);
             }
         }
+        fb.showFeedback("Import abgeschlossen");
         return teams;
     }
 
@@ -127,22 +129,23 @@ public class PortalImporter implements IImporter {
         };
     }
 
-    private void importRegistrationEntry(Participant team, ASchwimmer as) {
-        as.setImportId(team.getId());
-        as.setMeldepunkte(0, team.getPoints() == null ? 0 : team.getPoints());
-        for (int x = 0; x < as.getAK().getDiszAnzahl(); x++) {
-            as.setMeldezeit(x, 0);
-            as.setDisciplineChoice(x, false);
+    private void importRegistrationEntry(Participant source, ASchwimmer destination) {
+        destination.setImportId(source.getId());
+        destination.setMeldepunkte(0, source.getPoints() == null ? 0 : source.getPoints());
+        for (int x = 0; x < destination.getAK().getDiszAnzahl(); x++) {
+            destination.setMeldePlatz(source.getPlace() == null ? 0 : source.getPlace());
+            destination.setMeldezeit(x, 0);
+            destination.setDisciplineChoice(x, false);
         }
-        for (Discipline discipline : team.getDisciplines().stream().filter(d -> d.isSelected())
+        for (Discipline discipline : source.getDisciplines().stream().filter(d -> d.isSelected())
                 .toList()) {
-            for (int x = 0; x < as.getAK().getDiszAnzahl(); x++) {
-                Disziplin d = as.getAK().getDisziplin(x, as.isMaennlich());
+            for (int x = 0; x < destination.getAK().getDiszAnzahl(); x++) {
+                Disziplin d = destination.getAK().getDisziplin(x, destination.isMaennlich());
                 int timeInHundreds = discipline.getTimeInMilliseconds() == null ? 0
                         : discipline.getTimeInMilliseconds() / 10;
                 if (d.getName().equalsIgnoreCase(discipline.getName())) {
-                    as.setDisciplineChoice(x, true);
-                    as.setMeldezeit(x, timeInHundreds);
+                    destination.setDisciplineChoice(x, true);
+                    destination.setMeldezeit(x, timeInHundreds);
                 }
             }
         }
@@ -183,7 +186,8 @@ public class PortalImporter implements IImporter {
     }
 
     private LinkedList<Teilnehmer> registrationIndividual(RegistrationExportModel model,
-                                                          EinzelWettkampf wk, Feedback fb, LinkedList<Teilnehmer> data, String filename) {
+                                                          EinzelWettkampf wk, Feedback fb) {
+        fb.showFeedback("Importiere Teilnehmer");
         LinkedList<Teilnehmer> teilnehmerListe = new LinkedList<>();
         for (Registration registration : model.getRegistrations()) {
             for (RegistrationExportModel.Athlete athlete : registration.getAthletes()) {
@@ -219,6 +223,7 @@ public class PortalImporter implements IImporter {
                 teilnehmerListe.add(t);
             }
         }
+        fb.showFeedback("Import abgeschlossen");
         return teilnehmerListe;
     }
 
@@ -241,7 +246,7 @@ public class PortalImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-                                                                   LinkedList<T> data, String filename)
+                                                                   String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         throw new NotImplementedException();
     }
@@ -311,7 +316,7 @@ public class PortalImporter implements IImporter {
 
     @Override
     public String getName() {
-        return "Meldeportal";
+        return "Wettkampfportal";
     }
 
     @Override

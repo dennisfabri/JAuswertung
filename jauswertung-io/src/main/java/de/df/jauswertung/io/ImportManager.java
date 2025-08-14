@@ -99,9 +99,8 @@ public class ImportManager {
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
     public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
-            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, Object data, String filename)
+            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, String filename)
             throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException,
             TableEntryException, TableException, IOException {
         if (importer == null) {
@@ -123,7 +122,7 @@ public class ImportManager {
         case HEAT_LIST:
             return importer.heats(is, wk, fb);
         case REGISTRATION:
-            return importer.registration(is, wk, fb, (LinkedList<T>) data, filename);
+            return importer.registration(is, wk, fb, filename);
         case RESULTS:
             return importer.results(is, wk, fb);
         case REFEREES:
@@ -135,7 +134,7 @@ public class ImportManager {
         case HEAT_TIMES:
             return importer.heattimes(is, wk, fb);
         case REGISTRATION_UPDATE:
-            return importer.registrationUpdate(is, wk, fb, (LinkedList<T>) data, filename);
+            return importer.registrationUpdate(is, wk, fb, filename);
         case STARTERS:
             return importer.starters(is, wk, fb);
         default:
@@ -153,7 +152,7 @@ public class ImportManager {
         Object result = null;
         for (String filename : filenames) {
             try (InputStream out = new FileInputStream(filename)) {
-                result = importData(e, out, datatype, wk, fb, result, filename);
+                result = importData(e, out, datatype, wk, fb, filename);
             }
         }
         return result;

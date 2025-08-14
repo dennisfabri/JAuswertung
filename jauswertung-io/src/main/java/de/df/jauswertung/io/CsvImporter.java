@@ -74,7 +74,7 @@ public final class CsvImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data2, String filename)
+            String filename)
             throws TableFormatException, TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -115,15 +115,8 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        LinkedList<T> result = ImportUtils.tablesToRegistration(wk, fb, new String[] { "" }, new Object[][][] { data },
-                filename);
-        if (result == null) {
-            return data2;
-        }
-        if (data2 != null) {
-            result.addAll(data2);
-        }
-        return result;
+        return ImportUtils.tablesToRegistration(wk, fb, new String[] { "" }, new Object[][][] { data },
+                                                filename);
     }
 
     static char identifySeparator(String data) {
@@ -199,7 +192,7 @@ public final class CsvImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data2, String filename)
+            String filename)
             throws TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -240,16 +233,9 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        LinkedList<T> result = ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" },
-                new Object[][][] { data },
-                filename);
-        if (result == null) {
-            return data2;
-        }
-        if (data2 != null) {
-            result.addAll(data2);
-        }
-        return result;
+        return ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" },
+                                                      new Object[][][] { data },
+                                                      filename);
     }
 
     @Override

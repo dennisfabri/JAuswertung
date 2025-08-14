@@ -382,7 +382,7 @@ public class XmlExporter extends EmptyExporter {
                 e.setAttributeNS(null, "penalty", I18n.getPenaltyShort(results[i].getStrafe()));
                 e.setAttributeNS(null, "number", StartnumberFormatManager.format(s));
                 e.setAttributeNS(null, "regpoints", doubleFormat.format(s.getMeldepunkte(0)));
-                e.setAttributeNS(null, "regrank", "" + s.getMeldePlatz());
+                e.setAttributeNS(null, "regrank", s.getMeldePlatz() > 0 ? "" + s.getMeldePlatz() : "");
                 e.setAttributeNS(null, "comment", s.getBemerkung());
                 e.setAttributeNS(null, "organisation", s.getGliederung());
                 e.setAttributeNS(null, "qualificationorganisation", s.getQualifikationsebene());
@@ -508,7 +508,7 @@ public class XmlExporter extends EmptyExporter {
             e.setAttributeNS(null, "agegroup", aReg.getAK().toString());
             e.setAttributeNS(null, "number", StartnumberFormatManager.format(aReg));
             e.setAttributeNS(null, "regpoints", doubleFormat.format(aReg.getMeldepunkte(0)));
-            e.setAttributeNS(null, "regrank", "" + aReg.getMeldePlatz());
+            e.setAttributeNS(null, "regrank", aReg.getMeldePlatz() > 0 ? "" + aReg.getMeldePlatz() : "");
             e.setAttributeNS(null, "comment", aReg.getBemerkung());
             e.setAttributeNS(null, "organisation", aReg.getGliederung());
             e.setAttributeNS(null, "ak", "" + aReg.isAusserKonkurrenz());

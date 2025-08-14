@@ -44,7 +44,7 @@ public final class MiscImportUtils {
         try {
             fis = new FileInputStream(name);
 
-            LinkedList<T> results = importer.registration(fis, wk, new NullFeedback(), null, null);
+            LinkedList<T> results = importer.registration(fis, wk, new NullFeedback(), null);
             fis.close();
             fis = null;
             return results;

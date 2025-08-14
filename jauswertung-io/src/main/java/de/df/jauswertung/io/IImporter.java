@@ -15,14 +15,14 @@ import de.df.jutils.util.Feedback;
 
 /**
  * Interface zum Import von Daten
- * 
+ *
  * @author Dennis Fabri
  * @date 17.06.2006
  */
 public interface IImporter {
     /**
      * Importiert aus einer Datei die Meldedaten von Schwimmern.
-     * 
+     *
      * @param <T>  Teilnehmer oder Mannschaft
      * @param name Name der Datei
      * @param wk   Aktueller Wettkampf
@@ -33,19 +33,18 @@ public interface IImporter {
      * @throws TableEntryException  Die TableEntryException wird geworfen, wenn
      *                              Eintraege ein falsches Format aufweisen.
      */
-    <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+    <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+                                                            String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk,
-            Feedback fb)
+                                                                                 Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)

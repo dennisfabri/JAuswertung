@@ -66,7 +66,7 @@ public final class EasyWKImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data2, String filename)
+            String filename)
             throws TableFormatException, TableEntryException, TableException {
         return null;
     }
@@ -266,7 +266,7 @@ public final class EasyWKImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            LinkedList<T> data, String filename)
+            String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }
