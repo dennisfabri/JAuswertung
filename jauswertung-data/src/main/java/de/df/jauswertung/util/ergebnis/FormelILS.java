@@ -58,10 +58,10 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             boolean zeroed1 = false;
             boolean zeroed2 = false;
             if (sd1.getStrafart() != Strafarten.NICHTS) {
-                zeroed1 = true;
+                // zeroed1 = true;
             }
             if (sd2.getStrafart() != Strafarten.NICHTS) {
-                zeroed2 = true;
+                // zeroed2 = true;
             }
             if (sd1.getTime() == 0) {
                 zeroed1 = true;
@@ -102,7 +102,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.daten.regelwerk.Formel#getFormel()
      */
     @Override
@@ -127,12 +127,14 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     private static final double Epsilon = 0.005;
 
-    /** ----------------- */
+    /**
+     * -----------------
+     */
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public void setPoints(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,
-            Hashtable<String, Zielrichterentscheid<T>> zes) {
+                          Hashtable<String, Zielrichterentscheid<T>> zes) {
         if (swimmer.length == 0) {
             return;
         }
@@ -174,7 +176,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
                     if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                             || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                         swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos, x - pos + 1 - disCounter,
-                                Strafe.NICHTS, heatSize));
+                                                       swimmer[y].getStrafe(), heatSize));
                     }
                 }
                 disCounter = 0;
@@ -196,7 +198,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             if ((swimmer[y].getStrafart() == Strafarten.STRAFPUNKTE)
                     || (swimmer[y].getStrafart() == Strafarten.NICHTS)) {
                 swimmer[y].setPoints(getPoints(swimmer[y].getTime(), d.getRec(), pos,
-                        swimmer.length - pos + 1 - disCounter, Strafe.NICHTS, heatSize));
+                                               swimmer.length - pos + 1 - disCounter, swimmer[y].getStrafe(), heatSize));
             }
         }
 
@@ -228,10 +230,10 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         }
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     @Override
     public SchwimmerResult<T>[] toResults(SchwimmerResult<T>[] results, AWettkampf<T> wk, Altersklasse ak,
-            Hashtable<String, Zielrichterentscheid<T>> zes, boolean zw) {
+                                          Hashtable<String, Zielrichterentscheid<T>> zes, boolean zw) {
 
         boolean isRealFinal = wk.getBooleanProperty(IS_FINAL, false) && wk.getBooleanProperty(IS_QUALIFIED, false);
 
@@ -242,19 +244,20 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
             int dnf = 0;
             double[] ps = new double[daten.length];
             for (int y = 0; y < daten.length; y++) {
-                ps[y] = daten[y].getPoints();
-                switch (daten[y].getStrafe().getArt()) {
-                case AUSSCHLUSS:
-                    result.setKeineWertung(true);
-                    dnf++;
-                    break;
-                case DISQUALIFIKATION:
-                    dnf++;
-                    break;
-                case NICHT_ANGETRETEN:
-                    dnf++;
-                    break;
-                default:
+                SchwimmerData schwimmer = daten[y];
+                ps[y] = schwimmer.getPoints();
+                switch (schwimmer.getStrafe().getArt()) {
+                    case AUSSCHLUSS:
+                        result.setKeineWertung(true);
+                        dnf++;
+                        break;
+                    case DISQUALIFIKATION:
+                        dnf++;
+                        break;
+                    case NICHT_ANGETRETEN:
+                        dnf++;
+                        break;
+                    default:
                 }
             }
 
@@ -394,13 +397,14 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         // heatSize = 8;
         double points = switch (s.getArt()) {
             case AUSSCHLUSS, NICHT_ANGETRETEN -> 0;
-            case DISQUALIFIKATION -> getPoints(rank+amount-1);
+            case DISQUALIFIKATION -> getPoints(rank + amount - 1);
+            case STRAFPUNKTE -> getPoints(rank) - s.getStrafpunkte();
             default -> getPoints(rank);
         };
         return points;
     }
 
-    protected static final int[] POINTS = new int[] { 20, 18, 16, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1 };
+    protected static final int[] POINTS = new int[]{20, 18, 16, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1};
 
     protected double getPoints(int rank) {
         if ((rank > 0) && (rank <= POINTS.length)) {
