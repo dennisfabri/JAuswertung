@@ -33,9 +33,6 @@ import de.df.jutils.plugin.RemoteAction;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.TimeMeasurement;
 
-/**
- * @since 27.09.2005
- */
 public final class JAuswertungLauncher {
 
     private JAuswertungLauncher() {
@@ -58,7 +55,7 @@ public final class JAuswertungLauncher {
             }
             x += 2;
         }
-        return actions.toArray(new RemoteAction[actions.size()]);
+        return actions.toArray(new RemoteAction[0]);
     }
 
     private static Image getImage() {
@@ -94,9 +91,6 @@ public final class JAuswertungLauncher {
 
     private static boolean mode = JPanelContainer.DOUBLE;
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         DefaultInit.init();
 

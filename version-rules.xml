@@ -1,31 +1,34 @@
 <ruleset comparisonMethod="maven"
          xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
-  <ignoreVersions>
-    <ignoreVersion type="regex">.*-preview</ignoreVersion>
-    <ignoreVersion type="regex">.*-beta</ignoreVersion>
-    <ignoreVersion type="regex">.*-beta\d+</ignoreVersion>
-    <ignoreVersion type="regex">.*-beta-\d+</ignoreVersion>
-    <ignoreVersion type="regex">.*-alpha\d+</ignoreVersion>
-    <ignoreVersion type="regex">.*-rc\d+</ignoreVersion>
-    <ignoreVersion type="regex">.*-M\d+</ignoreVersion>
-    <ignoreVersion type="regex">.*-ea\+.+</ignoreVersion>
-  </ignoreVersions>
-  <rules>
-    <!-- Prevent javafx to update to newer jdks -->
-    <rule groupId="org.openjfx" artifactId="javafx-controls">
-      <ignoreVersions>
-        <ignoreVersion type="regex">22.*</ignoreVersion>
-        <ignoreVersion type="regex">23.*</ignoreVersion>
-        <ignoreVersion type="regex">24.*</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <!-- prevent updates to incompatible changes-->
-    <rule groupId="org.xhtmlrenderer" artifactId="flying-saucer-core">
-      <ignoreVersions>
-        <ignoreVersion type="regex">9.10.*</ignoreVersion>
-        <ignoreVersion type="regex">9.11.*</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-  </rules>
+    <ignoreVersions>
+        <ignoreVersion type="regex">.*-preview</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta-\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-alpha\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-rc\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-RC\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-M\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-ea\+.+</ignoreVersion>
+    </ignoreVersions>
+    <rules>
+        <!-- Prevent javafx to update to newer jdks -->
+        <rule groupId="org.openjfx" artifactId="javafx-controls">
+            <ignoreVersions>
+                <ignoreVersion type="regex">22.*</ignoreVersion>
+                <ignoreVersion type="regex">23.*</ignoreVersion>
+                <ignoreVersion type="regex">24.*</ignoreVersion>
+                <ignoreVersion type="regex">25.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <!-- prevent updates to incompatible changes-->
+        <rule groupId="org.xhtmlrenderer" artifactId="flying-saucer-core">
+            <ignoreVersions>
+                <ignoreVersion type="regex">9.10.*</ignoreVersion>
+                <ignoreVersion type="regex">9.11.*</ignoreVersion>
+                <ignoreVersion type="regex">10.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
 </ruleset>
