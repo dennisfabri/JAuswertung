@@ -409,7 +409,9 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
     <applications>
       <application id="installer" beanClass="com.install4j.runtime.beans.applications.InstallerApplication">
         <serializedBean>
-          <property name="frameHeight" type="int" value="430" />
+          <property name="frameHeight" type="int" value="800" />
+          <property name="frameWidth" type="int" value="1024" />
+          <property name="resizable" type="boolean" value="false" />
         </serializedBean>
         <startup>
           <screen id="1" beanClass="com.install4j.runtime.beans.screens.StartupScreen" rollbackBarrierExitCode="0">
