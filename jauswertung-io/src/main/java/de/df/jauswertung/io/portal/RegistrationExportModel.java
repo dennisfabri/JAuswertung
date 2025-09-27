@@ -2,6 +2,7 @@ package de.df.jauswertung.io.portal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.lisasp.competition.base.api.type.Gender;
 
@@ -37,11 +38,12 @@ class RegistrationExportModel {
         private Gender gender;
         @JsonInclude(Include.ALWAYS)
         private String ageGroup;
-        private String subOrganization;
         private Double points;
         private Integer place;
         private String comment;
         private List<Discipline> disciplines = new ArrayList<>();
+        @JsonInclude(Include.NON_NULL)
+        private String subOrganization;
     }
 
     @Data
@@ -67,8 +69,10 @@ class RegistrationExportModel {
         private String name;
         @JsonProperty("isSelected")
         private boolean selected;
-        private String comment;
         private Integer timeInMilliseconds;
+        private String comment;
+        @JsonInclude(Include.NON_EMPTY)
+        private Map<Integer, String> relayPositions;
 
         public Discipline(String name, Integer timeInMilliseconds, String comment, boolean selected) {
             this.name = name;

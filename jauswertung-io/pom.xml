@@ -51,7 +51,6 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-scratchpad</artifactId>
 			<scope>runtime</scope>
-
 		</dependency>
 
 		<!-- test -->
