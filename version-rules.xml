@@ -16,10 +16,7 @@
         <!-- Prevent javafx to update to newer jdks -->
         <rule groupId="org.openjfx" artifactId="javafx-controls">
             <ignoreVersions>
-                <ignoreVersion type="regex">22.*</ignoreVersion>
-                <ignoreVersion type="regex">23.*</ignoreVersion>
-                <ignoreVersion type="regex">24.*</ignoreVersion>
-                <ignoreVersion type="regex">25.*</ignoreVersion>
+                <ignoreVersion type="regex">26.*</ignoreVersion>
             </ignoreVersions>
         </rule>
         <!-- prevent updates to incompatible changes-->
@@ -27,6 +24,8 @@
             <ignoreVersions>
                 <ignoreVersion type="regex">9.10.*</ignoreVersion>
                 <ignoreVersion type="regex">9.11.*</ignoreVersion>
+                <ignoreVersion type="regex">9.12.*</ignoreVersion>
+                <ignoreVersion type="regex">9.13.*</ignoreVersion>
                 <ignoreVersion type="regex">10.*</ignoreVersion>
             </ignoreVersions>
         </rule>
