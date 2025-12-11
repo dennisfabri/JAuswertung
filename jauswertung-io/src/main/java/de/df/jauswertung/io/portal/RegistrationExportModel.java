@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-class RegistrationExportModel {
+public class RegistrationExportModel {
     private String acronym;
     private String name;
     private String organizer;
@@ -23,7 +23,7 @@ class RegistrationExportModel {
     private List<Registration> registrations = new ArrayList<>();
 
     @Data
-    static class Registration {
+    public static class Registration {
         private String organization;
         private Nationality nationality;
         @JsonProperty("isCompleted")
@@ -33,7 +33,7 @@ class RegistrationExportModel {
     }
 
     @Data
-    abstract static class Participant {
+    public abstract static class Participant {
         private String id;
         private Gender gender;
         @JsonInclude(Include.ALWAYS)
@@ -48,7 +48,7 @@ class RegistrationExportModel {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    static class Athlete extends Participant {
+    public static class Athlete extends Participant {
         private String athleteId;
         private String firstName;
         private String lastName;
@@ -57,7 +57,7 @@ class RegistrationExportModel {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    static class Team extends Participant {
+    public static class Team extends Participant {
         private String id;
         private String name;
         private List<String> memberIds = new ArrayList<>();
@@ -65,7 +65,7 @@ class RegistrationExportModel {
 
     @Data
     @NoArgsConstructor
-    static class Discipline {
+    public static class Discipline {
         private String name;
         @JsonProperty("isSelected")
         private boolean selected;

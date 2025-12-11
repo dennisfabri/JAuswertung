@@ -30,6 +30,11 @@ public class CompetitionImporter implements IImporter {
         System.out.println("Lade Wettkampf " + filename);
         AWettkampf wk = InputManager.ladeWettkampf(filename);
 
+        if (wk == null) {
+            System.out.println("Fehler beim Laden des Wettkampfs " + filename);
+            return;
+        }
+
         JAuswertungCompetition competition = new TimesExtractor().getZeiten(wk);
 
         List<Time> times = new ArrayList<>();

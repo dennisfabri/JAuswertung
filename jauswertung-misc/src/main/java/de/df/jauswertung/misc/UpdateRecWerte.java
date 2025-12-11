@@ -1,6 +1,7 @@
 package de.df.jauswertung.misc;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
@@ -13,26 +14,31 @@ import de.df.jauswertung.io.OutputManager;
 
 public class UpdateRecWerte {
 
-    private static final int YEAR = 2025;
+    private static final int YEAR = 2026;
 
-    private static final String PathToCsv = "src\\test\\resources\\rec-werte\\";
-    private static final String PathToRulebook = "..\\jauswertung-files\\src\\main\\resources\\aks\\";
+    private static final String PathToCsv = "src/test/resources/rec-werte/";
+    private static final String PathToRulebook = "../jauswertung-files/src/main/resources/aks/";
 
     /**
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        recwerte(null, PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG %s.rwe", "Regelwerk %s", YEAR);
-        recwerte(null, PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
+        recwerte(PathToCsv + "Rec-Werte %s Einzel.csv", PathToRulebook + "DLRG %s.rwe", "Regelwerk %s", YEAR);
+        recwerte(PathToCsv + "Rec-Werte %s Mannschaft.csv", PathToRulebook + "DLRG %s.rwm", "Regelwerk %s", YEAR);
     }
 
-    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung, int jahr)
+    private static void recwerte(String werte, String regelwerk, String beschreibung, int jahr)
             throws IOException {
-        recwerte(wk, String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
+        recwerte(String.format(werte, jahr), String.format(regelwerk, jahr), String.format(beschreibung, jahr));
     }
 
-    private static void recwerte(AWettkampf wk, String werte, String regelwerk, String beschreibung) {
+    private static void recwerte( String werte, String regelwerk, String beschreibung) {
         System.out.println("Importiere \"" + werte + "\"");
+        Path p = Path.of(regelwerk);
+        if (!p.isAbsolute()) {
+            p = p.toAbsolutePath().normalize();
+        }
+
         Regelwerk rw = (Regelwerk) InputManager.ladeObject(regelwerk);
 
         for (int x = 0; x < rw.size(); x++) {
@@ -58,7 +64,7 @@ public class UpdateRecWerte {
                     throw new IllegalArgumentException(String.format("Agegroup '%s' not found.", agegroup));
                 }
                 Altersklasse ak = rw.getAk(index);
-                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(wk, discipline, 2, x, "CSV", werte);
+                boolean maennlich = de.df.jauswertung.io.ImportUtils.getMaennlich(null, discipline, 2, x, "CSV", werte);
                 String disziplin = row[3].toString();
                 int zeit = de.df.jauswertung.io.ImportUtils.getTime(row[4]);
                 int dindex = de.df.jauswertung.io.ImportUtils.getDisciplineIndex(ak, disziplin);

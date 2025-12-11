@@ -1,22 +1,4 @@
-/*
- * Created on 08.01.2005
- */
 package de.df.jauswertung.io;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.util.Hashtable;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
@@ -25,15 +7,22 @@ import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.util.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.util.Hashtable;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * @author Dennis Fabri
- * @date 08.01.2005
+ * @since 08.01.2005
  */
 public final class InputManager {
 
     private static final String LOGO_FILENAME = "logo.png";
-    private static Logger log = LoggerFactory.getLogger(InputManager.class);
+    private static final Logger log = LoggerFactory.getLogger(InputManager.class);
 
     private InputManager() {
         // Hide constructor
@@ -262,7 +251,7 @@ public final class InputManager {
 
                 ze = zis.getNextEntry();
             }
-            if (result.size() == 0) {
+            if (result.isEmpty()) {
                 return null;
             }
             return result;

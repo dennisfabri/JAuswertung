@@ -5,8 +5,7 @@
     <parent>
         <groupId>de.dennisfabri.jauswertung</groupId>
         <artifactId>jauswertung-project</artifactId>
-        <version>17.2.1</version>
-        <relativePath>..</relativePath>
+        <version>18.0.0</version>
     </parent>
     <artifactId>jauswertung-misc</artifactId>
     <name>JAuswertung Misc</name>
@@ -36,6 +35,11 @@
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
         </dependency>
     </dependencies>
 </project>

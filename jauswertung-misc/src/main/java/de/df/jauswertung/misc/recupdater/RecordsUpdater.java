@@ -1,5 +1,18 @@
 package de.df.jauswertung.misc.recupdater;
 
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.*;
+import de.df.jutils.gui.jtable.ExtendedTableModel;
+import de.df.jutils.io.FileUtils;
+import de.df.jutils.io.csv.Seconds;
+import de.df.jutils.util.Feedback;
+import de.df.jutils.util.NullFeedback;
+import de.df.jutils.util.SystemOutFeedback;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,30 +20,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import javax.swing.SwingConstants;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.Excel2007Utils;
-import de.df.jauswertung.io.ExcelReader;
-import de.df.jauswertung.io.ExcelWriter;
-import de.df.jauswertung.io.ImportUtils;
-import de.df.jauswertung.io.TableEntryException;
-import de.df.jauswertung.io.TableException;
-import de.df.jutils.gui.jtable.ExtendedTableModel;
-import de.df.jutils.io.FileUtils;
-import de.df.jutils.io.csv.Seconds;
-import de.df.jutils.util.Feedback;
-import de.df.jutils.util.NullFeedback;
-import de.df.jutils.util.SystemOutFeedback;
-
 public class RecordsUpdater {
 
-    private static String OldRecords = "src/test/resources/rec-werte/Rekordwerte 2025.xlsx";
-    private static String NewRecords = "src/test/resources/rec-werte/Rekordwerte 2025.xls";
+    private static final String OldRecords = "src/test/resources/rec-werte/Rekordwerte 2025.xlsx";
+    private static final String NewRecords = "src/test/resources/rec-werte/Rekordwerte 2026.xls";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));
@@ -38,15 +31,15 @@ public class RecordsUpdater {
         // records.print();
 
         LinkedList<IImporter> importers = new LinkedList<>();
-        //importers.add(new CompetitionImporter("dem2024_einzel_final.wk", "DEM2024"));
-        //importers.add(new CompetitionImporter("dem2024_einzel_vorlauf.wk", "DEM2024"));
-        //importers.add(new CompetitionImporter("dem2024_mannschaft_vorlauf_final.wk", "DEM2024"));
-        importers.add(new CompetitionImporter("dmm2024_einzel.wk", "DMM2024"));
-        importers.add(new CompetitionImporter("dmm2024_mannschaft.wk", "DMM2024"));
-        importers.add(new CompetitionImporter("dp2024_einzel.wk", "DP2024"));
-        importers.add(new CompetitionImporter("dp2024_mannschaft.wk", "DP2024"));
-        importers.add(new CompetitionImporter("dsm2024_einzel.wk", "DSM2024"));
-        importers.add(new CompetitionImporter("dsm2024_mannschaft.wk", "DSM2024"));
+        importers.add(new CompetitionImporter("DEM2025_Einzel_Finale.wk", "DEM2025"));
+        importers.add(new CompetitionImporter("DEM2025_Einzel_Vorlaeufe.wk", "DEM2025"));
+        importers.add(new CompetitionImporter("DEM2025_Mannschaft.wk", "DEM2025"));
+        importers.add(new CompetitionImporter("DMM2025_Einzel.wk", "DMM2025"));
+        importers.add(new CompetitionImporter("DMM2025_Mannschaft.wk", "DMM2025"));
+        importers.add(new CompetitionImporter("DP2025_Einzel.wk", "DP2025"));
+        importers.add(new CompetitionImporter("DP2025_Mannschaft.wk", "DP2025"));
+        importers.add(new CompetitionImporter("DSM2025_Einzel.wk", "DSM2025"));
+        importers.add(new CompetitionImporter("DSM2025_Mannschaft.wk", "DSM2025"));
         // importers.add(new
         // WorldRecordsImporter("src/test/resources/competitions/WorldRecords-2018-12-13.xlsx",
         // 2018));
@@ -156,8 +149,8 @@ public class RecordsUpdater {
         }
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
+        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
+        tm.setColumnFormats(formats.toArray(new String[0]));
 
         return tm;
     }
@@ -220,7 +213,7 @@ public class RecordsUpdater {
     }
 
     private static int getTime(Object o, String file, String sheet, int row, int column) {
-        int result = 0;
+        int result;
         try {
             if (o instanceof String) {
                 try {
@@ -248,7 +241,7 @@ public class RecordsUpdater {
                 result = (int) Math.round(d);
             } else {
                 String s = o.toString().toLowerCase().trim();
-                if (s.equals("+") || s.equals("x") || (s.length() == 0)) {
+                if (s.equals("+") || s.equals("x") || s.isEmpty()) {
                     result = 0;
                 } else {
                     if (s.equals("-")) {
@@ -260,7 +253,7 @@ public class RecordsUpdater {
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
-            throw new RuntimeException("Dummy");
+            throw new RuntimeException("Dummy", e);
         }
         return result;
     }

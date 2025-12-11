@@ -303,15 +303,10 @@ public class PortalImporter implements IImporter {
 
     @Override
     public boolean isSupported(ImportExportTypes type) {
-        if (!Utils.isInDevelopmentMode()) {
-            return false;
-        }
-        switch (type) {
-            case REGISTRATION:
-                return true;
-            default:
-                return false;
-        }
+        return switch (type) {
+            case REGISTRATION -> true;
+            default -> false;
+        };
     }
 
     @Override
