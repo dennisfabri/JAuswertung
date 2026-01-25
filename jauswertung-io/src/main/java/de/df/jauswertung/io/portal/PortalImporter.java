@@ -66,7 +66,9 @@ public class PortalImporter implements IImporter {
                 for (int x = 0; x < team.getMemberIds().size(); x++) {
                     importMannschaftsmitglied(m.getMannschaftsmitglied(x), registration, team.getMemberIds().get(x));
                 }
-                teams.add(m);
+                if (notAlreadyImported(wk, team)) {
+                    teams.add(m);
+                }
             }
         }
         fb.showFeedback("Import abgeschlossen");
@@ -191,11 +193,28 @@ public class PortalImporter implements IImporter {
                     t.setGliederung(athlete.getSubOrganization());
                 }
                 importRegistrationEntry(athlete, t);
-                teilnehmerListe.add(t);
+                if (notAlreadyImported(wk, athlete)) {
+                    teilnehmerListe.add(t);
+                }
             }
         }
         fb.showFeedback("Import abgeschlossen");
         return teilnehmerListe;
+    }
+
+    private static <T extends ASchwimmer> boolean notAlreadyImported(AWettkampf<T> wk, RegistrationExportModel.Participant participant) {
+        String importId = participant.getId();
+        if (importId == null || importId.isBlank()) {
+            return true;
+        }
+        return wk.getSchwimmer().stream().noneMatch(s -> hasImportId(s, importId));
+    }
+
+    private static boolean hasImportId(ASchwimmer schwimmer, String importId) {
+        if (importId == null || importId.isBlank()) {
+            return false;
+        }
+        return schwimmer.getImportId() != null && schwimmer.getImportId().equals(importId);
     }
 
     private static final List<String> ORGANIZATION_LEVEL = Stream.of("Bundesverband",
