@@ -177,7 +177,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     for (JIntegerField input : inputs) {
                         if (input.isEnabled()) {
-                            input.requestFocus();
+                            EDTUtils.requestFocus(controller.getWindow(), input);
                             break;
                         }
                     }
@@ -198,7 +198,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         String heatPart = "right:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu";
 
         FormLayout layout = new FormLayout(disciplinePart + agegroupPart + heatPart,
-                FormLayoutUtils.createLayoutString(2));
+                                           FormLayoutUtils.createLayoutString(2));
 
         layout.setColumnGroup(2, 4, 6);
 
@@ -308,13 +308,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                         "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,"
                                 + "4dlu,fill:default,4dlu,center:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                         FormLayoutUtils.createLayoutString(bahnen + 1));
-                layout.setColumnGroups(new int[][] { { 14, 16, 18, 20 } });
+                layout.setColumnGroups(new int[][]{{14, 16, 18, 20}});
             } else {
                 layout = new FormLayout(
                         "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,"
                                 + "0dlu,0dlu,4dlu,center:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                         FormLayoutUtils.createLayoutString(bahnen + 1));
-                layout.setColumnGroups(new int[][] { { 14, 18, 20 } });
+                layout.setColumnGroups(new int[][]{{14, 18, 20}});
             }
             FormLayoutUtils.setRowGroups(layout, bahnen + 1);
             heatPanel.setLayout(layout);
@@ -439,7 +439,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     @Override
     public PanelInfo[] getPanelInfos() {
-        return new PanelInfo[] { new PanelInfo(I18n.get(INPUT), IconManager.getBigIcon("heatinput"), 350) {
+        return new PanelInfo[]{new PanelInfo(I18n.get(INPUT), IconManager.getBigIcon("heatinput"), 350) {
             @Override
             public JPanel getPanelI() {
                 if (main == null) {
@@ -448,7 +448,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 }
                 return main;
             }
-        } };
+        }};
     }
 
     private int currentLane() {
@@ -483,7 +483,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             index++;
         }
         if (index < inputs.length) {
-            inputs[index].requestFocus();
+            JIntegerField input = inputs[index];
+            EDTUtils.requestFocus(controller.getWindow(), input);
             return true;
         }
 
@@ -505,7 +506,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             index--;
         }
         if (index >= 0) {
-            inputs[index].requestFocus();
+            JIntegerField input = inputs[index];
+            EDTUtils.requestFocus(controller.getWindow(), input);
             return true;
         }
 
@@ -563,8 +565,9 @@ public class PHeatInputPlugin extends ANullPlugin {
             return true;
         }
         if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
-                strategy.getDiscipline(index))) {
-            inputs[index].requestFocus();
+                                               strategy.getDiscipline(index))) {
+            JIntegerField input = inputs[index];
+            EDTUtils.requestFocus(controller.getWindow(), input);
             return false;
         }
         return true;
@@ -610,7 +613,8 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         public void moveDown() {
             if (index + 1 < inputs.length) {
-                inputs[index + 1].requestFocus();
+                JIntegerField input = inputs[index + 1];
+                EDTUtils.requestFocus(controller.getWindow(), input);
             } else {
                 if (fl[index].checkTime()) {
                     nextHeat();
@@ -620,7 +624,8 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         public void moveUp() {
             if (index > 0) {
-                inputs[index - 1].requestFocus();
+                JIntegerField input = inputs[index - 1];
+                EDTUtils.requestFocus(controller.getWindow(), input);
             } else {
                 if (fl[index].checkTime()) {
                     previousHeat(false);
@@ -763,51 +768,51 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
                 int index = getFocusIndex();
                 switch (e.getKeyCode()) {
-                case KeyEvent.VK_ENTER, KeyEvent.VK_DOWN:
-                    if (fl[index].checkTime()) {
-                        nextHeat();
-                    }
-                    e.consume();
-                    break;
-                case KeyEvent.VK_UP:
-                    if (fl[index].checkTime()) {
-                        previousHeat(true);
-                    }
-                    e.consume();
-                    break;
-                default:
-                    break;
+                    case KeyEvent.VK_ENTER, KeyEvent.VK_DOWN:
+                        if (fl[index].checkTime()) {
+                            nextHeat();
+                        }
+                        e.consume();
+                        break;
+                    case KeyEvent.VK_UP:
+                        if (fl[index].checkTime()) {
+                            previousHeat(true);
+                        }
+                        e.consume();
+                        break;
+                    default:
+                        break;
                 }
             } else if (!e.isControlDown() && !e.isAltDown() && !e.isAltGraphDown() && !e.isShiftDown()) {
                 switch (e.getKeyCode()) {
-                case KeyEvent.VK_ENTER:
-                    boolean b = nextLane();
-                    if (!b) {
-                        zeigeZieleinlauf();
-                    }
-                    e.consume();
-                    break;
-                case KeyEvent.VK_PAGE_DOWN:
-                    int index = getFocusIndex();
-                    if (fl[index].checkTime()) {
-                        nextHeat();
-                    }
-                    e.consume();
-                    break;
-                case KeyEvent.VK_PAGE_UP:
-                    previousHeat(true);
-                    e.consume();
-                    break;
-                case KeyEvent.VK_UP:
-                    previousLane(true);
-                    e.consume();
-                    break;
-                case KeyEvent.VK_DOWN:
-                    nextLane(true);
-                    e.consume();
-                    break;
-                default:
-                    // Nothing to do
+                    case KeyEvent.VK_ENTER:
+                        boolean b = nextLane();
+                        if (!b) {
+                            zeigeZieleinlauf();
+                        }
+                        e.consume();
+                        break;
+                    case KeyEvent.VK_PAGE_DOWN:
+                        int index = getFocusIndex();
+                        if (fl[index].checkTime()) {
+                            nextHeat();
+                        }
+                        e.consume();
+                        break;
+                    case KeyEvent.VK_PAGE_UP:
+                        previousHeat(true);
+                        e.consume();
+                        break;
+                    case KeyEvent.VK_UP:
+                        previousLane(true);
+                        e.consume();
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        nextLane(true);
+                        e.consume();
+                        break;
+                    default:
+                        // Nothing to do
                 }
             }
         }
@@ -819,7 +824,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             heat.setSelectedIndex(index);
             for (JIntegerField input : inputs) {
                 if (input.isEnabled()) {
-                    input.requestFocus();
+                    EDTUtils.requestFocus(controller.getWindow(), input);
                     break;
                 }
             }
@@ -837,14 +842,15 @@ public class PHeatInputPlugin extends ANullPlugin {
             if (top) {
                 for (JIntegerField input : inputs) {
                     if (input.isEnabled()) {
-                        input.requestFocus();
+                        EDTUtils.requestFocus(controller.getWindow(), input);
                         break;
                     }
                 }
             } else {
                 for (int x = inputs.length - 1; x >= 0; x--) {
                     if (inputs[x].isEnabled()) {
-                        inputs[x].requestFocus();
+                        JIntegerField input = inputs[x];
+                        EDTUtils.requestFocus(controller.getWindow(), input);
                         break;
                     }
                 }
@@ -1036,7 +1042,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 swimmers[lane].setZeit(disciplines[lane], inputs[lane].getInt());
             }
             controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane],
-                    disciplines[lane], PHeatInputPlugin.this);
+                                           disciplines[lane], PHeatInputPlugin.this);
         }
 
         @Override
@@ -1057,7 +1063,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
             TimelimitsContainer tlc = s.getWettkampf().getTimelimits();
             return tlc.isBrokenBy(time, penalty, disziplin, s,
-                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0);
+                                  wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0);
         }
 
         @Override
@@ -1097,7 +1103,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             swimmers[lane].addStrafe(disciplines[lane], strafe);
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({"rawtypes", "unchecked"})
         @Override
         public void zeigeZieleinlauf() {
             Lauf lauf = (Lauf) wk.getLaufliste().getLaufliste().get(heat.getSelectedIndex());
@@ -1162,7 +1168,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             return d.getBahnen();
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({"rawtypes", "unchecked"})
         @Override
         public void heatlistChanged() {
             wk = core.getWettkampf();
@@ -1201,9 +1207,9 @@ public class PHeatInputPlugin extends ANullPlugin {
                 for (OWLauf l : (LinkedList<OWLauf>) d.getLaeufe()) {
                     int rid = wk.getRegelwerk().getRundenId(d);
                     String heattext = String.format("%03d-%02d%s", rid, l.getLaufnummer(),
-                            StringTools.characterString(l.getLaufbuchstabe()));
+                                                    StringTools.characterString(l.getLaufbuchstabe()));
                     String name = String.format("%s - %s", heattext,
-                            I18n.getDisciplineFullName(wk, l.getDisciplineId()));
+                                                I18n.getDisciplineFullName(wk, l.getDisciplineId()));
                     owlaeufe.add(new HeatInfo(name, d, l));
                 }
             }
@@ -1228,7 +1234,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        @SuppressWarnings({ "unchecked", "rawtypes" })
+        @SuppressWarnings({"unchecked", "rawtypes"})
         public void updateInputFields(int index) {
             if (index < 0) {
                 return;
@@ -1337,7 +1343,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 swimmers[lane].setZeit(d.Id, inputs[lane].getInt());
             }
             controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane],
-                    d.disziplin, PHeatInputPlugin.this);
+                                           d.disziplin, PHeatInputPlugin.this);
         }
 
         @Override
@@ -1360,7 +1366,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
             TimelimitsContainer tlc = s.getWettkampf().getTimelimits();
             return tlc.isBrokenBy(time, penalty, disziplin, s,
-                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), d.round);
+                                  wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), d.round);
         }
 
         @Override
@@ -1452,7 +1458,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         if (lane >= 0 && lane < inputs.length) {
             EDTUtils.waitOnEDT();
             EDTUtils.executeOnEDTAsync(() -> {
-                inputs[lane].requestFocus();
+                JIntegerField input = inputs[lane];
+                EDTUtils.requestFocus(controller.getWindow(), input);
             });
         }
     }

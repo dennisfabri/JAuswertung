@@ -39,7 +39,7 @@ public class Team {
         this.male = m.isMaennlich();
         this.agegroup = m.getAK().getName();
         this.ak = m.getAKNummer();
-        if (exportId == null || Strings.isEmpty(exportId) || exportId.equals("-")) {
+        if (exportId == null || exportId.isBlank() || exportId.equals("-")) {
             this.exportId = null;
         } else {
             this.exportId = exportId;
