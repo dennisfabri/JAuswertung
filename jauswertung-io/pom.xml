@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.dennisfabri.jauswertung</groupId>
 		<artifactId>jauswertung-project</artifactId>
-		<version>18.0.0</version>
+		<version>18.0.1</version>
 	</parent>
 	<artifactId>jauswertung-io</artifactId>
 
@@ -45,6 +45,15 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+
 
 		<!-- runtime -->
 		<dependency>
