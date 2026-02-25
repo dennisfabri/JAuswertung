@@ -23,12 +23,18 @@ import java.util.stream.Stream;
 
 public class PortalImporter implements IImporter {
 
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    public PortalImporter() {
+        mapper.findAndRegisterModules();
+    }
+
+
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream input, AWettkampf<T> wk, Feedback fb, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
         LinkedList<T> data = new LinkedList<>();
-        ObjectMapper mapper = new ObjectMapper();
         RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
         if (wk instanceof MannschaftWettkampf mwk) {
             return (LinkedList<T>) registrationTeam(model, mwk, fb);
