@@ -25,6 +25,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -78,7 +79,7 @@ class JOrganizationEditor extends JDialog {
     void doOk() {
         if (value.getText().length() == 0) {
             Toolkit.getDefaultToolkit().beep();
-            value.requestFocus();
+            EDTUtils.requestFocus(value);
         } else {
             if (!value.getText().equals(gld)) {
                 AWettkampf wk = core.getWettkampf();
@@ -121,7 +122,7 @@ class JOrganizationEditor extends JDialog {
         value = new JWarningTextField(true, false);
         value.setAutoSelectAll(true);
         value.setText(gld);
-        value.requestFocus();
+        EDTUtils.requestFocus(value);
 
         FormLayout buttonLayout = new FormLayout("fill:default:grow,fill:default,4dlu,fill:default", "fill:default");
         buttonLayout.setColumnGroups(new int[][] { { 2, 4 } });

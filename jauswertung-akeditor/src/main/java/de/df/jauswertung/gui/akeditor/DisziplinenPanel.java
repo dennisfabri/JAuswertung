@@ -28,6 +28,9 @@ import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
+
+import javax.swing.JComponent;
 
 /**
  * @author Dennis Fabri
@@ -132,7 +135,7 @@ class DisziplinenPanel extends JPanel {
         FormLayout layout = new FormLayout(
                 "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 generateRowLayout(number));
-        layout.setColumnGroups(new int[][] { { 4, 8 }, { 6, 10 } });
+        layout.setColumnGroups(new int[][]{{4, 8}, {6, 10}});
         FormLayoutUtils.setRowGroups(layout, 6, number);
         setLayout(layout);
     }
@@ -155,7 +158,7 @@ class DisziplinenPanel extends JPanel {
         initLayout(count);
         initGUI(count);
         updateUI();
-        plusButton.requestFocus();
+        EDTUtils.requestFocus(plusButton);
         parent.setDisciplineCount(count);
     }
 
@@ -230,7 +233,7 @@ class DisziplinenPanel extends JPanel {
         initLayout(count);
         initGUI(count);
         updateUI();
-        minusButton.requestFocus();
+        EDTUtils.requestFocus(minusButton);
         parent.setDisciplineCount(count);
     }
 
@@ -347,7 +350,7 @@ class DisziplinenPanel extends JPanel {
         for (int x = 0; x < count; x++) {
             // TODO: Erweitern der Disziplineneingabe
             diszs[x] = new Disziplin(namen[x].getText(), recs[x].getTimeAsInt(), laengen[x].getInt(),
-                    runden[x].getInt());
+                                     runden[x].getInt());
             diszs[x].setRunden(rounds[x], roundIds[x]);
         }
         return diszs;
@@ -356,46 +359,26 @@ class DisziplinenPanel extends JPanel {
     void moveFocus(int code, int x, int y) {
         if (code == java.awt.event.KeyEvent.VK_DOWN) {
             if (y + 1 < count) {
-                switch (x) {
-                default:
-                case 0:
-                    disziplinen.get(y + 1).requestFocus();
-                    return;
-                case 1:
-                    recw.get(y + 1).requestFocus();
-                    return;
-                case 2:
-                    recm.get(y + 1).requestFocus();
-                    return;
-                case 3:
-                    lengths.get(y + 1).requestFocus();
-                    return;
-                case 4:
-                    laps.get(y + 1).requestFocus();
-                    return;
-                }
+                JComponent c = switch (x) {
+                    case 1 -> recw.get(y + 1);
+                    case 2 -> recm.get(y + 1);
+                    case 3 -> lengths.get(y + 1);
+                    case 4 -> laps.get(y + 1);
+                    default -> disziplinen.get(y + 1);
+                };
+                EDTUtils.requestFocus(c);
             }
         }
         if (code == java.awt.event.KeyEvent.VK_UP) {
             if (y > 0) {
-                switch (x) {
-                default:
-                case 0:
-                    disziplinen.get(y - 1).requestFocus();
-                    break;
-                case 1:
-                    recw.get(y - 1).requestFocus();
-                    break;
-                case 2:
-                    recm.get(y - 1).requestFocus();
-                    break;
-                case 3:
-                    lengths.get(y - 1).requestFocus();
-                    break;
-                case 4:
-                    laps.get(y - 1).requestFocus();
-                    break;
-                }
+                JComponent c = switch (x) {
+                    case 1 -> recw.get(y - 1);
+                    case 2 -> recm.get(y - 1);
+                    case 3 -> lengths.get(y - 1);
+                    case 4 -> laps.get(y - 1);
+                    default -> disziplinen.get(y - 1);
+                };
+                EDTUtils.requestFocus(c);
             }
         }
     }

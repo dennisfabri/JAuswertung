@@ -3,35 +3,9 @@
  */
 package de.df.jauswertung.gui.plugins.registration;
 
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_AKS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_GLIEDERUNG_CHANGED;
-
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ListIterator;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import org.jdesktop.swingx.util.ComboBoxUtil;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.tasks.JTaskPaneGroup;
-
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.UpdateEventConstants;
@@ -47,9 +21,20 @@ import de.df.jutils.gui.autocomplete.JCompletingComboBox;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
 import de.df.jutils.gui.util.DialogUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.plugin.AFeature;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
+import org.jdesktop.swingx.util.ComboBoxUtil;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.*;
+
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_AKS_CHANGED;
+import static de.df.jauswertung.gui.UpdateEventConstants.REASON_GLIEDERUNG_CHANGED;
 
 /**
  * @author Dennis Fabri
@@ -86,18 +71,10 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
 
     private UpdateListener ul = new UpdateListener();
 
-    /**
-     * This method initializes
-     */
     public PRegistrationInternalMannschaftStaffelPlugin() {
         super();
     }
 
-    /**
-     * This method initializes this
-     * 
-     * @return void
-     */
     private void initialize() {
         startnummer = new JIntegerField();
         name = new JWarningTextField(true, false);
@@ -187,7 +164,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         gliederung.setEditable(true);
         geschlecht.setSelectedIndex(0);
 
-        startnummer.requestFocus();
+        EDTUtils.requestFocus(startnummer);
 
         updateButtons();
     }
@@ -239,9 +216,8 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
                 g = gliederung.getSelectedItem().toString();
             }
             gliederung.removeAllItems();
-            ListIterator li = core.getWettkampf().getGliederungen().listIterator();
-            while (li.hasNext()) {
-                gliederung.addItem(li.next().toString());
+            for (String s : core.getWettkampf().getGliederungen()) {
+                gliederung.addItem(s);
             }
             if (gliederung.getItemCount() > 0) {
                 gliederung.setSelectedIndex(0);
@@ -260,7 +236,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
     void viewNextSN() {
         AWettkampf wk = core.getMannschaftWettkampf();
         if (wk != null) {
-            if (startnummer.getText().equals("")) {
+            if (startnummer.getText().isEmpty()) {
                 startnummer.setInt(wk.viewNextStartnummer());
             } else {
                 int sn = startnummer.getInt();
@@ -272,7 +248,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
     }
 
     void updateButtons() {
-        boolean result = startnummer.isValidInt() && (name.getText().length() > 0) && melde.isValidDouble();
+        boolean result = startnummer.isValidInt() && (!name.getText().isEmpty()) && melde.isValidDouble();
         if (disciplines != null) {
             result = result && disciplines.isInputValid();
         }
@@ -280,10 +256,10 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         if (result) {
             Component c = ComboBoxUtil.getEditorComponent(gliederung);
             if (c instanceof JTextField jtf) {
-                result = jtf.getText().length() > 0;
+                result = !jtf.getText().isEmpty();
             } else {
                 result = (gliederung.getSelectedItem() != null)
-                        && (gliederung.getSelectedItem().toString().length() > 0);
+                        && !gliederung.getSelectedItem().toString().isEmpty();
             }
         }
 
@@ -370,18 +346,18 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
                     I18n.get("StartnummerAlreadyAssigned.Note"));
-            startnummer.requestFocus();
+            EDTUtils.requestFocus(startnummer);
             return;
         }
-        if (teamname.length() == 0) {
+        if (teamname.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("NameMustNotBeEmpty"), I18n.get("NameMustNotBeEmpty.Note"));
-            name.requestFocus();
+            EDTUtils.requestFocus(name);
             return;
         }
-        if (g.length() == 0) {
+        if (g.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
                     I18n.get("OrganisationMustNotBeEmpty.Note"));
-            gliederung.requestFocus();
+            EDTUtils.requestFocus(gliederung);
             return;
         }
 
@@ -399,7 +375,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         disciplines.reset();
 
         startnummer.setInt(core.getMannschaftWettkampf().viewNextStartnummer());
-        startnummer.requestFocus();
+        EDTUtils.requestFocus(startnummer);
     }
 
     void addNewMannschaften() {
@@ -413,24 +389,24 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         if (sn > 0 && SearchUtils.getSchwimmer(core.getMannschaftWettkampf(), sn) != null) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
                     I18n.get("StartnummerAlreadyAssigned.Note"));
-            startnummer.requestFocus();
+            EDTUtils.requestFocus(startnummer);
             return;
         }
         if (teamname.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("NameMustNotBeEmpty"), I18n.get("NameMustNotBeEmpty.Note"));
-            name.requestFocus();
+            EDTUtils.requestFocus(name);
             return;
         }
         if (g.isEmpty()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
                     I18n.get("OrganisationMustNotBeEmpty.Note"));
-            gliederung.requestFocus();
+            EDTUtils.requestFocus(gliederung);
             return;
         }
         if (amount.getInt() <= 0) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("AmountMustBeBiggerThanZero"),
                     I18n.get("AmountMustBeBiggerThanZero.Note"));
-            amount.requestFocus();
+            EDTUtils.requestFocus(amount);
             return;
         }
 
@@ -452,7 +428,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
         disciplines.reset();
 
         startnummer.setInt(core.getMannschaftWettkampf().viewNextStartnummer());
-        startnummer.requestFocus();
+        EDTUtils.requestFocus(startnummer);
     }
 
     private void updateDisciplines() {
@@ -477,7 +453,7 @@ public class PRegistrationInternalMannschaftStaffelPlugin extends AFeature {
                         Toolkit.getDefaultToolkit().beep();
                     }
                 } else if (e.getModifiersEx() == 0) {
-                    next.requestFocus();
+                    EDTUtils.requestFocus(next);
                 }
             }
         }

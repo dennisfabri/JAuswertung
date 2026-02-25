@@ -15,6 +15,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import de.df.jutils.gui.util.EDTUtils;
 import org.jdesktop.swingx.util.ComboBoxUtil;
 
 import com.jgoodies.forms.factories.CC;
@@ -334,30 +335,30 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         if (sn > 0 && SearchUtils.getSchwimmer(ewk, sn) != null) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("StartnummerAlreadyAssigned"),
                     I18n.get("StartnummerAlreadyAssigned.Note"));
-            startnummer.requestFocus();
+            EDTUtils.requestFocus(startnummer);
             return;
         }
         if (nachname.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("FamilyNameMustNotBeEmpty"),
                     I18n.get("FamilyNameMustNotBeEmpty.Note"));
-            name.requestFocus();
+            EDTUtils.requestFocus(name);
             return;
         }
         if (vname.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("FirstNameMustNotBeEmpty"),
                     I18n.get("FirstNameMustNotBeEmpty.Note"));
-            vorname.requestFocus();
+            EDTUtils.requestFocus(vorname);
             return;
         }
         if (jahr > 0 && jahr > Calendar.getInstance().get(Calendar.YEAR)) {
-            jahrgang.requestFocus();
+            EDTUtils.requestFocus(jahrgang);
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("YearOfBirthTooHigh"), I18n.get("YearOfBirthTooHigh.Note"));
             return;
         }
         if (g.isBlank()) {
             DialogUtils.inform(null, WRONG_INPUT, I18n.get("OrganisationMustNotBeEmpty"),
                     I18n.get("OrganisationMustNotBeEmpty.Note"));
-            gliederung.requestFocus();
+            EDTUtils.requestFocus(gliederung);
             return;
         }
 
@@ -376,7 +377,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
         disciplines.reset();
 
         startnummer.setInt(core.getEinzelWettkampf().viewNextStartnummer());
-        startnummer.requestFocus();
+        EDTUtils.requestFocus(startnummer);
     }
 
     final class UpdateListener implements ActionListener, DocumentListener, ItemListener, DataChangeListener {
@@ -451,7 +452,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
                         Toolkit.getDefaultToolkit().beep();
                     }
                 } else if (e.getModifiersEx() == 0) {
-                    next.requestFocus();
+                    EDTUtils.requestFocus(next);
                 }
             }
         }

@@ -19,6 +19,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.Formel;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.gui.border.BorderUtils;
+import de.df.jutils.gui.util.EDTUtils;
 
 /**
  * @author Dennis Fabri
@@ -95,7 +96,7 @@ class AKsFormulaPanel extends JPanel {
         for (int x = 0; x < fs.length; x++) {
             if (fs[x].getID().equals(id)) {
                 namen[x].setSelected(true);
-                namen[x].requestFocus();
+                EDTUtils.requestFocus(namen[x]);
                 break;
             }
         }

@@ -33,6 +33,7 @@ import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -55,12 +56,12 @@ class JMeanTimeEditor extends JDialog {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 e.consume();
                 if (x == 0) {
-                    integer[1].requestFocus();
+                    EDTUtils.requestFocus(integer[1]);
                 } else {
-                    if ((integer[x].getText().length() == 0) || (x + 1 == integer.length)) {
+                    if ((integer[x].getText().isEmpty()) || (x + 1 == integer.length)) {
                         doOk();
                     } else {
-                        integer[x + 1].requestFocus();
+                        EDTUtils.requestFocus(integer[x + 1]);
                     }
                 }
             }
@@ -87,20 +88,13 @@ class JMeanTimeEditor extends JDialog {
 
         @Override
         public void changedUpdate(DocumentEvent arg0) {
-            boolean o = true;
-            for (JIntegerField anInteger : integer) {
-                o = o && ((anInteger.getText().length() == 0) || ((anInteger.isValidInt() && time[x].isValidValue())));
-            }
+            boolean o = Arrays.stream(integer).allMatch(anInteger -> anInteger.getText().isEmpty() || ((anInteger.isValidInt() && time[x].isValidValue())));
             ok.setEnabled(o);
         }
     }
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3256719580843227188L;
-    
-    private static final BooleanConsumer EMPTY_CALLBACK = b->{};
+    private static final BooleanConsumer EMPTY_CALLBACK = b -> {
+    };
 
     private ASchwimmer schwimmer = null;
     private int disziplin = 0;
@@ -150,9 +144,9 @@ class JMeanTimeEditor extends JDialog {
         int amount = 0;
         int[] times = new int[integer.length];
         for (int x = 0; x < integer.length; x++) {
-            if ((integer[x].getText().length() > 0) && (!(integer[x].isValidInt() && time[x].isValidValue()))) {
+            if (!integer[x].getText().isEmpty() && (!(integer[x].isValidInt() && time[x].isValidValue()))) {
                 Toolkit.getDefaultToolkit().beep();
-                integer[x].requestFocus();
+                EDTUtils.requestFocus(integer[x]);
                 return;
             }
             int t = time[x].getTimeAsInt();
@@ -185,8 +179,7 @@ class JMeanTimeEditor extends JDialog {
                 double seconds = max - min;
                 seconds = seconds / 100.0;
 
-                if (!DialogUtils.askAndWarn(this, I18n.get("TimesFarAway", nf.format(seconds)),
-                        I18n.get("TimesFarAway.Note", nf.format(seconds)))) {
+                if (!DialogUtils.askAndWarn(this, I18n.get("TimesFarAway", nf.format(seconds)), I18n.get("TimesFarAway.Note", nf.format(seconds)))) {
                     return;
                 }
             }
@@ -196,11 +189,10 @@ class JMeanTimeEditor extends JDialog {
         if (zeit != meantime) {
             schwimmer.setZeit(disziplin, meantime);
             if (SchwimmerUtils.checkTimeAndNotify(this, schwimmer, disziplin)) {
-                controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer,
-                        disziplin, null);
+                controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, disziplin, null);
             } else {
                 schwimmer.setZeit(disziplin, zeit);
-                integer[0].requestFocus();
+                EDTUtils.requestFocus(integer[0]);
                 return;
             }
         }
@@ -209,11 +201,6 @@ class JMeanTimeEditor extends JDialog {
         cb.accept(true);
     }
 
-    /**
-     * This method initializes this
-     * 
-     * @return void
-     */
     private void initialize(JFrame parent) {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderUtils.createSpaceBorder());
@@ -247,22 +234,21 @@ class JMeanTimeEditor extends JDialog {
 
             time[x] = new JTimeField(integer[x]);
         }
-        // integer[0].requestFocus();
         if (schwimmer.getZeit(disziplin) == 0) {
             integer[0].setInt(JIntegerField.EMPTY_FIELD);
         } else {
             time[0].setTimeAsInt(schwimmer.getZeit(disziplin));
-            integer[1].requestFocus();
+            EDTUtils.requestFocus(integer[1]);
         }
 
         FormLayout buttonLayout = new FormLayout("fill:default:grow,fill:default,4dlu,fill:default", "fill:default");
-        buttonLayout.setColumnGroups(new int[][] { { 2, 4 } });
+        buttonLayout.setColumnGroups(new int[][]{{2, 4}});
         JPanel buttons = new JPanel(buttonLayout);
         buttons.add(ok, CC.xy(2, 1));
         buttons.add(cancel, CC.xy(4, 1));
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu",
-                FormLayoutUtils.createLayoutString(2 + integer.length));
+                                           FormLayoutUtils.createLayoutString(2 + integer.length));
         // layout.setRowGroups(new int[][] { { 2, 4, 6 } });
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));
@@ -277,8 +263,8 @@ class JMeanTimeEditor extends JDialog {
         top.add(buttons, CC.xyw(2, 4 + 2 * (integer.length), 3));
 
         layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu");
-        layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10 } });
+                                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout.setRowGroups(new int[][]{{2, 4, 6, 8, 10}});
         JPanel bottom = new JPanel(layout);
         bottom.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information")));
         bottom.add(new JLabel(I18n.get("Name")), CC.xy(2, 2));
@@ -302,7 +288,7 @@ class JMeanTimeEditor extends JDialog {
         pack();
 
         if (schwimmer.getZeit(disziplin) > 0) {
-            integer[1].requestFocus();
+            EDTUtils.requestFocus(integer[1]);
         }
     }
 }

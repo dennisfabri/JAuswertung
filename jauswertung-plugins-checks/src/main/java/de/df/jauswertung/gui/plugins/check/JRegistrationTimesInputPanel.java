@@ -51,6 +51,7 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
 
 public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
@@ -493,7 +494,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             data = input[disz][index].getText();
             if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JRegistrationTimesInputPanel.this),
                     swimmers[disz][index], disz)) {
-                input[disz][index].requestFocus();
+                EDTUtils.requestFocus(input[disz][index]);
             }
         }
     }
@@ -527,11 +528,11 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
-                input[disziplin][index - 1].requestFocus();
+                EDTUtils.requestFocus(input[disziplin][index - 1]);
             }
             if ((index + 1 < input[disziplin].length)
                     && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
-                input[disziplin][index + 1].requestFocus();
+                EDTUtils.requestFocus(input[disziplin][index + 1]);
             }
         }
 

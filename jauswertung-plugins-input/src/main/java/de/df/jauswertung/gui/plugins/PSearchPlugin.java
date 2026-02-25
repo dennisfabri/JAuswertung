@@ -69,6 +69,7 @@ import de.df.jutils.gui.jtable.SimpleTableModel;
 import de.df.jutils.gui.jtable.TableSorter;
 import de.df.jutils.gui.layout.ListLayout;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.io.csv.FixedDecimal;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -583,7 +584,7 @@ public class PSearchPlugin extends ANullPlugin {
         panel.add(scr, CC.xywh(6, 4, 4, 18));
         panel.add(getButtons(), CC.xywh(6, 2, 4, 1));
 
-        startnummer.requestFocus();
+        EDTUtils.requestFocus(startnummer);
 
         initListeners();
         popup = new JEditPopup();

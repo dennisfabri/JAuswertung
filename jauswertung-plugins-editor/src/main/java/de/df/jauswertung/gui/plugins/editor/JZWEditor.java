@@ -32,6 +32,7 @@ import de.df.jauswertung.io.util.ZWUtils;
 import de.df.jutils.gui.JDoubleField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.StringTools;
@@ -100,7 +101,7 @@ class JZWEditor extends JDialog {
             if ((!integer[index].isValidDouble()) && (integer[index].getText().length() > 0)
                     && (!integer[index].isSpecialString())) {
                 Toolkit.getDefaultToolkit().beep();
-                integer[index].requestFocus();
+                EDTUtils.requestFocus(integer[index]);
                 return;
             }
         }
@@ -152,19 +153,19 @@ class JZWEditor extends JDialog {
         for (int x = 0; x < integer.length; x++) {
             integer[x] = new JDoubleField(10000);
             integer[x].setAutoSelectAll(true);
-            if (s.getShortname().length() == 0) {
+            if (s.getShortname().isEmpty()) {
                 integer[x].setSpecialStrings(new String[] { "n", I18n.get("DidNotStartShort") });
             } else {
                 integer[x].setSpecialStrings(new String[] { "n", I18n.get("DidNotStartShort"), s.getShortname() });
             }
-            integer[x].requestFocus();
+            EDTUtils.requestFocus(integer[x]);
             switch (schwimmer.getHLWState(x)) {
             case ENTERED:
                 integer[x].setDouble(schwimmer.getHLWPunkte(x));
                 break;
             case NICHT_ANGETRETEN: {
                 String text = I18n.get("DidNotStartShort");
-                if (s.getShortname().length() > 0) {
+                if (!s.getShortname().isEmpty()) {
                     text = s.getShortname();
                 }
                 integer[x].setText(text);
@@ -172,7 +173,7 @@ class JZWEditor extends JDialog {
             }
             case DISQALIFIKATION: {
                 String text = I18n.get("DisqualificationShort");
-                if (s.getShortname().length() > 0) {
+                if (!s.getShortname().isEmpty()) {
                     text = s.getShortname();
                 }
                 integer[x].setText(text);

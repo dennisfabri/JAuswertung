@@ -37,6 +37,7 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.SimpleTableBuilder;
+import de.df.jutils.gui.util.EDTUtils;
 
 public class JYearInputPanel extends JGlassPanel<JPanel> {
 
@@ -300,11 +301,11 @@ public class JYearInputPanel extends JGlassPanel<JPanel> {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
-                years[index - 1].requestFocus();
+                EDTUtils.requestFocus(years[index - 1]);
             }
             if ((index + 1 < years.length)
                     && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
-                years[index + 1].requestFocus();
+                EDTUtils.requestFocus(years[index + 1]);
             }
         }
 

@@ -354,7 +354,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         @Override
         public void pageSwitch(boolean forward) {
             if (wizard.isCurrentPage(this)) {
-                penalties.requestFocus();
+                EDTUtils.requestFocus(penalties);
             }
             wizard.setFinishButtonEnabled(true);
             wizard.setNextButtonEnabled(true);

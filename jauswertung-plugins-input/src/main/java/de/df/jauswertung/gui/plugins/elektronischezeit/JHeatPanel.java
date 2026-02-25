@@ -22,6 +22,7 @@ import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
 
 class JHeatPanel<T extends ASchwimmer> extends JPanel {
@@ -244,13 +245,13 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
             switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 if (index > 0) {
-                    inputs[index - 1].requestFocus();
+                    EDTUtils.requestFocus(inputs[index - 1]);
                 }
                 e.consume();
                 break;
             case KeyEvent.VK_DOWN:
                 if (index + 1 < times.length) {
-                    inputs[index + 1].requestFocus();
+                    EDTUtils.requestFocus(inputs[index + 1]);
                 }
                 e.consume();
                 break;

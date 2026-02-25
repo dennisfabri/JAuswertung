@@ -40,6 +40,7 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.GraphicsUtils;
 
 class JKampfrichterPositionPanel extends JPanel {
@@ -158,9 +159,9 @@ class JKampfrichterPositionPanel extends JPanel {
             py = 0;
         }
         if (py == 0) {
-            names[px].requestFocus();
+            EDTUtils.requestFocus(names[px]);
         } else {
-            glds[px].requestFocus();
+            EDTUtils.requestFocus(glds[px]);
         }
     }
 

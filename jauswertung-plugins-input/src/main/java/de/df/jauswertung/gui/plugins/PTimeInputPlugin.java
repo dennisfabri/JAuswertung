@@ -55,6 +55,7 @@ import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.PanelInfo;
@@ -110,8 +111,8 @@ public class PTimeInputPlugin extends ANullPlugin {
                 return true;
             }
             if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
-                    disciplineNumber)) {
-                inputs[index].requestFocus();
+                                                   disciplineNumber)) {
+                EDTUtils.requestFocus(inputs[index]);
                 return false;
             }
             return true;
@@ -172,7 +173,7 @@ public class PTimeInputPlugin extends ANullPlugin {
         @Override
         public void runPenaltyCode() {
             editor.runPenaltyCode(core.getWettkampf(), swimmers[index], disciplineNumber,
-                    core.getWettkampf().getStrafen());
+                                  core.getWettkampf().getStrafen());
         }
 
         @SuppressWarnings("rawtypes")
@@ -257,13 +258,13 @@ public class PTimeInputPlugin extends ANullPlugin {
                             + "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
                             + "4dlu,fill:default,4dlu,center:default,4dlu,fill:default,4dlu",
                     FormLayoutUtils.createLayoutString(1 + length));
-            layout.setColumnGroups(new int[][] { { 12, 14, 18 } });
+            layout.setColumnGroups(new int[][]{{12, 14, 18}});
         } else {
             layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,"
-                    + "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
-                    + "0dlu,0dlu,4dlu,center:default,4dlu,fill:default,4dlu",
-                    FormLayoutUtils.createLayoutString(1 + length));
-            layout.setColumnGroups(new int[][] { { 12, 18 } });
+                                            + "4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,"
+                                            + "0dlu,0dlu,4dlu,center:default,4dlu,fill:default,4dlu",
+                                    FormLayoutUtils.createLayoutString(1 + length));
+            layout.setColumnGroups(new int[][]{{12, 18}});
         }
         inputPanel.removeAll();
         inputPanel.setLayout(layout);
@@ -435,7 +436,7 @@ public class PTimeInputPlugin extends ANullPlugin {
 
         discipline = new JComboBox<>();
         discipline.setToolTipText(I18n.getToolTip("SelectNumberOfDiscipline"));
-        amount = new JComboBox<>(new Integer[] { 5, 10, 15, 20, 25, 30, 40, 50 });
+        amount = new JComboBox<>(new Integer[]{5, 10, 15, 20, 25, 30, 40, 50});
         amount.addActionListener(new AmountActionListener());
         amount.setToolTipText(I18n.getToolTip("NumberOfInputLines"));
         more = new JButton(I18n.get("More"));
@@ -487,7 +488,7 @@ public class PTimeInputPlugin extends ANullPlugin {
                 startnumbers[x].setText("");
             }
         }
-        startnumbers[0].requestFocus();
+        EDTUtils.requestFocus(startnumbers[0]);
     }
 
     private final class HighPointsListener extends FocusAdapter {
@@ -510,7 +511,7 @@ public class PTimeInputPlugin extends ANullPlugin {
             }
             data = inputs[index].getText();
             if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index], disciplineNumber)) {
-                inputs[index].requestFocus();
+                EDTUtils.requestFocus(inputs[index]);
             }
         }
     }
@@ -588,7 +589,7 @@ public class PTimeInputPlugin extends ANullPlugin {
         inputPanel = new ScrollableJPanel();
 
         scroller = new JScrollPane(inputPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                                   ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(30);
         scroller.getHorizontalScrollBar().setUnitIncrement(30);
         scroller.setBorder(null);
@@ -601,8 +602,8 @@ public class PTimeInputPlugin extends ANullPlugin {
         in.add(scroller, CC.xy(2, 2));
 
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
-        layout.setColumnGroups(new int[][] { { 2, 4 } });
+                                           "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+        layout.setColumnGroups(new int[][]{{2, 4}});
         JPanel innerPanel = new JPanel(layout);
         innerPanel.add(createTopLeftPanel(), CC.xy(2, 2));
         innerPanel.add(createTopRightPanel(), CC.xy(4, 2));
@@ -622,16 +623,16 @@ public class PTimeInputPlugin extends ANullPlugin {
 
         JPanel glass = main.getGlassPanel();
         layout = new FormLayout("4dlu:grow,fill:default,4dlu:grow", "4dlu:grow,fill:default,4dlu:grow");
-        layout.setRowGroups(new int[][] { { 1, 3 } });
-        layout.setColumnGroups(new int[][] { { 1, 3 } });
+        layout.setRowGroups(new int[][]{{1, 3}});
+        layout.setColumnGroups(new int[][]{{1, 3}});
         glass.setLayout(layout);
         glass.add(infopanel, CC.xy(2, 2));
     }
 
     private JPanel createTopLeftPanel() {
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu");
-        layout.setRowGroups(new int[][] { { 2, 4 } });
+                                           "4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu");
+        layout.setRowGroups(new int[][]{{2, 4}});
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Selection")));
 
@@ -647,15 +648,15 @@ public class PTimeInputPlugin extends ANullPlugin {
 
     private JPanel createTopRightPanel() {
         messages = new MessagePanel(I18n.get("ErrorsOccured"), I18n.get("Ok"),
-                new String[] { I18n.get("TimesIncorrect"), I18n.get("StartnumbersIncorrect"),
-                        I18n.get("SwimmerHasLessDisciplines"), I18n.get("DoesNotParticipate") });
+                                    new String[]{I18n.get("TimesIncorrect"), I18n.get("StartnumbersIncorrect"),
+                                            I18n.get("SwimmerHasLessDisciplines"), I18n.get("DoesNotParticipate")});
         messages.setBorder(BorderUtils.createLabeledBorder(I18n.get("Status")));
         return messages;
     }
 
     @Override
     public PanelInfo[] getPanelInfos() {
-        return new PanelInfo[] { new PanelInfo(TITLE_INPUT, IconManager.getBigIcon("timeinput"), true, false, 340) {
+        return new PanelInfo[]{new PanelInfo(TITLE_INPUT, IconManager.getBigIcon("timeinput"), true, false, 340) {
 
             @Override
             public JPanel getPanelI() {
@@ -666,7 +667,7 @@ public class PTimeInputPlugin extends ANullPlugin {
                 }
                 return main;
             }
-        } };
+        }};
     }
 
     @Override
@@ -789,7 +790,7 @@ public class PTimeInputPlugin extends ANullPlugin {
                         setInput(index, "", updateInput);
                     }
                     penaltiestext[index].setText(PenaltyUtils
-                            .getPenaltyShortText(s.getAkkumulierteStrafe(discipline.getSelectedIndex()), s.getAK()));
+                                                         .getPenaltyShortText(s.getAkkumulierteStrafe(discipline.getSelectedIndex()), s.getAK()));
                     inputs[index].setEnabled(true);
                     penalties[index].setEnabled(true);
                 } else {
@@ -908,7 +909,7 @@ public class PTimeInputPlugin extends ANullPlugin {
     void nextRow(int index) {
         index++;
         if (index < inputs.length) {
-            startnumbers[index].requestFocus();
+            EDTUtils.requestFocus(startnumbers[index]);
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
@@ -917,7 +918,7 @@ public class PTimeInputPlugin extends ANullPlugin {
     void previousRow(int index) {
         index--;
         if (index >= 0) {
-            startnumbers[index].requestFocus();
+            EDTUtils.requestFocus(startnumbers[index]);
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
@@ -936,8 +937,8 @@ public class PTimeInputPlugin extends ANullPlugin {
                     }
                     updateRow(index, false);
                     controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED,
-                            swimmers[index], disciplineNumber,
-                            PTimeInputPlugin.this);
+                                                   swimmers[index], disciplineNumber,
+                                                   PTimeInputPlugin.this);
                 }
             }
         }
@@ -1024,32 +1025,32 @@ public class PTimeInputPlugin extends ANullPlugin {
                 return;
             }
             switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                if (index > 0) {
-                    inputs[index - 1].requestFocus();
-                }
-                e.consume();
-                break;
-            case KeyEvent.VK_DOWN:
-                if (index + 1 < inputs.length) {
-                    inputs[index + 1].requestFocus();
-                }
-                e.consume();
-                break;
-            case KeyEvent.VK_LEFT:
-                if (e.isControlDown()) {
-                    startnumbers[index].requestFocus();
+                case KeyEvent.VK_UP:
+                    if (index > 0) {
+                        EDTUtils.requestFocus(inputs[index - 1]);
+                    }
                     e.consume();
-                }
-                break;
-            case KeyEvent.VK_RIGHT:
-                if (e.isControlDown()) {
-                    penalties[index].requestFocus();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if (index + 1 < inputs.length) {
+                        EDTUtils.requestFocus(inputs[index + 1]);
+                    }
                     e.consume();
-                }
-                break;
-            default:
-                break;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    if (e.isControlDown()) {
+                        EDTUtils.requestFocus(startnumbers[index]);
+                        e.consume();
+                    }
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if (e.isControlDown()) {
+                        EDTUtils.requestFocus(penalties[index]);
+                        e.consume();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -1093,26 +1094,26 @@ public class PTimeInputPlugin extends ANullPlugin {
                 return;
             }
             switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                if (index > 0) {
-                    startnumbers[index - 1].requestFocus();
-                }
-                e.consume();
-                break;
-            case KeyEvent.VK_DOWN:
-                if (index + 1 < startnumbers.length) {
-                    startnumbers[index + 1].requestFocus();
-                }
-                e.consume();
-                break;
-            case KeyEvent.VK_RIGHT:
-                if (e.isControlDown()) {
-                    inputs[index].requestFocus();
+                case KeyEvent.VK_UP:
+                    if (index > 0) {
+                        EDTUtils.requestFocus(startnumbers[index - 1]);
+                    }
                     e.consume();
-                }
-                break;
-            default:
-                break;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if (index + 1 < startnumbers.length) {
+                        EDTUtils.requestFocus(startnumbers[index + 1]);
+                    }
+                    e.consume();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if (e.isControlDown()) {
+                        EDTUtils.requestFocus(inputs[index]);
+                        e.consume();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -1132,8 +1133,8 @@ public class PTimeInputPlugin extends ANullPlugin {
                 public void run() {
                     updateRow(index, false);
                     controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY,
-                            swimmers[index], disciplineNumber,
-                            PTimeInputPlugin.this);
+                                                   swimmers[index], disciplineNumber,
+                                                   PTimeInputPlugin.this);
                 }
             });
         }

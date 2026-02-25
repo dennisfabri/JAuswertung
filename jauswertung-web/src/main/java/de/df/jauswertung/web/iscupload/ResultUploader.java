@@ -32,6 +32,10 @@ public class ResultUploader {
     }
 
     public void uploadResultsToISC(AWettkampf<?> wk) {
+        if (!isActive) {
+            return;
+        }
+
         if (!isDirty) {
             log.debug("Upload - not dirty");
             return;

@@ -3,59 +3,16 @@
  */
 package de.df.jauswertung.gui.plugins.importexport;
 
-import java.awt.Cursor;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.concurrent.ExecutionException;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.SwingWorker;
-import javax.swing.text.BadLocationException;
-
-import org.apache.poi.hssf.OldExcelFormatException;
-import org.apache.poi.hssf.record.RecordInputStream.LeftoverDataException;
-import org.lisasp.swing.filechooser.FileChooserUtils;
-import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.xduke.xswing.DataTipManager;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
-import de.df.jauswertung.io.ExportManager;
-import de.df.jauswertung.io.IImporter;
-import de.df.jauswertung.io.ImportExportTypes;
-import de.df.jauswertung.io.ImportManager;
-import de.df.jauswertung.io.ImportUtils;
-import de.df.jauswertung.io.TableEntryException;
-import de.df.jauswertung.io.TableException;
-import de.df.jauswertung.io.TableFormatException;
+import de.df.jauswertung.io.*;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
 import de.df.jauswertung.io.value.ZWStartnummer;
@@ -65,17 +22,23 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.gui.wizard.AWizardPage;
-import de.df.jutils.gui.wizard.CancelListener;
-import de.df.jutils.gui.wizard.FinishListener;
-import de.df.jutils.gui.wizard.JWizard;
-import de.df.jutils.gui.wizard.JWizardFrame;
-import de.df.jutils.gui.wizard.PageSwitchListener;
-import de.df.jutils.gui.wizard.UpdateListener;
-import de.df.jutils.gui.wizard.WizardOptionPage;
+import de.df.jutils.gui.wizard.*;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.StringTools;
 import de.df.jutils.util.SystemOutFeedback;
+import org.apache.poi.hssf.OldExcelFormatException;
+import org.apache.poi.hssf.record.RecordInputStream.LeftoverDataException;
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Dennis Fabri
@@ -159,7 +122,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     }
 
     /**
-     * 
+     *
      */
     void browseFile() {
         IImporter i = ImportManager.getImporter(format.getSelectedItemname());
@@ -168,9 +131,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             names = FileChooserUtils.openFiles(JImportWizard.this, new SimpleFileFilter(i.getName(), i.getSuffixes()));
         } else {
             String name = FileChooserUtils.openFile(JImportWizard.this,
-                    new SimpleFileFilter(i.getName(), i.getSuffixes()));
+                                                    new SimpleFileFilter(i.getName(), i.getSuffixes()));
             if (name != null) {
-                names = new String[] { name };
+                names = new String[]{name};
             }
         }
         if (names != null) {
@@ -216,55 +179,55 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         sw.execute();
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     boolean finishImport() {
         Object data = null;
         if (results != null) {
             data = ImportManager.finishImport(ImportExportTypes.getByValue(type.getSelectedIndex()),
-                    core.getWettkampf(), results,
-                    new SystemOutFeedback());
+                                              core.getWettkampf(), results,
+                                              new SystemOutFeedback());
             results = null;
             if (data != null) {
                 switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
-                case REGISTRATION:
-                    controller.sendDataUpdateEvent("Import",
-                            UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
-                            null, null);
-                    break;
-                case REGISTRATION_UPDATE:
-                case STARTERS:
-                    controller.sendDataUpdateEvent("Import",
-                            UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
-                            null, null);
-                    break;
-                case HEAT_LIST:
-                    core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
-                            null);
-                    break;
-                case HEAT_TIMES:
-                case RESULTS:
-                    core.setWettkampf((AWettkampf) data, false, "Import");
-                    controller.sendDataUpdateEvent("Import",
-                            UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data,
-                            null, null);
-                    break;
-                case REFEREES:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
-                            null);
-                    break;
-                case TEAM_MEMBERS:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
-                            null);
-                    break;
-                case ZW_RESULTS:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null,
-                            null);
-                    break;
-                default:
-                    controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_EVERYTHING_CHANGED, data, null,
-                            null);
-                    break;
+                    case REGISTRATION:
+                        controller.sendDataUpdateEvent("Import",
+                                                       UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
+                                                       null, null);
+                        break;
+                    case REGISTRATION_UPDATE:
+                    case STARTERS:
+                        controller.sendDataUpdateEvent("Import",
+                                                       UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
+                                                       null, null);
+                        break;
+                    case HEAT_LIST:
+                        core.setWettkampf((AWettkampf) data, false, "Import");
+                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
+                                                       null);
+                        break;
+                    case HEAT_TIMES:
+                    case RESULTS:
+                        core.setWettkampf((AWettkampf) data, false, "Import");
+                        controller.sendDataUpdateEvent("Import",
+                                                       UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data,
+                                                       null, null);
+                        break;
+                    case REFEREES:
+                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
+                                                       null);
+                        break;
+                    case TEAM_MEMBERS:
+                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
+                                                       null);
+                        break;
+                    case ZW_RESULTS:
+                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null,
+                                                       null);
+                        break;
+                    default:
+                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_EVERYTHING_CHANGED, data, null,
+                                                       null);
+                        break;
                 }
             }
         }
@@ -277,7 +240,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         public JTypeChooser(ImportExportMode mode) {
             super(getWizard(), I18n.get("ChooseAType"), I18n.get("Import.ChooseAType.Information"),
-                    ExportManager.NAMES);
+                  ExportManager.NAMES);
             this.mode = mode;
             for (ImportExportTypes t : ImportExportTypes.values()) {
                 boolean enabled = (mode == ImportExportMode.Normal) || (t == ImportExportTypes.TEAM_MEMBERS);
@@ -299,7 +262,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         public JFormatChooser() {
             super(getWizard(), I18n.get("ChooseAFormat"), I18n.get("Import.ChooseAFormat.Information"),
-                    ImportManager.getSupportedFormats());
+                  ImportManager.getSupportedFormats());
             pageSwitch(true);
         }
 
@@ -309,7 +272,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 String[] names = ImportManager.getSupportedFormats();
                 for (int x = 0; x < names.length; x++) {
                     setEnabled(x,
-                            ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
+                               ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
                 }
             }
             getWizard().notifyUpdate();
@@ -327,13 +290,11 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             FileAutoCompleter.addFileAutoCompleter(filename);
 
             panel = new JPanel(new FormLayout("4dlu,fill:default:grow,4dlu,fill:default,4dlu",
-                    "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
-                private static final long serialVersionUID = 0L;
-
+                                              "4dlu,fill:default:grow,fill:default,fill:default:grow,4dlu")) {
                 @Override
                 public void requestFocus() {
                     super.requestFocus();
-                    filename.requestFocus();
+                    EDTUtils.requestFocus(filename);
                 }
             };
 
@@ -580,14 +541,14 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
                 try {
                     results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names,
-                            format.getSelectedItemname(), wk,
-                    s -> insertText(s));
+                                                       format.getSelectedItemname(), wk,
+                                                       s -> insertText(s));
                 } catch (TableEntryException tee) {
                     if (display) {
                         DialogUtils.warn(JImportWizard.this,
-                                I18n.get("EntryError",
-                                        StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn())),
-                                tee.getData(), null);
+                                         I18n.get("EntryError",
+                                                  StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn())),
+                                         tee.getData(), null);
                     }
                     results = null;
                 } catch (TableFormatException tfe) {
@@ -596,7 +557,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         sb.append(I18n.get("TheFollowingRequiredFieldsWereNotFound"));
                         sb.append(ImportUtils.indizesToNames(tfe.getData(), ""));
                         DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb.toString(),
-                                I18n.get("CheckColumnheaders"));
+                                         I18n.get("CheckColumnheaders"));
                     }
                     results = null;
                 } catch (TableException e) {
@@ -611,10 +572,10 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 } catch (IOException e) {
                     e.printStackTrace();
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                            I18n.get("CheckFile"));
+                                     I18n.get("CheckFile"));
                 } catch (OldExcelFormatException | LeftoverDataException old) {
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                    I18n.get("OldFileExcelFormat"));
+                                     I18n.get("OldFileExcelFormat"));
                 }
             }
         }
@@ -653,7 +614,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             super(I18n.get("ImportData"), I18n.get("ImportData.Information"));
 
             FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                    "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
+                                               "4dlu,fill:default,4dlu,fill:default:grow,4dlu");
             panel = new JPanel(layout);
             amount = new JLabel();
             data = new JList<>();
@@ -684,60 +645,60 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             getWizard().setFinishButtonEnabled((results != null) && message);
             if (results != null) {
                 switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
-                case REGISTRATION: {
-                    @SuppressWarnings("unchecked")
-                    LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
-                    ListIterator<ASchwimmer> li = r.listIterator();
-                    while (li.hasNext()) {
-                        boolean added = wk.addSchwimmer(li.next());
-                        assert added;
-                    }
-                    li = r.listIterator();
-                    while (li.hasNext()) {
-                        wk.removeSchwimmer(li.next());
-                    }
-                    data.setListData(r.toArray(new ASchwimmer[r.size()]));
-                    amount.setText("" + r.size());
-                    break;
-                }
-                case REGISTRATION_UPDATE: {
-                    @SuppressWarnings("unchecked")
-                    LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
-                    data.setListData(r.toArray(new ASchwimmer[r.size()]));
-                    amount.setText("" + r.size());
-                    break;
-                }
-                case TEAM_MEMBERS: {
-                    @SuppressWarnings("unchecked")
-                    Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
-                    Enumeration<String> sns = names.keys();
-                    LinkedList<ASchwimmer> r = new LinkedList<>();
-                    HashSet<Integer> foundSN = new HashSet<>();
-                    while (sns.hasMoreElements()) {
-                        String sntext = sns.nextElement();
-                        int sn = Integer.parseInt(sntext.substring(0, sntext.length() - 1));
-                        if (!foundSN.contains(sn)) {
-                            r.addLast(SearchUtils.getSchwimmer(wk, sn));
-                            foundSN.add(sn);
+                    case REGISTRATION: {
+                        @SuppressWarnings("unchecked")
+                        LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
+                        ListIterator<ASchwimmer> li = r.listIterator();
+                        while (li.hasNext()) {
+                            boolean added = wk.addSchwimmer(li.next());
+                            assert added;
                         }
+                        li = r.listIterator();
+                        while (li.hasNext()) {
+                            wk.removeSchwimmer(li.next());
+                        }
+                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        amount.setText("" + r.size());
+                        break;
                     }
-                    data.setListData(r.toArray(new ASchwimmer[r.size()]));
-                    amount.setText("" + r.size());
-                    break;
-                }
-                case ZW_RESULTS: {
-                    @SuppressWarnings("unchecked")
-                    Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
-                    Enumeration<ZWStartnummer> sns = names.keys();
-                    LinkedList<ASchwimmer> r = new LinkedList<>();
-                    while (sns.hasMoreElements()) {
-                        r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
+                    case REGISTRATION_UPDATE: {
+                        @SuppressWarnings("unchecked")
+                        LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
+                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        amount.setText("" + r.size());
+                        break;
                     }
-                    data.setListData(r.toArray(new ASchwimmer[r.size()]));
-                    amount.setText("" + r.size());
-                    break;
-                }
-                default:
+                    case TEAM_MEMBERS: {
+                        @SuppressWarnings("unchecked")
+                        Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
+                        Enumeration<String> sns = names.keys();
+                        LinkedList<ASchwimmer> r = new LinkedList<>();
+                        HashSet<Integer> foundSN = new HashSet<>();
+                        while (sns.hasMoreElements()) {
+                            String sntext = sns.nextElement();
+                            int sn = Integer.parseInt(sntext.substring(0, sntext.length() - 1));
+                            if (!foundSN.contains(sn)) {
+                                r.addLast(SearchUtils.getSchwimmer(wk, sn));
+                                foundSN.add(sn);
+                            }
+                        }
+                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        amount.setText("" + r.size());
+                        break;
+                    }
+                    case ZW_RESULTS: {
+                        @SuppressWarnings("unchecked")
+                        Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
+                        Enumeration<ZWStartnummer> sns = names.keys();
+                        LinkedList<ASchwimmer> r = new LinkedList<>();
+                        while (sns.hasMoreElements()) {
+                            r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
+                        }
+                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        amount.setText("" + r.size());
+                        break;
+                    }
+                    default:
                 }
             }
         }

@@ -30,6 +30,7 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.border.BorderUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.plugin.IPluginManager;
 
@@ -59,9 +60,9 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
                 schwimmer.addStrafe(disziplin, new Strafe(strafe));
             }
             controller.sendDataUpdateEvent("SetPenalty",
-                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer,
-                    disziplin,
-                    null);
+                                           UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer,
+                                           disziplin,
+                                           null);
         }
 
         @Override
@@ -88,8 +89,8 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
                 schwimmer.addStrafe(id, new Strafe(strafe));
             }
             controller.sendDataUpdateEvent("SetPenalty",
-                    UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id,
-                    null);
+                                           UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, schwimmer, id,
+                                           null);
         }
 
         @Override
@@ -103,11 +104,6 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
             return I18n.getDisciplineFullName(wk, id);
         }
     }
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3256719580843227188L;
 
     IPenaltyPointsStrategy strategy;
     final AWettkampf<T> wk;
@@ -151,8 +147,6 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
@@ -163,8 +157,6 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
 
         KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
         Action enterAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 doOk();
@@ -175,12 +167,11 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
     }
 
     void doOk() {
-        if (!integer.isValidInt() && (integer.getText().length() > 0)) {
+        if (!integer.isValidInt() && !integer.getText().isEmpty()) {
             Toolkit.getDefaultToolkit().beep();
-            integer.requestFocus();
+            EDTUtils.requestFocus(integer);
         } else {
-
-            if (integer.getText().length() > 0) {
+            if (!integer.getText().isEmpty()) {
                 int strafe = integer.getInt();
                 strategy.add(strafe);
             }
@@ -188,11 +179,6 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         }
     }
 
-    /**
-     * This method initializes this
-     * 
-     * @return void
-     */
     private void initialize() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderUtils.createSpaceBorder());
@@ -209,7 +195,7 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         });
 
         integer = new JIntegerField(10000, false);
-        integer.requestFocus();
+        EDTUtils.requestFocus(integer);
         integer.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent arg0) {
@@ -228,8 +214,8 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         });
 
         FormLayout layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
-        layout.setRowGroups(new int[][] { { 2, 4, 6 } });
+                                           "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout.setRowGroups(new int[][]{{2, 4, 6}});
         JPanel top = new JPanel(layout);
         top.setBorder(BorderUtils.createLabeledBorder(I18n.get("Input")));
         top.add(new JLabel(I18n.get("Penalty")), CC.xy(2, 2));
@@ -239,8 +225,8 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
         top.add(cancel, CC.xy(4, 6));
 
         layout = new FormLayout("4dlu,fill:default,4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu");
-        layout.setRowGroups(new int[][] { { 2, 4, 6, 8, 10 } });
+                                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu");
+        layout.setRowGroups(new int[][]{{2, 4, 6, 8, 10}});
         JPanel bottom = new JPanel(layout);
         bottom.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information")));
         bottom.add(new JLabel(I18n.get("Name")), CC.xy(2, 2));

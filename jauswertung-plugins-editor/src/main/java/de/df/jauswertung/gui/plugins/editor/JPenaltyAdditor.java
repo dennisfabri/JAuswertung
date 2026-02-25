@@ -31,6 +31,7 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.PenaltyShortTextListRenderer;
 import de.df.jutils.gui.border.BorderUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -246,6 +247,6 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         UIStateUtils.uistatemanage(this, "JPenaltyAdditor");
         pack();
 
-        penalty.requestFocus();
+        EDTUtils.requestFocus(penalty);
     }
 }

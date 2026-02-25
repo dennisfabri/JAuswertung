@@ -48,6 +48,7 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
 import de.df.jutils.gui.util.DialogUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
@@ -506,7 +507,7 @@ class JSimpleInputPanel extends JPanel {
                 startNumbers[x].setText("");
             }
         }
-        startNumbers[0].requestFocus();
+        EDTUtils.requestFocus(startNumbers[0]);
     }
 
     private int currentRow() {
@@ -528,7 +529,7 @@ class JSimpleInputPanel extends JPanel {
     private void nextRow(int index) {
         index++;
         if (index < inputs.length) {
-            startNumbers[index].requestFocus();
+            EDTUtils.requestFocus(startNumbers[index]);
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
@@ -537,7 +538,7 @@ class JSimpleInputPanel extends JPanel {
     private void previousRow(int index) {
         index--;
         if (index >= 0) {
-            startNumbers[index].requestFocus();
+            EDTUtils.requestFocus(startNumbers[index]);
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
@@ -593,7 +594,7 @@ class JSimpleInputPanel extends JPanel {
             if (doit) {
                 inputs[index].setText(value);
                 if (inputs.length > index + 1) {
-                    startNumbers[index + 1].requestFocus();
+                    EDTUtils.requestFocus(startNumbers[index + 1]);
                 }
             }
         }
@@ -632,19 +633,19 @@ class JSimpleInputPanel extends JPanel {
             switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 if (index > 0) {
-                    inputs[index - 1].requestFocus();
+                    EDTUtils.requestFocus(inputs[index - 1]);
                 }
                 e.consume();
                 break;
             case KeyEvent.VK_DOWN:
                 if (index + 1 < inputs.length) {
-                    inputs[index + 1].requestFocus();
+                    EDTUtils.requestFocus(inputs[index + 1]);
                 }
                 e.consume();
                 break;
             case KeyEvent.VK_LEFT:
                 if (e.isControlDown()) {
-                    startNumbers[index].requestFocus();
+                    EDTUtils.requestFocus(startNumbers[index]);
                     e.consume();
                 }
                 break;
@@ -746,13 +747,13 @@ class JSimpleInputPanel extends JPanel {
             switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 if (index > 0) {
-                    startNumbers[index - 1].requestFocus();
+                    EDTUtils.requestFocus(startNumbers[index - 1]);
                 }
                 e.consume();
                 break;
             case KeyEvent.VK_DOWN:
                 if (index + 1 < inputs.length) {
-                    startNumbers[index + 1].requestFocus();
+                    EDTUtils.requestFocus(startNumbers[index + 1]);
                 }
                 e.consume();
                 break;
@@ -763,7 +764,7 @@ class JSimpleInputPanel extends JPanel {
                 break;
             case KeyEvent.VK_RIGHT:
                 if (e.isControlDown()) {
-                    inputs[index].requestFocus();
+                    EDTUtils.requestFocus(inputs[index]);
                     e.consume();
                 }
                 break;

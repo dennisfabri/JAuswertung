@@ -25,6 +25,7 @@ import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
 import de.df.jutils.gui.border.BorderUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -72,9 +73,9 @@ class JTimeEditor extends JDialog {
     }
 
     void doOk() {
-        if ((integer.getText().length() > 0) && (!(integer.isValidInt() && time.isValidValue()))) {
+        if (!integer.getText().isEmpty() && (!(integer.isValidInt() && time.isValidValue()))) {
             Toolkit.getDefaultToolkit().beep();
-            integer.requestFocus();
+            EDTUtils.requestFocus(integer);
         } else {
             int zeit = schwimmer.getZeit(disziplin);
             if (zeit != time.getTimeAsInt()) {
@@ -85,17 +86,12 @@ class JTimeEditor extends JDialog {
                     setVisible(false);
                 } else {
                     schwimmer.setZeit(disziplin, zeit);
-                    integer.requestFocus();
+                    EDTUtils.requestFocus(integer);
                 }
             }
         }
     }
 
-    /**
-     * This method initializes this
-     * 
-     * @return void
-     */
     private void initialize() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderUtils.createSpaceBorder());
@@ -121,7 +117,7 @@ class JTimeEditor extends JDialog {
             return value < 1000;
         });
         integer.setAutoSelectAll(true);
-        integer.requestFocus();
+        EDTUtils.requestFocus(integer);
         integer.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override

@@ -85,7 +85,7 @@ public final class DefaultInit {
             return new FileChooserJFX();
         }
         if (OSUtils.isLinux()) {
-            return new FileChooserJFX();
+            //return new FileChooserJFX();
         }
         return new FileChooserL2f();
 

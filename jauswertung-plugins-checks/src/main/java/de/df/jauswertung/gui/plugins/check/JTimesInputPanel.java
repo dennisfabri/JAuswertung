@@ -3,36 +3,9 @@
  */
 package de.df.jauswertung.gui.plugins.check;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.shared.swing.renderer.DefaultCellRenderer;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
@@ -52,7 +25,18 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.FormLayoutUtils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
@@ -123,7 +107,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             @SuppressWarnings("rawtypes")
             @Override
             public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
-                    boolean arg4) {
+                                                          boolean arg4) {
                 Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
                 if (c instanceof JComponent) {
                     JComponent jc = (JComponent) c;
@@ -169,20 +153,20 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             ASchwimmer s = li.next();
             for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                 switch (SchwimmerUtils.getTimeStatus(wk, s, x)) {
-                case FAST:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.FAST));
-                    break;
-                case SLOW:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.SLOW));
-                    break;
-                case NORMAL:
-                    break;
-                case NONE:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.NONE));
-                    break;
+                    case FAST:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.FAST));
+                        break;
+                    case SLOW:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.SLOW));
+                        break;
+                    case NORMAL:
+                        break;
+                    case NONE:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.NONE));
+                        break;
                 }
             }
         }
@@ -260,7 +244,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         });
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     void updateGUI() {
         setEnabled(swimmers.length > 0);
         container.removeAll();
@@ -322,7 +306,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(24, 2, "center,center"));
             for (int y = 0; y < swimmers[x].length; y++) {
                 input[x][y] = new JIntegerField(JTimeField.MAX_TIME, false, true);
-                input[x][y].setValidator((Validator)value -> {
+                input[x][y].setValidator((Validator) value -> {
                     value = value / 100;
                     if ((value % 100) >= 60) {
                         return false;
@@ -346,7 +330,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                         time[x][y].setTimeAsInt(swimmers[x][y].getZeit(x));
                     }
                     penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x),
-                            swimmers[x][y].getAK()));
+                                                                               swimmers[x][y].getAK()));
                     Disziplin disziplin = swimmers[x][y].getAK().getDisziplin(x, swimmers[x][y].isMaennlich());
                     recs[x][y].setText(StringTools.zeitString(disziplin.getRec()));
                     discipline[x][y].setText(disziplin.getName());
@@ -389,17 +373,17 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
     static void updateStatus(JLabel label, TimeStatus ts) {
         switch (ts) {
-        default:
-        case NONE:
-            return;
-        case FAST:
-            label.setIcon(IconManager.getSmallIcon("fast"));
-            label.setToolTipText(I18n.getToolTip("TimeTooLow"));
-            break;
-        case SLOW:
-            label.setIcon(IconManager.getSmallIcon("slow"));
-            label.setToolTipText(I18n.getToolTip("TimeTooHigh"));
-            break;
+            default:
+            case NONE:
+                return;
+            case FAST:
+                label.setIcon(IconManager.getSmallIcon("fast"));
+                label.setToolTipText(I18n.getToolTip("TimeTooLow"));
+                break;
+            case SLOW:
+                label.setIcon(IconManager.getSmallIcon("slow"));
+                label.setToolTipText(I18n.getToolTip("TimeTooHigh"));
+                break;
         }
     }
 
@@ -412,7 +396,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         for (int x = 0; x < swimmers.length; x++) {
             for (int y = 0; y < swimmers[x].length; y++) {
                 penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x),
-                        swimmers[x][y].getAK()));
+                                                                           swimmers[x][y].getAK()));
             }
         }
     }
@@ -544,8 +528,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             }
             data = input[disz][index].getText();
             if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JTimesInputPanel.this),
-                    swimmers[disz][index], disz)) {
-                input[disz][index].requestFocus();
+                                                   swimmers[disz][index], disz)) {
+                EDTUtils.requestFocus(input[disz][index]);
             }
         }
     }
@@ -579,11 +563,11 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
-                input[disziplin][index - 1].requestFocus();
+                EDTUtils.requestFocus(input[disziplin][index - 1]);
             }
             if ((index + 1 < input[disziplin].length)
                     && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
-                input[disziplin][index + 1].requestFocus();
+                EDTUtils.requestFocus(input[disziplin][index + 1]);
             }
         }
 

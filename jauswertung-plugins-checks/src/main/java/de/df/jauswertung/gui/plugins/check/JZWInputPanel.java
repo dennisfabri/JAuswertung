@@ -33,6 +33,7 @@ import de.df.jutils.gui.JTransparentButton;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.CenterLayout;
 import de.df.jutils.gui.layout.SimpleTableBuilder;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
 
 public class JZWInputPanel extends JGlassPanel<JPanel> {
@@ -334,11 +335,11 @@ public class JZWInputPanel extends JGlassPanel<JPanel> {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((index > 0) && (e.getKeyCode() == KeyEvent.VK_UP)) {
-                points[index - 1].requestFocus();
+                EDTUtils.requestFocus(points[index - 1]);
             }
             if ((index + 1 < points.length)
                     && ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == KeyEvent.VK_ENTER))) {
-                points[index + 1].requestFocus();
+                EDTUtils.requestFocus(points[index + 1]);
             }
         }
 

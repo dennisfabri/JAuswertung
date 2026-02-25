@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import de.df.jutils.gui.util.EDTUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.jgoodies.forms.factories.CC;
@@ -119,7 +120,7 @@ class JTeammembersBarcodeScanPanel extends JPanel {
             }
         }
         if (requestFocus) {
-            input.requestFocus();
+            EDTUtils.requestFocus(input);
         }
 
         startnumber.setText(" ");
@@ -156,8 +157,8 @@ class JTeammembersBarcodeScanPanel extends JPanel {
     }
 
     boolean enterValue() {
-        if (input.getText().length() == 0) {
-            input.requestFocus();
+        if (input.getText().isBlank()) {
+            EDTUtils.requestFocus(input);
             return false;
         }
         Team team = null;
