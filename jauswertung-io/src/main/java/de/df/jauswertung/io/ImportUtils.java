@@ -78,7 +78,8 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> Hashtable<String, String[]> tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
-            String[] sheets, Object[][][] tables, String file) throws TableEntryException, TableException {
+                                                                                  String[] sheets, Object[][][] tables, String file)
+            throws TableEntryException, TableException {
 
         Hashtable<String, String[]> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
@@ -133,7 +134,7 @@ public class ImportUtils {
                 if (sntext.length() < 2) {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", sntext,
-                                    StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
+                                     StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
                 char n = sntext.charAt(sntext.length() - 1);
@@ -141,7 +142,7 @@ public class ImportUtils {
                 if (pos < 0) {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", sntext,
-                                    StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
+                                     StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
 
@@ -151,20 +152,20 @@ public class ImportUtils {
                 } catch (RuntimeException re) {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", sntext,
-                                    StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
+                                     StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
 
                 ASchwimmer s = SearchUtils.getSchwimmer(wk, sn);
                 if (s == null) {
                     fb.showFeedback(I18n.get("StartnumberNotFound", sn,
-                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                     continue;
                 }
                 startsak[s.getAKNummer()][s.isMaennlich() ? 1 : 0]++;
 
                 String[] mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
-                        indizes[JAHRGANG], x, sheet, file);
+                                          indizes[JAHRGANG], x, sheet, file);
 
                 result.put(sntext, mm);
             }
@@ -180,7 +181,7 @@ public class ImportUtils {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedNamesForTeamsExtended", wk.getRegelwerk().getAk(x).getName(),
-                            startsak[x][0], startsak[x][1]));
+                                             startsak[x][0], startsak[x][1]));
                 }
             }
         }
@@ -193,7 +194,8 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> List<TeamWithStarters> tablesToStarters(AWettkampf<T> wk, Feedback fb,
-            String[] sheets, Object[][][] tables, String file) throws TableEntryException, TableException {
+                                                                          String[] sheets, Object[][][] tables, String file)
+            throws TableEntryException, TableException {
 
         List<TeamWithStarters> result = new ArrayList<>();
 
@@ -250,7 +252,7 @@ public class ImportUtils {
                 Mannschaft s = SearchUtils.getSchwimmer(mwk, sn);
                 if (s == null) {
                     fb.showFeedback(I18n.get("StartnumberNotFound", sn,
-                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                     continue;
                 }
 
@@ -309,9 +311,9 @@ public class ImportUtils {
         return amount;
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     private static <T extends ASchwimmer> T generateSchwimmer(Object[] data, int[] indizes, String[] titles,
-            AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
+                                                              AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
         try {
             boolean empty = true;
             boolean[] required = getRequiredIndizes(wk instanceof MannschaftWettkampf);
@@ -357,14 +359,14 @@ public class ImportUtils {
                 if (vorname.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("FirstName"),
-                                    StringTools.getCellName(sheet, row, indizes[VORNAME])),
+                                     StringTools.getCellName(sheet, row, indizes[VORNAME])),
                             file, sheet, row, indizes[VORNAME]);
                 }
                 String nachname = data[indizes[NACHNAME]].toString();
                 if (nachname.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Surname"),
-                                    StringTools.getCellName(sheet, row, indizes[NACHNAME])),
+                                     StringTools.getCellName(sheet, row, indizes[NACHNAME])),
                             file, sheet, row, indizes[NACHNAME]);
                 }
             } else {
@@ -372,7 +374,7 @@ public class ImportUtils {
                 if (name.isEmpty()) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Name"),
-                                    StringTools.getCellName(sheet, row, indizes[NAME])),
+                                     StringTools.getCellName(sheet, row, indizes[NAME])),
                             file, sheet, row, indizes[NAME]);
                 }
             }
@@ -391,7 +393,7 @@ public class ImportUtils {
             if (gname.isEmpty()) {
                 throw new TableEntryException(
                         I18n.get("MissingEntry", I18n.get("Organisation"),
-                                StringTools.getCellName(sheet, row, indizes[GLIEDERUNG])),
+                                 StringTools.getCellName(sheet, row, indizes[GLIEDERUNG])),
                         file, sheet, row, indizes[GLIEDERUNG]);
             }
             String gliederung = wk.getGliederung(gname);
@@ -415,7 +417,7 @@ public class ImportUtils {
                         int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
                         if (jahrgang > 0) {
                             int base = wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION,
-                                    Calendar.getInstance().get(Calendar.YEAR));
+                                                             Calendar.getInstance().get(Calendar.YEAR));
                             int alter = base - jahrgang;
                             ak = wk.getRegelwerk().getAkNachAlter(alter);
                         }
@@ -433,12 +435,12 @@ public class ImportUtils {
                 if (indizes[ALTERSKLASSE] < data.length - 1) {
                     throw new TableEntryException(
                             I18n.get("Error.AgeGroupNotFound", data[indizes[ALTERSKLASSE]].toString(),
-                                    StringTools.getCellName(sheet, row, indizes[ALTERSKLASSE])),
+                                     StringTools.getCellName(sheet, row, indizes[ALTERSKLASSE])),
                             file, sheet, row, indizes[ALTERSKLASSE]);
                 }
                 throw new TableEntryException(
                         I18n.get("Error.GeneralAgeGroupNotFound", data[indizes[ALTERSKLASSE]].toString(),
-                                StringTools.getRowName(sheet, row, indizes[ALTERSKLASSE])),
+                                 StringTools.getRowName(sheet, row, indizes[ALTERSKLASSE])),
                         file, sheet, row, indizes[ALTERSKLASSE]);
             }
 
@@ -461,62 +463,62 @@ public class ImportUtils {
                 Mannschaft m = mwk.createMannschaft(name, maennlich, gliederung, ak, bemerkung);
 
                 setMitglied(wk, m.getMannschaftsmitglied(0), data, indizes[VORNAME1], indizes[NACHNAME1],
-                        indizes[GESCHLECHT1], indizes[JAHRGANG1], row, sheet, file);
+                            indizes[GESCHLECHT1], indizes[JAHRGANG1], row, sheet, file);
                 if (m.getAK().getMaxMembers() > 1) {
                     setMitglied(wk, m.getMannschaftsmitglied(1), data, indizes[VORNAME2], indizes[NACHNAME2],
-                            indizes[GESCHLECHT2], indizes[JAHRGANG2], row, sheet, file);
+                                indizes[GESCHLECHT2], indizes[JAHRGANG2], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 2) {
                     setMitglied(wk, m.getMannschaftsmitglied(2), data, indizes[VORNAME3], indizes[NACHNAME3],
-                            indizes[GESCHLECHT3], indizes[JAHRGANG3], row, sheet, file);
+                                indizes[GESCHLECHT3], indizes[JAHRGANG3], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 3) {
                     setMitglied(wk, m.getMannschaftsmitglied(3), data, indizes[VORNAME4], indizes[NACHNAME4],
-                            indizes[GESCHLECHT4], indizes[JAHRGANG4], row, sheet, file);
+                                indizes[GESCHLECHT4], indizes[JAHRGANG4], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 4) {
                     setMitglied(wk, m.getMannschaftsmitglied(4), data, indizes[VORNAME5], indizes[NACHNAME5],
-                            indizes[GESCHLECHT5], indizes[JAHRGANG5], row, sheet, file);
+                                indizes[GESCHLECHT5], indizes[JAHRGANG5], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 5) {
                     setMitglied(wk, m.getMannschaftsmitglied(5), data, indizes[VORNAME6], indizes[NACHNAME6],
-                            indizes[GESCHLECHT6], indizes[JAHRGANG6], row, sheet, file);
+                                indizes[GESCHLECHT6], indizes[JAHRGANG6], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 6) {
                     setMitglied(wk, m.getMannschaftsmitglied(6), data, indizes[VORNAME7], indizes[NACHNAME7],
-                            indizes[GESCHLECHT7], indizes[JAHRGANG7], row, sheet, file);
+                                indizes[GESCHLECHT7], indizes[JAHRGANG7], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 7) {
                     setMitglied(wk, m.getMannschaftsmitglied(7), data, indizes[VORNAME8], indizes[NACHNAME8],
-                            indizes[GESCHLECHT8], indizes[JAHRGANG8], row, sheet, file);
+                                indizes[GESCHLECHT8], indizes[JAHRGANG8], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 8) {
                     setMitglied(wk, m.getMannschaftsmitglied(8), data, indizes[VORNAME9], indizes[NACHNAME9],
-                            indizes[GESCHLECHT9], indizes[JAHRGANG9], row, sheet, file);
+                                indizes[GESCHLECHT9], indizes[JAHRGANG9], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 9) {
                     setMitglied(wk, m.getMannschaftsmitglied(9), data, indizes[VORNAME10], indizes[NACHNAME10],
-                            indizes[GESCHLECHT10], indizes[JAHRGANG10], row, sheet, file);
+                                indizes[GESCHLECHT10], indizes[JAHRGANG10], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 10) {
                     setMitglied(wk, m.getMannschaftsmitglied(10), data, indizes[VORNAME11], indizes[NACHNAME11],
-                            indizes[GESCHLECHT11], indizes[JAHRGANG11], row, sheet, file);
+                                indizes[GESCHLECHT11], indizes[JAHRGANG11], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 11) {
                     setMitglied(wk, m.getMannschaftsmitglied(11), data, indizes[VORNAME12], indizes[NACHNAME12],
-                            indizes[GESCHLECHT12], indizes[JAHRGANG12], row, sheet, file);
+                                indizes[GESCHLECHT12], indizes[JAHRGANG12], row, sheet, file);
                 }
 
                 s = m;
             }
             int[] meldezeiten = ImportUtils.getMeldezeiten(data, indizes[MELDEZEITEN], titles,
-                    wk.getRegelwerk().getAk(ak), row, sheet, file);
+                                                           wk.getRegelwerk().getAk(ak), row, sheet, file);
             int[][] starter = ImportUtils.getStarter(data, titles, wk.getRegelwerk().getAk(ak), row, sheet, file);
             boolean ausserKonkurrenz = getBoolean(data, indizes[AUSSER_KONKURRENZ], row, sheet, file, false);
             try {
                 if (s.getAK().isDisciplineChoiceAllowed()) {
                     s.setDisciplineChoice(ImportUtils.getDisciplineSelection(data, indizes[DISCIPLINES], titles,
-                            s.getAK(), row, sheet, file));
+                                                                             s.getAK(), row, sheet, file));
                 }
             } catch (RuntimeException re) {
                 re.printStackTrace();
@@ -550,8 +552,12 @@ public class ImportUtils {
             }
             if (indizes[STARTPASS] >= 0) {
                 s.setStartunterlagen(ImportUtils.checkStartpass(data[indizes[STARTPASS]].toString(), row,
-                        indizes[STARTPASS], sheet, file));
+                                                                indizes[STARTPASS], sheet, file));
             }
+            if (indizes[IMPORT_ID] >= 0) {
+                s.setImportId(data[indizes[IMPORT_ID]].toString());
+            }
+
             s.setMeldungMitProtokoll(0, getBoolean(data, indizes[PROTOCOL1], row, sheet, file, false));
             s.setMeldungMitProtokoll(1, getBoolean(data, indizes[PROTOCOL2], row, sheet, file, false));
             s.setMeldePlatz(platz);
@@ -569,9 +575,9 @@ public class ImportUtils {
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     private static <T extends ASchwimmer> T generateSchwimmerUpdate(Object[] data, int[] indizes, String[] titles,
-            AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
+                                                                    AWettkampf<T> wk, int row, String sheet, String file) throws TableEntryException {
         try {
             boolean empty = true;
             boolean[] required = getRequiredIndizesForUpdate(wk instanceof MannschaftWettkampf);
@@ -612,14 +618,14 @@ public class ImportUtils {
                 if (vorname.equals("")) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("FirstName"),
-                                    StringTools.getCellName(sheet, row, indizes[VORNAME])),
+                                     StringTools.getCellName(sheet, row, indizes[VORNAME])),
                             file, sheet, row, indizes[VORNAME]);
                 }
                 String nachname = data[indizes[NACHNAME]].toString();
                 if (nachname.equals("")) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Surname"),
-                                    StringTools.getCellName(sheet, row, indizes[NACHNAME])),
+                                     StringTools.getCellName(sheet, row, indizes[NACHNAME])),
                             file, sheet, row, indizes[NACHNAME]);
                 }
             } else {
@@ -627,7 +633,7 @@ public class ImportUtils {
                 if (name.equals("")) {
                     throw new TableEntryException(
                             I18n.get("MissingEntry", I18n.get("Name"),
-                                    StringTools.getCellName(sheet, row, indizes[NAME])),
+                                     StringTools.getCellName(sheet, row, indizes[NAME])),
                             file, sheet, row, indizes[NAME]);
                 }
             }
@@ -672,7 +678,8 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> String[] setMitglied(AWettkampf<T> wk, Object[] data, int vorname,
-            int nachname, int geschlecht, int jahrgang, int row, String sheet, String file) throws TableEntryException {
+                                                               int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
+            throws TableEntryException {
         String[] result = new String[4];
         result[0] = "";
         result[1] = "";
@@ -703,7 +710,7 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> void setMitglied(AWettkampf<T> wk, Mannschaftsmitglied mm, Object[] data,
-            int vorname, int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
+                                                           int vorname, int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
             throws TableEntryException {
         if (vorname >= 0) {
             mm.setVorname(data[vorname].toString());
@@ -721,7 +728,7 @@ public class ImportUtils {
             } else {
                 try {
                     mm.setGeschlecht(getMaennlich(wk, g, geschlecht, row, sheet, file) ? Geschlecht.maennlich
-                            : Geschlecht.weiblich);
+                                             : Geschlecht.weiblich);
                 } catch (Exception x) {
                     mm.setGeschlecht(Geschlecht.unbekannt);
                 }
@@ -786,7 +793,7 @@ public class ImportUtils {
         } catch (RuntimeException re) {
             re.printStackTrace();
             throw new TableEntryException(I18n.get("EntryErrorDescription", StringTools.getCellName(sheet, row, index),
-                    data[index].toString()), file, sheet, row, index);
+                                                   data[index].toString()), file, sheet, row, index);
         }
     }
 
@@ -871,12 +878,12 @@ public class ImportUtils {
                 file, sheet, row, index);
     }
 
-    private static final String[] YES_CONSTANTS = new String[] { "ja", "j", "true", "1", "+", "yes", "y", "x",
-            I18n.get("yes") };
-    private static final String[] NO_CONSTANTS = new String[] { "no", "n", "false", "0", "-", "no", I18n.get("no") };
+    private static final String[] YES_CONSTANTS = new String[]{"ja", "j", "true", "1", "+", "yes", "y", "x",
+            I18n.get("yes")};
+    private static final String[] NO_CONSTANTS = new String[]{"no", "n", "false", "0", "-", "no", I18n.get("no")};
 
     private static boolean getBoolean(Object[] data, int index, int row, String sheet, String file,
-            boolean defaultvalue) throws TableEntryException {
+                                      boolean defaultvalue) throws TableEntryException {
         if (index < 0) {
             return defaultvalue;
         }
@@ -979,7 +986,7 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> int getStartnummer(AWettkampf<T> wk, Object[] data, int index, int row,
-            String sheet, String file) throws TableEntryException {
+                                                             String sheet, String file) throws TableEntryException {
         if (index < 0) {
             return 0;
         }
@@ -1000,13 +1007,13 @@ public class ImportUtils {
         } catch (RuntimeException re) {
             throw new TableEntryException(
                     I18n.get("WrongEntry", I18n.get("WrongValueForStartnumber", data[index].toString()),
-                            StringTools.getCellName(sheet, row, index)),
+                             StringTools.getCellName(sheet, row, index)),
                     file, sheet, row, index);
         }
     }
 
     private static <T extends ASchwimmer> ZWStartnummer getStartnummerHLW(AWettkampf<T> wk, Object[] data, int index,
-            int row, String sheet, String file) throws TableEntryException {
+                                                                          int row, String sheet, String file) throws TableEntryException {
         if (index < 0) {
             return null;
         }
@@ -1026,7 +1033,7 @@ public class ImportUtils {
         } catch (RuntimeException re) {
             throw new TableEntryException(
                     I18n.get("WrongEntry", I18n.get("WrongValueForStartnumber", data[index].toString()),
-                            StringTools.getCellName(sheet, row, index)),
+                             StringTools.getCellName(sheet, row, index)),
                     file, sheet, row, index);
         }
     }
@@ -1079,7 +1086,7 @@ public class ImportUtils {
     }
 
     public static <T extends ASchwimmer> boolean getMaennlich(AWettkampf<T> wk, Object data, int index, int row,
-            String sheet, String file)
+                                                              String sheet, String file)
             throws TableEntryException {
         GenderIdentifier female = new GenderIdentifier(
                 "w", "weiblich", "weibl.",
@@ -1101,13 +1108,12 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> int[] identifyIndizes(AWettkampf<T> wk, String[] titles, boolean einzel,
-            boolean required, String file, String sheet) throws TableFormatException {
+                                                                boolean required, String file, String sheet) throws TableFormatException {
         LinkedList<Integer> indexlist = new LinkedList<>();
 
         int[] indizes = new int[INDEX_COUNT];
-        for (int x = 0; x < indizes.length; x++) {
-            indizes[x] = -1;
-        }
+        Arrays.fill(indizes, -1);
+
         for (int x = 0; x < titles.length; x++) {
             String title = titles[x].toLowerCase().trim();
             ImportUtils.identifyIndex(wk, indizes, title, x);
@@ -1135,7 +1141,7 @@ public class ImportUtils {
                 indexlist.addLast(NAME);
             }
         }
-        if (indexlist.size() > 0) {
+        if (!indexlist.isEmpty()) {
             if (required) {
                 int[] data = new int[indexlist.size()];
                 ListIterator<Integer> li = indexlist.listIterator();
@@ -1154,7 +1160,8 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> tablesToZWResult(AWettkampf<T> wk, Feedback fb,
-            String[] sheets, Object[][][] tables, String file) throws TableException, TableEntryException {
+                                                                                    String[] sheets, Object[][][] tables, String file)
+            throws TableException, TableEntryException {
         Hashtable<ZWStartnummer, Double> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
         int valid = 0;
@@ -1205,14 +1212,14 @@ public class ImportUtils {
                 ZWStartnummer sn = getStartnummerHLW(wk, data[x], indizes[STARTNUMMER], x, sheet, file);
                 if (sn == null) {
                     fb.showFeedback(I18n.get("StartnumberFormatUnknown", data[x][indizes[STARTNUMMER]],
-                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                     throw new TableException(I18n.get("Error.ParseError", data[x][indizes[STARTNUMMER]],
-                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])), file, sheet);
+                                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])), file, sheet);
                 }
                 ASchwimmer s = SearchUtils.getSchwimmer(wk, sn.getStartnummer());
                 if (s == null) {
                     fb.showFeedback(I18n.get("StartnumberNotFound", sn,
-                            StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                                             StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                     continue;
                 }
 
@@ -1233,9 +1240,9 @@ public class ImportUtils {
                         }
                         if (result.get(sn) != null) {
                             fb.showFeedback(I18n.get("StartnumberAlreadyFound", data[x][indizes[STARTNUMMER]],
-                                    StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
+                                                     StringTools.getCellName(sheet, x, indizes[STARTNUMMER])));
                             throw new TableException(I18n.get("Error.DuplicateEntry", data[x][indizes[STARTNUMMER]],
-                                    StringTools.getCellName(sheet, x, indizes[STARTNUMMER])), file, sheet);
+                                                              StringTools.getCellName(sheet, x, indizes[STARTNUMMER])), file, sheet);
                         }
                         result.put(sn, value);
                     }
@@ -1254,7 +1261,7 @@ public class ImportUtils {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedPointsExtended", wk.getRegelwerk().getAk(x).getName(),
-                            startsak[x][0], startsak[x][1]));
+                                             startsak[x][0], startsak[x][1]));
                 }
             }
         }
@@ -1268,7 +1275,7 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> LinkedList<T> tablesToRegistration(AWettkampf<T> wk, Feedback fb, String[] sheets,
-            Object[][][] tables, String file) throws TableException, TableEntryException {
+                                                                     Object[][][] tables, String file) throws TableException, TableEntryException {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
         boolean einzel = (w instanceof EinzelWettkampf);
@@ -1323,7 +1330,7 @@ public class ImportUtils {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedStarts", wk.getRegelwerk().getAk(x).getName(), startsak[x][0],
-                            startsak[x][1]));
+                                             startsak[x][1]));
                 }
             }
         }
@@ -1338,8 +1345,8 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> LinkedList<T> tablesToRegistrationUpdate(AWettkampf<T> wk, Feedback fb,
-            String[] sheets,
-            Object[][][] tables, String file) throws TableException, TableEntryException {
+                                                                           String[] sheets,
+                                                                           Object[][][] tables, String file) throws TableException, TableEntryException {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
         boolean einzel = (w instanceof EinzelWettkampf);
@@ -1394,7 +1401,7 @@ public class ImportUtils {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedStarts", wk.getRegelwerk().getAk(x).getName(), startsak[x][0],
-                            startsak[x][1]));
+                                             startsak[x][1]));
                 }
             }
         }
@@ -1409,7 +1416,7 @@ public class ImportUtils {
     }
 
     static <T extends ASchwimmer> KampfrichterVerwaltung tablesToReferees(AWettkampf<T> wk, Feedback fb,
-            String[] sheets, Object[][][] tables, String file) throws TableEntryException {
+                                                                          String[] sheets, Object[][][] tables, String file) throws TableEntryException {
         KampfrichterVerwaltung kv = Utils.copy(wk.getKampfrichterverwaltung());
         for (int x = 0; x < kv.getEinheitenCount(); x++) {
             KampfrichterEinheit ke = kv.getEinheit(x);
@@ -1493,7 +1500,7 @@ public class ImportUtils {
                 KampfrichterEinheit ke = kv.getEinheit(category);
                 if (ke == null) {
                     throw new TableEntryException(I18n.get("CategoryNotFound", category), file, sheet, x,
-                            indizes[CATEGORY]);
+                                                  indizes[CATEGORY]);
                 }
                 try {
                     KampfrichterStufe level = DataTableUtils.getLevel(stufe);
@@ -1504,7 +1511,7 @@ public class ImportUtils {
                     ke.addKampfrichter(position, kari);
                 } catch (IllegalArgumentException iae) {
                     throw new TableEntryException(I18n.get("PositionNotFound", position), file, sheet, x,
-                            indizes[POSITION]);
+                                                  indizes[POSITION]);
                 }
 
                 referees++;
@@ -1540,7 +1547,7 @@ public class ImportUtils {
             return Startunterlagen.NICHT_PRUEFEN;
         }
         throw new TableEntryException(I18n.get("UnknownValue", text, StringTools.getCellName(sheet, row, column)), file,
-                sheet, row, column);
+                                      sheet, row, column);
     }
 
     private static String[] getAlternativeNames(String s) {
@@ -1606,7 +1613,7 @@ public class ImportUtils {
     }
 
     private static boolean[] getDisciplineSelection(Object[] data, int index, String[] titles, Altersklasse ak, int row,
-            String sheet, String file) throws TableEntryException {
+                                                    String sheet, String file) throws TableEntryException {
         if (!ak.isDisciplineChoiceAllowed()) {
             return null;
         }
@@ -1706,7 +1713,7 @@ public class ImportUtils {
     }
 
     private static boolean[] getDisciplineSelection(String data, Altersklasse ak, String file, String sheet, int row,
-            int col) throws TableEntryException {
+                                                    int col) throws TableEntryException {
         String separator = ";";
         if (data.indexOf(separator) < 0) {
             separator = ",";
@@ -1735,19 +1742,19 @@ public class ImportUtils {
                         break;
                     }
                     switch (counter) {
-                    case 0:
-                        // Second test
-                        s[x] = s[x].replace("  ", " ");
-                        break;
-                    case 1:
-                        // Third test
-                        s[x] = s[x].replace("25 m", "25m");
-                        s[x] = s[x].replace("50 m", "50m");
-                        s[x] = s[x].replace("100 m", "100m");
-                        s[x] = s[x].replace("200 m", "200m");
-                        break;
-                    default:
-                        break;
+                        case 0:
+                            // Second test
+                            s[x] = s[x].replace("  ", " ");
+                            break;
+                        case 1:
+                            // Third test
+                            s[x] = s[x].replace("25 m", "25m");
+                            s[x] = s[x].replace("50 m", "50m");
+                            s[x] = s[x].replace("100 m", "100m");
+                            s[x] = s[x].replace("200 m", "200m");
+                            break;
+                        default:
+                            break;
                     }
                 }
                 if (!found) {
@@ -1759,7 +1766,7 @@ public class ImportUtils {
                         d += ak.getDisziplin(i, false);
                     }
                     throw new TableEntryException(I18n.get("Error.DisciplineNotFound", data, s[x], ak.getName(), d,
-                            StringTools.getCellName(sheet, row, col)), file, sheet, row, col);
+                                                           StringTools.getCellName(sheet, row, col)), file, sheet, row, col);
                 }
             }
         }
@@ -1778,7 +1785,7 @@ public class ImportUtils {
                 return Double.parseDouble(s);
             } catch (RuntimeException re2) {
                 throw new TableEntryException(I18n.get("Error.NotANumber", s, StringTools.getCellName(sheet, row, col)),
-                        file, sheet, row, col);
+                                              file, sheet, row, col);
             }
         }
     }
@@ -1795,7 +1802,7 @@ public class ImportUtils {
                 return (long) Double.parseDouble(s);
             } catch (RuntimeException re2) {
                 throw new TableEntryException(I18n.get("Error.NotANumber", s, StringTools.getCellName(sheet, row, col)),
-                        file, sheet, row, col);
+                                              file, sheet, row, col);
             }
         }
     }
@@ -1871,7 +1878,7 @@ public class ImportUtils {
     }
 
     private static int[] getMeldezeiten(Object[] data, int index, String[] titles, Altersklasse ak, int row,
-            String sheet, String file) throws TableEntryException {
+                                        String sheet, String file) throws TableEntryException {
         int[] indizes = getDisciplineIndizes(titles, ak);
         String error = null;
         int errortype = 0;
@@ -1916,7 +1923,7 @@ public class ImportUtils {
         if ((result == null) && (errortype > 0)) {
             if (errortype == 2) {
                 throw new TableEntryException(I18n.get("Error.MissingMeldezeitenNotANumber", error,
-                        StringTools.getCellName(sheet, row, index)), file, sheet, row, index);
+                                                       StringTools.getCellName(sheet, row, index)), file, sheet, row, index);
             }
             // throw new
             // TableEntryException(I18n.get("Error.MissingMeldezeiten",
@@ -1928,7 +1935,7 @@ public class ImportUtils {
     }
 
     private static int[][] getStarter(Object[] data, String[] titles, Altersklasse ak, int row, String sheet,
-            String file) throws TableEntryException {
+                                      String file) throws TableEntryException {
         int[] indizes = getDisciplineIndizes(titles, ak, " - Reihenfolge");
         boolean ok = false;
         for (int x = 0; x < indizes.length; x++) {
@@ -1960,7 +1967,7 @@ public class ImportUtils {
                             } catch (RuntimeException e) {
                                 e.printStackTrace();
                                 throw new TableEntryException(I18n.get("Error.StarterWrongFormat", file,
-                                        StringTools.getCellName(sheet, row, index)), file, sheet, row, index);
+                                                                       StringTools.getCellName(sheet, row, index)), file, sheet, row, index);
                             }
                         }
                     }
@@ -2525,6 +2532,14 @@ public class ImportUtils {
             indizes[DISCIPLINE] = x;
             return;
         }
+        if (title.equals(I18n.get("Import-Id").toLowerCase())) {
+            indizes[IMPORT_ID] = x;
+            return;
+        }
+        if (title.equals("Import-Id".toLowerCase())) {
+            indizes[IMPORT_ID] = x;
+            return;
+        }
     }
 
     public static String indizesToNames(int[] indizes, String spacer) {
@@ -2535,30 +2550,30 @@ public class ImportUtils {
                 sb.append(", ");
             }
             switch (indizes[x]) {
-            case ImportConstants.ALTERSKLASSE:
-                sb.append(I18n.get("AgeGroup"));
-                break;
-            case ImportConstants.GESCHLECHT:
-                sb.append(I18n.get("Sex"));
-                break;
-            case ImportConstants.GLIEDERUNG:
-                sb.append(I18n.get("Organisation"));
-                break;
-            case ImportConstants.JAHRGANG:
-                sb.append(I18n.get("YearOfBirth"));
-                break;
-            case ImportConstants.NACHNAME:
-                sb.append(I18n.get("FamilyName"));
-                break;
-            case ImportConstants.NAME:
-                sb.append(I18n.get("Name"));
-                break;
-            case ImportConstants.VORNAME:
-                sb.append(I18n.get("FirstName"));
-                break;
-            default:
-                sb.append(I18n.get("UnknownField"));
-                break;
+                case ImportConstants.ALTERSKLASSE:
+                    sb.append(I18n.get("AgeGroup"));
+                    break;
+                case ImportConstants.GESCHLECHT:
+                    sb.append(I18n.get("Sex"));
+                    break;
+                case ImportConstants.GLIEDERUNG:
+                    sb.append(I18n.get("Organisation"));
+                    break;
+                case ImportConstants.JAHRGANG:
+                    sb.append(I18n.get("YearOfBirth"));
+                    break;
+                case ImportConstants.NACHNAME:
+                    sb.append(I18n.get("FamilyName"));
+                    break;
+                case ImportConstants.NAME:
+                    sb.append(I18n.get("Name"));
+                    break;
+                case ImportConstants.VORNAME:
+                    sb.append(I18n.get("FirstName"));
+                    break;
+                default:
+                    sb.append(I18n.get("UnknownField"));
+                    break;
             }
         }
         return sb.toString();

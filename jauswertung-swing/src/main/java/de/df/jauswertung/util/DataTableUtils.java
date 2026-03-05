@@ -1392,6 +1392,10 @@ public final class DataTableUtils {
                 }
             }
         }
+        titles.addLast(I18n.get("Import-Id"));
+        aligns.addLast(SwingConstants.LEFT);
+        formats.addLast("");
+
 
         int length = schwimmer.size();
         Progress progress = new Progress(fb, 1.1 * length, 5);
@@ -1490,17 +1494,14 @@ public final class DataTableUtils {
                     }
                 }
                 for (String time : times) {
-                    if (time == null) {
-                        row.addLast("");
-                    } else {
-                        row.addLast(time);
-                    }
+                    row.addLast(Objects.requireNonNullElse(time, ""));
                 }
             }
             if (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS && (t instanceof Mannschaft)) {
                 Mannschaft m = (Mannschaft) t;
                 row.addLast(m.getMitgliedernamenShort(", "));
             }
+            row.addLast(t.getImportId());
 
             result.addLast(row.toArray());
         }
@@ -1680,10 +1681,10 @@ public final class DataTableUtils {
                                                                 "Status", "InterneWkId", "InternePersId",
                                                                 "InterneVereinsId", "InterneKreisId"
                                                         }
-                                                        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
-                                                        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
-                                                        // I18n.get("Competition"),
-                                                        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
+                // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
+                // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
+                // I18n.get("Competition"),
+                // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
         );
         // etm.setColumnAlignments(new int[] { SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
@@ -1745,10 +1746,10 @@ public final class DataTableUtils {
                                                                 "Status", "InterneWkId", "InternePersId",
                                                                 "InterneVereinsId", "InterneKreisId"
                                                         }
-                                                        // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
-                                                        // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
-                                                        // I18n.get("Competition"),
-                                                        // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
+                // new Object[] { I18n.get("Name"), I18n.get("Organisation"),
+                // I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Discipline"),
+                // I18n.get("Competition"),
+                // I18n.get("Heat"), I18n.get("Lane"), I18n.get("Time"), I18n.get("Penalty") }
         );
         // etm.setColumnAlignments(new int[] { SwingConstants.LEFT, SwingConstants.LEFT,
         // SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,

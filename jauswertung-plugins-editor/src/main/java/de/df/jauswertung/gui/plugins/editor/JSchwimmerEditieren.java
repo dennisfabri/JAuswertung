@@ -92,6 +92,12 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private JWarningTextField bemerkung = new JWarningTextField(false, false);
     private JComboBox<String> geschlecht;
 
+    private JCheckBox ausserkonkurrenz = new JCheckBox(I18n.get("AusserKonkurrenz"));
+    private JCheckBox startpass = new JCheckBox(
+            I18n.get("Startunterlagenkontrolle"));
+
+    private JWarningTextField importId = new JWarningTextField();
+
     private JPanel members = new JPanel();
     private JWarningTextField[] membersFirstname = new JWarningTextField[0];
     private JWarningTextField[] membersSurname = new JWarningTextField[0];
@@ -102,11 +108,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private JWarningTextField gliederung = new JWarningTextField(true, true);
     private DisciplinesPanel<T> disciplinePanel = null;
     private JTaskPaneGroup disciplineContainer = null;
-    private JCheckBox ausserkonkurrenz = new JCheckBox(I18n.get("AusserKonkurrenz"));
     private JComboBox<String> ak = new JComboBox<>();
-
-    private JCheckBox startpass = new JCheckBox(
-            I18n.get("Startunterlagenkontrolle"));
 
     private AWettkampf<T> wk = null;
     private T schwimmer = null;
@@ -147,6 +149,9 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         geschlecht = new JComboBox<>(
                 new String[] { I18n.geschlechtToString(rw, false), I18n.geschlechtToString(rw, true) });
 
+        importId = new JWarningTextField(false, false);
+        importId.setEditable(false);
+
         disciplinePanel = new DisciplinesPanel<>(wk);
         disciplineContainer = new JTaskPaneGroup();
         disciplineContainer.setUI(new GradientTaskPaneGroupUI());
@@ -160,7 +165,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             vorname.setText(t.getVorname());
             jahrgang.setInt(t.getJahrgang());
         } else {
-
             Mannschaft m = (Mannschaft) schwimmer;
             name.setText(m.getName());
             membersFirstname = Arrays.copyOf(membersFirstname, swimmer.getMaxMembers());
@@ -204,7 +208,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
 
             FormLayoutUtils.createTable(members, null, new String[] { "Nachname", "Vorname", "Geschlecht", "Jahrgang" },
                     input, new int[0], SwingConstants.NEXT, true);
-            // members.setText(((Mannschaft) schwimmer).getMitglieder());
             members.setBorder(BorderUtils.createLabeledBorder("Mannschaftsmitglieder"));
         }
         meldePlatz.setInt(schwimmer.getMeldePlatz());
@@ -219,6 +222,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         gliederung.setText(schwimmer.getGliederung());
 
         geschlecht.setSelectedIndex(schwimmer.isMaennlich() ? 1 : 0);
+        importId.setText(schwimmer.getImportId());
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             Regelwerk r = wk.getRegelwerk();
             ak.addItem(r.getAk(x).toString());
@@ -254,8 +258,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         }
 
         startpass.setSelected(schwimmer.getStartunterlagen() == Startunterlagen.PRUEFEN);
-
-        geschlecht.setSelectedIndex(schwimmer.isMaennlich() ? 1 : 0);
 
         initComponents(delete);
 
@@ -336,6 +338,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         sfb.add(I18n.get("Sex"), geschlecht);
         sfb.add(I18n.get("Wertung"), ausserkonkurrenz);
         sfb.add(startpass);
+        sfb.add(I18n.get("Import-Id"), importId);
 
         SimpleFormBuilder sfb2 = new SimpleFormBuilder(true, false);
         sfb2.add(I18n.get("ReportedRank"), meldePlatz);
