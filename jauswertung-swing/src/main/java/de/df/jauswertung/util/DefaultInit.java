@@ -4,26 +4,23 @@
 
 package de.df.jauswertung.util;
 
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.text.MessageFormat;
-
-import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
-
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.print.PrintManager;
+import de.df.jutils.util.OSUtils;
+import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
 import org.lisasp.swing.filechooser.FileChooser;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.gui.util.UIStateUtils;
-import de.df.jutils.print.PrintManager;
-import de.df.jutils.util.OSUtils;
 import skt.swing.scroll.ScrollGestureRecognizer;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.MessageFormat;
 
 /**
  * Enth\u00e4lt eine init-Methode, die jedes Auswertungsprogramm beim
@@ -51,7 +48,7 @@ public final class DefaultInit {
         initialized = true;
 
         if (Utils.isInDevelopmentMode()) {
-            // RepaintManager.setCurrentManager(new CheckThreadViolationRepaintManager());
+            CheckThreadViolationRepaintManager.init();
             // EventDispatchThreadHangMonitor.initMonitoring();
         }
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();

@@ -41,3 +41,5 @@ jauswertung-io/src/test/resources/competitions/dem24/?.xls
 
 .factorypath
 jauswertung-misc/*.json
+
+bug.wk

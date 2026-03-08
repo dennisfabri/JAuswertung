@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
+import lombok.extern.slf4j.Slf4j;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
@@ -35,12 +36,8 @@ import de.df.jutils.gui.util.EDTUtils;
  * @author Dennis Fabri
  * @since 15. Oktober 2001, 22:25
  */
+@Slf4j
 final class JBugReport extends JDialog {
-
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3907214861925364528L;
 
     BugReport br = null;
 
@@ -49,7 +46,7 @@ final class JBugReport extends JDialog {
     JButton anonymize = new JButton();
     JButton speichern = null;
 
-    private UpdateRunnable updater = new UpdateRunnable();
+    private final UpdateRunnable updater = new UpdateRunnable();
 
     JBugReport(Frame parent) {
         super(parent, parent != null);
@@ -58,9 +55,8 @@ final class JBugReport extends JDialog {
         update();
     }
 
-    @SuppressWarnings("rawtypes")
-    void setData(Throwable e, Thread t, Class ort, Object daten) {
-        br = new BugReport(e, t, ort, daten);
+    void setData(Throwable e, Thread t, Object daten) {
+        br = new BugReport(e, t, daten);
         EDTUtils.executeOnEDT(updater);
     }
 
@@ -87,8 +83,6 @@ final class JBugReport extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 closeWindow();
@@ -115,7 +109,7 @@ final class JBugReport extends JDialog {
                 }
             }
         } catch (RuntimeException re) {
-            re.printStackTrace();
+            log.error("Error while saving bugreport", re);
             DialogUtils.wichtigeMeldung(null, I18n.get("SaveFailed"));
         }
     }
@@ -158,8 +152,8 @@ final class JBugReport extends JDialog {
 
         // Putting together
         FormLayout layout = new FormLayout("4dlu,0px:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
-                "4dlu,fill:default,4dlu,fill:default,4dlu," + "fill:default:grow,4dlu,fill:default,4dlu");
-        layout.setColumnGroups(new int[][] { { 3, 5, 7 } });
+                                           "4dlu,fill:default,4dlu,fill:default,4dlu," + "fill:default:grow,4dlu,fill:default,4dlu");
+        layout.setColumnGroups(new int[][]{{3, 5, 7}});
 
         setLayout(layout);
         add(text, CC.xyw(2, 2, 6));
@@ -178,8 +172,7 @@ final class JBugReport extends JDialog {
             br.anonymize();
             anonymize.setEnabled(false);
         } catch (Exception e) {
-            e.printStackTrace();
-            // Nothing to do
+            log.error("Error anonymizing bugreport", e);
         }
     }
 

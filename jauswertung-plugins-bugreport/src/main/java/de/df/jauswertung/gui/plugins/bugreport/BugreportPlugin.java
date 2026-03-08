@@ -1,25 +1,27 @@
-/*
- * Created on 05.04.2004
- */
 package de.df.jauswertung.gui.plugins.bugreport;
 
 import javax.swing.JFrame;
 
+import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.util.Utils;
+import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.AFeature;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Dennis M�ller @date 05.04.2004
+ * @author Dennis M�ller
+ * @date 05.04.2004
  */
+@Slf4j
 public class BugreportPlugin extends AFeature {
 
-    CorePlugin core = null;
-    JFrame frame = null;
-    JBugReport br = null;
+    private CorePlugin core = null;
+    private JFrame frame = null;
+    private JBugReport br = null;
 
     public BugreportPlugin() {
         br = new JBugReport(null);
@@ -43,7 +45,7 @@ public class BugreportPlugin extends AFeature {
             try {
                 frame = getController().getWindow();
             } catch (NullPointerException npe) {
-                npe.printStackTrace();
+                log.warn("Problem during data update", npe);
             }
             if (frame != null) {
                 br = new JBugReport(frame);
@@ -51,9 +53,19 @@ public class BugreportPlugin extends AFeature {
         }
     }
 
+    public void show(Thread causingThread, Throwable cause) {
+        if (br == null) {
+            log.error("BugReporting-Utility not ready to show bugreport dialog, printing stacktrace to log.", cause);
+        } else {
+            AWettkampf<?> wk = core != null ? core.getWettkampf() : null;
+            br.setData(cause, causingThread, wk);
+            EDTUtils.setVisible(br, true);
+        }
+    }
+
     private final class InitializerThread extends Thread {
 
-        private boolean debug = false;
+        private final boolean debug;
 
         public InitializerThread(boolean debug) {
             setName("BugreportPlugin.InitializerThread:" + " Setting ExceptionHandler");

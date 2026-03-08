@@ -1,10 +1,15 @@
 package de.df.jauswertung.daten.misc;
 
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
+import com.pmease.commons.xmt.VersionedDocument;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jutils.print.PrintManager;
+import org.dom4j.Element;
+
+import javax.print.PrintService;
+import java.awt.*;
 import java.awt.print.PrinterJob;
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
@@ -12,24 +17,15 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Stack;
 
-import javax.print.PrintService;
-
-import org.dom4j.Element;
-
-import com.pmease.commons.xmt.VersionedDocument;
-
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.print.PrintManager;
+import static java.util.Arrays.stream;
 
 /**
  * @author Dennis Fabri @since 15. Oktober 2001, 21:59
  */
 public class BugReport implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -6433894027809485390L;
-
-    public static final String NEWLINE = "\n";
 
     private String data = "";
     private String info = "";
@@ -38,140 +34,73 @@ public class BugReport implements Serializable {
     public BugReport() {
     }
 
-    @SuppressWarnings("rawtypes")
-    public BugReport(Throwable fehler, Thread thread, Class klasse, Object dat) {
-        String stacktrace = null;
-        String stacktrace2 = null;
-        if (fehler != null) {
-            CharArrayWriter caw = new CharArrayWriter();
-            PrintWriter pw = new PrintWriter(caw);
-            fehler.printStackTrace(pw);
-
-            pw.close();
-            stacktrace = caw.toString();
-
-            StringBuilder s2 = new StringBuilder();
-            s2.append(fehler.getClass().getName());
-            for (StackTraceElement aStack : fehler.getStackTrace()) {
-                s2.append("        at " + aStack.getClassName() + "." + aStack.getMethodName());
-                s2.append("\n");
-            }
-            stacktrace2 = s2.toString();
-        }
-        String ort = "Unbekannt";
-        if (klasse != null) {
-            ort = klasse.toString();
-        }
-        daten = dat;
-
-        StringBuilder s = new StringBuilder();
-        s.append("Ort: ");
-        s.append(ort);
-        s.append(NEWLINE);
-        if (thread != null) {
-            s.append("Thread:");
-            s.append(thread.toString());
-        }
-
-        if (fehler != null) {
-            s.append(NEWLINE);
-            s.append(NEWLINE);
-            s.append("Fehlermeldung: ");
-            s.append(fehler.toString());
-        }
-        if (stacktrace != null) {
-            s.append(NEWLINE);
-            s.append("StackTrace:");
-            s.append(NEWLINE);
-            s.append(stacktrace);
-        }
-        if (stacktrace2 != null) {
-            s.append(NEWLINE);
-            s.append("StackTrace 2:");
-            s.append(NEWLINE);
-            s.append(stacktrace2);
-        }
+    public BugReport(Throwable fehler, Thread thread, Object data) {
+        daten = data;
+        ReportBuilder reportBuilder = new ReportBuilder();
+        // StringBuilder s = new StringBuilder();
+        reportBuilder.addField("Thread", thread.getName(), thread.getClass());
+        reportBuilder.addException("Exception", fehler);
 
         {
             try {
+                reportBuilder.addTitle("Memory usage:");
                 MemoryUsage mem = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
-                s.append(NEWLINE);
-                s.append("Memory usage (heap and non heap):");
-                s.append(NEWLINE);
-                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ")
-                        .append(mem.getUsed()).append(", Commited: ")
-                        .append(mem.getCommitted());
-                s.append(NEWLINE);
+                reportBuilder.addField("Heap",
+                                       "Init: %s, Max: %s, Used: %s, Commited: %s".formatted(mem.getInit(), mem.getMax(), mem.getUsed(), mem.getCommitted()));
                 mem = ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                s.append("Init: ").append(mem.getInit()).append(", Max: ").append(mem.getMax()).append(", Used: ")
-                        .append(mem.getUsed()).append(", Commited: ")
-                        .append(mem.getCommitted());
-                s.append(NEWLINE);
-                long memtotal = Runtime.getRuntime().totalMemory();
-                long memfree = Runtime.getRuntime().freeMemory();
-                long memmax = Runtime.getRuntime().maxMemory();
-                s.append("Total mem: ").append(memtotal).append(", Free mem: ").append(memfree).append(", Max mem: ")
-                        .append(memmax);
-
+                reportBuilder.addField("Non heap",
+                                       "Init: %s, Max: %s, Used: %s, Commited: %s".formatted(mem.getInit(), mem.getMax(), mem.getUsed(), mem.getCommitted()));
+                String memtotal = asReadableUnit(Runtime.getRuntime().totalMemory());
+                String memfree = asReadableUnit(Runtime.getRuntime().freeMemory());
+                String memmax = asReadableUnit(Runtime.getRuntime().maxMemory());
+                reportBuilder.addField("Memory", "Total mem: %s, Free mem: %s, Max mem: %s".formatted(memtotal, memfree, memmax));
             } catch (Error e) {
-                s.append(e.toString());
+                reportBuilder.addException("Problem while getting memory usage", e);
             }
         }
 
         String[][] systeminfo = getSystemInfos();
-        if (systeminfo != null) {
-            s.append(NEWLINE);
-            s.append("Systeminformationen:");
-            s.append(NEWLINE);
-            for (int x = 0; x < systeminfo[0].length; x++) {
-                if (systeminfo[1][x].length() > 0) {
-                    s.append("  ");
-                    s.append(systeminfo[0][x]);
-                    s.append(": ");
-                    s.append(systeminfo[1][x]);
-                    s.append(NEWLINE);
-                }
+
+        reportBuilder.addTitle("System Information");
+        for (int x = 0; x < systeminfo[0].length; x++) {
+            if (!systeminfo[1][x].isEmpty()) {
+                reportBuilder.addField(systeminfo[0][x], systeminfo[1][x]);
             }
         }
 
-        s.append(NEWLINE);
-        s.append("Version: ");
-        s.append(I18n.getVersion());
-        s.append(NEWLINE);
-        s.append("Fonts:");
-        s.append(NEWLINE);
-        s.append("  Font: ");
-        s.append(PrintManager.getFont());
-        s.append(NEWLINE);
-        s.append("  Default Font: ");
-        s.append(PrintManager.getDefaultFont());
-        s.append(NEWLINE);
+        reportBuilder.addField("Version", I18n.getVersion());
+        reportBuilder.addTitle("Fonts");
+        reportBuilder.addField("Font", PrintManager.getFont(), 2);
+        reportBuilder.addField("Default Font", PrintManager.getDefaultFont(), 2);
+
         Font[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
-        for (Font font : fonts) {
-            s.append("  ");
-            s.append(font);
-            s.append(NEWLINE);
-        }
-        s.append("  DefaultFontLog:");
-        s.append(PrintManager.getDefaultFontLog());
+        reportBuilder.addField("Installed fonts", stream(fonts).map(Font::getFontName).sorted().toList(), 2);
+        reportBuilder.addField("DefaultFontLog", PrintManager.getDefaultFontLog(), 2);
 
-        s.append(NEWLINE);
-        s.append("Printers:");
-        s.append(NEWLINE);
-        PrintService[] services = PrinterJob.lookupPrintServices();
-        for (PrintService printService : services) {
-            s.append("  ");
-            s.append(printService.getName());
-            s.append(NEWLINE);
-        }
+        reportBuilder.addField("Printers", stream(PrinterJob.lookupPrintServices()).map(PrintService::getName).sorted().toList());
 
-        data = s.toString();
+        this.data = reportBuilder.toString();
+    }
+
+    private String asReadableUnit(long l) {
+        if (l < 0) {
+            return "-";
+        }
+        if (l < 1024) {
+            return "%d B".formatted(l);
+        }
+        if (l < 1024 * 1024) {
+            return "%.2f KB".formatted(1.0 * l / 1024);
+        }
+        if (l < 1024 * 1024 * 1024) {
+            return "%.2f MB".formatted(1.0 * l / (1024 * 1024));
+        }
+        return "%.2f GB".formatted(1.0 * l / (1024 * 1024 * 1024));
     }
 
     private static String[][] getSystemInfos() {
         String[][] result = new String[2][0];
-        @SuppressWarnings("rawtypes")
-        Enumeration props = System.getProperties().keys();
+        Enumeration<Object> props = System.getProperties().keys();
         LinkedList<String> keys = new LinkedList<>();
         LinkedList<String> values = new LinkedList<>();
         while (props.hasMoreElements()) {
@@ -179,8 +108,8 @@ public class BugReport implements Serializable {
             values.addLast(System.getProperty(key));
             keys.addLast(key);
         }
-        result[0] = keys.toArray(new String[keys.size()]);
-        result[1] = values.toArray(new String[values.size()]);
+        result[0] = keys.toArray(new String[0]);
+        result[1] = values.toArray(new String[0]);
         return result;
     }
 
