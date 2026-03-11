@@ -439,8 +439,7 @@ public class ImportUtils {
                             file, sheet, row, indizes[ALTERSKLASSE]);
                 }
                 throw new TableEntryException(
-                        I18n.get("Error.GeneralAgeGroupNotFound", data[indizes[ALTERSKLASSE]].toString(),
-                                 StringTools.getRowName(sheet, row, indizes[ALTERSKLASSE])),
+                        I18n.get("Error.GeneralAgeGroupNotFound", sheet),
                         file, sheet, row, indizes[ALTERSKLASSE]);
             }
 
