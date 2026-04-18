@@ -1,6 +1,7 @@
 package de.df.jauswertung.io.portal;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -108,6 +109,11 @@ public class RegistrationExportModel {
             categories.add(category);
             return this;
         }
+
+        @JsonIgnore
+        public boolean isEmpty() {
+            return categories.stream().allMatch(c -> c.isEmpty());
+        }
     }
 
     @Value
@@ -141,6 +147,16 @@ public class RegistrationExportModel {
         public FormCategory addEntry(FormEntry entry) {
             entries.add(entry);
             return this;
+        }
+
+        @JsonIgnore
+        public boolean hasEntries() {
+            return !entries.isEmpty();
+        }
+
+        @JsonIgnore
+        public boolean isEmpty() {
+            return entries.isEmpty();
         }
     }
 
