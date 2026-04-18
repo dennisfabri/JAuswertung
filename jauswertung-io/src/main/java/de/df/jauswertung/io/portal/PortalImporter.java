@@ -69,7 +69,7 @@ public class PortalImporter implements IImporter {
                     m.setGliederung(team.getSubOrganization());
                 }
                 importRegistrationEntry(team, m);
-                for (int x = 0; x < team.getMemberIds().size(); x++) {
+                for (int x = 0; x < Math.min(team.getMemberIds().size(), m.getMaxMembers()); x++) {
                     importMannschaftsmitglied(m.getMannschaftsmitglied(x), registration, team.getMemberIds().get(x));
                 }
                 if (notAlreadyImported(wk, team)) {
