@@ -483,7 +483,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         T[] swimmers = (T[]) schwimmer.toArray(new ASchwimmer[schwimmer.size()]);
         for (T s : swimmers) {
             for (int y = 0; y < s.getAK().getDiszAnzahl(); y++) {
-                if (!SchwimmerUtils.hasCompleteTime(s, y)) {
+                if (SchwimmerUtils.hasIncompleteTime(s, y)) {
                     disciplinesComplete[y] = false;
                     disciplinesAgeGroupComplete[s.getAKNummer()][y][s.isMaennlich() ? 1 : 0] = false;
                 }

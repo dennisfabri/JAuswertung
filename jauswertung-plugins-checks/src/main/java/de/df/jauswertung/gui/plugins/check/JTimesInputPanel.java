@@ -412,7 +412,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             boolean remove = false;
             boolean add = false;
             if ((s.getAK().getDiszAnzahl() > x) && s.isDisciplineChosen(x)) {
-                if (!SchwimmerUtils.hasCompleteTime(s, x)) {
+                if (SchwimmerUtils.hasIncompleteTime(s, x)) {
                     add = true;
                     sd = new StatusDetail(s, TimeStatus.NONE);
                 }

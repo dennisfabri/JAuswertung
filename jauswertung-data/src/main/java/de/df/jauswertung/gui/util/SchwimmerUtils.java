@@ -18,12 +18,14 @@ import de.df.jauswertung.util.valueobjects.Startkarte;
 import de.df.jauswertung.util.vergleicher.SchwimmerInfoStartnummernVergleicher;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
 
 import static de.df.jauswertung.daten.PropertyConstants.ROUND_ID;
 
 /**
  * Enthaelt Methoden fuer die Einzelauswertung
  */
+@Slf4j
 public final class SchwimmerUtils {
 
     private SchwimmerUtils() {
@@ -49,16 +51,16 @@ public final class SchwimmerUtils {
             return false;
         }
         return switch (strafe1.getArt()) {
-        case AUSSCHLUSS, DISQUALIFIKATION, NICHT_ANGETRETEN -> true;
-        default -> false;
+            case AUSSCHLUSS, DISQUALIFIKATION, NICHT_ANGETRETEN -> true;
+            default -> false;
         };
     }
 
-    public static <T extends ASchwimmer> boolean hasCompleteTime(T s, int disz) {
+    public static <T extends ASchwimmer> boolean hasIncompleteTime(T s, int disz) {
         if (hasSeverePenalty(s, disz)) {
-            return true;
+            return false;
         }
-        return (s.getZeit(disz) > 0);
+        return (s.getZeit(disz) <= 0);
     }
 
     public static int ermittleJahrgang(int jahrgang) {
@@ -89,7 +91,7 @@ public final class SchwimmerUtils {
         return ergebnis;
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public static <T extends ASchwimmer> LinkedList<SchwimmerInfo>[] toInfo(final AWettkampf<T> wk) {
         int anzahl = 0;
         Regelwerk aks = wk.getRegelwerk();
@@ -134,7 +136,8 @@ public final class SchwimmerUtils {
                     bi[x] = laufinfo.getBahn();
                 }
             } catch (NullPointerException npe) {
-                npe.printStackTrace();
+                log.info("Fehler bei der Ermittlung der Lauf- und Bahninfo für Schwimmer {} in Disziplin {}",
+                         s.getName(), s.getAK().getDisziplin(x, s.isMaennlich()), npe);
             }
         }
 
@@ -168,8 +171,8 @@ public final class SchwimmerUtils {
 
     @SuppressWarnings("unchecked")
     public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage,
-            boolean includeEmptyLanes, boolean allheats,
-            int minheat, int maxheat) {
+                                                                              boolean includeEmptyLanes, boolean allheats,
+                                                                              int minheat, int maxheat) {
         if (wks == null) {
             return null;
         }
@@ -237,8 +240,8 @@ public final class SchwimmerUtils {
     }
 
     public static <T extends ASchwimmer> LinkedList<Zieleinlaufkarte> toZieleinlauf(AWettkampf<T>[] wks, int perpage,
-            boolean allheats, int minheat,
-            int maxheat) {
+                                                                                    boolean allheats, int minheat,
+                                                                                    int maxheat) {
         if (wks == null || wks.length == 0) {
             return null;
         }
@@ -347,8 +350,8 @@ public final class SchwimmerUtils {
             try {
                 EnableHighPointWarning = false;
                 result = DialogUtils.askAndWarn(parent, I18n.get("PointsVeryHigh"),
-                        I18n.get("IsTimeCorrect", s.getName(), StringTools.zeitString(s.getZeit(disz))),
-                        I18n.get("IsTimeCorrect.Note", s.getName(), StringTools.zeitString(s.getZeit(disz))));
+                                                I18n.get("IsTimeCorrect", s.getName(), StringTools.zeitString(s.getZeit(disz))),
+                                                I18n.get("IsTimeCorrect.Note", s.getName(), StringTools.zeitString(s.getZeit(disz))));
             } finally {
                 EnableHighPointWarning = true;
             }
@@ -361,7 +364,7 @@ public final class SchwimmerUtils {
             return TimeStatus.NONE;
         }
         if (rec <= 0.005) {
-            return TimeStatus.NONE;
+            return TimeStatus.NORMAL;
         }
         if (formelID.equals(FormelDLRG.ID) || formelID.equals(FormelDLRG2007.ID)) {
             if (zeit < rec) {
@@ -378,7 +381,7 @@ public final class SchwimmerUtils {
             return TimeStatus.NORMAL;
         }
         return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getZeit(x),
-                s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
+                             s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
     }
 
     public static <T extends ASchwimmer> TimeStatus getRegistrationTimeStatus(AWettkampf<T> wk, T s, int x) {
@@ -386,6 +389,6 @@ public final class SchwimmerUtils {
             return TimeStatus.NORMAL;
         }
         return getTimeStatus(wk.getRegelwerk().getFormelID(), s.getMeldezeit(x),
-                s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
+                             s.getAK().getDisziplin(x, s.isMaennlich()).getRec());
     }
 }

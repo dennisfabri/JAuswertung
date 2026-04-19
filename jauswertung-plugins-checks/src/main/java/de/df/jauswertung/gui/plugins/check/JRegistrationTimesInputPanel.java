@@ -1,38 +1,8 @@
-/*
- * Created on 19.02.2006
- */
 package de.df.jauswertung.gui.plugins.check;
-
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.shared.swing.renderer.DefaultCellRenderer;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
@@ -54,34 +24,36 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.util.StringTools;
 
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
+
 public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 1973322987330030590L;
+    private final CorePlugin core;
+    private final FEditorPlugin editor;
+    private final JMissingInputFrame parent;
 
-    private CorePlugin core;
-    private FEditorPlugin editor;
-    private JMissingInputFrame parent;
+    private ASchwimmer[][] swimmers = new ASchwimmer[0][0];
+    private StatusDetail[][] stati = new StatusDetail[0][0];
 
-    ASchwimmer[][] swimmers = new ASchwimmer[0][0];
-    StatusDetail[][] stati = new StatusDetail[0][0];
-
-    private JGlassPanel<JPanel>[] panels;
-    JIntegerField[][] input;
+    private JIntegerField[][] input;
     private JTimeField[][] time;
-    private JLabel[][] recs;
-    private JButton[][] edit;
-    private JLabel[][] signal;
-    private JLabel[][] discipline;
 
-    JList<String> disciplines;
-    JPanel container;
-    CardLayout layout;
+    private JList<String> disciplines;
+    private JPanel container;
+    private CardLayout layout;
 
-    private JPanel panel;
+    private final JPanel panel;
 
     private boolean changed = false;
 
-    public JRegistrationTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
+    JRegistrationTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
         panel = getComponent();
         panel.setBorder(BorderUtils.createSpaceBorder());
@@ -116,13 +88,11 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         disciplines.setMinimumSize(new Dimension(100, 10));
         disciplines.setPreferredSize(new Dimension(100, 10));
         disciplines.setCellRenderer(new DefaultCellRenderer() {
-            @SuppressWarnings("rawtypes")
             @Override
             public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
-                    boolean arg4) {
+                                                          boolean arg4) {
                 Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
-                if (c instanceof JComponent) {
-                    JComponent jc = (JComponent) c;
+                if (c instanceof JComponent jc) {
                     jc.setBorder(BorderUtils.createSpaceBorder(2));
                 }
                 return c;
@@ -155,44 +125,42 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             timestatus[x] = new LinkedList<>();
         }
 
-        LinkedList<ASchwimmer> swimmerlist = wk.getSchwimmer();
-        ListIterator<ASchwimmer> li = swimmerlist.listIterator();
-        while (li.hasNext()) {
-            ASchwimmer s = li.next();
+        LinkedList<ASchwimmer> swimmers = wk.getSchwimmer();
+        for (ASchwimmer s : swimmers) {
             for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
                 switch (SchwimmerUtils.getRegistrationTimeStatus(wk, s, x)) {
-                case FAST:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.FAST));
-                    break;
-                case SLOW:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.SLOW));
-                    break;
-                case NORMAL:
-                    break;
-                case NONE:
-                    notimes[x].addLast(s);
-                    timestatus[x].addLast(new StatusDetail(s, TimeStatus.NONE));
-                    break;
+                    case FAST:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.FAST));
+                        break;
+                    case SLOW:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.SLOW));
+                        break;
+                    case NORMAL:
+                        break;
+                    case NONE:
+                        notimes[x].addLast(s);
+                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.NONE));
+                        break;
                 }
             }
         }
         boolean hasSchwimmer = false;
         for (int x = 0; x < max; x++) {
-            if (notimes[x].size() > 0) {
+            if (!notimes[x].isEmpty()) {
                 hasSchwimmer = true;
                 break;
             }
         }
         if (hasSchwimmer) {
-            swimmers = new ASchwimmer[max][0];
+            this.swimmers = new ASchwimmer[max][0];
             stati = new StatusDetail[max][0];
             for (int x = 0; x < max; x++) {
                 updateSwimmers(notimes[x], timestatus[x], x);
             }
         } else {
-            swimmers = new ASchwimmer[0][0];
+            this.swimmers = new ASchwimmer[0][0];
             stati = new StatusDetail[0][0];
         }
     }
@@ -218,8 +186,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
     }
 
     private void updateSwimmers(LinkedList<ASchwimmer> notimes, LinkedList<StatusDetail> timestatus, int x) {
-        swimmers[x] = notimes.toArray(new ASchwimmer[notimes.size()]);
-        stati[x] = timestatus.toArray(new StatusDetail[timestatus.size()]);
+        swimmers[x] = notimes.toArray(new ASchwimmer[0]);
+        stati[x] = timestatus.toArray(new StatusDetail[0]);
         sortSwimmers(x);
     }
 
@@ -252,7 +220,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         });
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     void updateGUI() {
         setEnabled(swimmers.length > 0);
         container.removeAll();
@@ -264,13 +232,13 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         AWettkampf wk = core.getWettkampf();
 
         int dcount = wk.getRegelwerk().getMaxDisciplineCount();
-        panels = new JGlassPanel[dcount];
+        JGlassPanel<JPanel>[] panels = new JGlassPanel[dcount];
         input = new JIntegerField[dcount][0];
         time = new JTimeField[dcount][0];
-        recs = new JLabel[dcount][0];
-        edit = new JButton[dcount][0];
-        signal = new JLabel[dcount][0];
-        discipline = new JLabel[dcount][0];
+        JLabel[][] recs = new JLabel[dcount][0];
+        JButton[][] edit = new JButton[dcount][0];
+        JLabel[][] signal = new JLabel[dcount][0];
+        JLabel[][] discipline = new JLabel[dcount][0];
 
         LinkedList<String> discs = new LinkedList<>();
         for (int x = 0; x < dcount; x++) {
@@ -309,7 +277,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(20, 2, "center,center"));
             for (int y = 0; y < swimmers[x].length; y++) {
                 input[x][y] = new JIntegerField(JTimeField.MAX_TIME, false, true);
-                input[x][y].setValidator((Validator)value -> {
+                input[x][y].setValidator((Validator) value -> {
                     value = value / 100;
                     if ((value % 100) >= 60) {
                         return false;
@@ -357,7 +325,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         }
 
         int index = Math.max(0, disciplines.getSelectedIndex());
-        disciplines.setListData(discs.toArray(new String[discs.size()]));
+        disciplines.setListData(discs.toArray(new String[0]));
         if (index < discs.size()) {
             disciplines.setSelectedIndex(index);
         } else {
@@ -367,17 +335,16 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
 
     static void updateStatus(JLabel label, TimeStatus ts) {
         switch (ts) {
-        default:
-        case NONE:
-            return;
-        case FAST:
-            label.setIcon(IconManager.getSmallIcon("fast"));
-            label.setToolTipText(I18n.getToolTip("TimeTooLow"));
-            break;
-        case SLOW:
-            label.setIcon(IconManager.getSmallIcon("slow"));
-            label.setToolTipText(I18n.getToolTip("TimeTooHigh"));
-            break;
+            case FAST:
+                label.setIcon(IconManager.getSmallIcon("fast"));
+                label.setToolTipText(I18n.getToolTip("TimeTooLow"));
+                break;
+            case SLOW:
+                label.setIcon(IconManager.getSmallIcon("slow"));
+                label.setToolTipText(I18n.getToolTip("TimeTooHigh"));
+                break;
+            default:
+                break;
         }
     }
 
@@ -493,7 +460,7 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
             }
             data = input[disz][index].getText();
             if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JRegistrationTimesInputPanel.this),
-                    swimmers[disz][index], disz)) {
+                                                   swimmers[disz][index], disz)) {
                 EDTUtils.requestFocus(input[disz][index]);
             }
         }
@@ -520,8 +487,8 @@ public class JRegistrationTimesInputPanel extends JGlassPanel<JPanel> {
         private final int index;
         private final int disziplin;
 
-        public CursorListener(int d, int x) {
-            index = x;
+        public CursorListener(int d, int index) {
+            this.index = index;
             this.disziplin = d;
         }
 
