@@ -69,6 +69,16 @@ public class PortalImporter implements IImporter {
                     m.setGliederung(team.getSubOrganization());
                 }
                 importRegistrationEntry(team, m);
+                if (team.getMemberIds().size() > m.getMaxMembers()) {
+                    fb.showFeedback(
+                            "Mannschaft '%s' (%s %s) hat %d Mitglieder, aber nur %d sind erlaubt. Es werden nur die ersten %d importiert. Für einen vollständigen Import muss das Regelwerk entsprechend angepasst werden.".formatted(
+                                    team.getName(),
+                                    team.getAgeGroup(),
+                                    I18n.get(team.getGender().toString().toLowerCase(Locale.ROOT)),
+                                    team.getMemberIds().size(),
+                                    m.getMaxMembers(),
+                                    m.getMaxMembers()));
+                }
                 for (int x = 0; x < Math.min(team.getMemberIds().size(), m.getMaxMembers()); x++) {
                     importMannschaftsmitglied(m.getMannschaftsmitglied(x), registration, team.getMemberIds().get(x));
                 }
