@@ -156,7 +156,7 @@ public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkar
     }
 
     public String getStartnummer() {
-        return "" + sn + (multiple ? " " + StringTools.asText(zaehler) : "");
+        return sn + (multiple ? " " + StringTools.asText(zaehler) : "");
     }
 
     public int getStartnummerWert() {

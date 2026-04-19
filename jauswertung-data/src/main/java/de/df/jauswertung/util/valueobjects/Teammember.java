@@ -24,7 +24,7 @@ public class Teammember {
                 m.getMannschaftsmitglied(index).getGeschlecht(), m.getMannschaftsmitglied(index).getJahrgang());
     }
 
-    private Teammember(int index, String firstname, String lastname, Geschlecht s, int jg) {
+    public Teammember(int index, String firstname, String lastname, Geschlecht s, int jg) {
         this.index = index;
         this.firstname = firstname;
         this.lastname = lastname;

@@ -737,8 +737,8 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
+        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
+        tm.setColumnFormats(formats.toArray(new String[0]));
         tm.setName(I18n.get("Teammembers"));
         tm.setLandscape(false);
 

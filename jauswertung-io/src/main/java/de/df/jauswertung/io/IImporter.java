@@ -11,13 +11,13 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 
 /**
- * Interface zum Import von Daten
+ * Interface zum Import von Daten (17.06.2006)
  *
  * @author Dennis Fabri
- * @date 17.06.2006
  */
 public interface IImporter {
     /**
@@ -40,7 +40,7 @@ public interface IImporter {
                                                             String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
+    <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk,

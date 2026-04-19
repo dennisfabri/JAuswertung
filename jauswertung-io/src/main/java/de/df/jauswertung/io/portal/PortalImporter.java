@@ -12,13 +12,17 @@ import de.df.jauswertung.io.portal.RegistrationExportModel.Participant;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Registration;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
+import de.df.jutils.util.StringTools;
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.poi.ss.formula.functions.T;
 import org.lisasp.competition.base.api.type.Gender;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PortalImporter implements IImporter {
@@ -125,6 +129,14 @@ public class PortalImporter implements IImporter {
             }
             case Unknown -> null;
         };
+    }
+
+    private Geschlecht findGeschlecht(AWettkampf<?> wk, Gender gender) {
+        Boolean isMale = findGender(wk, gender);
+        if (isMale == null) {
+            return Geschlecht.unbekannt;
+        }
+        return isMale ? Geschlecht.maennlich : Geschlecht.weiblich;
     }
 
     private void importRegistrationEntry(Participant source, ASchwimmer destination) {
@@ -278,9 +290,59 @@ public class PortalImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream input, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
-        throw new NotImplementedException();
+
+        if (wk instanceof MannschaftWettkampf mwk) {
+
+            Map<String, Integer> uuid2sn = new HashMap<>();
+            for (T s : wk.getSchwimmer()) {
+                if (s.getImportId() != null && !s.getImportId().isBlank()) {
+                    uuid2sn.put(s.getImportId(), s.getStartnummer());
+                }
+            }
+
+            Hashtable<String, Teammember> teammembers = new Hashtable<>();
+            RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
+            return teammembers(model, mwk, uuid2sn, fb);
+        }
+        return new Hashtable<>();
+    }
+
+    private Hashtable<String, Teammember> teammembers(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
+        Hashtable<String, Teammember> teammembers = new Hashtable<>();
+        for (Registration registration : model.getRegistrations()) {
+            Map<String, RegistrationExportModel.Athlete> athletesById = registration.getAthletes().stream().collect(Collectors.toMap(RegistrationExportModel.Athlete::getId,
+                                                                                                                                     a -> a));
+
+            for (RegistrationExportModel.Team team : registration.getTeams()) {
+                Integer sn = uuid2sn.get(team.getId());
+                if (sn == null) {
+                    if (findGender(mwk, team.getGender()) != null) {
+                        fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
+                                                                                                            team.getName(),
+                                                                                                            team.getAgeGroup(),
+                                                                                                            team.getGender().toString().toLowerCase(
+                                                                                                                    Locale.ROOT)));
+                    }
+                    continue;
+                }
+
+                for (int x = 0; x < team.getMemberIds().size(); x++) {
+                    String memberId = team.getMemberIds().get(x);
+                    RegistrationExportModel.Athlete athlete = athletesById.get(memberId);
+                    if (athlete != null) {
+                        teammembers.put(sn + StringTools.asText(x).toLowerCase(Locale.ROOT), toTeammember(x, athlete, mwk));
+                    }
+                }
+            }
+        }
+        return teammembers;
+    }
+
+    private Teammember toTeammember(int x, RegistrationExportModel.Athlete athlete, MannschaftWettkampf mwk) {
+        int yearOfBirth = athlete.getYearOfBirth() == null ? 0 : athlete.getYearOfBirth();
+        return new Teammember(x, athlete.getFirstName(), athlete.getLastName(), findGeschlecht(mwk, athlete.getGender()), yearOfBirth);
     }
 
     @Override
@@ -328,7 +390,7 @@ public class PortalImporter implements IImporter {
     @Override
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-            case REGISTRATION -> true;
+            case REGISTRATION, TEAM_MEMBERS, STARTERS -> true;
             default -> false;
         };
     }

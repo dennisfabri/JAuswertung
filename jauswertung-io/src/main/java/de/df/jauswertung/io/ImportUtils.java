@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.i18n.IdResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,11 +78,11 @@ public class ImportUtils {
         return -1;
     }
 
-    static <T extends ASchwimmer> Hashtable<String, String[]> tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
-                                                                                  String[] sheets, Object[][][] tables, String file)
+    static <T extends ASchwimmer> Hashtable<String, Teammember> tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
+                                                                                      String[] sheets, Object[][][] tables, String file)
             throws TableEntryException, TableException {
 
-        Hashtable<String, String[]> result = new Hashtable<>();
+        Hashtable<String, Teammember> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
         int valid = 0;
@@ -121,7 +122,7 @@ public class ImportUtils {
                     text.append(first ? "\t" : ", ").append(I18n.get("FirstName"));
                     first = false;
                 }
-                if (text.length() > 0) {
+                if (!text.isEmpty()) {
                     fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
                     continue;
                 }
@@ -130,28 +131,28 @@ public class ImportUtils {
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
-                String sntext = data[x][indizes[STARTNUMMER]].toString().trim().toLowerCase();
-                if (sntext.length() < 2) {
+                String snText = data[x][indizes[STARTNUMMER]].toString().trim().toLowerCase();
+                if (snText.length() < 2) {
                     throw new TableEntryException(
-                            I18n.get("StartnumberFormatUnknown", sntext,
+                            I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
-                char n = sntext.charAt(sntext.length() - 1);
+                char n = snText.charAt(snText.length() - 1);
                 int pos = position(alphabet1, n);
                 if (pos < 0) {
                     throw new TableEntryException(
-                            I18n.get("StartnumberFormatUnknown", sntext,
+                            I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
 
                 int sn;
                 try {
-                    sn = Integer.parseInt(sntext.substring(0, sntext.length() - 1));
+                    sn = Integer.parseInt(snText.substring(0, snText.length() - 1));
                 } catch (RuntimeException re) {
                     throw new TableEntryException(
-                            I18n.get("StartnumberFormatUnknown", sntext,
+                            I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
                             file, sheet, x, indizes[STARTNUMMER]);
                 }
@@ -164,10 +165,10 @@ public class ImportUtils {
                 }
                 startsak[s.getAKNummer()][s.isMaennlich() ? 1 : 0]++;
 
-                String[] mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
-                                          indizes[JAHRGANG], x, sheet, file);
+                Teammember mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
+                                            indizes[JAHRGANG], pos, x, sheet, file);
 
-                result.put(sntext, mm);
+                result.put(snText, mm);
             }
 
             fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
@@ -676,36 +677,41 @@ public class ImportUtils {
         }
     }
 
-    private static <T extends ASchwimmer> String[] setMitglied(AWettkampf<T> wk, Object[] data, int vorname,
-                                                               int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
+    private static <T extends ASchwimmer> Teammember setMitglied(AWettkampf<T> wk,
+                                                                 Object[] data,
+                                                                 int vornameIndex,
+                                                                 int nachnameIndex,
+                                                                 int geschlechtIndex,
+                                                                 int jahrgangIndex,
+                                                                 int teammemberPosition,
+                                                                 int row,
+                                                                 String sheet,
+                                                                 String file)
             throws TableEntryException {
-        String[] result = new String[4];
-        result[0] = "";
-        result[1] = "";
-        result[2] = "0";
-        result[3] = "-";
-        if (nachname >= 0) {
-            result[0] = data[nachname].toString();
+        String vorname = "";
+        String nachname = "";
+        int jahrgang = 0;
+        Geschlecht geschlecht = Geschlecht.unbekannt;
+        if (nachnameIndex >= 0) {
+            nachname = data[nachnameIndex].toString();
         }
-        if (vorname >= 0) {
-            result[1] = data[vorname].toString();
+        if (vornameIndex >= 0) {
+            vorname = data[vornameIndex].toString();
         }
-        if (jahrgang >= 0) {
-            result[2] = "" + getJahrgang(data, jahrgang, row, sheet, file);
+        if (jahrgangIndex >= 0) {
+            jahrgang = getJahrgang(data, jahrgangIndex, row, sheet, file);
         }
-        if (geschlecht >= 0) {
-            String g = data[geschlecht].toString().trim();
-            if (g.length() == 0 || g.equals("-")) {
-                result[3] = "-";
-            } else {
+        if (geschlechtIndex >= 0) {
+            String g = data[geschlechtIndex].toString().trim();
+            if (!g.isBlank() && !g.equals("-")) {
                 try {
-                    result[3] = getMaennlich(wk, g, geschlecht, row, sheet, file) ? "m" : "f";
-                } catch (Exception x) {
-                    result[3] = "-";
+                    geschlecht = getMaennlich(wk, g, geschlechtIndex, row, sheet, file) ? Geschlecht.maennlich : Geschlecht.weiblich;
+                } catch (Exception _) {
+                    // Nothing to do
                 }
             }
         }
-        return result;
+        return new Teammember(teammemberPosition, vorname, nachname, geschlecht, jahrgang);
     }
 
     private static <T extends ASchwimmer> void setMitglied(AWettkampf<T> wk, Mannschaftsmitglied mm, Object[] data,
@@ -722,7 +728,7 @@ public class ImportUtils {
         }
         if (geschlecht >= 0) {
             String g = data[geschlecht].toString().trim();
-            if (g.length() == 0 || g.equals("-")) {
+            if (g.isEmpty() || g.equals("-")) {
                 mm.setGeschlecht(Geschlecht.unbekannt);
             } else {
                 try {

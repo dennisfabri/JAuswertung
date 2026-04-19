@@ -26,6 +26,7 @@ import de.df.jutils.gui.wizard.*;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.StringTools;
 import de.df.jutils.util.SystemOutFeedback;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.hssf.record.RecordInputStream.LeftoverDataException;
 import org.lisasp.swing.filechooser.FileChooserUtils;
@@ -42,22 +43,19 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author Dennis Fabri
- * @date 11.07.2004
+ * <p>
+ * 11.07.2004
  */
+@Slf4j
 class JImportWizard extends JWizardFrame implements FinishListener, CancelListener {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3545515093153625141L;
+    private final CorePlugin core;
+    private final IPluginManager controller;
 
-    CorePlugin core;
-    IPluginManager controller;
-
-    JTypeChooser type = null;
-    JFormatChooser format = null;
-    JFilePage file = null;
-    Object results = null;
+    private final JTypeChooser type;
+    private final JFormatChooser format;
+    private final JFilePage file;
+    private Object results = null;
 
     public JImportWizard(JFrame parent, CorePlugin c, IPluginManager con, ImportExportMode mode) {
         super(parent, I18n.get("Import"), WizardUIElementsProvider.getInstance(), false);
@@ -87,7 +85,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         wizard.addPage(new JImportPage());
 
-        setResizable(false);
+        setResizable(true);
         setIconImage(parent.getIconImage());
         pack();
         setSize(getWidth(), getHeight() + 10);
@@ -553,27 +551,24 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     results = null;
                 } catch (TableFormatException tfe) {
                     if (display) {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(I18n.get("TheFollowingRequiredFieldsWereNotFound"));
-                        sb.append(ImportUtils.indizesToNames(tfe.getData(), ""));
-                        DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb.toString(),
+                        String sb = I18n.get("TheFollowingRequiredFieldsWereNotFound") +
+                                ImportUtils.indizesToNames(tfe.getData(), "");
+                        DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb,
                                          I18n.get("CheckColumnheaders"));
                     }
                     results = null;
                 } catch (TableException e) {
-                    e.printStackTrace();
+                    log.info("Problem while importing data", e);
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.getMessage(), I18n.get("CheckFile"));
-                } catch (NotSupportedException e) {
-                    e.printStackTrace();
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.toString(), null);
-                } catch (NotEnabledException e) {
-                    e.printStackTrace();
+                } catch (NotSupportedException | NotEnabledException e) {
+                    log.info("Problem while importing data", e);
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.toString(), null);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.info("Problem while importing data", e);
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
                                      I18n.get("CheckFile"));
                 } catch (OldExcelFormatException | LeftoverDataException old) {
+                    log.info("Problem while importing data", old);
                     DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
                                      I18n.get("OldFileExcelFormat"));
                 }
@@ -644,7 +639,13 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             getWizard().setFinishButtonEnabled((results != null) && message);
             if (results != null) {
-                switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
+                int selectedIndex = type.getSelectedIndex();
+                if (selectedIndex < 0) {
+                    selectedIndex = 0;
+                } else if (selectedIndex >= ImportExportTypes.values().length) {
+                    selectedIndex = ImportExportTypes.values().length - 1;
+                }
+                switch (ImportExportTypes.getByValue(selectedIndex)) {
                     case REGISTRATION: {
                         @SuppressWarnings("unchecked")
                         LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;

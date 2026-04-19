@@ -19,6 +19,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
@@ -46,8 +47,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream name, AWettkampf<T> wk,
-            Feedback fb)
+    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream name, AWettkampf<T> wk,
+                                                                            Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);

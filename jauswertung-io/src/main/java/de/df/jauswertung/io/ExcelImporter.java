@@ -10,6 +10,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.df.jauswertung.util.valueobjects.Teammember;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,7 +38,7 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, String[]> teammembers(InputStream is, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream is, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;

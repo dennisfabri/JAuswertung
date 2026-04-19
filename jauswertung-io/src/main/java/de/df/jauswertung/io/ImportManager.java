@@ -6,15 +6,7 @@ package de.df.jauswertung.io;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
+import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -34,12 +26,15 @@ import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dennis Fabri @date 08.01.2005
  */
+@Slf4j
 public class ImportManager {
 
     private static ImportManager manager = new ImportManager();
@@ -77,32 +72,32 @@ public class ImportManager {
             return false;
         }
         switch (datatype) {
-        case ZW_RESULTS:
-            return wk.hasSchwimmer() && wk.hasHLW();
-        case REGISTRATION:
-            return true;
-        case REFEREES:
-            return wk.getKampfrichterverwaltung() != null;
-        case TEAM_MEMBERS:
-            return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
-        case STARTERS:
-            return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf && Utils.isInDevelopmentMode();
-        case HEAT_TIMES:
-            return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
-        case RESULTS:
-        case HEAT_LIST:
-            return wk.hasSchwimmer();
-        case REGISTRATION_UPDATE:
-            return wk.hasSchwimmer() && Utils.isInDevelopmentMode();
-        default:
-            return false;
+            case ZW_RESULTS:
+                return wk.hasSchwimmer() && wk.hasHLW();
+            case REGISTRATION:
+                return true;
+            case REFEREES:
+                return wk.getKampfrichterverwaltung() != null;
+            case TEAM_MEMBERS:
+                return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
+            case STARTERS:
+                return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf && Utils.isInDevelopmentMode();
+            case HEAT_TIMES:
+                return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
+            case RESULTS:
+            case HEAT_LIST:
+                return wk.hasSchwimmer();
+            case REGISTRATION_UPDATE:
+                return wk.hasSchwimmer() && Utils.isInDevelopmentMode();
+            default:
+                return false;
         }
     }
 
     public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
-            ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, String filename)
+                                                           ImportExportTypes datatype, AWettkampf<T> wk, Feedback fb, String filename)
             throws NullPointerException, NotSupportedException, NotEnabledException, TableFormatException,
-            TableEntryException, TableException, IOException {
+                   TableEntryException, TableException, IOException {
         if (importer == null) {
             throw new NullPointerException();
         }
@@ -118,33 +113,29 @@ public class ImportManager {
         if (fb == null) {
             fb = new NullFeedback();
         }
-        switch (datatype) {
-        case HEAT_LIST:
-            return importer.heats(is, wk, fb);
-        case REGISTRATION:
-            return importer.registration(is, wk, fb, filename);
-        case RESULTS:
-            return importer.results(is, wk, fb);
-        case REFEREES:
-            return importer.referees(is, wk, fb);
-        case TEAM_MEMBERS:
-            return importer.teammembers(is, wk, fb);
-        case ZW_RESULTS:
-            return importer.zusatzwertungResults(is, wk, fb);
-        case HEAT_TIMES:
-            return importer.heattimes(is, wk, fb);
-        case REGISTRATION_UPDATE:
-            return importer.registrationUpdate(is, wk, fb, filename);
-        case STARTERS:
-            return importer.starters(is, wk, fb);
-        default:
-            return null;
-        }
+        return switch (datatype) {
+            case HEAT_LIST -> importer.heats(is, wk, fb);
+            case REGISTRATION -> importer.registration(is, wk, fb, filename);
+            case RESULTS -> importer.results(is, wk, fb);
+            case REFEREES -> importer.referees(is, wk, fb);
+            case TEAM_MEMBERS -> importer.teammembers(is, wk, fb);
+            case ZW_RESULTS -> importer.zusatzwertungResults(is, wk, fb);
+            case HEAT_TIMES -> importer.heattimes(is, wk, fb);
+            case REGISTRATION_UPDATE -> importer.registrationUpdate(is, wk, fb, filename);
+            case STARTERS -> importer.starters(is, wk, fb);
+            default -> null;
+        };
     }
 
     public static <T extends ASchwimmer> Object importData(ImportExportTypes datatype, String[] filenames,
-            String format, AWettkampf<T> wk, Feedback fb) throws IOException, NullPointerException,
-            NotSupportedException, NotEnabledException, TableFormatException, TableEntryException, TableException {
+                                                           String format, AWettkampf<T> wk, Feedback fb) throws
+                                                                                                         IOException,
+                                                                                                         NullPointerException,
+                                                                                                         NotSupportedException,
+                                                                                                         NotEnabledException,
+                                                                                                         TableFormatException,
+                                                                                                         TableEntryException,
+                                                                                                         TableException {
         IImporter e = getImporter(format);
         if (e == null) {
             throw new NullPointerException();
@@ -158,98 +149,95 @@ public class ImportManager {
         return result;
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public static <T extends ASchwimmer> Object finishImport(ImportExportTypes datatype, AWettkampf<T> wk, Object data,
-            Feedback fb) {
+                                                             Feedback fb) {
         if (!isEnabled(wk, datatype)) {
             return null;
         }
         switch (datatype) {
-        case REGISTRATION: {
-            LinkedList<T> schwimmer = (LinkedList<T>) data;
-            boolean ok = true;
-            ListIterator<T> li = schwimmer.listIterator();
-            while (li.hasNext()) {
-                boolean b = wk.addSchwimmer(li.next());
-                ok = ok && b;
+            case REGISTRATION: {
+                LinkedList<T> schwimmer = (LinkedList<T>) data;
+                boolean ok = true;
+                for (T t : schwimmer) {
+                    boolean b = wk.addSchwimmer(t);
+                    ok = ok && b;
+                }
+                if (ok) {
+                    return true;
+                }
+                break;
             }
-            if (ok) {
-                return true;
+            case REGISTRATION_UPDATE: {
+                if (updateRegistration(wk, (LinkedList<T>) data)) {
+                    return true;
+                }
+                break;
             }
-            break;
-        }
-        case REGISTRATION_UPDATE: {
-            if (updateRegistration(wk, (LinkedList<T>) data)) {
-                return true;
+            case STARTERS: {
+                if (updateStarters(wk, (List<TeamWithStarters>) data)) {
+                    return true;
+                }
+                break;
             }
-            break;
-        }
-        case STARTERS: {
-            if (updateStarters(wk, (List<TeamWithStarters>) data)) {
-                return true;
-            }
-            break;
-        }
-        case TEAM_MEMBERS: {
-            Hashtable<String, String[]> names = (Hashtable<String, String[]>) data;
-            Enumeration<String> keys = names.keys();
-            while (keys.hasMoreElements()) {
-                String id = keys.nextElement();
-                int key = Integer.parseInt(id.substring(0, id.length() - 1));
-                char part = id.charAt(id.length() - 1);
-                T s = SearchUtils.getSchwimmer(wk, key);
-                if (s instanceof Mannschaft m) {
-                    Mannschaftsmitglied mm = m.getMannschaftsmitglied(at(part));
+            case TEAM_MEMBERS: {
+                Hashtable<String, Teammember> names = (Hashtable<String, Teammember>) data;
+                for (Map.Entry<String, Teammember> entry : names.entrySet()) {
+                    String id = entry.getKey().toLowerCase(Locale.ROOT);
+                    Teammember info = entry.getValue();
 
-                    String[] info = names.get(id);
-                    mm.setNachname(info[0]);
-                    mm.setVorname(info[1]);
-                    mm.setJahrgang(Integer.parseInt(info[2]));
-                    switch (info[3].charAt(0)) {
-                    case 'm':
-                        mm.setGeschlecht(Geschlecht.maennlich);
-                        break;
-                    case 'f':
-                        mm.setGeschlecht(Geschlecht.weiblich);
-                        break;
-                    default:
-                        mm.setGeschlecht(Geschlecht.unbekannt);
-                        break;
+                    int key = Integer.parseInt(id.substring(0, id.length() - 1));
+                    char part = id.charAt(id.length() - 1);
+                    T s = SearchUtils.getSchwimmer(wk, key);
+                    if (s instanceof Mannschaft m) {
+                        int position = at(part);
+                        if (position >= m.getMaxMembers()) {
+                            log.info("Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
+                                     m.getMaxMembers(),
+                                     position + 1,
+                                     m.getName(),
+                                     m.getStartnummer());
+                        } else {
+                            Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
+                            mm.setNachname(info.getLastname());
+                            mm.setVorname(info.getFirstname());
+                            mm.setJahrgang(info.getJahrgang());
+                            mm.setGeschlecht(info.getGeschlecht());
+                        }
                     }
                 }
+                return true;
             }
-            return true;
-        }
-        case ZW_RESULTS: {
-            Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) data;
-            Enumeration<ZWStartnummer> keys = names.keys();
-            while (keys.hasMoreElements()) {
-                ZWStartnummer key = keys.nextElement();
-                T s = SearchUtils.getSchwimmer(wk, key.getStartnummer());
-                int index = key.getIndex();
-                if (s != null) {
-                    double value = names.get(key);
-                    int v = (int) Math.round(value);
-                    if (v < -1.1) {
-                        s.setHLWState(index, HLWStates.NICHT_ANGETRETEN);
-                    } else if (v < -0.1) {
-                        s.setHLWState(index, HLWStates.NOT_ENTERED);
-                    } else {
-                        s.setHLWPunkte(index, Math.max(value, 0));
+            case ZW_RESULTS: {
+                Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) data;
+                Enumeration<ZWStartnummer> keys = names.keys();
+                while (keys.hasMoreElements()) {
+                    ZWStartnummer key = keys.nextElement();
+                    T s = SearchUtils.getSchwimmer(wk, key.getStartnummer());
+                    int index = key.getIndex();
+                    if (s != null) {
+                        double value = names.get(key);
+                        int v = (int) Math.round(value);
+                        if (v < -1.1) {
+                            s.setHLWState(index, HLWStates.NICHT_ANGETRETEN);
+                        } else if (v < -0.1) {
+                            s.setHLWState(index, HLWStates.NOT_ENTERED);
+                        } else {
+                            s.setHLWPunkte(index, Math.max(value, 0));
+                        }
                     }
                 }
+                return true;
             }
-            return true;
-        }
-        case RESULTS:
-        case HEAT_LIST:
-        case HEAT_TIMES:
-            return data;
-        case REFEREES:
-            wk.setKampfrichterverwaltung((KampfrichterVerwaltung) data);
-            return data;
-        default:
-            break;
+            case RESULTS:
+            case HEAT_LIST:
+            case HEAT_TIMES:
+                return data;
+            case REFEREES:
+                wk.setKampfrichterverwaltung((KampfrichterVerwaltung) data);
+                return data;
+            default:
+                break;
         }
 
         return null;
@@ -335,10 +323,10 @@ public class ImportManager {
 
     public static boolean isMultifileImportAllowed(ImportExportTypes type) {
         switch (type) {
-        case REGISTRATION:
-            return true;
-        default:
-            return false;
+            case REGISTRATION:
+                return true;
+            default:
+                return false;
         }
     }
 
