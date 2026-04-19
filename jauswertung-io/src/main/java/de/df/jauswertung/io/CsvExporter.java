@@ -23,7 +23,7 @@ import de.df.jutils.util.Feedback;
 
 /**
  * Export.java Created on 3. Oktober 2002, 12:52
- * 
+ *
  * @author dennis
  */
 public class CsvExporter extends EmptyExporter {
@@ -36,7 +36,7 @@ public class CsvExporter extends EmptyExporter {
 
     @Override
     public String[] getSuffixes() {
-        return new String[] { "csv" };
+        return new String[]{"csv"};
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CsvExporter extends EmptyExporter {
 
     /**
      * Exportiert die Schwimmer eines Wettkampfes in eine CSV-Datei.
-     * 
+     *
      * @param os OutputStream
      * @param wk Wettkampf
      * @return Erfolgsmeldung
@@ -71,13 +71,13 @@ public class CsvExporter extends EmptyExporter {
 
     /**
      * Exportiert die Meldeliste eines Wettkampfes in eine CSV-Datei.
-     * 
+     *
      * @param name Name der Datei
      * @param wk   Wettkampf
      * @return Erfolgsmeldung
      */
     @Override
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public synchronized <T extends ASchwimmer> boolean registration(OutputStream name, AWettkampf<T> wk, Feedback fb) {
         if (wk == null) {
             return false;
@@ -93,7 +93,7 @@ public class CsvExporter extends EmptyExporter {
             schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
             schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
             ExtendedTableModel tm = DataTableUtils.registration(wk, schwimmer, RegistrationDetails.EVERYTHING, null,
-                    true, fb);
+                                                                true, fb);
             if (tm == null) {
                 return false;
             }
@@ -107,7 +107,7 @@ public class CsvExporter extends EmptyExporter {
 
     /**
      * Exportiert die Laufliste eines Wettkampfes in eine CSV-Datei.
-     * 
+     *
      * @param name Name der Datei
      * @param wk   Wettkampf
      * @return Erfolgsmeldung
@@ -159,7 +159,7 @@ public class CsvExporter extends EmptyExporter {
 
     /**
      * Exportiert die Kampfrichter eines Wettkampfes in eine CSV-Datei.
-     * 
+     *
      * @param name Name der Datei
      * @param wk   Wettkampf
      * @return Erfolgsmeldung
@@ -210,15 +210,14 @@ public class CsvExporter extends EmptyExporter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.io.Exporter#isSupported(int)
      */
     @Override
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-        case STARTERS -> Utils.isInDevelopmentMode();
-        case HEAT_LIST, STARTKARTEN, REGISTRATION, RESULTS, REFEREES, TEAM_MEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
-        default -> false;
+            case STARTERS, HEAT_LIST, STARTKARTEN, REGISTRATION, RESULTS, REFEREES, TEAM_MEMBERS, BEST_TIMES, ZW_RESULTS, HEATS_OVERVIEW -> true;
+            default -> false;
         };
     }
 
@@ -329,10 +328,10 @@ public class CsvExporter extends EmptyExporter {
             }
         }
         CsvUtils.write(os,
-                new DefaultTableModel(data.toArray(new Object[0][0]),
-                        new String[] { "S#", I18n.get("Name"), I18n.get("Sex"), I18n.get("Discipline"), "round",
-                                "final",
-                                "Id1", "Id2", "Id3", "Id4", "Id5", "Id6" }));
+                       new DefaultTableModel(data.toArray(new Object[0][0]),
+                                             new String[]{"S#", I18n.get("Name"), I18n.get("Sex"), I18n.get("Discipline"), "round",
+                                                     "final",
+                                                     "Id1", "Id2", "Id3", "Id4", "Id5", "Id6"}));
         return true;
     }
 

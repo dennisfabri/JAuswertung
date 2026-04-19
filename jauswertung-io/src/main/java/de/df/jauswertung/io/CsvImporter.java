@@ -162,17 +162,10 @@ public final class CsvImporter implements IImporter {
 
     @Override
     public boolean isSupported(ImportExportTypes type) {
-        switch (type) {
-        case ZW_RESULTS:
-        case REGISTRATION:
-        case TEAM_MEMBERS:
-        case REFEREES:
-        case REGISTRATION_UPDATE:
-        case STARTERS:
-            return true;
-        default:
-            return false;
-        }
+        return switch (type) {
+            case ZW_RESULTS, REGISTRATION, TEAM_MEMBERS, REFEREES, REGISTRATION_UPDATE, STARTERS -> true;
+            default -> false;
+        };
     }
 
     @Override

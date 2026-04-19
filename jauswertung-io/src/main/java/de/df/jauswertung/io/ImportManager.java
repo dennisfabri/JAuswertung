@@ -78,17 +78,13 @@ public class ImportManager {
                 return true;
             case REFEREES:
                 return wk.getKampfrichterverwaltung() != null;
-            case TEAM_MEMBERS:
+            case TEAM_MEMBERS, STARTERS:
                 return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
-            case STARTERS:
-                return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf && Utils.isInDevelopmentMode();
             case HEAT_TIMES:
                 return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
             case RESULTS:
-            case HEAT_LIST:
+            case HEAT_LIST, REGISTRATION_UPDATE:
                 return wk.hasSchwimmer();
-            case REGISTRATION_UPDATE:
-                return wk.hasSchwimmer() && Utils.isInDevelopmentMode();
             default:
                 return false;
         }
@@ -192,11 +188,12 @@ public class ImportManager {
                     if (s instanceof Mannschaft m) {
                         int position = at(part);
                         if (position >= m.getMaxMembers()) {
-                            log.info("Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
-                                     m.getMaxMembers(),
-                                     position + 1,
-                                     m.getName(),
-                                     m.getStartnummer());
+                            log.info(
+                                    "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
+                                    m.getMaxMembers(),
+                                    position + 1,
+                                    m.getName(),
+                                    m.getStartnummer());
                         } else {
                             Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
                             mm.setNachname(info.getLastname());
@@ -255,7 +252,7 @@ public class ImportManager {
             if (mwk.isHeatBased() && starters.getRound() > 0) {
                 String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), disz, starters.getRound());
                 OWDisziplin<Mannschaft> d = mwk.getLauflisteOW().getDisziplin(id);
-                if (d.contains(m)) {
+                if (d != null && d.contains(m)) {
                     Eingabe e = m.getEingabe(id, true);
                     if (e != null) {
                         e.setStarter(starters.getStarters());

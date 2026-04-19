@@ -32,12 +32,12 @@ import de.df.jutils.util.SystemOutFeedback;
  */
 public class ExportManager {
 
-    public static final String[] NAMES = new String[] { I18n.get("Registrations"), I18n.get("Laufliste"),
+    public static final String[] NAMES = new String[]{I18n.get("Registrations"), I18n.get("Laufliste"),
             I18n.get("Startkarten"), I18n.get("Heatoverview"),
             I18n.get("Results"), I18n.get("ZWResults"), I18n.get("Protocol"), I18n.get("Referees"),
             I18n.get("Weitermeldung"), I18n.get("PenaltyCatalog"), I18n.get("Teammembers"),
             I18n.get("SchnellsteZeiten"), I18n.get("Heattimes"), I18n.get("Times"), I18n.get("RegistrationUpdate"),
-            I18n.get("Starters") };
+            I18n.get("Starters")};
 
     private static ExportManager manager = new ExportManager();
 
@@ -76,48 +76,37 @@ public class ExportManager {
             return false;
         }
         switch (datatype) {
-        case HEAT_LIST:
-        case STARTKARTEN:
-            return !wk.getLaufliste().isEmpty() || !wk.getLauflisteOW().isEmpty();
-        case HEAT_TIMES:
-            return wk.isHeatBased() && wk.hasLaufliste();
-        case PROTOCOL:
-        case REGISTRATION:
-        case RESULTS:
-        case BEST_TIMES:
-        case TIMES:
-        case WEITERMELDUNG:
-            return wk.hasSchwimmer();
-        case REFEREES:
-            return wk.getKampfrichterverwaltung() != null;
-        case PENALTIES:
-            return true;
-        case TEAM_MEMBERS:
-            return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
-        case STARTERS:
-            return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
-        case ZW_RESULTS:
-            if (!wk.hasSchwimmer()) {
+            case HEAT_LIST:
+            case STARTKARTEN:
+                return !wk.getLaufliste().isEmpty() || !wk.getLauflisteOW().isEmpty();
+            case HEAT_TIMES:
+                return wk.isHeatBased() && wk.hasLaufliste();
+            case PROTOCOL:
+            case REGISTRATION:
+            case RESULTS:
+            case BEST_TIMES:
+            case TIMES:
+            case WEITERMELDUNG:
+                return wk.hasSchwimmer();
+            case REFEREES:
+                return wk.getKampfrichterverwaltung() != null;
+            case PENALTIES:
+                return true;
+            case TEAM_MEMBERS, STARTERS:
+                return wk.hasSchwimmer() && (wk instanceof MannschaftWettkampf);
+            case ZW_RESULTS:
+                return wk.getSchwimmer().stream().anyMatch(value -> value.getAK().hasHLW());
+            case HEATS_OVERVIEW:
+                JTable t = PrintUtils.getLaufuebersichtTable(wk);
+                return (t != null);
+            default:
                 return false;
-            }
-            ListIterator<T> li = wk.getSchwimmer().listIterator();
-            while (li.hasNext()) {
-                if (li.next().getAK().hasHLW()) {
-                    return true;
-                }
-            }
-            return false;
-        case HEATS_OVERVIEW:
-            JTable t = PrintUtils.getLaufuebersichtTable(wk);
-            return (t != null);
-        default:
-            return false;
         }
     }
 
     public static <T extends ASchwimmer> boolean export(String format, OutputStream os, ImportExportTypes datatype,
-            AWettkampf<T> wk,
-            Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
+                                                        AWettkampf<T> wk,
+                                                        Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (format == null) {
             throw new NullPointerException();
         }
@@ -125,8 +114,8 @@ public class ExportManager {
     }
 
     public static <T extends ASchwimmer> boolean export(IExporter ie, OutputStream os, ImportExportTypes datatype,
-            AWettkampf<T> wk,
-            Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
+                                                        AWettkampf<T> wk,
+                                                        Feedback fb) throws NullPointerException, NotSupportedException, NotEnabledException {
         if (ie == null) {
             throw new NullPointerException();
         }
@@ -142,31 +131,31 @@ public class ExportManager {
             fb = new SystemOutFeedback();
         }
         return switch (datatype) {
-        case STARTKARTEN -> ie.startkarten(os, wk, fb);
-        case HEAT_LIST -> ie.heats(os, wk, fb);
-        case PROTOCOL -> ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case REGISTRATION -> ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case BEST_TIMES -> ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case RESULTS -> ie.results(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case REFEREES -> ie.referees(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case PENALTIES -> ie.penalties(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case WEITERMELDUNG -> ie.registration(os,
-                ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(
-                        wk), false),
-                fb);
-        case TEAM_MEMBERS -> ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case ZW_RESULTS -> ie.zusatzwertungResults(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case HEATS_OVERVIEW -> ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case HEAT_TIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case TIMES -> ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        case STARTERS -> wk instanceof MannschaftWettkampf && ie.starter(os, CompetitionUtils.getFilteredInstance(wk), fb);
-        default -> false;
+            case STARTKARTEN -> ie.startkarten(os, wk, fb);
+            case HEAT_LIST -> ie.heats(os, wk, fb);
+            case PROTOCOL -> ie.protocol(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case REGISTRATION -> ie.registration(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case BEST_TIMES -> ie.bestezeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case RESULTS -> ie.results(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case REFEREES -> ie.referees(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case PENALTIES -> ie.penalties(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case WEITERMELDUNG -> ie.registration(os,
+                                                  ResultUtils.convertResultsToMeldung(CompetitionUtils.getFilteredInstance(
+                                                          wk), false),
+                                                  fb);
+            case TEAM_MEMBERS -> ie.teammembers(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case ZW_RESULTS -> ie.zusatzwertungResults(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case HEATS_OVERVIEW -> ie.heatsoverview(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case HEAT_TIMES -> ie.heattimes(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case TIMES -> ie.zeiten(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            case STARTERS -> wk instanceof MannschaftWettkampf && ie.starter(os, CompetitionUtils.getFilteredInstance(wk), fb);
+            default -> false;
         };
     }
 
     public static <T extends ASchwimmer> boolean export(ImportExportTypes datatype, String name, String format,
-            AWettkampf<T> wk,
-            Feedback fb) throws IOException, NullPointerException, NotSupportedException, NotEnabledException {
+                                                        AWettkampf<T> wk,
+                                                        Feedback fb) throws IOException, NullPointerException, NotSupportedException, NotEnabledException {
         boolean result = false;
         OutputStream out = null;
         try {

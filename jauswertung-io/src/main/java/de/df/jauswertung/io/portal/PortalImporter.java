@@ -16,7 +16,6 @@ import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.poi.ss.formula.functions.T;
 import org.lisasp.competition.base.api.type.Gender;
 
 import java.io.IOException;
@@ -292,9 +291,7 @@ public class PortalImporter implements IImporter {
     @Override
     public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream input, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
-
         if (wk instanceof MannschaftWettkampf mwk) {
-
             Map<String, Integer> uuid2sn = new HashMap<>();
             for (T s : wk.getSchwimmer()) {
                 if (s.getImportId() != null && !s.getImportId().isBlank()) {
@@ -302,7 +299,6 @@ public class PortalImporter implements IImporter {
                 }
             }
 
-            Hashtable<String, Teammember> teammembers = new Hashtable<>();
             RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
             return teammembers(model, mwk, uuid2sn, fb);
         }
@@ -382,9 +378,71 @@ public class PortalImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream input, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
-        throw new NotImplementedException();
+        if (wk instanceof MannschaftWettkampf mwk) {
+            Map<String, Integer> uuid2sn = new HashMap<>();
+            for (T s : wk.getSchwimmer()) {
+                if (s.getImportId() != null && !s.getImportId().isBlank()) {
+                    uuid2sn.put(s.getImportId(), s.getStartnummer());
+                }
+            }
+
+            RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
+            return starters(model, mwk, uuid2sn, fb);
+        }
+        return List.of();
+
+    }
+
+    private List<TeamWithStarters> starters(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
+        List<TeamWithStarters> starters = new ArrayList<>();
+        for (Registration registration : model.getRegistrations()) {
+            Map<String, RegistrationExportModel.Athlete> athletesById = registration.getAthletes().stream().collect(Collectors.toMap(RegistrationExportModel.Athlete::getId,
+                                                                                                                                     a -> a));
+
+            for (RegistrationExportModel.Team team : registration.getTeams()) {
+                Integer sn = uuid2sn.get(team.getId());
+                if (sn == null) {
+                    if (findGender(mwk, team.getGender()) != null) {
+                        fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
+                                                                                                            team.getName(),
+                                                                                                            team.getAgeGroup(),
+                                                                                                            team.getGender().toString().toLowerCase(
+                                                                                                                    Locale.ROOT)));
+                    }
+                    continue;
+                }
+
+                starters.addAll(toTeamWithStarters(team, sn));
+            }
+        }
+        return starters;
+    }
+
+    private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team, Integer sn) {
+        List<TeamWithStarters> allStarts = new ArrayList<>();
+
+        Map<String, Integer> id2Position = new HashMap<>();
+        for (int x = 0; x < team.getMemberIds().size(); x++) {
+            id2Position.put(team.getMemberIds().get(x), x + 1);
+        }
+        for (Discipline discipline : team.getDisciplines()) {
+            if (discipline.isSelected()) {
+                if (discipline.getRelayPositions() != null) {
+                    int[] starters = new int[discipline.getRelayPositions().size()];
+                    for (int x = 0; x < starters.length; x++) {
+                        String starterId = discipline.getRelayPositions().get(x + 1);
+                        Integer position = starterId != null ? id2Position.get(starterId) : null;
+                        starters[x] = position != null ? position : 0;
+                    }
+                    allStarts.add(new TeamWithStarters(sn, discipline.getName(), 0, starters));
+                } else {
+                    allStarts.add(new TeamWithStarters(sn, discipline.getName(), 0));
+                }
+            }
+        }
+        return allStarts;
     }
 
     @Override
