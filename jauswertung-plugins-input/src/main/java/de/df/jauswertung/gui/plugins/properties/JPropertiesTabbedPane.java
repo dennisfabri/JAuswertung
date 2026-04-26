@@ -196,9 +196,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         end = new JWarningTextField();
         competitionOther = createTextPane();
         nameRegistration = new JComboBox<>(
-                new String[] { I18n.get("TeammembersNamesOnly"), I18n.get("TeammembersStrict") });
+                new String[]{I18n.get("TeammembersNamesOnly"), I18n.get("TeammembersStrict")});
         printNamesInResults = new JComboBox<>(
-                new String[] { I18n.get("TeamnameOnly"), I18n.get("TeamnameAndMembers") });
+                new String[]{I18n.get("TeamnameOnly"), I18n.get("TeamnameAndMembers")});
 
         snFormats = StartnumberFormatManager.getFormats();
         String[] formats = new String[snFormats.length];
@@ -213,7 +213,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         heatNumberFormat = new JComboBox<>(HeatsNumberingDisplay.values());
 
         printReferees = new JComboBox<>(
-                new String[] { I18n.get("Standard"), I18n.get("Compact"), I18n.get("VeryCompact") });
+                new String[]{I18n.get("Standard"), I18n.get("Compact"), I18n.get("VeryCompact")});
 
         nameOfPool = createTextPane();
         depthOfPool = createTextPane();
@@ -233,7 +233,13 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         competitionId = new JWarningTextField();
         authKey = new JWarningTextField();
 
+        competitionId.setValidator(s -> s.isEmpty() || (s.length() >= 3 && s.length() <= 4) && s.matches("^\\d*$"));
+        edvNumber.setValidator(s -> s.isEmpty() || s.length() == 7 && s.matches("^\\d*$"));
+        authKey.setValidator(s -> s.isEmpty() || s.matches("[a-f0-9]{22}"));
+
+
         uploadId = new JWarningTextField();
+        uploadId.setValidator(s -> s.isEmpty() || s.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"));
         uploadIndex = new JIntSpinner(0, 0, 99, 1);
 
         name.setAutoSelectAll(true);
@@ -326,8 +332,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     private JPanel createISCPanel() {
         SimpleFormBuilder sfm = new SimpleFormBuilder(true, false);
 
-        sfm.add(I18n.get("EDVNumber"), edvNumber);
         sfm.add(I18n.get("CompetitionId"), competitionId);
+        sfm.add(I18n.get("EDVNumber"), edvNumber);
         sfm.add(I18n.get("ISCUploadAuthKey"), authKey);
         sfm.addText(I18n.get("ISCUploadAuthKey.Info"));
 
@@ -386,7 +392,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(UPLOAD_INDEX, uploadIndex.getInt());
 
             authKeys.putCredentials(new ISCUploadCredentials(wk.getStringProperty(ISC_RESULT_UPLOAD_EDVNUMBER),
-                    wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authKey.getText()));
+                                                             wk.getStringProperty(ISC_RESULT_UPLOAD_COMPETITION_ID), authKey.getText()));
         }
     }
 
@@ -454,7 +460,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             edvNumber.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER));
             competitionId.setText(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID));
             authKey.setText(authKeys.getCredentials(wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_EDVNUMBER),
-                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
+                                                    wk.getStringProperty(PropertyConstants.ISC_RESULT_UPLOAD_COMPETITION_ID)));
 
             uploadId.setText(wk.getStringProperty(UPLOAD_ID));
             uploadIndex.setInt(wk.getIntegerProperty(UPLOAD_INDEX));
