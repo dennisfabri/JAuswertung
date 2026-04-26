@@ -1,30 +1,27 @@
-/*
- * Mannschaft.java Created on 9. Februar 2001, 12:12
- */
-
 package de.df.jauswertung.daten;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 /**
+ * Mannschaft.java Created on 9. Februar 2001, 12:12
+ *
  * @author Dennis Fabri @version 0.0
  */
 public class Mannschaft extends ASchwimmer {
 
+    @Serial
     private static final long serialVersionUID = 3944924584522943400L;
 
     @XStreamAsAttribute
     private String name = "";
     @XStreamAsAttribute
-    private String mitglieder = "";
+    private String mitglieder = null;
     private Mannschaftsmitglied[] mitglieder2;
 
-    /**
-     * Creates new Mannschaft
-     */
     Mannschaft(MannschaftWettkampf mwk, String name, boolean geschlecht, String gliederung, int ak, String bemerkung) {
         super(mwk, geschlecht, gliederung, ak, bemerkung);
         setName(name);
@@ -78,30 +75,9 @@ public class Mannschaft extends ASchwimmer {
             for (int x = 0; x < mitglieder2.length; x++) {
                 mitglieder2[x] = new Mannschaftsmitglied();
             }
-            if (mitglieder != null) {
-                String[] mx = mitglieder.split(";");
-                for (int x = 0; x < Math.min(mitglieder2.length, mx.length); x++) {
-                    String xname = mx[x];
-                    String[] split = xname.trim().split(",");
-                    if (split.length == 2) {
-                        mitglieder2[x].setVorname(split[1].trim());
-                        mitglieder2[x].setNachname(split[0].trim());
-                    } else {
-                        split = xname.split(" ");
-                        if (split.length == 2) {
-                            mitglieder2[x].setVorname(split[0].trim());
-                            mitglieder2[x].setNachname(split[1].trim());
-                        } else {
-                            mitglieder2[x].setVorname(xname);
-                        }
-                    }
-                }
-            }
         } else if (mitglieder2.length < getMaxMembers()) {
             Mannschaftsmitglied[] neu = new Mannschaftsmitglied[getMaxMembers()];
-            for (int x = 0; x < mitglieder2.length; x++) {
-                neu[x] = mitglieder2[x];
-            }
+            System.arraycopy(mitglieder2, 0, neu, 0, mitglieder2.length);
             for (int x = mitglieder2.length; x < neu.length; x++) {
                 neu[x] = new Mannschaftsmitglied();
             }
@@ -227,7 +203,7 @@ public class Mannschaft extends ASchwimmer {
             } else {
                 namen[x] = mitglieder2[x].getName();
             }
-            if (namen[x].length() == 0) {
+            if (namen[x].isEmpty()) {
                 namen[x] = "-";
             }
         }
@@ -256,11 +232,6 @@ public class Mannschaft extends ASchwimmer {
         return count;
     }
 
-    public boolean isMitgliedComplete(int x) {
-        Mannschaftsmitglied m = getMannschaftsmitglied(x);
-        return m.isComplete();
-    }
-
     public boolean hasMannschaftsmitglieder() {
         initMembers();
         return getMannschaftsmitgliederAnzahl() > 0;
@@ -278,15 +249,10 @@ public class Mannschaft extends ASchwimmer {
         return count >= this.getMinMembers();
     }
 
-    public boolean isMannschaftsmitgliederNamenComplete() {
+    public void clearMannschaftsmitglieder() {
         initMembers();
-
-        int count = 0;
         for (Mannschaftsmitglied m : mitglieder2) {
-            if (m.HasName()) {
-                count++;
-            }
+            m.clear();
         }
-        return count >= this.getMinMembers();
     }
 }

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -178,31 +179,33 @@ public class ImportManager {
             }
             case TEAM_MEMBERS: {
                 Hashtable<String, Teammember> names = (Hashtable<String, Teammember>) data;
-                for (Map.Entry<String, Teammember> entry : names.entrySet()) {
-                    String id = entry.getKey().toLowerCase(Locale.ROOT);
-                    Teammember info = entry.getValue();
-
-                    int key = Integer.parseInt(id.substring(0, id.length() - 1));
-                    char part = id.charAt(id.length() - 1);
-                    T s = SearchUtils.getSchwimmer(wk, key);
-                    if (s instanceof Mannschaft m) {
-                        int position = at(part);
-                        if (position >= m.getMaxMembers()) {
-                            log.info(
-                                    "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
-                                    m.getMaxMembers(),
-                                    position + 1,
-                                    m.getName(),
-                                    m.getStartnummer());
-                        } else {
-                            Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
-                            mm.setNachname(info.getLastname());
-                            mm.setVorname(info.getFirstname());
-                            mm.setJahrgang(info.getJahrgang());
-                            mm.setGeschlecht(info.getGeschlecht());
-                        }
-                    }
-                }
+                names.entrySet().stream().collect(Collectors.groupingBy(e -> e.getKey().toLowerCase(Locale.ROOT).substring(0, e.getKey().length() - 1)))
+                        .forEach((id, entries) -> {
+                            int key = Integer.parseInt(id);
+                            T s = SearchUtils.getSchwimmer(wk, key);
+                            if (s instanceof Mannschaft m) {
+                                m.clearMannschaftsmitglieder();
+                                entries.forEach(entry -> {
+                                    char part = entry.getKey().toLowerCase(Locale.ROOT).charAt(entry.getKey().length() - 1);
+                                    int position = at(part);
+                                    if (position >= m.getMaxMembers()) {
+                                        log.info(
+                                                "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
+                                                m.getMaxMembers(),
+                                                position + 1,
+                                                m.getName(),
+                                                m.getStartnummer());
+                                    } else {
+                                        Teammember info = entry.getValue();
+                                        Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
+                                        mm.setNachname(info.getLastname());
+                                        mm.setVorname(info.getFirstname());
+                                        mm.setJahrgang(info.getJahrgang());
+                                        mm.setGeschlecht(info.getGeschlecht());
+                                    }
+                                });
+                            }
+                        });
                 return true;
             }
             case ZW_RESULTS: {
