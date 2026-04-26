@@ -475,8 +475,7 @@ public final class DataTableUtils {
             row.addLast(teili.getVorname());
             row.addLast(I18n.yearToShortObject(teili.getJahrgang()));
         }
-        if (t instanceof Mannschaft) {
-            Mannschaft m = (Mannschaft) t;
+        if (t instanceof Mannschaft m) {
             for (int x = 0; x < maxteammembers; x++) {
                 row.addLast(m.getMitgliedsname(x));
             }
@@ -585,7 +584,7 @@ public final class DataTableUtils {
         return l.toArray();
     }
 
-    private static <T extends Object> void remove(LinkedList<T> liste, boolean[] columns) {
+    private static <T> void remove(LinkedList<T> liste, boolean[] columns) {
         if (columns == null) {
             return;
         }
@@ -660,20 +659,14 @@ public final class DataTableUtils {
         if (wk == null) {
             return null;
         }
-        if (!(wk instanceof MannschaftWettkampf)) {
+        if (!(wk instanceof MannschaftWettkampf mwk)) {
             return null;
         }
         if (fb == null) {
             fb = new NullFeedback();
         }
 
-        MannschaftWettkampf w = (MannschaftWettkampf) wk;
-        LinkedList<Mannschaft> schwimmer = w.getSchwimmer();
-
-        int maxteamsize = wk.getRegelwerk().getAk(0).getMaxMembers();
-        for (int x = 1; x < wk.getRegelwerk().size(); x++) {
-            maxteamsize = Math.max(maxteamsize, wk.getRegelwerk().getAk(x).getMaxMembers());
-        }
+        LinkedList<Mannschaft> schwimmer = mwk.getSchwimmer();
 
         LinkedList<Integer> aligns = new LinkedList<>();
         LinkedList<String> formats = new LinkedList<>();
@@ -716,7 +709,8 @@ public final class DataTableUtils {
         for (Mannschaft t : schwimmer) {
             progress.increase();
 
-            for (int i = 0; i < maxteamsize; i++) {
+            int maxAkMembers = t.getAK().getMaxMembers();
+            for (int i = 0; i < maxAkMembers; i++) {
                 LinkedList<Object> row = new LinkedList<>();
 
                 row.addLast(StartnumberFormatManager.format(t) + StringTools.asText(i));
@@ -787,7 +781,7 @@ public final class DataTableUtils {
         if (results.isEmpty()) {
             return null;
         }
-        return results.toArray(new ExtendedTableModel[results.size()]);
+        return results.toArray(new ExtendedTableModel[0]);
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel zusatzwertungResults(final AWettkampf<T> wk,
@@ -808,9 +802,9 @@ public final class DataTableUtils {
             }
         }
 
-        Collections.sort(swimmers, new SchwimmerNameVergleicher<>());
-        Collections.sort(swimmers, new SchwimmerGeschlechtVergleicher<>());
-        Collections.sort(swimmers, new SchwimmerAKVergleicher<>());
+        swimmers.sort(new SchwimmerNameVergleicher<>());
+        swimmers.sort(new SchwimmerGeschlechtVergleicher<>());
+        swimmers.sort(new SchwimmerAKVergleicher<>());
 
         LinkedList<Integer> aligns = new LinkedList<>();
         LinkedList<String> formats = new LinkedList<>();
@@ -914,8 +908,8 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
+        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
+        tm.setColumnFormats(formats.toArray(new String[0]));
         tm.setLandscape(false);
 
         return tm;
@@ -972,10 +966,6 @@ public final class DataTableUtils {
         return tm;
     }
 
-    /**
-     * @param lauf
-     * @return
-     */
     private static <T extends ASchwimmer> Object[] laufToLine(Lauf<T> lauf, int bahnen, int offset,
                                                               boolean mixedheats) {
 
@@ -1077,10 +1067,10 @@ public final class DataTableUtils {
 
         Progress progress = new Progress(fb, kv.getEinheitenCount(), 1);
 
-        for (int y = 0; y < kv.getEinheitenCount(); y++) {
+        for (int x = 0; x < kv.getEinheitenCount(); x++) {
             progress.increase();
 
-            KampfrichterEinheit ke = kv.getEinheit(y);
+            KampfrichterEinheit ke = kv.getEinheit(x);
             String[][] content = ke.getInhalt();
             for (String[] aContent : content) {
                 result.addLast(refereeToLine(ke.getName(), aContent));
@@ -1088,8 +1078,8 @@ public final class DataTableUtils {
         }
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
+        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
+        tm.setColumnFormats(formats.toArray(new String[0]));
         return tm;
     }
 
@@ -1260,7 +1250,6 @@ public final class DataTableUtils {
         boolean isOpenwater = FormelManager.isOpenwater(w.getRegelwerk().getFormelID());
 
         int maxteamsize = getMaximumMembers(wk);
-        int maxregs = 1; // getMaximumRegisteredPoints(wk, schwimmer);
 
         LinkedList<Integer> aligns = new LinkedList<>();
         LinkedList<String> formats = new LinkedList<>();
@@ -1330,23 +1319,12 @@ public final class DataTableUtils {
             titles.addLast(I18n.get("ReportedRank"));
             aligns.addLast(SwingConstants.RIGHT);
             formats.addLast("0");
-            if (maxregs <= 1) {
-                titles.addLast(I18n.get("ReportedPoints"));
-                aligns.addLast(SwingConstants.RIGHT);
-                formats.addLast("0.00");
-                titles.addLast(I18n.get("Protocol"));
-                aligns.addLast(SwingConstants.LEFT);
-                formats.addLast("");
-            } else {
-                for (int x = 0; x < maxregs; x++) {
-                    titles.addLast(I18n.get("ReportedPointsNr", StringTools.ABC[x]));
-                    aligns.addLast(SwingConstants.RIGHT);
-                    formats.addLast("0.00");
-                    titles.addLast(I18n.get("ProtocolNr", StringTools.ABC[x]));
-                    aligns.addLast(SwingConstants.LEFT);
-                    formats.addLast("");
-                }
-            }
+            titles.addLast(I18n.get("ReportedPoints"));
+            aligns.addLast(SwingConstants.RIGHT);
+            formats.addLast("0.00");
+            titles.addLast(I18n.get("Protocol"));
+            aligns.addLast(SwingConstants.LEFT);
+            formats.addLast("");
             titles.addLast(I18n.get("AusserKonkurrenzShort"));
             aligns.addLast(SwingConstants.CENTER);
             formats.addLast("");
@@ -1460,14 +1438,8 @@ public final class DataTableUtils {
             }
             if (detail != RegistrationDetails.WITH_TIMES) {
                 row.addLast(t.getMeldePlatz() <= 0 ? "" : t.getMeldePlatz());
-                for (int x = 0; x < Math.min(maxregs, t.getMeldepunkteSize()); x++) {
-                    row.addLast(new FixedDecimal(t.getMeldepunkte(x), 2));
-                    row.addLast(I18n.booleanToYesNo(t.hasMeldungMitProtokoll(x)));
-                }
-                for (int x = t.getMeldepunkteSize(); x < maxregs; x++) {
-                    row.addLast("");
-                    row.addLast("");
-                }
+                row.addLast(new FixedDecimal(t.getMeldepunkte(0), 2));
+                row.addLast(I18n.booleanToYesNo(t.hasMeldungMitProtokoll(0)));
                 row.addLast(I18n.booleanToYesNo(t.isAusserKonkurrenz()));
                 row.addLast(t.getBemerkung());
             }
@@ -1497,8 +1469,7 @@ public final class DataTableUtils {
                     row.addLast(Objects.requireNonNullElse(time, ""));
                 }
             }
-            if (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS && (t instanceof Mannschaft)) {
-                Mannschaft m = (Mannschaft) t;
+            if (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS && (t instanceof Mannschaft m)) {
                 row.addLast(m.getMitgliedernamenShort(", "));
             }
             row.addLast(t.getImportId());
@@ -1520,8 +1491,8 @@ public final class DataTableUtils {
         remove(titles, columns);
 
         ExtendedTableModel tm = new ExtendedTableModel(result.toArray(new Object[0][0]), titles.toArray());
-        tm.setColumnAlignments(aligns.toArray(new Integer[aligns.size()]));
-        tm.setColumnFormats(formats.toArray(new String[formats.size()]));
+        tm.setColumnAlignments(aligns.toArray(new Integer[0]));
+        tm.setColumnFormats(formats.toArray(new String[0]));
 
         return tm;
     }
@@ -1579,7 +1550,7 @@ public final class DataTableUtils {
                             int zeit = s.getZeit(0);
                             StringBuilder name = new StringBuilder(s.getName());
                             StringBuilder gld = new StringBuilder(s.getGliederung());
-                            if (s.getQualifikationsebene().length() > 0) {
+                            if (!s.getQualifikationsebene().isEmpty()) {
                                 gld.append(" (");
                                 gld.append(s.getQualifikationsebene());
                                 gld.append(")");
@@ -1592,7 +1563,7 @@ public final class DataTableUtils {
                                 name.append(schwimmer.getName());
                                 gld.append(", ");
                                 gld.append(schwimmer.getGliederung());
-                                if (schwimmer.getQualifikationsebene().length() > 0) {
+                                if (!schwimmer.getQualifikationsebene().isEmpty()) {
                                     gld.append(" (");
                                     gld.append(schwimmer.getQualifikationsebene());
                                     gld.append(")");
@@ -1635,11 +1606,11 @@ public final class DataTableUtils {
     public static <T extends ASchwimmer> ExtendedTableModel easywkHeattimes(AWettkampf<T> wk) {
         Heattime[] times;
         if (wk.isHeatBased()) {
-            times = heattimesOW(wk);
+            times = heatTimesOW(wk);
         } else {
-            times = heattimesPool(wk);
+            times = heatTimesPool(wk);
         }
-        if (times == null || times.length == 0) {
+        if (times.length == 0) {
             return null;
         }
         Arrays.sort(times, (ht1, ht2) -> {
@@ -1702,11 +1673,11 @@ public final class DataTableUtils {
     public static <T extends ASchwimmer> ExtendedTableModel heattimes(AWettkampf<T> wk) {
         Heattime[] times;
         if (wk.isHeatBased()) {
-            times = heattimesOW(wk);
+            times = heatTimesOW(wk);
         } else {
-            times = heattimesPool(wk);
+            times = heatTimesPool(wk);
         }
-        if (times == null || times.length == 0) {
+        if (times.length == 0) {
             return null;
         }
         Arrays.sort(times, new Comparator<Heattime>() {
@@ -1764,11 +1735,11 @@ public final class DataTableUtils {
         return etm;
     }
 
-    private static <T extends ASchwimmer> Heattime[] heattimesPool(AWettkampf<T> wk) {
+    private static <T extends ASchwimmer> Heattime[] heatTimesPool(AWettkampf<T> wk) {
         throw new NotImplementedException();
     }
 
-    private static <T extends ASchwimmer> Heattime[] heattimesOW(AWettkampf<T> wk) {
+    private static <T extends ASchwimmer> Heattime[] heatTimesOW(AWettkampf<T> wk) {
         ArrayList<Heattime> times = new ArrayList<>();
 
         for (OWDisziplin<T> dis : wk.getLauflisteOW().getDisziplinen()) {
@@ -1819,7 +1790,7 @@ public final class DataTableUtils {
             }
         }
 
-        return times.toArray(new Heattime[times.size()]);
+        return times.toArray(new Heattime[0]);
 
     }
 }
