@@ -3,21 +3,8 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.util.Collections;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -40,14 +27,21 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.JTablePrintable;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.util.LinkedList;
+
 /**
+ * Created 17.10.2004
+ *
  * @author Dennis Fabri
- * @date 17.10.2004
  */
 class RegisteredTimesPrinter implements Printer {
 
-    private CorePlugin core;
-    private IPluginManager controller;
+    private final CorePlugin core;
+    private final IPluginManager controller;
 
     private JPanel panel;
     private JButton print;
@@ -78,7 +72,7 @@ class RegisteredTimesPrinter implements Printer {
         filter.setVisible(false);
 
         FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
-                "4dlu,fill:default,4dlu");
+                                           "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -96,7 +90,7 @@ class RegisteredTimesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -106,7 +100,7 @@ class RegisteredTimesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -131,17 +125,17 @@ class RegisteredTimesPrinter implements Printer {
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 LinkedList<ASchwimmer> schwimmer = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
-                if ((schwimmer != null) && (schwimmer.size() > 0)) {
-                    Collections.sort(schwimmer, new SchwimmerGliederungVergleicher<>());
-                    Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher<>());
+                if ((schwimmer != null) && !schwimmer.isEmpty()) {
+                    schwimmer.sort(new SchwimmerGliederungVergleicher<>());
+                    schwimmer.sort(new SchwimmerMeldepunkteVergleicher<>());
                     ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer,
-                            DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
+                                                                         DataTableUtils.RegistrationDetails.WITHOUT_IMPORT_ID, selected, false, null);
                     etm.setName(aks.getAk(x).getName() + " " + I18n.geschlechtToString(aks, y == 1));
                     result.addLast(etm);
                 }
             }
         }
-        return result.toArray(new ExtendedTableModel[result.size()]);
+        return result.toArray(new ExtendedTableModel[0]);
     }
 
     private JTable[] getTables(boolean[] selected) {
@@ -164,7 +158,7 @@ class RegisteredTimesPrinter implements Printer {
         }
         Printable p = PrintManager.getPrintable(tables, names, JTablePrintable.OPT_ALL, true, true);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Meldezeiten"),
-                I18n.get("Meldezeiten"));
+                                              I18n.get("Meldezeiten"));
     }
 
     void print() {
@@ -172,7 +166,7 @@ class RegisteredTimesPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Meldezeiten"), true,
-                    controller.getWindow());
+                                controller.getWindow());
         }
     }
 
@@ -188,6 +182,7 @@ class RegisteredTimesPrinter implements Printer {
                 sc.add(I18n.get("Qualifikationsebene"), true);
                 sc.add(I18n.get("AgeGroup"), false);
                 sc.add(I18n.get("Sex"), false);
+                sc.add(I18n.get("ReportedPlace"), false);
                 sc.add(I18n.get("ReportedPoints"), false);
                 sc.add(I18n.get("Protocol"), false);
                 sc.add(I18n.get("AusserKonkurrenz"), false);
@@ -195,8 +190,8 @@ class RegisteredTimesPrinter implements Printer {
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), true);
                 einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
-                        sc.getValues(), false,
-                        IconManager.getIconBundle());
+                                              sc.getValues(), false,
+                                              IconManager.getIconBundle());
             }
             selection = einzel;
         } else {
@@ -204,11 +199,11 @@ class RegisteredTimesPrinter implements Printer {
                 SelectionConstructor sc = new SelectionConstructor();
                 sc.add(I18n.get("Startnumber"), false);
                 sc.add(I18n.get("Name"), true);
-                // sc.add(I18n.get("Members"), false);
                 sc.add(I18n.get("Organisation"), true);
                 sc.add(I18n.get("Qualifikationsebene"), true);
                 sc.add(I18n.get("AgeGroup"), false);
                 sc.add(I18n.get("Sex"), false);
+                sc.add(I18n.get("ReportedPlace"), false);
                 sc.add(I18n.get("ReportedPoints"), false);
                 sc.add(I18n.get("Protocol"), false);
                 sc.add(I18n.get("AusserKonkurrenz"), false);
@@ -216,8 +211,8 @@ class RegisteredTimesPrinter implements Printer {
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), true);
                 mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
-                        sc.getValues(), false,
-                        IconManager.getIconBundle());
+                                                  sc.getValues(), false,
+                                                  IconManager.getIconBundle());
             }
             selection = mannschaft;
         }
@@ -229,13 +224,13 @@ class RegisteredTimesPrinter implements Printer {
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldezeitenPC(selection.getSelection());
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(),
-                    IconManager.getTitleImages());
+                                  IconManager.getTitleImages());
         }
     }
 
     private final class MeldezeitenPC implements PrintableCreator {
 
-        private boolean[] selected;
+        private final boolean[] selected;
 
         public MeldezeitenPC(boolean[] s) {
             selected = s;

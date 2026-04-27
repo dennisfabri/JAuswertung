@@ -4,17 +4,6 @@
 
 package de.df.jauswertung.util;
 
-import static de.df.jauswertung.daten.PropertyConstants.*;
-import static javax.swing.SwingConstants.*;
-
-import java.util.*;
-
-import javax.swing.*;
-
-import org.apache.commons.lang3.NotImplementedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
@@ -39,6 +28,15 @@ import de.df.jutils.io.csv.Seconds;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.NullFeedback;
 import de.df.jutils.util.StringTools;
+import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import java.util.*;
+
+import static de.df.jauswertung.daten.PropertyConstants.*;
+import static javax.swing.SwingConstants.*;
 
 /**
  * @author dennis
@@ -48,7 +46,24 @@ public final class DataTableUtils {
     private static final Logger log = LoggerFactory.getLogger(DataTableUtils.class);
 
     public enum RegistrationDetails {
-        SHORT, WITH_TIMES, EVERYTHING, SHORT_WITH_TEAMMEMBERS
+        SHORT(true, false, false, false, true),
+        SHORT_WITH_TEAMMEMBERS(true, false, true, false, true),
+        WITHOUT_IMPORT_ID(true, true, false, false, true),
+        EVERYTHING(true, true, false, true, true);
+
+        private final boolean includeQualificationDetails;
+        private final boolean includeDisciplines;
+        private final boolean includeTeamMembers;
+        private final boolean includeImportId;
+        private final boolean includeRegistration;
+
+        private RegistrationDetails(boolean includeQualificationDetails, boolean includeDisciplines, boolean includeTeamMembers, boolean includeImportId, boolean includeRegistration) {
+            this.includeQualificationDetails = includeQualificationDetails;
+            this.includeDisciplines = includeDisciplines;
+            this.includeTeamMembers = includeTeamMembers;
+            this.includeImportId = includeImportId;
+            this.includeRegistration = includeRegistration;
+        }
     }
 
     private DataTableUtils() {
@@ -1315,7 +1330,7 @@ public final class DataTableUtils {
             aligns.addLast(SwingConstants.CENTER);
             formats.addLast("");
         }
-        if (detail != RegistrationDetails.WITH_TIMES) {
+        if (detail.includeRegistration) {
             titles.addLast(I18n.get("ReportedRank"));
             aligns.addLast(SwingConstants.RIGHT);
             formats.addLast("0");
@@ -1332,8 +1347,7 @@ public final class DataTableUtils {
             aligns.addLast(SwingConstants.LEFT);
             formats.addLast("");
         }
-        if ((detail == RegistrationDetails.EVERYTHING)
-                || (detail == RegistrationDetails.SHORT || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS))) {
+        if (detail.includeQualificationDetails) {
             titles.addLast(I18n.get("StartunterlagenkontrolleShort"));
             aligns.addLast(SwingConstants.LEFT);
             formats.addLast("");
@@ -1341,7 +1355,7 @@ public final class DataTableUtils {
             aligns.addLast(SwingConstants.LEFT);
             formats.addLast("");
         }
-        if (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS && (!wk.isEinzel())) {
+        if (detail.includeTeamMembers && (!wk.isEinzel())) {
             titles.addLast(I18n.get("Teammembers"));
             aligns.addLast(SwingConstants.LEFT);
             formats.addLast("");
@@ -1349,7 +1363,7 @@ public final class DataTableUtils {
 
         LinkedList<String> disciplines = new LinkedList<>();
         Hashtable<String, Integer> indizes = new Hashtable<>();
-        if ((detail != RegistrationDetails.SHORT) && (detail != RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
+        if (detail.includeDisciplines) {
             int index = 0;
             Regelwerk aks = wk.getRegelwerk();
             for (int x = 0; x < aks.size(); x++) {
@@ -1370,9 +1384,11 @@ public final class DataTableUtils {
                 }
             }
         }
-        titles.addLast(I18n.get("Import-Id"));
-        aligns.addLast(SwingConstants.LEFT);
-        formats.addLast("");
+        if (detail.includeImportId) {
+            titles.addLast(I18n.get("Import-Id"));
+            aligns.addLast(SwingConstants.LEFT);
+            formats.addLast("");
+        }
 
 
         int length = schwimmer.size();
@@ -1436,15 +1452,14 @@ public final class DataTableUtils {
                 row.addLast(t.getAK().toString());
                 row.addLast(I18n.geschlechtToString(t));
             }
-            if (detail != RegistrationDetails.WITH_TIMES) {
+            if (detail.includeRegistration) {
                 row.addLast(t.getMeldePlatz() <= 0 ? "" : t.getMeldePlatz());
                 row.addLast(new FixedDecimal(t.getMeldepunkte(0), 2));
                 row.addLast(I18n.booleanToYesNo(t.hasMeldungMitProtokoll(0)));
                 row.addLast(I18n.booleanToYesNo(t.isAusserKonkurrenz()));
                 row.addLast(t.getBemerkung());
             }
-            if ((detail == RegistrationDetails.EVERYTHING) || (detail == RegistrationDetails.SHORT)
-                    || (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
+            if (detail.includeQualificationDetails) {
                 Startunterlagen su = t.getStartunterlagen();
                 String text = switch (su) {
                     case PRUEFEN -> I18n.get("yes");
@@ -1454,7 +1469,7 @@ public final class DataTableUtils {
                 row.addLast(t.getQualifikation().toString());
             }
 
-            if (detail != RegistrationDetails.SHORT && (detail != RegistrationDetails.SHORT_WITH_TEAMMEMBERS)) {
+            if (detail.includeDisciplines) {
                 String[] times = new String[disciplines.size()];
                 Altersklasse ak = t.getAK();
                 for (int x = 0; x < ak.getDiszAnzahl(); x++) {
@@ -1469,10 +1484,12 @@ public final class DataTableUtils {
                     row.addLast(Objects.requireNonNullElse(time, ""));
                 }
             }
-            if (detail == RegistrationDetails.SHORT_WITH_TEAMMEMBERS && (t instanceof Mannschaft m)) {
+            if (detail.includeTeamMembers && (t instanceof Mannschaft m)) {
                 row.addLast(m.getMitgliedernamenShort(", "));
             }
-            row.addLast(t.getImportId());
+            if (detail.includeImportId) {
+                row.addLast(t.getImportId());
+            }
 
             result.addLast(row.toArray());
         }

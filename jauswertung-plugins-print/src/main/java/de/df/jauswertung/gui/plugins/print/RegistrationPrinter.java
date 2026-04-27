@@ -3,22 +3,8 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.util.Collections;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -38,14 +24,21 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.JTablePrintable;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.util.LinkedList;
+
 /**
+ * Created 17.10.2004
+ *
  * @author Dennis Fabri
- * @date 17.10.2004
  */
 class RegistrationPrinter implements Printer {
 
-    private CorePlugin core;
-    private IPluginManager controller;
+    private final CorePlugin core;
+    private final IPluginManager controller;
 
     private JPanel panel;
     private JButton print;
@@ -76,8 +69,8 @@ class RegistrationPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        order = new JComboBox<>(new String[] { I18n.get("Startnumber"), I18n.get("Organisation"),
-                I18n.get("AgeGroup"), I18n.get("Name") });
+        order = new JComboBox<>(new String[]{I18n.get("Startnumber"), I18n.get("Organisation"),
+                I18n.get("AgeGroup"), I18n.get("Name")});
         order.setSelectedIndex(2);
 
         FormLayout layout = new FormLayout(
@@ -103,7 +96,7 @@ class RegistrationPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -113,7 +106,7 @@ class RegistrationPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -128,39 +121,35 @@ class RegistrationPrinter implements Printer {
         checkMeldungen(filteredwk);
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     private <T extends ASchwimmer> ExtendedTableModel getTableModel(boolean[] selected) {
         AWettkampf<T> wk = core.getFilteredWettkampf();
         LinkedList<T> schwimmer = wk.getSchwimmer();
-        if (schwimmer == null) {
-            return null;
-        }
         switch (order.getSelectedIndex()) {
-        default:
-        case 0:
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_STARTNUMMER);
-            break;
-        case 1:
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
-            break;
-        case 2:
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
-            break;
-        case 3:
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_GLIEDERUNG);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
-            Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_NAME);
-            break;
+            case 1:
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_NAME);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_GLIEDERUNG);
+                break;
+            case 2:
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_NAME);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_GLIEDERUNG);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
+                break;
+            case 3:
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_GLIEDERUNG);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_ALTERSKLASSE);
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_NAME);
+                break;
+            default:
+                schwimmer.sort(CompetitionUtils.VERGLEICHER_STARTNUMMER);
+                break;
         }
         return DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.SHORT, selected, false,
-                null);
+                                           null);
     }
 
     private JTable getTable(boolean[] selected) {
@@ -171,9 +160,9 @@ class RegistrationPrinter implements Printer {
     }
 
     Printable getPrintable(boolean[] selected) {
-        Printable p = PrintManager.getPrintable(getTable(selected), (String) null, JTablePrintable.OPT_ALL, true, true);
+        Printable p = PrintManager.getPrintable(getTable(selected), null, JTablePrintable.OPT_ALL, true, true);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Registrations"),
-                I18n.get("Registrations"));
+                                              I18n.get("Registrations"));
     }
 
     void print() {
@@ -181,7 +170,7 @@ class RegistrationPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registrations"), true,
-                    controller.getWindow());
+                                controller.getWindow());
         }
     }
 
@@ -205,8 +194,8 @@ class RegistrationPrinter implements Printer {
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
                 einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
-                        sc.getValues(), false,
-                        IconManager.getIconBundle());
+                                              sc.getValues(), false,
+                                              IconManager.getIconBundle());
             }
             selection = einzel;
         } else {
@@ -225,8 +214,8 @@ class RegistrationPrinter implements Printer {
                 sc.add(I18n.get("Startunterlagenkontrolle"), false);
                 sc.add(I18n.get("Qualification"), false);
                 mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"), sc.getTexts(),
-                        sc.getValues(), false,
-                        IconManager.getIconBundle());
+                                                  sc.getValues(), false,
+                                                  IconManager.getIconBundle());
             }
             selection = mannschaft;
         }
@@ -238,13 +227,13 @@ class RegistrationPrinter implements Printer {
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldelistenPC(selection.getSelection());
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Registrations"), IconManager.getIconBundle(),
-                    IconManager.getTitleImages());
+                                  IconManager.getTitleImages());
         }
     }
 
     private final class MeldelistenPC implements PrintableCreator {
 
-        private boolean[] selected;
+        private final boolean[] selected;
 
         public MeldelistenPC(boolean[] selection) {
             this.selected = selection;

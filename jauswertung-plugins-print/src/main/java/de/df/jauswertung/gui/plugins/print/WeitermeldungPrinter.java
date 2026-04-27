@@ -3,22 +3,8 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.util.Collections;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -29,6 +15,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.SelectionConstructor;
 import de.df.jauswertung.util.vergleicher.SchwimmerGliederungVergleicher;
 import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
@@ -41,14 +28,21 @@ import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.JTablePrintable;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.util.LinkedList;
+
 /**
+ * Created 17.10.2004
+ *
  * @author Dennis Fabri
- * @date 17.10.2004
  */
 class WeitermeldungPrinter implements Printer {
 
-    private CorePlugin core;
-    private IPluginManager controller;
+    private final CorePlugin core;
+    private final IPluginManager controller;
 
     private JPanel panel;
     private JButton print;
@@ -84,9 +78,7 @@ class WeitermeldungPrinter implements Printer {
         alltimes.setSelected(true);
         alltimes.setEnabled(false);
 
-        FormLayout layout = new FormLayout(
-                "4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
-                "4dlu,fill:default,4dlu");
+        FormLayout layout = new FormLayout("4dlu:grow,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         panel.add(filter, CC.xy(2, 2));
@@ -106,7 +98,7 @@ class WeitermeldungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -116,7 +108,7 @@ class WeitermeldungPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -130,7 +122,7 @@ class WeitermeldungPrinter implements Printer {
         checkMeldungen(wk, filteredwk);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private ExtendedTableModel[] getTableModels(boolean[] selected) {
         AWettkampf wk = ResultUtils.convertResultsToMeldung(core.getFilteredWettkampf(), alltimes.isSelected());
         if (!wk.hasSchwimmer()) {
@@ -142,17 +134,16 @@ class WeitermeldungPrinter implements Printer {
         for (int x = 0; x < aks.size(); x++) {
             for (int y = 0; y < 2; y++) {
                 LinkedList<ASchwimmer> schwimmer = SearchUtils.getSchwimmer(wk, aks.getAk(x), y == 1);
-                if ((schwimmer != null) && (schwimmer.size() > 0)) {
-                    Collections.sort(schwimmer, new SchwimmerGliederungVergleicher());
-                    Collections.sort(schwimmer, new SchwimmerMeldepunkteVergleicher());
-                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer,
-                            DataTableUtils.RegistrationDetails.EVERYTHING, selected, false, null);
+                if ((schwimmer != null) && !schwimmer.isEmpty()) {
+                    schwimmer.sort(new SchwimmerGliederungVergleicher());
+                    schwimmer.sort(new SchwimmerMeldepunkteVergleicher());
+                    ExtendedTableModel etm = DataTableUtils.registration(wk, schwimmer, DataTableUtils.RegistrationDetails.WITHOUT_IMPORT_ID, selected, false, null);
                     etm.setName(aks.getAk(x).getName() + " " + I18n.geschlechtToString(aks, y == 1));
                     result.addLast(etm);
                 }
             }
         }
-        return result.toArray(new ExtendedTableModel[result.size()]);
+        return result.toArray(new ExtendedTableModel[0]);
     }
 
     private JTable[] getTables(boolean[] selected) {
@@ -181,8 +172,7 @@ class WeitermeldungPrinter implements Printer {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registration"), true,
-                    controller.getWindow());
+            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registration"), true, controller.getWindow());
         }
     }
 
@@ -190,25 +180,49 @@ class WeitermeldungPrinter implements Printer {
     private void checkDialog() {
         if (((AWettkampf) core.getWettkampf()) instanceof EinzelWettkampf) {
             if (einzel == null) {
-                einzel = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"),
-                        new String[] { I18n.get("Startnumber"), I18n.get("FamilyName"), I18n.get("FirstName"),
-                                I18n.get("YearOfBirth"),
-                                I18n.get("Organisation"), I18n.get("AgeGroup"), I18n.get("Sex"), I18n.get("Points"),
-                                I18n.get("AusserKonkurrenz"),
-                                I18n.get("Comment") },
-                        new boolean[] { false, true, true, true, true, false, false, true, false, false }, false,
-                        IconManager.getIconBundle());
+                SelectionConstructor sc = new SelectionConstructor();
+                sc.add(I18n.get("Startnumber"), false);
+                sc.add(I18n.get("FamilyName"), true);
+                sc.add(I18n.get("FirstName"), true);
+                sc.add(I18n.get("YearOfBirth"), true);
+                sc.add(I18n.get("Organisation"), true);
+                sc.add(I18n.get("Qualifikationsebene"), true);
+                sc.add(I18n.get("AgeGroup"), false);
+                sc.add(I18n.get("Sex"), false);
+                sc.add(I18n.get("ReportedPlace"), false);
+                sc.add(I18n.get("ReportedPoints"), false);
+                sc.add(I18n.get("Protocol"), false);
+                sc.add(I18n.get("AusserKonkurrenz"), false);
+                sc.add(I18n.get("Comment"), false);
+                sc.add(I18n.get("Startunterlagenkontrolle"), false);
+                sc.add(I18n.get("Qualification"), true);
+                einzel = new JSelectionDialog(controller.getWindow(),
+                                              I18n.get("Weitermeldung"),
+                                              sc.getTexts(),
+                                              sc.getValues(),
+                                              false,
+                                              IconManager.getIconBundle());
             }
             selection = einzel;
         } else {
             if (mannschaft == null) {
-                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Registrations"),
-                        new String[] { I18n.get("Startnumber"), I18n.get("Name"), I18n.get("Members"),
-                                I18n.get("Organisation"), I18n.get("AgeGroup"),
-                                I18n.get("Sex"), I18n.get("Points"), I18n.get("AusserKonkurrenz"),
-                                I18n.get("Comment") },
-                        new boolean[] { false, true, false, true, false, false, true, false, false }, false,
-                        IconManager.getIconBundle());
+                SelectionConstructor sc = new SelectionConstructor();
+                sc.add(I18n.get("Startnumber"), false);
+                sc.add(I18n.get("Name"), true);
+                sc.add(I18n.get("Organisation"), true);
+                sc.add(I18n.get("Qualifikationsebene"), true);
+                sc.add(I18n.get("AgeGroup"), false);
+                sc.add(I18n.get("Sex"), false);
+                sc.add(I18n.get("ReportedPlace"), false);
+                sc.add(I18n.get("ReportedPoints"), false);
+                sc.add(I18n.get("Protocol"), false);
+                sc.add(I18n.get("AusserKonkurrenz"), false);
+                sc.add(I18n.get("Comment"), false);
+                sc.add(I18n.get("Startunterlagenkontrolle"), false);
+                sc.add(I18n.get("Qualification"), true);
+                mannschaft = new JSelectionDialog(controller.getWindow(), I18n.get("Weitermeldung"), sc.getTexts(),
+                                                  sc.getValues(), false,
+                                                  IconManager.getIconBundle());
             }
             selection = mannschaft;
         }
@@ -219,14 +233,13 @@ class WeitermeldungPrinter implements Printer {
         selection.setVisible(true);
         if (selection.isAccepted()) {
             PrintableCreator pc = new MeldezeitenPC(selection.getSelection());
-            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Meldezeiten"), IconManager.getIconBundle(),
-                    IconManager.getTitleImages());
+            PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Weitermeldung"), IconManager.getIconBundle(), IconManager.getTitleImages());
         }
     }
 
     private final class MeldezeitenPC implements PrintableCreator {
 
-        private boolean[] selected;
+        private final boolean[] selected;
 
         public MeldezeitenPC(boolean[] s) {
             selected = s;
