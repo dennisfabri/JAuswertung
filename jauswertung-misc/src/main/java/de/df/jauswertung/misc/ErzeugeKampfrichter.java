@@ -27,7 +27,7 @@ public final class ErzeugeKampfrichter {
         KampfrichterEinheit ke = kt.getEinheit(0);
         ke.addPosition("Veranstaltungsleiter");
         ke.addPosition("Veranstaltungssprecher");
-        ke.addPosition("Protokollführer");
+        ke.addPosition("ProtokollfÃ¼hrer");
 
         kt.addEinheit("Schiedsgericht");
         ke = kt.getEinheit(1);
@@ -58,7 +58,7 @@ public final class ErzeugeKampfrichter {
         KampfrichterEinheit ke = kt.getEinheit(0);
         ke.addPosition("Veranstaltungsleiter");
         ke.addPosition("Veranstaltungssprecher");
-        ke.addPosition("Protokollführer");
+        ke.addPosition("ProtokollfÃ¼hrer");
 
         kt.addEinheit("Schiedsgericht");
         ke = kt.getEinheit(1);
@@ -89,7 +89,7 @@ public final class ErzeugeKampfrichter {
         KampfrichterEinheit ke = kt.getEinheit(0);
         ke.addPosition("Veranstaltungsleiter");
         ke.addPosition("Veranstaltungssprecher");
-        ke.addPosition("Protokollführer");
+        ke.addPosition("ProtokollfÃ¼hrer");
 
         kt.addEinheit("Schiedsgericht");
         ke = kt.getEinheit(1);
@@ -120,7 +120,7 @@ public final class ErzeugeKampfrichter {
         KampfrichterEinheit ke = kt.getEinheit(0);
         ke.addPosition("Veranstaltungsleiter");
         ke.addPosition("Veranstaltungssprecher");
-        ke.addPosition("Protokollführer");
+        ke.addPosition("ProtokollfÃ¼hrer");
 
         kt.addEinheit("Schiedsgericht");
         ke = kt.getEinheit(1);

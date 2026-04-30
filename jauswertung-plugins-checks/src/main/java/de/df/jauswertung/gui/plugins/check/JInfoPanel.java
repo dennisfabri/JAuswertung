@@ -435,7 +435,7 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
     }
 
     private static final String[] REFEREES = new String[] { "Veranstaltungsleiter", "Veranstaltungssprecher",
-            "Protokollführer", "Leiter",
+            "ProtokollfÃ¼hrer", "Leiter",
             "Schiedsrichter", "Wettkampfleiter", "Starter", "Auswerter", "Zeitnehmerobmann", "Zeitnehmer",
             "Wenderichter", "Schwimmrichter", "Zielrichter" };
 

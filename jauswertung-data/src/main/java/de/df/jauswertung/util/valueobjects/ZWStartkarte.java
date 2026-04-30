@@ -113,7 +113,7 @@ public class ZWStartkarte<T extends ASchwimmer> implements Comparable<ZWStartkar
     public String toString() {
         return "S#" + startnummer + " - " + name + " - " + gliederung + " (" + qgliederung + ")" + " - Uhrzeit " + zeit
                 + " - Bahn " + bahn + " - " + ak
-                + (maennlich ? " männlich" : " weiblich");
+                + (maennlich ? " mÃ¤nnlich" : " weiblich");
     }
 
     public String getAK() {

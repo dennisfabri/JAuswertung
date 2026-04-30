@@ -184,7 +184,7 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
     private void doOk() {
         ValidationResult validation = isInputOk();
         if (!validation.isValid()) {
-            DialogUtils.warn(this, "Die eingegebenen Daten sind nicht korrekt und können nicht gespeichert werden.",
+            DialogUtils.warn(this, "Die eingegebenen Daten sind nicht korrekt und kÃ¶nnen nicht gespeichert werden.",
                     validation.getMessage()+
                     "\n\nBitte korrigieren Sie die Eingabe.");
             return;

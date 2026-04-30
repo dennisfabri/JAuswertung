@@ -163,8 +163,8 @@ abstract class ALauflistenPrinter implements Printer {
                         printLaufliste(t, comments.isSelected());
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw‰hlen",
-                                               "Laufliste zum Drucken ausw‰hlen",
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw√§hlen",
+                                               "Laufliste zum Drucken ausw√§hlen",
                                                OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
@@ -198,8 +198,8 @@ abstract class ALauflistenPrinter implements Printer {
                                 getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw‰hlen",
-                                               "Laufliste zum Drucken ausw‰hlen",
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw√§hlen",
+                                               "Laufliste zum Drucken ausw√§hlen",
                                                OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), getName(),

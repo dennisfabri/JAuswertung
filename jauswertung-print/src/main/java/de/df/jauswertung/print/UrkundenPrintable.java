@@ -51,7 +51,7 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
         this.cells = cells;
 
         eintraege = new String[][] {
-                { "Musterstadt 1", "Ortsgruppe Musterstadt", "AK 13/14", "männlich", "3", "1234,56", "",
+                { "Musterstadt 1", "Ortsgruppe Musterstadt", "AK 13/14", "mÃ¤nnlich", "3", "1234,56", "",
                         "Max Mustermann, Holger Mustermann, Daniel Mustermann, Hugo Mustermann", "", "1:23,45, 2:34,56",
                         "", "0", "00", "1", "01", "23", "23", "23,5",
                         "23,5", "23,45", "23,45" } };

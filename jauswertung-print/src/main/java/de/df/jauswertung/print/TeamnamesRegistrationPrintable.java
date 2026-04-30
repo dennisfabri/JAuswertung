@@ -258,7 +258,7 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
         p.setBackground(Color.WHITE);
         p.setForeground(Color.BLACK);
 
-        p.add(createText("Handschriftliche Änderungen:", 0), CC.xyw(2, 2, 3));
+        p.add(createText("Handschriftliche Ã„nderungen:", 0), CC.xyw(2, 2, 3));
         p.add(createYesNo(), CC.xyw(6, 2, 3));
         p.add(createGrayText(I18n.getVersion(), 0), CC.xy(10, 2));
 

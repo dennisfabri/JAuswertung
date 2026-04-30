@@ -54,7 +54,7 @@ public class CompetitionImporter implements IImporter {
         return result.toArray(String[]::new);
     }
 
-    private static String[] males = { "m", "male", "m‰nnlich" };
+    private static String[] males = { "m", "male", "m√§nnlich" };
     private static String[] females = { "f", "female", "w", "weiblich" };
 
     private static String[] sexes = merge(males, females);

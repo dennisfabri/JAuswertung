@@ -129,7 +129,7 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
 
             add(new JLabel("Runde"), CC.xy(2, 2, "center,center"));
             add(new JLabel("Typ"), CC.xy(4, 2, "center,center"));
-            add(new JLabel("Qualipl‰tze"), CC.xy(6, 2, "center,center"));
+            add(new JLabel("Qualipl√§tze"), CC.xy(6, 2, "center,center"));
             add(new JLabel("Id"), CC.xy(8, 2, "center,center"));
 
             for (int x = 0; x < runden.length; x++) {
@@ -170,10 +170,10 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
                 }
             }
             if (input2[row - 1].getInt() <= 0) {
-                return new ValidationResult(getValidationPrefix() + "Id " + (row + 1) + " muss grˆﬂer als 0 sein.");
+                return new ValidationResult(getValidationPrefix() + "Id " + (row + 1) + " muss gr√∂√üer als 0 sein.");
             }
         }
-        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss grˆﬂer als 0 sein.");
+        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss gr√∂√üer als 0 sein.");
     }
 
     private String getValidationPrefix() {
@@ -181,7 +181,7 @@ public class JOWHeatsDisziplinEditPanel extends JPanel {
     }
 
     private ValidationResult validateRight(int row, int value) {
-        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss grˆﬂer als 0 sein.");
+        return value > 0 ? ValidationResult.OK : new ValidationResult(getValidationPrefix() + "Runde " + (row + 1) + " muss gr√∂√üer als 0 sein.");
     }
 
     private ValidationResult validate(int row, int value, boolean left) {

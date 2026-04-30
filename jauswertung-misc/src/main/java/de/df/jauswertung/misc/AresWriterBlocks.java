@@ -125,7 +125,7 @@ public class AresWriterBlocks {
 
     private static void writeAKs(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("\"Kategorie\";\"AbrèvCat\"");
+        ps.println("\"Kategorie\";\"AbrÃ¨vCat\"");
         int offset = 0;
         for (AWettkampf<?> wk : wks) {
             offset = writeAKs(wk.getRegelwerk(), ps, offset);
@@ -214,15 +214,15 @@ public class AresWriterBlocks {
 
     private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
             throws UnsupportedEncodingException {
-        // idStyle;Style;StyleAbrév
+        // idStyle;Style;StyleAbrÃ©v
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
-        // 2; "Rückenlage o.A. " ;"RU"
+        // 2; "RÃ¼ckenlage o.A. " ;"RU"
         // 3; "Schleppen e Puppe" ;"SP"
         // 4; "Vermischt " ;"ME"
 
         PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("idStyle;Style;StyleAbrév");
+        ps.println("idStyle;Style;StyleAbrÃ©v");
         Enumeration<String> dis = disziplinen.keys();
 
         Hashtable<Integer, String> reverse = new Hashtable<>();
@@ -556,7 +556,7 @@ public class AresWriterBlocks {
                 sb.append("-");
             } else if (lauf.isOnlyOneSex()) {
                 T t = lauf.getSchwimmer();
-                sb.append(t.isMaennlich() ? "männlich" : "weiblich");
+                sb.append(t.isMaennlich() ? "mÃ¤nnlich" : "weiblich");
             } else {
                 sb.append("mixed");
             }

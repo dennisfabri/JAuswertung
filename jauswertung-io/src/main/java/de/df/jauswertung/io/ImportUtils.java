@@ -1102,7 +1102,7 @@ public class ImportUtils {
                 wk != null ? wk.getRegelwerk().getTranslation("female", I18n.get("female")) : null,
                 wk != null ? wk.getRegelwerk().getTranslation("femaleShort", I18n.get("femaleShort")) : null);
         GenderIdentifier male = new GenderIdentifier(
-                "m", "m�nnlich", "m�nnl.",
+                "m", "mï¿½nnlich", "mï¿½nnl.",
                 "m", "male",
                 "1", "true",
                 I18n.get("male"),
@@ -1575,9 +1575,9 @@ public class ImportUtils {
                     .replace(" m.f.", " mit flossen").replace(" m.fl.", " mit flossen").replace(" m.", " mit")
                     .replace(" fl.", " flossen").replace(" f.", " flossen").replace(" e. p.", " einer puppe")
                     .replace("super lifesaver", "super-lifesaver").replace("life-saver", "lifesaver")
-                    .replace(" roa", " r�ckenlage ohne armt�tigkeit")
-                    .replace("r�ckenlage ohne arme", "r�ckenlage ohne armt�tigkeit")
-                    .replace("r�ckenschwimmen", "r�ckenlage ohne armt�tigkeit").replace(" e.", " einer")
+                    .replace(" roa", " rï¿½ckenlage ohne armtï¿½tigkeit")
+                    .replace("rï¿½ckenlage ohne arme", "rï¿½ckenlage ohne armtï¿½tigkeit")
+                    .replace("rï¿½ckenschwimmen", "rï¿½ckenlage ohne armtï¿½tigkeit").replace(" e.", " einer")
                     .replace("st.", "staffel").replace("hindernis-schwimmen", "hindernisschwimmen")
                     .replace("hindernis- schwimmen", "hindernisschwimmen")
                     .replace("kombinierte rettungs-\u00fcbung", "kombinierte rettungs\u00fcbung")

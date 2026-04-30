@@ -136,7 +136,7 @@ public final class SchwimmerUtils {
                     bi[x] = laufinfo.getBahn();
                 }
             } catch (NullPointerException npe) {
-                log.info("Fehler bei der Ermittlung der Lauf- und Bahninfo für Schwimmer {} in Disziplin {}",
+                log.info("Fehler bei der Ermittlung der Lauf- und Bahninfo fÃ¼r Schwimmer {} in Disziplin {}",
                          s.getName(), s.getAK().getDisziplin(x, s.isMaennlich()), npe);
             }
         }

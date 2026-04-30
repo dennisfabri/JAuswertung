@@ -1,7 +1,7 @@
 package de.df.jauswertung.ares.export;
 
 enum AresGender {
-    Male("m‰nnlich", 'M'), Female("weiblich", 'W'), Mixed("mixed", 'X');
+    Male("m√§nnlich", 'M'), Female("weiblich", 'W'), Mixed("mixed", 'X');
 
     private final String name;
     private final char shortName;

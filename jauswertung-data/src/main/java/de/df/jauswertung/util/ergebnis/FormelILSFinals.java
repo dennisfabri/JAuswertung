@@ -156,7 +156,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS mit Finals";
+        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r IndoorwettkÃ¤mpfe der ILS mit Finals";
     }
 
     private void setPointsDirect(AWettkampf<T> wk, SchwimmerData<T>[] swimmer, Disziplin d,

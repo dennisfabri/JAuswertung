@@ -9,8 +9,8 @@ public class Translation implements Serializable {
 
     public Translation() {
         translations = new Hashtable<>();
-        translations.put("Male", "M‰nnlich");
-        translations.put("male", "m‰nnlich");
+        translations.put("Male", "M√§nnlich");
+        translations.put("male", "m√§nnlich");
         translations.put("maleShort", "m");
         translations.put("Female", "Weiblich");
         translations.put("female", "weiblich");

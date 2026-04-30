@@ -165,7 +165,7 @@ class LaufeinteilungPrinter implements Printer {
             break;
         }
         default: {
-            // Läufe
+            // LÃ¤ufe
             JTable[] tables = TableHeatUtils.getLaufeinteilungTabellen(core.getWettkampf());
             Component[] components = new Component[tables.length];
             for (int x = 0; x < tables.length; x++) {

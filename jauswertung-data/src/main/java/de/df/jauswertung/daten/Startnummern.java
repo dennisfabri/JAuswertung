@@ -64,7 +64,7 @@ public class Startnummern implements Serializable {
 
     public synchronized boolean get(int startnummer) {
         if (min <= startnummer) {
-            // Niedrigere Startnummern in die Liste einfügen
+            // Niedrigere Startnummern in die Liste einfÃ¼gen
             for (int y = min; y < startnummer; y++) {
                 recycler.addLast(y);
             }

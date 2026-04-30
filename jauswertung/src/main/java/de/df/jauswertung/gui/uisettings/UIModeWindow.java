@@ -75,15 +75,15 @@ public class UIModeWindow extends JFrame {
         layout.setColumnGroups(new int[][] { { 6, 8 } });
 
         JComponent header = createText(
-                "Java kann verschiedene Schnittstellen zur Anzeige der Benutzeroberfläche nutzen. Auf einzelnen Systemen kann die Standardeinstellung zu Darstellugsfehlern führen.");
+                "Java kann verschiedene Schnittstellen zur Anzeige der BenutzeroberflÃ¤che nutzen. Auf einzelnen Systemen kann die Standardeinstellung zu Darstellugsfehlern fÃ¼hren.");
         header.setBorder(new EmptyBorder(10, 10, 10, 10));
         header.setOpaque(true);
         header.setBackground(Color.WHITE);
         add(header, CC.xyw(1, 2, 9));
         add(createText("Java nutzt die favorisierte Schnittstelle des Betriebsystems.", true), CC.xyw(2, 6, 7));
-        add(createText("Java nutzt die Hardwarebeschleunigung einer Grafikkarte über OpenGL", true), CC.xyw(2, 10, 7));
+        add(createText("Java nutzt die Hardwarebeschleunigung einer Grafikkarte Ã¼ber OpenGL", true), CC.xyw(2, 10, 7));
         add(createText(
-                "Java nutzt die CPU zur Berechnung der Darstellung (sicherste Methode). Diese Option sollte bei Darstellungsfehlern gewählt werden.",
+                "Java nutzt die CPU zur Berechnung der Darstellung (sicherste Methode). Diese Option sollte bei Darstellungsfehlern gewÃ¤hlt werden.",
                 true), CC.xyw(2, 14, 7));
 
         add(uiDefault, CC.xyw(2, 4, 7));

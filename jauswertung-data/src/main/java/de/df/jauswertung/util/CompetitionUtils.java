@@ -318,7 +318,7 @@ public final class CompetitionUtils {
     }
 
     /**
-     * Erstellt anhand der "Bemerkungen" der Schwimmer zusammengehörende
+     * Erstellt anhand der "Bemerkungen" der Schwimmer zusammengehÃ¶rende
      * Mannschaften. Die Zeiten der Mannschaften entsprechen der der durch
      * schnittszeit der besten <code>min</code> Schwimmer.
      * 

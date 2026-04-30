@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <plugin name="Printplugin" description="" id="de.df.jauswertung.printteammembers" classname="de.df.jauswertung.gui.plugins.teammembersinput.PPrintTeammembersPlugin">
     <dependency id="de.df.jauswertung.core"/>
     <dependency id="de.df.jauswertung.warning"/>

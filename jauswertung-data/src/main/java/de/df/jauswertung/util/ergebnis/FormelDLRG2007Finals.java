@@ -23,7 +23,7 @@ public class FormelDLRG2007Finals<T extends ASchwimmer> extends FormelILSFinals<
 
     @Override
     public String getDescription() {
-        return "Diese Formel entspricht den Regelwerken der DLRG seit 2007 mit einer Erweiterung für Finals";
+        return "Diese Formel entspricht den Regelwerken der DLRG seit 2007 mit einer Erweiterung fÃ¼r Finals";
     }
 
     public static final String ID = "DLRG2007Finals";

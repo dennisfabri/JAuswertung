@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 
+import java.nio.charset.StandardCharsets;
+
 public class ResultUploader {
 
     private static final Logger log = LoggerFactory.getLogger(ResultUploader.class);
@@ -72,7 +74,7 @@ public class ResultUploader {
                 return;
             }
 
-            String resultsAsCsv = exporter.export(wk);
+            String resultsAsCsv = new String(exporter.export(wk).getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
             if (resultsAsCsv == null || resultsAsCsv.isEmpty()) {
                 log.debug("Upload - Export not generated");
                 return;

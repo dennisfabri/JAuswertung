@@ -1,18 +1,18 @@
 package de.df.jauswertung.io;
 
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.io.util.HttpUtils;
+import de.df.jauswertung.util.CompetitionUtils;
+import de.df.jutils.util.NullFeedback;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.util.Date;
 
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.io.util.HttpUtils;
-import de.df.jauswertung.util.CompetitionUtils;
-import de.df.jutils.util.NullFeedback;
-
+@Slf4j
 public final class HttpPostExport {
 
     private HttpPostExport() {
@@ -22,14 +22,14 @@ public final class HttpPostExport {
     private static NullFeedback nf = new NullFeedback();
 
     @SuppressWarnings({})
-    public static void export(String source, String destination, DateFormat df) throws IOException {
-        String file = "http://" + source + "/wettkampf.wk";
-        byte[] data = HttpUtils.download(file);
+    public static void export(String source, String destination) throws IOException {
+        String url = "http://" + source + "/wettkampf.wk";
+        byte[] data = HttpUtils.download(url);
         AWettkampf<?> wk = InputManager.ladeWettkampf(data);
         if (wk == null) {
-            throw new FileNotFoundException("Could not find file: " + file);
+            throw new FileNotFoundException("Could not find url: " + url);
         }
-        System.out.print("Export timestamp " + df.format(new Date()) + ": ");
+        log.info("Exporting data from {} to {}", url, destination);
 
         wk = CompetitionUtils.createCompetitionWithCompleteDisciplines(wk);
 
@@ -37,11 +37,10 @@ public final class HttpPostExport {
 
         ExportManager.export("XML", os, ImportExportTypes.RESULTS, wk, nf);
 
-        String text = os.toString(StandardCharsets.ISO_8859_1);
-        text = text.replace("ISO-8859-1", "UTF-8");
+        String text = os.toString(StandardCharsets.UTF_8);
         HttpUtils.post(destination, text);
 
-        System.out.println("Finished on " + df.format(new Date()));
+        log.info("Export finished");
     }
 
     public static void main(String[] args) {
@@ -67,12 +66,10 @@ public final class HttpPostExport {
         System.out.println("  destination: " + destination);
         System.out.println("  It will run about every " + minutes + " minutes.");
 
-        DateFormat df = DateFormat.getTimeInstance();
-
         while (true) {
             long ctime = System.currentTimeMillis();
             try {
-                export(source, destination, df);
+                export(source, destination);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -68,7 +68,7 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe für SERC der ILS ohne Vor- und Zwischenläufe";
+        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r SERC der ILS ohne Vor- und ZwischenlÃ¤ufe";
     }
 
     @Override

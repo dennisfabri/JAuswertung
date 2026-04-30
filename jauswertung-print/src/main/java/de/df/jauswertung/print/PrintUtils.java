@@ -335,7 +335,7 @@ public final class PrintUtils {
         }
         wk.copyPropertiesTo(nwk);
 
-        // Schwimmer hinzufügen
+        // Schwimmer hinzufÃ¼gen
         for (int x = 0; x < selected[0].length; x++) {
             for (int y = 0; y < selected.length; y++) {
                 if (selected[y][x]) {
@@ -894,7 +894,7 @@ public final class PrintUtils {
         LinkedList<LaufInfo<T>> data = new LinkedList<>();
 
         {
-            // Daten zu den Läufen sammeln
+            // Daten zu den LÃ¤ufen sammeln
             ListIterator<Lauf<T>> li = liste.getLaufliste().listIterator();
             while (li.hasNext()) {
                 data.addLast(new LaufInfo<>(wk, li.next()));

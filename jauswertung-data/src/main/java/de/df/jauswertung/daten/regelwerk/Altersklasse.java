@@ -16,7 +16,7 @@ import lombok.Getter;
 
 /**
  *
- * Hier werden die Information festgehalten, die für die jeweilige Altersklasse
+ * Hier werden die Information festgehalten, die fÃ¼r die jeweilige Altersklasse
  * gelten.
  *
  * @author Dennis Fabri
@@ -97,7 +97,7 @@ public class Altersklasse implements Serializable {
      * 
      * @param aName       Gibt den Namen an.
      * @param aDiszes     Gibt die einzelnen Disziplinen als Array an.
-     * @param aHlw        Gibt an, ob eine HLW durchgeführt werden muss oder nicht.
+     * @param aHlw        Gibt an, ob eine HLW durchgefÃ¼hrt werden muss oder nicht.
      * @param aKompakt    Kompakt
      */
     public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw, boolean aKompakt) {
@@ -162,7 +162,7 @@ public class Altersklasse implements Serializable {
     }
 
     /**
-     * Liefert die entsprechende Disziplin zurück.
+     * Liefert die entsprechende Disziplin zurÃ¼ck.
      * 
      * @param disz Gibt die Nummer der Disziplin an. Dabei entspricht 0 der ersten
      *             Disziplin.

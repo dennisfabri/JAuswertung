@@ -118,7 +118,7 @@ class JStrafenkatalogPanel extends JPanel {
         add(infoPanel, CC.xy(2, 4));
         add(buttonPanel, CC.xy(2, 6));
 
-        // Listener hinzufügen
+        // Listener hinzufÃ¼gen
         initListeners(aktiv);
         refresh();
         if (str != null) {

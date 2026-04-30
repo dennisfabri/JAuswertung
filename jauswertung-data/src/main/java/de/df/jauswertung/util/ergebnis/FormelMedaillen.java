@@ -73,7 +73,7 @@ public class FormelMedaillen<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Wertung vergibt Punkte entsprechend der gewonnenen Medaillen. Zusatzwertungspunkte werden nicht berücksichtigt.";
+        return "Diese Wertung vergibt Punkte entsprechend der gewonnenen Medaillen. Zusatzwertungspunkte werden nicht berÃ¼cksichtigt.";
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

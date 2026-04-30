@@ -47,7 +47,7 @@ class JStrafenkatalogDialog extends JDialog {
         panel = new JStrafenkatalogPanel(str, s);
         setContentPane(panel);
 
-        // Listener hinzufügen
+        // Listener hinzufÃ¼gen
         initListeners();
 
         WindowUtils.setSize(this, 800, 600);

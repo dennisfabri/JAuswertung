@@ -45,7 +45,7 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
     private synchronized JTipOfTheDay getTips() {
         if (tips == null) {
             String[] text = FileUtils.readTextFile(
-                    I18nUtils.getLocalizedFile(Utils.getUserDir() + "tips" + File.separator + "tips.txt"), "Cp1252");
+                    I18nUtils.getLocalizedFile(Utils.getUserDir() + "tips" + File.separator + "tips.txt"), "utf-8");
 
             DefaultTip[] tiptext = new DefaultTip[text.length];
             for (int x = 0; x < tiptext.length; x++) {

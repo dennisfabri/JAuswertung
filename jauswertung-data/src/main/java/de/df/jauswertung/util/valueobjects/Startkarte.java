@@ -109,7 +109,7 @@ public class Startkarte implements Comparable<Startkarte> {
     @Override
     public String toString() {
         return "S#" + startnummer + " - " + name + " - " + gliederung + " Wettkampf " + event + " - Lauf " + lauf
-                + " - Bahn " + bahn + " - " + disz + " - " + ak + (maennlich ? " m‰nnlich" : " weiblich");
+                + " - Bahn " + bahn + " - " + disz + " - " + ak + (maennlich ? " m√§nnlich" : " weiblich");
     }
 
     public String getAK() {

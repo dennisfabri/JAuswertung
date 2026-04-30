@@ -346,7 +346,7 @@ class ResultsPrinter implements Printer {
             start = System.currentTimeMillis();
             boolean gliederungen = resultmodus.getSelectedIndex() == 0;
             wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
-            System.out.println("Wettk‰mpfe: " + (System.currentTimeMillis() - start));
+            System.out.println("Wettk√§mpfe: " + (System.currentTimeMillis() - start));
             start = System.currentTimeMillis();
             f = parent.getSelectedFont();
             System.out.println("Font: " + (System.currentTimeMillis() - start));

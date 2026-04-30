@@ -268,7 +268,7 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
     }
 
     /**
-     * Schwimmer werden gewichted gewählt. Dabei hat der Schwimmer mit der höchsten
+     * Schwimmer werden gewichted gewÃ¤hlt. Dabei hat der Schwimmer mit der hÃ¶chsten
      * Meldepunktzahl ein Gewicht von 1, der 2. ein Gewicht von (3/4)^1, der 3. ein
      * Gewicht von (3/4)^2, ...
      * 

@@ -67,13 +67,13 @@ public class PunkteRechnerExport {
             sb.append("    ]),\n");
         }
         String text = sb.toString();
-        // text = text.replace("ä", "&auml;");
-        // text = text.replace("ö", "&ouml;");
-        // text = text.replace("ü", "&uuml;");
-        // text = text.replace("Ä", "&Auml;");
-        // text = text.replace("Ö", "&Ouml;");
-        // text = text.replace("Ü", "&Uuml;");
-        // text = text.replace("ß", "&szlig;");
+        // text = text.replace("Ã¤", "&auml;");
+        // text = text.replace("Ã¶", "&ouml;");
+        // text = text.replace("Ã¼", "&uuml;");
+        // text = text.replace("Ã„", "&Auml;");
+        // text = text.replace("Ã–", "&Ouml;");
+        // text = text.replace("Ãœ", "&Uuml;");
+        // text = text.replace("ÃŸ", "&szlig;");
         System.out.print(text);
     }
 }

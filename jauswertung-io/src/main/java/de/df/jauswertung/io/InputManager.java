@@ -127,7 +127,7 @@ public final class InputManager {
     }
 
     public static synchronized Object ladeObject(String name) {
-        log.debug("Öffne Datei {}", name);
+        log.debug("Ã–ffne Datei {}", name);
         try {
             // Try to read XML-Data from Zip-File
             FileInputStream zf = new FileInputStream(name);

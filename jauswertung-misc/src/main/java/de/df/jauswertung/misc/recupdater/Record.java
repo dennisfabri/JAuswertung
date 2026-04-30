@@ -33,7 +33,7 @@ public class Record implements Serializable {
         if (newTime <= 0) {
             return false;
         }
-        if (newTime >= this.time && this.time > 0 && !this.name.equalsIgnoreCase("geschätzt")) {
+        if (newTime >= this.time && this.time > 0 && !this.name.equalsIgnoreCase("geschÃ¤tzt")) {
             return false;
         }
         setCompetition(newCompetition);
@@ -196,7 +196,7 @@ public class Record implements Serializable {
             {"50m Manikin Carry", "50 m Retten einer Puppe"},
             {"100m Manikin Carry with Fins", "100 m Retten einer Puppe mit Flossen"},
             {"100m Manikin Tow with Fins", "100 m Retten mit Flossen und Gurtretter"},
-            {"100m Rescue Medley (new)", "100 m Kombinierte Rettungsübung"},
+            {"100m Rescue Medley (new)", "100 m Kombinierte RettungsÃ¼bung"},
             {"4x25m Manikin Relay", "4 x 25 m Puppenstaffel"},
             {"4x50m Obstacle Relay", "4 x 50 m Hindernisstaffel"},
             {"4x50m Medley Relay", "4 x 50 m Gurtretterstaffel"},
@@ -207,7 +207,7 @@ public class Record implements Serializable {
             {"Manikin Carry", "50 m Retten einer Puppe"},
             {"Manikin Carry with Fins", "100 m Retten einer Puppe mit Flossen"},
             {"Manikin Tow with Fins", "100 m Retten mit Flossen und Gurtretter"},
-            {"Rescue Medley", "100 m Kombinierte Rettungsübung"},
+            {"Rescue Medley", "100 m Kombinierte RettungsÃ¼bung"},
             {"Manikin Relay", "4 x 25 m Puppenstaffel"},
             {"Obstacle Relay", "4 x 50 m Hindernisstaffel"},
             {"Medley Relay", "4 x 50 m Gurtretterstaffel"},

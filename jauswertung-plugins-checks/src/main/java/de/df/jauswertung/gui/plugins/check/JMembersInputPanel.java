@@ -201,7 +201,7 @@ public class JMembersInputPanel extends JGlassPanel<JPanel> {
 
         count = t.getMannschaftsmitgliederAnzahl(true);
         if (count < t.getMinMembers()) {
-            // Nicht genug Daten für weitere Berechnungen
+            // Nicht genug Daten fÃ¼r weitere Berechnungen
             return null;
         }
 

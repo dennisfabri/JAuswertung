@@ -181,8 +181,8 @@ abstract class AFilledKartenPrinter implements Printer {
                         printLaufliste(t);
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw‰hlen",
-                        "Laufliste zum Drucken ausw‰hlen",
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw√§hlen",
+                        "Laufliste zum Drucken ausw√§hlen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 if (setPrintAllHeats(wk)) {
@@ -222,8 +222,8 @@ abstract class AFilledKartenPrinter implements Printer {
                                 IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw‰hlen",
-                        "Laufliste zum Drucken ausw‰hlen",
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste ausw√§hlen",
+                        "Laufliste zum Drucken ausw√§hlen",
                         OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk),

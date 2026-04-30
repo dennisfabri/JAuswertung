@@ -143,7 +143,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 }
             }
         };
-        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen",
+        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Laufliste lÃ¶schen", "MÃ¶gliche Disziplinen",
                                        OWUtils.getCurrentRounds(wk), cb);
     }
 
@@ -163,13 +163,13 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 if (d == null || d.isEmpty()) {
                     DialogUtils.inform(getController().getWindow(),
                             "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
+                            "Ein mÃ¶glicher Grund dafÃ¼r ist, dass keine Schwimmer fÃ¼r die Lauferstellung zur VerfÃ¼gung stehen.");
                     return;
                 }
                 bearbeiteLaufliste(s);
             }
         };
-        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
+        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "MÃ¶gliche Disziplinen",
                                   OWUtils.getCurrentRounds(wk), cb);
     }
 
@@ -184,13 +184,13 @@ public class JOWHeatsPlugin extends ANullPlugin {
                 if (d == null || d.isEmpty()) {
                     DialogUtils.inform(getController().getWindow(),
                             "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
+                            "Ein mÃ¶glicher Grund dafÃ¼r ist, dass keine Schwimmer fÃ¼r die Lauferstellung zur VerfÃ¼gung stehen.");
                     return;
                 }
                 zeigeLaufliste(s);
             }
         };
-        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",
+        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "MÃ¶gliche Disziplinen",
                                   OWUtils.getCreatedRounds(wk, true), cb);
     }
 
@@ -270,7 +270,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
                     neueLaufliste(t, askForPrint);
             }
         };
-        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
+        OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "MÃ¶gliche Disziplinen",
                                        OWUtils.getCreatableRounds(wk), cb);
     }
 

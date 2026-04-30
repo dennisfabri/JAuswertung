@@ -33,7 +33,7 @@ public final class DPSplitter {
             if (!s.getQualifikationsebene().isEmpty()) {
                 if (s.getQualifikationsebene().equalsIgnoreCase("GER")) {
                     if (s.getGliederung().equalsIgnoreCase("Germany")) {
-                        // Startet nur für die Nationalmannschaft => nicht LV
+                        // Startet nur fÃ¼r die Nationalmannschaft => nicht LV
                         toRemove.add(s);
                     } else {
                         s.setQualifikationsebene("");

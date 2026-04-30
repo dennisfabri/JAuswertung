@@ -23,13 +23,13 @@ class DEM24Tests {
     void test(String name) throws IOException {
         String[] expected = Files
                 .readAllLines(Paths.get("src/test/resources/competitions/dem24/" + name + ".csv"),
-                        StandardCharsets.ISO_8859_1)
+                        StandardCharsets.UTF_8)
                 .toArray(String[]::new);
 
         AWettkampf<?> wk = InputManager.ladeWettkampf("src/test/resources/competitions/dem24/" + name + ".wk");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ExportManager.export("CSV", bos, ImportExportTypes.RESULTS, wk, null);
-        String[] actual = bos.toString(StandardCharsets.ISO_8859_1).replace("\r\n", "\n").split("\n");
+        String[] actual = bos.toString(StandardCharsets.UTF_8).replace("\r\n", "\n").split("\n");
         Files.write(Paths.get("src/test/resources/competitions/dem24/" + name + "_actual.csv"), bos.toByteArray());
 
         assertArrayEquals(expected, actual);

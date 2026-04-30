@@ -32,9 +32,9 @@ public class MHelpPlugin extends ANullPlugin {
                 try {
                     Desktop.getDesktop().browse(htmlFile.toURI());
                 } catch (IOException ex) {
-                    DialogUtils.showException(getController().getWindow(), "Hilfe nicht verfügbar",
+                    DialogUtils.showException(getController().getWindow(), "Hilfe nicht verfÃ¼gbar",
                             "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten.",
-                            "Sie können die Hilfe auch über das Startmenü aufrufen.", ex);
+                            "Sie kÃ¶nnen die Hilfe auch Ã¼ber das StartmenÃ¼ aufrufen.", ex);
                     ex.printStackTrace();
                 }
             });

@@ -30,7 +30,7 @@ public class FormelILSOutdoorFinals<T extends ASchwimmer> extends FormelILSFinal
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe für Outdoorwettkämpfe der ILS mit Finals";
+        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r OutdoorwettkÃ¤mpfe der ILS mit Finals";
     }
 
     @Override

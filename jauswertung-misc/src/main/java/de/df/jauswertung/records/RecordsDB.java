@@ -250,8 +250,8 @@ public class RecordsDB {
     }
 
     private static String[][] DISCPLINE_MAPPING = new String[][] {
-            { "100m Kombiniertes Retten", "100m Kombinierte Rettungs�bung" },
-            { "4*25m RLB", "4*25m R�ckenlage ohne Armt�tigkeit" },
+            { "100m Kombiniertes Retten", "100m Kombinierte Rettungsï¿½bung" },
+            { "4*25m RLB", "4*25m Rï¿½ckenlage ohne Armtï¿½tigkeit" },
             { "4*50m kleine Rettungsstaffel", "4*50m Rettungsstaffel" },
             { "200m Super Lifesaver", "200m Super-Lifesaver" },
             { "100m Retten mit Flossen und Gurtretter", "100m Lifesaver" },
@@ -275,15 +275,15 @@ public class RecordsDB {
     }
 
     private static String[][] CLUB_MAPPING = new String[][] { { "SCW", "Schwerte" }, { "LUK", "Luckenwalde" },
-            { "GT", "G�tersloh" }, { "LI", "Lichtenberg" },
-            { "ENN", "Ennigerloh" }, { "RWD", "Rheda-Wiedenbr�ck" }, { "MD", "Magdeburg" }, { "EMS", "Emsdetten" },
+            { "GT", "Gï¿½tersloh" }, { "LI", "Lichtenberg" },
+            { "ENN", "Ennigerloh" }, { "RWD", "Rheda-Wiedenbrï¿½ck" }, { "MD", "Magdeburg" }, { "EMS", "Emsdetten" },
             { "ANK", "Anklam" }, { "ALP", "Alpen" },
             { "HSK", "Hochsauerlandkreis" }, { "ND", "LV Niedersachsen" }, { "BA", "LV Baden" },
             { "WE", "LV Westfalen" }, { "HE", "LV Hessen" },
-            { "NR", "LV Nordrhein" }, { "TH", "LV Th�ringen" }, { "SA", "LV Sachen-Anhalt" },
+            { "NR", "LV Nordrhein" }, { "TH", "LV Thï¿½ringen" }, { "SA", "LV Sachen-Anhalt" },
             { "BB", "LV Brandenburg" }, { "BY", "LV Bayern" },
             { "SH", "LV Schleswig-Holstein" }, { "SR", "LV Saar" }, { "MV", "LV Mecklemburg-Vorpommern" },
-            { "W�", "LV W�rttemberg" }, { "BE", "LV Berlin" },
+            { "Wï¿½", "LV Wï¿½rttemberg" }, { "BE", "LV Berlin" },
             { "SN", "LV Sachsen" }, { "BS", "LV Braunschweig" }, { "RP", "LV Rheinland-Pfalz" }, { "HBS", "HBS" },
             { "AAF", "AAF" }, { "RUE", "RUE" },
             { "HST", "HST" }, { "LER", "LER" }, { "OE", "OE" },

@@ -205,7 +205,7 @@ public class Zulassung<T extends ASchwimmer> {
                 HashedCounter directs = new HashedCounter();
 
                 {
-                    // "Auﬂer konkurrenz" aussortieren
+                    // "Au√üer konkurrenz" aussortieren
                     ListIterator<T> li = schwimmer.listIterator();
                     while (li.hasNext()) {
                         T t = li.next();
@@ -216,7 +216,7 @@ public class Zulassung<T extends ASchwimmer> {
                     }
                 }
 
-                // Vorsortieren und bereits belegte Pl‰tze vergeben
+                // Vorsortieren und bereits belegte Pl√§tze vergeben
                 if (_keep) {
                     ListIterator<T> li = schwimmer.listIterator();
                     while (li.hasNext()) {
@@ -274,7 +274,7 @@ public class Zulassung<T extends ASchwimmer> {
                     }
                 }
 
-                // Direktqualifizierte ¸bernehmen
+                // Direktqualifizierte √ºbernehmen
                 if (direct[x][y] > 0) {
                     if (preferProtocol) {
                         Collections.sort(schwimmer, new ProtokollQGldUndMeldepunkteComparator(meldeindex));
@@ -345,7 +345,7 @@ public class Zulassung<T extends ASchwimmer> {
 
                 {
                     int limit = hopers[x][y];
-                    // Wenn keine Grenze gesetzt ist, wird kein nachr¸cker
+                    // Wenn keine Grenze gesetzt ist, wird kein nachr√ºcker
                     // markiert
 
                     if (limit > 0) {

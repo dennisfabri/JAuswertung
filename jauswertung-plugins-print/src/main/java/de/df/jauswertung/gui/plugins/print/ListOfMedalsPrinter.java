@@ -67,7 +67,7 @@ class ListOfMedalsPrinter implements Printer {
     }
 
     private void initGUI() {
-        bigPrint = new JCheckBox("Schrift vergößern");
+        bigPrint = new JCheckBox("Schrift vergÃ¶ÃŸern");
         bigPrint.setEnabled(false);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));

@@ -13,7 +13,7 @@ Adriana
 Aida
 Aileen
 Aimee
-Aimeé
+AimeÃ©
 Aische
 Aldina
 Alea
@@ -49,7 +49,7 @@ Amina
 Ammi
 Amtonia
 Amy
-Amélie
+AmÃ©lie
 Ana
 Anabel
 Anabell
@@ -127,7 +127,7 @@ Athina
 Aurelia
 Auri
 Auri-Sophie
-Aurélie
+AurÃ©lie
 Aylin
 Aylina
 Ayse
@@ -143,7 +143,7 @@ Barbara
 Beata
 Beate
 Becky
-Begüm
+BegÃ¼m
 Bele
 Bella
 Benice
@@ -213,7 +213,7 @@ Catrin
 Cecilia
 Celina
 Celine
-Celiné
+CelinÃ©
 Centa
 Ceyda
 Ceylan
@@ -273,8 +273,8 @@ Cosima
 Cristin
 Cristina
 Cythia
-Cécil
-Céline
+CÃ©cil
+CÃ©line
 Dafne
 Dagmar
 Dalia
@@ -320,10 +320,10 @@ Dorothea
 Dorothee
 Dunja
 Duygu-Nur
-Désireé
-Désirée
-Dörte
-Dörthe
+DÃ©sireÃ©
+DÃ©sirÃ©e
+DÃ¶rte
+DÃ¶rthe
 Ebba
 Ebru
 Edda
@@ -443,7 +443,7 @@ Gabi
 Gabriele
 Gabrielle
 Gaby
-García
+GarcÃ­a
 Gariela
 Gea
 Geelke
@@ -676,7 +676,7 @@ Josita
 Josy
 Joy
 Joyce
-Joy 
+JoyÂ 
 Juana
 Juanita
 Judith
@@ -763,7 +763,7 @@ Klaudine
 Klementine
 Klothilde
 Kluy
-Kläre
+KlÃ¤re
 Konstantine
 Konstanze
 Kora
@@ -784,10 +784,10 @@ Kristine
 Kristy
 Kyra
 Kyrilla
-Kätchen
-Käte
-Käthe
-Käthemarie
+KÃ¤tchen
+KÃ¤te
+KÃ¤the
+KÃ¤themarie
 Laetitia
 Laila
 Lana
@@ -927,13 +927,13 @@ Lucie-Marie
 Lucilla
 Lucretia
 Lucy
-Lucía
+LucÃ­a
 Ludgard
 Ludmilla
 Ludovica
 Ludwiga
 Luisa
-Luisa 
+LuisaÂ 
 Luise
 Lulu
 Luna
@@ -943,7 +943,7 @@ Lydia
 Lynn
 Lys
 Lysann
-Lätitia
+LÃ¤titia
 Madaleine
 Maddalena
 Maddy
@@ -1075,7 +1075,7 @@ May-Britt
 Maya
 Maybritt
 Mayra
-Maša
+MaÅ¡a
 Meg
 Meggy
 Meike
@@ -1152,7 +1152,7 @@ Moyra
 Muriel
 Myriam
 Myrian
-Målin
+MÃ¥lin
 Nada
 Nadia
 Nadine
@@ -1317,7 +1317,7 @@ Reintje
 Renan
 Renate
 Renetta
-Reneé
+ReneÃ©
 Reni
 Renia
 Renke
@@ -1502,7 +1502,7 @@ Sylke
 Sylvi
 Sylvia
 Sylvine
-Sünja
+SÃ¼nja
 Tabea
 Tabitha
 Tahnee
@@ -1694,7 +1694,7 @@ Zita
 Zoe
 Zoja
 Zora
-Zoé
+ZoÃ©
 Zwanette
 Zwantje
-Zölestine
+ZÃ¶lestine

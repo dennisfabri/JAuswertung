@@ -3,6 +3,7 @@ package de.df.jauswertung.misc;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class Namenextraktor {
         try {
             return new HashSet<>(
                     Files.readAllLines(Path.of("jauswertung-files", "src", "main", "resources", "names", name),
-                            Charset.forName("Cp1252")));
+                                       StandardCharsets.UTF_8));
         } catch (IOException ex) {
             ex.printStackTrace();
             return new HashSet<>();

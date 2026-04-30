@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <plugin name="GeneralOptionsPlugin" description="" id="de.df.jauswertung.generaloptions" classname="de.df.jauswertung.gui.plugins.OGeneralOptionsPlugin">
     <dependency id="de.df.jauswertung.core"/>
     <dependency id="de.df.jauswertung.options"/>

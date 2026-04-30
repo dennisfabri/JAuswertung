@@ -190,7 +190,7 @@ public class ImportManager {
                                     int position = at(part);
                                     if (position >= m.getMaxMembers()) {
                                         log.info(
-                                                "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
+                                                "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefÃ¼gt werden ({} - Startnummer {}).",
                                                 m.getMaxMembers(),
                                                 position + 1,
                                                 m.getName(),

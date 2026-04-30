@@ -126,16 +126,16 @@ class AresWriterDefault {
 
     private static void writeStyles(AresCompetition competition, String dir)
             throws IOException {
-        // idStyle;Style;StyleAbrév
+        // idStyle;Style;StyleAbrÃ©v
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
-        // 2; "Rückenlage o.A. " ;"RU"
+        // 2; "RÃ¼ckenlage o.A. " ;"RU"
         // 3; "Schleppen e Puppe" ;"SP"
         // 4; "Vermischt " ;"ME"
 
         try (OutputStream os = new FileOutputStream(dir + File.separator + "LSTSTYLE.TXT")) {
             PrintStream ps = new PrintStream(os, true, CHARSET);
-            ps.println("idStyle;Style;StyleAbrév");
+            ps.println("idStyle;Style;StyleAbrÃ©v");
 
             Map<Integer, String> reverse = new HashMap<>();
 
@@ -160,7 +160,7 @@ class AresWriterDefault {
                 String key = "";
                 if (d.equalsIgnoreCase("4*25m Rettungsstaffel")) {
                     key = "RE";
-                } else if (d.equalsIgnoreCase("4*25m Rückenlage ohne Armtätigkeit")) {
+                } else if (d.equalsIgnoreCase("4*25m RÃ¼ckenlage ohne ArmtÃ¤tigkeit")) {
                     key = "RA";
                 } else if (d.equalsIgnoreCase("4*25m Gurtretterstaffel")) {
                     key = "GR";
@@ -194,7 +194,7 @@ class AresWriterDefault {
                     key = "LS";
                 } else if (d.equalsIgnoreCase("100m Retten mit Flossen und Gurtretter")) {
                     key = "FG";
-                } else if (d.equalsIgnoreCase("100m Kombinierte Rettungsübung")) {
+                } else if (d.equalsIgnoreCase("100m Kombinierte RettungsÃ¼bung")) {
                     key = "KR";
                 } else if (d.equalsIgnoreCase("200m Super-Lifesaver")) {
                     key = "SL";
@@ -213,7 +213,7 @@ class AresWriterDefault {
                 }
 
                 if (key.isEmpty()) {
-                    System.out.println("Kürzel nicht gefunden: "+ d);
+                    System.out.println("KÃ¼rzel nicht gefunden: "+ d);
                 }
 
                 if (d.startsWith("4*25m ")) {
@@ -499,7 +499,7 @@ class AresWriterDefault {
                 sb.append("-");
             } else if (lauf.isOnlyOneSex()) {
                 ASchwimmer t = lauf.getSchwimmer();
-                sb.append(t.isMaennlich() ? "männlich" : "weiblich");
+                sb.append(t.isMaennlich() ? "mÃ¤nnlich" : "weiblich");
             } else {
                 sb.append("mixed");
             }

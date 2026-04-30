@@ -23,8 +23,7 @@ public class CSVResultExporter implements IExporter {
                 return null;
             }
 
-            return bos.toString(StandardCharsets.ISO_8859_1);
+            return bos.toString(StandardCharsets.UTF_8);
         }
     }
-
 }

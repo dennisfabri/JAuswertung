@@ -117,10 +117,10 @@ class LengthUtil {
     }
 
     static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
-        // idStyle;Style;StyleAbrév
+        // idStyle;Style;StyleAbrÃ©v
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
-        // 2; "Rückenlage o.A. " ;"RU"
+        // 2; "RÃ¼ckenlage o.A. " ;"RU"
         // 3; "Schleppen e Puppe" ;"SP"
         // 4; "Vermischt " ;"ME"
 
@@ -130,7 +130,7 @@ class LengthUtil {
         }
 
         PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("idStyle;Style;StyleAbrév");
+        ps.println("idStyle;Style;StyleAbrÃ©v");
         Enumeration<String> dis = disziplinen.keys();
 
         Hashtable<Integer, String> reverse = new Hashtable<>();
@@ -154,7 +154,7 @@ class LengthUtil {
             }
 
             if (shortname.isEmpty()) {
-                System.out.println("Kürzel nicht gefunden: "+ d);
+                System.out.println("KÃ¼rzel nicht gefunden: "+ d);
             }
 
             d = d.replace("\"", "");

@@ -1659,7 +1659,7 @@ public final class DataTableUtils {
 
         ExtendedTableModel etm = new ExtendedTableModel(data,
                                                         new Object[]{
-                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
+                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "LÃ¤nge", "Lage",
                                                                 "LageText", "AnzahlBahnen",
                                                                 "Abschnitt", "Datum", "Lauf", "Bahn",
                                                                 "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",
@@ -1724,7 +1724,7 @@ public final class DataTableUtils {
 
         ExtendedTableModel etm = new ExtendedTableModel(data,
                                                         new Object[]{
-                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "Länge", "Lage",
+                                                                "WkNr", "WkTyp", "WkName", "Anzahl", "LÃ¤nge", "Lage",
                                                                 "LageText", "AnzahlBahnen",
                                                                 "Abschnitt", "Datum", "Lauf", "Bahn",
                                                                 "Bahnseite", "Name", "Vorname", "Jahrgang", "AK",

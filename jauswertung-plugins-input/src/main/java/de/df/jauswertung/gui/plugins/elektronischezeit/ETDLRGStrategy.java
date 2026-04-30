@@ -82,13 +82,13 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
             Heat h = new Heat(lauf.getName(scheme), lauf.getLaufnummer(), lauf.getLaufbuchstabe() + 1);
 
             for (int y = 0; y < lauf.getBahnen(); y++) {
-                // Einer von 100 erh‰lt keine Zeiten
+                // Einer von 100 erh√§lt keine Zeiten
                 if (rng.nextInt(100) > 1) {
-                    // Der Rest enth‰lt 1-3 Zeiten
+                    // Der Rest enth√§lt 1-3 Zeiten
                     int max = rng.nextInt(2) + 1;
                     long time = 0;
                     for (int z = 0; z < max; z++) {
-                        // Die Zeiten erhˆhen sich zwischen 0:30 und 1:00
+                        // Die Zeiten erh√∂hen sich zwischen 0:30 und 1:00
                         time += Math.round(rng.nextDouble() * 3000 + 3000);
                         h.store(y, time, LaneStatus.OfficialEnd);
                     }

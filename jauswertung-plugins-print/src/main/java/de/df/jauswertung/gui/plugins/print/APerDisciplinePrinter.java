@@ -435,8 +435,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         printResult(t);
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis ausw‰hlen",
-                                               "Ergebnis zum Drucken ausw‰hlen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis ausw√§hlen",
+                                               "Ergebnis zum Drucken ausw√§hlen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPrintSelectionDialog();
             }
@@ -454,8 +454,8 @@ abstract class APerDisciplinePrinter implements Printer {
                         export(t);
                     }
                 };
-                OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis ausw‰hlen",
-                                          "Ergebnis zum Drucken ausw‰hlen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis ausw√§hlen",
+                                          "Ergebnis zum Drucken ausw√§hlen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 // export();
             }
@@ -489,8 +489,8 @@ abstract class APerDisciplinePrinter implements Printer {
                                 IconManager.getTitleImages());
                     }
                 };
-                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis ausw‰hlen",
-                                               "Ergebnis zum Drucken ausw‰hlen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis ausw√§hlen",
+                                               "Ergebnis zum Drucken ausw√§hlen", OWUtils.getCreatedRounds(wk, true), cb);
             } else {
                 showPreviewSelectionDialog();
             }

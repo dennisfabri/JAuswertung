@@ -11,6 +11,7 @@ import static de.df.jauswertung.io.ExportManager.NAMES;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -611,13 +612,7 @@ public class XmlExporter extends EmptyExporter {
         for (ImportExportTypes type : ImportExportTypes.values()) {
             Element e = xmldoc.createElementNS(null, "type");
 
-            String name = "";
-            try {
-                name = URLEncoder.encode(NAMES[type.getValue()], "ISO-8859-1");
-            } catch (UnsupportedEncodingException e1) {
-                // try best guess
-                name = URLEncoder.encode(NAMES[type.getValue()]);
-            }
+            String name = URLEncoder.encode(NAMES[type.getValue()], StandardCharsets.UTF_8);
 
             e.setAttributeNS(null, "name", NAMES[type.getValue()]);
             for (String format : formats) {

@@ -53,9 +53,9 @@ public class PunkteTabelleExport {
             new String[] { "100m Hindernisschwimmen", "100m Hindernis-schwimmen" },
             new String[] { "200m Hindernisschwimmen", "200m Hindernis-schwimmen" },
             new String[] { "50m Flossenschwimmen", "50m Flossen" },
-            new String[] { "100m Kombinierte Rettungsübung", "100m komb. Rettungs-übung" },
+            new String[] { "100m Kombinierte RettungsÃ¼bung", "100m komb. Rettungs-Ã¼bung" },
             new String[] { "100m Lifesaver", "100m Retten m. Fl. u. GR. (Lifesaver)" },
-            new String[] { "4*25m Rückenlage ohne Armtätigkeit", "4*25m Rückenlage ohne Arme" },
+            new String[] { "4*25m RÃ¼ckenlage ohne ArmtÃ¤tigkeit", "4*25m RÃ¼ckenlage ohne Arme" },
             new String[] { "50m Flossenschwimmen", "50m Flossen" }, };
 
     private static String disziplinReplacement(String disziplin) {

@@ -68,7 +68,7 @@ final class AresWriterFinals {
 
     private static void writeAKs(AWettkampf<?>[] wks, OutputStream os) throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("\"Kategorie\";\"AbrèvCat\"");
+        ps.println("\"Kategorie\";\"AbrÃ¨vCat\"");
         for (AWettkampf<?> wk : wks) {
             writeAKs(wk.getRegelwerk(), ps);
         }

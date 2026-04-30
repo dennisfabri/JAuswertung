@@ -84,10 +84,10 @@ public class ListRecords {
                             d.setName("4*50m Rettungsstaffel");
                         } else if (d.getName().equalsIgnoreCase("4*50m Rettungsstaffel")) {
                             d.setName("4*50m Rettungsstaffel (alt)");
-                        } else if (d.getName().equalsIgnoreCase("100m Kombinierte Rettungs�bung")) {
-                            d.setName("100m Kombinierte Rettungs�bung (alt)");
+                        } else if (d.getName().equalsIgnoreCase("100m Kombinierte Rettungsï¿½bung")) {
+                            d.setName("100m Kombinierte Rettungsï¿½bung (alt)");
                         } else if (d.getName().equalsIgnoreCase("100m Kombiniertes Retten")) {
-                            d.setName("100m Kombinierte Rettungs�bung (alt)");
+                            d.setName("100m Kombinierte Rettungsï¿½bung (alt)");
                         }
                     }
                 }

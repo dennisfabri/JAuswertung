@@ -201,7 +201,7 @@ class JTimelimitsPanel extends JPanel {
                 log.info("", io);
             } catch (TableFormatException e) {
                 DialogUtils.warn(parent, "Das Geschlecht konnte nicht bestimmt werden.",
-                        "Für einen Wert in der Spalte 'Geschlecht' konnte kein passender Wert gefunden werden.");
+                        "FÃ¼r einen Wert in der Spalte 'Geschlecht' konnte kein passender Wert gefunden werden.");
                 log.info("Format Problem:", e);
             }
         }

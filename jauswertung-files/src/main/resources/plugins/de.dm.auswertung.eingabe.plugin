@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-15" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <plugin name="registrationplugin" description="" id="de.df.jauswertung.registration" classname="de.df.jauswertung.gui.plugins.registration.PRegistrationPlugin">
     <dependency id="de.df.jauswertung.core"/>
     <dependency id="de.df.jauswertung.singleregistration"/>

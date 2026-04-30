@@ -146,7 +146,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         if (ausserkonkurrenz) {
             s = " (Au\u00DFer Konkurrenz)";
         }
-        return "S#" + startnummer + " - " + getAK().toString() + " " + (maennlich ? "männlich" : "weiblich") + " - "
+        return "S#" + startnummer + " - " + getAK().toString() + " " + (maennlich ? "mÃ¤nnlich" : "weiblich") + " - "
                 + gliederung + " - " + getName() + s;
     }
 
@@ -672,7 +672,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     /**
-     * Setzt eine Strafe für eine Disziplin
+     * Setzt eine Strafe fÃ¼r eine Disziplin
      * 
      * @param disz Nummer der Disziplin @param s Strafe
      */

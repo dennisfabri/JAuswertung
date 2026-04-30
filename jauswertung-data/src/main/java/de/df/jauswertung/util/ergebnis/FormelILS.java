@@ -122,7 +122,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
     @Override
     public String getDescription() {
-        return "Diese Punktevergabe entspricht der Punktevergabe für Indoorwettkämpfe der ILS ohne Finals";
+        return "Diese Punktevergabe entspricht der Punktevergabe fÃ¼r IndoorwettkÃ¤mpfe der ILS ohne Finals";
     }
 
     private static final double Epsilon = 0.005;

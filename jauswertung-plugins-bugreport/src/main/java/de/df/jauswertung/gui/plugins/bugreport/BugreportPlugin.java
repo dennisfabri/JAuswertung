@@ -13,7 +13,7 @@ import de.df.jutils.plugin.UpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Dennis M�ller
+ * @author Dennis Mï¿½ller
  * @date 05.04.2004
  */
 @Slf4j

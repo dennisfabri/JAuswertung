@@ -58,12 +58,12 @@ public class PortalImporter implements IImporter {
                 }
                 int akNummer = findAkNummer(wk, team.getAgeGroup());
                 if (akNummer < 0) {
-                    fb.showFeedback("Altersklasse " + team.getAgeGroup() + " für " + team.getName() + " (" + team.getGender() + ") nicht gefunden");
+                    fb.showFeedback("Altersklasse " + team.getAgeGroup() + " fÃ¼r " + team.getName() + " (" + team.getGender() + ") nicht gefunden");
                     continue;
                 }
                 Boolean isMale = findGender(wk, team.getGender());
                 if (isMale == null) {
-                    fb.showFeedback("Geschlecht " + team.getGender() + " für " + team.getName() + " (" + team.getAgeGroup() + ") nicht gefunden");
+                    fb.showFeedback("Geschlecht " + team.getGender() + " fÃ¼r " + team.getName() + " (" + team.getAgeGroup() + ") nicht gefunden");
                     continue;
                 }
                 Mannschaft m = wk.createMannschaft(team.getName(), isMale, fixGliederung(registration.getOrganization()), akNummer, team.getComment());
@@ -74,7 +74,7 @@ public class PortalImporter implements IImporter {
                 importRegistrationEntry(team, m);
                 if (team.getMemberIds().size() > m.getMaxMembers()) {
                     fb.showFeedback(
-                            "Mannschaft '%s' (%s %s) hat %d Mitglieder, aber nur %d sind erlaubt. Es werden nur die ersten %d importiert. Für einen vollständigen Import muss das Regelwerk entsprechend angepasst werden.".formatted(
+                            "Mannschaft '%s' (%s %s) hat %d Mitglieder, aber nur %d sind erlaubt. Es werden nur die ersten %d importiert. FÃ¼r einen vollstÃ¤ndigen Import muss das Regelwerk entsprechend angepasst werden.".formatted(
                                     team.getName(),
                                     team.getAgeGroup(),
                                     I18n.get(team.getGender().toString().toLowerCase(Locale.ROOT)),
@@ -199,12 +199,12 @@ public class PortalImporter implements IImporter {
                 }
                 int akNummer = findAkNummer(wk, athlete.getAgeGroup());
                 if (akNummer < 0) {
-                    fb.showFeedback("Altersklasse " + athlete.getAgeGroup() + " für " + athlete.getFirstName() + " " + athlete.getLastName() + " " + athlete.getGender() + " nicht gefunden");
+                    fb.showFeedback("Altersklasse " + athlete.getAgeGroup() + " fÃ¼r " + athlete.getFirstName() + " " + athlete.getLastName() + " " + athlete.getGender() + " nicht gefunden");
                     continue;
                 }
                 Boolean isMale = findGender(wk, athlete.getGender());
                 if (isMale == null) {
-                    fb.showFeedback("Geschlecht " + athlete.getGender() + " für " + athlete.getFirstName() + " " + athlete.getLastName() + " (" + athlete.getAgeGroup() + ") nicht gefunden");
+                    fb.showFeedback("Geschlecht " + athlete.getGender() + " fÃ¼r " + athlete.getFirstName() + " " + athlete.getLastName() + " (" + athlete.getAgeGroup() + ") nicht gefunden");
                     continue;
                 }
                 Teilnehmer t = wk.createTeilnehmer(athlete.getAthleteId(),
@@ -259,7 +259,7 @@ public class PortalImporter implements IImporter {
                                                                      "Gruppe",
                                                                      "Kreis",
                                                                      "Ortsverein",
-                                                                     "Stützpunkt",
+                                                                     "StÃ¼tzpunkt",
                                                                      "Stadtgruppe",
                                                                      "DLRG",
                                                                      "Bundeswehr Gruppe",
