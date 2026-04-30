@@ -3,39 +3,9 @@
  */
 package de.df.jauswertung.gui.plugins.properties;
 
-import java.awt.AWTKeyStroke;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.EinzelWettkampf;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.Wettkampfart;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
@@ -47,7 +17,20 @@ import de.df.jutils.gui.JWarningTextField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleFormBuilder;
 import de.df.jutils.gui.util.DialogUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.window.JOptionsDialog;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
 
@@ -105,7 +88,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     }
 
     private void addChangeListeners() {
-        ItemListener item = e -> dialog.setChanged(true);
+        ItemListener item = _ -> dialog.setChanged(true);
 
         DocumentListener doc = new DocumentListener() {
             @Override
@@ -124,9 +107,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             }
         };
 
-        ChangeListener change = e -> dialog.setChanged(true);
+        ChangeListener change = _ -> dialog.setChanged(true);
 
-        ActionListener action = e -> dialog.setChanged(true);
+        ActionListener action = _ -> dialog.setChanged(true);
 
         art.addItemListener(item);
         name.getDocument().addDocumentListener(doc);
@@ -166,20 +149,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         uploadIndex.addChangeListener(change);
     }
 
-    private void setTraversalKeys(JTextPane textArea) {
-        Set<AWTKeyStroke> set = new HashSet<>(
-                textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-        set.add(KeyStroke.getKeyStroke("TAB"));
-        textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
-
-        set = new HashSet<>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
-        set.add(KeyStroke.getKeyStroke("shift TAB"));
-        textArea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
-    }
-
     private JTextPane createTextPane() {
         JTextPane tp = new JTextPane();
-        setTraversalKeys(tp);
+        WindowUtils.addTraversalKeys(tp);
         return tp;
     }
 
@@ -239,7 +211,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
 
         uploadId = new JWarningTextField();
-        uploadId.setValidator(s -> s.isEmpty() || s.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"));
+        uploadId.setValidator(s -> s.isEmpty() || s.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") || s.matches("^[0-9a-f]{12}$"));
         uploadIndex = new JIntSpinner(0, 0, 99, 1);
 
         name.setAutoSelectAll(true);
@@ -353,6 +325,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         return image;
     }
 
+    @SuppressWarnings("SynchronizeOnNonFinalField")
     public void apply() {
         synchronized (wk) {
             wk.setProperty(ART_DES_WETTKAMPFS, art.getSelectedItem());
@@ -528,11 +501,11 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             JMenuItem manikinBottomTop = new JMenuItem(I18n.get("ManakinBottomTop"));
             JMenuItem manikinBottomBottom = new JMenuItem(I18n.get("ManakinBottomBottom"));
             JMenuItem rescue = new JMenuItem(I18n.get("ManakinCombinedRescue"));
-            toptop.addActionListener(e -> append(manikin, I18n.get("ManakinTopTopText")));
-            manikinTopBottom.addActionListener(e -> append(manikin, I18n.get("ManakinTopBottomText")));
-            manikinBottomTop.addActionListener(e -> append(manikin, I18n.get("ManakinBottomTopText")));
-            manikinBottomBottom.addActionListener(e -> append(manikin, I18n.get("ManakinBottomBottomText")));
-            rescue.addActionListener(e -> append(manikin, I18n.get("ManakinCombinedRescueText")));
+            toptop.addActionListener(_ -> append(manikin, I18n.get("ManakinTopTopText")));
+            manikinTopBottom.addActionListener(_ -> append(manikin, I18n.get("ManakinTopBottomText")));
+            manikinBottomTop.addActionListener(_ -> append(manikin, I18n.get("ManakinBottomTopText")));
+            manikinBottomBottom.addActionListener(_ -> append(manikin, I18n.get("ManakinBottomBottomText")));
+            rescue.addActionListener(_ -> append(manikin, I18n.get("ManakinCombinedRescueText")));
 
             add(toptop);
             add(manikinTopBottom);
@@ -546,9 +519,9 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
         public ManikinTeamPopup() {
             JMenuItem top = new JMenuItem(I18n.get("ManakinTeamTop"));
-            top.addActionListener(e -> append(manikin, I18n.get("ManakinTeamTopText")));
+            top.addActionListener(_ -> append(manikin, I18n.get("ManakinTeamTopText")));
             JMenuItem bottom = new JMenuItem(I18n.get("ManakinTeamBottom"));
-            bottom.addActionListener(e -> append(manikin, I18n.get("ManakinTeamBottomText")));
+            bottom.addActionListener(_ -> append(manikin, I18n.get("ManakinTeamBottomText")));
 
             add(top);
             add(bottom);

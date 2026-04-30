@@ -1,17 +1,13 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
-import java.awt.AWTKeyStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeListener;
@@ -42,6 +37,7 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.GraphicsUtils;
+import de.df.jutils.gui.util.WindowUtils;
 
 class JKampfrichterPositionPanel extends JPanel {
 
@@ -165,20 +161,9 @@ class JKampfrichterPositionPanel extends JPanel {
         }
     }
 
-    private void setTraversalKeys(JTextPane textArea) {
-        Set<AWTKeyStroke> set = new HashSet<>(
-                textArea.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-        set.add(KeyStroke.getKeyStroke("TAB"));
-        textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
-
-        set = new HashSet<>(textArea.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
-        set.add(KeyStroke.getKeyStroke("shift TAB"));
-        textArea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
-    }
-
     private JTextPane createTextPane() {
         JTextPane tp = new JTextPane();
-        setTraversalKeys(tp);
+        WindowUtils.addTraversalKeys(tp);
         return tp;
     }
 
@@ -207,7 +192,7 @@ class JKampfrichterPositionPanel extends JPanel {
         String text = position;
         if (einheit.getMinimaleStufe(position) != null) {
             text = I18n.get("RefereePositionAndLevel", position, einheit.getMinimaleStufe(position).toString(),
-                    (einheit.getMinimaleStufe(position).equals(KampfrichterStufe.KEINE) ? 0 : 1));
+                            (einheit.getMinimaleStufe(position).equals(KampfrichterStufe.KEINE) ? 0 : 1));
         }
 
         title.setText(text);
@@ -260,7 +245,7 @@ class JKampfrichterPositionPanel extends JPanel {
 
         for (int x = 0; x < karis.length; x++) {
             createRow(x, karis[x].getName(), karis[x].getGliederung(), karis[x].getBemerkung(), karis[x].getStufe(),
-                    karis.length > 1);
+                      karis.length > 1);
         }
 
         createTop();
@@ -302,7 +287,9 @@ class JKampfrichterPositionPanel extends JPanel {
         top = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
-                Color start = ColorUtils.calculateColor(UIManager.getColor("Panel.background"), Color.BLACK, 0.1); // UIManager.getColor("InternalFrame.activeTitleBackground");
+                Color start = ColorUtils.calculateColor(UIManager.getColor("Panel.background"),
+                                                        Color.BLACK,
+                                                        0.1); // UIManager.getColor("InternalFrame.activeTitleBackground");
                 Color end = UIManager.getColor("InternalFrame.activeTitleGradient");
 
                 if (start == null) {
@@ -375,7 +362,7 @@ class JKampfrichterPositionPanel extends JPanel {
         FormLayout layout = new FormLayout(
                 "4dlu,fill:default:grow,4dlu,fill:default:grow,4dlu,fill:default,4dlu,0px:grow,4dlu,fill:default,4dlu",
                 "0dlu,fill:default,4dlu,fill:default," + FormLayoutUtils.createLayoutString(2 * texts.length));
-        layout.setColumnGroups(new int[][] { { 2, 4, 8 } });
+        layout.setColumnGroups(new int[][]{{2, 4, 8}});
         FormLayoutUtils.setRowGroups(layout, 2, 2 * texts.length);
         setLayout(layout);
 
@@ -398,7 +385,7 @@ class JKampfrichterPositionPanel extends JPanel {
     }
 
     private void createRow(int x, String name, String gliederung, String bemerkung, KampfrichterStufe stufe,
-            boolean enabled) {
+                           boolean enabled) {
         names[x] = new JWarningTextField(name);
         names[x].setColumns(20);
         names[x].getDocument().addDocumentListener(documentListener);
