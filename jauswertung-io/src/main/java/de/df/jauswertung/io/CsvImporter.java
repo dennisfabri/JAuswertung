@@ -3,6 +3,17 @@
  */
 package de.df.jauswertung.io;
 
+import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
+import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jutils.io.FileUtils;
+import de.df.jutils.util.Feedback;
+import de.df.jutils.util.StringTools;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -11,28 +22,16 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.List;
-
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.io.value.TeamWithStarters;
-import de.df.jauswertung.io.value.ZWStartnummer;
-import de.df.jauswertung.util.valueobjects.Teammember;
-import de.df.jutils.io.FileUtils;
-import de.df.jutils.util.Feedback;
-import de.df.jutils.util.StringTools;
 
 /**
+ * Created 12.02.2004
  * @author Dennis Fabri
- * @date 12.02.2004
  */
 public final class CsvImporter implements IImporter {
 
-    private static final String[] SUFFIXES = { ".csv" };
+    private static final String[] SUFFIXES = {".csv"};
 
-    private static final char[] SEPARATORS = { ',', ',', ';' };
+    private static final char[] SEPARATORS = {',', ',', ';'};
 
     static {
         NumberFormat nf = NumberFormat.getInstance();
@@ -47,8 +46,8 @@ public final class CsvImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream name, AWettkampf<T> wk,
-                                                                            Feedback fb)
+    public <T extends ASchwimmer> TeamMembersImportDto teammembers(InputStream name, AWettkampf<T> wk,
+                                                                   Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);
@@ -56,12 +55,12 @@ public final class CsvImporter implements IImporter {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
         }
-        return ImportUtils.tablesToTeammembers(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
+        return ImportUtils.tablesToTeammembers(wk, fb, new String[]{""}, new Object[][][]{data});
     }
 
     @Override
     public <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name,
-            AWettkampf<T> wk, Feedback fb)
+                                                                                        AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);
@@ -70,12 +69,12 @@ public final class CsvImporter implements IImporter {
             return null;
         }
 
-        return ImportUtils.tablesToZWResult(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
+        return ImportUtils.tablesToZWResult(wk, fb, new String[]{""}, new Object[][][]{data}, null);
     }
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registration(InputStream name, AWettkampf<T> wk, Feedback fb,
-            String filename)
+                                                             String filename)
             throws TableFormatException, TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -116,7 +115,7 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        return ImportUtils.tablesToRegistration(wk, fb, new String[] { "" }, new Object[][][] { data },
+        return ImportUtils.tablesToRegistration(wk, fb, new String[]{""}, new Object[][][]{data},
                                                 filename);
     }
 
@@ -157,7 +156,7 @@ public final class CsvImporter implements IImporter {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
         }
-        return ImportUtils.tablesToReferees(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
+        return ImportUtils.tablesToReferees(wk, fb, new String[]{""}, new Object[][][]{data}, null);
     }
 
     @Override
@@ -186,7 +185,7 @@ public final class CsvImporter implements IImporter {
 
     @Override
     public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb,
-            String filename)
+                                                                   String filename)
             throws TableEntryException, TableException {
         if (filename == null) {
             filename = "";
@@ -227,13 +226,13 @@ public final class CsvImporter implements IImporter {
             }
         }
 
-        return ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[] { "" },
-                                                      new Object[][][] { data },
+        return ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[]{""},
+                                                      new Object[][][]{data},
                                                       filename);
     }
 
     @Override
-    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> StartersImportDto starters(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         fb.showFeedback(I18n.get("LoadingFile"));
         Object[][] data = CsvUtils.read(name);
@@ -241,6 +240,6 @@ public final class CsvImporter implements IImporter {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
         }
-        return ImportUtils.tablesToStarters(wk, fb, new String[] { "" }, new Object[][][] { data }, null);
+        return ImportUtils.tablesToStarters(wk, fb, new String[]{""}, new Object[][][]{data});
     }
 }

@@ -10,7 +10,8 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.df.jauswertung.util.valueobjects.Teammember;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -38,7 +39,7 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream is, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> TeamMembersImportDto teammembers(InputStream is, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         @SuppressWarnings("rawtypes")
         AWettkampf w = wk;
@@ -57,7 +58,7 @@ public final class ExcelImporter implements IImporter {
             for (int x = 0; x < tables.length; x++) {
                 titles[x] = wb.getSheetName(x);
             }
-            return ImportUtils.tablesToTeammembers(wk, fb, titles, tables, null);
+            return ImportUtils.tablesToTeammembers(wk, fb, titles, tables);
         } catch (OfficeXmlFileException e) {
             XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(data));
             Object[][][] tables = Excel2007Utils.sheetsToTable(wb);
@@ -66,7 +67,7 @@ public final class ExcelImporter implements IImporter {
             for (int x = 0; x < tables.length; x++) {
                 titles[x] = wb.getSheetName(x);
             }
-            return ImportUtils.tablesToTeammembers(wk, fb, titles, tables, null);
+            return ImportUtils.tablesToTeammembers(wk, fb, titles, tables);
         }
     }
 
@@ -215,7 +216,7 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> StartersImportDto starters(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         return null;
     }

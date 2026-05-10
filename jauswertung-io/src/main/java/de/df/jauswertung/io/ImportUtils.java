@@ -15,10 +15,11 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.i18n.IdResourceBundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -51,11 +52,10 @@ import de.df.jutils.util.StringTools;
 
 import static de.df.jauswertung.io.ImportConstants.*;
 
+@Slf4j
 public class ImportUtils {
 
-    private static Logger log = LoggerFactory.getLogger(ImportUtils.class);
-
-    private static final ResourceBundle aknames = getAkNames();
+    private static final ResourceBundle akNames = getAkNames();
 
     private static ResourceBundle getAkNames() {
         try {
@@ -69,17 +69,17 @@ public class ImportUtils {
 
     private static final char[] alphabet1 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
-    private static int position(char[] list, char element) {
-        for (int x = 0; x < list.length; x++) {
-            if (list[x] == element) {
+    private static int position(char element) {
+        for (int x = 0; x < ImportUtils.alphabet1.length; x++) {
+            if (ImportUtils.alphabet1[x] == element) {
                 return x;
             }
         }
         return -1;
     }
 
-    static <T extends ASchwimmer> Hashtable<String, Teammember> tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
-                                                                                      String[] sheets, Object[][][] tables, String file)
+    static <T extends ASchwimmer> TeamMembersImportDto tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
+                                                                           String[] sheets, Object[][][] tables)
             throws TableEntryException, TableException {
 
         Hashtable<String, Teammember> result = new Hashtable<>();
@@ -107,7 +107,7 @@ public class ImportUtils {
             }
             int[] indizes = null;
             try {
-                indizes = identifyIndizes(wk, titles, false, false, file, sheet);
+                indizes = identifyIndizes(wk, titles, false, false, null, sheet);
                 boolean first = true;
                 StringBuilder text = new StringBuilder();
                 if (indizes[STARTNUMMER] < 0) {
@@ -136,15 +136,15 @@ public class ImportUtils {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
-                            file, sheet, x, indizes[STARTNUMMER]);
+                            null, sheet, x, indizes[STARTNUMMER]);
                 }
                 char n = snText.charAt(snText.length() - 1);
-                int pos = position(alphabet1, n);
+                int pos = position(n);
                 if (pos < 0) {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
-                            file, sheet, x, indizes[STARTNUMMER]);
+                            null, sheet, x, indizes[STARTNUMMER]);
                 }
 
                 int sn;
@@ -154,7 +154,7 @@ public class ImportUtils {
                     throw new TableEntryException(
                             I18n.get("StartnumberFormatUnknown", snText,
                                      StringTools.getCellName(sheet, x, indizes[STARTNUMMER])),
-                            file, sheet, x, indizes[STARTNUMMER]);
+                            null, sheet, x, indizes[STARTNUMMER]);
                 }
 
                 ASchwimmer s = SearchUtils.getSchwimmer(wk, sn);
@@ -166,7 +166,7 @@ public class ImportUtils {
                 startsak[s.getAKNummer()][s.isMaennlich() ? 1 : 0]++;
 
                 Teammember mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
-                                            indizes[JAHRGANG], pos, x, sheet, file);
+                                            indizes[JAHRGANG], pos, x, sheet, null);
 
                 result.put(snText, mm);
             }
@@ -188,14 +188,14 @@ public class ImportUtils {
         }
         fb.showFeedback(I18n.get("ImportFinished"));
 
-        if (result.size() == 0) {
-            throw new TableException(I18n.get("Error.ResultEmpty"), file, null);
+        if (result.isEmpty()) {
+            throw new TableException(I18n.get("Error.ResultEmpty"), null, null);
         }
-        return result;
+        return new TeamMembersImportDto(result);
     }
 
-    static <T extends ASchwimmer> List<TeamWithStarters> tablesToStarters(AWettkampf<T> wk, Feedback fb,
-                                                                          String[] sheets, Object[][][] tables, String file)
+    static <T extends ASchwimmer> StartersImportDto tablesToStarters(AWettkampf<T> wk, Feedback fb,
+                                                                     String[] sheets, Object[][][] tables)
             throws TableEntryException, TableException {
 
         List<TeamWithStarters> result = new ArrayList<>();
@@ -224,7 +224,7 @@ public class ImportUtils {
             }
             int[] indizes = null;
             try {
-                indizes = identifyIndizes(wk, titles, false, false, file, sheet);
+                indizes = identifyIndizes(wk, titles, false, false, null, sheet);
                 boolean first = true;
                 StringBuilder text = new StringBuilder();
                 if (indizes[STARTNUMMER] < 0) {
@@ -233,9 +233,8 @@ public class ImportUtils {
                 }
                 if (indizes[DISCIPLINE] < 0) {
                     text.append(first ? "\t" : ", ").append(I18n.get("Discipline"));
-                    first = false;
                 }
-                if (text.length() > 0) {
+                if (!text.isEmpty()) {
                     fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
                     continue;
                 }
@@ -244,7 +243,7 @@ public class ImportUtils {
                 continue;
             }
             for (int x = 1; x < data.length; x++) {
-                int sn = getStartnummer(wk, data[x], indizes[STARTNUMMER], x, sheets[y], file);
+                int sn = getStartnummer(wk, data[x], indizes[STARTNUMMER], x, sheets[y], null);
                 String discipline = data[x][indizes[DISCIPLINE]] == null ? "" : data[x][indizes[DISCIPLINE]].toString();
                 if (discipline.isBlank()) {
                     continue;
@@ -273,9 +272,9 @@ public class ImportUtils {
         fb.showFeedback(I18n.get("ImportFinished"));
 
         if (result.isEmpty()) {
-            throw new TableException(I18n.get("Error.ResultEmpty"), file, null);
+            throw new TableException(I18n.get("Error.ResultEmpty"), null, null);
         }
-        return result;
+        return new StartersImportDto(result);
     }
 
     private static int[] getStarters(Object[] data, Object[] objects) {
@@ -296,7 +295,7 @@ public class ImportUtils {
         }
         return temp.stream().mapToInt(index -> {
             try {
-                return Integer.valueOf(index) + 1;
+                return Integer.parseInt(index) + 1;
             } catch (NumberFormatException nfe) {
                 return 0;
             }
@@ -345,8 +344,6 @@ public class ImportUtils {
                 qualilevel = data[indizes[QUALI_LEVEL]].toString();
             }
 
-            AWettkampf<T> w = wk;
-
             if (data.length - 1 < indizes[MAX_INDEX]) {
                 Object[] newdata = new Object[indizes[MAX_INDEX] + 1];
                 System.arraycopy(data, 0, newdata, 0, data.length);
@@ -355,7 +352,7 @@ public class ImportUtils {
                 }
                 data = newdata;
             }
-            if (w instanceof EinzelWettkampf) {
+            if (wk instanceof EinzelWettkampf) {
                 String vorname = data[indizes[VORNAME]].toString();
                 if (vorname.isEmpty()) {
                     throw new TableEntryException(
@@ -386,7 +383,7 @@ public class ImportUtils {
                 gname = data[indizes[GLIEDERUNG]].toString();
             }
             if (gname.isEmpty()) {
-                if (w instanceof MannschaftWettkampf) {
+                if (wk instanceof MannschaftWettkampf) {
 
                     gname = name2Gliederung(data[indizes[NAME]].toString());
                 }
@@ -401,8 +398,7 @@ public class ImportUtils {
             Object ako = data[indizes[ALTERSKLASSE]];
             int ak = wk.getRegelwerk().getIndex(ako.toString());
             if (ak < 0) {
-                if (ako instanceof Number) {
-                    Number akn = (Number) ako;
+                if (ako instanceof Number akn) {
                     ak = wk.getRegelwerk().getIndex("" + akn.intValue());
                     if (ak < 0) {
                         int a = akn.intValue() - 1;
@@ -426,7 +422,7 @@ public class ImportUtils {
                 } else {
                     String a = ako.toString().trim().toLowerCase().replace("/", "").replace("|", "").replace("-", "")
                             .replace(" ", "");
-                    ak = wk.getRegelwerk().getIndex(aknames.getString(a));
+                    ak = wk.getRegelwerk().getIndex(akNames.getString(a));
                 }
             }
             if (ak < 0 && wk.getRegelwerk().getAks().length == 1) {
@@ -450,16 +446,14 @@ public class ImportUtils {
             double punkte2 = getPunkte(data, indizes[PUNKTE2], row, sheet, file);
 
             ASchwimmer s = null;
-            if (w instanceof EinzelWettkampf) {
+            if (wk instanceof EinzelWettkampf ewk) {
                 String competitorId = "";
                 int jahrgang = getJahrgang(data, indizes[JAHRGANG], row, sheet, file);
                 String vorname = data[indizes[VORNAME]].toString();
                 String nachname = data[indizes[NACHNAME]].toString();
-                EinzelWettkampf ewk = (EinzelWettkampf) w;
                 s = ewk.createTeilnehmer(competitorId, nachname, vorname, jahrgang, maennlich, gliederung, ak, bemerkung);
-            } else {
+            } else if (wk instanceof MannschaftWettkampf mwk) {
                 String name = data[indizes[NAME]].toString();
-                MannschaftWettkampf mwk = (MannschaftWettkampf) w;
                 Mannschaft m = mwk.createMannschaft(name, maennlich, gliederung, ak, bemerkung);
 
                 setMitglied(wk, m.getMannschaftsmitglied(0), data, indizes[VORNAME1], indizes[NACHNAME1],
@@ -510,6 +504,8 @@ public class ImportUtils {
                 }
 
                 s = m;
+            } else {
+                throw new IllegalStateException("Unknown competition type");
             }
             int[] meldezeiten = ImportUtils.getMeldezeiten(data, indizes[MELDEZEITEN], titles,
                                                            wk.getRegelwerk().getAk(ak), row, sheet, file);
@@ -521,21 +517,19 @@ public class ImportUtils {
                                                                              s.getAK(), row, sheet, file));
                 }
             } catch (RuntimeException re) {
-                re.printStackTrace();
+                log.warn("Error setting discipline choice for {}, disciplines: {}", s.getName(), data[indizes[DISCIPLINES]]);
                 if (indizes[DISCIPLINES] >= 0) {
                     throw new TableEntryException(
                             I18n.get("Error.Disciplines", s.getName(), data[indizes[DISCIPLINES]].toString()), file,
                             sheet, row, indizes[DISCIPLINES]);
                 }
-                // throw new TableEntryException(I18n.get("Error.Disciplines", s.getName(),
-                // I18n.get("Error.NotFound")));
             }
             try {
                 if (meldezeiten != null) {
                     s.setMeldezeiten(meldezeiten);
                 }
             } catch (RuntimeException re) {
-                re.printStackTrace();
+                log.warn("Error setting meldezeiten for {}, meldezeiten: {}", s.getName(), Arrays.toString(meldezeiten));
                 throw new TableEntryException(
                         I18n.get("Error.Meldezeiten", s.getName(), StringTools.getRowName(sheet, row)), file, sheet,
                         row, -1);
@@ -545,7 +539,8 @@ public class ImportUtils {
                     s.setStarter(starter);
                 }
             } catch (RuntimeException re) {
-                re.printStackTrace();
+                log.warn("Error setting starters for {}, meldezeiten: {}, starter: {}", s.getName(),
+                         Arrays.toString(meldezeiten), Arrays.deepToString(starter));
                 throw new TableEntryException(
                         I18n.get("Error.Starter", s.getName(), StringTools.getRowName(sheet, row)), file, sheet, row,
                         -1);
@@ -2021,23 +2016,24 @@ public class ImportUtils {
     }
 
     private static <T extends ASchwimmer> void identifyIndex(AWettkampf<T> wk, int[] indizes, String title, int x) {
-        if (title.equalsIgnoreCase(I18n.get("Name").toLowerCase())) {
+        title = title.strip().toLowerCase();
+        if (title.equals(I18n.get("Name").toLowerCase())) {
             indizes[NAME] = x;
             return;
         }
-        if (title.equalsIgnoreCase(I18n.get("Surname").toLowerCase())) {
+        if (title.equals(I18n.get("Surname").toLowerCase())) {
             indizes[NACHNAME] = x;
             return;
         }
-        if (title.equalsIgnoreCase("Lastname")) {
+        if (title.equals("Lastname".toLowerCase())) {
             indizes[NACHNAME] = x;
             return;
         }
-        if (title.equalsIgnoreCase(I18n.get("FirstName"))) {
+        if (title.equals(I18n.get("FirstName").toLowerCase())) {
             indizes[VORNAME] = x;
             return;
         }
-        if (title.equalsIgnoreCase("FirstName")) {
+        if (title.equals("FirstName".toLowerCase())) {
             indizes[VORNAME] = x;
             return;
         }
@@ -2245,7 +2241,7 @@ public class ImportUtils {
             indizes[STARTNUMMER] = x;
             return;
         }
-        if (title.equalsIgnoreCase("Startnumber")) {
+        if (title.equalsIgnoreCase("Startnumber".toLowerCase())) {
             indizes[STARTNUMMER] = x;
             return;
         }

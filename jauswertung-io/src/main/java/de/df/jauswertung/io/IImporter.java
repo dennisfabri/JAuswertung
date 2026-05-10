@@ -9,6 +9,8 @@ import java.util.List;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.valueobjects.Teammember;
@@ -40,7 +42,7 @@ public interface IImporter {
                                                             String filename)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
+    <T extends ASchwimmer> TeamMembersImportDto teammembers(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> Hashtable<ZWStartnummer, Double> zusatzwertungResults(InputStream name, AWettkampf<T> wk,
@@ -62,7 +64,7 @@ public interface IImporter {
     <T extends ASchwimmer> KampfrichterVerwaltung referees(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
-    <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream name, AWettkampf<T> wk, Feedback fb)
+    <T extends ASchwimmer> StartersImportDto starters(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     boolean isSupported(ImportExportTypes type);

@@ -1,7 +1,20 @@
-/*
- * Created on 08.01.2005
- */
 package de.df.jauswertung.io;
+
+import de.df.jauswertung.daten.*;
+import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
+import de.df.jauswertung.daten.laufliste.OWDisziplin;
+import de.df.jauswertung.io.exception.NotEnabledException;
+import de.df.jauswertung.io.exception.NotSupportedException;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
+import de.df.jauswertung.io.portal.PortalImporter;
+import de.df.jauswertung.io.value.TeamWithStarters;
+import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.valueobjects.Teammember;
+import de.df.jutils.util.Feedback;
+import de.df.jutils.util.NullFeedback;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,38 +22,15 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Eingabe;
-import de.df.jauswertung.daten.Geschlecht;
-import de.df.jauswertung.daten.HLWStates;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.Mannschaftsmitglied;
-import de.df.jauswertung.daten.Teilnehmer;
-import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.io.exception.NotEnabledException;
-import de.df.jauswertung.io.exception.NotSupportedException;
-import de.df.jauswertung.io.portal.PortalImporter;
-import de.df.jauswertung.io.value.TeamWithStarters;
-import de.df.jauswertung.io.value.ZWStartnummer;
-import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.Utils;
-import de.df.jauswertung.util.valueobjects.Teammember;
-import de.df.jutils.util.Feedback;
-import de.df.jutils.util.NullFeedback;
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author Dennis Fabri @date 08.01.2005
  */
 @Slf4j
 public class ImportManager {
 
-    private static ImportManager manager = new ImportManager();
+    private static final ImportManager manager = new ImportManager();
 
-    private HashMap<String, IImporter> importers;
+    private final HashMap<String, IImporter> importers;
 
     public ImportManager() {
         importers = new HashMap<>();
@@ -72,23 +62,15 @@ public class ImportManager {
         if (!isSupported(datatype)) {
             return false;
         }
-        switch (datatype) {
-            case ZW_RESULTS:
-                return wk.hasSchwimmer() && wk.hasHLW();
-            case REGISTRATION:
-                return true;
-            case REFEREES:
-                return wk.getKampfrichterverwaltung() != null;
-            case TEAM_MEMBERS, STARTERS:
-                return wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
-            case HEAT_TIMES:
-                return wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
-            case RESULTS:
-            case HEAT_LIST, REGISTRATION_UPDATE:
-                return wk.hasSchwimmer();
-            default:
-                return false;
-        }
+        return switch (datatype) {
+            case ZW_RESULTS -> wk.hasSchwimmer() && wk.hasHLW();
+            case REGISTRATION -> true;
+            case REFEREES -> wk.getKampfrichterverwaltung() != null;
+            case TEAM_MEMBERS, STARTERS -> wk.hasSchwimmer() && wk instanceof MannschaftWettkampf;
+            case HEAT_TIMES -> wk.hasSchwimmer() && wk.isHeatBased() && wk.hasLaufliste();
+            case RESULTS, HEAT_LIST, REGISTRATION_UPDATE -> wk.hasSchwimmer();
+            default -> false;
+        };
     }
 
     public static <T extends ASchwimmer> Object importData(IImporter importer, InputStream is,
@@ -154,13 +136,7 @@ public class ImportManager {
         }
         switch (datatype) {
             case REGISTRATION: {
-                LinkedList<T> schwimmer = (LinkedList<T>) data;
-                boolean ok = true;
-                for (T t : schwimmer) {
-                    boolean b = wk.addSchwimmer(t);
-                    ok = ok && b;
-                }
-                if (ok) {
+                if (addRegistration(wk, (LinkedList<T>) data)) {
                     return true;
                 }
                 break;
@@ -172,69 +148,29 @@ public class ImportManager {
                 break;
             }
             case STARTERS: {
-                if (updateStarters(wk, (List<TeamWithStarters>) data)) {
+                if (updateStarters(wk, (StartersImportDto) data)) {
                     return true;
                 }
                 break;
             }
             case TEAM_MEMBERS: {
-                Hashtable<String, Teammember> names = (Hashtable<String, Teammember>) data;
-                names.entrySet().stream().collect(Collectors.groupingBy(e -> e.getKey().toLowerCase(Locale.ROOT).substring(0, e.getKey().length() - 1)))
-                        .forEach((id, entries) -> {
-                            int key = Integer.parseInt(id);
-                            T s = SearchUtils.getSchwimmer(wk, key);
-                            if (s instanceof Mannschaft m) {
-                                m.clearMannschaftsmitglieder();
-                                entries.forEach(entry -> {
-                                    char part = entry.getKey().toLowerCase(Locale.ROOT).charAt(entry.getKey().length() - 1);
-                                    int position = at(part);
-                                    if (position >= m.getMaxMembers()) {
-                                        log.info(
-                                                "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
-                                                m.getMaxMembers(),
-                                                position + 1,
-                                                m.getName(),
-                                                m.getStartnummer());
-                                    } else {
-                                        Teammember info = entry.getValue();
-                                        Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
-                                        mm.setNachname(info.getLastname());
-                                        mm.setVorname(info.getFirstname());
-                                        mm.setJahrgang(info.getJahrgang());
-                                        mm.setGeschlecht(info.getGeschlecht());
-                                    }
-                                });
-                            }
-                        });
-                return true;
+                if (updateTeamMembers(wk, (TeamMembersImportDto) data)) {
+                    return true;
+                }
+                break;
             }
             case ZW_RESULTS: {
-                Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) data;
-                Enumeration<ZWStartnummer> keys = names.keys();
-                while (keys.hasMoreElements()) {
-                    ZWStartnummer key = keys.nextElement();
-                    T s = SearchUtils.getSchwimmer(wk, key.getStartnummer());
-                    int index = key.getIndex();
-                    if (s != null) {
-                        double value = names.get(key);
-                        int v = (int) Math.round(value);
-                        if (v < -1.1) {
-                            s.setHLWState(index, HLWStates.NICHT_ANGETRETEN);
-                        } else if (v < -0.1) {
-                            s.setHLWState(index, HLWStates.NOT_ENTERED);
-                        } else {
-                            s.setHLWPunkte(index, Math.max(value, 0));
-                        }
-                    }
+                if (updateZusatzwertung(wk, (Hashtable<ZWStartnummer, Double>) data)) {
+                    return true;
                 }
-                return true;
+                break;
             }
             case RESULTS:
             case HEAT_LIST:
             case HEAT_TIMES:
                 return data;
             case REFEREES:
-                wk.setKampfrichterverwaltung((KampfrichterVerwaltung) data);
+                updateReferees(wk, (KampfrichterVerwaltung) data);
                 return data;
             default:
                 break;
@@ -243,17 +179,89 @@ public class ImportManager {
         return null;
     }
 
-    private static <T extends ASchwimmer> boolean updateStarters(AWettkampf<T> wk, List<TeamWithStarters> data) {
+    private static <T extends ASchwimmer> void updateReferees(AWettkampf<T> wk, KampfrichterVerwaltung data) {
+        wk.setKampfrichterverwaltung(data);
+    }
+
+    private static <T extends ASchwimmer> boolean updateZusatzwertung(AWettkampf<T> wk, Hashtable<ZWStartnummer, Double> data) {
+        Hashtable<ZWStartnummer, Double> names = data;
+        Enumeration<ZWStartnummer> keys = names.keys();
+        while (keys.hasMoreElements()) {
+            ZWStartnummer key = keys.nextElement();
+            T s = SearchUtils.getSchwimmer(wk, key.getStartnummer());
+            int index = key.getIndex();
+            if (s != null) {
+                double value = names.get(key);
+                int v = (int) Math.round(value);
+                if (v < -1.1) {
+                    s.setHLWState(index, HLWStates.NICHT_ANGETRETEN);
+                } else if (v < -0.1) {
+                    s.setHLWState(index, HLWStates.NOT_ENTERED);
+                } else {
+                    s.setHLWPunkte(index, Math.max(value, 0));
+                }
+            }
+        }
+        return true;
+    }
+
+    private static <T extends ASchwimmer> boolean addRegistration(AWettkampf<T> wk, LinkedList<T> data) {
+        LinkedList<T> schwimmer = data;
+        boolean ok = true;
+        for (T t : schwimmer) {
+            boolean b = wk.addSchwimmer(t);
+            ok = ok && b;
+        }
+        return ok;
+    }
+
+    private static <T extends ASchwimmer> boolean updateTeamMembers(AWettkampf<T> wk, TeamMembersImportDto data) {
+        Hashtable<String, Teammember> names = data.teamMembers();
+        names.entrySet().stream().collect(Collectors.groupingBy(e -> e.getKey().toLowerCase(Locale.ROOT).substring(0, e.getKey().length() - 1)))
+                .forEach((id, entries) -> {
+                    int key = Integer.parseInt(id);
+                    T s = SearchUtils.getSchwimmer(wk, key);
+                    if (s instanceof Mannschaft m) {
+                        m.clearMannschaftsmitglieder();
+                        entries.forEach(entry -> {
+                            char part = entry.getKey().toLowerCase(Locale.ROOT).charAt(entry.getKey().length() - 1);
+                            int position = at(part);
+                            if (position >= m.getMaxMembers()) {
+                                log.info(
+                                        "Es sind nur {} Mannschaftsmitglieder erlaubt. Es soll aber ein Mitglied an Position {} eingefügt werden ({} - Startnummer {}).",
+                                        m.getMaxMembers(),
+                                        position + 1,
+                                        m.getName(),
+                                        m.getStartnummer());
+                            } else {
+                                Teammember info = entry.getValue();
+                                Mannschaftsmitglied mm = m.getMannschaftsmitglied(position);
+                                mm.setNachname(info.getLastname());
+                                mm.setVorname(info.getFirstname());
+                                mm.setJahrgang(info.getJahrgang());
+                                mm.setGeschlecht(info.getGeschlecht());
+                            }
+                        });
+                    }
+                });
+        return true;
+    }
+
+    private static <T extends ASchwimmer> boolean updateStarters(AWettkampf<T> wk, StartersImportDto data) {
+        List<TeamWithStarters> teams = data.teams();
         MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
-        for (TeamWithStarters starters : data) {
+        for (TeamWithStarters starters : teams) {
             int sn = starters.getStartnumber();
             Mannschaft m = SearchUtils.getSchwimmer(mwk, sn);
-            int disz = findDisciplineIndex(m, starters.getDiscipline());
-            if (disz < 0) {
+            if (m == null) {
+                continue;
+            }
+            int indexOfDiscipline = findDisciplineIndex(m, starters.getDiscipline());
+            if (indexOfDiscipline < 0) {
                 continue;
             }
             if (mwk.isHeatBased() && starters.getRound() > 0) {
-                String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), disz, starters.getRound());
+                String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), indexOfDiscipline, starters.getRound());
                 OWDisziplin<Mannschaft> d = mwk.getLauflisteOW().getDisziplin(id);
                 if (d != null && d.contains(m)) {
                     Eingabe e = m.getEingabe(id, true);
@@ -262,7 +270,7 @@ public class ImportManager {
                     }
                 }
             } else {
-                m.setStarter(disz, starters.getStarters());
+                m.setStarter(indexOfDiscipline, starters.getStarters());
             }
         }
         return true;
@@ -322,12 +330,11 @@ public class ImportManager {
     }
 
     public static boolean isMultifileImportAllowed(ImportExportTypes type) {
-        switch (type) {
-            case REGISTRATION:
-                return true;
-            default:
-                return false;
-        }
+        //noinspection SwitchStatementWithTooFewBranches
+        return switch (type) {
+            case REGISTRATION -> true;
+            default -> false;
+        };
     }
 
     public static boolean isSupported(ImportExportTypes type) {

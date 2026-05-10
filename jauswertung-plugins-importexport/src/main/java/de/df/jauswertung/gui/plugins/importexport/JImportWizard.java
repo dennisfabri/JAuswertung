@@ -1,6 +1,3 @@
-/*
- * Created on 11.07.2004
- */
 package de.df.jauswertung.gui.plugins.importexport;
 
 import com.jgoodies.forms.factories.CC;
@@ -41,10 +38,12 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
+import static java.util.Arrays.stream;
+
 /**
- * @author Dennis Fabri
- * <p>
  * 11.07.2004
+ *
+ * @author Dennis Fabri
  */
 @Slf4j
 class JImportWizard extends JWizardFrame implements FinishListener, CancelListener {
@@ -99,8 +98,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
@@ -148,7 +145,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         SwingWorker<Boolean, Object> sw = new SwingWorker<>() {
 
             @Override
-            protected Boolean doInBackground() throws Exception {
+            protected Boolean doInBackground() {
                 return finishImport();
             }
 
@@ -158,12 +155,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 boolean success = false;
                 try {
                     success = get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    // Nothing to do
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    // Nothing to do
+                } catch (InterruptedException | ExecutionException e) {
+                    log.warn("Problem while finishing import", e);
                 }
                 if (success) {
                     JImportWizard.this.setEnabled(true);
@@ -193,7 +186,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                                                        null, null);
                         break;
                     case REGISTRATION_UPDATE:
-                    case STARTERS:
+                    case STARTERS, TEAM_MEMBERS:
                         controller.sendDataUpdateEvent("Import",
                                                        UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
                                                        null, null);
@@ -212,10 +205,6 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         break;
                     case REFEREES:
                         controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
-                                                       null);
-                        break;
-                    case TEAM_MEMBERS:
-                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, data, null,
                                                        null);
                         break;
                     case ZW_RESULTS:
@@ -281,7 +270,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         JTextField filename = new JTextField();
 
-        private JPanel panel = null;
+        private final JPanel panel;
 
         public JFilePage() {
             super(I18n.get("ChooseAFile"), I18n.get("Import.ChooseAFile.Information"));
@@ -297,9 +286,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             };
 
             panel.add(filename, CC.xy(2, 3));
-            filename.addActionListener(arg0 -> {
-                update();
-            });
+            filename.addActionListener(_ -> update());
             filename.addKeyListener(new KeyAdapter() {
 
                 @Override
@@ -334,9 +321,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             });
             JButton button = new JButton("...");
-            button.addActionListener(arg0 -> {
-                browseFile();
-            });
+            button.addActionListener(_ -> browseFile());
             panel.add(button, CC.xy(4, 3));
         }
 
@@ -351,36 +336,35 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         }
 
         private void updateSuffixes() {
-            String fname = filename.getText();
-            String[] names = fname.split(";");
+            String filename = this.filename.getText();
+            String[] names = filename.split(";");
             for (int y = 0; y < names.length; y++) {
-                String name = names[y].trim();
-                if (name.length() > 0) {
-                    boolean found = false;
-
-                    String[] suffixes = ImportManager.getImporter(format.getSelectedItemname()).getSuffixes();
-                    for (String suffixe : suffixes) {
-                        if (name.toLowerCase().endsWith(suffixe)) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        int slash = name.indexOf(File.separator);
-                        int dot = name.indexOf('.');
-                        if (slash < dot) {
-                            name = name.substring(0, dot) + suffixes[0];
-                        }
-                    }
+                String name = names[y].strip();
+                if (!name.isEmpty()) {
+                    name = ensureSuffix(name);
                 }
                 names[y] = name;
             }
-            filename.setText(StringTools.concatenateFilenames(names));
+            this.filename.setText(StringTools.concatenateFilenames(names));
+        }
+
+        private String ensureSuffix(String name) {
+            String[] suffixes = ImportManager.getImporter(format.getSelectedItemname()).getSuffixes();
+            boolean found = stream(suffixes).anyMatch(suffix -> name.toLowerCase().endsWith(suffix));
+            if (!found) {
+                int slash = name.indexOf(File.separator);
+                int dot = name.indexOf('.');
+                if (slash < dot) {
+                    return name.substring(0, dot) + suffixes[0];
+                }
+            }
+            return name;
         }
 
         @Override
         public void update() {
             if (getWizard().isCurrentPage(this)) {
-                if (filename.getText().length() == 0) {
+                if (filename.getText().isBlank()) {
                     getWizard().setNextButtonEnabled(false);
                     getWizard().setFinishButtonEnabled(false);
                     return;
@@ -397,7 +381,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         private boolean checkFiles() {
             String name = filename.getText().trim();
-            if (name.length() == 0) {
+            if (name.isEmpty()) {
                 return false;
             }
             String[] names = name.split(";");
@@ -419,14 +403,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         }
 
         private boolean checkFile(String name) {
-            boolean enabled = false;
-
-            String[] suffixes = ImportManager.getImporter(format.getSelectedItemname()).getSuffixes();
-            for (String suffixe : suffixes) {
-                if (name.toLowerCase().endsWith(suffixe.toLowerCase())) {
-                    enabled = true;
-                }
-            }
+            boolean enabled = hasMatchingSuffix(name);
 
             if (enabled) {
                 File destfile = new File(name);
@@ -449,6 +426,19 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             return enabled;
         }
 
+        private boolean hasMatchingSuffix(String name) {
+            boolean enabled = false;
+
+            String[] suffixes = ImportManager.getImporter(format.getSelectedItemname()).getSuffixes();
+            for (String suffixe : suffixes) {
+                if (name.toLowerCase().endsWith(suffixe.toLowerCase())) {
+                    enabled = true;
+                    break;
+                }
+            }
+            return enabled;
+        }
+
         @Override
         public JComponent getPage() {
             return panel;
@@ -457,9 +447,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JProgressPage extends AWizardPage implements PageSwitchListener, UpdateListener {
 
-        private JPanel panel;
-        private JScrollPane scroller;
-        JTextArea text;
+        private final JPanel panel;
+        private final JTextArea text;
 
         public JProgressPage() {
             super(I18n.get("Progress"), I18n.get("Import.Progress.Information"));
@@ -472,7 +461,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             text.setLineWrap(true);
             text.setFont(panel.getFont());
             text.setTabSize(2);
-            scroller = new JScrollPane(text);
+            JScrollPane scroller = new JScrollPane(text);
             scroller.setBorder(new ShadowBorder());
 
             panel.add(scroller, CC.xy(2, 2));
@@ -487,10 +476,10 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (!forward) {
                 return;
             }
-            update(true);
+            updateWizardUI();
         }
 
-        private void update(boolean message) {
+        private void updateWizardUI() {
             if (getWizard().isCurrentPage(this)) {
                 getWizard().setNextButtonEnabled(false);
             }
@@ -498,11 +487,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             text.setText("");
 
             Runnable r = new ImportRunner();
-            if (message) {
-                new Thread(r, "ProgressPageUpdate").start();
-            } else {
-                r.run();
-            }
+            new Thread(r, "ProgressPageUpdate").start();
         }
 
         @Override
@@ -526,9 +511,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
                 AWettkampf<?> wk = core.getWettkampf();
 
-                String fname = file.getText().trim();
-                if (fname.length() != 0) {
-                    String[] names = fname.split(";");
+                String filename = file.getText().trim();
+                if (!filename.isEmpty()) {
+                    String[] names = filename.split(";");
                     processFiles(wk, names, display);
                 }
                 if (getWizard().isCurrentPage(JProgressPage.this)) {
@@ -592,7 +577,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                     text.getDocument().insertString(text.getDocument().getLength(), t, null);
                     text.setCaretPosition(text.getDocument().getLength());
                 } catch (BadLocationException e) {
-                    e.printStackTrace();
+                    log.warn("Problem while updating progress text", e);
                 }
             }
         }
@@ -600,10 +585,9 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     private class JImportPage extends AWizardPage implements PageSwitchListener, UpdateListener {
 
-        private JPanel panel;
-        private JScrollPane scroller;
-        private JList<ASchwimmer> data;
-        private JLabel amount;
+        private final JPanel panel;
+        private final JList<ASchwimmer> data;
+        private final JLabel amount;
 
         public JImportPage() {
             super(I18n.get("ImportData"), I18n.get("ImportData.Information"));
@@ -615,7 +599,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             data = new JList<>();
             data.setCellRenderer(new SchwimmerListCellRenderer());
             DataTipManager.get().register(data);
-            scroller = new JScrollPane(data);
+            JScrollPane scroller = new JScrollPane(data);
             scroller.setBorder(new ShadowBorder());
 
             panel.add(amount, CC.xy(4, 2));
@@ -658,14 +642,14 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         while (li.hasNext()) {
                             wk.removeSchwimmer(li.next());
                         }
-                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        data.setListData(r.toArray(new ASchwimmer[0]));
                         amount.setText("" + r.size());
                         break;
                     }
                     case REGISTRATION_UPDATE: {
                         @SuppressWarnings("unchecked")
                         LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
-                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        data.setListData(r.toArray(new ASchwimmer[0]));
                         amount.setText("" + r.size());
                         break;
                     }
@@ -676,14 +660,14 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         LinkedList<ASchwimmer> r = new LinkedList<>();
                         HashSet<Integer> foundSN = new HashSet<>();
                         while (sns.hasMoreElements()) {
-                            String sntext = sns.nextElement();
-                            int sn = Integer.parseInt(sntext.substring(0, sntext.length() - 1));
+                            String snText = sns.nextElement();
+                            int sn = Integer.parseInt(snText.substring(0, snText.length() - 1));
                             if (!foundSN.contains(sn)) {
                                 r.addLast(SearchUtils.getSchwimmer(wk, sn));
                                 foundSN.add(sn);
                             }
                         }
-                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        data.setListData(r.toArray(new ASchwimmer[0]));
                         amount.setText("" + r.size());
                         break;
                     }
@@ -695,7 +679,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                         while (sns.hasMoreElements()) {
                             r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
                         }
-                        data.setListData(r.toArray(new ASchwimmer[r.size()]));
+                        data.setListData(r.toArray(new ASchwimmer[0]));
                         amount.setText("" + r.size());
                         break;
                     }

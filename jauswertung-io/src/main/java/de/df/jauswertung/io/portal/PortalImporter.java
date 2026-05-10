@@ -7,6 +7,8 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.*;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Discipline;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Participant;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Registration;
@@ -288,24 +290,7 @@ public class PortalImporter implements IImporter {
         throw new NotImplementedException();
     }
 
-    @Override
-    public <T extends ASchwimmer> Hashtable<String, Teammember> teammembers(InputStream input, AWettkampf<T> wk, Feedback fb)
-            throws TableFormatException, TableEntryException, TableException, IOException {
-        if (wk instanceof MannschaftWettkampf mwk) {
-            Map<String, Integer> uuid2sn = new HashMap<>();
-            for (T s : wk.getSchwimmer()) {
-                if (s.getImportId() != null && !s.getImportId().isBlank()) {
-                    uuid2sn.put(s.getImportId(), s.getStartnummer());
-                }
-            }
-
-            RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
-            return teammembers(model, mwk, uuid2sn, fb);
-        }
-        return new Hashtable<>();
-    }
-
-    private Hashtable<String, Teammember> teammembers(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
+    private TeamMembersImportDto teammembers(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
         Hashtable<String, Teammember> teammembers = new Hashtable<>();
         for (Registration registration : model.getRegistrations()) {
             Map<String, RegistrationExportModel.Athlete> athletesById = registration.getAthletes().stream().collect(Collectors.toMap(RegistrationExportModel.Athlete::getId,
@@ -333,7 +318,24 @@ public class PortalImporter implements IImporter {
                 }
             }
         }
-        return teammembers;
+        return new TeamMembersImportDto(teammembers);
+    }
+
+    @Override
+    public <T extends ASchwimmer> TeamMembersImportDto teammembers(InputStream input, AWettkampf<T> wk, Feedback fb)
+            throws TableFormatException, TableEntryException, TableException, IOException {
+        if (wk instanceof MannschaftWettkampf mwk) {
+            Map<String, Integer> uuid2sn = new HashMap<>();
+            for (T s : wk.getSchwimmer()) {
+                if (s.getImportId() != null && !s.getImportId().isBlank()) {
+                    uuid2sn.put(s.getImportId(), s.getStartnummer());
+                }
+            }
+
+            RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
+            return teammembers(model, mwk, uuid2sn, fb);
+        }
+        return new TeamMembersImportDto();
     }
 
     private Teammember toTeammember(int x, RegistrationExportModel.Athlete athlete, MannschaftWettkampf mwk) {
@@ -378,7 +380,7 @@ public class PortalImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> List<TeamWithStarters> starters(InputStream input, AWettkampf<T> wk, Feedback fb)
+    public <T extends ASchwimmer> StartersImportDto starters(InputStream input, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         if (wk instanceof MannschaftWettkampf mwk) {
             Map<String, Integer> uuid2sn = new HashMap<>();
@@ -391,11 +393,11 @@ public class PortalImporter implements IImporter {
             RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
             return starters(model, mwk, uuid2sn, fb);
         }
-        return List.of();
+        return new StartersImportDto();
 
     }
 
-    private List<TeamWithStarters> starters(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
+    private StartersImportDto starters(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
         List<TeamWithStarters> starters = new ArrayList<>();
         for (Registration registration : model.getRegistrations()) {
             Map<String, RegistrationExportModel.Athlete> athletesById = registration.getAthletes().stream().collect(Collectors.toMap(RegistrationExportModel.Athlete::getId,
@@ -417,7 +419,7 @@ public class PortalImporter implements IImporter {
                 starters.addAll(toTeamWithStarters(team, sn));
             }
         }
-        return starters;
+        return new StartersImportDto(starters);
     }
 
     private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team, Integer sn) {
