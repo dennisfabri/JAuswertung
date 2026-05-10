@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Slf4j
 public final class HttpPostExport {
@@ -19,7 +21,7 @@ public final class HttpPostExport {
         // Hide Constructor
     }
 
-    private static NullFeedback nf = new NullFeedback();
+    private static final NullFeedback nf = new NullFeedback();
 
     @SuppressWarnings({})
     public static void export(String source, String destination) throws IOException {
@@ -43,7 +45,7 @@ public final class HttpPostExport {
         log.info("Export finished");
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         String source = "localhost";
         String destination = "http://localhost:8000/test";
         int minutes = 1;
@@ -59,26 +61,26 @@ public final class HttpPostExport {
             }
         }
 
-        long time = 1L * minutes * 60 * 1000;
+        long timeInMillis = (long) minutes * 60 * 1000;
 
         System.out.println("JAuswertung HttpPostExport");
         System.out.println("  Source:      " + source);
         System.out.println("  destination: " + destination);
         System.out.println("  It will run about every " + minutes + " minutes.");
 
-        while (true) {
-            long ctime = System.currentTimeMillis();
-            try {
-                export(source, destination);
-            } catch (IOException e) {
-                e.printStackTrace();
+        final String finalSource = source;
+        final String finalDestination = destination;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    export(finalSource, finalDestination);
+                } catch (IOException e) {
+                    log.warn("Error during export", e);
+                }
             }
-            int diff = (int) (System.currentTimeMillis() - ctime);
-            try {
-                Thread.sleep(time - diff);
-            } catch (InterruptedException e) {
-                // Nothing to do
-            }
-        }
+        }, 0, timeInMillis);
     }
 }
