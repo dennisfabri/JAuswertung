@@ -5,6 +5,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
+import de.df.jauswertung.io.model.AgegroupGenderDisciplineRound;
 import de.df.jauswertung.io.model.StartersImportDto;
 import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.portal.PortalImporter;
@@ -250,6 +251,9 @@ public class ImportManager {
     private static <T extends ASchwimmer> boolean updateStarters(AWettkampf<T> wk, StartersImportDto data) {
         List<TeamWithStarters> teams = data.teams();
         MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
+
+        Set<AgegroupGenderDisciplineRound> filter = data.importSelection();
+
         for (TeamWithStarters starters : teams) {
             int sn = starters.getStartnumber();
             Mannschaft m = SearchUtils.getSchwimmer(mwk, sn);
@@ -258,6 +262,9 @@ public class ImportManager {
             }
             int indexOfDiscipline = findDisciplineIndex(m, starters.getDiscipline());
             if (indexOfDiscipline < 0) {
+                continue;
+            }
+            if (!isWithinFilter(m, indexOfDiscipline, starters.getRound(), filter)) {
                 continue;
             }
             if (mwk.isHeatBased() && starters.getRound() > 0) {
@@ -274,6 +281,17 @@ public class ImportManager {
             }
         }
         return true;
+    }
+
+    private static boolean isWithinFilter(Mannschaft team, int disciplineIndex, int round,
+                                          Set<AgegroupGenderDisciplineRound> filter) {
+        if (filter == null) {
+            return true;
+        }
+        return filter.contains(new AgegroupGenderDisciplineRound(team.getAKNummer(),
+                                                                 team.isMaennlich(),
+                                                                 disciplineIndex,
+                                                                 round));
     }
 
     private static int findDisciplineIndex(Mannschaft m, String discipline) {

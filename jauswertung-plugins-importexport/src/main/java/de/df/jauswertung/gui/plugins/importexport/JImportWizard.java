@@ -54,6 +54,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     private final JTypeChooser type;
     private final JFormatChooser format;
     private final JFilePage file;
+    private final SelectionPage selection;
     private Object results = null;
 
     public JImportWizard(JFrame parent, CorePlugin c, IPluginManager con, ImportExportMode mode) {
@@ -81,6 +82,8 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
         wizard.addPage(file);
 
         wizard.addPage(new JProgressPage());
+        selection = new SelectionPage(() -> core.getMannschaftWettkampf(), () -> results);
+        wizard.addPage(selection);
 
         wizard.addPage(new JImportPage());
 
@@ -122,7 +125,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     void browseFile() {
         IImporter i = ImportManager.getImporter(format.getSelectedItemname());
         String[] names = null;
-        if (ImportManager.isMultifileImportAllowed(ImportExportTypes.getByValue(type.getSelectedIndex()))) {
+        if (ImportManager.isMultifileImportAllowed(getSelectedImportType())) {
             names = FileChooserUtils.openFiles(JImportWizard.this, new SimpleFileFilter(i.getName(), i.getSuffixes()));
         } else {
             String name = FileChooserUtils.openFile(JImportWizard.this,
@@ -174,12 +177,13 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     boolean finishImport() {
         Object data = null;
         if (results != null) {
-            data = ImportManager.finishImport(ImportExportTypes.getByValue(type.getSelectedIndex()),
-                                              core.getWettkampf(), results,
+            ImportExportTypes selectedExportType = getSelectedImportType();
+            data = ImportManager.finishImport(selectedExportType,
+                                              core.getWettkampf(), selection.updateResult(results),
                                               new SystemOutFeedback());
             results = null;
             if (data != null) {
-                switch (ImportExportTypes.getByValue(type.getSelectedIndex())) {
+                switch (selectedExportType) {
                     case REGISTRATION:
                         controller.sendDataUpdateEvent("Import",
                                                        UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
@@ -243,6 +247,12 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             }
             super.update();
         }
+
+        @Override
+        public boolean leavePage(boolean forward) {
+            selection.update(getSelectedImportType());
+            return super.leavePage(forward);
+        }
     }
 
     private class JFormatChooser extends WizardOptionPage implements PageSwitchListener {
@@ -259,11 +269,15 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 String[] names = ImportManager.getSupportedFormats();
                 for (int x = 0; x < names.length; x++) {
                     setEnabled(x,
-                               ImportManager.isSupported(names[x], ImportExportTypes.getByValue(type.getSelectedIndex())));
+                               ImportManager.isSupported(names[x], getSelectedImportType()));
                 }
             }
             getWizard().notifyUpdate();
         }
+    }
+
+    private ImportExportTypes getSelectedImportType() {
+        return ImportExportTypes.getByValue(type.getSelectedIndex());
     }
 
     private class JFilePage extends AWizardPage implements UpdateListener, PageSwitchListener {
@@ -388,7 +402,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (names.length == 0) {
                 return false;
             }
-            if (!ImportManager.isMultifileImportAllowed(ImportExportTypes.getByValue(type.getSelectedIndex()))) {
+            if (!ImportManager.isMultifileImportAllowed(getSelectedImportType())) {
                 if (names.length > 1) {
                     return false;
                 }
@@ -523,7 +537,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
             void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
                 try {
-                    results = ImportManager.importData(ImportExportTypes.getByValue(type.getSelectedIndex()), names,
+                    results = ImportManager.importData(getSelectedImportType(), names,
                                                        format.getSelectedItemname(), wk,
                                                        s -> insertText(s));
                 } catch (TableEntryException tee) {
@@ -703,4 +717,5 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     public void cancel() {
         setVisible(false);
     }
+
 }

@@ -1,11 +1,4 @@
-/*
- * Created on 27.03.2004
- */
 package de.df.jauswertung.util;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -14,9 +7,14 @@ import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Set;
+
 /**
+ * Created 27.03.2004
+ *
  * @author Dennis Fabri
- * @date 27.03.2004
  */
 public final class SearchUtils {
 
@@ -24,15 +22,16 @@ public final class SearchUtils {
         // Hide Constructor
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
-            String gliederung, int ak, int sex,
-            int ausserk, AWettkampf<T> wk) {
-        return search(sn, name, points, bemerkung, gliederung, "", ak, sex, ausserk, wk);
-    }
-
-    public static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
-            String gliederung, String quali, int ak,
-            int sex, int ausserk, AWettkampf<T> wk) {
+    public static <T extends ASchwimmer> LinkedList<T> search(String sn,
+                                                              String name,
+                                                              double points,
+                                                              String bemerkung,
+                                                              String gliederung,
+                                                              String quali,
+                                                              int ak,
+                                                              GenderMode sex,
+                                                              AusserKonkurrenzMode ausserk,
+                                                              AWettkampf<T> wk) {
         if (wk == null) {
             return new LinkedList<>();
         }
@@ -56,10 +55,16 @@ public final class SearchUtils {
         return search(sn, name, points, bemerkung, gliederung, quali, akname, sex, ausserk, menge);
     }
 
-    @SuppressWarnings("fallthrough")
-    private static <T extends ASchwimmer> LinkedList<T> search(String sn, String name, double points, String bemerkung,
-            String gliederung, String quali,
-            String ak, int sex, int ausserk, LinkedList<T> menge) {
+    private static <T extends ASchwimmer> LinkedList<T> search(String sn,
+                                                               String name,
+                                                               double points,
+                                                               String bemerkung,
+                                                               String gliederung,
+                                                               String quali,
+                                                               String ak,
+                                                               GenderMode sex,
+                                                               AusserKonkurrenzMode ausserk,
+                                                               LinkedList<T> menge) {
 
         bemerkung = bemerkung.toLowerCase();
         name = name.toLowerCase();
@@ -70,31 +75,15 @@ public final class SearchUtils {
         ListIterator<T> li = menge.listIterator();
         while (li.hasNext()) {
             ASchwimmer s = li.next();
-            if ((("" + s.getStartnummer()).indexOf(sn) == -1) || (s.getName().toLowerCase().indexOf(name) == -1)
-                    || (s.getBemerkung().toLowerCase().indexOf(bemerkung) == -1)
-                    || (s.getGliederung().toLowerCase().indexOf(gliederung) == -1)
-                    || (s.getQualifikationsebene().toLowerCase().indexOf(quali) == -1)
-                    || (s.getAK().getName().toLowerCase().indexOf(ak) == -1)
-                    || (points > s.getMeldepunkte(0))) {
+            if ((!("" + s.getStartnummer()).contains(sn)) || (!s.getName().toLowerCase().contains(name)) || (!s.getBemerkung().toLowerCase().contains(bemerkung)) || (!s.getGliederung().toLowerCase().contains(
+                    gliederung)) || (!s.getQualifikationsebene().toLowerCase().contains(quali)) || (!s.getAK().getName().toLowerCase().contains(ak)) || (points > s.getMeldepunkte(
+                    0))) {
                 li.remove();
-            } else {
-                switch (sex) {
-                default:
-                    if (s.isMaennlich() != (sex == 1)) {
-                        li.remove();
-                        break;
-                    }
-                case 2:
-                    switch (ausserk) {
-                    default:
-                        if (s.isAusserKonkurrenz() != (1 == ausserk)) {
-                            li.remove();
-                            break;
-                        }
-                    case 2:
-                        break;
-                    }
-                    break;
+            } else if (sex != GenderMode.Both && (s.isMaennlich() != (sex == GenderMode.Male))) {
+                li.remove();
+            } else if (ausserk != AusserKonkurrenzMode.Both) {
+                if (s.isAusserKonkurrenz() != (AusserKonkurrenzMode.Yes == ausserk)) {
+                    li.remove();
                 }
             }
         }
@@ -103,9 +92,7 @@ public final class SearchUtils {
 
     private static <T extends ASchwimmer> LinkedList<T> startGetSchwimmer(AWettkampf<T> wk) {
         LinkedList<T> suchen;
-        synchronized (wk) {
-            suchen = new LinkedList<>(wk.getSchwimmer());
-        }
+        suchen = new LinkedList<>(wk.getSchwimmer());
         return suchen;
     }
 
@@ -116,27 +103,7 @@ public final class SearchUtils {
         if (suchen.isEmpty()) {
             return;
         }
-        synchronized (suchen) {
-            ListIterator<T> li = suchen.listIterator();
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                if (!n.equals(jetzt.getName())) {
-                    li.remove();
-                }
-            }
-        }
-    }
-
-    public static <T extends ASchwimmer> void filterAusserKonkurrenz(LinkedList<T> suchen) {
-        synchronized (suchen) {
-            ListIterator<T> li = suchen.listIterator();
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                if (jetzt.isAusserKonkurrenz()) {
-                    li.remove();
-                }
-            }
-        }
+        suchen.removeIf(jetzt -> !n.equals(jetzt.getName()));
     }
 
     public static <T extends ASchwimmer> void filtereMeldepunkte(LinkedList<T> suchen, int amount, int meldeindex) {
@@ -147,19 +114,17 @@ public final class SearchUtils {
         if (suchen.size() <= amount) {
             return;
         }
-        synchronized (suchen) {
-            Collections.sort(suchen, new SchwimmerMeldepunkteVergleicher<>(meldeindex));
-            ListIterator<T> li = suchen.listIterator();
-            double points = Double.MAX_VALUE;
-            for (int x = 0; x < amount; x++) {
-                T s = li.next();
-                points = s.getMeldepunkte(0) - 0.001;
-            }
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                if (jetzt.getMeldepunkte(0) < points) {
-                    li.remove();
-                }
+        suchen.sort(new SchwimmerMeldepunkteVergleicher<>(meldeindex));
+        ListIterator<T> li = suchen.listIterator();
+        double points = Double.MAX_VALUE;
+        for (int x = 0; x < amount; x++) {
+            T s = li.next();
+            points = s.getMeldepunkte(0) - 0.001;
+        }
+        while (li.hasNext()) {
+            T jetzt = li.next();
+            if (jetzt.getMeldepunkte(0) < points) {
+                li.remove();
             }
         }
     }
@@ -171,24 +136,22 @@ public final class SearchUtils {
         if (suchen.isEmpty()) {
             return;
         }
-        synchronized (suchen) {
-            ListIterator<T> li = suchen.listIterator();
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                boolean found = false;
-                for (String aN : n) {
-                    if (jetzt.getGliederung().equals(aN)) {
-                        found = true;
-                        break;
-                    }
-                    if (jetzt.getGliederungMitQGliederung().equals(aN)) {
-                        found = true;
-                        break;
-                    }
+        ListIterator<T> li = suchen.listIterator();
+        while (li.hasNext()) {
+            T jetzt = li.next();
+            boolean found = false;
+            for (String aN : n) {
+                if (jetzt.getGliederung().equals(aN)) {
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    li.remove();
+                if (jetzt.getGliederungMitQGliederung().equals(aN)) {
+                    found = true;
+                    break;
                 }
+            }
+            if (!found) {
+                li.remove();
             }
         }
     }
@@ -200,20 +163,18 @@ public final class SearchUtils {
         if (suchen.isEmpty()) {
             return;
         }
-        synchronized (suchen) {
-            ListIterator<T> li = suchen.listIterator();
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                boolean found = false;
-                for (String aN : n) {
-                    if (jetzt.getGliederungMitQGliederung().equals(aN)) {
-                        found = true;
-                        break;
-                    }
+        ListIterator<T> li = suchen.listIterator();
+        while (li.hasNext()) {
+            T jetzt = li.next();
+            boolean found = false;
+            for (String aN : n) {
+                if (jetzt.getGliederungMitQGliederung().equals(aN)) {
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    li.remove();
-                }
+            }
+            if (!found) {
+                li.remove();
             }
         }
     }
@@ -225,20 +186,18 @@ public final class SearchUtils {
         if (suchen.isEmpty()) {
             return;
         }
-        synchronized (suchen) {
-            ListIterator<T> li = suchen.listIterator();
-            while (li.hasNext()) {
-                T jetzt = li.next();
-                boolean found = false;
-                for (String aN : n) {
-                    if (jetzt.getQualifikationsebene().equals(aN)) {
-                        found = true;
-                        break;
-                    }
+        ListIterator<T> li = suchen.listIterator();
+        while (li.hasNext()) {
+            T jetzt = li.next();
+            boolean found = false;
+            for (String aN : n) {
+                if (jetzt.getQualifikationsebene().equals(aN)) {
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    li.remove();
-                }
+            }
+            if (!found) {
+                li.remove();
             }
         }
     }
@@ -247,26 +206,14 @@ public final class SearchUtils {
         if (suchen.isEmpty()) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (jetzt.isMaennlich() != maennlich) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> jetzt.isMaennlich() != maennlich);
     }
 
     private static <T extends ASchwimmer> void filtereDisziplin(LinkedList<T> suchen, int d) {
         if (suchen.isEmpty()) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (!jetzt.isDisciplineChosen(d)) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> !jetzt.isDisciplineChosen(d));
     }
 
     private static <T extends ASchwimmer> void filtereAK(LinkedList<T> suchen, Altersklasse ak) {
@@ -276,13 +223,7 @@ public final class SearchUtils {
         if (ak == null) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (ak != jetzt.getAK()) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> ak != jetzt.getAK());
     }
 
     private static <T extends ASchwimmer> void filtereAKs(LinkedList<T> suchen, LinkedList<Altersklasse> aks) {
@@ -292,52 +233,35 @@ public final class SearchUtils {
         if (aks == null) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (!aks.contains(jetzt.getAK())) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> !aks.contains(jetzt.getAK()));
     }
 
     private static <T extends ASchwimmer> void filtereStartnummer(LinkedList<T> suchen, int nummer) {
         if (suchen == null) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (jetzt.getStartnummer() != nummer) {
-                li.remove();
-            }
+        suchen.removeIf(jetzt -> jetzt.getStartnummer() != nummer);
+    }
+
+    private static <T extends ASchwimmer> void filtereStartnumbers(LinkedList<T> suchen, Set<Integer> startnumbers) {
+        if (suchen == null) {
+            return;
         }
+        suchen.removeIf(jetzt -> !startnumbers.contains(jetzt.getStartnummer()));
     }
 
     private static <T extends ASchwimmer> void filtereBemerkung(LinkedList<T> suchen, String bemerkung) {
         if (suchen == null) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if (!jetzt.getBemerkung().equals(bemerkung)) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> !jetzt.getBemerkung().equals(bemerkung));
     }
 
     private static <T extends ASchwimmer> void filtereZeit(LinkedList<T> suchen, int disziplin, int zeit) {
         if (suchen == null) {
             return;
         }
-        ListIterator<T> li = suchen.listIterator();
-        while (li.hasNext()) {
-            T jetzt = li.next();
-            if ((!jetzt.isDisciplineChosen(disziplin)) || (jetzt.getZeit(disziplin) != zeit)) {
-                li.remove();
-            }
-        }
+        suchen.removeIf(jetzt -> (!jetzt.isDisciplineChosen(disziplin)) || (jetzt.getZeit(disziplin) != zeit));
     }
 
     public static <T extends ASchwimmer> T getSchwimmer(AWettkampf<T> wk, ASchwimmer s) {
@@ -346,7 +270,7 @@ public final class SearchUtils {
 
     /**
      * Liefert den Schwimmer mit der entsprechenden Startnummer.
-     * 
+     *
      * @param wk          Wettkampf
      * @param startnummer Die zu suchende Startnummer
      * @return Liefert den gefundenen Schwimmer oder null
@@ -362,7 +286,7 @@ public final class SearchUtils {
 
     /**
      * Liefert die Schwimmer mit dem gesuchten Namen.
-     * 
+     *
      * @param wk   Wettkampf
      * @param name Name
      * @return Liefert eine Liste der gesuchten Schwimmer.
@@ -418,8 +342,7 @@ public final class SearchUtils {
         return !suchen.isEmpty();
     }
 
-    public static <T extends ASchwimmer> boolean hasSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich,
-            int disziplin) {
+    public static <T extends ASchwimmer> boolean hasSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich, int disziplin) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
@@ -427,16 +350,14 @@ public final class SearchUtils {
         return !suchen.isEmpty();
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak,
-            boolean maennlich) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak,
-            boolean maennlich, int disziplin) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean maennlich, int disziplin) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, maennlich);
@@ -456,8 +377,7 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String[] gliederungen,
-            boolean mustFitQGld) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String[] gliederungen, boolean mustFitQGld) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         if (mustFitQGld) {
             filtereGliederungenMitQGld(suchen, gliederungen);
@@ -473,8 +393,7 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male,
-            String bemerkung) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male, String bemerkung) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, male);
@@ -482,8 +401,7 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male,
-            int disziplin, int zeit) {
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak, boolean male, int disziplin, int zeit) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
         filtereGeschlecht(suchen, male);
@@ -501,6 +419,12 @@ public final class SearchUtils {
     public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Startgruppe sg) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAKs(suchen, wk.getRegelwerk().getAKsForStartgroup(sg));
+        return suchen;
+    }
+
+    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Set<Integer> startnumbers) {
+        LinkedList<T> suchen = startGetSchwimmer(wk);
+        filtereStartnumbers(suchen, startnumbers);
         return suchen;
     }
 }

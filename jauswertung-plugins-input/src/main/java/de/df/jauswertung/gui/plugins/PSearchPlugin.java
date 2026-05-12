@@ -55,6 +55,8 @@ import de.df.jauswertung.gui.plugins.starter.StarterPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.JStartsViewer;
+import de.df.jauswertung.util.AusserKonkurrenzMode;
+import de.df.jauswertung.util.GenderMode;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JDoubleField;
@@ -280,8 +282,9 @@ public class PSearchPlugin extends ANullPlugin {
     void search() {
         AWettkampf wk = core.getWettkampf();
         elements = SearchUtils.search(startnummer.getText(), name.getText(), points.getDouble(), bemerkung.getText(),
-                gliederung.getText(), quali.getText(),
-                altersklasse.getSelectedIndex(), geschlecht.getSelectedIndex(), ausserk.getSelectedIndex(), wk);
+                                      gliederung.getText(), quali.getText(),
+                                      altersklasse.getSelectedIndex(),
+                                      GenderMode.of(geschlecht.getSelectedIndex()), AusserKonkurrenzMode.of(ausserk.getSelectedIndex()), wk);
         if (result.getRowCount() > elements.size()) {
             while (result.getRowCount() > elements.size()) {
                 model.removeRow(model.getRowCount() - 1);
