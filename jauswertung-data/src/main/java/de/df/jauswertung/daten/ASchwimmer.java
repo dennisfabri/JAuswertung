@@ -1,10 +1,7 @@
 package de.df.jauswertung.daten;
 
 import java.io.Serializable;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
@@ -85,7 +82,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Erzeugt einen neuen Schwimmer.
-     * 
+     *
      * @param sWK Wettkampf @param sGeschlecht Geschlecht @param sGliederung Name
      *            der Gliederung @param ak Nummer der Altersklasse @param sBemerkung
      *            Bemerkung @param maxhlw Durchzufuehrende Zusatzwertung (nur fuer
@@ -119,7 +116,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Altersklasse des Schwimmers.
-     * 
+     *
      * @return Altersklasse
      */
     public Altersklasse getAK() {
@@ -128,7 +125,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Nummer der Altersklasse des Schwimmers.
-     * 
+     *
      * @return Nummer der Altersklasse
      */
     public int getAKNummer() {
@@ -137,7 +134,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Generiert einen Text mit dem Inhalt des Schwimmers.
-     * 
+     *
      * @return Inhalt des Schwimmers
      */
     @Override
@@ -158,7 +155,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     /**
      * Vergleicht diesen Schwimmer mit einem Anderen. Es wird ledigtlich die
      * Startnummer unterschieden
-     * 
+     *
      * @param t Anderer Schwimmer @return true wenn beide Schwimmer die gleiche
      *          Startnummer haben.
      */
@@ -188,14 +185,14 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert den Namen des Schwimmers.
-     * 
+     *
      * @return Name des Schwimmers
      */
     public abstract String getName();
 
     /**
      * Liefert die Gliederung des Schwimmers.
-     * 
+     *
      * @return Name der Gliederung
      */
     public String getGliederung() {
@@ -215,7 +212,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt den Namen der Gliederung
-     * 
+     *
      * @param g Name der Gliederung
      */
     public void setGliederung(String g) {
@@ -227,7 +224,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Startnummer des Schwimmers.
-     * 
+     *
      * @return Startnummer
      */
     public int getStartnummer() {
@@ -236,7 +233,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Startnummer.
-     * 
+     *
      * @param sn Startnummer (>0)
      */
     public void setStartnummer(int sn) {
@@ -248,7 +245,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Identifiziert den Schwimmer als "Ausser Konkurrenz".
-     * 
+     *
      * @return true, wenn der Schwimmer ausser Konkurrenz schwimmt
      */
     public boolean isAusserKonkurrenz() {
@@ -257,7 +254,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt den Schwimmer als (nicht) "Ausser Konkurrenz".
-     * 
+     *
      * @param sAk true, wenn der Schwimmer "Ausser Konkurrenz" teilnimmt. false
      *            sonst.
      */
@@ -278,7 +275,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Meldepunkte.
-     * 
+     *
      * @return Meldepunkte
      */
     public double getMeldepunkte(int x) {
@@ -290,7 +287,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Meldepunkte.
-     * 
+     *
      * @param punkte Meldepunkte
      */
     public void setMeldepunkte(int x, double punkte) {
@@ -313,7 +310,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Bemerkung.
-     * 
+     *
      * @return Bemerkung
      */
     public String getBemerkung() {
@@ -322,7 +319,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Bemerkung.
-     * 
+     *
      * @param b Bemerkung
      */
     public void setBemerkung(String b) {
@@ -334,7 +331,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die HLW-Punkte.
-     * 
+     *
      * @return HLW-Punkte
      */
     public double getHLWPunkte(int index) {
@@ -358,7 +355,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die HLW-Punkte.
-     * 
+     *
      * @param sHlw HLW-Punkte
      */
     public void setHLWPunkte(int index, double sHlw) {
@@ -373,7 +370,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Zeit einer Disziplin.
-     * 
+     *
      * @param disz Nummer der Disziplin @return Zeit
      */
     public int getZeit(int disz) {
@@ -418,7 +415,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Gibt an, ob der Schwimmer an einer Disziplin teilnimmt.
-     * 
+     *
      * @param disz Nummber Disziplin @return true, wenn der Schwimmer teilnimmt.
      *             false sonst.
      */
@@ -449,7 +446,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert eine Liste der ausgewaehlten Disziplinen.
-     * 
+     *
      * @param sep Trennzeichen @return Liste der ausgewaehlten Disziplinen
      */
     public String getDisciplineChoiceAsString(char sep) {
@@ -472,7 +469,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
      * Liefert die Anzahl der ausgewaehlten Disziplinen. Koennen die Disziplinen
      * nicht gewaehlt werden, wird die Anzahl der Disziplinen in der Altersklasse
      * zurueckgeliefert.
-     * 
+     *
      * @return Anzahl der gewaehlten Disziplinen
      */
     public int getDisciplineChoiceCount() {
@@ -506,7 +503,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Auswahl fuer eine Disziplin.
-     * 
+     *
      * @param i Nummer der Diszplin @param c true, wenn die Disziplin gewaehlt ist.
      *          false sonst.
      */
@@ -521,7 +518,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Auswahl der Disziplinen.
-     * 
+     *
      * @param c Feld mit der Auswahl der Disziplinen
      */
     public void setDisciplineChoice(boolean[] c) {
@@ -543,7 +540,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt eine Meldezeit.
-     * 
+     *
      * @param index Nummer der Disziplin @param c Zeit in Sekunden
      */
     public void setMeldezeit(int index, int zeit) {
@@ -552,7 +549,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt alle Meldezeiten.
-     * 
+     *
      * @param c Feld der Meldezeiten. Die Laenge des Felds muss der Anzahl der
      *          Disziplinen in der Altersklasse oder der Anzahl der ausgewaehlten
      *          Disziplinen entsprechen.
@@ -575,16 +572,16 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
         if (meldezeiten.length != c.length) {
             throw new IllegalArgumentException("Timearray must have correct size, which is either the "
-                    + "number of disciplines in its Agegroup or the "
-                    + "number of chosen disciplines (" + c.length + " != " + meldezeiten.length + " and "
-                    + getAK().getDiszAnzahl() + ").");
+                                                       + "number of disciplines in its Agegroup or the "
+                                                       + "number of chosen disciplines (" + c.length + " != " + meldezeiten.length + " and "
+                                                       + getAK().getDiszAnzahl() + ").");
         }
         System.arraycopy(c, 0, meldezeiten, 0, c.length);
     }
 
     /**
      * Liefert die Meldezeit einer Disziplin.
-     * 
+     *
      * @param x Nummer der Disziplin @return Meldezeit in Sekunden
      */
     public int getMeldezeit(int x) {
@@ -594,21 +591,17 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         return meldezeiten[x];
     }
 
-    /**
-     * @param disz
-     * @param zeit
-     */
-    public synchronized void setZeit(int disz, int zeit) {
+    public synchronized void setZeit(int disciplineIndex, int zeit) {
         if (zeit < 0) {
             throw new IllegalArgumentException("Time must not be negative");
         }
 
-        zeiten[disz] = zeit;
+        zeiten[disciplineIndex] = zeit;
     }
 
-    public synchronized void setStarter(int disz, int[] st) {
+    public synchronized void setStarter(int disciplineIndex, int[] st) {
         initStarter();
-        starter[disz] = st;
+        System.arraycopy(st, 0, starter[disciplineIndex], 0, Math.min(st.length, starter[disciplineIndex].length));
     }
 
     public void setStarter(int[][] c) {
@@ -630,7 +623,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
         if (starter.length != c.length) {
             throw new IllegalArgumentException(
-                    "Timearray must have correct size, which is either the "
+                    "Starterarray must have correct size, which is either the "
                             + "number of disciplines in its Agegroup or the number of chosen disciplines ("
                             + c.length + " != " + starter.length + " and " + getAK().getDiszAnzahl() + ").");
         }
@@ -655,7 +648,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert die Strafe zu einer Disziplin.
-     * 
+     *
      * @param disz Nummer der Disziplin @return Strafe
      */
     public LinkedList<Strafe> getStrafen(int disz) {
@@ -673,7 +666,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt eine Strafe für eine Disziplin
-     * 
+     *
      * @param disz Nummer der Disziplin @param s Strafe
      */
     public synchronized boolean setStrafen(int disz, List<Strafe> s) {
@@ -704,7 +697,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Fragt das Geschlecht des Schwimmers ab.
-     * 
+     *
      * @return true, wenn der Schwimmer maennlich. false sonst.
      */
     public boolean isMaennlich() {
@@ -713,7 +706,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt das Geschlecht eines Schwimmers.
-     * 
+     *
      * @param male true, wenn der Schwimmer maennlich. false sonst.
      */
     public void setMaennlich(boolean male) {
@@ -722,7 +715,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Fragt ab, ob die HLW-Punkte bereits eingegeben wurden.
-     * 
+     *
      * @return true, wenn die HLW-Punkte eingegeben wurden. false sonst.
      */
     public boolean hasHLWSet(int index) {
@@ -765,7 +758,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Liefert den Zustand der HLW-Punkte.
-     * 
+     *
      * @return Zustand der HLW-Punkte. @see de.df.jauswertung.daten.HLWStates
      */
     public HLWStates getHLWState(int index) {
@@ -781,10 +774,15 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             starter = new int[getAK().getDiszAnzahl()][getMaxMembers()];
         } else if (starter.length != getAK().getDiszAnzahl()) {
             int[][] copy = new int[getAK().getDiszAnzahl()][getMaxMembers()];
-            for (int x = 0; x < Math.min(copy.length, starter.length); x++) {
-                copy[x] = starter[x];
-            }
+            System.arraycopy(starter, 0, copy, 0, Math.min(copy.length, starter.length));
             starter = copy;
+        }
+        for (int x = 0; x < starter.length; x++) {
+            if (starter[x].length != getMaxMembers()) {
+                int[] copy = new int[getMaxMembers()];
+                System.arraycopy(starter[x], 0, copy, 0, Math.min(copy.length, starter.length));
+                starter[x] = copy;
+            }
         }
     }
 
@@ -808,17 +806,17 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         boolean disq = false;
         for (int x = 0; x < getMaximaleHLW(); x++) {
             switch (getHLWState(x)) {
-            case ENTERED:
-                entered = true;
-                break;
-            case NICHT_ANGETRETEN:
-                na = true;
-                break;
-            case DISQALIFIKATION:
-                disq = true;
-                break;
-            case NOT_ENTERED:
-                break;
+                case ENTERED:
+                    entered = true;
+                    break;
+                case NICHT_ANGETRETEN:
+                    na = true;
+                    break;
+                case DISQALIFIKATION:
+                    disq = true;
+                    break;
+                case NOT_ENTERED:
+                    break;
             }
         }
         if (entered) {
@@ -835,25 +833,25 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * setzt den Zustand der Eingabe der HLW-Punkte.
-     * 
+     *
      * @param x Zustand
      */
     public void setHLWState(int index, HLWStates x) {
         initHLW();
         hlwState[index] = x;
         switch (x) {
-        case NOT_ENTERED:
-        case NICHT_ANGETRETEN:
-            punktehlw[index] = 0.0;
-            break;
-        default:
+            case NOT_ENTERED:
+            case NICHT_ANGETRETEN:
+                punktehlw[index] = 0.0;
+                break;
+            default:
         }
     }
 
     /**
      * Aktualisiert die Altersklasse des Schwimmers in dem Fall, wenn die
      * Altersklasse geaendert wurde.
-     * 
+     *
      * @param check true, wenn zusaetzliche Ueberpruefungen der Lauf- und HLW-Liste
      *              durchgefuehrt werden sollen. false sonst.
      */
@@ -863,7 +861,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Setzt die Nummer der Altersklasse.
-     * 
+     *
      * @param index Nummer der Altersklasse @param check Gibt an, ob zusaetzliche
      *              Ueberpruefungen der Lauf- und HLW- Liste durchgefuehrt werden
      *              sollen.
@@ -915,7 +913,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     /**
      * Gibt an, wie oft der Schwimmer an der HLW teilnehmen muss.
-     * 
+     *
      * @return Anzahl der HLW-Teilnahmen.
      */
     public abstract int getMaximaleHLW();
@@ -946,12 +944,12 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         while (li.hasNext()) {
             Strafe s = li.next();
             switch (s.getArt()) {
-            case AUSSCHLUSS:
-            case DISQUALIFIKATION:
-            case NICHT_ANGETRETEN:
-                return true;
-            default:
-                break;
+                case AUSSCHLUSS:
+                case DISQUALIFIKATION:
+                case NICHT_ANGETRETEN:
+                    return true;
+                default:
+                    break;
             }
         }
         return false;
@@ -966,12 +964,12 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         while (li.hasNext()) {
             Strafe s = li.next();
             switch (s.getArt()) {
-            case AUSSCHLUSS:
-            case DISQUALIFIKATION:
-            case NICHT_ANGETRETEN:
-                return true;
-            default:
-                break;
+                case AUSSCHLUSS:
+                case DISQUALIFIKATION:
+                case NICHT_ANGETRETEN:
+                    return true;
+                default:
+                    break;
             }
         }
         return false;
@@ -1025,26 +1023,26 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             Strafe s = li.next();
 
             switch (s.getArt()) {
-            case AUSSCHLUSS:
-                art = Strafarten.AUSSCHLUSS;
-                break;
-            case DISQUALIFIKATION:
-                if (art != Strafarten.AUSSCHLUSS) {
-                    art = Strafarten.DISQUALIFIKATION;
-                }
-                break;
-            case NICHT_ANGETRETEN:
-                if (art == Strafarten.NICHTS) {
-                    art = Strafarten.NICHT_ANGETRETEN;
-                }
-                break;
-            case NICHTS:
-                break;
-            case STRAFPUNKTE:
-                if ((art == Strafarten.NICHTS) || (art == Strafarten.NICHT_ANGETRETEN)) {
-                    art = Strafarten.STRAFPUNKTE;
-                }
-                break;
+                case AUSSCHLUSS:
+                    art = Strafarten.AUSSCHLUSS;
+                    break;
+                case DISQUALIFIKATION:
+                    if (art != Strafarten.AUSSCHLUSS) {
+                        art = Strafarten.DISQUALIFIKATION;
+                    }
+                    break;
+                case NICHT_ANGETRETEN:
+                    if (art == Strafarten.NICHTS) {
+                        art = Strafarten.NICHT_ANGETRETEN;
+                    }
+                    break;
+                case NICHTS:
+                    break;
+                case STRAFPUNKTE:
+                    if ((art == Strafarten.NICHTS) || (art == Strafarten.NICHT_ANGETRETEN)) {
+                        art = Strafarten.STRAFPUNKTE;
+                    }
+                    break;
             }
             punkte += s.getStrafpunkte();
 
@@ -1248,14 +1246,14 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         }
         Strafe s = getAkkumulierteStrafe(id);
         switch (s.getArt()) {
-        case AUSSCHLUSS:
-            return true;
-        case DISQUALIFIKATION:
-            return true;
-        case NICHT_ANGETRETEN:
-            return true;
-        default:
-            return false;
+            case AUSSCHLUSS:
+                return true;
+            case DISQUALIFIKATION:
+                return true;
+            case NICHT_ANGETRETEN:
+                return true;
+            default:
+                return false;
         }
     }
 

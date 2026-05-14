@@ -12,8 +12,10 @@ import de.df.jauswertung.gui.util.WizardUIElementsProvider;
 import de.df.jauswertung.io.*;
 import de.df.jauswertung.io.exception.NotEnabledException;
 import de.df.jauswertung.io.exception.NotSupportedException;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.value.ZWStartnummer;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
 import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.util.DialogUtils;
@@ -626,80 +628,92 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             if (!getWizard().isCurrentPage(this)) {
                 return;
             }
-            update(true);
+            updateDisplay(true);
         }
 
-        private void update(boolean message) {
+        private void updateDisplay(boolean message) {
             data.setListData(new ASchwimmer[0]);
             amount.setText("");
 
             AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
             getWizard().setFinishButtonEnabled((results != null) && message);
-            if (results != null) {
-                int selectedIndex = type.getSelectedIndex();
-                if (selectedIndex < 0) {
-                    selectedIndex = 0;
-                } else if (selectedIndex >= ImportExportTypes.values().length) {
-                    selectedIndex = ImportExportTypes.values().length - 1;
+            if (results == null) {
+                return;
+            }
+            int selectedIndex = type.getSelectedIndex();
+            if (selectedIndex < 0) {
+                selectedIndex = 0;
+            } else if (selectedIndex >= ImportExportTypes.values().length) {
+                selectedIndex = ImportExportTypes.values().length - 1;
+            }
+            switch (ImportExportTypes.getByValue(selectedIndex)) {
+                case REGISTRATION: {
+                    @SuppressWarnings("unchecked")
+                    LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
+                    ListIterator<ASchwimmer> li = r.listIterator();
+                    while (li.hasNext()) {
+                        boolean added = wk.addSchwimmer(li.next());
+                        assert added;
+                    }
+                    li = r.listIterator();
+                    while (li.hasNext()) {
+                        wk.removeSchwimmer(li.next());
+                    }
+                    data.setListData(r.toArray(new ASchwimmer[0]));
+                    amount.setText("" + r.size());
+                    break;
                 }
-                switch (ImportExportTypes.getByValue(selectedIndex)) {
-                    case REGISTRATION: {
-                        @SuppressWarnings("unchecked")
-                        LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
-                        ListIterator<ASchwimmer> li = r.listIterator();
-                        while (li.hasNext()) {
-                            boolean added = wk.addSchwimmer(li.next());
-                            assert added;
-                        }
-                        li = r.listIterator();
-                        while (li.hasNext()) {
-                            wk.removeSchwimmer(li.next());
-                        }
-                        data.setListData(r.toArray(new ASchwimmer[0]));
-                        amount.setText("" + r.size());
-                        break;
+                case REGISTRATION_UPDATE: {
+                    @SuppressWarnings("unchecked")
+                    LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
+                    data.setListData(r.toArray(new ASchwimmer[0]));
+                    amount.setText("" + r.size());
+                    break;
+                }
+                case TEAM_MEMBERS: {
+                    displayTeamMembers(wk);
+                    break;
+                }
+                case STARTERS: {
+                    displayStarters(wk);
+                    break;
+                }
+                case ZW_RESULTS: {
+                    @SuppressWarnings("unchecked")
+                    Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
+                    Enumeration<ZWStartnummer> sns = names.keys();
+                    LinkedList<ASchwimmer> r = new LinkedList<>();
+                    while (sns.hasMoreElements()) {
+                        r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
                     }
-                    case REGISTRATION_UPDATE: {
-                        @SuppressWarnings("unchecked")
-                        LinkedList<ASchwimmer> r = (LinkedList<ASchwimmer>) results;
-                        data.setListData(r.toArray(new ASchwimmer[0]));
-                        amount.setText("" + r.size());
-                        break;
-                    }
-                    case TEAM_MEMBERS: {
-                        @SuppressWarnings("unchecked")
-                        Hashtable<String, String[]> names = (Hashtable<String, String[]>) results;
-                        Enumeration<String> sns = names.keys();
-                        LinkedList<ASchwimmer> r = new LinkedList<>();
-                        HashSet<Integer> foundSN = new HashSet<>();
-                        while (sns.hasMoreElements()) {
-                            String snText = sns.nextElement();
-                            int sn = Integer.parseInt(snText.substring(0, snText.length() - 1));
-                            if (!foundSN.contains(sn)) {
-                                r.addLast(SearchUtils.getSchwimmer(wk, sn));
-                                foundSN.add(sn);
-                            }
-                        }
-                        data.setListData(r.toArray(new ASchwimmer[0]));
-                        amount.setText("" + r.size());
-                        break;
-                    }
-                    case ZW_RESULTS: {
-                        @SuppressWarnings("unchecked")
-                        Hashtable<ZWStartnummer, Double> names = (Hashtable<ZWStartnummer, Double>) results;
-                        Enumeration<ZWStartnummer> sns = names.keys();
-                        LinkedList<ASchwimmer> r = new LinkedList<>();
-                        while (sns.hasMoreElements()) {
-                            r.addLast(SearchUtils.getSchwimmer(wk, sns.nextElement().getStartnummer()));
-                        }
-                        data.setListData(r.toArray(new ASchwimmer[0]));
-                        amount.setText("" + r.size());
-                        break;
-                    }
-                    default:
+                    data.setListData(r.toArray(new ASchwimmer[0]));
+                    amount.setText("" + r.size());
+                    break;
+                }
+                default:
+            }
+        }
+
+        private void displayStarters(AWettkampf<ASchwimmer> wk) {
+        }
+
+        private void displayTeamMembers(AWettkampf<ASchwimmer> wk) {
+            TeamMembersImportDto teamMembers = (TeamMembersImportDto) results;
+            Hashtable<String, Teammember> names = teamMembers.teamMembers();
+            Enumeration<String> sns = names.keys();
+            LinkedList<ASchwimmer> r = new LinkedList<>();
+            HashSet<Integer> foundSN = new HashSet<>();
+            while (sns.hasMoreElements()) {
+                String snText = sns.nextElement();
+                int sn = Integer.parseInt(snText.substring(0, snText.length() - 1));
+                if (!foundSN.contains(sn)) {
+                    r.addLast(SearchUtils.getSchwimmer(wk, sn));
+                    foundSN.add(sn);
                 }
             }
+            data.setListData(r.toArray(new ASchwimmer[0]));
+            amount.setText("" + r.size());
         }
 
         @Override
@@ -709,7 +723,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         @Override
         public void update() {
-            update(false);
+            updateDisplay(false);
         }
     }
 

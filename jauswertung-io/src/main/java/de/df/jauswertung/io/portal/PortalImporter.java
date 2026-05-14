@@ -297,15 +297,8 @@ public class PortalImporter implements IImporter {
                                                                                                                                      a -> a));
 
             for (RegistrationExportModel.Team team : registration.getTeams()) {
-                Integer sn = uuid2sn.get(team.getId());
+                Integer sn = findStartNumber(mwk, team, uuid2sn, fb);
                 if (sn == null) {
-                    if (findGender(mwk, team.getGender()) != null) {
-                        fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
-                                                                                                            team.getName(),
-                                                                                                            team.getAgeGroup(),
-                                                                                                            team.getGender().toString().toLowerCase(
-                                                                                                                    Locale.ROOT)));
-                    }
                     continue;
                 }
 
@@ -319,6 +312,21 @@ public class PortalImporter implements IImporter {
             }
         }
         return new TeamMembersImportDto(teammembers);
+    }
+
+    private Integer findStartNumber(MannschaftWettkampf mwk, RegistrationExportModel.Team team, Map<String, Integer> uuid2sn, Feedback fb) {
+        Integer sn = uuid2sn.get(team.getId());
+        if (sn == null) {
+            if (findGender(mwk, team.getGender()) != null) {
+                fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
+                                                                                                    team.getName(),
+                                                                                                    team.getAgeGroup(),
+                                                                                                    team.getGender().toString().toLowerCase(
+                                                                                                            Locale.ROOT)));
+            }
+            return null;
+        }
+        return sn;
     }
 
     @Override
@@ -400,19 +408,9 @@ public class PortalImporter implements IImporter {
     private StartersImportDto starters(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {
         List<TeamWithStarters> starters = new ArrayList<>();
         for (Registration registration : model.getRegistrations()) {
-            Map<String, RegistrationExportModel.Athlete> athletesById = registration.getAthletes().stream().collect(Collectors.toMap(RegistrationExportModel.Athlete::getId,
-                                                                                                                                     a -> a));
-
             for (RegistrationExportModel.Team team : registration.getTeams()) {
-                Integer sn = uuid2sn.get(team.getId());
+                Integer sn = findStartNumber(mwk, team, uuid2sn, fb);
                 if (sn == null) {
-                    if (findGender(mwk, team.getGender()) != null) {
-                        fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
-                                                                                                            team.getName(),
-                                                                                                            team.getAgeGroup(),
-                                                                                                            team.getGender().toString().toLowerCase(
-                                                                                                                    Locale.ROOT)));
-                    }
                     continue;
                 }
 
