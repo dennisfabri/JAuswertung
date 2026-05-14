@@ -863,7 +863,7 @@ public class PSearchPlugin extends ANullPlugin {
 
         private static final long serialVersionUID = -2482446706877923019L;
 
-        JMenuItem[] items = new JMenuItem[IDS.length];
+        private final JMenuItem[] items = new JMenuItem[IDS.length];
 
         public JTableHeaderPopup() {
             result.getTableHeader().addMouseListener(new Listener());

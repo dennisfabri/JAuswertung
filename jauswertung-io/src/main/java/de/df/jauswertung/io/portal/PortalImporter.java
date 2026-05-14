@@ -402,7 +402,6 @@ public class PortalImporter implements IImporter {
             return starters(model, mwk, uuid2sn, fb);
         }
         return new StartersImportDto();
-
     }
 
     private StartersImportDto starters(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, Integer> uuid2sn, Feedback fb) {

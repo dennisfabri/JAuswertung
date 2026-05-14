@@ -20,11 +20,11 @@ import de.df.jutils.util.StringTools;
 public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable {
 
     /*
-     * Definiert den Index fuer die Zusatzwertung.
+     * Definiert den Index für die Zusatzwertung.
      */
     public static final int DISCIPLINE_NUMBER_ZW = -1;
     /*
-     * Definiert den Index fuer Strafen, die direkt den Schwimmer und keine
+     * Definiert den Index für Strafen, die direkt den Schwimmer und keine
      * Disziplin betreffen.
      */
     public static final int DISCIPLINE_NUMBER_SELF = -2;
@@ -100,7 +100,6 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         meldepunkte = new double[1];
         meldepunkte[0] = 0;
         meldungMitProtokoll = new boolean[1];
-        meldungMitProtokoll[0] = false;
         disciplineChoice = new boolean[0];
         meldezeiten = new int[0];
 
@@ -141,7 +140,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public String toString() {
         String s = "";
         if (ausserkonkurrenz) {
-            s = " (Au\u00DFer Konkurrenz)";
+            s = " (Außer Konkurrenz)";
         }
         return "S#" + startnummer + " - " + getAK().toString() + " " + (maennlich ? "männlich" : "weiblich") + " - "
                 + gliederung + " - " + getName() + s;
@@ -202,7 +201,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public String getGliederungMitQGliederung() {
         StringBuilder sb = new StringBuilder();
         sb.append(gliederung);
-        if (getQualifikationsebene().length() > 0) {
+        if (!getQualifikationsebene().isEmpty()) {
             sb.append(" (");
             sb.append(qualifikationsebene);
             sb.append(")");
@@ -435,9 +434,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public boolean[] getDisciplineChoice() {
         boolean[] c = new boolean[getAK().getDiszAnzahl()];
         if (!getAK().isDisciplineChoiceAllowed()) {
-            for (int x = 0; x < c.length; x++) {
-                c[x] = true;
-            }
+            Arrays.fill(c, true);
         } else {
             System.arraycopy(disciplineChoice, 0, c, 0, c.length);
         }
@@ -940,9 +937,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             return true;
         }
         LinkedList<Strafe> ls = getStrafen(dis);
-        ListIterator<Strafe> li = ls.listIterator();
-        while (li.hasNext()) {
-            Strafe s = li.next();
+        for (Strafe s : ls) {
             switch (s.getArt()) {
                 case AUSSCHLUSS:
                 case DISQUALIFIKATION:
@@ -960,9 +955,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             return true;
         }
         LinkedList<Strafe> ls = getStrafen(dis);
-        ListIterator<Strafe> li = ls.listIterator();
-        while (li.hasNext()) {
-            Strafe s = li.next();
+        for (Strafe s : ls) {
             switch (s.getArt()) {
                 case AUSSCHLUSS:
                 case DISQUALIFIKATION:
@@ -1018,10 +1011,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         Strafarten art = Strafarten.NICHTS;
         int punkte = 0;
         StringBuilder code = new StringBuilder();
-        ListIterator<Strafe> li = ls.listIterator();
-        while (li.hasNext()) {
-            Strafe s = li.next();
-
+        for (Strafe s : ls) {
             switch (s.getArt()) {
                 case AUSSCHLUSS:
                     art = Strafarten.AUSSCHLUSS;
@@ -1074,9 +1064,8 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             liste = strafen[disz];
         }
         if (s.getArt() == Strafarten.NICHT_ANGETRETEN) {
-            ListIterator<Strafe> li = liste.listIterator();
-            while (li.hasNext()) {
-                if (li.next().getArt() == Strafarten.NICHT_ANGETRETEN) {
+            for (Strafe strafe : liste) {
+                if (strafe.getArt() == Strafarten.NICHT_ANGETRETEN) {
                     return false;
                 }
             }
@@ -1094,7 +1083,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     public void removeStrafe(String id, int index) {
-        if (id.equals("")) {
+        if (id.isEmpty()) {
             removeStrafe(DISCIPLINE_NUMBER_SELF, index);
         } else {
             Eingabe e = getEingabe(id, false);
@@ -1131,10 +1120,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     }
 
     public boolean isDisqualified() {
-        if (getAkkumulierteStrafe(DISCIPLINE_NUMBER_SELF).getArt().equals(Strafarten.DISQUALIFIKATION)) {
-            return true;
-        }
-        return false;
+        return getAkkumulierteStrafe(DISCIPLINE_NUMBER_SELF).getArt().equals(Strafarten.DISQUALIFIKATION);
     }
 
     public void setQualifikationsebene(String qualifikationsebene) {
@@ -1245,20 +1231,16 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             return true;
         }
         Strafe s = getAkkumulierteStrafe(id);
-        switch (s.getArt()) {
-            case AUSSCHLUSS:
-                return true;
-            case DISQUALIFIKATION:
-                return true;
-            case NICHT_ANGETRETEN:
-                return true;
-            default:
-                return false;
-        }
+        return switch (s.getArt()) {
+            case AUSSCHLUSS -> true;
+            case DISQUALIFIKATION -> true;
+            case NICHT_ANGETRETEN -> true;
+            default -> false;
+        };
     }
 
     public void addStrafe(String id, Strafe strafe) {
-        if (id.equals("")) {
+        if (id.isEmpty()) {
             addStrafe(DISCIPLINE_NUMBER_SELF, strafe);
         } else {
             Eingabe e = getEingabe(id, true);
