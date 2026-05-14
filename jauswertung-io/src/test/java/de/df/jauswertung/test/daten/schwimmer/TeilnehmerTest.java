@@ -26,11 +26,6 @@ public class TeilnehmerTest extends TestCase {
         s = wk.createTeilnehmer("13","Name", "Vorname", 1999, true, "Gliederung", 0, "Bemerkung");
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        s = null;
-    }
-
     public void testTeilnehmer() {
         assertEquals(s.getCompetitorId(), "13");
         assertEquals(s.getName(), "Name, Vorname");

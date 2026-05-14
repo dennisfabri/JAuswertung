@@ -775,7 +775,9 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
             starter = copy;
         }
         for (int x = 0; x < starter.length; x++) {
-            if (starter[x].length != getMaxMembers()) {
+            if (starter[x] == null) {
+                starter[x] = new int[getMaxMembers()];
+            } else if (starter[x].length != getMaxMembers()) {
                 int[] copy = new int[getMaxMembers()];
                 System.arraycopy(starter[x], 0, copy, 0, Math.min(copy.length, starter.length));
                 starter[x] = copy;
