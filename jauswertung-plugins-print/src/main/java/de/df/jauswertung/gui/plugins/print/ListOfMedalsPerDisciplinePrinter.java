@@ -1,40 +1,9 @@
-/*
- * Created on 17.10.2004
- */
 package de.df.jauswertung.gui.plugins.print;
-
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_AKS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LOAD_WK;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_TN;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_WK;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.util.LinkedList;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.plugins.CorePlugin;
@@ -56,9 +25,20 @@ import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.ComponentListPrintable2;
 import de.df.jutils.util.StringTools;
 
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.util.LinkedList;
+
+import static de.df.jauswertung.gui.UpdateEventConstants.*;
+
 /**
+ * Created on 17.10.2004
+ *
  * @author Dennis Fabri
- * @date 17.10.2004
  */
 class ListOfMedalsPerDisciplinePrinter implements Printer {
 
@@ -74,8 +54,8 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     private JCheckBox bigPrint;
 
     private int[] indices = new int[0];
-    private float fontscale = 1.8f;
-    private int gapscale = 50;
+    private final float fontscale = 1.8f;
+    private static final int gapscale = 50;
 
     public ListOfMedalsPerDisciplinePrinter(IPluginManager window, CorePlugin plugin) {
         core = plugin;
@@ -173,8 +153,6 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                         index = 0;
                     }
                     agegroup.setSelectedIndex(index);
-                } else {
-                    result = false;
                 }
             }
 
@@ -197,49 +175,24 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         boolean check = false;
         int index = 0;
         switch (indices.length) {
-        case 0:
-            index = 0;
-            break;
-        case 1:
-            index = indices[0];
-            break;
-        default:
-            if (agegroup.getSelectedIndex() >= 0) {
-                index = indices[agegroup.getSelectedIndex()];
-            }
-            break;
-        }
-        if (index < 0) {
-            String wgname = null;
-            if (agegroup.getSelectedItem() == null) {
-                if (agegroup.getItemCount() != 0) {
-                    wgname = agegroup.getItemAt(0).toString();
+            case 0:
+                index = 0;
+                break;
+            case 1:
+                index = indices[0];
+                break;
+            default:
+                if (agegroup.getSelectedIndex() >= 0) {
+                    index = indices[agegroup.getSelectedIndex()];
                 }
-            } else {
-                wgname = agegroup.getSelectedItem().toString();
-            }
-            if (wgname != null) {
-                for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-                    Altersklasse ak = wk.getRegelwerk().getAk(x);
-                    if (wgname.equals(ak.getWertungsgruppe())) {
-                        if (!wk.isAgegroupComplete(x)) {
-                            check = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        } else if (index < wk.getRegelwerk().getMaxDisciplineCount()) {
-            check = !wk.isAgegroupComplete(index);
-        } else {
-            check = !wk.isCompetitionComplete();
+                break;
         }
-        warning.setVisible(preview.isEnabled() && check);
+        APerDisciplinePrinter.updateAgeGroupSelection(wk, check, index, agegroup, warning, preview);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -249,7 +202,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -276,7 +229,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         return ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private AWettkampf getWettkampf(AWettkampf wk, String wg) {
         return ResultUtils.generateEinzelwertungswettkampf(wk, wg, false);
     }
@@ -313,20 +266,20 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                         data[z][4] = StringTools.zeitString(result[z].getSchwimmer().getZeit(0)) + "  ";
                     }
                     ExtendedTableModel etm = new ExtendedTableModel(data,
-                            new String[] { I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ",
-                                    I18n.get("Time") });
+                                                                    new String[]{I18n.get("Rank"), I18n.get("Name"), I18n.get("Organisation"), " ",
+                                                                            I18n.get("Time")});
                     etm.setColumnAlignments(
-                            new int[] { SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT,
-                                    SwingConstants.LEFT, SwingConstants.RIGHT });
+                            new int[]{SwingConstants.RIGHT, SwingConstants.LEFT, SwingConstants.LEFT,
+                                    SwingConstants.LEFT, SwingConstants.RIGHT});
                     etm.setName(I18n.getAgeGroupAsString(wk.getRegelwerk(), wk.getRegelwerk().getAk(x), y == 1) + " - "
-                            + wk.getRegelwerk().getAk(x).getDisziplin(0, y == 1).getName());
+                                        + wk.getRegelwerk().getAk(x).getDisziplin(0, y == 1).getName());
                     results.addLast(etm);
                 }
             }
         }
 
         JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]),
-                PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf));
+                                        PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf));
         return new ComponentListPrintable2(bigPrint.isSelected() ? gapscale : 0, false, parts);
     }
 
@@ -339,7 +292,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
                     FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
         } else {
             layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount(), 0),
-                    FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
+                                    FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
         }
 
         JPanel p = new JPanel(layout) {
@@ -427,7 +380,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
             title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
 
             FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
-                    "0dlu,fill:default,1dlu,fill:default,2dlu");
+                                               "0dlu,fill:default,1dlu,fill:default,2dlu");
             JComponent c = new JPanel(layout);
             c.setBackground(Color.WHITE);
             c.setForeground(Color.BLACK);
@@ -446,7 +399,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
 
     void preview() {
         PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
-                IconManager.getTitleImages());
+                              IconManager.getTitleImages());
     }
 
     private final class ListOfMedalsPC implements PrintableCreator {

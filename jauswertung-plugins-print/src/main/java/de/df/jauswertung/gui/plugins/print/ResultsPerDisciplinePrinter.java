@@ -46,6 +46,6 @@ class ResultsPerDisciplinePrinter extends APerDisciplinePrinter {
 
     @Override
     protected boolean hasExport() {
-        return true;
+        return false;
     }
 }

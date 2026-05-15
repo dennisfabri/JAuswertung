@@ -1,6 +1,3 @@
-/*
- * Created on 02.05.2005
- */
 package de.df.jauswertung.gui.plugins.properties;
 
 import javax.swing.JFrame;
@@ -11,9 +8,10 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.window.JOptionsDialog;
 
+/**
+ * Created on 02.05.2005
+ */
 public final class JPropertiesDialog extends JOptionsDialog {
-
-    private static final long serialVersionUID = 4051325639070265655L;
 
     final JPropertiesTabbedPane properties;
     private final JFrame parent;

@@ -20,7 +20,9 @@ import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.UpdateEvent;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MPropertiesPlugin extends ANullPlugin {
 
     static final long BITMASK = REASON_LAUF_LIST_CHANGED | REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED;
@@ -92,7 +94,7 @@ public class MPropertiesPlugin extends ANullPlugin {
             dialog.apply();
             getController().sendDataUpdateEvent("ChangeProperties", BITMASK, this);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("Problem applying changes", e);
         }
     }
 }

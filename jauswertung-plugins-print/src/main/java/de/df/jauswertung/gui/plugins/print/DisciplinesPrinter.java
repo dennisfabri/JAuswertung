@@ -26,8 +26,9 @@ import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.JTablePrintable;
 
 /**
+ * Created 13.07.2005
+ *
  * @author Dennis Fabri
- * @date 13.07.2005
  */
 public class DisciplinesPrinter implements Printer {
 
@@ -59,7 +60,7 @@ public class DisciplinesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -69,7 +70,7 @@ public class DisciplinesPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getNames()
      */
     @Override
@@ -85,8 +86,8 @@ public class DisciplinesPrinter implements Printer {
 
     <T extends ASchwimmer> Printable getPrintable() {
         return PrintManager.getFinalPrintable(getPrintable(core.getWettkampf().getRegelwerk()),
-                core.getLastChangedDate(), I18n.get("Disciplines"),
-                I18n.get("Disciplines"));
+                                              core.getLastChangedDate(), I18n.get("Disciplines"),
+                                              I18n.get("Disciplines"));
     }
 
     public static <T extends ASchwimmer> Printable getPrintable(Regelwerk aks) {
@@ -108,7 +109,7 @@ public class DisciplinesPrinter implements Printer {
         public void actionPerformed(ActionEvent arg0) {
             PrintableCreator pc = DisciplinesPrinter.this::getPrintable;
             PrintExecutor.preview(controller.getWindow(), pc, I18n.get("Disciplines"), IconManager.getIconBundle(),
-                    IconManager.getTitleImages());
+                                  IconManager.getTitleImages());
         }
     }
 }

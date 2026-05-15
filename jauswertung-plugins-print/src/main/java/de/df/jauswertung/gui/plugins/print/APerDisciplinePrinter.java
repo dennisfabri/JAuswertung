@@ -1,39 +1,7 @@
-/*
- * Created on 17.10.2004
- */
 package de.df.jauswertung.gui.plugins.print;
-
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_AKS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTERS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LOAD_WK;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_TN;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_NEW_WK;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.text.MessageFormat;
-import java.util.LinkedList;
-import java.util.function.Consumer;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import org.lisasp.swing.filechooser.FileChooserUtils;
-import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
@@ -57,15 +25,32 @@ import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.MultiplePrintable;
+import lombok.extern.slf4j.Slf4j;
+import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.MessageFormat;
+import java.util.LinkedList;
+import java.util.function.Consumer;
+
+import static de.df.jauswertung.gui.UpdateEventConstants.*;
 
 /**
+ * Created 17.10.2004
+ *
  * @author Dennis Fabri
- * @date 17.10.2004
  */
+@Slf4j
 abstract class APerDisciplinePrinter implements Printer {
 
-    CorePlugin core = null;
-    IPluginManager controller = null;
+    private CorePlugin core = null;
+    private IPluginManager controller = null;
 
     private JPanel panel = null;
     private JButton print = null;
@@ -79,8 +64,8 @@ abstract class APerDisciplinePrinter implements Printer {
 
     private int[] indices = new int[0];
 
-    private PreviewCB previewcb = new PreviewCB();
-    private PrintCB printcb = new PrintCB();
+    private final PreviewCB previewcb = new PreviewCB();
+    private final PrintCB printcb = new PrintCB();
 
     private JSelectionDialog previewDialog = null;
     private JSelectionDialog printDialog = null;
@@ -122,7 +107,7 @@ abstract class APerDisciplinePrinter implements Printer {
         });
 
         panel = new JPanel(new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,"
-                + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
+                                                  + "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu", "4dlu,fill:default,4dlu"));
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -170,7 +155,7 @@ abstract class APerDisciplinePrinter implements Printer {
                                 names.addLast(wg.getName());
                             }
                         }
-                        agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[names.size()])));
+                        agegroup.setModel(new DefaultComboBoxModel<>(names.toArray(new String[0])));
                         if (names.isEmpty()) {
                             agegroup.addItem(I18n.get("Empty"));
                         }
@@ -182,8 +167,6 @@ abstract class APerDisciplinePrinter implements Printer {
                             index = 0;
                         }
                         agegroup.setSelectedIndex(index);
-                    } else {
-                        result = false;
                     }
                 }
             }
@@ -195,7 +178,7 @@ abstract class APerDisciplinePrinter implements Printer {
             checkWarning(wk);
             return result;
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            log.warn("Problem during update", e);
         } finally {
             isUpdating = false;
         }
@@ -205,25 +188,21 @@ abstract class APerDisciplinePrinter implements Printer {
     @SuppressWarnings("rawtypes")
     void checkWarning(AWettkampf wk) {
         boolean check = false;
-        int index = 0;
-        switch (indices.length) {
-        case 0:
-            index = 0;
-            break;
-        case 1:
-            index = indices[0];
-            break;
-        default:
-            if (agegroup.getSelectedIndex() >= 0) {
-                index = indices[agegroup.getSelectedIndex()];
-            }
-            break;
-        }
+        int index = switch (indices.length) {
+            case 0 -> 0;
+            case 1 -> indices[0];
+            default -> agegroup.getSelectedIndex() >= 0 ? indices[agegroup.getSelectedIndex()] : 0;
+        };
+
+        updateAgeGroupSelection(wk, check, index, agegroup, warning, preview);
+    }
+
+    static void updateAgeGroupSelection(AWettkampf<?> wk, boolean check, int index, JComboBox<String> agegroup, JLabel warning, JButton preview) {
         if (index < 0) {
             String wgname = null;
             if (agegroup.getSelectedItem() == null) {
                 if (agegroup.getItemCount() != 0) {
-                    wgname = agegroup.getItemAt(0).toString();
+                    wgname = agegroup.getItemAt(0);
                 }
             } else {
                 wgname = agegroup.getSelectedItem().toString();
@@ -249,7 +228,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -258,7 +237,7 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     @Override
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     public void dataUpdated(UpdateEvent due, AWettkampf wk, AWettkampf filteredwk) {
         boolean result = checkMeldungen(filteredwk, due.getChangeReason());
         filter.setVisible(result && (wk != null) && wk.isFilterActive());
@@ -276,7 +255,7 @@ abstract class APerDisciplinePrinter implements Printer {
         return ResultUtils.generateEinzelwertungswettkampf(wk, x, false);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private AWettkampf getWettkampf(AWettkampf wk, String wg) {
         return ResultUtils.generateEinzelwertungswettkampf(wk, wg, false);
     }
@@ -299,8 +278,8 @@ abstract class APerDisciplinePrinter implements Printer {
     @SuppressWarnings("unchecked")
     private void export(OWSelection t) {
         String filename = FileChooserUtils.saveFile(controller.getWindow(), I18n.get("Export"),
-                new SimpleFileFilter("Microsoft Excel", "xls"));
-        if (filename == null || filename.trim().length() == 0) {
+                                                    new SimpleFileFilter("Microsoft Excel", "xls"));
+        if (filename == null || filename.trim().isEmpty()) {
             return;
         }
         @SuppressWarnings("rawtypes")
@@ -313,7 +292,7 @@ abstract class APerDisciplinePrinter implements Printer {
             os.close();
         } catch (Exception ex) {
             DialogUtils.showException(controller.getWindow(), "Fehler", "Fehler beim Speichern", "...", ex);
-            ex.printStackTrace();
+            log.warn("Problem during export", ex);
         }
     }
 
@@ -362,7 +341,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
     private class PPrintableCreator implements PrintableCreator {
 
-        private boolean[][] selection;
+        private final boolean[][] selection;
 
         public PPrintableCreator(boolean[][] selection) {
             this.selection = selection;
@@ -376,7 +355,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
     void previewResults(boolean[][] selection) {
         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Einzelwertung"),
-                IconManager.getIconBundle(), IconManager.getTitleImages());
+                              IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
     @SuppressWarnings("rawtypes")
@@ -384,8 +363,8 @@ abstract class APerDisciplinePrinter implements Printer {
         AWettkampf w = getWettkampf();
         if (w == null) {
             DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),
-                    I18n.get("Information.NoParticipantsForResultgroup"),
-                    I18n.get("Note.NoParticipantsForResultgroup"));
+                             I18n.get("Information.NoParticipantsForResultgroup"),
+                             I18n.get("Note.NoParticipantsForResultgroup"));
             return;
         }
         if (previewDialog == null) {
@@ -400,8 +379,8 @@ abstract class APerDisciplinePrinter implements Printer {
         AWettkampf w = getWettkampf();
         if (w == null) {
             DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),
-                    I18n.get("Information.NoParticipantsForResultgroup"),
-                    I18n.get("Note.NoParticipantsForResultgroup"));
+                             I18n.get("Information.NoParticipantsForResultgroup"),
+                             I18n.get("Note.NoParticipantsForResultgroup"));
             return;
         }
         if (printDialog == null) {
@@ -456,8 +435,6 @@ abstract class APerDisciplinePrinter implements Printer {
                 };
                 OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
                                           "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
-            } else {
-                // export();
             }
         }
     }
@@ -466,15 +443,15 @@ abstract class APerDisciplinePrinter implements Printer {
 
         class PPrintableCreator implements PrintableCreator {
 
-            private OWSelection[] tx;
+            private final OWSelection[] selection;
 
-            public PPrintableCreator(AWettkampf<?> wk, OWSelection[] tx) {
-                this.tx = tx;
+            public PPrintableCreator(AWettkampf<?> wk, OWSelection[] selection) {
+                this.selection = selection;
             }
 
             @Override
             public Printable create() {
-                return getPrintable(tx);
+                return getPrintable(selection);
             }
         }
 
@@ -485,8 +462,8 @@ abstract class APerDisciplinePrinter implements Printer {
                 Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wk, t),
-                                I18n.get("Einzelwertung"), IconManager.getIconBundle(),
-                                IconManager.getTitleImages());
+                                              I18n.get("Einzelwertung"), IconManager.getIconBundle(),
+                                              IconManager.getTitleImages());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
@@ -518,12 +495,12 @@ abstract class APerDisciplinePrinter implements Printer {
     @SuppressWarnings("rawtypes")
     private JSelectionDialog createPrintDialog(AWettkampf wk) {
         return new JSelectionDialog(controller.getWindow(), wk, printcb, I18n.get("Print"),
-                JSelectionDialog.MODE_DISCIPLINE_SELECTION);
+                                    JSelectionDialog.MODE_DISCIPLINE_SELECTION);
     }
 
     @SuppressWarnings("rawtypes")
     private JSelectionDialog createPreviewDialog(AWettkampf wk) {
         return new JSelectionDialog(controller.getWindow(), wk, previewcb, I18n.get("Preview"),
-                JSelectionDialog.MODE_DISCIPLINE_SELECTION);
+                                    JSelectionDialog.MODE_DISCIPLINE_SELECTION);
     }
 }
