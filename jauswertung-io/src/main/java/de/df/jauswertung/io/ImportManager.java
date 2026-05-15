@@ -267,7 +267,7 @@ public class ImportManager {
             if (!isWithinFilter(m, indexOfDiscipline, starters.getRound(), filter)) {
                 continue;
             }
-            if (mwk.isHeatBased() && starters.getRound() > 0) {
+            if (mwk.isHeatBased()) {
                 String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), indexOfDiscipline, starters.getRound());
                 OWDisziplin<Mannschaft> d = mwk.getLauflisteOW().getDisziplin(id);
                 if (d != null && d.contains(m)) {
@@ -276,7 +276,8 @@ public class ImportManager {
                         e.setStarter(starters.getStarters());
                     }
                 }
-            } else {
+            }
+            if (!mwk.isHeatBased() || starters.getRound() == 0) {
                 m.setStarter(indexOfDiscipline, starters.getStarters());
             }
         }
