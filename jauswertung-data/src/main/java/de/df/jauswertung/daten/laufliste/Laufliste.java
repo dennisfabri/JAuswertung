@@ -595,10 +595,10 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         Startgruppe[] startgruppen = wk.getRegelwerk().getEffektiveStartgruppen();
 
         if (verteilung != null) {
-            // pos enthï¿½lt den aktuellen Index der Disziplin je AK und
+            // pos enthält den aktuellen Index der Disziplin je AK und
             // Geschlecht
             int[][] pos = new int[startgruppen.length][2];
-            // reihenfolge enthï¿½lt die Reihenfolge der Disziplinen
+            // reihenfolge enthält die Reihenfolge der Disziplinen
             // je AK und Geschlecht.
             int[][][] reihenfolge = new int[startgruppen.length][0][0];
             for (int x = 0; x < reihenfolge.length; x++) {

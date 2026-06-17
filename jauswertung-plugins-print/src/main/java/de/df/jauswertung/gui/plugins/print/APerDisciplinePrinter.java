@@ -9,6 +9,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.util.EditMode;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
@@ -415,7 +416,7 @@ abstract class APerDisciplinePrinter implements Printer {
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                                               "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                                               "Ergebnis zum Drucken auswählen", EditMode.READ, cb);
             } else {
                 showPrintSelectionDialog();
             }
@@ -433,8 +434,7 @@ abstract class APerDisciplinePrinter implements Printer {
                         export(t);
                     }
                 };
-                OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                                          "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                OWUtils.showRoundSelector(controller.getWindow(), wk, "Ergebnis auswählen", "Ergebnis zum Drucken auswählen", EditMode.READ, cb);
             }
         }
     }
@@ -467,7 +467,7 @@ abstract class APerDisciplinePrinter implements Printer {
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Ergebnis auswählen",
-                                               "Ergebnis zum Drucken auswählen", OWUtils.getCreatedRounds(wk, true), cb);
+                                               "Ergebnis zum Drucken auswählen", EditMode.READ, cb);
             } else {
                 showPreviewSelectionDialog();
             }

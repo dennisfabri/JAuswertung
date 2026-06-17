@@ -22,6 +22,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.util.EditMode;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
@@ -62,7 +63,7 @@ abstract class ALauflistenPrinter implements Printer {
 
     private void initGUI(boolean allowNoteSelection) {
         FormLayout layout = new FormLayout("4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
-                "4dlu,fill:default,4dlu");
+                                           "4dlu,fill:default,4dlu");
         panel = new JPanel(layout);
 
         print = new JButton(I18n.get("Print"), IconManager.getSmallIcon("print"));
@@ -117,10 +118,10 @@ abstract class ALauflistenPrinter implements Printer {
 
     protected <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, String header, boolean withComments, boolean withDisciplines, boolean withTimes) {
         Printable p = new SprecherlistePrintable<T>(wk, withDisciplines, withTimes, false, withComments,
-                !PrintUtils.printOmitOrganisationForTeams,
-                PrintUtils.printYearOfBirth);
+                                                    !PrintUtils.printOmitOrganisationForTeams,
+                                                    PrintUtils.printYearOfBirth);
         return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, header), wk.getLastChangedDate(), true,
-                header);
+                                              header);
     }
 
     <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(OWSelection t) {
@@ -151,7 +152,7 @@ abstract class ALauflistenPrinter implements Printer {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t, boolean withComments) {
             PrintExecutor.print(getPrintable(getCompetitions(t), getName(), withComments, false, showTimes), getName(), true,
-                    controller.getWindow());
+                                controller.getWindow());
         }
 
         @Override
@@ -165,7 +166,7 @@ abstract class ALauflistenPrinter implements Printer {
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
                 PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
             }
@@ -195,15 +196,15 @@ abstract class ALauflistenPrinter implements Printer {
                 Consumer<OWSelection[]> cb = t -> {
                     if (t != null && t.length > 0) {
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(getCompetitions(t)),
-                                getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
+                                              getName(), IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
-                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), getName(),
-                        IconManager.getIconBundle(), IconManager.getTitleImages());
+                PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[]{wk}), getName(),
+                                      IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

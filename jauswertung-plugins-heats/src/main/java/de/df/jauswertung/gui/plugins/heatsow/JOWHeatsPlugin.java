@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.heats.EditHeatlistUtils;
 import de.df.jauswertung.gui.plugins.heats.JNewHeatsWizard;
 import de.df.jauswertung.gui.plugins.heatsow.define.JOWHeatsEditWindow;
+import de.df.jauswertung.gui.util.EditMode;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
@@ -51,6 +53,7 @@ import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.printables.MultiplePrintable;
+import jakarta.validation.constraints.NotNull;
 
 public class JOWHeatsPlugin extends ANullPlugin {
 
@@ -66,7 +69,6 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private JMenuItem[] menu = null;
     JButton[] buttons = null;
 
-    private JMenuItem define = null;
     private JMenuItem neu = null;
     private JMenuItem show = null;
     private JMenuItem edit = null;
@@ -90,7 +92,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void initMenues() {
         // Main
-        define = new JMenuItem(ITEM_DEFINE);
+        JMenuItem define = new JMenuItem(ITEM_DEFINE);
         define.setToolTipText(I18n.getToolTip("DefineRounds"));
         define.addActionListener(new DefineActionListener());
         neu = new JMenuItem(ITEM_NEW, IconManager.getSmallIcon("new"));
@@ -116,7 +118,6 @@ public class JOWHeatsPlugin extends ANullPlugin {
         menu[0].add(delete);
         menu[0].add(new JSeparator());
         menu[0].add(show);
-        // menu[0].add(new JSeparator());
     }
 
     private void ablaufDefinieren() {
@@ -124,11 +125,11 @@ public class JOWHeatsPlugin extends ANullPlugin {
         JOWHeatsEditWindow<ASchwimmer> w = new JOWHeatsEditWindow<>(wk, t -> {
             if (t) {
                 getController().sendDataUpdateEvent("ChangeRB",
-                        UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
-                                | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                | UpdateEventConstants.REASON_POINTS_CHANGED
-                                | UpdateEventConstants.REASON_SWIMMER_CHANGED,
-                        JOWHeatsPlugin.this);
+                                                    UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED
+                                                            | UpdateEventConstants.REASON_LAUF_LIST_CHANGED
+                                                            | UpdateEventConstants.REASON_POINTS_CHANGED
+                                                            | UpdateEventConstants.REASON_SWIMMER_CHANGED,
+                                                    JOWHeatsPlugin.this);
             }
         });
         ModalFrameUtil.showAsModal(w, getController().getWindow());
@@ -144,7 +145,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
             }
         };
         OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Laufliste löschen", "Mögliche Disziplinen",
-                                       OWUtils.getCurrentRounds(wk), cb);
+                                       EditMode.DELETE, cb);
     }
 
     <T extends ASchwimmer> void loescheLaufliste(OWSelection t) {
@@ -154,44 +155,34 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     private void bearbeiteLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
+        Consumer<OWSelection> cb = t -> ensureSelectionIsValid(t, EditMode.WRITE).ifPresent(s -> bearbeiteLaufliste(s));
+        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen", EditMode.WRITE, cb);
+    }
 
-        Consumer<OWSelection> cb = t -> {
-            if (t != null) {
-                OWSelection s = t;
-                AWettkampf<ASchwimmer> wkx = core.getWettkampf();
-                OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
-                if (d == null || d.isEmpty()) {
-                    DialogUtils.inform(getController().getWindow(),
-                            "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
-                    return;
-                }
-                bearbeiteLaufliste(s);
-            }
-        };
-        OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste bearbeiten", "Mögliche Disziplinen",
-                                  OWUtils.getCurrentRounds(wk), cb);
+    private Optional<OWSelection> ensureSelectionIsValid(OWSelection t, EditMode mode) {
+        AWettkampf<ASchwimmer> wkx = core.getWettkampf();
+        OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(t);
+        if (d == null || d.isEmpty()) {
+            String action = switch (mode) {
+                case READ -> "angezeigt";
+                case WRITE -> "bearbeitet";
+                case DELETE -> "gelöscht";
+                case CREATE -> "erstellt";
+            };
+            DialogUtils.inform(getController().getWindow(),
+                               "Die Laufliste ist leer und kann nicht " + action + " werden.",
+                               "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
+            return Optional.empty();
+        }
+        return Optional.of(t);
     }
 
     private void zeigeLaufliste() {
         AWettkampf<ASchwimmer> wk = core.getWettkampf();
 
-        Consumer<OWSelection> cb = t -> {
-            if (t != null) {
-                OWSelection s = t;
-                AWettkampf<ASchwimmer> wkx = core.getWettkampf();
-                OWDisziplin<ASchwimmer> d = wkx.getLauflisteOW().getDisziplin(s);
-                if (d == null || d.isEmpty()) {
-                    DialogUtils.inform(getController().getWindow(),
-                            "Die Laufliste ist leer und kann nicht bearbeitet werden.",
-                            "Ein möglicher Grund dafür ist, dass keine Schwimmer für die Lauferstellung zur Verfügung stehen.");
-                    return;
-                }
-                zeigeLaufliste(s);
-            }
-        };
+        Consumer<OWSelection> cb = t -> ensureSelectionIsValid(t, EditMode.READ).ifPresent(s -> zeigeLaufliste(s));
         OWUtils.showRoundSelector(getController().getWindow(), wk, "Laufliste anzeigen", "Mögliche Disziplinen",
-                                  OWUtils.getCreatedRounds(wk, true), cb);
+                                  EditMode.READ, cb);
     }
 
     private <T extends ASchwimmer> void bearbeiteLaufliste(OWSelection t) {
@@ -218,8 +209,8 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
         LinkedList<T> gemeldet = owd.getSchwimmer();
         LinkedList<T> aktuell = new LinkedList<>();
-        for (int x = 0; x < result.length; x++) {
-            T t = result[x].getSchwimmer();
+        for (SchwimmerResult<T> tSchwimmerResult : result) {
+            T t = tSchwimmerResult.getSchwimmer();
             Strafe s = t.getAkkumulierteStrafe(0);
             if (!s.isWithdraw() && !s.cancelsPoints()) {
                 aktuell.add(t);
@@ -271,7 +262,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
             }
         };
         OWUtils.showRoundMultiSelector(getController().getWindow(), wk, "Neue Laufliste", "Mögliche Disziplinen",
-                                       OWUtils.getCreatableRounds(wk), cb);
+                                       EditMode.CREATE, cb);
     }
 
     <T extends ASchwimmer> void neueLaufliste(OWSelection t, boolean askForPrint) {
@@ -295,12 +286,13 @@ public class JOWHeatsPlugin extends ANullPlugin {
             AWettkampf<T> wk = core.getWettkampf();
             if (wk.isOpenWater()) {
                 if (DialogUtils.ask(getController().getWindow(), "Laufliste drucken?",
-                        "Sollen die folgenden Listen direkt gedruckt werden?\n2x Kampfrichterliste\n1x Auswerterliste\n1x Meldeergebnis")) {
+                                    "Sollen die folgenden Listen direkt gedruckt werden?\n2x Kampfrichterliste\n1x Auswerterliste\n1x Meldeergebnis")) {
                     printOW(t);
                 }
             } else {
-                if (DialogUtils.ask(getController().getWindow(), "Laufliste drucken?",
-                        "Sollen die folgenden Listen direkt gedruckt werden?\n1x Meldeergebnis\n2x Kampfrichterliste (je einmal mit und ohne Notizen)")) {
+                if (DialogUtils.ask(getController().getWindow(),
+                                    "Laufliste drucken?",
+                                    "Sollen die folgenden Listen direkt gedruckt werden?\n1x Meldeergebnis\n2x Kampfrichterliste (je einmal mit und ohne Notizen)")) {
                     printPool(t);
                 }
             }
@@ -308,18 +300,18 @@ public class JOWHeatsPlugin extends ANullPlugin {
     }
 
     private static <T extends ASchwimmer> Printable getPrintable(AWettkampf<T> wk, boolean withComments,
-            boolean withTimes, String title) {
+                                                                 boolean withTimes, String title) {
         Printable p = new SprecherlistePrintable<T>(wk, false, withTimes, PrintUtils.printOmitOrganisationForTeams,
-                withComments, !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
+                                                    withComments, !PrintUtils.printOmitOrganisationForTeams, PrintUtils.printYearOfBirth);
         return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, title), wk.getLastChangedDate(), true,
-                title);
+                                              title);
     }
 
     private static <T extends ASchwimmer> Printable getPrintableRecorder(AWettkampf<T> wk) {
         Printable p = new RecorderPrintable<T>(wk, false, false, PrintUtils.printOmitOrganisationForTeams,
-                !PrintUtils.printOmitOrganisationForTeams);
+                                               !PrintUtils.printOmitOrganisationForTeams);
         return PrintManager.getFinalPrintable(PrintManager.getHeaderPrintable(p, I18n.get("Recorder-Laufliste")),
-                wk.getLastChangedDate(), true, I18n.get("Recorder-Laufliste"));
+                                              wk.getLastChangedDate(), true, I18n.get("Recorder-Laufliste"));
     }
 
     private void printOW(OWSelection sel) {
@@ -395,7 +387,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.beta.plugin.AuswertungPlugIn#getSupportedMenues()
      */
     @Override
@@ -403,7 +395,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
         if (menu == null) {
             return null;
         }
-        return new MenuInfo[] { new MenuInfo(MENU, 520, menu, 101) };
+        return new MenuInfo[]{new MenuInfo(MENU, 520, menu, 101)};
     }
 
     @Override

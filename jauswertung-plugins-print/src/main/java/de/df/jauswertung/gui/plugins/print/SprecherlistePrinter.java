@@ -24,6 +24,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.util.EditMode;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
@@ -184,7 +185,7 @@ class SprecherlistePrinter implements Printer {
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
                 PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
             }
@@ -221,7 +222,7 @@ class SprecherlistePrinter implements Printer {
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), getName(),
                         IconManager.getIconBundle(), IconManager.getTitleImages());

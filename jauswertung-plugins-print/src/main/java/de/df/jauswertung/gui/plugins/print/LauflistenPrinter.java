@@ -20,10 +20,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.OWUtils;
-import de.df.jauswertung.gui.util.TableHeatUtils;
+import de.df.jauswertung.gui.util.*;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jutils.plugin.IPluginManager;
@@ -152,7 +149,7 @@ class LauflistenPrinter implements Printer {
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
                 PrintExecutor.print(getPrintable(), I18n.get("Laufliste"), true, controller.getWindow());
             }
@@ -192,7 +189,7 @@ class LauflistenPrinter implements Printer {
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
-                                               OWUtils.getCreatedRounds(wk, true), cb);
+                                               EditMode.READ, cb);
             } else {
                 PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }),
                         I18n.get("Laufliste"), IconManager.getIconBundle(), IconManager.getTitleImages());

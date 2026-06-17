@@ -40,21 +40,53 @@ public final class OWUtils {
         }
     }
 
-    public static <T extends ASchwimmer> boolean showRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
-                                                                        String text, OWSelection[] data,
-                                                                        Consumer<OWSelection[]> cb) {
-        JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, true, cb);
+    private static <T extends ASchwimmer> void showRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
+                                                                      String text, OWSelection[] selection, OWSelection[] fullSelection,
+                                                                      Consumer<OWSelection[]> cb) {
+        JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, selection, fullSelection, true, cb);
         ModalFrameUtil.showAsModal(ds, owner);
-        return ds.isCancelled();
     }
 
-    public static <T extends ASchwimmer> boolean showRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
-                                                                   String text, OWSelection[] data,
-                                                                   Consumer<OWSelection> cb) {
+    public static <T extends ASchwimmer> void showRoundMultiSelector(JFrame owner, AWettkampf<T> wk, String title,
+                                                                     String text, EditMode mode,
+                                                                     Consumer<OWSelection[]> cb) {
+        OWUtils.showRoundMultiSelector(owner, wk, title, text,
+                                       getRounds(wk, mode), getAllRounds(wk, mode), cb);
+    }
+
+    private static <T extends ASchwimmer> OWSelection[] getRounds(AWettkampf<T> wk, EditMode mode) {
+        return switch (mode) {
+            case CREATE -> getCreatableRounds(wk);
+            case READ, WRITE -> getCreatedRounds(wk, true);
+            case DELETE -> getCurrentRounds(wk);
+        };
+    }
+
+    private static <T extends ASchwimmer> OWSelection[] getAllRounds(AWettkampf<T> wk, EditMode mode) {
+        return switch (mode) {
+            case CREATE -> getCreatableRounds(wk);
+            case READ -> getCreatedRounds(wk, false);
+            case WRITE -> getCreatedRounds(wk, true);
+            case DELETE -> getCurrentRounds(wk);
+        };
+    }
+
+    public static <T extends ASchwimmer> void showRoundSelector(JFrame owner,
+                                                                AWettkampf<T> wk,
+                                                                String title,
+                                                                String text,
+                                                                EditMode mode,
+                                                                Consumer<OWSelection> cb) {
+        OWUtils.showRoundSelector(owner, wk, title, text,
+                                  getRounds(wk, mode), getAllRounds(wk, mode), cb);
+    }
+
+    private static <T extends ASchwimmer> void showRoundSelector(JFrame owner, AWettkampf<T> wk, String title,
+                                                                 String text, OWSelection[] selection, OWSelection[] fullSelection,
+                                                                 Consumer<OWSelection> cb) {
         Consumer<OWSelection[]> cbx = new OWSelectionCallbackProxy(cb);
-        JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, data, false, cbx);
+        JDisciplineSelector ds = new JDisciplineSelector(title, text, wk, selection, fullSelection, false, cbx);
         ModalFrameUtil.showAsModal(ds, owner);
-        return ds.isCancelled();
     }
 
     public static <T extends ASchwimmer> OWSelection[] getCreatedRounds(AWettkampf<T> wk, boolean onlyLatest) {
@@ -78,7 +110,7 @@ public final class OWUtils {
             }
         }
         Collections.sort(daten);
-        return daten.toArray(new OWSelection[daten.size()]);
+        return daten.toArray(new OWSelection[0]);
     }
 
     public static <T extends ASchwimmer> OWSelection[] getCurrentRounds(AWettkampf<T> wk) {
@@ -86,23 +118,21 @@ public final class OWUtils {
         LinkedList<OWDisziplin<T>> dx = new LinkedList<>(
                 Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
-        HashSet<String> ids = new HashSet<>(dx.stream().map(s -> s.Id).collect(Collectors.toList()));
+        HashSet<String> ids = dx.stream().map(s -> s.Id).collect(Collectors.toCollection(HashSet::new));
 
         List<OWSelection> daten = new ArrayList<>();
         for (OWDisziplin<T> d : dx) {
             String id = OWDisziplin.getId(d.akNummer, d.maennlich, d.disziplin, d.round + 1);
             if (!ids.contains(id)) {
-                boolean isFinal = d.round == wk.getRegelwerk().getAk(d.akNummer).getDisziplin(d.disziplin, d.maennlich)
-                        .getRunden().length;
                 daten.add(
                         new OWSelection(rw.getAk(d.akNummer), d.akNummer, d.maennlich, d.disziplin, d.round));
             }
         }
         Collections.sort(daten);
-        return daten.toArray(new OWSelection[daten.size()]);
+        return daten.toArray(new OWSelection[0]);
     }
 
-    public static OWSelection[] getCreatableRounds(AWettkampf<ASchwimmer> wk) {
+    public static <T extends ASchwimmer> OWSelection[] getCreatableRounds(AWettkampf<T> wk) {
         List<OWSelection> daten = new ArrayList<>();
         Regelwerk rw = wk.getRegelwerk();
         for (int x = 0; x < rw.size(); x++) {
@@ -114,7 +144,7 @@ public final class OWUtils {
                         for (int i = 0; i < dx.getRunden().length + 1; i++) {
                             boolean generated = false;
                             String id = OWDisziplin.getId(x, y == 1, z, i);
-                            for (OWDisziplin<ASchwimmer> d : wk.getLauflisteOW().getDisziplinen()) {
+                            for (OWDisziplin<T> d : wk.getLauflisteOW().getDisziplinen()) {
                                 if (d.Id.equals(id)) {
                                     generated = true;
                                     break;
@@ -129,8 +159,6 @@ public final class OWUtils {
                                     ok = CompetitionUtils.isDisciplineFinished(wk, id2);
                                 }
                                 if (ok) {
-                                    boolean isFinal = i == wk.getRegelwerk().getAk(x).getDisziplin(z, y == 1)
-                                            .getRunden().length;
                                     daten.add(new OWSelection(ak, x, y == 1, z, i));
                                 }
                             }
@@ -140,6 +168,6 @@ public final class OWUtils {
             }
         }
         Collections.sort(daten);
-        return daten.toArray(new OWSelection[daten.size()]);
+        return daten.toArray(new OWSelection[0]);
     }
 }

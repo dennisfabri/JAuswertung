@@ -20,10 +20,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.JDetailsDialog;
-import de.df.jauswertung.gui.util.OWUtils;
+import de.df.jauswertung.gui.util.*;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
@@ -72,7 +69,7 @@ abstract class AFilledKartenPrinter implements Printer {
         preview = new JButton(I18n.get("Preview"));
         preview.addActionListener(new PreviewActionListener());
 
-        pages = new JComboBox<>(new String[] { "1", "2", "4" });
+        pages = new JComboBox<>(new String[]{"1", "2", "4"});
         pages.setSelectedIndex(2);
 
         pages.setEnabled(false);
@@ -97,7 +94,7 @@ abstract class AFilledKartenPrinter implements Printer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
      */
     @Override
@@ -113,12 +110,12 @@ abstract class AFilledKartenPrinter implements Printer {
 
     private PageMode getMode() {
         switch (pages.getSelectedIndex()) {
-        case 0:
-            return PageMode.ONE_PER_PAGE;
-        case 1:
-            return PageMode.TWO_PER_PAGE;
-        default:
-            return PageMode.FOUR_PER_PAGE;
+            case 0:
+                return PageMode.ONE_PER_PAGE;
+            case 1:
+                return PageMode.TWO_PER_PAGE;
+            default:
+                return PageMode.FOUR_PER_PAGE;
         }
     }
 
@@ -127,9 +124,9 @@ abstract class AFilledKartenPrinter implements Printer {
         return getPrintable(wkx, getMode(), PrintUtils.printEmptyCards, allheats, minheat, maxheat);
     }
 
-    @SuppressWarnings({ "hiding", "rawtypes" })
+    @SuppressWarnings({"hiding", "rawtypes"})
     protected abstract Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
-            int minheat, int maxheat);
+                                              int minheat, int maxheat);
 
     <T extends ASchwimmer> boolean setPrintAllHeats(AWettkampf<T> wk) {
         JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text);
@@ -182,11 +179,11 @@ abstract class AFilledKartenPrinter implements Printer {
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                                               "Laufliste zum Drucken auswählen",
+                                               EditMode.READ, cb);
             } else {
                 if (setPrintAllHeats(wk)) {
-                    PrintExecutor.print(getPrintable(new AWettkampf[] { wk }), text, true, controller.getWindow());
+                    PrintExecutor.print(getPrintable(new AWettkampf[]{wk}), text, true, controller.getWindow());
                 }
             }
         }
@@ -219,19 +216,19 @@ abstract class AFilledKartenPrinter implements Printer {
                         AWettkampf[] wkx = createCompetitionsFor(t);
                         setPrintAllHeats();
                         PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
-                                IconManager.getIconBundle(), IconManager.getTitleImages());
+                                              IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
-                        "Laufliste zum Drucken auswählen",
-                        OWUtils.getCreatedRounds(wk, true), cb);
+                                               "Laufliste zum Drucken auswählen",
+                                               EditMode.READ, cb);
             } else {
                 // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk),
                 // I18n.get("Laufzeiten"),
                 // IconManager.getIconBundle(), IconManager.getTitleImages());
                 if (setPrintAllHeats(wk)) {
-                    PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[] { wk }), text,
-                            IconManager.getIconBundle(), IconManager.getTitleImages());
+                    PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[]{wk}), text,
+                                          IconManager.getIconBundle(), IconManager.getTitleImages());
                 }
             }
         }

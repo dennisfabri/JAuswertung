@@ -598,7 +598,11 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
     public synchronized void setStarter(int disciplineIndex, int[] st) {
         initStarter();
-        System.arraycopy(st, 0, starter[disciplineIndex], 0, Math.min(st.length, starter[disciplineIndex].length));
+        if (st == null) {
+            Arrays.fill(starter[disciplineIndex], 0);
+        } else {
+            System.arraycopy(st, 0, starter[disciplineIndex], 0, Math.min(st.length, starter[disciplineIndex].length));
+        }
     }
 
     public void setStarter(int[][] c) {
