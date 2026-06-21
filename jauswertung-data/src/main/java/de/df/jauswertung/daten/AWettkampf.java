@@ -1,6 +1,3 @@
-/*
- * Wettkampf.java Created on 24. Juli 2001, 10:48
- */
 package de.df.jauswertung.daten;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
@@ -9,6 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
 
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Element;
 
 import com.pmease.commons.xmt.VersionedDocument;
@@ -28,17 +26,17 @@ import de.df.jauswertung.util.ergebnis.FormelManager;
 
 /**
  * Diese Klasse verwaltet den Wettkampf.
- * 
- * @author Dennis Fabri @version 1.0 @param <T> (Einzel-) Teilnehmer oder
- *         Mannschaft
+ * <p>
+ * Wettkampf.java Created on 24. Juli 2001, 10:48
+ * </p>
+ *
+ * @author Dennis Fabri
+ * @version 1.0 @param <T> (Einzel-) Teilnehmer oder
+ * Mannschaft
  */
+@Slf4j
 public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
-    /**
-     * Creates new Wettkampf
-     * 
-     * @param altersklassen
-     */
     public AWettkampf(Regelwerk altersklassen, Strafen s) {
         if (altersklassen == null) {
             throw new NullPointerException("Argument must not be null!");
@@ -63,17 +61,14 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
         setProperty(YEAR_OF_COMPETITION, Calendar.getInstance().get(Calendar.YEAR));
 
-        int[] times = new int[altersklassen.size()];
-        Arrays.fill(times, 8 * 60);
         setProperty(LAST_CHANGE, new Date());
 
-        filter = new Filter[] { new Filter(I18n.get("Filter.NoFilter"), null) };
+        filter = new Filter[]{new Filter(I18n.get("Filter.NoFilter"), null)};
         filterindex = 0;
 
         startnummern = new Startnummern();
         laufliste = new Laufliste<>(this);
         lauflisteow = new OWLaufliste<>(this);
-        einsprueche = new LinkedList<>();
         schwimmer = new LinkedList<>();
         hlwliste = new HLWListe<>(this);
         aks = altersklassen;
@@ -91,7 +86,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private final Strafen strafen;
     private final LinkedList<T> schwimmer;
     @SuppressWarnings("unused")
-    private final LinkedList<Einspruch> einsprueche;
+    private final LinkedList<Einspruch> einsprueche = new LinkedList<>();
     private final Hashtable<String, Object> properties;
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
@@ -103,7 +98,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     @SuppressWarnings("unused")
     private Ergebnisfreigabe webfreigabe;
 
-    private PropertyChangeManager pcManager;
+    private final PropertyChangeManager pcManager;
 
     private TimelimitsContainer timelimits;
 
@@ -147,7 +142,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Listener auf Aenderungen der Einstellungen hinzufuegen.
-     * 
+     *
      * @param pcl Listener
      */
     public final void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -157,7 +152,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Kampfrichterverwaltung festlegen.
-     * 
+     *
      * @param k Kampfrichterverwaltung
      */
     public final void setKampfrichterverwaltung(KampfrichterVerwaltung k) {
@@ -167,7 +162,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Kampfrichterverwaltung auslesen.
-     * 
+     *
      * @return Kampfrichterverwaltung
      */
     public final KampfrichterVerwaltung getKampfrichterverwaltung() {
@@ -189,7 +184,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert die Anzahl der Schwimmer.
-     * 
+     *
      * @return Anzahl Schwimmer
      */
     public final int getSchwimmeranzahl() {
@@ -201,7 +196,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert den Zeitpunkt der letzten Aenderung.
-     * 
+     *
      * @return Zeitpunkt der letzten Aenderung
      */
     public final Date getLastChangedDate() {
@@ -241,7 +236,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin in einer bestimmten
      * Altersklasse alle Zeiten eingetragen wurden.
-     * 
+     *
      * @param disz Nummer der Disziplin @param ak Altersklasse @param male
      *             Geschlecht @return true, wenn alle Zeiten eingegeben wurden.
      *             false sonst.
@@ -266,7 +261,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin alle Zeiten eingetragen
      * wurden.
-     * 
+     *
      * @param disz Nummer der Disziplin @return true, wenn alle Zeiten eingegeben
      *             wurden. false sonst.
      */
@@ -362,7 +357,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Ueberprueft, ob zur HLW in einer Altersklasse alle Punkte eingetragen wurden.
-     * 
+     *
      * @param ak Altersklasse @param male Geschlecht @return true, wenn alle Punkte
      *           eingegeben wurden. false sonst.
      */
@@ -383,7 +378,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Ueberprueft, ob alle Zeiten und HLW-Punkte eingetragen wurden.
-     * 
+     *
      * @return true, wenn alle Zeiten eingegeben wurden. false sonst.
      */
     public final boolean isCompetitionComplete() {
@@ -414,7 +409,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         int length = aks.getMaxDisciplineCount();
 
         if (lastcomplete == null) {
-            lastcomplete = new int[] { -1, -1, -1 };
+            lastcomplete = new int[]{-1, -1, -1};
         }
         if (lastcomplete[0] >= aks.size()) {
             lastcomplete[0] = -1;
@@ -442,7 +437,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
                     try {
                         backup[x][y][z] = backup[x][y][z] && !empty[x][z];
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        log.warn("Error while updating input status backup: " + e.getMessage());
                     }
                 }
             }
@@ -466,9 +461,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         }
 
         // Initialize fields
-        for (int x = 0; x < disciplinesComplete.length; x++) {
-            disciplinesComplete[x] = true;
-        }
+        Arrays.fill(disciplinesComplete, true);
         for (int x = 0; x < disciplinesAgeGroupComplete.length; x++) {
             hlwAkComplete[x][0] = true;
             hlwAkComplete[x][1] = true;
@@ -479,9 +472,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         }
 
         // Update data
-        @SuppressWarnings("unchecked")
-        T[] swimmers = (T[]) schwimmer.toArray(new ASchwimmer[schwimmer.size()]);
-        for (T s : swimmers) {
+        for (T s : schwimmer) {
             for (int y = 0; y < s.getAK().getDiszAnzahl(); y++) {
                 if (SchwimmerUtils.hasIncompleteTime(s, y)) {
                     disciplinesComplete[y] = false;
@@ -537,19 +528,16 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     /**
-     * F\u00fcgt einen neuen Schwimmer hinzu
-     * 
-     * @param t Enth\u00e4lt den hinzuzuf\u00fcgenden Schwimmer
+     * Fügt einen neuen Schwimmer hinzu
+     *
+     * @param t Enthält den hinzuzufügenden Schwimmer
      */
     public final synchronized boolean addSchwimmer(T t) {
-        // if (t.getWettkampf() != this) {
-        // return false;
-        // }
         t.setWettkampf(this);
         if (contains(t)) {
             return false;
         }
-        if ((t.getStartnummer() <= 0) || !isStartnummerFree(t.getStartnummer())) {
+        if ((t.getStartnummer() <= 0) || isStartnummerUsed(t.getStartnummer())) {
             t.setStartnummer(viewNextStartnummer());
         }
         schwimmer.addLast(t);
@@ -563,13 +551,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     private boolean contains(T t) {
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            if (t == li.next()) {
-                return true;
-            }
-        }
-        return false;
+        return schwimmer.stream().anyMatch(value -> t == value);
     }
 
     public final synchronized boolean switchStartnummer(T s, int sn) {
@@ -596,9 +578,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             return false;
         }
 
-        // int xsn = s.getStartnummer();
         s.setStartnummer(sn);
-        // startnummern.recycle(xsn);
 
         changedNow(false);
 
@@ -635,8 +615,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             if (t.equals(jetzt)) {
                 li.remove();
                 geloescht = true;
-                // Startnummer zum Wiederverwenden speichern...
-                // startnummern.recycle(jetzt.getStartnummer());
             }
         }
         if (geloescht) {
@@ -655,7 +633,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert die Altersklassen des Wettkampfes.
-     * 
+     *
      * @return Liefert die Altersklassen des Wettkampfes.
      */
     public final Regelwerk getRegelwerk() {
@@ -666,30 +644,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         Hashtable<String, String> temp = new Hashtable<>();
         LinkedList<String> result = new LinkedList<>();
 
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            String jetzt = li.next().getGliederung();
+        for (T t : schwimmer) {
+            String jetzt = t.getGliederung();
             if (temp.get(jetzt) == null) {
                 result.add(jetzt);
                 temp.put(jetzt, jetzt);
-            }
-        }
-        Collections.sort(result);
-        return result;
-    }
-
-    public final synchronized LinkedList<String> getQualigliederungen() {
-        Hashtable<String, String> temp = new Hashtable<>();
-        LinkedList<String> result = new LinkedList<>();
-
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            String jetzt = li.next().getQualifikationsebene();
-            if (jetzt.length() > 0) {
-                if (temp.get(jetzt) == null) {
-                    result.add(jetzt);
-                    temp.put(jetzt, jetzt);
-                }
             }
         }
         Collections.sort(result);
@@ -700,11 +659,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         Hashtable<String, String> temp = new Hashtable<>();
         LinkedList<String> result = new LinkedList<>();
 
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            T t = li.next();
+        for (T t : schwimmer) {
             String jetzt = t.getGliederung();
-            if (t.getQualifikationsebene().length() > 0) {
+            if (!t.getQualifikationsebene().isEmpty()) {
                 jetzt += " (" + t.getQualifikationsebene() + ")";
             }
             if (temp.get(jetzt) == null) {
@@ -719,12 +676,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     public final synchronized int getAnzahlGliederungen() {
         Hashtable<String, String> temp = new Hashtable<>();
 
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            String jetzt = li.next().getGliederung();
-            if (temp.get(jetzt) == null) {
-                temp.put(jetzt, jetzt);
-            }
+        for (T t : schwimmer) {
+            String jetzt = t.getGliederung();
+            temp.putIfAbsent(jetzt, jetzt);
         }
         return temp.size();
     }
@@ -733,9 +687,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * Liefert die gesuchte Gliederung.
      */
     public final String getGliederung(String vergleicher) {
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            String jetzt = li.next().getGliederung();
+        for (T t : schwimmer) {
+            String jetzt = t.getGliederung();
             if (vergleicher.equals(jetzt)) {
                 return jetzt;
             }
@@ -745,12 +698,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert die gesuchte Gliederung.
-     * 
+     *
      */
     final String getQualifikationsebene(String vergleicher) {
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            String jetzt = li.next().getGliederung();
+        for (T t : schwimmer) {
+            String jetzt = t.getGliederung();
             if (vergleicher.equals(jetzt)) {
                 return jetzt;
             }
@@ -829,22 +781,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public final int getIntegerProperty(String name, int fallback) {
         Object o = getProperty(name);
-        if ((o == null) || (!(o instanceof Number))) {
+        if (!(o instanceof Number)) {
             return fallback;
         }
         return ((Number) o).intValue();
-    }
-
-    public final double getDoubleProperty(String name) {
-        return getDoubleProperty(name, 0);
-    }
-
-    private double getDoubleProperty(String name, double fallback) {
-        Object o = getProperty(name);
-        if ((o == null) || (!(o instanceof Number))) {
-            return fallback;
-        }
-        return ((Number) o).doubleValue();
     }
 
     public final Strafen getStrafen() {
@@ -853,7 +793,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     /**
      * Liefert alle Schwimmer des Wettkampfes
-     * 
+     *
      * @return Liefert alle Schwimmer des Wettkampfes
      */
     public final synchronized LinkedList<T> getSchwimmer() {
@@ -865,9 +805,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final synchronized boolean hasHLW() {
-        ListIterator<T> iterator = schwimmer.listIterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getAK().hasHLW()) {
+        for (T t : schwimmer) {
+            if (t.getAK().hasHLW()) {
                 return true;
             }
         }
@@ -875,45 +814,21 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     private int[] getUsedStartnummern() {
-        int[] sns = new int[schwimmer.size()];
-        ListIterator<T> li = schwimmer.listIterator();
-        int x = 0;
-        while (li.hasNext()) {
-            sns[x] = li.next().getStartnummer();
-            x++;
-        }
-        Arrays.sort(sns);
-        return sns;
+        return schwimmer.stream().mapToInt(ASchwimmer::getStartnummer).sorted().toArray();
     }
 
-    private boolean isStartnummerUsed(int sn) {
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            T t = li.next();
-            if (t.getStartnummer() == sn) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public final boolean isStartnummerFree(int sn) {
-        return !isStartnummerUsed(sn);
+    public boolean isStartnummerUsed(int sn) {
+        return schwimmer.stream().anyMatch(t -> t.getStartnummer() == sn);
     }
 
     public final int viewNextStartnummer() {
         int[] sns = getUsedStartnummern();
-        int sn = 1;
-        while (true) {
-            for (int x = 0; x < sns.length; x++) {
-                if (sns[x] == sn) {
-                    sn++;
-                    continue;
-                }
+        for (int pos = 0; pos < sns.length; pos++) {
+            if (sns[pos] != pos + 1) {
+                return pos + 1;
             }
-            break;
         }
-        return sn; // startnummern.viewNext();
+        return sns.length + 1;
     }
 
     public final boolean hasLaufliste() {
@@ -948,7 +863,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public void setFilter(Filter[] filter) {
         if ((filter == null) || (filter.length == 0)) {
-            filter = new Filter[] { new Filter(I18n.get("Filter.NoFilter"), null) };
+            filter = new Filter[]{new Filter(I18n.get("Filter.NoFilter"), null)};
             filterindex = 0;
         } else {
             if (!filter[0].getName().equals(I18n.get("Filter.NoFilter"))) {
@@ -1029,7 +944,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
                 }
             }
         }
-        LinkedList<T> swimmer = SearchUtils.getSchwimmer(this, glds.toArray(new String[glds.size()]), true);
+        LinkedList<T> swimmer = SearchUtils.getSchwimmer(this, glds.toArray(new String[0]), true);
         return !swimmer.isEmpty();
     }
 
@@ -1059,9 +974,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         }
 
         // Schwimmer anpassen
-        ListIterator<T> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            T t = li.next();
+        for (T t : schwimmer) {
             int anzahl = t.getAK().getDiszAnzahl();
             int[] zeiten = new int[anzahl];
             int[][] starter = new int[anzahl][0];
@@ -1092,40 +1005,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     private void setIntArray2(String id, int[][] limits) {
-        int[][] newlimits = new int[aks.size()][2];
-        if (limits == null) {
-            limits = new int[0][2];
-        }
-        for (int x = 0; x < newlimits.length; x++) {
-            for (int y = 0; y < 2; y++) {
-                if (x < limits.length) {
-                    newlimits[x][y] = limits[x][y];
-                } else {
-                    newlimits[x][y] = 0;
-                }
-            }
-        }
-        setProperty(id, newlimits);
+        setProperty(id, createNewLimits(limits));
     }
 
-    private int[][] getIntArray2(String id) {
-        Object o = getProperty(id);
-        int[][] limits = null;
-        if (o != null) {
-            if (o instanceof int[][]) {
-                limits = (int[][]) o;
-            } else {
-                if (o instanceof int[]) {
-                    int[] tmp = (int[]) o;
-                    limits = new int[tmp.length][2];
-                    for (int x = 0; x < tmp.length; x++) {
-                        for (int y = 0; y < 2; y++) {
-                            limits[x][y] = tmp[x];
-                        }
-                    }
-                }
-            }
-        }
+    private int[][] createNewLimits(int[][] limits) {
         int[][] newlimits = new int[aks.size()][2];
         if (limits == null) {
             limits = new int[0][2];
@@ -1140,6 +1023,26 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             }
         }
         return newlimits;
+    }
+
+    private int[][] getIntArray2(String id) {
+        Object o = getProperty(id);
+        int[][] limits = null;
+        if (o != null) {
+            if (o instanceof int[][]) {
+                limits = (int[][]) o;
+            } else {
+                if (o instanceof int[] tmp) {
+                    limits = new int[tmp.length][2];
+                    for (int x = 0; x < tmp.length; x++) {
+                        for (int y = 0; y < 2; y++) {
+                            limits[x][y] = tmp[x];
+                        }
+                    }
+                }
+            }
+        }
+        return createNewLimits(limits);
     }
 
     public int[][] getZulassungslimits() {
@@ -1193,7 +1096,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         Laufliste.migrator3(node.element("laufliste"));
     }
 
-    public boolean HasOpenQualifications() {
+    public boolean hasOpenQualifications() {
         for (T t : schwimmer) {
             if (t.getQualifikation() == Qualifikation.OFFEN) {
                 return true;
@@ -1221,7 +1124,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public OWSelection toOWSelection(OWDisziplin<T> disziplin) {
         return new OWSelection(getRegelwerk().getAk(disziplin.akNummer), disziplin.akNummer, disziplin.maennlich,
-                disziplin.disziplin, disziplin.round);
+                               disziplin.disziplin, disziplin.round);
     }
 
     public boolean isDLRGBased() {

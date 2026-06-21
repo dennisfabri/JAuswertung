@@ -331,7 +331,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
         public void pageSwitch(boolean forward) {
             if (forward && getWizard().isCurrentPage(this)) {
                 this.wkx = JNewHeatsWizard.this.wk;
-                if (options.isSelected(7) && !wkx.HasOpenQualifications()) {
+                if (options.isSelected(7) && !wkx.hasOpenQualifications()) {
                     wkx = Utils.copy(wkx);
                     for (ASchwimmer t : ((AWettkampf<ASchwimmer>) wkx).getSchwimmer()) {
                         if (!t.getQualifikation().isAccepted()) {
@@ -708,7 +708,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
                 case Regelwerk, Meldezeiten, ILSPool, ILSPoolVorlauf, ILSOpenWater, ILSOpenWaterVorlauf, ZufallJeDisziplin -> false;
                 default -> true;
             });
-            setEnabled(7, !wk.HasOpenQualifications());
+            setEnabled(7, !wk.hasOpenQualifications());
         }
 
         void updateEnabled() {

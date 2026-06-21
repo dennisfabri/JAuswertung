@@ -274,7 +274,7 @@ public class PRegistrationInternalEinzelPlugin extends AFeature {
                 startnummer.setInt(wk.viewNextStartnummer());
             } else {
                 int sn = startnummer.getInt();
-                if (!wk.isStartnummerFree(sn)) {
+                if (wk.isStartnummerUsed(sn)) {
                     startnummer.setInt(wk.viewNextStartnummer());
                 }
             }
