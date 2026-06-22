@@ -650,24 +650,25 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             // Umsortierung in wk.reorderDisciplines(r).
             int[][] r = new int[reihenfolge.length][0];
             for (int x = 0; x < reihenfolge.length; x++) {
-                r[x] = new int[reihenfolge[x][0].length];
-                for (int y = 0; y < reihenfolge[x][0].length; y++) {
-                    if (reihenfolge[x][0][y] != reihenfolge[x][1][y]) {
-                        // TODO: Vielleicht kann man hier noch etwas
-                        // Geschickteres tun.
-                        r[x][y] = reihenfolge[x][0][y];
-                        reihenfolge[x][0][y] = y;
-                    } else {
-                        r[x][y] = reihenfolge[x][0][y];
-                        reihenfolge[x][0][y] = y;
-                    }
+                // Prefer the female reihenfolge for the physical reorder (existing behavior),
+                // but fall back to the male reihenfolge when there are no female athletes in
+                // this startgroup - otherwise the reorder silently becomes a no-op for
+                // male-only age groups.
+                int referenceGender = SearchUtils.hasSchwimmer(wk, startgruppen[x], false) ? 0 : 1;
+                int otherGender = 1 - referenceGender;
+
+                r[x] = new int[reihenfolge[x][referenceGender].length];
+                System.arraycopy(reihenfolge[x][referenceGender], 0, r[x], 0, r[x].length);
+                for (int y = 0; y < r[x].length; y++) {
+                    reihenfolge[x][referenceGender][y] = y;
                 }
-                // Anpassung der maennlichen Disziplinenreihenfolge
-                // an die weibliche Reihenfolge
-                for (int z = 0; z < reihenfolge[x][0].length; z++) {
-                    for (int i = 0; i < reihenfolge[x][1].length; i++) {
-                        if (memory[x][1][z] == memory[x][0][i]) {
-                            reihenfolge[x][1][z] = i;
+
+                // Anpassung der Reihenfolge des anderen Geschlechts an die für den
+                // physischen Reorder verwendete Reihenfolge.
+                for (int z = 0; z < reihenfolge[x][otherGender].length; z++) {
+                    for (int i = 0; i < reihenfolge[x][referenceGender].length; i++) {
+                        if (memory[x][otherGender][z] == memory[x][referenceGender][i]) {
+                            reihenfolge[x][otherGender][z] = i;
                         }
                     }
                 }
@@ -676,14 +677,15 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
             wk.reorderDisciplines(r);
             reordered = true;
 
-            // Korrekturen der Reihenfolge, wenn unterschiedliche Reihenfolge je
-            // Geschlecht.
+            // Korrekturen der Reihenfolge für das Geschlecht, das nicht als Referenz für
+            // den physischen Reorder diente.
             for (Einteilung t : aufteilung) {
-                if (t.isMaennlich()) {
-                    int sg = t.getStartgruppe();
+                int sg = t.getStartgruppe();
+                int gender = t.isMaennlich() ? 1 : 0;
+                int referenceGender = SearchUtils.hasSchwimmer(wk, startgruppen[sg], false) ? 0 : 1;
+                if (gender != referenceGender) {
                     int d = t.getDisziplin();
-
-                    t.setDisziplin(reihenfolge[sg][1][d]);
+                    t.setDisziplin(reihenfolge[sg][gender][d]);
                 }
             }
         }

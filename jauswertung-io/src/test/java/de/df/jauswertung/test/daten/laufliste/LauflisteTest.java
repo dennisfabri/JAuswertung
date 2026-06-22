@@ -122,6 +122,18 @@ class LauflisteTest {
         assertReversingAufteilungReversesDisciplineOrder(false);
     }
 
+    // Expected to fail: Laufliste.erzeugen's discipline-reordering math (the `r` array passed to
+    // AWettkampf.reorderDisciplines) is derived solely from reihenfolge[sg][0] (the female
+    // entries), then applied to BOTH genders' Disziplin arrays. With no female participants,
+    // that female reihenfolge is never touched and stays at its identity default, so the
+    // physical reorder is a no-op for male too - even though the male entries themselves were
+    // reversed. Heat generation still uses the correct reversed mapping internally; only the
+    // AK's own stored Disziplin order is left unreversed for a male-only population.
+    @Test
+    void erzeugenWithReversedAufteilungReversesDisciplineOrderForMaleOnly() {
+        assertReversingAufteilungReversesDisciplineOrder(true);
+    }
+
     // Laufliste.erzeugen permanently reorders each Altersklasse's own Disziplin array (via
     // AWettkampf.reorderDisciplines) to match the requested Einteilung order - it does not just
     // relabel heats. Reversing every entry's discipline index therefore reverses the AK's
