@@ -14,6 +14,7 @@ import de.df.jauswertung.io.portal.RegistrationExportModel.Participant;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Registration;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
@@ -185,6 +186,9 @@ public class PortalImporter implements IImporter {
                 return i;
             }
         }
+        if (name.startsWith("Junioren ")) {
+            return findAkNummer(wk, "Junioren");
+        }
         return -1;
     }
 
@@ -232,12 +236,62 @@ public class PortalImporter implements IImporter {
         return teilnehmerListe;
     }
 
+    private LinkedList<Teilnehmer> registrationUpdateIndividual(RegistrationExportModel model, EinzelWettkampf wk, Feedback fb) {
+        fb.showFeedback("Aktualisiere Teilnehmer");
+        LinkedList<Teilnehmer> teilnehmerListe = new LinkedList<>();
+        for (Registration registration : model.getRegistrations()) {
+            for (RegistrationExportModel.Athlete athlete : registration.getAthletes()) {
+                if (athlete.getAgeGroup() == null || athlete.getAgeGroup().isBlank()) {
+                    continue;
+                }
+                int akNummer = findAkNummer(wk, athlete.getAgeGroup());
+                if (akNummer < 0) {
+                    //fb.showFeedback("Altersklasse " + athlete.getAgeGroup() + " für " + athlete.getFirstName() + " " + athlete.getLastName() + " " + athlete.getGender() + " nicht gefunden");
+                    continue;
+                }
+                Boolean isMale = findGender(wk, athlete.getGender());
+                if (isMale == null) {
+                    //fb.showFeedback("Geschlecht " + athlete.getGender() + " für " + athlete.getFirstName() + " " + athlete.getLastName() + " (" + athlete.getAgeGroup() + ") nicht gefunden");
+                    continue;
+                }
+                Teilnehmer t = findByUploadId(wk, athlete.getId());
+                if (t != null) {
+                    Teilnehmer updated = Utils.copy(t);
+                    updated.setVorname(athlete.getFirstName());
+                    updated.setNachname(athlete.getLastName());
+                    updated.setJahrgang(athlete.getYearOfBirth() == null ? 0 : athlete.getYearOfBirth());
+                    updated.setMaennlich(athlete.getGender() == Gender.Male);
+                    updated.setGliederung(fixGliederung(registration.getOrganization()));
+                    updated.setAKNummer(akNummer, true);
+                    updated.setBemerkung(athlete.getComment());
+
+                    if (athlete.getSubOrganization() != null && !athlete.getSubOrganization().isBlank()) {
+                        updated.setQualifikationsebene(fixGliederung(updated.getGliederung()));
+                        updated.setGliederung(athlete.getSubOrganization());
+                    }
+
+                    importRegistrationEntry(athlete, updated);
+                    teilnehmerListe.add(updated);
+                }
+            }
+        }
+        fb.showFeedback("Update abgeschlossen");
+        return teilnehmerListe;
+    }
+
     private static <T extends ASchwimmer> boolean notAlreadyImported(AWettkampf<T> wk, RegistrationExportModel.Participant participant) {
         String importId = participant.getId();
         if (importId == null || importId.isBlank()) {
             return true;
         }
         return wk.getSchwimmer().stream().noneMatch(s -> hasImportId(s, importId));
+    }
+
+    private static <T extends ASchwimmer> T findByUploadId(AWettkampf<T> wk, String importId) {
+        if (importId == null || importId.isBlank()) {
+            return null;
+        }
+        return wk.getSchwimmer().stream().filter(s -> hasImportId(s, importId)).findFirst().orElse(null);
     }
 
     private static boolean hasImportId(ASchwimmer schwimmer, String importId) {
@@ -286,9 +340,17 @@ public class PortalImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream name, AWettkampf<T> wk, Feedback fb, String filename)
+    public <T extends ASchwimmer> LinkedList<T> registrationUpdate(InputStream input, AWettkampf<T> wk, Feedback fb, String filename)
             throws TableFormatException, TableEntryException, TableException, IOException {
-        throw new NotImplementedException();
+        LinkedList<T> data = new LinkedList<>();
+        RegistrationExportModel model = mapper.readValue(input, RegistrationExportModel.class);
+        if (wk instanceof MannschaftWettkampf mwk) {
+            return (LinkedList<T>) registrationTeam(model, mwk, fb);
+        }
+        if (wk instanceof EinzelWettkampf ewk) {
+            return (LinkedList<T>) registrationUpdateIndividual(model, ewk, fb);
+        }
+        return data;
     }
 
     private TeamMembersImportDto teammembers(RegistrationExportModel model, MannschaftWettkampf mwk, Map<String, List<Integer>> uuid2sn, Feedback fb) {
@@ -311,21 +373,6 @@ public class PortalImporter implements IImporter {
             }
         }
         return new TeamMembersImportDto(teammembers);
-    }
-
-    private Integer findStartNumber(MannschaftWettkampf mwk, RegistrationExportModel.Team team, Map<String, Integer> uuid2sn, Feedback fb) {
-        Integer sn = uuid2sn.get(team.getId());
-        if (sn == null) {
-            if (findGender(mwk, team.getGender()) != null) {
-                fb.showFeedback("Keine Mannschaft mit ImportId '%s' (%s %s %s) gefunden.".formatted(team.getId(),
-                                                                                                    team.getName(),
-                                                                                                    team.getAgeGroup(),
-                                                                                                    team.getGender().toString().toLowerCase(
-                                                                                                            Locale.ROOT)));
-            }
-            return null;
-        }
-        return sn;
     }
 
     private List<Integer> findStartNumbers(MannschaftWettkampf mwk, RegistrationExportModel.Team team, Map<String, List<Integer>> uuid2sn, Feedback fb) {
@@ -458,7 +505,7 @@ public class PortalImporter implements IImporter {
     @Override
     public boolean isSupported(ImportExportTypes type) {
         return switch (type) {
-            case REGISTRATION, TEAM_MEMBERS, STARTERS -> true;
+            case REGISTRATION, REGISTRATION_UPDATE, TEAM_MEMBERS, STARTERS -> true;
             default -> false;
         };
     }

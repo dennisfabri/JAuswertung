@@ -211,7 +211,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
 
         uploadId = new JWarningTextField();
-        uploadId.setValidator(s -> s.isEmpty() || s.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") || s.matches("^[0-9a-f]{12}$"));
+        uploadId.setValidator(s -> s.isEmpty() || s.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") || s.matches("^[0-9a-f]{32}$"));
         uploadIndex = new JIntSpinner(0, 0, 99, 1);
 
         name.setAutoSelectAll(true);
