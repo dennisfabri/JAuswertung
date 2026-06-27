@@ -97,7 +97,7 @@ class AresWriterDefault {
             Altersklasse ak = aks.getAk(x);
             for (int y = 0; y < ak.getDiszAnzahl(); y++) {
                 Disziplin d = ak.getDisziplin(y, false);
-                Discipline discipline = LengthUtil.guessLength(d.getName());
+                Discipline discipline = LengthUtil.guessLength(d);
                 competition.addDiscipline(discipline);
             }
         }
@@ -114,7 +114,7 @@ class AresWriterDefault {
             for (Laenge length : competition.lengths()) {
                 ps.println(
                         competition.getLengthId(length.distance()) + ";\"" + length.distance() + "\";" + length.laenge()
-                                + ";\"1\"");
+                                + ";"+length.laps());
             }
         }
     }
@@ -133,8 +133,7 @@ class AresWriterDefault {
         // 3; "Schleppen e Puppe" ;"SP"
         // 4; "Vermischt " ;"ME"
 
-        try (OutputStream os = new FileOutputStream(dir + File.separator + "LSTSTYLE.TXT")) {
-            PrintStream ps = new PrintStream(os, true, CHARSET);
+        try (StringFileStream ps = new StringFileStream(dir + File.separator + "LSTSTYLE.TXT")) {
             ps.println("idStyle;Style;StyleAbrév");
 
             Map<Integer, String> reverse = new HashMap<>();
@@ -482,7 +481,8 @@ class AresWriterDefault {
             resize(sb, 4, ' ');
 
             String disziplin = lauf.getDisziplin();
-            Discipline l = LengthUtil.guessLength(disziplin);
+            Disziplin d = lauf.getDisciplineDto();
+            Discipline l = LengthUtil.guessLength(d);
             String amount = "" + l.amount();
             String length = l.length() + "m";
             disziplin = l.aresDiscipline();

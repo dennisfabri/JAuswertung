@@ -1,16 +1,14 @@
 package de.df.jauswertung.ares.export;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
+import de.df.jauswertung.daten.regelwerk.Disziplin;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
 class LengthUtil {
-
-    private static final String CHARSET = "ISO-8859-1";
 
     private static final String[][] shortnames = new String[][]{
             new String[]{"Obstacle Swim", "OS"}, new String[]{"Manikin Carry", "MC"},
@@ -20,16 +18,20 @@ class LengthUtil {
             new String[]{"Obstacle Relay", "OR"}, new String[]{"Manikin Relay", "MKR"},
             new String[]{"Medley Relay", "MER"}, new String[]{"Mixed Pool Lifesaver Relay", "MLR"},
             new String[]{"Pool Lifesaver Relay", "MLR"}, new String[]{"Mixed Lifesaver Relay", "MLR"},
-            new String[]{"Lifesaver Relay", "MLR"},
-            };
+            new String[]{"Lifesaver Relay", "MLR"}, new String[]{"Pool Lifesaver Relay Mixed", "MLR"}
+    };
 
-    static Discipline guessLength(String disziplin) {
+    static Discipline guessLength(Disziplin d) {
+        return guessLength(d.getName(), d.getLaenge(), d.getLaps());
+    }
+
+    static Discipline guessLength(String disziplin, int lengthFallbackValue, int amountFallbackValue) {
         String original = disziplin;
         if (disziplin.endsWith(" - Preheat")) {
             disziplin = disziplin.substring(0, disziplin.length() - " - Preheat".length());
         }
-        int amount = 0;
-        int length = 0;
+        int amount = amountFallbackValue;
+        int length = lengthFallbackValue;
         if (disziplin.startsWith("4x50m") || disziplin.startsWith("4*50m")) {
             disziplin = disziplin.substring(6);
             amount = 4;
@@ -95,6 +97,9 @@ class LengthUtil {
         } else if (disziplin.equalsIgnoreCase("Mixed Pool Lifesaver Relay")) {
             amount = 4;
             length = 50;
+        } else if (disziplin.equalsIgnoreCase("Pool Lifesaver Relay Mixed")) {
+            amount = 4;
+            length = 50;
         } else if (disziplin.equalsIgnoreCase("Medley Relay")) {
             amount = 4;
             length = 50;
@@ -116,7 +121,7 @@ class LengthUtil {
         return new Discipline(original, disziplin, amount, length);
     }
 
-    static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os) throws UnsupportedEncodingException {
+    static void writeStyles(Hashtable<String, Integer> disziplinen, String os) throws IOException {
         // idStyle;Style;StyleAbrév
         // 0; "Freistil " ;"FR"
         // 1; "Hindernis " ;"HI"
@@ -129,36 +134,37 @@ class LengthUtil {
             shorts.put(sn[0].toLowerCase(), sn[1]);
         }
 
-        PrintStream ps = new PrintStream(os, true, CHARSET);
-        ps.println("idStyle;Style;StyleAbrév");
-        Enumeration<String> dis = disziplinen.keys();
+        try (StringFileStream ps = new StringFileStream(os)) {
+            ps.println("idStyle;Style;StyleAbrév");
+            Enumeration<String> dis = disziplinen.keys();
 
-        Hashtable<Integer, String> reverse = new Hashtable<>();
+            Hashtable<Integer, String> reverse = new Hashtable<>();
 
-        LinkedList<Integer> ids = new LinkedList<>();
-        while (dis.hasMoreElements()) {
-            String d = dis.nextElement();
-            int id = disziplinen.get(d);
-            System.out.println(id + " => " + d);
-            ids.add(id);
-            reverse.put(id, d);
-        }
-        Collections.sort(ids);
-
-        for (Integer id : ids) {
-            String d = shortenDiscipline(reverse.get(id)).replace(" - Preheat", "");
-            String dlower = d.toLowerCase();
-            String shortname = "";
-            if (shorts.containsKey(dlower)) {
-                shortname = shorts.get(dlower);
+            LinkedList<Integer> ids = new LinkedList<>();
+            while (dis.hasMoreElements()) {
+                String d = dis.nextElement();
+                int id = disziplinen.get(d);
+                System.out.println(id + " => " + d);
+                ids.add(id);
+                reverse.put(id, d);
             }
+            Collections.sort(ids);
 
-            if (shortname.isEmpty()) {
-                System.out.println("Kürzel nicht gefunden: "+ d);
+            for (Integer id : ids) {
+                String d = shortenDiscipline(reverse.get(id)).replace(" - Preheat", "");
+                String dlower = d.toLowerCase();
+                String shortname = "";
+                if (shorts.containsKey(dlower)) {
+                    shortname = shorts.get(dlower);
+                }
+
+                if (shortname.isEmpty()) {
+                    System.out.println("Kürzel nicht gefunden: " + d);
+                }
+
+                d = d.replace("\"", "");
+                ps.println(id + ";\"" + d + "\";\"" + shortname + "\"");
             }
-
-            d = d.replace("\"", "");
-            ps.println(id + ";\"" + d + "\";\"" + shortname + "\"");
         }
     }
 

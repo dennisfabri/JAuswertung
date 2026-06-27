@@ -317,12 +317,6 @@ public final class SearchUtils {
         return !suchen.isEmpty();
     }
 
-    public static <T extends ASchwimmer> boolean hasSchwimmerForQGld(AWettkampf<T> wk, String... gliederung) {
-        LinkedList<T> suchen = startGetSchwimmer(wk);
-        filtereQGldGliederungen(suchen, gliederung);
-        return !suchen.isEmpty();
-    }
-
     public static <T extends ASchwimmer> boolean hasSchwimmer(LinkedList<T> wk, Altersklasse ak) {
         LinkedList<T> suchen = new LinkedList<>(wk);
         filtereAK(suchen, ak);

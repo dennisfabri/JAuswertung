@@ -56,7 +56,9 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         }
     }
 
-    /** Creates new Lauf */
+    /**
+     * Creates new Lauf
+     */
     Lauf(int bahnen, int lnummer, int lbuchstabe) {
         // setLeftToRight(true);
         if (lnummer > 0) {
@@ -287,8 +289,8 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     public String getName(HeatsNumberingScheme scheme) {
         return switch (scheme) {
-        case Standard -> getName();
-        case Hundreds -> getNameHundreds();
+            case Standard -> getName();
+            case Hundreds -> getNameHundreds();
         };
     }
 
@@ -649,6 +651,21 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
         return (T) ergebnis;
     }
 
+    private int getDisznummer() {
+        if (laufteilies == null) {
+            return 0;
+        }
+        int ergebnis = 0;
+        for (int x = 0; x < diszes.length; x++) {
+            if (laufteilies[x] != null) {
+                ergebnis = diszes[x];
+            }
+        }
+
+        return ergebnis;
+    }
+
+
     public int getSchwimmer(T s) {
         if (s == null) {
             return -1;
@@ -854,5 +871,11 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
     public boolean[] getBenutzbareBahnen() {
         return usable;
+    }
+
+    public Disziplin getDisciplineDto() {
+        T t = getSchwimmer();
+        int index = getDisznummer();
+        return t.getAK().getDisziplin(index, t.isMaennlich());
     }
 }

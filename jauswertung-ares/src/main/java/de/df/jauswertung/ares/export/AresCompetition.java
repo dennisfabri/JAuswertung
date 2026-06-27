@@ -23,7 +23,7 @@ class AresCompetition {
     }
 
     public void calculateLengths() {
-        disciplineMap.values().stream().map(discipline -> new Laenge(discipline.length(), discipline.getDistance()))
+        disciplineMap.values().stream().map(discipline -> new Laenge(discipline.length(), discipline.getDistance(), discipline.amount()))
                      .distinct().sorted().forEach(this::addLength);
     }
 
