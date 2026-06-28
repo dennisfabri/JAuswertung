@@ -64,7 +64,7 @@ public class AresWriterBlocks {
                 pos++;
             }
         }
-        Heat[] ha = heats.toArray(new Heat[heats.size()]);
+        Heat[] ha = heats.toArray(new Heat[0]);
         fos.write(AlphaHttpServer.toData(ha));
         fos.close();
     }
@@ -142,8 +142,6 @@ public class AresWriterBlocks {
         return aks.size() * 2 + offset;
     }
 
-    private static int anschlaegeJe100m = 1;
-
     private static <T extends ASchwimmer> Hashtable<String, Integer> writeLaengen(AWettkampf<T>[] wks, OutputStream os)
             throws UnsupportedEncodingException {
         PrintStream ps = new PrintStream(os, true, CHARSET);
@@ -168,6 +166,7 @@ public class AresWriterBlocks {
                     int id = disziplinen.size();
                     String laenge1 = getLaenge(d);
                     int laenge2 = getLaenge(laenge1);
+                    int anschlaegeJe100m = 1;
                     int anschlaege = Math.max(1, laenge2 / 100 / anschlaegeJe100m);
                     ps.println(id + ";\"" + laenge1 + "\";" + laenge2 + ";" + anschlaege);
                     disziplinen.put(d.getName(), id);
@@ -177,7 +176,7 @@ public class AresWriterBlocks {
         }
     }
 
-    private static String[][] laengen = new String[][] { { "200m", "200m" }, { "200 m", "200m" }, { "100m", "100m" },
+    private static final String[][] laengen = new String[][] { { "200m", "200m" }, { "200 m", "200m" }, { "100m", "100m" },
             { "100 m", "100m" }, { "50m", "50m" },
             { "50 m", "50m" }, { "25m", "25m" }, { "25 m", "25m" }, { "4*25m", "4*25m" }, { "4*25 m", "4*25m" },
             { "4*50m", "4*50m" }, { "4*50 m", "4*50m" } };
@@ -194,22 +193,12 @@ public class AresWriterBlocks {
     }
 
     private static int getLaenge(String laenge) {
-        if (laenge.equals("200m")) {
-            return 200;
-        }
-        if (laenge.equals("100m")) {
-            return 100;
-        }
-        if (laenge.equals("50m")) {
-            return 50;
-        }
-        if (laenge.equals("4*25m")) {
-            return 100;
-        }
-        if (laenge.equals("4*50m")) {
-            return 200;
-        }
-        return 0;
+        return switch (laenge) {
+            case "200m", "4*50m" -> 200;
+            case "100m", "4*25m" -> 100;
+            case "50m" -> 50;
+            default -> 0;
+        };
     }
 
     private static void writeStyles(Hashtable<String, Integer> disziplinen, OutputStream os)
@@ -240,7 +229,7 @@ public class AresWriterBlocks {
         for (Integer id : ids) {
             String d = reverse.get(id);
             d = d.replace("\"", "");
-            ps.println("" + id + ";\"" + d + "\";\"\"");
+            ps.println(id + ";\"" + d + "\";\"\"");
         }
     }
 
@@ -265,7 +254,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -316,7 +305,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -339,7 +328,7 @@ public class AresWriterBlocks {
                     String sn = "" + t.getStartnummer(); // StartnumberFormatManager.format(t);
                     String date = "10/18/09";
                     String time = "00:00";
-                    ps.println("" + id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
+                    ps.println(id1 + " ;0 ;" + id2 + " ;" + lane + " ;" + relay + " ;" + sn + ";\"" + date
                             + "\" ; \"" + time + "\" ;");
                 }
             }
@@ -361,7 +350,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -378,7 +367,7 @@ public class AresWriterBlocks {
             int id1 = lauf.getLaufnummer() % 100;
             int id2 = lauf.getLaufbuchstabe();
 
-            ps.println("" + x + " ;" + id1 + " ;0 ;" + id2 + " ;");
+            ps.println(x + " ;" + id1 + " ;0 ;" + id2 + " ;");
             x++;
         }
     }
@@ -399,9 +388,8 @@ public class AresWriterBlocks {
         for (T t : wk.getSchwimmer()) {
             // ps.print("" + StartnumberFormatManager.format(t) + ";\"" +
             // StartnumberFormatManager.format(t) + "\";");
-            ps.print("" + t.getStartnummer() + ";\"" + t.getStartnummer() + "\";");
-            if (t instanceof Teilnehmer) {
-                Teilnehmer tn = (Teilnehmer) t;
+            ps.print(t.getStartnummer() + ";\"" + t.getStartnummer() + "\";");
+            if (t instanceof Teilnehmer tn) {
                 int jg = tn.getJahrgang();
                 String vn = tn.getVorname().replace("\"", "");
                 String nn = tn.getNachname().replace("\"", "");
@@ -435,7 +423,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -451,7 +439,7 @@ public class AresWriterBlocks {
             int id1 = lauf.getLaufnummer() % 100;
             // int id2 = lauf.getLaufbuchstabe() + 1;
 
-            ps.println("" + id1 + " ;0 ;\"" + title + "\" ;\"" + title + "\" ;\"\" ;");
+            ps.println(id1 + " ;0 ;\"" + title + "\" ;\"" + title + "\" ;\"\" ;");
         }
     }
 
@@ -476,7 +464,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -529,8 +517,8 @@ public class AresWriterBlocks {
                 length = "200m";
             } else if (disziplin.equals("Line Throw")) {
                 // disziplin = disziplin.substring(4);
-                amount = "1";
-                length = "25m";
+                amount = "2";
+                length = "12m";
             } else {
                 System.err.println(disziplin);
             }
@@ -577,7 +565,7 @@ public class AresWriterBlocks {
             ll.addAll(wk.getLaufliste().getLaufliste());
         }
 
-        Collections.sort(ll, new Comparator<Lauf<T>>() {
+        ll.sort(new Comparator<Lauf<T>>() {
 
             @Override
             public int compare(Lauf<T> l1, Lauf<T> l2) {
@@ -609,8 +597,7 @@ public class AresWriterBlocks {
                         StringBuilder sb = new StringBuilder();
                         sb.append(" ");
                         sb.append(x + 1);
-                        if (t instanceof Mannschaft) {
-                            Mannschaft te = (Mannschaft) t;
+                        if (t instanceof Mannschaft te) {
                             sb.append(te.getName());
                             resize(sb, 33, ' ');
                             sb.append("-");

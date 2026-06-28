@@ -65,7 +65,7 @@ class LengthUtil {
             amount = 1;
             length = 200;
         } else if (disziplin.equalsIgnoreCase("Line Throw")) {
-            amount = 1;
+            amount = 2;
             length = 100;
         } else if (disziplin.equalsIgnoreCase("Pool Lifesaver Relay")) {
             amount = 4;

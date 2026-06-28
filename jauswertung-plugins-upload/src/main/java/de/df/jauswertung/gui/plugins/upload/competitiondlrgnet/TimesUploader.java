@@ -76,16 +76,14 @@ public class TimesUploader {
     private void uploadJson(String uploadId, int index, String body) throws IOException {
         try {
             log.info("Uploading results to web.");
-            // log.info(body);
-            //Files.writeString(Path.of(uploadId + "-" + index + ".json"), body);
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(String.join("/",
-                                                                                      new String[]{serverUrl, "rest", "result", "import", "jauswertung", uploadId, "" + index}))).timeout(
-                    Duration.ofMinutes(2)).header("Content-Type", "application/json").PUT(HttpRequest.BodyPublishers.ofString(body)).build();
-            try (HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).followRedirects(HttpClient.Redirect.NORMAL).connectTimeout(
+            String url = String.join("/", serverUrl, "rest", "result", "import", "jauswertung", uploadId, "" + index);
+            log.debug("Uploading results to URL: {}", url);
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json").PUT(
+                    HttpRequest.BodyPublishers.ofString(body)).build();
+            try (HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).followRedirects(HttpClient.Redirect.NORMAL).connectTimeout(
                     Duration.ofSeconds(20)).build()) {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                System.out.println(response.statusCode());
-                System.out.println(response.body());
+                log.info("Upload response with code {}:\n {}", response.statusCode(), response.body());
             }
         } catch (InterruptedException ix) {
             Thread.currentThread().interrupt();
