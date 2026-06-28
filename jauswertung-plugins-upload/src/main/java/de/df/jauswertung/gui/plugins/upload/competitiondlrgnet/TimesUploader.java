@@ -84,10 +84,17 @@ public class TimesUploader {
                     Duration.ofSeconds(20)).build()) {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 log.info("Upload response with code {}:\n {}", response.statusCode(), response.body());
+                if (isErrorCode(response.statusCode())) {
+                    throw new IOException("Error uploading results to web. Response code: " + response.statusCode() + ", body: " + response.body());
+                }
             }
         } catch (InterruptedException ix) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    private boolean isErrorCode(int code) {
+        return code < 200 || code >= 300;
     }
 
     private static String toJson(JAuswertungCompetition results) throws JsonProcessingException {
