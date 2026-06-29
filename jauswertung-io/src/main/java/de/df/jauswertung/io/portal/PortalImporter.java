@@ -14,12 +14,12 @@ import de.df.jauswertung.io.portal.RegistrationExportModel.Participant;
 import de.df.jauswertung.io.portal.RegistrationExportModel.Registration;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
+import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.poi.ss.formula.functions.T;
 import org.lisasp.competition.base.api.type.Gender;
 
 import java.io.IOException;
@@ -362,11 +362,20 @@ public class PortalImporter implements IImporter {
             for (RegistrationExportModel.Team team : registration.getTeams()) {
                 List<Integer> sns = findStartNumbers(mwk, team, uuid2sn, fb);
                 for (int sn : sns) {
+                    int pos = 0;
+                    Set<String> memberNames = new HashSet<>();
                     for (int x = 0; x < team.getMemberIds().size(); x++) {
                         String memberId = team.getMemberIds().get(x);
                         RegistrationExportModel.Athlete athlete = athletesById.get(memberId);
                         if (athlete != null) {
-                            teammembers.put(sn + StringTools.asText(x).toLowerCase(Locale.ROOT), toTeammember(x, athlete, mwk));
+                            String name = athlete.getFirstName() + " " + athlete.getLastName();
+                            if (memberNames.contains(name)) {
+                                fb.showFeedback("Doppeltes Mannschaftsmitglied: %s in Mannschaft %s (Startnummer %d)".formatted(name, team.getName(), sn));
+                            } else {
+                                memberNames.add(name);
+                                teammembers.put(sn + StringTools.asText(pos).toLowerCase(Locale.ROOT), toTeammember(pos, athlete, mwk));
+                                pos++;
+                            }
                         }
                     }
                 }
@@ -470,27 +479,36 @@ public class PortalImporter implements IImporter {
             for (RegistrationExportModel.Team team : registration.getTeams()) {
                 List<Integer> sns = findStartNumbers(mwk, team, uuid2sn, fb);
                 for (int sn : sns) {
-                    starters.addAll(toTeamWithStarters(team, sn));
+                    starters.addAll(toTeamWithStarters(team, sn, mwk, registration.getAthletes()));
                 }
             }
         }
         return new StartersImportDto(starters);
     }
 
-    private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team, Integer sn) {
+    private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team, Integer sn, MannschaftWettkampf mwk, List<RegistrationExportModel.Athlete> athletes) {
         List<TeamWithStarters> allStarts = new ArrayList<>();
 
-        Map<String, Integer> id2Position = new HashMap<>();
-        for (int x = 0; x < team.getMemberIds().size(); x++) {
-            id2Position.put(team.getMemberIds().get(x), x + 1);
+        Mannschaft m = SearchUtils.getSchwimmer(mwk, sn);
+        if (m == null) {
+            return List.of();
         }
+        Map<String, Integer> name2Position = new HashMap<>();
+        for (int x = 0; x < m.getMaxMembers(); x++) {
+            Mannschaftsmitglied member = m.getMannschaftsmitglied(x);
+            if (member != null) {
+                name2Position.put(member.getVorname() + " " + member.getNachname(), x + 1);
+            }
+        }
+
         for (Discipline discipline : team.getDisciplines()) {
             if (discipline.isSelected()) {
                 if (discipline.getRelayPositions() != null) {
                     int[] starters = new int[discipline.getRelayPositions().size()];
                     for (int x = 0; x < starters.length; x++) {
                         String starterId = discipline.getRelayPositions().get(x + 1);
-                        Integer position = starterId != null ? id2Position.get(starterId) : null;
+                        String name = id2Name(starterId, athletes);
+                        Integer position = starterId != null ? name2Position.get(name) : null;
                         starters[x] = position != null ? position : 0;
                     }
                     allStarts.add(new TeamWithStarters(sn, discipline.getName(), 0, starters));
@@ -500,6 +518,10 @@ public class PortalImporter implements IImporter {
             }
         }
         return allStarts;
+    }
+
+    private String id2Name(String starterId, List<RegistrationExportModel.Athlete> athletes) {
+        return athletes.stream().filter(a -> a.getId().equals(starterId)).map(a -> a.getFirstName() + " " + a.getLastName()).findFirst().orElse("");
     }
 
     @Override

@@ -271,7 +271,7 @@ public class ImportManager {
                 String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), indexOfDiscipline, starters.getRound());
                 OWDisziplin<Mannschaft> d = mwk.getLauflisteOW().getDisziplin(id);
                 if (d != null && d.contains(m)) {
-                    Eingabe e = m.getEingabe(id, true);
+                    Eingabe e = m.getEingabe(id, false);
                     if (e != null) {
                         e.setStarter(starters.getStarters());
                     }
