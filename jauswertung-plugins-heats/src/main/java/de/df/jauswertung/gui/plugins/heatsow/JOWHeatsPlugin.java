@@ -286,7 +286,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
             AWettkampf<T> wk = core.getWettkampf();
             if (wk.isOpenWater()) {
                 if (DialogUtils.ask(getController().getWindow(), "Laufliste drucken?",
-                                    "Sollen die folgenden Listen direkt gedruckt werden?\n2x Kampfrichterliste\n1x Auswerterliste\n1x Meldeergebnis")) {
+                                    "Sollen die folgenden Listen direkt gedruckt werden?\n2x Kampfrichterliste\n1x Auswerterliste")) {
                     printOW(t);
                 }
             } else {
@@ -320,7 +320,6 @@ public class JOWHeatsPlugin extends ANullPlugin {
         mp.add(getPrintableRecorder(wkx));
         mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
         mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
-        mp.add(getPrintable(wkx, false, false, I18n.get("Registrationresult")));
         PrintExecutor.print(mp, I18n.get("AutoprintHeats"), true, getController().getWindow());
     }
 
