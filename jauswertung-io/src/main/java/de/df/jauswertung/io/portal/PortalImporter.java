@@ -497,7 +497,7 @@ public class PortalImporter implements IImporter {
         for (int x = 0; x < m.getMaxMembers(); x++) {
             Mannschaftsmitglied member = m.getMannschaftsmitglied(x);
             if (member != null) {
-                name2Position.put(member.getVorname() + " " + member.getNachname(), x + 1);
+                name2Position.put(member.getVorname().strip() + " " + member.getNachname().strip(), x + 1);
             }
         }
 
@@ -521,7 +521,7 @@ public class PortalImporter implements IImporter {
     }
 
     private String id2Name(String starterId, List<RegistrationExportModel.Athlete> athletes) {
-        return athletes.stream().filter(a -> a.getId().equals(starterId)).map(a -> a.getFirstName() + " " + a.getLastName()).findFirst().orElse("");
+        return athletes.stream().filter(a -> a.getId().equals(starterId)).map(a -> a.getFirstName().strip() + " " + a.getLastName().strip()).findFirst().orElse("");
     }
 
     @Override
