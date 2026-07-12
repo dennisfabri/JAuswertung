@@ -50,6 +50,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
     private JTextPane competitionOther;
     private JComboBox<String> nameRegistration;
     private JComboBox<String> printNamesInResults;
+    private JComboBox<String> teammemberNames;
     private JComboBox<String> snFormat;
     private JComboBox<HeatsNumberingDisplay> heatNumberFormat;
     private JComboBox<String> printReferees;
@@ -124,6 +125,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
 
         nameRegistration.addItemListener(item);
         printNamesInResults.addActionListener(action);
+        teammemberNames.addActionListener(action);
         snFormat.addActionListener(action);
         heatNumberFormat.addItemListener(item);
         year.addItemListener(item);
@@ -171,6 +173,8 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
                 new String[]{I18n.get("TeammembersNamesOnly"), I18n.get("TeammembersStrict")});
         printNamesInResults = new JComboBox<>(
                 new String[]{I18n.get("TeamnameOnly"), I18n.get("TeamnameAndMembers")});
+        teammemberNames = new JComboBox<>(
+                new String[]{I18n.get("TeammembersFullNames"), I18n.get("TeammembersShortNames")});
 
         snFormats = StartnumberFormatManager.getFormats();
         String[] formats = new String[snFormats.length];
@@ -257,6 +261,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
         if (wk instanceof MannschaftWettkampf) {
             sfm.add(I18n.get("TeamnameModeLabel"), nameRegistration);
             sfm.add(I18n.get("PrintResults"), printNamesInResults);
+            sfm.add(I18n.get("Teammembers"), teammemberNames);
         }
         sfm.add(I18n.get("PrintReferees"), printReferees);
 
@@ -341,6 +346,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             wk.setProperty(OTHER_COMPETITION_INFO, competitionOther.getText());
             wk.setProperty(NAMENTLICHE_MELDUNG_STRIKT, nameRegistration.getSelectedIndex() == 1);
             wk.setProperty(RESULT_MULTILINE, printNamesInResults.getSelectedIndex() == 1);
+            wk.setProperty(ALWAYS_SHOW_FULL_NAMES, teammemberNames.getSelectedIndex() == 0);
             wk.setProperty(STARTNUMBERFORMAT, snFormats[snFormat.getSelectedIndex()]);
             wk.setProperty(HEATS_NUMBERING_SCHEME, getHeatsNumberingScheme().getValue());
             wk.setProperty(PRINT_REFEREES_COMPACT, printReferees.getSelectedIndex());
@@ -413,6 +419,7 @@ public final class JPropertiesTabbedPane extends JTabbedPane {
             competitionOther.setText(wk.getStringProperty(OTHER_COMPETITION_INFO));
             nameRegistration.setSelectedIndex(wk.getBooleanProperty(NAMENTLICHE_MELDUNG_STRIKT) ? 1 : 0);
             printNamesInResults.setSelectedIndex(wk.getBooleanProperty(RESULT_MULTILINE) ? 1 : 0);
+            teammemberNames.setSelectedIndex(wk.getBooleanProperty(ALWAYS_SHOW_FULL_NAMES, true) ? 0 : 1);
             snFormat.setSelectedIndex(
                     StartnumberFormatManager.GetIndex(wk.getStringProperty(STARTNUMBERFORMAT, "Default")));
             heatNumberFormat.setSelectedIndex(getHeatsNumberingSchemeIndex(

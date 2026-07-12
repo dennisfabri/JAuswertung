@@ -95,6 +95,29 @@ public class Mannschaft extends ASchwimmer {
         return mitglieder2[index].getName();
     }
 
+    public String getStarter(int disz, String separator) {
+        initMembers();
+        int[] starter = getStarter(disz);
+        if (starter == null || starter.length == 0) {
+            return "";
+        }
+        ArrayList<Mannschaftsmitglied> mm = new ArrayList<>();
+        boolean[] marker = new boolean[mitglieder2.length];
+        for (int index : starter) {
+            if (index > 0 && index <= mitglieder2.length && !marker[index - 1]) {
+                mm.add(mitglieder2[index - 1]);
+                marker[index - 1] = true;
+            }
+        }
+        if (!mm.isEmpty()) {
+            return getMitgliedernamen(mm.toArray(Mannschaftsmitglied[]::new), separator);
+        }
+        if (getDisciplineChoiceCount() > 1) {
+            return "";
+        }
+        return getMitgliedernamen(separator);
+    }
+
     public String getStarterShort(int disz, String separator) {
         initMembers();
         int[] starter = getStarter(disz);

@@ -58,6 +58,7 @@ public final class PropertyConstants {
     public static final String DSM_MODE_DATA = "DSMModeData";
     public static final String NAMENTLICHE_MELDUNG_STRIKT = "NamentlicheMeldungStrikt";
     public static final String RESULT_MULTILINE = "ResultMultiline";
+    public static final String ALWAYS_SHOW_FULL_NAMES = "AlwaysShowFullNames";
     public static final String STARTNUMBERFORMAT = "Startnumberformat";
     public static final String PRINT_REFEREES_COMPACT = "PrintRefereesCompact";
     public static final String ISC_RESULT_UPLOAD_EDVNUMBER = "ISCResultUploadEDVNumber";

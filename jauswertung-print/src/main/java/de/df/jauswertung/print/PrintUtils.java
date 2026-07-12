@@ -530,10 +530,7 @@ public final class PrintUtils {
                                                                         int qualification,
                                                                         JResultTable tm,
                                                                         String resultstitle) {
-        boolean times = true;
-        if (FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getDataType().equals(DataType.RANK)) {
-            times = false;
-        }
+        boolean times = !FormelManager.getInstance().get(wk.getRegelwerk().getFormelID()).getDataType().equals(DataType.RANK);
 
         JPanel headerpanel = createHeaderPanel(wk.getRegelwerk(), ak, male, reducedview, false, checksum);
         JPanel footerpanel = createFooterPanel(wk.getRegelwerk(), ak, male, reducedview, tm, checksum);
