@@ -25,22 +25,20 @@ public class MUploadPlugin extends ANullPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(MUploadPlugin.class);
 
-    private static final long ONE_MINUTE = 1 * 60 * 1000;
+    private static final long ONE_MINUTE = 60 * 1000;
     private static final long FIFTEEN_SECOND = 15 * 1000;
 
-    private ButtonInfo[] buttons;
+    private final ButtonInfo[] buttons;
 
     private CorePlugin core;
 
-    private JToggleButton uploadButton;
+    private final JToggleButton uploadButton;
 
-    private ResultUploader iscResultUploader = new ResultUploader();
+    private final ResultUploader iscResultUploader = new ResultUploader();
 
-    //private TimesUploader timesUploader = new TimesUploader("https://dev.lisasp.org");
-    private TimesUploader timesUploader = new TimesUploader("https://competition.dlrg.net");
-    //private TimesUploader timesUploader = new TimesUploader("http://localhost:9001");
-
-    private Timer uploadTimer;
+    //private final TimesUploader timesUploader = new TimesUploader("https://dev.lisasp.org");
+    private final TimesUploader timesUploader = new TimesUploader("https://competition.dlrg.net");
+    // private final TimesUploader timesUploader = new TimesUploader("http://localhost:9001");
 
     public MUploadPlugin() {
         uploadButton = new JToggleButton(IconManager.getSmallIcon("upload"));
@@ -55,7 +53,7 @@ public class MUploadPlugin extends ANullPlugin {
 
         long period = Utils.isInDevelopmentMode() ? FIFTEEN_SECOND : ONE_MINUTE;
 
-        uploadTimer = new Timer("ISC Upload Timer", true);
+        Timer uploadTimer = new Timer("ISC Upload Timer", true);
         uploadTimer.schedule(new TimerTask() {
             @Override
             public void run() {
