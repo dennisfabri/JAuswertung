@@ -90,8 +90,20 @@ public final class ImportConstants {
     public static final int DISCIPLINE = 72;
     public static final int PLATZIERUNG = 73;
     public static final int IMPORT_ID = 74;
+    public static final int IMPORT_ID1 = 75;
+    public static final int IMPORT_ID2 = 76;
+    public static final int IMPORT_ID3 = 77;
+    public static final int IMPORT_ID4 = 78;
+    public static final int IMPORT_ID5 = 79;
+    public static final int IMPORT_ID6 = 80;
+    public static final int IMPORT_ID7 = 81;
+    public static final int IMPORT_ID8 = 82;
+    public static final int IMPORT_ID9 = 83;
+    public static final int IMPORT_ID10 = 84;
+    public static final int IMPORT_ID11 = 85;
+    public static final int IMPORT_ID12 = 86;
 
-    public static final int MAX_INDEX = 75;
+    public static final int MAX_INDEX = 86;
 
     public static final int INDEX_COUNT = MAX_INDEX + 1;
 

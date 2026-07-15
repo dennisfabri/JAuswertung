@@ -717,6 +717,9 @@ public final class DataTableUtils {
         titles.addLast(I18n.get("Sex"));
         aligns.addLast(SwingConstants.CENTER);
         formats.addLast("");
+        titles.addLast(I18n.get("Import-Id"));
+        aligns.addLast(SwingConstants.LEFT);
+        formats.addLast("");
 
         int length = schwimmer.size();
 
@@ -740,6 +743,7 @@ public final class DataTableUtils {
                 row.addLast(m.getVorname());
                 row.addLast(m.getJahrgang() > 0 ? m.getJahrgang() : "");
                 row.addLast(I18n.getSexShortString(m.getGeschlecht()));
+                row.addLast(m.getImportId());
 
                 result.addLast(row.toArray());
             }

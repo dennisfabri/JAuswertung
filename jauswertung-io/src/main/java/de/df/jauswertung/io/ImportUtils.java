@@ -1,36 +1,6 @@
 package de.df.jauswertung.io;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import de.df.jauswertung.io.model.StartersImportDto;
-import de.df.jauswertung.io.model.TeamMembersImportDto;
-import de.df.jauswertung.util.valueobjects.Teammember;
-import de.df.jutils.i18n.IdResourceBundle;
-import lombok.extern.slf4j.Slf4j;
-
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.EinzelWettkampf;
-import de.df.jauswertung.daten.Geschlecht;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.Mannschaftsmitglied;
-import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.Qualifikation;
-import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
@@ -38,6 +8,8 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.io.model.StartersImportDto;
+import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.util.ZWUtils;
 import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
@@ -45,10 +17,19 @@ import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
+import de.df.jauswertung.util.valueobjects.Teammember;
+import de.df.jutils.i18n.IdResourceBundle;
 import de.df.jutils.io.csv.CsvManager;
 import de.df.jutils.resourcebundle.SafeResourceBundle;
 import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static de.df.jauswertung.io.ImportConstants.*;
 
@@ -165,9 +146,8 @@ public class ImportUtils {
                 }
                 startsak[s.getAKNummer()][s.isMaennlich() ? 1 : 0]++;
 
-                Teammember mm = setMitglied(wk, data[x], indizes[VORNAME], indizes[NACHNAME], indizes[GESCHLECHT],
-                                            indizes[JAHRGANG], pos, x, sheet, null);
-
+                Teammember mm = setMitglied(wk, data[x], getIndex(indizes, VORNAME), getIndex(indizes, NACHNAME), getIndex(indizes, GESCHLECHT),
+                                            getIndex(indizes, JAHRGANG), getIndex(indizes, IMPORT_ID), pos, x, sheet, null);
                 result.put(snText, mm);
             }
 
@@ -192,6 +172,13 @@ public class ImportUtils {
             throw new TableException(I18n.get("Error.ResultEmpty"), null, null);
         }
         return new TeamMembersImportDto(result);
+    }
+
+    private static int getIndex(int[] indizes, int key) {
+        if (key < 0 || key >= indizes.length) {
+            return -1;
+        }
+        return indizes[key];
     }
 
     static <T extends ASchwimmer> StartersImportDto tablesToStarters(AWettkampf<T> wk, Feedback fb,
@@ -457,50 +444,50 @@ public class ImportUtils {
                 Mannschaft m = mwk.createMannschaft(name, maennlich, gliederung, ak, bemerkung);
 
                 setMitglied(wk, m.getMannschaftsmitglied(0), data, indizes[VORNAME1], indizes[NACHNAME1],
-                            indizes[GESCHLECHT1], indizes[JAHRGANG1], row, sheet, file);
+                            indizes[GESCHLECHT1], indizes[JAHRGANG1], indizes[IMPORT_ID1], row, sheet, file);
                 if (m.getAK().getMaxMembers() > 1) {
                     setMitglied(wk, m.getMannschaftsmitglied(1), data, indizes[VORNAME2], indizes[NACHNAME2],
-                                indizes[GESCHLECHT2], indizes[JAHRGANG2], row, sheet, file);
+                                indizes[GESCHLECHT2], indizes[JAHRGANG2], indizes[IMPORT_ID2], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 2) {
                     setMitglied(wk, m.getMannschaftsmitglied(2), data, indizes[VORNAME3], indizes[NACHNAME3],
-                                indizes[GESCHLECHT3], indizes[JAHRGANG3], row, sheet, file);
+                                indizes[GESCHLECHT3], indizes[JAHRGANG3], indizes[IMPORT_ID3], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 3) {
                     setMitglied(wk, m.getMannschaftsmitglied(3), data, indizes[VORNAME4], indizes[NACHNAME4],
-                                indizes[GESCHLECHT4], indizes[JAHRGANG4], row, sheet, file);
+                                indizes[GESCHLECHT4], indizes[JAHRGANG4], indizes[IMPORT_ID4], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 4) {
                     setMitglied(wk, m.getMannschaftsmitglied(4), data, indizes[VORNAME5], indizes[NACHNAME5],
-                                indizes[GESCHLECHT5], indizes[JAHRGANG5], row, sheet, file);
+                                indizes[GESCHLECHT5], indizes[JAHRGANG5], indizes[IMPORT_ID5], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 5) {
                     setMitglied(wk, m.getMannschaftsmitglied(5), data, indizes[VORNAME6], indizes[NACHNAME6],
-                                indizes[GESCHLECHT6], indizes[JAHRGANG6], row, sheet, file);
+                                indizes[GESCHLECHT6], indizes[JAHRGANG6], indizes[IMPORT_ID6], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 6) {
                     setMitglied(wk, m.getMannschaftsmitglied(6), data, indizes[VORNAME7], indizes[NACHNAME7],
-                                indizes[GESCHLECHT7], indizes[JAHRGANG7], row, sheet, file);
+                                indizes[GESCHLECHT7], indizes[JAHRGANG7], indizes[IMPORT_ID7], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 7) {
                     setMitglied(wk, m.getMannschaftsmitglied(7), data, indizes[VORNAME8], indizes[NACHNAME8],
-                                indizes[GESCHLECHT8], indizes[JAHRGANG8], row, sheet, file);
+                                indizes[GESCHLECHT8], indizes[JAHRGANG8], indizes[IMPORT_ID8], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 8) {
                     setMitglied(wk, m.getMannschaftsmitglied(8), data, indizes[VORNAME9], indizes[NACHNAME9],
-                                indizes[GESCHLECHT9], indizes[JAHRGANG9], row, sheet, file);
+                                indizes[GESCHLECHT9], indizes[JAHRGANG9], indizes[IMPORT_ID9], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 9) {
                     setMitglied(wk, m.getMannschaftsmitglied(9), data, indizes[VORNAME10], indizes[NACHNAME10],
-                                indizes[GESCHLECHT10], indizes[JAHRGANG10], row, sheet, file);
+                                indizes[GESCHLECHT10], indizes[JAHRGANG10], indizes[IMPORT_ID10], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 10) {
                     setMitglied(wk, m.getMannschaftsmitglied(10), data, indizes[VORNAME11], indizes[NACHNAME11],
-                                indizes[GESCHLECHT11], indizes[JAHRGANG11], row, sheet, file);
+                                indizes[GESCHLECHT11], indizes[JAHRGANG11], indizes[IMPORT_ID11], row, sheet, file);
                 }
                 if (m.getAK().getMaxMembers() > 11) {
                     setMitglied(wk, m.getMannschaftsmitglied(11), data, indizes[VORNAME12], indizes[NACHNAME12],
-                                indizes[GESCHLECHT12], indizes[JAHRGANG12], row, sheet, file);
+                                indizes[GESCHLECHT12], indizes[JAHRGANG12], indizes[IMPORT_ID12], row, sheet, file);
                 }
 
                 s = m;
@@ -678,39 +665,62 @@ public class ImportUtils {
                                                                  int nachnameIndex,
                                                                  int geschlechtIndex,
                                                                  int jahrgangIndex,
+                                                                 int importIdIndex,
                                                                  int teammemberPosition,
                                                                  int row,
                                                                  String sheet,
                                                                  String file)
             throws TableEntryException {
-        String vorname = "";
-        String nachname = "";
-        int jahrgang = 0;
-        Geschlecht geschlecht = Geschlecht.unbekannt;
-        if (nachnameIndex >= 0) {
-            nachname = data[nachnameIndex].toString();
-        }
-        if (vornameIndex >= 0) {
-            vorname = data[vornameIndex].toString();
-        }
-        if (jahrgangIndex >= 0) {
-            jahrgang = getJahrgang(data, jahrgangIndex, row, sheet, file);
-        }
+        String nachname = getString(data, nachnameIndex, "");
+        String vorname = getString(data, vornameIndex, "");
+        int jahrgang = getJahrgang(data, jahrgangIndex, row, sheet, file);
+        Geschlecht geschlecht = getGeschlecht(wk, data, geschlechtIndex, row, sheet, file);
+        String importId = getString(data, importIdIndex, "");
+
         if (geschlechtIndex >= 0) {
-            String g = data[geschlechtIndex].toString().trim();
-            if (!g.isBlank() && !g.equals("-")) {
-                try {
-                    geschlecht = getMaennlich(wk, g, geschlechtIndex, row, sheet, file) ? Geschlecht.maennlich : Geschlecht.weiblich;
-                } catch (Exception _) {
-                    // Nothing to do
-                }
-            }
+            geschlecht = getGeschlecht(wk, data, geschlechtIndex, row, sheet, file);
         }
-        return new Teammember(teammemberPosition, vorname, nachname, geschlecht, jahrgang);
+        return new Teammember(teammemberPosition, vorname, nachname, geschlecht, jahrgang, importId);
     }
 
-    private static <T extends ASchwimmer> void setMitglied(AWettkampf<T> wk, Mannschaftsmitglied mm, Object[] data,
-                                                           int vorname, int nachname, int geschlecht, int jahrgang, int row, String sheet, String file)
+    private static <T extends ASchwimmer> Geschlecht getGeschlecht(AWettkampf<T> wk,
+                                                                   Object[] data,
+                                                                   int geschlechtIndex,
+                                                                   int row,
+                                                                   String sheet,
+                                                                   String file) {
+        if (geschlechtIndex < 0) {
+            return Geschlecht.unbekannt;
+        }
+        String g = data[geschlechtIndex].toString().trim();
+        if (g.isBlank() || g.equals("-")) {
+            return Geschlecht.unbekannt;
+        }
+        try {
+            return getMaennlich(wk, g, geschlechtIndex, row, sheet, file) ? Geschlecht.maennlich : Geschlecht.weiblich;
+        } catch (Exception _) {
+            return Geschlecht.unbekannt;
+        }
+    }
+
+    private static String getString(Object[] data, int index, String defaultValue) {
+        if (index < 0) {
+            return defaultValue;
+        }
+        return index < data.length ? data[index].toString().strip() : defaultValue;
+    }
+
+    private static <T extends ASchwimmer> void setMitglied(AWettkampf<T> wk,
+                                                           Mannschaftsmitglied mm,
+                                                           Object[] data,
+                                                           int vorname,
+                                                           int nachname,
+                                                           int geschlecht,
+                                                           int jahrgang,
+                                                           int importId,
+                                                           int row,
+                                                           String sheet,
+                                                           String file)
             throws TableEntryException {
         if (vorname >= 0) {
             mm.setVorname(data[vorname].toString());
@@ -733,6 +743,9 @@ public class ImportUtils {
                     mm.setGeschlecht(Geschlecht.unbekannt);
                 }
             }
+        }
+        if (importId >= 0) {
+            mm.setImportId(data[importId].toString());
         }
     }
 
@@ -2349,6 +2362,10 @@ public class ImportUtils {
             indizes[JAHRGANG1] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "1").toLowerCase())) {
+            indizes[IMPORT_ID1] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "2").toLowerCase())) {
             indizes[NACHNAME2] = x;
             return;
@@ -2365,7 +2382,11 @@ public class ImportUtils {
             indizes[JAHRGANG2] = x;
             return;
         }
-        if (title.equals(I18n.get("SurnameNr", "3").toLowerCase())) {
+        if (title.equals(I18n.get("ImportIdNr", "2").toLowerCase())) {
+            indizes[IMPORT_ID2] = x;
+            return;
+        }
+        if(title.equals(I18n.get("SurnameNr", "3").toLowerCase())) {
             indizes[NACHNAME3] = x;
             return;
         }
@@ -2379,6 +2400,10 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "3").toLowerCase())) {
             indizes[JAHRGANG3] = x;
+            return;
+        }
+        if (title.equals(I18n.get("ImportIdNr", "3").toLowerCase())) {
+            indizes[IMPORT_ID3] = x;
             return;
         }
         if (title.equals(I18n.get("SurnameNr", "4").toLowerCase())) {
@@ -2397,6 +2422,10 @@ public class ImportUtils {
             indizes[JAHRGANG4] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "4").toLowerCase())) {
+            indizes[IMPORT_ID4] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "5").toLowerCase())) {
             indizes[NACHNAME5] = x;
             return;
@@ -2411,6 +2440,10 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "5").toLowerCase())) {
             indizes[JAHRGANG5] = x;
+            return;
+        }
+        if (title.equals(I18n.get("ImportIdNr", "5").toLowerCase())) {
+            indizes[IMPORT_ID5] = x;
             return;
         }
         if (title.equals(I18n.get("SurnameNr", "6").toLowerCase())) {
@@ -2429,6 +2462,10 @@ public class ImportUtils {
             indizes[JAHRGANG6] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "6").toLowerCase())) {
+            indizes[IMPORT_ID6] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "7").toLowerCase())) {
             indizes[NACHNAME7] = x;
             return;
@@ -2443,6 +2480,10 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "7").toLowerCase())) {
             indizes[JAHRGANG7] = x;
+            return;
+        }
+        if (title.equals(I18n.get("ImportIdNr", "7").toLowerCase())) {
+            indizes[IMPORT_ID7] = x;
             return;
         }
         if (title.equals(I18n.get("SurnameNr", "8").toLowerCase())) {
@@ -2461,6 +2502,10 @@ public class ImportUtils {
             indizes[JAHRGANG8] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "8").toLowerCase())) {
+            indizes[IMPORT_ID8] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "9").toLowerCase())) {
             indizes[NACHNAME9] = x;
             return;
@@ -2475,6 +2520,10 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "9").toLowerCase())) {
             indizes[JAHRGANG9] = x;
+            return;
+        }
+        if (title.equals(I18n.get("ImportIdNr", "9").toLowerCase())) {
+            indizes[IMPORT_ID9] = x;
             return;
         }
         if (title.equals(I18n.get("SurnameNr", "10").toLowerCase())) {
@@ -2493,6 +2542,10 @@ public class ImportUtils {
             indizes[JAHRGANG10] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "10").toLowerCase())) {
+            indizes[IMPORT_ID10] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "11").toLowerCase())) {
             indizes[NACHNAME11] = x;
             return;
@@ -2509,6 +2562,10 @@ public class ImportUtils {
             indizes[JAHRGANG11] = x;
             return;
         }
+        if (title.equals(I18n.get("ImportIdNr", "11").toLowerCase())) {
+            indizes[IMPORT_ID11] = x;
+            return;
+        }
         if (title.equals(I18n.get("SurnameNr", "12").toLowerCase())) {
             indizes[NACHNAME12] = x;
             return;
@@ -2523,6 +2580,10 @@ public class ImportUtils {
         }
         if (title.equals(I18n.get("YearOfBirthNr", "12").toLowerCase())) {
             indizes[JAHRGANG12] = x;
+            return;
+        }
+        if (title.equals(I18n.get("ImportIdNr", "12").toLowerCase())) {
+            indizes[IMPORT_ID12] = x;
             return;
         }
         if (title.equals(I18n.get("Discipline").toLowerCase())) {

@@ -1,48 +1,10 @@
-/*
- * jTeilnehmerAendernLoeschen.java Created on 17. March 2001, 19:48
- */
 
 package de.df.jauswertung.gui.plugins.editor;
-
-/**
- * @author Dennis Fabri
- * @version
- */
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Arrays;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.l2fprod.common.tasks.JTaskPaneGroup;
-
-import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.Geschlecht;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.Mannschaftsmitglied;
-import de.df.jauswertung.daten.Qualifikation;
-import de.df.jauswertung.daten.Teilnehmer;
+import de.df.jauswertung.daten.*;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.plugins.CorePlugin;
@@ -64,51 +26,57 @@ import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
 import de.df.jutils.util.StringTools;
 
-class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 4049357534697435955L;
+/**
+ * jTeilnehmerAendernLoeschen.java Created on 17. March 2001, 19:48
+ *
+ * @author Dennis Fabri
+ */
+class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
 
     private static final JWarningTextField.Validator validator50 = new Length50Validator();
 
-    private JIntegerField jahrgang = new JIntegerField(false, true);
+    private final JIntegerField jahrgang = new JIntegerField(false, true);
 
-    private JIntegerField startnummer = new JIntegerField(true, true);
+    private final JIntegerField startnummer = new JIntegerField(true, true);
 
-    private JWarningTextField name = new JWarningTextField(true, true);
-    private JWarningTextField vorname = new JWarningTextField(true, true);
-    private JWarningTextField qualifikationsebene = new JWarningTextField(false, false);
-    private JComboBox<String> quali = new JComboBox<>(new String[] {
+    private final JWarningTextField name = new JWarningTextField(true, true);
+    private final JWarningTextField vorname = new JWarningTextField(true, true);
+    private final JWarningTextField qualifikationsebene = new JWarningTextField(false, false);
+    private final JComboBox<String> quali = new JComboBox<>(new String[]{
             I18n.get("Quali.Open"), I18n.get("Quali.NotQualified"), I18n.get("Quali.Qualified"),
-            I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker") });
-    private JIntegerField meldePlatz = new JIntegerField(1000, false, true);
-    private JDoubleField[] melde1 = new JDoubleField[] {
-            new JDoubleField(), new JDoubleField() };
-    private JCheckBox[] protokoll1 = new JCheckBox[] {
+            I18n.get("Quali.Direct"), I18n.get("Quali.Set"), I18n.get("Quali.Disabled"), I18n.get("Nachruecker")});
+    private final JIntegerField meldePlatz = new JIntegerField(1000, false, true);
+    private final JDoubleField[] melde1 = new JDoubleField[]{
+            new JDoubleField(), new JDoubleField()};
+    private final JCheckBox[] protokoll1 = new JCheckBox[]{
             new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "A")),
-            new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "B")) };
-    private JWarningTextField bemerkung = new JWarningTextField(false, false);
+            new JCheckBox(I18n.get("RegistrationWithProtocol.Short", "B"))};
+    private final JWarningTextField bemerkung = new JWarningTextField(false, false);
     private JComboBox<String> geschlecht;
 
-    private JCheckBox ausserkonkurrenz = new JCheckBox(I18n.get("AusserKonkurrenz"));
-    private JCheckBox startpass = new JCheckBox(
+    private final JCheckBox ausserkonkurrenz = new JCheckBox(I18n.get("AusserKonkurrenz"));
+    private final JCheckBox startpass = new JCheckBox(
             I18n.get("Startunterlagenkontrolle"));
 
     private JWarningTextField importId = new JWarningTextField();
 
-    private JPanel members = new JPanel();
+    private final JPanel members = new JPanel();
     private JWarningTextField[] membersFirstname = new JWarningTextField[0];
     private JWarningTextField[] membersSurname = new JWarningTextField[0];
-    @SuppressWarnings({ "unchecked", "cast" })
+    @SuppressWarnings({"unchecked", "cast"})
     private JComboBox<String>[] membersSex = (JComboBox<String>[]) new JComboBox[0];
     private JIntegerField[] membersYearOfBirth = new JIntegerField[0];
+    private JWarningTextField[] membersImportId = new JWarningTextField[0];
 
-    private JWarningTextField gliederung = new JWarningTextField(true, true);
+    private final JWarningTextField gliederung = new JWarningTextField(true, true);
     private DisciplinesPanel<T> disciplinePanel = null;
     private JTaskPaneGroup disciplineContainer = null;
-    private JComboBox<String> ak = new JComboBox<>();
+    private final JComboBox<String> ak = new JComboBox<>();
 
     private AWettkampf<T> wk = null;
     private T schwimmer = null;
@@ -147,7 +115,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         enableAutoselect();
 
         geschlecht = new JComboBox<>(
-                new String[] { I18n.geschlechtToString(rw, false), I18n.geschlechtToString(rw, true) });
+                new String[]{I18n.geschlechtToString(rw, false), I18n.geschlechtToString(rw, true)});
 
         importId = new JWarningTextField(false, false);
         importId.setEditable(false);
@@ -159,8 +127,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         disciplineContainer.add(disciplinePanel);
 
         startnummer.setInt(schwimmer.getStartnummer());
-        if (swimmer instanceof Teilnehmer) {
-            Teilnehmer t = (Teilnehmer) swimmer;
+        if (swimmer instanceof Teilnehmer t) {
             name.setText(t.getNachname());
             vorname.setText(t.getVorname());
             jahrgang.setInt(t.getJahrgang());
@@ -171,8 +138,9 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
             membersSurname = Arrays.copyOf(membersSurname, swimmer.getMaxMembers());
             membersSex = Arrays.copyOf(membersSex, swimmer.getMaxMembers());
             membersYearOfBirth = Arrays.copyOf(membersYearOfBirth, swimmer.getMaxMembers());
+            membersImportId = Arrays.copyOf(membersImportId, swimmer.getMaxMembers());
 
-            Object[][] input = new Object[membersFirstname.length][4];
+            Object[][] input = new Object[membersFirstname.length][5];
             for (int x = 0; x < membersFirstname.length; x++) {
                 membersFirstname[x] = new JWarningTextField(false, true);
                 membersFirstname[x].setValidator(validator50);
@@ -180,34 +148,38 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
                 membersSurname[x] = new JWarningTextField(false, true);
                 membersSurname[x].setValidator(validator50);
                 membersSurname[x].setAutoSelectAll(true);
-                membersSex[x] = new JComboBox<>(new String[] { I18n.get("Sex2"), I18n.get("Sex1"), "-" });
+                membersSex[x] = new JComboBox<>(new String[]{I18n.get("Sex2"), I18n.get("Sex1"), "-"});
                 membersYearOfBirth[x] = new JIntegerField(3000, false, true);
                 membersYearOfBirth[x].setAutoSelectAll(true);
+                membersImportId[x] = new JWarningTextField(false, false);
+                membersImportId[x].setAutoSelectAll(true);
 
                 Mannschaftsmitglied mm = m.getMannschaftsmitglied(x);
                 membersFirstname[x].setText(mm.getVorname());
                 membersSurname[x].setText(mm.getNachname());
                 switch (mm.getGeschlecht()) {
-                case maennlich:
-                    membersSex[x].setSelectedIndex(0);
-                    break;
-                case weiblich:
-                    membersSex[x].setSelectedIndex(1);
-                    break;
-                case unbekannt:
-                    membersSex[x].setSelectedIndex(2);
-                    break;
+                    case maennlich:
+                        membersSex[x].setSelectedIndex(0);
+                        break;
+                    case weiblich:
+                        membersSex[x].setSelectedIndex(1);
+                        break;
+                    case unbekannt:
+                        membersSex[x].setSelectedIndex(2);
+                        break;
                 }
                 membersYearOfBirth[x].setInt(mm.getJahrgang());
+                membersImportId[x].setText(mm.getImportId());
 
                 input[x][0] = membersSurname[x];
                 input[x][1] = membersFirstname[x];
                 input[x][2] = membersSex[x];
                 input[x][3] = membersYearOfBirth[x];
+                input[x][4] = membersImportId[x];
             }
 
-            FormLayoutUtils.createTable(members, null, new String[] { "Nachname", "Vorname", "Geschlecht", "Jahrgang" },
-                    input, new int[0], SwingConstants.NEXT, true);
+            FormLayoutUtils.createTable(members, null, new String[]{"Nachname", "Vorname", "Geschlecht", "Jahrgang", "Import-Id"},
+                                        input, new int[0], SwingConstants.NEXT, true);
             members.setBorder(BorderUtils.createLabeledBorder("Mannschaftsmitglieder"));
         }
         meldePlatz.setInt(schwimmer.getMeldePlatz());
@@ -234,27 +206,27 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         ausserkonkurrenz.setSelected(schwimmer.isAusserKonkurrenz());
 
         switch (schwimmer.getQualifikation()) {
-        case OFFEN:
-            quali.setSelectedIndex(0);
-            break;
-        case NICHT_QUALIFIZIERT:
-            quali.setSelectedIndex(1);
-            break;
-        case QUALIFIZIERT:
-            quali.setSelectedIndex(2);
-            break;
-        case DIREKT:
-            quali.setSelectedIndex(3);
-            break;
-        case GESETZT:
-            quali.setSelectedIndex(4);
-            break;
-        case GESPERRT:
-            quali.setSelectedIndex(5);
-            break;
-        case NACHRUECKER:
-            quali.setSelectedIndex(6);
-            break;
+            case OFFEN:
+                quali.setSelectedIndex(0);
+                break;
+            case NICHT_QUALIFIZIERT:
+                quali.setSelectedIndex(1);
+                break;
+            case QUALIFIZIERT:
+                quali.setSelectedIndex(2);
+                break;
+            case DIREKT:
+                quali.setSelectedIndex(3);
+                break;
+            case GESETZT:
+                quali.setSelectedIndex(4);
+                break;
+            case GESPERRT:
+                quali.setSelectedIndex(5);
+                break;
+            case NACHRUECKER:
+                quali.setSelectedIndex(6);
+                break;
         }
 
         startpass.setSelected(schwimmer.getStartunterlagen() == Startunterlagen.PRUEFEN);
@@ -269,8 +241,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 beenden();
@@ -281,8 +251,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
 
         KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
         Action enterAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 doOk();
@@ -354,7 +322,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         tabs.addTab(I18n.get("Registration"), UIUtils.surroundWithScroller(sfb2.getPanel(), false, true));
 
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
-                "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
+                                           "4dlu,fill:default:grow,4dlu,fill:default,4dlu");
 
         JPanel panel = new JPanel(layout);
         panel.setLayout(layout);
@@ -389,7 +357,7 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         FormLayout layout = new FormLayout("fill:default,4dlu:grow,fill:default,4dlu,fill:default", "fill:default");
 
         JPanel buttonPanel = new JPanel(layout);
-        layout.setColumnGroups(new int[][] { { 1, 3, 5 } });
+        layout.setColumnGroups(new int[][]{{1, 3, 5}});
 
         if (delete) {
             JButton loeschen = new JButton(I18n.get("Delete"), IconManager.getSmallIcon("delete"));
@@ -408,14 +376,14 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     }
 
     /**
-     * 
+     *
      */
     void close() {
         beenden();
     }
 
     /**
-     * 
+     *
      */
     void doOk() {
         if (!validateData()) {
@@ -429,11 +397,10 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         }
         if (!wk.switchStartnummer(schwimmer, sn)) {
             DialogUtils.error(this, I18n.get("Error"), I18n.get("Error.StartnumberChangeFailed"),
-                    I18n.get("Error.StartnumberChangeFailed.Note"));
+                              I18n.get("Error.StartnumberChangeFailed.Note"));
             return;
         }
-        if (schwimmer instanceof Teilnehmer) {
-            Teilnehmer t = (Teilnehmer) schwimmer;
+        if (schwimmer instanceof Teilnehmer t) {
             t.setNachname(name.getText());
             t.setVorname(vorname.getText());
             t.setJahrgang(jahrgang.getInt());
@@ -444,20 +411,10 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
                 Mannschaftsmitglied mm = m.getMannschaftsmitglied(x);
                 mm.setVorname(membersFirstname[x].getText());
                 mm.setNachname(membersSurname[x].getText());
-                switch (membersSex[x].getSelectedIndex()) {
-                case 0:
-                    mm.setGeschlecht(Geschlecht.maennlich);
-                    break;
-                case 1:
-                    mm.setGeschlecht(Geschlecht.weiblich);
-                    break;
-                default:
-                    mm.setGeschlecht(Geschlecht.unbekannt);
-                    break;
-                }
+                mm.setGeschlecht(indexToGeschlecht(membersSex[x].getSelectedIndex()));
                 mm.setJahrgang(membersYearOfBirth[x].getInt());
+                mm.setImportId(membersImportId[x].getText());
             }
-            // m.setMitglieder(members.getText());
         }
         schwimmer.setMaennlich(geschlecht.getSelectedIndex() == 1);
         schwimmer.setMeldePlatz(meldePlatz.getInt());
@@ -488,6 +445,14 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         beenden();
     }
 
+    private Geschlecht indexToGeschlecht(int selectedIndex) {
+        return switch (selectedIndex) {
+            case 0 -> Geschlecht.maennlich;
+            case 1 -> Geschlecht.weiblich;
+            default -> Geschlecht.unbekannt;
+        };
+    }
+
     private boolean validateData() {
         try {
             Integer.parseInt(startnummer.getText());
@@ -513,27 +478,19 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
     }
 
     private Qualifikation getQualifikation() {
-        switch (quali.getSelectedIndex()) {
-        default:
-        case 0:
-            return Qualifikation.OFFEN;
-        case 1:
-            return Qualifikation.NICHT_QUALIFIZIERT;
-        case 2:
-            return Qualifikation.QUALIFIZIERT;
-        case 3:
-            return Qualifikation.DIREKT;
-        case 4:
-            return Qualifikation.GESETZT;
-        case 5:
-            return Qualifikation.GESPERRT;
-        case 6:
-            return Qualifikation.NACHRUECKER;
-        }
+        return switch (quali.getSelectedIndex()) {
+            case 1 -> Qualifikation.NICHT_QUALIFIZIERT;
+            case 2 -> Qualifikation.QUALIFIZIERT;
+            case 3 -> Qualifikation.DIREKT;
+            case 4 -> Qualifikation.GESETZT;
+            case 5 -> Qualifikation.GESPERRT;
+            case 6 -> Qualifikation.NACHRUECKER;
+            default -> Qualifikation.OFFEN;
+        };
     }
 
     /**
-     * 
+     *
      */
     void delete() {
         EDTUtils.setVisible(this, false);
@@ -549,13 +506,12 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         name.setAutoSelectAll(true);
         vorname.setAutoSelectAll(true);
         qualifikationsebene.setAutoSelectAll(true);
-        // members.setAutoSelectAll(true);
         bemerkung.setAutoSelectAll(true);
         gliederung.setAutoSelectAll(true);
         startnummer.setAutoSelectAll(true);
         meldePlatz.setAutoSelectAll(true);
-        for (int x = 0; x < melde1.length; x++) {
-            melde1[x].setAutoSelectAll(true);
+        for (JDoubleField jDoubleField : melde1) {
+            jDoubleField.setAutoSelectAll(true);
         }
     }
 

@@ -423,7 +423,7 @@ public class PortalImporter implements IImporter {
 
     private Teammember toTeammember(int x, RegistrationExportModel.Athlete athlete, MannschaftWettkampf mwk) {
         int yearOfBirth = athlete.getYearOfBirth() == null ? 0 : athlete.getYearOfBirth();
-        return new Teammember(x, athlete.getFirstName(), athlete.getLastName(), findGeschlecht(mwk, athlete.getGender()), yearOfBirth);
+        return new Teammember(x, athlete.getFirstName(), athlete.getLastName(), findGeschlecht(mwk, athlete.getGender()), yearOfBirth, athlete.getId());
     }
 
     @Override
@@ -486,7 +486,10 @@ public class PortalImporter implements IImporter {
         return new StartersImportDto(starters);
     }
 
-    private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team, Integer sn, MannschaftWettkampf mwk, List<RegistrationExportModel.Athlete> athletes) {
+    private List<TeamWithStarters> toTeamWithStarters(RegistrationExportModel.Team team,
+                                                      Integer sn,
+                                                      MannschaftWettkampf mwk,
+                                                      List<RegistrationExportModel.Athlete> athletes) {
         List<TeamWithStarters> allStarts = new ArrayList<>();
 
         Mannschaft m = SearchUtils.getSchwimmer(mwk, sn);
@@ -497,7 +500,13 @@ public class PortalImporter implements IImporter {
         for (int x = 0; x < m.getMaxMembers(); x++) {
             Mannschaftsmitglied member = m.getMannschaftsmitglied(x);
             if (member != null) {
-                name2Position.put(member.getVorname().strip() + " " + member.getNachname().strip(), x + 1);
+                String name = member.getVorname().strip() + " " + member.getNachname().strip();
+                if (!name.isBlank()) {
+                    name2Position.put(name, x + 1);
+                }
+                if (member.getImportId() != null && !member.getImportId().isBlank()) {
+                    name2Position.put(member.getImportId(), x + 1);
+                }
             }
         }
 
@@ -507,9 +516,14 @@ public class PortalImporter implements IImporter {
                     int[] starters = new int[discipline.getRelayPositions().size()];
                     for (int x = 0; x < starters.length; x++) {
                         String starterId = discipline.getRelayPositions().get(x + 1);
-                        String name = id2Name(starterId, athletes);
-                        Integer position = starterId != null ? name2Position.get(name) : null;
-                        starters[x] = position != null ? position : 0;
+                        if (starterId != null) {
+                            String name = id2Name(starterId, athletes);
+                            Integer position = name != null ? name2Position.get(name) : null;
+                            if (position == null) {
+                                position = name2Position.get(starterId);
+                            }
+                            starters[x] = position != null ? position : 0;
+                        }
                     }
                     allStarts.add(new TeamWithStarters(sn, discipline.getName(), 0, starters));
                 } else {
@@ -521,7 +535,11 @@ public class PortalImporter implements IImporter {
     }
 
     private String id2Name(String starterId, List<RegistrationExportModel.Athlete> athletes) {
-        return athletes.stream().filter(a -> a.getId().equals(starterId)).map(a -> a.getFirstName().strip() + " " + a.getLastName().strip()).findFirst().orElse("");
+        if (starterId == null) {
+            return null;
+        }
+        return athletes.stream().filter(a -> a.getId().equals(starterId)).map(a -> a.getFirstName().strip() + " " + a.getLastName().strip()).findFirst().orElse(
+                null);
     }
 
     @Override

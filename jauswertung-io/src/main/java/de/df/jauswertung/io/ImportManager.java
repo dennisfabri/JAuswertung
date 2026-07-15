@@ -241,6 +241,7 @@ public class ImportManager {
                                 mm.setVorname(info.getFirstname());
                                 mm.setJahrgang(info.getJahrgang());
                                 mm.setGeschlecht(info.getGeschlecht());
+                                mm.setImportId(info.getImportId());
                             }
                         });
                     }
