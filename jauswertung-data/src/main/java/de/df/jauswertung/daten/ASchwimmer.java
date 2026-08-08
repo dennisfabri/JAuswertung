@@ -601,6 +601,7 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         if (st == null) {
             Arrays.fill(starter[disciplineIndex], 0);
         } else {
+            Arrays.fill(starter[disciplineIndex], 0);
             System.arraycopy(st, 0, starter[disciplineIndex], 0, Math.min(st.length, starter[disciplineIndex].length));
         }
     }

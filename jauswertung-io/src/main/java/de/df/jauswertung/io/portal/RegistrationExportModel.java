@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.lisasp.competition.base.api.type.Gender;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,8 @@ public class RegistrationExportModel {
         private boolean completed;
         private List<Athlete> athletes = new ArrayList<>();
         private List<Team> teams = new ArrayList<>();
+        private List<Document> documents = new ArrayList<>();
+        private List<Link> links = new ArrayList<>();
         private Optional<Form> form;
     }
 
@@ -87,6 +90,20 @@ public class RegistrationExportModel {
         }
     }
 
+    @Data
+    public static class Document {
+        private String id;
+        private String name;
+        private LocalDateTime lastModified;
+    }
+
+    @Data
+    public static class Link {
+        private String id;
+        private String name;
+        private String url;
+    }
+
     @Value
     public static class Form {
 
@@ -112,7 +129,7 @@ public class RegistrationExportModel {
 
         @JsonIgnore
         public boolean isEmpty() {
-            return categories.stream().allMatch(c -> c.isEmpty());
+            return categories.stream().allMatch(FormCategory::isEmpty);
         }
     }
 
