@@ -8,8 +8,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 
@@ -57,6 +59,12 @@ class ExcelWriterTests {
             assertEquals(2.0, sheet.getRow(3).getCell(2).getNumericCellValue());
             assertEquals("Max\nMustermann", sheet.getRow(3).getCell(0).getStringCellValue());
             assertTrue(sheet.getRow(3).getCell(0).getCellStyle().getWrapText());
+
+            // Every second row is filled with light blue
+            XSSFCellStyle colored = (XSSFCellStyle) sheet.getRow(3).getCell(1).getCellStyle();
+            assertEquals(FillPatternType.SOLID_FOREGROUND, colored.getFillPattern());
+            assertEquals("FFDDEBF7", colored.getFillForegroundXSSFColor().getARGBHex());
+            assertEquals(FillPatternType.NO_FILL, sheet.getRow(2).getCell(1).getCellStyle().getFillPattern());
 
             // Print setup
             assertTrue(sheet.getFitToPage());

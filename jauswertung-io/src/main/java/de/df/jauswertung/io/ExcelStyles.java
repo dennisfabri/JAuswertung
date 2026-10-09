@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.ExtendedColor;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -21,10 +22,14 @@ public class ExcelStyles {
     private Hashtable<String, CellStyle> styles;
     private Workbook wb;
     private DataFormat dataformat;
+    private ExtendedColor fillColor;
 
     public ExcelStyles(Workbook book) {
         wb = book;
         dataformat = wb.createDataFormat();
+        // Light blue of the banded rows in Excel's default table style (Blue, Accent 1, Lighter 80%)
+        fillColor = wb.getCreationHelper().createExtendedColor();
+        fillColor.setARGBHex("FFDDEBF7");
         styles = new Hashtable<>();
     }
 
@@ -37,8 +42,8 @@ public class ExcelStyles {
             boolean wrap) {
         CellStyle cellStyle = wb.createCellStyle();
         if (colored) {
-            cellStyle.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
             cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cellStyle.setFillForegroundColor(fillColor);
         }
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellStyle.setAlignment(align);
