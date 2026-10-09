@@ -23,7 +23,7 @@ import java.util.ListIterator;
 public class RecordsUpdater {
 
     private static final String OldRecords = "src/test/resources/rec-werte/Rekordwerte 2025.xlsx";
-    private static final String NewRecords = "src/test/resources/rec-werte/Rekordwerte 2026.xls";
+    private static final String NewRecords = "src/test/resources/rec-werte/Rekordwerte 2026.xlsx";
 
     public static void main(String[] args) throws Exception {
         Records records = new Records(readRecords(OldRecords, new SystemOutFeedback()));

@@ -47,6 +47,6 @@ public class ExcelExporter extends ASpreadsheetExporter {
      */
     @Override
     public String[] getSuffixes() {
-        return new String[] { "xls" };
+        return new String[] { "xlsx" };
     }
 }

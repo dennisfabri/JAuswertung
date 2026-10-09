@@ -7,22 +7,22 @@ import java.util.Hashtable;
 
 import javax.swing.SwingConstants;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class ExcelStyles {
 
-    private Hashtable<String, HSSFCellStyle> styles;
-    private HSSFWorkbook wb;
-    private HSSFDataFormat dataformat;
+    private Hashtable<String, CellStyle> styles;
+    private Workbook wb;
+    private DataFormat dataformat;
 
-    public ExcelStyles(HSSFWorkbook book) {
+    public ExcelStyles(Workbook book) {
         wb = book;
         dataformat = wb.createDataFormat();
         styles = new Hashtable<>();
@@ -32,37 +32,37 @@ public class ExcelStyles {
         return b ? 1 : 0;
     }
 
-    private HSSFCellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left,
+    private CellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left,
             boolean colored, HorizontalAlignment align,
             boolean wrap) {
-        HSSFCellStyle cellStyle = wb.createCellStyle();
+        CellStyle cellStyle = wb.createCellStyle();
         if (colored) {
-            cellStyle.setFillForegroundColor(HSSFColorPredefined.PALE_BLUE.getIndex());
+            cellStyle.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
             cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         }
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellStyle.setAlignment(align);
         if (top != BorderStyle.NONE) {
             cellStyle.setBorderTop(top);
-            cellStyle.setTopBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (right != BorderStyle.NONE) {
             cellStyle.setBorderRight(right);
-            cellStyle.setRightBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (bottom != BorderStyle.NONE) {
             cellStyle.setBorderBottom(bottom);
-            cellStyle.setBottomBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (left != BorderStyle.NONE) {
             cellStyle.setBorderLeft(left);
-            cellStyle.setLeftBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         }
         cellStyle.setWrapText(wrap);
         return cellStyle;
     }
 
-    public HSSFCellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+    public CellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored,
             String format, boolean grouping,
             boolean wrap) {
         HorizontalAlignment a = HorizontalAlignment.LEFT;
@@ -83,7 +83,7 @@ public class ExcelStyles {
         return getStyle(top, right, bottom, left, colored, format, a, grouping, wrap);
     }
 
-    public HSSFCellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+    public CellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored,
             String format, HorizontalAlignment align,
             boolean grouping, boolean wrap) {
         StringBuilder sb = new StringBuilder();
@@ -97,7 +97,7 @@ public class ExcelStyles {
         sb.append(align);
         sb.append("x");
         sb.append(format);
-        HSSFCellStyle style = styles.get(sb.toString());
+        CellStyle style = styles.get(sb.toString());
         if (style != null) {
             return style;
         }
