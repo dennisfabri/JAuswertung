@@ -92,7 +92,7 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
     }
 
     private void init(boolean alwaysDisq) {
-        FormLayout layout = new FormLayout("4px,fill:default:grow,4dlu",
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu");
         setLayout(layout);
 
