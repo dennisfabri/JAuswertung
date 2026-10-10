@@ -60,7 +60,7 @@ public final class JAuswertungLauncher {
 
     private static Image getImage() {
         try {
-            BufferedImage bix = ImageIO.read(new File(Utils.getUserDir() + "images/logo.png"));
+            BufferedImage bix = ImageIO.read(new File(Utils.getUserDir() + "images/banner.png"));
             BufferedImage bi = new BufferedImage(bix.getWidth(), bix.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = bi.createGraphics();
             Font f = g.getFont();

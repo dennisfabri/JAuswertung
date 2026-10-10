@@ -124,7 +124,7 @@ public final class ErzeugeWettkaempfe {
 
         EinzelWettkampf ewk = new EinzelWettkampf(AgeGroupIOUtils.getDefaultAKs(true),
                 InputManager.ladeStrafen(null, true));
-        // ewk.setLogo(IconManager.getLogoImage());
+        // ewk.setLogo(IconManager.getBannerImage());
         int lanes = 6;
         if (anzahl > 20) {
             lanes = 8;
@@ -273,7 +273,7 @@ public final class ErzeugeWettkaempfe {
 
         MannschaftWettkampf mwk = new MannschaftWettkampf(AgeGroupIOUtils.getDefaultAKs(false),
                 InputManager.ladeStrafen(null, false));
-        // mwk.setLogo(IconManager.getLogoImage());
+        // mwk.setLogo(IconManager.getBannerImage());
 
         int lanes = 6;
         if (anzahl > 20) {

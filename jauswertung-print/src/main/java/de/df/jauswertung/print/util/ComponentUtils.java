@@ -1,6 +1,8 @@
 package de.df.jauswertung.print.util;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -11,11 +13,28 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import de.df.jauswertung.gui.util.IconManager;
-
 public final class ComponentUtils {
 
-    private static final Icon IMAGE_BOX = IconManager.getImageIcon("box");
+    private static final int BOX_SIZE = 10;
+
+    // Empty square to tick by hand on the printout
+    private static final Icon IMAGE_BOX = new Icon() {
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            g.setColor(Color.BLACK);
+            g.drawRect(x, y, BOX_SIZE - 1, BOX_SIZE - 1);
+        }
+
+        @Override
+        public int getIconWidth() {
+            return BOX_SIZE;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return BOX_SIZE;
+        }
+    };
 
     private ComponentUtils() {
         // Hide constructor

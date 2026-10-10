@@ -32,7 +32,7 @@ public final class AboutDialogCreator {
             c = new JComponent[] { general };
         }
 
-        JAboutDialog about = new JAboutDialog(parent, I18n.get("About"), IconManager.getLogo(), c);
+        JAboutDialog about = new JAboutDialog(parent, I18n.get("About"), IconManager.getBanner(), c);
         UIStateUtils.uistatemanage(parent, about, "JAuswertungAbout");
         return about;
     }
