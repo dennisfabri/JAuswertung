@@ -28,7 +28,6 @@ import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.gui.jtable.JPrintTable;
 import de.df.jutils.gui.layout.FormLayoutUtils;
-import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
@@ -214,11 +213,12 @@ class SiegerlistePrinter implements Printer {
     }
 
     Printable getPrintable() {
-        Veranstaltung vs = parent.getVeranstaltung();
-        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
+        return getPrintable(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0, getSelectedFont());
+    }
+
+    private Printable getPrintable(Veranstaltung vs, boolean gliederungen, Font f) {
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        return getPrintable(vs, VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true), title,
-                getSelectedFont());
+        return getPrintable(vs, VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true), title, f);
     }
 
     Printable getPrintable(Veranstaltung vs, AWettkampf[] wks, String title, Font f) {
@@ -266,12 +266,10 @@ class SiegerlistePrinter implements Printer {
     }
 
     void print() {
-        Printable p = getPrintable();
-        if (p == null) {
-            DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
-            return;
-        }
-        PrintExecutor.print(p, I18n.get("GroupEvaluation"), parent);
+        Veranstaltung vs = parent.getVeranstaltung();
+        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
+        Font f = getSelectedFont();
+        PrintExecutor.print(() -> getPrintable(vs, gliederungen, f), I18n.get("GroupEvaluation"), parent);
     }
 
     void preview() {

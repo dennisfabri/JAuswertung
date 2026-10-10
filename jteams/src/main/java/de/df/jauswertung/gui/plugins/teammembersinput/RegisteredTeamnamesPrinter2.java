@@ -69,7 +69,7 @@ class RegisteredTeamnamesPrinter2 {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("RegisteredTeamnames"), true, controller.getWindow());
+        PrintExecutor.print(() -> getPrintable(), I18n.get("RegisteredTeamnames"), true, controller.getWindow());
     }
 
     void preview() {

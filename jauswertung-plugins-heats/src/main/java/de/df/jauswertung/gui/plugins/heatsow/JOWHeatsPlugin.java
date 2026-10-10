@@ -315,21 +315,25 @@ public class JOWHeatsPlugin extends ANullPlugin {
     }
 
     private void printOW(OWSelection sel) {
-        AWettkampf<?> wkx = createCompetitionFor(sel);
-        MultiplePrintable mp = new MultiplePrintable();
-        mp.add(getPrintableRecorder(wkx));
-        mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
-        mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
-        PrintExecutor.print(mp, I18n.get("AutoprintHeats"), true, getController().getWindow());
+        PrintExecutor.print(() -> {
+            AWettkampf<?> wkx = createCompetitionFor(sel);
+            MultiplePrintable mp = new MultiplePrintable();
+            mp.add(getPrintableRecorder(wkx));
+            mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
+            mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
+            return mp;
+        }, I18n.get("AutoprintHeats"), true, getController().getWindow());
     }
 
     private void printPool(OWSelection sel) {
-        AWettkampf<?> wkx = createCompetitionFor(sel);
-        MultiplePrintable mp = new MultiplePrintable();
-        mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
-        mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
-        mp.add(getPrintable(wkx, false, true, I18n.get("Registrationresult")));
-        PrintExecutor.print(mp, I18n.get("AutoprintHeats"), true, getController().getWindow());
+        PrintExecutor.print(() -> {
+            AWettkampf<?> wkx = createCompetitionFor(sel);
+            MultiplePrintable mp = new MultiplePrintable();
+            mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
+            mp.add(getPrintable(wkx, true, false, I18n.get("Kampfrichter-Laufliste")));
+            mp.add(getPrintable(wkx, false, true, I18n.get("Registrationresult")));
+            return mp;
+        }, I18n.get("AutoprintHeats"), true, getController().getWindow());
     }
 
     private <T extends ASchwimmer> void delete(OWSelection t, Laufliste<T> heats) {

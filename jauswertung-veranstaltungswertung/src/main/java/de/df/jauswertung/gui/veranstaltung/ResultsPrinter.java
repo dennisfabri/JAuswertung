@@ -34,7 +34,6 @@ import de.df.jutils.gui.jtable.GroupableTableHeader;
 import de.df.jutils.gui.jtable.JGroupableTable;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
-import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
@@ -172,10 +171,13 @@ class ResultsPrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     Printable getPrintableCompact() {
-        Veranstaltung vs = parent.getVeranstaltung();
-        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
+        return getPrintableCompact(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0,
+                parent.getSelectedFont());
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static Printable getPrintableCompact(Veranstaltung vs, boolean gliederungen, Font f) {
         AWettkampf[] wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
-        Font f = parent.getSelectedFont();
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
         return getPrintableCompact(vs, wks, title, f);
     }
@@ -216,15 +218,17 @@ class ResultsPrinter implements Printer {
     }
 
     Printable getPrintableNormal() {
-        Font f = parent.getSelectedFont();
+        return getPrintableNormal(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0,
+                parent.getSelectedFont());
+    }
+
+    private Printable getPrintableNormal(Veranstaltung vs, boolean gliederungen, Font f) {
         if (f != null) {
             PrintManager.setFont(f);
         }
 
         Printable p = null;
 
-        Veranstaltung vs = parent.getVeranstaltung();
-        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
         p = veranstaltung2Printable(vs, gliederungen);
         if (p == null) {
             return EmptyPrintable.Instance;
@@ -257,20 +261,19 @@ class ResultsPrinter implements Printer {
         return panel;
     }
 
-    Printable getPrintable(boolean compact) {
+    private Printable getPrintable(boolean compact, Veranstaltung vs, boolean gliederungen, Font f) {
         if (compact) {
-            return getPrintableCompact();
+            return getPrintableCompact(vs, gliederungen, f);
         }
-        return getPrintableNormal();
+        return getPrintableNormal(vs, gliederungen, f);
     }
 
     void print() {
-        Printable p = getPrintable(resultcompact.isSelected());
-        if (p == null) {
-            DialogUtils.inform(parent, I18n.get("NoDataToPrint"), I18n.get("NoDataToPrint.Note"));
-            return;
-        }
-        PrintExecutor.print(p, I18n.get("GroupEvaluation"), parent);
+        boolean compact = resultcompact.isSelected();
+        Veranstaltung vs = parent.getVeranstaltung();
+        boolean gliederungen = resultmodus.getSelectedIndex() == 0;
+        Font f = parent.getSelectedFont();
+        PrintExecutor.print(() -> getPrintable(compact, vs, gliederungen, f), I18n.get("GroupEvaluation"), parent);
     }
 
     void preview() {
