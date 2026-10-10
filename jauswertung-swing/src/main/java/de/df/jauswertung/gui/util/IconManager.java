@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.AIconBundle;
+import de.df.jutils.swing.icons.Icons;
 
 /**
  * @author Dennis Fabri
@@ -46,6 +47,10 @@ public final class IconManager {
 
         names = ResourceBundle.getBundle("icons");
         icons = new ManagerIconBundle();
+
+        // Every application loads its icons through this class before building forms, so jutils components
+        // (e.g. JWarningTextField) get our icons as well
+        Icons.setIconProvider(new JutilsIconProvider());
     }
 
     private IconManager() {
