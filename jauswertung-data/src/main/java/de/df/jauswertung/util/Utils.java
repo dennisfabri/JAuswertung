@@ -12,11 +12,11 @@ import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import com.github.mpkorstanje.simmetrics.StringMetric;
-import com.github.mpkorstanje.simmetrics.metrics.Jaro;
 import com.rits.cloning.Cloner;
 import com.rits.cloning.IDeepCloner;
 import com.rits.cloning.IFastCloner;
+
+import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 
 import de.df.jutils.gui.util.UIPerformanceMode;
 
@@ -43,8 +43,8 @@ public final class Utils {
     private static boolean initialized = false;
     private static ResourceBundle build = null;
 
-    private final static StringMetric metric = new Jaro();
-    private final static double SimilarityBoundary = 0.85;
+    private final static JaroWinklerSimilarity metric = new JaroWinklerSimilarity();
+    private final static double SimilarityBoundary = 0.9;
 
     public static boolean areSimilar(String s1, String s2) {
         if (s1 == null && s2 == null) {
@@ -62,7 +62,7 @@ public final class Utils {
         if (AreMarked(s1, s2)) {
             return false;
         }
-        double result = metric.compare(s1.trim(), s2.trim());
+        double result = metric.apply(s1.trim(), s2.trim());
         return (result >= SimilarityBoundary);
     }
 

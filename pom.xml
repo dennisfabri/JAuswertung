@@ -16,21 +16,56 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.min.version>3.8.0</maven.min.version>
+
+        <!-- Dependencies: compile & runtime -->
         <jutils.version>18.0.2</jutils.version>
         <alphaserver.version>${jutils.version}</alphaserver.version>
         <poi.version>5.5.1</poi.version>
-        <jersey.version>4.0.2</jersey.version>
-        <batik.version>1.14</batik.version>
-        <slf4j.version>2.0.17</slf4j.version>
-        <logback.version>1.5.32</logback.version>
-        <javafx.version>25.0.2</javafx.version>
-        <jackson.version>2.21.2</jackson.version>
-        <lombok.version>1.18.44</lombok.version>
-        <junit.version>6.0.3</junit.version>
-        <mockito.version>5.23.0</mockito.version>
+        <slf4j.version>2.0.20</slf4j.version>
+        <logback.version>1.6.5</logback.version>
+        <javafx.version>25.0.4</javafx.version>
+        <jackson.version>2.22.3</jackson.version>
+        <lombok.version>1.18.48</lombok.version>
         <opencsv.version>5.12.0</opencsv.version>
         <nv-i18n.version>1.29</nv-i18n.version>
-        <log4j.version>2.25.4</log4j.version>
+        <log4j.version>2.26.1</log4j.version>
+        <commons-xmt.version>1.2.1-SNAPSHOT</commons-xmt.version>
+        <cloning.version>1.13.0</cloning.version>
+        <zxing.version>3.5.4</zxing.version>
+        <httpclient5.version>5.6.5</httpclient5.version>
+        <l2fprod.version>7.4.0-SNAPSHOT</l2fprod.version>
+        <jgraphx.version>4.2.2</jgraphx.version>
+        <flying-saucer.version>9.9.5</flying-saucer.version>
+        <commons-text.version>1.15.0</commons-text.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <filechooser.version>1.0.0-SNAPSHOT</filechooser.version>
+        <xstream.version>1.4.21</xstream.version>
+        <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
+        <juniversalchardet.version>2.5.1</juniversalchardet.version>
+        <jakarta-validation.version>3.1.1</jakarta-validation.version>
+
+        <!-- Dependencies: test -->
+        <junit.version>6.1.3</junit.version>
+        <mockito.version>5.24.0</mockito.version>
+
+        <!-- Plugins -->
+        <install4j-maven.version>13.1.1</install4j-maven.version>
+        <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
+        <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.11.0</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>3.2.0</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
+        <maven-install-plugin.version>3.2.0</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
+        <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
+        <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
+        <maven-site-plugin.version>3.22.0</maven-site-plugin.version>
+        <doxia-module-markdown.version>2.1.0</doxia-module-markdown.version>
+        <maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
+        <versions-maven-plugin.version>2.22.0</versions-maven-plugin.version>
     </properties>
     <distributionManagement>
         <repository>
@@ -288,14 +323,9 @@
                 <version>${jutils.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.mpkorstanje</groupId>
-                <artifactId>simmetrics-core</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
                 <groupId>com.pmease</groupId>
                 <artifactId>commons.xmt</artifactId>
-                <version>1.2.1-SNAPSHOT</version>
+                <version>${commons-xmt.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
@@ -305,7 +335,7 @@
             <dependency>
                 <groupId>io.github.kostaskougios</groupId>
                 <artifactId>cloning</artifactId>
-                <version>1.12.0</version>
+                <version>${cloning.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.dennisfabri.alphaserver</groupId>
@@ -316,25 +346,6 @@
                 <groupId>de.dennisfabri.alphaserver</groupId>
                 <artifactId>alphaserver-server</artifactId>
                 <version>${alphaserver.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-scratchpad</artifactId>
-                <version>${poi.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.xmlgraphics</groupId>
-                        <artifactId>batik-all</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -358,77 +369,62 @@
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
-                <version>3.5.4</version>
+                <version>${zxing.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
-                <version>5.6</version>
+                <version>${httpclient5.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
                 <artifactId>l2fprod-common-totd</artifactId>
-                <version>7.4.0-SNAPSHOT</version>
+                <version>${l2fprod.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
                 <artifactId>l2fprod-common-fontchooser</artifactId>
-                <version>7.4.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-outlookbar</artifactId>
-                <version>7.4.0-SNAPSHOT</version>
+                <version>${l2fprod.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
                 <artifactId>l2fprod-common-buttonbar</artifactId>
-                <version>7.4.0-SNAPSHOT</version>
+                <version>${l2fprod.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.vlsi.mxgraph</groupId>
                 <artifactId>jgraphx</artifactId>
-                <version>4.2.2</version>
+                <version>${jgraphx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.xhtmlrenderer</groupId>
                 <artifactId>flying-saucer-core</artifactId>
-                <version>9.9.5</version>
+                <version>${flying-saucer.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.15.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.core</groupId>
-                <artifactId>jersey-client</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-json-jackson</artifactId>
-                <version>${jersey.version}</version>
+                <version>${commons-text.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.swing</groupId>
                 <artifactId>filechooser-jfx</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${filechooser.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.swing</groupId>
                 <artifactId>filechooser-l2f</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${filechooser.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-math3</artifactId>
-                <version>3.6.1</version>
+                <version>${commons-math3.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
-                <version>1.4.21</version>
+                <version>${xstream.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -443,17 +439,17 @@
             <dependency>
                 <groupId>uk.org.lidalia</groupId>
                 <artifactId>sysout-over-slf4j</artifactId>
-                <version>1.0.2</version>
+                <version>${sysout-over-slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez</groupId>
                 <artifactId>juniversalchardet</artifactId>
-                <version>2.5.0</version>
+                <version>${juniversalchardet.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
-                <version>3.1.1</version>
+                <version>${jakarta-validation.version}</version>
             </dependency>
 
             <!-- Runtime -->
@@ -474,18 +470,8 @@
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.inject</groupId>
-                <artifactId>jersey-hk2</artifactId>
-                <version>${jersey.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson</groupId>
@@ -582,105 +568,81 @@
                 <plugin>
                     <groupId>com.install4j</groupId>
                     <artifactId>install4j-maven</artifactId>
-                    <version>12.0.4</version>
+                    <version>${install4j-maven.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.install4j</groupId>
-                    <artifactId>install4j-maven-plugin</artifactId>
-                    <version>1.1.2</version>
+                    <version>${maven-install-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.21.0</version>
+                    <version>${maven-site-plugin.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-markdown</artifactId>
-                            <version>2.1.0</version>
+                            <version>${doxia-module-markdown.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.15.0</version>
+                    <version>${maven-compiler-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.6.2</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.9.0</version>
+                    <version>${maven-project-info-reports-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.4</version>
+                    <version>${maven-deploy-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${maven-jar-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.5.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok-maven-plugin</artifactId>
-                    <version>1.18.20.0</version>
+                    <version>${maven-resources-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.5</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsave-plugin</artifactId>
-                    <version>3.5.5</version>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.21.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.openrewrite.maven</groupId>
-                    <artifactId>rewrite-maven-plugin</artifactId>
-                    <version>6.36.0</version>
+                    <version>${versions-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -726,40 +688,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.openrewrite.maven</groupId>
-                <artifactId>rewrite-maven-plugin</artifactId>
-                <configuration>
-                    <activeRecipes>
-                        <!--<recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
-                        <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
-                        <recipe>org.openrewrite.java.cleanup.MissingOverrideAnnotation</recipe>
-                        <!--<recipe>org.openrewrite.java.cleanup.Cleanup</recipe> -->
-                        <recipe>org.openrewrite.java.cleanup.CombineSemanticallyEqualCatchBlocks</recipe>
-                        <!--<recipe>org.openrewrite.java.cleanup.CommonStaticAnalysis</recipe>-->
-                        <!--<recipe>org.openrewrite.java.cleanup.CompareEnumsWithEqualityOperator</recipe>-->
-                        <recipe>org.openrewrite.java.cleanup.FinalClass</recipe>
-                        <!--<recipe>org.openrewrite.java.cleanup.JavaApiBestPractices</recipe>-->
-                        <!--<recipe>org.openrewrite.java.cleanup.UseCollectionInterfaces</recipe>-->
-                        <recipe>org.openrewrite.java.cleanup.IsEmptyCallOnCollections</recipe>
-                        <recipe>org.openrewrite.java.cleanup.NoEmptyCollectionWithRawType</recipe>
-                        <recipe>org.openrewrite.java.cleanup.UseStandardCharset</recipe>
-                        <recipe>org.openrewrite.java.cleanup.StringLiteralEquality</recipe>
-                        <recipe>org.openrewrite.java.cleanup.UseStringReplace</recipe>
-                        <recipe>org.openrewrite.java.cleanup.UseDiamondOperator</recipe>
-                        <recipe>org.openrewrite.java.cleanup.UseLambdaForFunctionalInterface</recipe>
-                        <recipe>org.openrewrite.java.cleanup.ReplaceLambdaWithMethodReference</recipe>
-                        <!--<recipe>org.openrewrite.java.cleanup.IndexOfReplaceableByContains</recipe>-->
-                    </activeRecipes>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.openrewrite.recipe</groupId>
-                        <artifactId>rewrite-migrate-java</artifactId>
-                        <version>3.32.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <configuration>
@@ -778,7 +706,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.8.0</version>
+                                    <version>${maven.min.version}</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>

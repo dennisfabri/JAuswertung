@@ -14,10 +14,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-ares</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-akeditor</artifactId>
 		</dependency>
 		<dependency>

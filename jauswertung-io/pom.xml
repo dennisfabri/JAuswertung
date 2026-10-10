@@ -55,19 +55,6 @@
 		</dependency>
 
 
-		<!-- runtime -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 		<!-- test -->
-		<dependency>
-			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-files</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 </project>
