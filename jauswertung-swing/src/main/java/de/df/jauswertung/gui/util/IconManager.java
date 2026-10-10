@@ -5,10 +5,14 @@ package de.df.jauswertung.gui.util;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BaseMultiResolutionImage;
 import java.awt.image.BufferedImage;
+import java.awt.image.MultiResolutionImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -139,10 +143,20 @@ public final class IconManager {
     }
 
     public static synchronized ImageIcon toGrayIcon(ImageIcon icon) {
-        BufferedImage i = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        if (icon.getImage() instanceof MultiResolutionImage image) {
+            // Keep the larger variants for screens with display scaling
+            Image[] grays = image.getResolutionVariants().stream()
+                    .map(variant -> toGray(variant, variant.getWidth(null), variant.getHeight(null)))
+                    .toArray(Image[]::new);
+            return new ImageIcon(new BaseMultiResolutionImage(grays));
+        }
+        return new ImageIcon(toGray(icon.getImage(), icon.getIconWidth(), icon.getIconHeight()));
+    }
 
-        i.getGraphics().drawImage(icon.getImage(), 0, 0, null);
-        return new ImageIcon(i);
+    private static BufferedImage toGray(Image image, int width, int height) {
+        BufferedImage i = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        i.getGraphics().drawImage(image, 0, 0, null);
+        return i;
     }
 
     public static AIconBundle getIconBundle() {
@@ -158,7 +172,33 @@ public final class IconManager {
                 throw new NullPointerException();
             }
             Path filename = Path.of("images", "" + size + "x" + size, id);
-            return new ImageIcon(filename.toString());
+            if (!Files.exists(filename)) {
+                return new ImageIcon(filename.toString());
+            }
+            // Larger variants (2x, 4x) are used on screens with display scaling, e.g. 32 px for a 16 px icon at 200 %
+            List<Image> variants = new ArrayList<>();
+            for (int s = size; s <= 4 * size; s *= 2) {
+                BufferedImage image = readImage(Path.of("images", "" + s + "x" + s, id));
+                if (image != null) {
+                    variants.add(image);
+                }
+            }
+            if (variants.size() <= 1) {
+                return new ImageIcon(filename.toString());
+            }
+            return new ImageIcon(new BaseMultiResolutionImage(variants.toArray(new Image[0])));
+        }
+
+        private static BufferedImage readImage(Path path) {
+            if (!Files.exists(path)) {
+                return null;
+            }
+            try {
+                return ImageIO.read(path.toFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 }
