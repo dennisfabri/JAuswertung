@@ -32,7 +32,6 @@
         <opencsv.version>5.12.0</opencsv.version>
         <nv-i18n.version>1.29</nv-i18n.version>
         <log4j.version>2.25.4</log4j.version>
-        <simmetrics.version>5.0.0-SNAPSHOT</simmetrics.version>
         <commons-xmt.version>1.2.1-SNAPSHOT</commons-xmt.version>
         <cloning.version>1.12.0</cloning.version>
         <zxing.version>3.5.4</zxing.version>
@@ -320,11 +319,6 @@
                 <groupId>de.dennisfabri.jutils</groupId>
                 <artifactId>jutils-i18n</artifactId>
                 <version>${jutils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mpkorstanje</groupId>
-                <artifactId>simmetrics-core</artifactId>
-                <version>${simmetrics.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.pmease</groupId>
