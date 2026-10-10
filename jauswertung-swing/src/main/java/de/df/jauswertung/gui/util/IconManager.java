@@ -3,6 +3,7 @@
  */
 package de.df.jauswertung.gui.util;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BaseMultiResolutionImage;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.AIconBundle;
@@ -171,6 +173,7 @@ public final class IconManager {
             if (id == null) {
                 throw new NullPointerException();
             }
+            id = themed(id, size);
             Path filename = Path.of("images", "" + size + "x" + size, id);
             if (!Files.exists(filename)) {
                 return new ImageIcon(filename.toString());
@@ -187,6 +190,30 @@ public final class IconManager {
                 return new ImageIcon(filename.toString());
             }
             return new ImageIcon(new BaseMultiResolutionImage(variants.toArray(new Image[0])));
+        }
+
+        /**
+         * With a dark look and feel, use the variant from the folder with the suffix "-dark" (e.g.
+         * lucide-dark/save.png instead of lucide/save.png), if it exists.
+         */
+        private static String themed(String id, int size) {
+            int slash = id.indexOf('/');
+            if (slash < 0 || !isDarkTheme()) {
+                return id;
+            }
+            String dark = id.substring(0, slash) + "-dark" + id.substring(slash);
+            return Files.exists(Path.of("images", "" + size + "x" + size, dark)) ? dark : id;
+        }
+
+        private static boolean isDarkTheme() {
+            Color background = UIManager.getColor("Panel.background");
+            if (background == null) {
+                return false;
+            }
+            // Perceived brightness (ITU-R BT.601)
+            double brightness = (0.299 * background.getRed() + 0.587 * background.getGreen()
+                    + 0.114 * background.getBlue()) / 255;
+            return brightness < 0.5;
         }
 
         private static BufferedImage readImage(Path path) {
