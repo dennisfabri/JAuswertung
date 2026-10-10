@@ -9,7 +9,10 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.apache.poi.ss.SpreadsheetVersion;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Footer;
@@ -19,7 +22,12 @@ import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.AreaReference;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFTable;
+import org.apache.poi.xssf.usermodel.XSSFTableStyleInfo;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -42,6 +50,10 @@ public class ExcelWriter {
     private static final String PAGE = "&P";
     private static final String NUM_PAGES = "&N";
     private static final String SHEET_NAME = "&A";
+
+    // Extra column width (1/256 character) for the filter button in table headers
+    private static final int FILTER_BUTTON_WIDTH = 3 * 256;
+    private static final int MAX_COLUMN_WIDTH = 255 * 256;
 
     private static Cell createCell(Row row, int col, CellStyle style) {
         Cell cell = row.createCell(col);
@@ -174,6 +186,7 @@ public class ExcelWriter {
 
         Sheet sheet = createSheet(wb, SpreadsheetUtils.toSheetName(titel), tm[0].isLandscape(), repeatrows,
                 repeatcols, competition);
+        boolean asTable = tm.length == 1 && groupsize <= 1 && isPlainTable(tm[0]);
         int offset = 0;
         for (ExtendedTableModel aTm : tm) {
             for (int x = 0; x < aTm.getColumnCount(); x++) {
@@ -197,12 +210,50 @@ public class ExcelWriter {
                     }
                     content[y + 2] = s;
                 }
-                sheet.setColumnWidth(x, SpreadsheetUtils.guessMaximumWidth(content));
+                int width = SpreadsheetUtils.guessMaximumWidth(content);
+                if (asTable) {
+                    width = Math.min(width + FILTER_BUTTON_WIDTH, MAX_COLUMN_WIDTH);
+                }
+                sheet.setColumnWidth(x, width);
             }
 
-            offset = buildSheetTitles(styles, aTm, sheet, offset, groupsize > 1);
-            offset = buildSheetContent(styles, aTm, sheet, offset, groupsize) + 1;
+            offset = buildSheetTitles(styles, aTm, sheet, offset, groupsize > 1, asTable);
+            offset = buildSheetContent(styles, aTm, sheet, offset, groupsize, asTable) + 1;
         }
+        if (asTable) {
+            createTable((XSSFSheet) sheet, styles, tm[0], wb.getSheetIndex(sheet) + 1);
+        }
+    }
+
+    /**
+     * A table model can be exported as an Excel table if it has a single row of unique, non-empty column titles and at
+     * least one row of data.
+     */
+    private static boolean isPlainTable(ExtendedTableModel tm) {
+        if (tm.getExtendedTitleRows() != null || tm.getRowCount() == 0 || tm.getColumnCount() == 0) {
+            return false;
+        }
+        Set<String> names = new HashSet<>();
+        for (int x = 0; x < tm.getColumnCount(); x++) {
+            String name = tm.getColumnName(x);
+            if (name == null || name.isBlank() || !names.add(name.trim().toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static void createTable(XSSFSheet sheet, ExcelStyles styles, ExtendedTableModel tm, int number) {
+        AreaReference area = new AreaReference(new CellReference(0, 0),
+                new CellReference(tm.getRowCount(), tm.getColumnCount() - 1), SpreadsheetVersion.EXCEL2007);
+        XSSFTable table = sheet.createTable(area);
+        String name = "Tabelle" + number;
+        table.setName(name);
+        table.setDisplayName(name);
+        table.setStyleName(styles.getTableStyleName());
+        ((XSSFTableStyleInfo) table.getStyle()).setShowRowStripes(true);
+        table.getCTTable().addNewAutoFilter().setRef(area.formatAsString());
+        table.updateHeaders();
     }
 
     /**
@@ -212,7 +263,7 @@ public class ExcelWriter {
      * @param offset
      */
     private static int buildSheetContent(ExcelStyles styles, ExtendedTableModel tm, Sheet sheet, int offset,
-            int groupsize) {
+            int groupsize, boolean asTable) {
         // Write Table content
         for (short y = 0; y < tm.getRowCount(); y++) {
             Row row = sheet.createRow(y + offset);
@@ -228,8 +279,10 @@ public class ExcelWriter {
                 // Is right most cell
                 boolean right = (x + 1 == tm.getColumnCount());
                 // Get Style
-                CellStyle style = styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
-                        tm.getColumnFormat(x), groupsize > 1, false);
+                CellStyle style = asTable
+                        ? styles.getTableStyle(tm.getColumnAlignment(x), tm.getColumnFormat(x), false)
+                        : styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
+                                tm.getColumnFormat(x), groupsize > 1, false);
                 Cell cell = createCell(row, x, style);
 
                 Object o = tm.getValueAt(y, x);
@@ -246,8 +299,9 @@ public class ExcelWriter {
                     String value = determineStringvalue(o, tm.getColumnFormat(x));
                     cell.setCellValue(value);
                     if (value.contains("\n")) {
-                        cell.setCellStyle(
-                                styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
+                        cell.setCellStyle(asTable
+                                ? styles.getTableStyle(tm.getColumnAlignment(x), tm.getColumnFormat(x), true)
+                                : styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
                                         tm.getColumnFormat(x), groupsize > 1, true));
                     }
                 }
@@ -313,7 +367,7 @@ public class ExcelWriter {
      * @return
      */
     private static int buildSheetTitles(ExcelStyles styles, ExtendedTableModel tm, Sheet sheet, int offset,
-            boolean grouping) {
+            boolean grouping, boolean asTable) {
         // Create title
         if (tm.getExtendedTitleRows() == null) {
             // Simple tableheader has one row
@@ -327,8 +381,10 @@ public class ExcelWriter {
                 // Get title
                 String s = tm.getColumnName(x);
                 // Get Style
-                CellStyle style = styles.getStyle(true, right, true, left, true, null, HorizontalAlignment.CENTER,
-                        grouping, s.contains("\n"));
+                CellStyle style = asTable
+                        ? styles.getTableStyle(HorizontalAlignment.CENTER, null, s.contains("\n"))
+                        : styles.getStyle(true, right, true, left, true, null, HorizontalAlignment.CENTER,
+                                grouping, s.contains("\n"));
                 Cell cell = createCell(row, x, style);
                 cell.setCellValue(s);
             }
