@@ -12,7 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
-			<artifactId>jauswertung-plugins-editor</artifactId>
+			<artifactId>jauswertung-plugins-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>
