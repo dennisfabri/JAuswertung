@@ -279,7 +279,7 @@ abstract class APerDisciplinePrinter implements Printer {
     @SuppressWarnings("unchecked")
     private void export(OWSelection t) {
         String filename = FileChooserUtils.saveFile(controller.getWindow(), I18n.get("Export"),
-                                                    new SimpleFileFilter("Microsoft Excel", "xls"));
+                                                    new SimpleFileFilter("Microsoft Excel", ExportManager.getSuffixes("Microsoft Excel")));
         if (filename == null || filename.trim().isEmpty()) {
             return;
         }

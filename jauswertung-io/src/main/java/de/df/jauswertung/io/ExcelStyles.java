@@ -7,24 +7,45 @@ import java.util.Hashtable;
 
 import javax.swing.SwingConstants;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.ExtendedColor;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.model.StylesTable;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTDxf;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTFont;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPatternFill;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTStylesheet;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableStyle;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableStyles;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.STPatternType;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.STTableStyleType;
 
 public class ExcelStyles {
 
-    private Hashtable<String, HSSFCellStyle> styles;
-    private HSSFWorkbook wb;
-    private HSSFDataFormat dataformat;
+    // Light blue of the banded rows in Excel's default table style (Blue, Accent 1, Lighter 80%), as ARGB
+    private static final byte[] FILL_ARGB = { (byte) 0xFF, (byte) 0xDD, (byte) 0xEB, (byte) 0xF7 };
+    private static final byte[] BLACK_ARGB = { (byte) 0xFF, 0, 0, 0 };
 
-    public ExcelStyles(HSSFWorkbook book) {
+    private static final String TABLE_STYLE = "JAuswertung";
+
+    private Hashtable<String, CellStyle> styles;
+    private Workbook wb;
+    private DataFormat dataformat;
+    private ExtendedColor fillColor;
+    private boolean tableStyleCreated;
+
+    public ExcelStyles(Workbook book) {
         wb = book;
         dataformat = wb.createDataFormat();
+        fillColor = wb.getCreationHelper().createExtendedColor();
+        fillColor.setARGBHex("FFDDEBF7");
         styles = new Hashtable<>();
     }
 
@@ -32,58 +53,129 @@ public class ExcelStyles {
         return b ? 1 : 0;
     }
 
-    private HSSFCellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left,
+    private CellStyle createCellStyle(BorderStyle top, BorderStyle right, BorderStyle bottom, BorderStyle left,
             boolean colored, HorizontalAlignment align,
             boolean wrap) {
-        HSSFCellStyle cellStyle = wb.createCellStyle();
+        CellStyle cellStyle = wb.createCellStyle();
         if (colored) {
-            cellStyle.setFillForegroundColor(HSSFColorPredefined.PALE_BLUE.getIndex());
             cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cellStyle.setFillForegroundColor(fillColor);
         }
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellStyle.setAlignment(align);
         if (top != BorderStyle.NONE) {
             cellStyle.setBorderTop(top);
-            cellStyle.setTopBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (right != BorderStyle.NONE) {
             cellStyle.setBorderRight(right);
-            cellStyle.setRightBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (bottom != BorderStyle.NONE) {
             cellStyle.setBorderBottom(bottom);
-            cellStyle.setBottomBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         }
         if (left != BorderStyle.NONE) {
             cellStyle.setBorderLeft(left);
-            cellStyle.setLeftBorderColor(HSSFColorPredefined.BLACK.getIndex());
+            cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         }
         cellStyle.setWrapText(wrap);
         return cellStyle;
     }
 
-    public HSSFCellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored,
-            String format, boolean grouping,
-            boolean wrap) {
-        HorizontalAlignment a = HorizontalAlignment.LEFT;
+    private static HorizontalAlignment toHorizontalAlignment(int align) {
         switch (align) {
-        case SwingConstants.LEFT:
-            a = HorizontalAlignment.LEFT;
-            break;
         case SwingConstants.CENTER:
-            a = HorizontalAlignment.CENTER;
-            break;
+            return HorizontalAlignment.CENTER;
         case SwingConstants.RIGHT:
-            a = HorizontalAlignment.RIGHT;
-            break;
+            return HorizontalAlignment.RIGHT;
+        case SwingConstants.LEFT:
         default:
-            a = HorizontalAlignment.LEFT;
-            break;
+            return HorizontalAlignment.LEFT;
         }
-        return getStyle(top, right, bottom, left, colored, format, a, grouping, wrap);
     }
 
-    public HSSFCellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+    public CellStyle getStyle(int align, boolean top, boolean right, boolean bottom, boolean left, boolean colored,
+            String format, boolean grouping,
+            boolean wrap) {
+        return getStyle(top, right, bottom, left, colored, format, toHorizontalAlignment(align), grouping, wrap);
+    }
+
+    /**
+     * Style for cells inside an Excel table: no borders and no fill, so that the table style shows through.
+     */
+    public CellStyle getTableStyle(int align, String format, boolean wrap) {
+        return getTableStyle(toHorizontalAlignment(align), format, wrap);
+    }
+
+    /**
+     * Name of the table style for Excel tables: header row in light blue with bold text, data rows alternating white
+     * and light blue (first data row white). Being part of the table style, the stripes stay correct when sorting or
+     * filtering. The style is added to the workbook on first use.
+     */
+    public String getTableStyleName() {
+        if (!tableStyleCreated) {
+            createTableStyle(((XSSFWorkbook) wb).getStylesSource());
+            tableStyleCreated = true;
+        }
+        return TABLE_STYLE;
+    }
+
+    private static void createTableStyle(StylesTable stylesTable) {
+        CTDxf header = CTDxf.Factory.newInstance();
+        CTFont font = header.addNewFont();
+        font.addNewB().setVal(true);
+        font.addNewColor().setRgb(BLACK_ARGB);
+        addFill(header);
+
+        CTDxf stripe = CTDxf.Factory.newInstance();
+        addFill(stripe);
+
+        // putDxf returns the number of dxfs, i.e. the index of the added one plus one
+        int headerId = stylesTable.putDxf(header) - 1;
+        int stripeId = stylesTable.putDxf(stripe) - 1;
+
+        CTStylesheet stylesheet = stylesTable.getCTStylesheet();
+        CTTableStyles tableStyles = stylesheet.isSetTableStyles() ? stylesheet.getTableStyles()
+                : stylesheet.addNewTableStyles();
+        CTTableStyle style = tableStyles.addNewTableStyle();
+        style.setName(TABLE_STYLE);
+        style.setPivot(false);
+        addElement(style, STTableStyleType.HEADER_ROW, headerId);
+        addElement(style, STTableStyleType.SECOND_ROW_STRIPE, stripeId);
+        style.setCount(style.sizeOfTableStyleElementArray());
+        tableStyles.setCount(tableStyles.sizeOfTableStyleArray());
+    }
+
+    private static void addFill(CTDxf dxf) {
+        CTPatternFill fill = dxf.addNewFill().addNewPatternFill();
+        fill.setPatternType(STPatternType.SOLID);
+        fill.addNewFgColor().setRgb(FILL_ARGB);
+        fill.addNewBgColor().setRgb(FILL_ARGB);
+    }
+
+    private static void addElement(CTTableStyle style, STTableStyleType.Enum type, int dxfId) {
+        var element = style.addNewTableStyleElement();
+        element.setType(type);
+        element.setDxfId(dxfId);
+    }
+
+    public CellStyle getTableStyle(HorizontalAlignment align, String format, boolean wrap) {
+        String key = "t" + booleanToBit(wrap) + "x" + align + "x" + format;
+        CellStyle style = styles.get(key);
+        if (style != null) {
+            return style;
+        }
+        style = createCellStyle(BorderStyle.NONE, BorderStyle.NONE, BorderStyle.NONE, BorderStyle.NONE, false, align,
+                wrap);
+        if (format != null) {
+            style.setDataFormat(dataformat.getFormat(format));
+        }
+        styles.put(key, style);
+        return style;
+    }
+
+    public CellStyle getStyle(boolean top, boolean right, boolean bottom, boolean left, boolean colored,
             String format, HorizontalAlignment align,
             boolean grouping, boolean wrap) {
         StringBuilder sb = new StringBuilder();
@@ -97,7 +189,7 @@ public class ExcelStyles {
         sb.append(align);
         sb.append("x");
         sb.append(format);
-        HSSFCellStyle style = styles.get(sb.toString());
+        CellStyle style = styles.get(sb.toString());
         if (style != null) {
             return style;
         }
