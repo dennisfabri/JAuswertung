@@ -19,6 +19,12 @@
                 <ignoreVersion type="regex">26.*</ignoreVersion>
             </ignoreVersions>
         </rule>
+        <!-- Builds for Java 8 -->
+        <rule groupId="io.github.kostaskougios" artifactId="cloning">
+            <ignoreVersions>
+                <ignoreVersion type="regex">.*-jdk8</ignoreVersion>
+            </ignoreVersions>
+        </rule>
         <!-- prevent updates to incompatible changes-->
         <rule groupId="org.xhtmlrenderer" artifactId="flying-saucer-core">
             <ignoreVersions>
