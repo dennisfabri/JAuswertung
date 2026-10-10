@@ -151,8 +151,8 @@ abstract class ALauflistenPrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t, boolean withComments) {
-            PrintExecutor.print(getPrintable(getCompetitions(t), getName(), withComments, false, showTimes), getName(), true,
-                                controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(getCompetitions(t), getName(), withComments, false, showTimes), getName(),
+                                true, controller.getWindow());
         }
 
         @Override
@@ -168,7 +168,9 @@ abstract class ALauflistenPrinter implements Printer {
                                                "Laufliste zum Drucken auswählen",
                                                EditMode.READ, cb);
             } else {
-                PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+                boolean withComments = comments.isSelected();
+                PrintExecutor.print(() -> getPrintable(core.getWettkampf(), getName(), withComments, false, showTimes),
+                                    getName(), true, controller.getWindow());
             }
         }
     }

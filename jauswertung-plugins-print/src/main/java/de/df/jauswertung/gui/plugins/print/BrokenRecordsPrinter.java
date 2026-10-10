@@ -202,7 +202,11 @@ class BrokenRecordsPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        Printable p = getPrintable(core.getFilteredWettkampf(), agegroup.getSelectedIndex());
+        return getPrintable(agegroup.getSelectedIndex(), allRecords.getSelectedIndex() == 1);
+    }
+
+    Printable getPrintable(int index, boolean onlyValid) {
+        Printable p = getPrintable(core.getFilteredWettkampf(), index, onlyValid);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), getName(), getName());
 
     }
@@ -290,14 +294,16 @@ class BrokenRecordsPrinter implements Printer {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    Printable getPrintable(AWettkampf wk, int index) {
-        return new JTablePrintable(getData(wk, index, allRecords.getSelectedIndex() == 1), JTablePrintable.OPT_ALL,
+    Printable getPrintable(AWettkampf wk, int index, boolean onlyValid) {
+        return new JTablePrintable(getData(wk, index, onlyValid), JTablePrintable.OPT_ALL,
                 true, PrintMode.FIT_WIDTH, true,
                 PrintManager.getFont());
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+        int index = agegroup.getSelectedIndex();
+        boolean onlyValid = allRecords.getSelectedIndex() == 1;
+        PrintExecutor.print(() -> getPrintable(index, onlyValid), getName(), true, controller.getWindow());
     }
 
     void preview() {

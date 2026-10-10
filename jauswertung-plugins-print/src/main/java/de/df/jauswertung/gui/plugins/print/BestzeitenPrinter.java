@@ -91,7 +91,7 @@ public class BestzeitenPrinter implements Printer {
     final class PrintActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("SchnellsteZeiten"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("SchnellsteZeiten"), controller.getWindow());
         }
     }
 

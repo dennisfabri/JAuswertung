@@ -129,6 +129,10 @@ class ListOfMedalsPrinter implements Printer {
     }
 
     Printable getPrintable() {
+        return getPrintable(bigPrint.isSelected());
+    }
+
+    Printable getPrintable(boolean big) {
         LinkedList<ExtendedTableModel> results = new LinkedList<>();
 
         AWettkampf<?> wk = Utils.copy(core.getFilteredWettkampf());
@@ -168,15 +172,15 @@ class ListOfMedalsPrinter implements Printer {
             }
         }
 
-        JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]));
+        JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]), big);
 
         return PrintManager.getFinalPrintable(
-                new ComponentListPrintable2(bigPrint.isSelected() ? gapscale : 0, false, parts),
+                new ComponentListPrintable2(big ? gapscale : 0, false, parts),
                 core.getLastChangedDate(),
                 getName(), getName());
     }
 
-    private JComponent getPseudoTable(ExtendedTableModel etm) {
+    private JComponent getPseudoTable(ExtendedTableModel etm, boolean big) {
         FormLayout layout = null;
         if (PrintUtils.printOmitOrganisationForTeams) {
             layout = new FormLayout(
@@ -256,14 +260,14 @@ class ListOfMedalsPrinter implements Printer {
         }
 
         Font f = PrintManager.getFont();
-        p.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
+        p.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
         p.setForeground(Color.BLACK);
 
         p.setBorder(new LineBorder(Color.BLACK, 1));
         return p;
     }
 
-    private JComponent[] getResults(ExtendedTableModel[] etm) {
+    private JComponent[] getResults(ExtendedTableModel[] etm, boolean big) {
 
         JComponent[] result = new JComponent[etm.length];
         for (int x = 0; x < etm.length; x++) {
@@ -272,7 +276,7 @@ class ListOfMedalsPrinter implements Printer {
             title.setForeground(Color.BLACK);
             title.setBackground(Color.WHITE);
             Font f = PrintManager.getFont();
-            title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
+            title.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
 
             FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
                     "0dlu,fill:default,1dlu,fill:default,2dlu");
@@ -281,7 +285,7 @@ class ListOfMedalsPrinter implements Printer {
             c.setForeground(Color.BLACK);
 
             c.add(title, CC.xy(2, 2, "center,center"));
-            c.add(getPseudoTable(etm[x]), CC.xy(2, 4));
+            c.add(getPseudoTable(etm[x], big), CC.xy(2, 4));
 
             result[x] = c;
         }
@@ -289,7 +293,8 @@ class ListOfMedalsPrinter implements Printer {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+        final boolean big = bigPrint.isSelected();
+        PrintExecutor.print(() -> getPrintable(big), getName(), true, controller.getWindow());
     }
 
     void preview() {

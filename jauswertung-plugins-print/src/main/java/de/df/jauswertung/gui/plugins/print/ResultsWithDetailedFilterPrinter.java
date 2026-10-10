@@ -188,7 +188,13 @@ class ResultsWithDetailedFilterPrinter implements Printer {
      * @param selected
      */
     <T extends ASchwimmer> Printable getPrintable(boolean[][] selected) {
-        AWettkampf<T> wk = getWettkampf();
+        AWettkampf<T> base = ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+        return getPrintable(selected, base, diszipline.getSelection(base), unterschrift.isSelected());
+    }
+
+    <T extends ASchwimmer> Printable getPrintable(boolean[][] selected, AWettkampf<T> base,
+            AgegroupResultSelection[] selection, boolean withSignature) {
+        AWettkampf<T> wk = ResultSelectionUtils.getResultWettkampf(base, selection);
 
         LinkedList<T> remove = new LinkedList<>();
         for (int x = 0; x < selected.length; x++) {
@@ -199,8 +205,6 @@ class ResultsWithDetailedFilterPrinter implements Printer {
             }
         }
         wk.removeSchwimmer(remove);
-
-        AgegroupResultSelection[] selection = diszipline.getSelection(wk);
 
         boolean complete = ResultSelectionUtils.IsCompleteSelection(wk, selection) && wk.isCompetitionComplete();
         LinkedList<Printable> ps = null;
@@ -216,14 +220,18 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         } else {
             p = new MultiplePrintable(ps);
         }
-        if (unterschrift.isSelected()) {
+        if (withSignature) {
             p = new UnterschriftPrintable(p);
         }
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), true, I18n.get("Results"));
     }
 
-    void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("Results"), true, controller.getWindow());
+    <T extends ASchwimmer> void printResults(boolean[][] selection) {
+        final AWettkampf<T> base = ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+        final AgegroupResultSelection[] resultSelection = diszipline.getSelection(base);
+        final boolean withSignature = unterschrift.isSelected();
+        PrintExecutor.print(() -> getPrintable(selection, base, resultSelection, withSignature), I18n.get("Results"),
+                true, controller.getWindow());
     }
 
     private class PPrintableCreator implements PrintableCreator {

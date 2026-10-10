@@ -88,9 +88,13 @@ class ZieleinlaufkartenPrinter implements Printer {
         // Nothing to do
     }
 
-    @SuppressWarnings("rawtypes")
     Printable getPrintable() {
-        return new ZieleinlaufkartenPrintable(getMode());
+        return getPrintable(getMode());
+    }
+
+    @SuppressWarnings("rawtypes")
+    Printable getPrintable(PageMode mode) {
+        return new ZieleinlaufkartenPrintable(mode);
     }
 
     private PageMode getMode() {
@@ -107,7 +111,8 @@ class ZieleinlaufkartenPrinter implements Printer {
     final class EmptyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Zieleinlaufkarten"), true, controller.getWindow());
+            final PageMode mode = getMode();
+            PrintExecutor.print(() -> getPrintable(mode), I18n.get("Zieleinlaufkarten"), true, controller.getWindow());
         }
     }
 

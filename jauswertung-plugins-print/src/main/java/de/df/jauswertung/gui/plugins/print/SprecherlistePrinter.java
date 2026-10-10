@@ -168,7 +168,7 @@ class SprecherlistePrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t, boolean withComments, boolean withDisciplines, boolean withTimes) {
-            PrintExecutor.print(getPrintable(getCompetitions(t), getName(), withComments, withDisciplines, withTimes), getName(), true,
+            PrintExecutor.print(() -> getPrintable(getCompetitions(t), getName(), withComments, withDisciplines, withTimes), getName(), true,
                     controller.getWindow());
         }
 
@@ -187,7 +187,10 @@ class SprecherlistePrinter implements Printer {
                                                "Laufliste zum Drucken auswählen",
                                                EditMode.READ, cb);
             } else {
-                PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+                final boolean discipline = (columns.getSelectedIndex() % 2 != 0);
+                final boolean times = (columns.getSelectedIndex() > 1);
+                PrintExecutor.print(() -> getPrintable(core.getWettkampf(), getName(), false, discipline, times), getName(),
+                        true, controller.getWindow());
             }
         }
     }

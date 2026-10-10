@@ -95,8 +95,12 @@ class StartkartenPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        StartkartenPrintable sp = new StartkartenPrintable((AWettkampf[]) null, getMode(), false, true, 0, 0);
-        sp.setEtime(etime.isSelected());
+        return getPrintable(getMode(), etime.isSelected());
+    }
+
+    Printable getPrintable(PageMode mode, boolean withEtime) {
+        StartkartenPrintable sp = new StartkartenPrintable((AWettkampf[]) null, mode, false, true, 0, 0);
+        sp.setEtime(withEtime);
         return sp;
     }
 
@@ -112,7 +116,10 @@ class StartkartenPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Startkarten"), true, controller.getWindow());
+            final PageMode mode = getMode();
+            final boolean withEtime = etime.isSelected();
+            PrintExecutor.print(() -> getPrintable(mode, withEtime), I18n.get("Startkarten"), true,
+                    controller.getWindow());
         }
     }
 

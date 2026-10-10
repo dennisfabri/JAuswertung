@@ -122,10 +122,10 @@ class RegistrationPrinter implements Printer {
     }
 
     @SuppressWarnings({"unchecked"})
-    private <T extends ASchwimmer> ExtendedTableModel getTableModel(boolean[] selected) {
+    private <T extends ASchwimmer> ExtendedTableModel getTableModel(boolean[] selected, int sortOrder) {
         AWettkampf<T> wk = core.getFilteredWettkampf();
         LinkedList<T> schwimmer = wk.getSchwimmer();
-        switch (order.getSelectedIndex()) {
+        switch (sortOrder) {
             case 1:
                 schwimmer.sort(CompetitionUtils.VERGLEICHER_MELDEPUNKTE);
                 schwimmer.sort(CompetitionUtils.VERGLEICHER_NAME);
@@ -152,15 +152,19 @@ class RegistrationPrinter implements Printer {
                                            null);
     }
 
-    private JTable getTable(boolean[] selected) {
-        ExtendedTableModel etm = getTableModel(selected);
+    private JTable getTable(boolean[] selected, int sortOrder) {
+        ExtendedTableModel etm = getTableModel(selected, sortOrder);
         JTable table = new JTable(etm);
         JTableUtils.setAlignmentRenderer(table, etm.getColumnAlignments(), SwingConstants.LEFT);
         return table;
     }
 
     Printable getPrintable(boolean[] selected) {
-        Printable p = PrintManager.getPrintable(getTable(selected), null, JTablePrintable.OPT_ALL, true, true);
+        return getPrintable(selected, order.getSelectedIndex());
+    }
+
+    Printable getPrintable(boolean[] selected, int sortOrder) {
+        Printable p = PrintManager.getPrintable(getTable(selected, sortOrder), null, JTablePrintable.OPT_ALL, true, true);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Registrations"),
                                               I18n.get("Registrations"));
     }
@@ -169,7 +173,9 @@ class RegistrationPrinter implements Printer {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registrations"), true,
+            final boolean[] selected = selection.getSelection();
+            final int sortOrder = order.getSelectedIndex();
+            PrintExecutor.print(() -> getPrintable(selected, sortOrder), I18n.get("Registrations"), true,
                                 controller.getWindow());
         }
     }

@@ -114,8 +114,12 @@ class LaufeinteilungPrinter implements Printer {
     }
 
     Printable getPrintable() {
+        return getPrintable(selection.getSelectedIndex());
+    }
+
+    Printable getPrintable(int selectedIndex) {
         Printable internal = null;
-        switch (selection.getSelectedIndex()) {
+        switch (selectedIndex) {
         case 1: {
             // Altersklasse
             AWettkampf<?> wk = core.getWettkampf();
@@ -193,7 +197,8 @@ class LaufeinteilungPrinter implements Printer {
      * 
      */
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("Heatarrangement"), controller.getWindow());
+        int selectedIndex = selection.getSelectedIndex();
+        PrintExecutor.print(() -> getPrintable(selectedIndex), I18n.get("Heatarrangement"), controller.getWindow());
     }
 
     void preview() {

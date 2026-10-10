@@ -139,9 +139,13 @@ class BahnenlistenPrinter implements Printer {
     }
 
     Printable getPrintable() {
+        return getPrintable(number.getSelectedIndex(), number.getItemCount());
+    }
+
+    Printable getPrintable(int selectedIndex, int itemCount) {
         AWettkampf<?> wk = core.getWettkampf();
         Printable p = null;
-        if (number.getSelectedIndex() == number.getItemCount() - 1) {
+        if (selectedIndex == itemCount - 1) {
             MultiplePrintable mp = new MultiplePrintable();
             for (int x = 0; x < wk.getIntegerProperty(HEATS_LANES); x++) {
                 if (wk.getLaufliste().isLaneUsed(x)) {
@@ -150,7 +154,7 @@ class BahnenlistenPrinter implements Printer {
             }
             p = mp;
         } else {
-            p = getPrintable(wk, number.getSelectedIndex());
+            p = getPrintable(wk, selectedIndex);
         }
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), I18n.get("Lanelist"), I18n.get("Lanelist"));
     }
@@ -158,7 +162,10 @@ class BahnenlistenPrinter implements Printer {
     final class PrintActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Lanelist"), controller.getWindow());
+            int selectedIndex = number.getSelectedIndex();
+            int itemCount = number.getItemCount();
+            PrintExecutor.print(() -> getPrintable(selectedIndex, itemCount), I18n.get("Lanelist"),
+                    controller.getWindow());
         }
     }
 

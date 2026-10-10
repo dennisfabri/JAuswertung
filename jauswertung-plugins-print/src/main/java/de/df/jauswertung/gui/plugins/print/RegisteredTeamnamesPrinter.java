@@ -151,14 +151,23 @@ class RegisteredTeamnamesPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        MannschaftWettkampf wk = (MannschaftWettkampf) (AWettkampf<?>) core.getFilteredWettkampf();
-        String gliederung = organisation.getSelectedIndex() + 1 == model.getSize() ? null
+        return getPrintable(getSelectedGliederung());
+    }
+
+    private String getSelectedGliederung() {
+        return organisation.getSelectedIndex() + 1 == model.getSize() ? null
                 : organisation.getSelectedItem().toString();
+    }
+
+    Printable getPrintable(String gliederung) {
+        MannschaftWettkampf wk = (MannschaftWettkampf) (AWettkampf<?>) core.getFilteredWettkampf();
         return new TeamnamesRegistrationPrintable(wk, gliederung);
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("RegisteredTeamnames"), true, controller.getWindow());
+        final String gliederung = getSelectedGliederung();
+        PrintExecutor.print(() -> getPrintable(gliederung), I18n.get("RegisteredTeamnames"), true,
+                controller.getWindow());
     }
 
     void preview() {
