@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>JAuswertung</title>
+  <rect width="24" height="24" rx="5.5" fill="#1a3fd1"/>
+  <g transform="translate(2.4 2.4) scale(0.8)" fill="none" stroke="#fff" stroke-width="2.375" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.25 5.5v9.5a3.5 3.5 0 0 1-7 0"/><path d="M12.75 18.5 17.75 5.5l5 13"/><path d="M14.48 14h6.54"/>
+  </g>
+</svg>

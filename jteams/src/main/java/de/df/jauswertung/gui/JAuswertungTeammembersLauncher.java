@@ -54,7 +54,7 @@ public final class JAuswertungTeammembersLauncher {
 
     private static Image getImage() {
         try {
-            return ImageIO.read(new File(Utils.getUserDir() + "images/logo.png"));
+            return ImageIO.read(new File(Utils.getUserDir() + "images/banner.png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;

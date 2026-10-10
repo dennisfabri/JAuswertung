@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="412" viewBox="0 0 60 412">
+  <title>JAuswertung</title>
+  <!-- banner.svg turned to read bottom to top, without the strip for the version number: banner of the installer wizard -->
+  <g transform="translate(3 412) rotate(-90)">
+  <g transform="translate(4 4) scale(7.5484) translate(-4.6 -14.6)">
+  <rect x="4.6" y="15.8" width="3" height="5" rx="0.4" fill="#bac5f1"/>
+  <rect x="7.85" y="14.6" width="3" height="6.2" rx="0.4" fill="#dde2f8"/>
+  <rect x="11.1" y="17" width="3" height="3.8" rx="0.4" fill="#98a9ea"/>
+  <g fill="#1a3fd1" font-family="Quicksand" font-weight="700" font-size="2.2" text-anchor="middle">
+  <text x="6.1" y="20.281">2</text>
+  <text x="9.35" y="20.281">1</text>
+  <text x="12.6" y="20.281">3</text>
+  </g>
+  </g>
+  <text x="85.6" y="40.9" font-family="Quicksand" font-weight="700" font-size="52" fill="#1a3fd1">JAuswertung</text>
+  </g>
+</svg>

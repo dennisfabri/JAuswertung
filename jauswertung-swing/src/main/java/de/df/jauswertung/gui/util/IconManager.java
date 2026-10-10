@@ -36,12 +36,12 @@ public final class IconManager {
 
     private static AIconBundle icons;
 
-    private static ImageIcon logo;
+    private static ImageIcon banner;
     private static ImageIcon[] titles;
     private static LinkedList<Image> iconimages;
 
     static {
-        logo = null;
+        banner = null;
         titles = null;
         iconimages = null;
 
@@ -69,14 +69,14 @@ public final class IconManager {
         }
     }
 
-    public static synchronized ImageIcon getLogo() {
+    public static synchronized ImageIcon getBanner() {
         try {
             synchronized (icons) {
-                if (logo != null) {
-                    return logo;
+                if (banner != null) {
+                    return banner;
                 }
-                logo = new ImageIcon(getLogoImage());
-                return logo;
+                banner = new ImageIcon(getBannerImage());
+                return banner;
             }
         } catch (RuntimeException re) {
             re.printStackTrace();
@@ -84,11 +84,11 @@ public final class IconManager {
         }
     }
 
-    public static BufferedImage getLogoImage() {
+    public static BufferedImage getBannerImage() {
         try {
-            return ImageIO.read(new File(Utils.getUserDir() + names.getString("logo")));
+            return ImageIO.read(new File(Utils.getUserDir() + names.getString("banner")));
         } catch (IOException e) {
-            System.err.println(Utils.getUserDir() + names.getString("logo"));
+            System.err.println(Utils.getUserDir() + names.getString("banner"));
             e.printStackTrace();
             return null;
         }
