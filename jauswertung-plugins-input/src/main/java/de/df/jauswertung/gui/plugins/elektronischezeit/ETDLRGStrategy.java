@@ -237,10 +237,7 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         @SuppressWarnings("rawtypes")
         Lauf lauf = wk.getLaufliste().getLaufliste().get(heatnr);
         ASchwimmer s = lauf.getSchwimmer(row);
-        s.addStrafe(lauf.getDisznummer(row), Strafe.NICHT_ANGETRETEN);
-
         int diszNummer = lauf.getDisznummer(row);
-
         return s.getZeit(diszNummer);
     }
 
@@ -249,10 +246,7 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
         @SuppressWarnings("rawtypes")
         Lauf lauf = wk.getLaufliste().getLaufliste().get(heatnr);
         ASchwimmer s = lauf.getSchwimmer(row);
-        s.addStrafe(lauf.getDisznummer(row), Strafe.NICHT_ANGETRETEN);
-
         int diszNummer = lauf.getDisznummer(row);
-
         s.setZeit(diszNummer, timevalue);
         controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, s, diszNummer, plugin);
     }
