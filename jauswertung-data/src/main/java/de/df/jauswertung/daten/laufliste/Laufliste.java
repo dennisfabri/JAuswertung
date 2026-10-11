@@ -1830,7 +1830,15 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     }
 
     public static void migrator3(Element node) {
-        for (Element einteilung : node.element("verteilung2").elements()) {
+        renameEntries(node.element("verteilung2"));
+        renameEntries(node.element("blocks"));
+    }
+
+    private static void renameEntries(Element list) {
+        if (list == null) {
+            return;
+        }
+        for (Element einteilung : list.elements()) {
             for (Element entry : einteilung.elements().toArray(Element[]::new)) {
                 if (entry.getName().equals("first")) {
                     entry.setName("startgroup");
