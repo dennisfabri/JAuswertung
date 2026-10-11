@@ -143,6 +143,8 @@ There is no server behind the UI, so the desktop application is the only line of
   change.
 - `docs/chores/` tracks planned clean-ups of code or data model that are not bugs, with the same rules: one file per
   chore, listed in `docs/chores/README.md`, deleted once done.
+- Every row in both tables has a severity (High/Medium/Low) and a size (S/M/L) as defined in the respective
+  `README.md`; keep the rows ordered by severity, then by size. Rate new entries when you add them.
 
 ## Build, Test, Run
 
