@@ -1139,7 +1139,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * that record places instead of times have none.
      */
     public boolean hasBestTimes() {
-        return hasSchwimmer() && !isHeatBased() && getDataType() == DataType.TIME;
+        return hasSchwimmer() && getDataType() == DataType.TIME;
     }
 
     public boolean isHeatBased() {

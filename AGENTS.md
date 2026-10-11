@@ -138,7 +138,8 @@ There is no server behind the UI, so the desktop application is the only line of
 - `docs/issues/` tracks open findings from code work. Each open issue is a self-contained file listed in
   `docs/issues/README.md`'s table. Once an issue is fixed and the fix is verified, delete its file and remove its row
   from the table — do not mark it "Fixed" and leave the file in place, and do not fold a summary of the fix into
-  `README.md` either. The commit that fixes the issue is the record; git history has it.
+  `README.md` either. The commit that fixes the issue is the record; git history has it. Keep
+  `docs/issues/README.md` even when its table is empty.
 - When you find a problem outside the scope of the current task, add an issue there instead of fixing it in the same
   change.
 - `docs/chores/` tracks planned clean-ups of code or data model that are not bugs, with the same rules: one file per

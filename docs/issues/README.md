@@ -1,7 +1,8 @@
 # Open Issues
 
 Open findings from code work that are not fixed yet. Each issue is a self-contained file; once it is fixed and
-verified, delete the file and its row here (see `AGENTS.md` → *docs/issues/*).
+verified, delete the file and its row here (see `AGENTS.md` → *docs/issues/*). Keep this README with its table even
+when no issues are open.
 
 Every row has a severity and a size; keep the table ordered by severity (High, Medium, Low), then by size (S, M, L).
 
@@ -12,4 +13,3 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [Best times are missing for heat-based competitions with times](best-times-for-heat-based-competitions.md) | Low | M | Pool competitions with finals have times per round but no best times |
