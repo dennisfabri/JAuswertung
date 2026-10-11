@@ -14,5 +14,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | --- | --- | --- | --- |
 | [heat-split-blocks.md](heat-split-blocks.md) | High | S | Saved block split is never restored; fix or remove it |
 | [referees-keyed-by-position-name.md](referees-keyed-by-position-name.md) | Medium | M | Referees of a unit are kept in a map keyed by the position name |
+| [limits-check-duplicates-timelimit-search.md](limits-check-duplicates-timelimit-search.md) | Low | S | `LimitsCheck` in misc has its own copy of the search for broken time limits |
 | [owdisziplin-id-derived.md](owdisziplin-id-derived.md) | Low | M | `OWDisziplin.Id` is stored although it is derived from its components |
 | [discipline-values-per-gender.md](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
