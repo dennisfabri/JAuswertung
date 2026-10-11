@@ -280,8 +280,13 @@ public class PPrintPlugin extends ANullPlugin {
         printResults(wk, selected, view);
     }
 
-    @SuppressWarnings("unchecked")
     void printResults(@SuppressWarnings("rawtypes") AWettkampf wk, boolean[][] selected, boolean view) {
+        PrintExecutor.print(() -> getResultsPrintable(wk, selected), I18n.get("Results"), true,
+                getController().getWindow());
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Printable getResultsPrintable(@SuppressWarnings("rawtypes") AWettkampf wk, boolean[][] selected) {
         LinkedList<Printable> ps = null;
         if (wk.isCompetitionComplete()) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
@@ -290,9 +295,8 @@ public class PPrintPlugin extends ANullPlugin {
             ps = PrintUtils.getIntermediateResults(selected, wk, wk.getRegelwerk().getMaxDisciplineCount(), true, true,
                     0);
         }
-        Printable p = PrintManager.getFinalPrintable(new UnterschriftPrintable(new MultiplePrintable(ps)),
+        return PrintManager.getFinalPrintable(new UnterschriftPrintable(new MultiplePrintable(ps)),
                 wk.getLastChangedDate(), true, I18n.get("Results"));
-        PrintExecutor.print(p, I18n.get("Results"), true, getController().getWindow());
     }
 
     void showError(String title, String message, String note) {

@@ -291,7 +291,10 @@ class JPenaltyWizard implements FinishListener, CancelListener {
             strategy.addStrafe(strafe);
         }
         if (printOnFinish) {
-            PrintExecutor.print(strategy.getPrintable(strafe), I18n.get("Penalty"), true, controller.getWindow());
+            final Strafe printStrafe = strafe;
+            final IPenaltyWizardStrategy printStrategy = strategy;
+            PrintExecutor.print(() -> printStrategy.getPrintable(printStrafe), I18n.get("Penalty"), true,
+                                controller.getWindow());
         }
         controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, schwimmer,
                 strategy.getEventInfo(), null);

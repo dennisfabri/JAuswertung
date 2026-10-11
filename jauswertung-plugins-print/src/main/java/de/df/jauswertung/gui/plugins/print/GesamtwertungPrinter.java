@@ -133,8 +133,12 @@ class GesamtwertungPrinter implements Printer {
     }
 
     Printable getPrintable() {
+        return getPrintable(type.getSelectedIndex() > 0);
+    }
+
+    Printable getPrintable(boolean byQualifikationsebene) {
         AWettkampf<ASchwimmer> wk = Utils.copy(core.getFilteredWettkampf());
-        if (type.getSelectedIndex() > 0) {
+        if (byQualifikationsebene) {
             LinkedList<ASchwimmer> ll = wk.getSchwimmer();
             for (ASchwimmer s : ll) {
                 if (s.getQualifikationsebene().length() == 0) {
@@ -152,7 +156,9 @@ class GesamtwertungPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get(TITLE), true, controller.getWindow());
+            boolean byQualifikationsebene = type.getSelectedIndex() > 0;
+            PrintExecutor.print(() -> getPrintable(byQualifikationsebene), I18n.get(TITLE), true,
+                    controller.getWindow());
         }
     }
 

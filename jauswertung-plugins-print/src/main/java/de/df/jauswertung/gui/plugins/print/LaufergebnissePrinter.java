@@ -127,12 +127,13 @@ class LaufergebnissePrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t) {
-            ArrayList<AWettkampf> wkx = new ArrayList<>();
-            for (OWSelection s : t) {
-                wkx.add(createCompetitionFor(s));
-            }
-            PrintExecutor.print(getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()])),
-                    I18n.get("Laufzeiten"), true, controller.getWindow());
+            PrintExecutor.print(() -> {
+                ArrayList<AWettkampf> wkx = new ArrayList<>();
+                for (OWSelection s : t) {
+                    wkx.add(createCompetitionFor(s));
+                }
+                return getPrintable((AWettkampf<ASchwimmer>[]) wkx.toArray(new AWettkampf[wkx.size()]));
+            }, I18n.get("Laufzeiten"), true, controller.getWindow());
         }
 
         @Override
@@ -148,7 +149,7 @@ class LaufergebnissePrinter implements Printer {
                                                "Laufliste zum Drucken auswählen",
                                                EditMode.READ, cb);
             } else {
-                PrintExecutor.print(getPrintable(wk), I18n.get("Laufzeiten"), true, controller.getWindow());
+                PrintExecutor.print(() -> getPrintable(wk), I18n.get("Laufzeiten"), true, controller.getWindow());
             }
         }
     }

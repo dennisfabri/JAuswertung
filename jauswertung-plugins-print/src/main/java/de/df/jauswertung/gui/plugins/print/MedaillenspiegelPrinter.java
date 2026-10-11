@@ -117,7 +117,7 @@ class MedaillenspiegelPrinter implements Printer {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+        PrintExecutor.print(() -> getPrintable(), getName(), true, controller.getWindow());
     }
 
     void preview() {

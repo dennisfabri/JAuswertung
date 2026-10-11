@@ -165,7 +165,8 @@ class RegisteredTimesPrinter implements Printer {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Meldezeiten"), true,
+            final boolean[] selected = selection.getSelection();
+            PrintExecutor.print(() -> getPrintable(selected), I18n.get("Meldezeiten"), true,
                                 controller.getWindow());
         }
     }

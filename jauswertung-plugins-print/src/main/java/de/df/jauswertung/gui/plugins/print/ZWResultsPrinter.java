@@ -143,6 +143,10 @@ class ZWResultsPrinter implements Printer {
     }
 
     Printable getPrintable(boolean[][] selected) {
+        return getPrintable(selected, unterschrift.isSelected());
+    }
+
+    Printable getPrintable(boolean[][] selected, boolean withSignature) {
         AWettkampf<?> wk = core.getFilteredWettkampf();
 
         ExtendedTableModel[] etm = DataTableUtils.zusatzwertungResults(wk, selected, null, PrintUtils.printZWnames);
@@ -150,14 +154,16 @@ class ZWResultsPrinter implements Printer {
             return EmptyPrintable.Instance;
         }
         Printable p = PrintManager.getPrintable(etm, JTablePrintable.OPT_ALL, true, true);
-        if (unterschrift.isSelected()) {
+        if (withSignature) {
             p = new UnterschriftPrintable(p);
         }
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("ZWResults"), I18n.get("ZWResults"));
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("ZWResults"), true, controller.getWindow());
+        final boolean withSignature = unterschrift.isSelected();
+        PrintExecutor.print(() -> getPrintable(selection, withSignature), I18n.get("ZWResults"), true,
+                controller.getWindow());
     }
 
     private class PPrintableCreator implements PrintableCreator {

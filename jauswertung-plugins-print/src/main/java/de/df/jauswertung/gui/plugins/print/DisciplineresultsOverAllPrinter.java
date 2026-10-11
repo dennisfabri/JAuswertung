@@ -141,7 +141,7 @@ class DisciplineresultsOverAllPrinter implements Printer {
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("DisciplineOverAllAgeGroups"), true,
+        PrintExecutor.print(() -> getPrintable(selection), I18n.get("DisciplineOverAllAgeGroups"), true,
                 controller.getWindow());
     }
 

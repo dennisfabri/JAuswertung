@@ -429,7 +429,7 @@ class JLauflisteBearbeiten<T extends ASchwimmer> extends JFrame {
     }
 
     void drucken() {
-        PrintExecutor.print(getPrintable(), I18n.get("Laufliste"), true, this);
+        PrintExecutor.print(() -> getPrintable(), I18n.get("Laufliste"), true, this);
     }
 
     void vorschau() {

@@ -97,7 +97,7 @@ public class InfopagePrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Infopage"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("Infopage"), controller.getWindow());
         }
     }
 

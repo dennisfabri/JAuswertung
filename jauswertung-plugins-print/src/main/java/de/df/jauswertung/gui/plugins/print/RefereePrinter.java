@@ -93,7 +93,7 @@ public class RefereePrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Referees"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("Referees"), controller.getWindow());
         }
     }
 

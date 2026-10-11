@@ -503,7 +503,8 @@ public class JAKsEditor extends JGlassFrame {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("Rulebook"), this);
+        Regelwerk a = getRegelwerkForPrint();
+        PrintExecutor.print(() -> getPrintable(a), I18n.get("Rulebook"), this);
     }
 
     void preview() {
@@ -512,9 +513,17 @@ public class JAKsEditor extends JGlassFrame {
     }
 
     Printable getPrintable() {
+        return getPrintable(getRegelwerkForPrint());
+    }
+
+    private Regelwerk getRegelwerkForPrint() {
         Regelwerk a = new Regelwerk(aks.isEinzel(), aks.getFormelID());
         getSettings(a);
         editor.getAKs(a);
+        return a;
+    }
+
+    private static Printable getPrintable(Regelwerk a) {
         return PrintManager.getFinalPrintable(new RulebookSettingsPrintable(a, true), new Date(), true,
                 I18n.get("Rulebook"));
     }

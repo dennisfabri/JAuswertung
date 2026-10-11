@@ -189,7 +189,11 @@ class BrokenLimitsPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        Printable p = getPrintable(core.getFilteredWettkampf(), agegroup.getSelectedIndex());
+        return getPrintable(agegroup.getSelectedIndex());
+    }
+
+    Printable getPrintable(int index) {
+        Printable p = getPrintable(core.getFilteredWettkampf(), index);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), getName(), getName());
 
     }
@@ -320,7 +324,8 @@ class BrokenLimitsPrinter implements Printer {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+        int index = agegroup.getSelectedIndex();
+        PrintExecutor.print(() -> getPrintable(index), getName(), true, controller.getWindow());
     }
 
     void preview() {

@@ -112,7 +112,7 @@ public class ProtocolPrinter implements Printer {
                 return;
             }
 
-            PrintExecutor.print(getPrintable(), I18n.get("Protocol"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("Protocol"), controller.getWindow());
         }
     }
 

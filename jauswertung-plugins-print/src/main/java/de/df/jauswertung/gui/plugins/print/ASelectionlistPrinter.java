@@ -142,7 +142,7 @@ abstract class ASelectionlistPrinter implements Printer {
     }
 
     @SuppressWarnings({ "unchecked" })
-    private ExtendedTableModel getTableModel(boolean[] selected) {
+    private ExtendedTableModel getTableModel(boolean[] selected, int sortOrder) {
         AWettkampf<ASchwimmer> wk = core.getFilteredWettkampf();
         LinkedList<ASchwimmer> schwimmer = wk.getSchwimmer();
         if (schwimmer == null) {
@@ -154,7 +154,7 @@ abstract class ASelectionlistPrinter implements Printer {
                 li.remove();
             }
         }
-        switch (order.getSelectedIndex()) {
+        switch (sortOrder) {
         default:
         case 0:
             Collections.sort(schwimmer, CompetitionUtils.VERGLEICHER_STARTNUMMER);
@@ -197,8 +197,8 @@ abstract class ASelectionlistPrinter implements Printer {
         return TableHeatUtils.getLaufeinteilungTabelle(wk);
     }
 
-    private JTable getTable(boolean[] selected) {
-        ExtendedTableModel etm = getTableModel(selected);
+    private JTable getTable(boolean[] selected, int sortOrder) {
+        ExtendedTableModel etm = getTableModel(selected, sortOrder);
         JTable table = new JTable(etm);
         JTableUtils.setAlignmentRenderer(table, etm.getColumnAlignments(), SwingConstants.LEFT);
         return table;
@@ -210,7 +210,12 @@ abstract class ASelectionlistPrinter implements Printer {
     }
 
     Printable getPrintable(boolean[] selected) {
-        Printable p = PrintManager.getPrintable(getTable(selected), (String) null, JTablePrintable.OPT_ALL, true, true);
+        return getPrintable(selected, order.getSelectedIndex());
+    }
+
+    private Printable getPrintable(boolean[] selected, int sortOrder) {
+        Printable p = PrintManager.getPrintable(getTable(selected, sortOrder), (String) null, JTablePrintable.OPT_ALL,
+                true, true);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), title, title);
     }
 
@@ -223,7 +228,9 @@ abstract class ASelectionlistPrinter implements Printer {
             checkDialog();
             selection.setVisible(true);
             if (selection.isAccepted()) {
-                PrintExecutor.print(getPrintable(selection.getSelection()), title, true, controller.getWindow());
+                boolean[] selected = selection.getSelection();
+                int sortOrder = order.getSelectedIndex();
+                PrintExecutor.print(() -> getPrintable(selected, sortOrder), title, true, controller.getWindow());
             }
         }
     }

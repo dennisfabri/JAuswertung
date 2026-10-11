@@ -233,14 +233,20 @@ class ResultsPrinter implements Printer {
     /**
      * @param selected
      */
-    <T extends ASchwimmer> Printable getPrintable(boolean[][] selected) {
+    Printable getPrintable(boolean[][] selected) {
+        return getPrintable(selected, discipline.getSelectedIndex(), discipline.getItemCount(),
+                unterschrift.isSelected());
+    }
+
+    <T extends ASchwimmer> Printable getPrintable(boolean[][] selected, int disciplineIndex, int disciplineCount,
+            boolean withSignature) {
         AWettkampf<T> wk = getWettkampf();
 
         LinkedList<Printable> ps = null;
-        if (discipline.getSelectedIndex() == discipline.getItemCount() - 1) {
+        if (disciplineIndex == disciplineCount - 1) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
-            if (discipline.getSelectedIndex() == 0) {
+            if (disciplineIndex == 0) {
                 boolean selectedcomplete = true;
                 for (int x = 0; x < selected.length; x++) {
                     for (int y = 0; y < 2; y++) {
@@ -265,7 +271,7 @@ class ResultsPrinter implements Printer {
                     ps = PrintUtils.getIntermediateResults(selected, wk, 0, true, true, 0);
                 }
             } else {
-                ps = PrintUtils.getIntermediateResults(selected, wk, discipline.getSelectedIndex(), true, true, 0);
+                ps = PrintUtils.getIntermediateResults(selected, wk, disciplineIndex, true, true, 0);
             }
         }
         Printable p;
@@ -274,14 +280,18 @@ class ResultsPrinter implements Printer {
         } else {
             p = new MultiplePrintable(ps);
         }
-        if (unterschrift.isSelected()) {
+        if (withSignature) {
             p = new UnterschriftPrintable(p);
         }
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), true, I18n.get("Results"));
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("Results"), true, controller.getWindow());
+        final int disciplineIndex = discipline.getSelectedIndex();
+        final int disciplineCount = discipline.getItemCount();
+        final boolean withSignature = unterschrift.isSelected();
+        PrintExecutor.print(() -> getPrintable(selection, disciplineIndex, disciplineCount, withSignature),
+                I18n.get("Results"), true, controller.getWindow());
     }
 
     private class PPrintableCreator implements PrintableCreator {

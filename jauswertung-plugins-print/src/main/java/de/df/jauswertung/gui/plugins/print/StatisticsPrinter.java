@@ -109,7 +109,7 @@ class StatisticsPrinter implements Printer {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("Statistics"), true, controller.getWindow());
+        PrintExecutor.print(() -> getPrintable(), I18n.get("Statistics"), true, controller.getWindow());
     }
 
     void preview() {

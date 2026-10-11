@@ -218,11 +218,11 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     }
 
     @SuppressWarnings("rawtypes")
-    private AWettkampf getWettkampf() {
-        if (indices[agegroup.getSelectedIndex()] < 0) {
-            return getWettkampf(core.getFilteredWettkampf(), agegroup.getSelectedItem().toString());
+    private AWettkampf getWettkampf(int index, Object selectedItem) {
+        if (index < 0) {
+            return getWettkampf(core.getFilteredWettkampf(), selectedItem.toString());
         }
-        return getWettkampf(core.getFilteredWettkampf(), indices[agegroup.getSelectedIndex()]);
+        return getWettkampf(core.getFilteredWettkampf(), index);
     }
 
     private AWettkampf<?> getWettkampf(AWettkampf<?> wk, int x) {
@@ -234,14 +234,18 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         return ResultUtils.generateEinzelwertungswettkampf(wk, wg, false);
     }
 
-    @SuppressWarnings("rawtypes")
     Printable getPrintable() {
-        AWettkampf wk = getWettkampf();
-        Printable p = getPrintable(wk);
+        return getPrintable(indices[agegroup.getSelectedIndex()], agegroup.getSelectedItem(), bigPrint.isSelected());
+    }
+
+    @SuppressWarnings("rawtypes")
+    Printable getPrintable(int index, Object selectedItem, boolean big) {
+        AWettkampf wk = getWettkampf(index, selectedItem);
+        Printable p = getPrintable(wk, big);
         return PrintManager.getFinalPrintable(p, core.getLastChangedDate(), getName(), getName());
     }
 
-    Printable getPrintable(AWettkampf<?> wk) {
+    Printable getPrintable(AWettkampf<?> wk, boolean big) {
         LinkedList<ExtendedTableModel> results = new LinkedList<>();
 
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
@@ -279,11 +283,12 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         }
 
         JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]),
-                                        PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf));
-        return new ComponentListPrintable2(bigPrint.isSelected() ? gapscale : 0, false, parts);
+                                        PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf),
+                                        big);
+        return new ComponentListPrintable2(big ? gapscale : 0, false, parts);
     }
 
-    private JComponent getPseudoTable(ExtendedTableModel etm, boolean showOrganisation) {
+    private JComponent getPseudoTable(ExtendedTableModel etm, boolean showOrganisation, boolean big) {
         FormLayout layout = null;
         if (!showOrganisation) {
             layout = new FormLayout(
@@ -363,21 +368,21 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
         }
 
         Font f = PrintManager.getFont();
-        p.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
+        p.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
         p.setForeground(Color.BLACK);
 
         p.setBorder(new LineBorder(Color.BLACK, 1));
         return p;
     }
 
-    private JComponent[] getResults(ExtendedTableModel[] etm, boolean showOrganisation) {
+    private JComponent[] getResults(ExtendedTableModel[] etm, boolean showOrganisation, boolean big) {
 
         JComponent[] result = new JComponent[etm.length];
         for (int x = 0; x < etm.length; x++) {
 
             JLabel title = new JLabel(etm[x].getName());
             Font f = PrintManager.getFont();
-            title.setFont(f.deriveFont(f.getSize2D() * (bigPrint.isSelected() ? fontscale : 1.0f)));
+            title.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
 
             FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
                                                "0dlu,fill:default,1dlu,fill:default,2dlu");
@@ -386,7 +391,7 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
             c.setForeground(Color.BLACK);
 
             c.add(title, CC.xy(2, 2, "center,center"));
-            c.add(getPseudoTable(etm[x], showOrganisation), CC.xy(2, 4));
+            c.add(getPseudoTable(etm[x], showOrganisation, big), CC.xy(2, 4));
 
             result[x] = c;
         }
@@ -394,7 +399,10 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     }
 
     void print() {
-        PrintExecutor.print(getPrintable(), getName(), true, controller.getWindow());
+        int index = indices[agegroup.getSelectedIndex()];
+        Object selectedItem = agegroup.getSelectedItem();
+        boolean big = bigPrint.isSelected();
+        PrintExecutor.print(() -> getPrintable(index, selectedItem, big), getName(), true, controller.getWindow());
     }
 
     void preview() {

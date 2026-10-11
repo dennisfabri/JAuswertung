@@ -293,21 +293,28 @@ public class PResulttablePlugin extends ANullPlugin {
                     }
 
                 }
+                final AWettkampf printWk = wkx;
+                final boolean[][] printSelection = selection;
                 if (isHeatBased()) {
                     if (isPartOnly) {
-                        PrintExecutor.print(getPrintable(wkx, !isCompleteDiscipline, round, qualification, selection),
+                        final boolean printIsRound = !isCompleteDiscipline;
+                        final int printRound = round;
+                        final int printQualification = qualification;
+                        PrintExecutor.print(() -> getPrintable(printWk, printIsRound, printRound, printQualification,
+                                                               printSelection),
                                             I18n.get("Result"), getController().getWindow());
                     } else {
-                        PrintExecutor.print(getPrintable(wkx, false, 0, 0, selection), I18n.get("Results"),
+                        PrintExecutor.print(() -> getPrintable(printWk, false, 0, 0, printSelection), I18n.get("Results"),
                                             getController().getWindow());
                     }
                 } else {
+                    final int sex = geschlecht.getSelectedIndex();
                     PrintExecutor.print(
-                            getPrintable(wkx, false, 0, 0,
-                                         new boolean[][]{
-                                                 {geschlecht.getSelectedIndex() == 0},
-                                                 {geschlecht.getSelectedIndex() == 1}
-                                         }),
+                            () -> getPrintable(printWk, false, 0, 0,
+                                               new boolean[][]{
+                                                       {sex == 0},
+                                                       {sex == 1}
+                                               }),
                             I18n.get("Results"), getController().getWindow());
                 }
             }

@@ -62,7 +62,10 @@ public class PenaltylistePrinter implements Printer {
 
         @Override
         public void print(boolean[][] selected) {
-            PrintExecutor.print(getPrintable(selected), I18n.get("Penaltylist"), controller.getWindow());
+            final int index = disziplin.getSelectedIndex();
+            final boolean isKurz = kurz.isSelected();
+            PrintExecutor.print(() -> getPrintable(selected, index, isKurz), I18n.get("Penaltylist"),
+                    controller.getWindow());
         }
 
     }
@@ -237,8 +240,12 @@ public class PenaltylistePrinter implements Printer {
     }
 
     Printable getPrintable(boolean[][] selected) {
+        return getPrintable(selected, disziplin.getSelectedIndex(), kurz.isSelected());
+    }
+
+    Printable getPrintable(boolean[][] selected, int index, boolean isKurz) {
         return PrintManager.getFinalPrintable(
-                getPrintable(core, disziplin.getSelectedIndex(), selected, kurz.isSelected()),
+                getPrintable(core, index, selected, isKurz),
                 core.getLastChangedDate(), true,
                 I18n.get("Penaltylist"));
     }

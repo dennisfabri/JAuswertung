@@ -166,7 +166,9 @@ abstract class AFilledKartenPrinter implements Printer {
         <T extends ASchwimmer> void printLaufliste(OWSelection[] t) {
             AWettkampf[] wks = createCompetitionsFor(t);
             setPrintAllHeats();
-            PrintExecutor.print(getPrintable(wks), text, true, controller.getWindow());
+            PageMode mode = getMode();
+            PrintExecutor.print(() -> getPrintable(wks, mode, PrintUtils.printEmptyCards, true, 0, 0), text, true,
+                                controller.getWindow());
         }
 
         @Override
@@ -183,7 +185,13 @@ abstract class AFilledKartenPrinter implements Printer {
                                                EditMode.READ, cb);
             } else {
                 if (setPrintAllHeats(wk)) {
-                    PrintExecutor.print(getPrintable(new AWettkampf[]{wk}), text, true, controller.getWindow());
+                    PageMode mode = getMode();
+                    boolean all = allheats;
+                    int min = minheat;
+                    int max = maxheat;
+                    PrintExecutor.print(() -> getPrintable(new AWettkampf[]{wk}, mode, PrintUtils.printEmptyCards, all,
+                                                           min, max),
+                                        text, true, controller.getWindow());
                 }
             }
         }

@@ -123,7 +123,7 @@ public class ZielrichterentscheidPrinter implements Printer {
                 return;
             }
 
-            PrintExecutor.print(getPrintable(), I18n.get("Zielrichterentscheide"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("Zielrichterentscheide"), controller.getWindow());
         }
     }
 

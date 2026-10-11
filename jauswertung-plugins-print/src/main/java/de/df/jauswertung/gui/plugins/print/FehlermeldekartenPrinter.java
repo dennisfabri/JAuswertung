@@ -104,7 +104,9 @@ class FehlermeldekartenPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Fehlermeldekarten"), true, controller.getWindow());
+            PageMode mode = getMode();
+            PrintExecutor.print(() -> new FehlermeldekartenPrintable(mode), I18n.get("Fehlermeldekarten"), true,
+                    controller.getWindow());
         }
     }
 

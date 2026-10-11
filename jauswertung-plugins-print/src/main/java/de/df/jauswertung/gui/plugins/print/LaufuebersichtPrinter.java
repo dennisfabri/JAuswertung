@@ -108,7 +108,7 @@ class LaufuebersichtPrinter implements Printer {
      * 
      */
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("Heatoverview"), controller.getWindow());
+        PrintExecutor.print(() -> getPrintable(), I18n.get("Heatoverview"), controller.getWindow());
     }
 
     void preview() {

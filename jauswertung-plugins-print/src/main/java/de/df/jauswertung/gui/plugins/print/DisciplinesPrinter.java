@@ -99,7 +99,7 @@ public class DisciplinesPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("Disciplines"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("Disciplines"), controller.getWindow());
         }
     }
 

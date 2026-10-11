@@ -123,8 +123,8 @@ class WeitermeldungPrinter implements Printer {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private ExtendedTableModel[] getTableModels(boolean[] selected) {
-        AWettkampf wk = ResultUtils.convertResultsToMeldung(core.getFilteredWettkampf(), alltimes.isSelected());
+    private ExtendedTableModel[] getTableModels(boolean[] selected, boolean allTimes) {
+        AWettkampf wk = ResultUtils.convertResultsToMeldung(core.getFilteredWettkampf(), allTimes);
         if (!wk.hasSchwimmer()) {
             return null;
         }
@@ -146,8 +146,8 @@ class WeitermeldungPrinter implements Printer {
         return result.toArray(new ExtendedTableModel[0]);
     }
 
-    private JTable[] getTables(boolean[] selected) {
-        ExtendedTableModel[] etm = getTableModels(selected);
+    private JTable[] getTables(boolean[] selected, boolean allTimes) {
+        ExtendedTableModel[] etm = getTableModels(selected, allTimes);
         JTable[] tables = new JTable[etm.length];
         for (int x = 0; x < etm.length; x++) {
             JTable table = new JTable(etm[x]);
@@ -159,7 +159,11 @@ class WeitermeldungPrinter implements Printer {
     }
 
     Printable getPrintable(boolean[] selected) {
-        JTable[] tables = getTables(selected);
+        return getPrintable(selected, alltimes.isSelected());
+    }
+
+    Printable getPrintable(boolean[] selected, boolean allTimes) {
+        JTable[] tables = getTables(selected, allTimes);
         String[] names = new String[tables.length];
         for (int x = 0; x < tables.length; x++) {
             names[x] = I18n.get("Registration") + " - " + tables[x].getName();
@@ -172,7 +176,9 @@ class WeitermeldungPrinter implements Printer {
         checkDialog();
         selection.setVisible(true);
         if (selection.isAccepted()) {
-            PrintExecutor.print(getPrintable(selection.getSelection()), I18n.get("Registration"), true, controller.getWindow());
+            final boolean[] selected = selection.getSelection();
+            final boolean allTimes = alltimes.isSelected();
+            PrintExecutor.print(() -> getPrintable(selected, allTimes), I18n.get("Registration"), true, controller.getWindow());
         }
     }
 

@@ -136,7 +136,7 @@ class LaufeinteilungKompaktPrinter implements Printer {
      * 
      */
     void print() {
-        PrintExecutor.print(getPrintable(), I18n.get("HeatarrangementCompact"), controller.getWindow());
+        PrintExecutor.print(() -> getPrintable(), I18n.get("HeatarrangementCompact"), controller.getWindow());
     }
 
     void preview() {

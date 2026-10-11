@@ -246,10 +246,15 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     private AWettkampf getWettkampf() {
-        if (indices[agegroup.getSelectedIndex()] < 0) {
-            return getWettkampf(core.getFilteredWettkampf(), agegroup.getSelectedItem().toString());
+        return getWettkampf(indices[agegroup.getSelectedIndex()], agegroup.getSelectedItem());
+    }
+
+    @SuppressWarnings("rawtypes")
+    private AWettkampf getWettkampf(int index, Object selectedItem) {
+        if (index < 0) {
+            return getWettkampf(core.getFilteredWettkampf(), selectedItem.toString());
         }
-        return getWettkampf(core.getFilteredWettkampf(), indices[agegroup.getSelectedIndex()]);
+        return getWettkampf(core.getFilteredWettkampf(), index);
     }
 
     private AWettkampf<?> getWettkampf(AWettkampf<?> wk, int x) {
@@ -337,7 +342,10 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     void printResults(boolean[][] selection) {
-        PrintExecutor.print(getPrintable(selection), I18n.get("Einzelwertung"), true, controller.getWindow());
+        int index = indices[agegroup.getSelectedIndex()];
+        Object selectedItem = agegroup.getSelectedItem();
+        PrintExecutor.print(() -> getPrintable(getWettkampf(index, selectedItem), 0, 0, selection),
+                            I18n.get("Einzelwertung"), true, controller.getWindow());
     }
 
     private class PPrintableCreator implements PrintableCreator {
@@ -403,7 +411,7 @@ abstract class APerDisciplinePrinter implements Printer {
     final class PrintActionListener implements ActionListener {
 
         <T extends ASchwimmer> void printResult(OWSelection[] t) {
-            PrintExecutor.print(getPrintable(t), I18n.get("Einzelwertung"), true, controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(t), I18n.get("Einzelwertung"), true, controller.getWindow());
         }
 
         @Override

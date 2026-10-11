@@ -90,7 +90,7 @@ public class RulebookPrinter implements Printer {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            PrintExecutor.print(getPrintable(), I18n.get("RulebookSettings"), controller.getWindow());
+            PrintExecutor.print(() -> getPrintable(), I18n.get("RulebookSettings"), controller.getWindow());
         }
     }
 
