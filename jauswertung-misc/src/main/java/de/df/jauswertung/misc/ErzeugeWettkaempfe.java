@@ -191,7 +191,6 @@ public final class ErzeugeWettkaempfe {
             }
         }
         ewk.getLaufliste().erzeugen();
-        ewk.getHLWListe().erzeugen();
         if (datei != null) {
             System.out.println("  " + datei + " ("
                     + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time)))
@@ -369,7 +368,6 @@ public final class ErzeugeWettkaempfe {
         }
         mwk.setProperty(PropertyConstants.HEATS_SORTING_ORDER, Reihenfolge.Meldepunkte.getValue());
         mwk.getLaufliste().erzeugen();
-        mwk.getHLWListe().erzeugen();
         if (datei != null) {
             System.out.println("  " + datei + " ("
                     + NumberFormat.getNumberInstance().format(0.001 * Math.round((System.currentTimeMillis() - time)))

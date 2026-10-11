@@ -49,7 +49,6 @@ public class TeammembersExporter extends EmptyExporter {
             }
             mwk.setKampfrichterverwaltung(null);
             mwk.getLaufliste().resetAll();
-            mwk.getHLWListe().resetAll();
             mwk.setZielrichterentscheide(new LinkedList<>());
             Mannschaftsmitgliedermeldung mm = new Mannschaftsmitgliedermeldung(mwk);
             try {

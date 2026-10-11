@@ -13,8 +13,6 @@ import org.dom4j.Element;
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.event.PropertyChangeListener;
-import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.*;
@@ -46,7 +44,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             throw new NullPointerException("Argument must not be null!");
         }
         properties = new Hashtable<>();
-        pcManager = new PropertyChangeManager(this);
 
         strafen = s;
 
@@ -70,7 +67,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         laufliste = new Laufliste<>(this);
         lauflisteow = new OWLaufliste<>(this);
         schwimmer = new LinkedList<>();
-        hlwliste = new HLWListe<>(this);
         aks = altersklassen;
         kampfrichter = null;
         zielrichterentscheide = new LinkedList<>();
@@ -82,14 +78,12 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private final Regelwerk aks;
     private final Laufliste<T> laufliste;
     private final OWLaufliste<T> lauflisteow;
-    private final HLWListe<T> hlwliste;
     private final Strafen strafen;
     private final LinkedList<T> schwimmer;
     private final Hashtable<String, Object> properties;
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
 
-    private final PropertyChangeManager pcManager;
 
     private TimelimitsContainer timelimits;
 
@@ -150,16 +144,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         // }
         // setProperty(PropertyConstants.LOGO, bos.toByteArray());
         setProperty(PropertyConstants.LOGO, i);
-        changedNow(false);
-    }
-
-    /**
-     * Listener auf Aenderungen der Einstellungen hinzufuegen.
-     *
-     * @param pcl Listener
-     */
-    public final void addPropertyChangeListener(PropertyChangeListener pcl) {
-        pcManager.add(pcl);
         changedNow(false);
     }
 
@@ -640,9 +624,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             if (lauflisteow != null) {
                 lauflisteow.remove(t);
             }
-            if (hlwliste != null) {
-                hlwliste.remove(t);
-            }
         }
         return geloescht;
     }
@@ -734,9 +715,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return lauflisteow;
     }
 
-    public final HLWListe<T> getHLWListe() {
-        return hlwliste;
-    }
 
     public Object getProperty(String name) {
         return properties.get(name);
@@ -760,7 +738,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         } else {
             properties.put(name, value);
         }
-        pcManager.firePropertyChangeEvent(name);
+        if (HEATS_LANES.equals(name) && laufliste != null) {
+            laufliste.setBahnen(getIntegerProperty(HEATS_LANES));
+        }
         changedNow(false);
     }
 
@@ -864,9 +844,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final void check() {
-        if (getHLWListe() != null) {
-            getHLWListe().check();
-        }
         if (getLaufliste() != null) {
             getLaufliste().check(getLauflisteOW() != null && !getLauflisteOW().isEmpty());
         }

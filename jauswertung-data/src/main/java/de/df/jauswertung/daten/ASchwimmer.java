@@ -868,7 +868,6 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
 
         if (check) {
             wk.getLaufliste().check(SearchUtils.getSchwimmer(wk, startnummer));
-            wk.getHLWListe().check(SearchUtils.getSchwimmer(wk, startnummer));
         }
     }
 

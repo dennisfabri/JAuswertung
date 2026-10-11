@@ -43,21 +43,16 @@ import de.df.jauswertung.daten.Timelimits;
 import de.df.jauswertung.daten.TimelimitsContainer;
 import de.df.jauswertung.daten.Wettkampfart;
 import de.df.jauswertung.daten.Zielrichterentscheid;
-import de.df.jauswertung.daten.event.PropertyChangeListener;
-import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.HLWLauf;
-import de.df.jauswertung.daten.laufliste.HLWListe;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.laufliste.OWSelection;
-import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
@@ -181,9 +176,6 @@ public final class IOUtils {
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Startgruppe", Startgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Wertungsgruppe", Wertungsgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.Eingabe", Eingabe.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.HLWListe$1", HLWListe.WettkampfChangeListener.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.HLWListe$Einteilung", HLWListe.Einteilung.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$1", Laufliste.WettkampfChangeListener.class);
             instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$Einteilung", Laufliste.Einteilung.class);
             instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$BlockEinteilung",
                     Laufliste.BlockEinteilung.class);
@@ -201,19 +193,11 @@ public final class IOUtils {
             instance.alias("Zielrichterentscheid", Zielrichterentscheid.class);
             instance.alias("Eingabe", Eingabe.class);
 
-            instance.alias("PropertyChangeListener", PropertyChangeListener.class);
-            instance.alias("PropertyChangeManager", PropertyChangeManager.class);
 
-            instance.alias("HLW", HLWLauf.class);
-            instance.alias("HLWListe", HLWListe.class);
-            instance.alias("HLWListeWettkampfChangeListener", HLWListe.WettkampfChangeListener.class);
-            instance.alias("HLWListeEinteilung", HLWListe.Einteilung.class);
             instance.alias("Lauf", Lauf.class);
             instance.alias("Laufliste", Laufliste.class);
-            instance.alias("LauflisteWettkampfChangeListener", Laufliste.WettkampfChangeListener.class);
             instance.alias("LauflisteEinteilung", Laufliste.Einteilung.class);
             instance.alias("LauflisteBlockEinteilung", Laufliste.BlockEinteilung.class);
-            instance.alias("Time", Time.class);
 
             instance.alias("BugReport", BugReport.class);
 
@@ -287,6 +271,8 @@ public final class IOUtils {
             instance.omitField(Altersklasse.class, "kompakt");
             instance.omitField(Mannschaftsmitgliederexportkennung.class, "exportedOnDate");
             instance.omitField(Teilnehmer.class, "starter");
+            instance.omitField(AWettkampf.class, "pcManager");
+            instance.omitField(AWettkampf.class, "hlwliste");
         }
 
         return instance;

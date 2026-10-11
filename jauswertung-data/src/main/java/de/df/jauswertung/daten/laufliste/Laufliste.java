@@ -15,7 +15,6 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
-import de.df.jauswertung.daten.event.PropertyChangeListener;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.util.CompetitionUtils;
@@ -64,19 +63,13 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         return this;
     }
 
-    public final class WettkampfChangeListener implements PropertyChangeListener {
-        @Serial
-        private static final long serialVersionUID = -2390423576945211763L;
-
-        @Override
-        public void propertyChanged(Object source, String property) {
-            if (HEATS_LANES.equals(property)) {
-                int b = wk.getIntegerProperty(HEATS_LANES);
-                if (laufliste != null) {
-                    for (Lauf<T> tLauf : laufliste) {
-                        tLauf.setBahnen(b);
-                    }
-                }
+    /**
+     * Sets the number of lanes of every heat.
+     */
+    public void setBahnen(int bahnen) {
+        if (laufliste != null) {
+            for (Lauf<T> tLauf : laufliste) {
+                tLauf.setBahnen(bahnen);
             }
         }
     }
@@ -170,9 +163,6 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         wk = wettkampf;
         laufliste = null;
         verteilung = null;
-
-        PropertyChangeListener pcl = new WettkampfChangeListener();
-        wk.addPropertyChangeListener(pcl);
     }
 
     public Einteilung[] getVerteilung() {
