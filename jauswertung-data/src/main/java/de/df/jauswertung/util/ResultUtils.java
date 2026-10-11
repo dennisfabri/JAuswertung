@@ -424,12 +424,8 @@ public class ResultUtils {
         }
         Disziplin disziplin = akx.getDisziplin(t.discipline, t.male);
 
-        // Remove disciplines before participants for performance reasons
-        for (OWDisziplin<T> dx : wk.getLauflisteOW().getDisziplinen()) {
-            if (!dx.Id.equals(t.getId())) {
-                wk.getLauflisteOW().removeDiscipline(t.getId());
-            }
-        }
+        // Remove disciplines before participants for performance reasons; the selected round is read from cwk
+        wk.getLauflisteOW().clear();
 
         OWDisziplin<T> d = cwk.getLauflisteOW().getDisziplin(t);
 
@@ -572,8 +568,6 @@ public class ResultUtils {
                 x++;
             }
         }
-
-        wk.getLauflisteOW().clear();
 
         Regelwerk rw = wk.getRegelwerk();
         if (!t.isFinal || t.round == 0)
