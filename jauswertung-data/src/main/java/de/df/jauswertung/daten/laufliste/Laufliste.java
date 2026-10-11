@@ -42,7 +42,10 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     private int mode = Laufeinteilungsmodus.Auto.getValue();
 
-    private boolean isfinal = true;
+    /**
+     * Only competitions created for a single round set this to {@code false}.
+     */
+    private transient boolean isfinal = true;
 
     public boolean isFinal() {
         return isfinal;
@@ -50,6 +53,15 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     public void setIsFinal(boolean f) {
         isfinal = f;
+    }
+
+    /**
+     * Called after loading, where field initializers do not run.
+     */
+    @Serial
+    private Object readResolve() {
+        isfinal = true;
+        return this;
     }
 
     public final class WettkampfChangeListener implements PropertyChangeListener {

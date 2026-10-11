@@ -63,7 +63,7 @@ public class Altersklasse implements Serializable {
     @XStreamAsAttribute
     private String wertungsgruppe = null;
 
-    private InterneStartgruppe interneStartgruppe = new InterneStartgruppe();
+    private transient InterneStartgruppe interneStartgruppe;
 
     /**
      * Erzeugt eine neue Altersklasse.

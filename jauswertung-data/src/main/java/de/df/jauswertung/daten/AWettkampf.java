@@ -97,9 +97,34 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     @XStreamAsAttribute
     private int filterindex;
 
-    private boolean[] disciplinesComplete = new boolean[0];
-    private boolean[][][] disciplinesAgeGroupComplete = new boolean[0][0][0];
-    private boolean[][] hlwAkComplete = new boolean[0][0];
+    // Input status, recomputed by updateInputStatus()
+    private transient boolean[] disciplinesComplete = new boolean[0];
+    private transient boolean[][][] disciplinesAgeGroupComplete = new boolean[0][0][0];
+    private transient boolean[][] hlwAkComplete = new boolean[0][0];
+
+    private boolean[] inputStatusDisciplines() {
+        ensureInputStatus();
+        return disciplinesComplete;
+    }
+
+    private boolean[][][] inputStatusPerDiscipline() {
+        ensureInputStatus();
+        return disciplinesAgeGroupComplete;
+    }
+
+    private boolean[][] inputStatusZusatzwertung() {
+        ensureInputStatus();
+        return hlwAkComplete;
+    }
+
+    /**
+     * The input status is not saved; after loading it is computed on first use.
+     */
+    private void ensureInputStatus() {
+        if (disciplinesComplete == null || disciplinesAgeGroupComplete == null || hlwAkComplete == null) {
+            updateInputStatus();
+        }
+    }
 
     public byte[] getLogo() {
         return (byte[]) properties.get(PropertyConstants.LOGO);
@@ -157,8 +182,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return kampfrichter;
     }
 
-    private boolean updatesDisabled = false;
-    private boolean changedSinceDisable = false;
+    private transient boolean updatesDisabled = false;
+    private transient boolean changedSinceDisable = false;
 
     public void disableUpdates() {
         updatesDisabled = true;
@@ -191,7 +216,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return (Date) getProperty(LAST_CHANGE);
     }
 
-    private boolean changing = false;
+    private transient boolean changing = false;
 
     private void changedNow(boolean update) {
         if (changing) {
@@ -229,10 +254,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      *             false sonst.
      */
     public final boolean isToDisciplineComplete(int disz, int ak, boolean male) {
-        if (disciplinesAgeGroupComplete.length > ak) {
+        if (inputStatusPerDiscipline().length > ak) {
             for (int x = 0; x < disz + 1; x++) {
-                if (disciplinesAgeGroupComplete[ak].length > x) {
-                    if (!disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+                if (inputStatusPerDiscipline()[ak].length > x) {
+                    if (!inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                         return false;
                     }
                 }
@@ -242,7 +267,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isDisciplineComplete(int disz, int ak, boolean male) {
-        return disciplinesAgeGroupComplete[ak][disz][male ? 1 : 0];
+        return inputStatusPerDiscipline()[ak][disz][male ? 1 : 0];
     }
 
     /**
@@ -254,7 +279,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      */
     public final boolean isToDisciplineComplete(int disz) {
         for (int x = 0; x < disz + 1; x++) {
-            if (!disciplinesComplete[x]) {
+            if (!inputStatusDisciplines()[x]) {
                 return false;
             }
         }
@@ -266,17 +291,17 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final int getToDisciplineComplete() {
-        for (int x = 0; x < disciplinesComplete.length; x++) {
-            if (!disciplinesComplete[x]) {
+        for (int x = 0; x < inputStatusDisciplines().length; x++) {
+            if (!inputStatusDisciplines()[x]) {
                 return x - 1;
             }
         }
-        return disciplinesComplete.length - 1;
+        return inputStatusDisciplines().length - 1;
     }
 
     public final boolean isOneDisciplineComplete(int ak, boolean male) {
-        for (int x = 0; x < disciplinesAgeGroupComplete[ak].length; x++) {
-            if (disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+        for (int x = 0; x < inputStatusPerDiscipline()[ak].length; x++) {
+            if (inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                 return true;
             }
         }
@@ -301,12 +326,12 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final int getToDisciplineComplete(int ak, boolean male) {
-        for (int x = 0; x < disciplinesAgeGroupComplete[ak].length; x++) {
-            if (!disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+        for (int x = 0; x < inputStatusPerDiscipline()[ak].length; x++) {
+            if (!inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                 return x;
             }
         }
-        return disciplinesAgeGroupComplete[ak].length;
+        return inputStatusPerDiscipline()[ak].length;
     }
 
     /**
@@ -314,7 +339,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final boolean isDisciplinesComplete() {
-        for (boolean aDisciplinesComplete : disciplinesComplete) {
+        for (boolean aDisciplinesComplete : inputStatusDisciplines()) {
             if (!aDisciplinesComplete) {
                 return false;
             }
@@ -323,9 +348,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isAgegroupComplete(int ak) {
-        for (int y = 0; y < disciplinesAgeGroupComplete[ak].length; y++) {
-            for (int z = 0; z < disciplinesAgeGroupComplete[ak][y].length; z++) {
-                if (!disciplinesAgeGroupComplete[ak][y][z]) {
+        for (int y = 0; y < inputStatusPerDiscipline()[ak].length; y++) {
+            for (int z = 0; z < inputStatusPerDiscipline()[ak][y].length; z++) {
+                if (!inputStatusPerDiscipline()[ak][y][z]) {
                     return false;
                 }
             }
@@ -334,8 +359,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isAgegroupComplete(int ak, boolean male) {
-        for (int y = 0; y < disciplinesAgeGroupComplete[ak].length; y++) {
-            if (!disciplinesAgeGroupComplete[ak][y][male ? 1 : 0]) {
+        for (int y = 0; y < inputStatusPerDiscipline()[ak].length; y++) {
+            if (!inputStatusPerDiscipline()[ak][y][male ? 1 : 0]) {
                 return false;
             }
         }
@@ -349,11 +374,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      *           eingegeben wurden. false sonst.
      */
     public final boolean isHlwComplete(int ak, boolean male) {
-        return hlwAkComplete[ak][male ? 1 : 0];
+        return inputStatusZusatzwertung()[ak][male ? 1 : 0];
     }
 
     public final boolean isHlwComplete() {
-        for (boolean[] aHlwAkComplete : hlwAkComplete) {
+        for (boolean[] aHlwAkComplete : inputStatusZusatzwertung()) {
             for (int y = 0; y < 2; y++) {
                 if (!aHlwAkComplete[y]) {
                     return false;
@@ -369,12 +394,12 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * @return true, wenn alle Zeiten eingegeben wurden. false sonst.
      */
     public final boolean isCompetitionComplete() {
-        for (boolean aDisciplinesComplete : disciplinesComplete) {
+        for (boolean aDisciplinesComplete : inputStatusDisciplines()) {
             if (!aDisciplinesComplete) {
                 return false;
             }
         }
-        for (boolean[] aHlwAkComplete : hlwAkComplete) {
+        for (boolean[] aHlwAkComplete : inputStatusZusatzwertung()) {
             if (!aHlwAkComplete[0]) {
                 return false;
             }
@@ -388,10 +413,14 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     // 1. Agegroup
     // 2. Sex
     // 3. discipline
-    private int[] lastcomplete = null;
-    private boolean[][] empty = new boolean[0][0];
+    private transient int[] lastcomplete = null;
 
     private void updateInputStatus() {
+        if (disciplinesComplete == null || disciplinesAgeGroupComplete == null || hlwAkComplete == null) {
+            disciplinesComplete = new boolean[0];
+            disciplinesAgeGroupComplete = new boolean[0][0][0];
+            hlwAkComplete = new boolean[0][0];
+        }
         int amount = aks.size();
         int length = aks.getMaxDisciplineCount();
 
@@ -407,7 +436,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             }
         }
 
-        empty = new boolean[amount][2];
+        boolean[][] empty = new boolean[amount][2];
         for (int x = 0; x < amount; x++) {
             for (int y = 0; y < 2; y++) {
                 empty[x][y] = !SearchUtils.hasSchwimmer(this, aks.getAk(x), y == 1);

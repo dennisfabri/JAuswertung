@@ -278,6 +278,7 @@ public final class IOUtils {
             instance.omitField(AWettkampf.class, "exportfreigabe");
             instance.omitField(AWettkampf.class, "webfreigabe");
             instance.omitField(AWettkampf.class, "startnummern");
+            instance.omitField(AWettkampf.class, "empty");
             instance.omitField(Strafe.class, "durchsage");
             instance.omitField(Lauf.class, "checked");
             instance.omitField(Lauf.class, "retyped");
@@ -285,6 +286,7 @@ public final class IOUtils {
             instance.omitField(Altersklasse.class, "minpunkte");
             instance.omitField(Altersklasse.class, "kompakt");
             instance.omitField(Mannschaftsmitgliederexportkennung.class, "exportedOnDate");
+            instance.omitField(Teilnehmer.class, "starter");
         }
 
         return instance;
