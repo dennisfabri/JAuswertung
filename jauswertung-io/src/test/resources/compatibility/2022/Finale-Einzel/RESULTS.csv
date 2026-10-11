@@ -16,7 +16,7 @@
 5;"Hawkins, Hanni";"Hawkins";"Hanni";98;"Lambrecht";"";"Open - Surf Race - Finale";"female";"5";0,00;13,00;7,00;"5";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Baum, Luchina";"Baum";"Luchina";97;"Wittichenau";"";"Open - Surf Race - Finale";"female";"6";0,00;12,00;8,00;"6";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Fangmeyer, Teres";"Fangmeyer";"Teres";02;"Peine";"";"Open - Surf Race - Finale";"female";"1";0,00;11,00;9,00;"1";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"von Krockow, Weike";"von Krockow";"Weike";94;"Hohenleuben";"";"Open - Surf Race - Finale";"female";"9";0,00;10,00;10,00;"9";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"von Krockow, Weike";"von Krockow";"Weike";94;"Hohenleuben";"";"Open - Surf Race - Finale";"female";"9";0,00;10,00;10,00;"9";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Sievers, Nelina";"Sievers";"Nelina";93;"Herrieden";"";"Open - Surf Race - Vorlauf";"female";"10";0,00;20,00;0,00;"10";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Hawkins, Hanni";"Hawkins";"Hanni";98;"Lambrecht";"";"Open - Surf Race - Vorlauf";"female";"5";0,00;18,00;2,00;"5";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Achenbacg, Nella";"Achenbacg";"Nella";95;"Stühlingen";"";"Open - Surf Race - Vorlauf";"female";"8";0,00;16,00;4,00;"8";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -64,7 +64,7 @@
 5;"Meinhold, Pál";"Meinhold";"Pál";94;"Schraplau";"";"Open - Surf Race - Finale";"male";"19";0,00;13,00;7,00;"19";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"von Stumm, Cliff";"von Stumm";"Cliff";01;"Münnerstadt";"";"Open - Surf Race - Finale";"male";"12";0,00;12,00;8,00;"12";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Preysing, Sören";"Preysing";"Sören";00;"Leun";"";"Open - Surf Race - Finale";"male";"13";0,00;11,00;9,00;"13";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Brown, Jodo";"Brown";"Jodo";93;"Wedel";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Brown, Jodo";"Brown";"Jodo";93;"Wedel";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Viebahn, Clement";"Viebahn";"Clement";96;"Spaichingen";"";"Open - Surf Race - Vorlauf";"male";"17";0,00;20,00;0,00;"17";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Meinhold, Pál";"Meinhold";"Pál";94;"Schraplau";"";"Open - Surf Race - Vorlauf";"male";"19";0,00;18,00;2,00;"19";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Möllenbeck, Pepe";"Möllenbeck";"Pepe";97;"Brühl";"";"Open - Surf Race - Vorlauf";"male";"16";0,00;16,00;4,00;"16";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -87,7 +87,7 @@
 "";"Möllenbeck, Pepe";"Möllenbeck";"Pepe";97;"Brühl";"";"Open - Surf Ski Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Surf Ski Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"von Krockow, Weike";"von Krockow";"Weike";94;"Hohenleuben";"";"Open - Board Race - Finale";"female";"9";0,00;20,00;0,00;"9";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Berger, Margot";"Berger";"Margot";01;"Seehausen";"";"Open - Board Race - Finale";"female";"2";0,00;18,00;2,00;"2";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Baum, Luchina";"Baum";"Luchina";97;"Wittichenau";"";"Open - Board Race - Finale";"female";"6";0,00;14,00;6,00;"6";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Baum, Luchina";"Baum";"Luchina";97;"Wittichenau";"";"Open - Board Race - Finale";"female";"6";0,00;14,00;6,00;"6";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Achenbacg, Nella";"Achenbacg";"Nella";95;"Stühlingen";"";"Open - Board Race - Finale";"female";"8";0,00;"";"";"8";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Meinhold, Pál";"Meinhold";"Pál";94;"Schraplau";"";"Open - Beach Flags - Finale";"male";"19";0,00;20,00;0,00;"19";"nein";"Beach Flags";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Brown, Jodo";"Brown";"Jodo";93;"Wedel";"";"Open - Beach Flags - Finale";"male";"20";0,00;18,00;2,00;"20";"nein";"Beach Flags";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
@@ -139,7 +139,7 @@
 "";"Achenbacg, Nella";"Achenbacg";"Nella";95;"Stühlingen";"";"Open - Beach Sprint - Finale";"female";"8";0,00;"";"";"8";"nein";"Beach Sprint";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Brown, Jodo";"Brown";"Jodo";93;"Wedel";"";"Open - Board Race - Finale";"male";"20";0,00;20,00;0,00;"20";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Engels, Abbo";"Engels";"Abbo";95;"Zehdenick";"";"Open - Board Race - Finale";"male";"18";0,00;18,00;2,00;"18";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Udy, Ettore";"Udy";"Ettore";02;"Pfarrkirchen";"";"Open - Board Race - Finale";"male";"11";0,00;14,00;6,00;"11";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Udy, Ettore";"Udy";"Ettore";02;"Pfarrkirchen";"";"Open - Board Race - Finale";"male";"11";0,00;14,00;6,00;"11";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Möllenbeck, Pepe";"Möllenbeck";"Pepe";97;"Brühl";"";"Open - Board Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Engels, Abbo";"Engels";"Abbo";95;"Zehdenick";"";"Open - Board Race - Zwischenlauf 1";"male";"18";0,00;20,00;0,00;"18";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Udy, Ettore";"Udy";"Ettore";02;"Pfarrkirchen";"";"Open - Board Race - Zwischenlauf 1";"male";"11";0,00;18,00;2,00;"11";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"

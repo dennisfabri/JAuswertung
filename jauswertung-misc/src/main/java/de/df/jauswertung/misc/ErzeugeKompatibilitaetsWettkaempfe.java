@@ -106,8 +106,9 @@ import lombok.extern.slf4j.Slf4j;
  * Creates competitions that contain every data structure the UI can still produce, as fixtures for file-format
  * compatibility tests. XStream omits null fields, so every reference field is filled. Values differ from the defaults
  * a freshly created object would have, so a test can tell a loaded value from a reconstructed one. Competitions with
- * finals use the open water rulebooks and run through rounds the way the heats plugin does. Each year's files go to
- * their own directory and are never overwritten, so files of every year stay loadable as regression fixtures.
+ * finals run through rounds the way the heats plugin does; the single one uses the open water rulebook (places), the
+ * team one the pool rulebook (times). Each year's files go to their own directory and are never overwritten, so files
+ * of every year stay loadable as regression fixtures.
  */
 @Slf4j
 public final class ErzeugeKompatibilitaetsWettkaempfe {
@@ -142,9 +143,9 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
                 ziel + "/Mannschaft.wk");
 
         Namengenerator ng = new Namengenerator(namen, SCHWIMMER_JE_GESCHLECHT_FINALE * 4);
-        speichern(finale(new EinzelWettkampf(ozean(true), InputManager.ladeStrafen(null, true)), ng, jahr),
+        speichern(finale(new EinzelWettkampf(ozean(), InputManager.ladeStrafen(null, true)), ng, jahr),
                 ziel + "/Finale-Einzel.wk");
-        speichern(finale(new MannschaftWettkampf(ozean(false), InputManager.ladeStrafen(null, false)), ng, jahr),
+        speichern(finale(new MannschaftWettkampf(becken(), InputManager.ladeStrafen(null, false)), ng, jahr),
                 ziel + "/Finale-Mannschaft.wk");
     }
 
@@ -504,8 +505,15 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         throw new IllegalStateException("Kein Lauf für einen Zielrichterentscheid gefunden");
     }
 
-    private static Regelwerk ozean(boolean einzel) {
-        Regelwerk aks = AgeGroupIOUtils.getAKs("International - Ocean.rw" + (einzel ? "e" : "m"));
+    private static Regelwerk ozean() {
+        return mitRunden(AgeGroupIOUtils.getAKs("International - Ocean.rwe"));
+    }
+
+    private static Regelwerk becken() {
+        return mitRunden(AgeGroupIOUtils.getAKs("International - Pool.rwm"));
+    }
+
+    private static Regelwerk mitRunden(Regelwerk aks) {
         Altersklasse ak = aks.getAk(0);
         for (boolean maennlich : new boolean[] { false, true }) {
             ak.getDisziplin(0, maennlich).setRunden(new int[] { 8 }, new int[] { 1, 2 });
@@ -580,7 +588,8 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         }
         for (int platz = 0; platz < teilnehmer.size(); platz++) {
             T s = teilnehmer.get(platz);
-            s.setZeit(runde.getId(), zeit(platz));
+            // Later rounds are slower, so the best time of a discipline comes from its first round
+            s.setZeit(runde.getId(), zeit(platz) + 50 * runde.round);
             if (s instanceof Mannschaft m) {
                 m.setStarter(runde.getId(), starter(m));
             }

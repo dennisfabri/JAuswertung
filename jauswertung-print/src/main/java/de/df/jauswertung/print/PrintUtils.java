@@ -13,6 +13,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.StringJoiner;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -47,6 +48,8 @@ import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 import de.df.jauswertung.gui.util.ZWTableCellRenderer;
 import de.df.jauswertung.print.util.BarcodeType;
 import de.df.jauswertung.print.util.TableUtils;
+import de.df.jauswertung.util.BestTimeUtils;
+import de.df.jauswertung.util.BestTimeUtils.BestTime;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
@@ -648,9 +651,10 @@ public final class PrintUtils {
             ak.setStrafeIstDisqualifikation(true);
             ak.setEinzelwertung(true);
             for (int y = 0; y < 2; y++) {
-                AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, x, y == 1);
-                if (w != null) {
-                    {
+                boolean heatBased = wk.isHeatBased();
+                AWettkampf<T> w = heatBased ? null : ResultUtils.generateEinzelwertungswettkampf(wk, x, y == 1);
+                if (heatBased ? !SearchUtils.getSchwimmer(wk, ak, y == 1).isEmpty() : w != null) {
+                    if (w != null) {
                         LinkedList<T> sw = w.getSchwimmer();
                         for (T s : sw) {
                             if (s.getAkkumulierteStrafe(0).isStrafe()) {
@@ -665,6 +669,22 @@ public final class PrintUtils {
 
                     Object[][] data = new Object[ak.getDiszAnzahl()][];
                     for (int z = 0; z < ak.getDiszAnzahl(); z++) {
+                        if (heatBased) {
+                            BestTime<T> best = BestTimeUtils.getBestTimeOverAllRounds(wk, x, y == 1, z);
+                            if (best == null) {
+                                data[z] = new Object[]{" ", " ", ak.getDisziplin(z, y == 1).getName(), " "};
+                            } else {
+                                StringJoiner name = new StringJoiner(", ");
+                                StringJoiner gld = new StringJoiner(", ");
+                                for (T s : best.swimmers()) {
+                                    name.add(s.getName());
+                                    gld.add(s.getGliederung());
+                                }
+                                data[z] = new Object[]{name.toString(), gld.toString(),
+                                        ak.getDisziplin(z, y == 1).getName(), StringTools.zeitString(best.time())};
+                            }
+                            continue;
+                        }
                         JResultTable result = JResultTable.getResultTable(w, w.getRegelwerk().getAk(z), y == 1, true,
                                                                           true, 0);
                         if (result.getRowCount() > 0) {

@@ -16,7 +16,7 @@
 5;"von Hühnersdorf, Lill";"von Hühnersdorf";"Lill";01;"Hof";"";"Open - Surf Race - Finale";"female";"4";0,00;13,00;7,00;"4";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Bensmann, Jagua";"Bensmann";"Jagua";04;"Bogen";"";"Open - Surf Race - Finale";"female";"1";0,00;12,00;8,00;"1";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Coast, Rika";"Coast";"Rika";98;"Sachsenhagen";"";"Open - Surf Race - Finale";"female";"7";0,00;11,00;9,00;"7";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Werth, Lisbeth";"Werth";"Lisbeth";02;"Bad Blankenburg";"";"Open - Surf Race - Finale";"female";"3";0,00;10,00;10,00;"3";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Werth, Lisbeth";"Werth";"Lisbeth";02;"Bad Blankenburg";"";"Open - Surf Race - Finale";"female";"3";0,00;10,00;10,00;"3";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Haves, Veronika";"Haves";"Veronika";99;"Niesky";"";"Open - Surf Race - Vorlauf";"female";"6";0,00;20,00;0,00;"6";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"von Hühnersdorf, Lill";"von Hühnersdorf";"Lill";01;"Hof";"";"Open - Surf Race - Vorlauf";"female";"4";0,00;18,00;2,00;"4";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Leichtlin, Auri";"Leichtlin";"Auri";03;"Klingenberg";"";"Open - Surf Race - Vorlauf";"female";"2";0,00;16,00;4,00;"2";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -64,7 +64,7 @@
 5;"von Retraedt, Firmin";"von Retraedt";"Firmin";96;"Zwingenberg";"";"Open - Surf Race - Finale";"male";"19";0,00;13,00;7,00;"19";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Rensch, Landolf";"Rensch";"Landolf";01;"Bad Orb";"";"Open - Surf Race - Finale";"male";"14";0,00;12,00;8,00;"14";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Vogue, Borriers";"Vogue";"Borriers";04;"Oranienburg";"";"Open - Surf Race - Finale";"male";"11";0,00;11,00;9,00;"11";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Trieglaff, Freerk";"Trieglaff";"Freerk";95;"Schwarzheide";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Trieglaff, Freerk";"Trieglaff";"Freerk";95;"Schwarzheide";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Himburg, Dmitri";"Himburg";"Dmitri";02;"Markgröningen";"";"Open - Surf Race - Vorlauf";"male";"13";0,00;20,00;0,00;"13";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"von Retraedt, Firmin";"von Retraedt";"Firmin";96;"Zwingenberg";"";"Open - Surf Race - Vorlauf";"male";"19";0,00;18,00;2,00;"19";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Kovacs, Wolfgang";"Kovacs";"Wolfgang";99;"Teuschnitz";"";"Open - Surf Race - Vorlauf";"male";"16";0,00;16,00;4,00;"16";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -87,7 +87,7 @@
 "";"Kovacs, Wolfgang";"Kovacs";"Wolfgang";99;"Teuschnitz";"";"Open - Surf Ski Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Surf Ski Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"von Hühnersdorf, Lill";"von Hühnersdorf";"Lill";01;"Hof";"";"Open - Board Race - Finale";"female";"4";0,00;20,00;0,00;"4";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Hellenkamp, Meral";"Hellenkamp";"Meral";00;"Schwarzheide";"";"Open - Board Race - Finale";"female";"5";0,00;18,00;2,00;"5";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Haves, Veronika";"Haves";"Veronika";99;"Niesky";"";"Open - Board Race - Finale";"female";"6";0,00;14,00;6,00;"6";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Haves, Veronika";"Haves";"Veronika";99;"Niesky";"";"Open - Board Race - Finale";"female";"6";0,00;14,00;6,00;"6";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Coast, Rika";"Coast";"Rika";98;"Sachsenhagen";"";"Open - Board Race - Finale";"female";"7";0,00;"";"";"7";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"von Retraedt, Firmin";"von Retraedt";"Firmin";96;"Zwingenberg";"";"Open - Beach Flags - Finale";"male";"19";0,00;20,00;0,00;"19";"nein";"Beach Flags";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Trieglaff, Freerk";"Trieglaff";"Freerk";95;"Schwarzheide";"";"Open - Beach Flags - Finale";"male";"20";0,00;18,00;2,00;"20";"nein";"Beach Flags";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
@@ -139,7 +139,7 @@
 "";"Linnemann, Fridericke";"Linnemann";"Fridericke";97;"Herzogenaurach";"";"Open - Beach Sprint - Finale";"female";"8";0,00;"";"";"8";"nein";"Beach Sprint";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Distelbeck, Hilmar";"Distelbeck";"Hilmar";98;"Rottenburg";"";"Open - Board Race - Finale";"male";"17";0,00;20,00;0,00;"17";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"von Retraedt, Firmin";"von Retraedt";"Firmin";96;"Zwingenberg";"";"Open - Board Race - Finale";"male";"19";0,00;18,00;2,00;"19";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Tebbel, Cees";"Tebbel";"Cees";00;"Winnenden";"";"Open - Board Race - Finale";"male";"15";0,00;14,00;6,00;"15";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Tebbel, Cees";"Tebbel";"Cees";00;"Winnenden";"";"Open - Board Race - Finale";"male";"15";0,00;14,00;6,00;"15";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Folger, Diether";"Folger";"Diether";03;"Teuschnitz";"";"Open - Board Race - Finale";"male";"12";0,00;"";"";"12";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"von Retraedt, Firmin";"von Retraedt";"Firmin";96;"Zwingenberg";"";"Open - Board Race - Zwischenlauf 1";"male";"19";0,00;20,00;0,00;"19";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Tebbel, Cees";"Tebbel";"Cees";00;"Winnenden";"";"Open - Board Race - Zwischenlauf 1";"male";"15";0,00;18,00;2,00;"15";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"

@@ -16,7 +16,7 @@
 5;"Wuennemann, Nicole";"Wuennemann";"Nicole";99;"Senftenberg";"";"Open - Surf Race - Finale";"female";"5";0,00;13,00;7,00;"5";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Aukschlat, Ines";"Aukschlat";"Ines";03;"Hartenstein";"";"Open - Surf Race - Finale";"female";"1";0,00;12,00;8,00;"1";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Mahlke, Mirabella";"Mahlke";"Mirabella";01;"Mayen";"";"Open - Surf Race - Finale";"female";"3";0,00;11,00;9,00;"3";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Pohlman, Kirsten";"Pohlman";"Kirsten";96;"Kaltenkirchen";"";"Open - Surf Race - Finale";"female";"8";0,00;10,00;10,00;"8";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Pohlman, Kirsten";"Pohlman";"Kirsten";96;"Kaltenkirchen";"";"Open - Surf Race - Finale";"female";"8";0,00;10,00;10,00;"8";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Schuling, Helga";"Schuling";"Helga";95;"Burglengenfeld";"";"Open - Surf Race - Vorlauf";"female";"9";0,00;20,00;0,00;"9";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Wuennemann, Nicole";"Wuennemann";"Nicole";99;"Senftenberg";"";"Open - Surf Race - Vorlauf";"female";"5";0,00;18,00;2,00;"5";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Machwitz, Tatiana";"Machwitz";"Tatiana";02;"Waldenburg";"";"Open - Surf Race - Vorlauf";"female";"2";0,00;16,00;4,00;"2";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -64,7 +64,7 @@
 5;"Bröcking, Ingenuin";"Bröcking";"Ingenuin";01;"Medebach";"";"Open - Surf Race - Finale";"male";"13";0,00;13,00;7,00;"13";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Glassl, Sibard";"Glassl";"Sibard";00;"Zell";"";"Open - Surf Race - Finale";"male";"14";0,00;12,00;8,00;"14";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Jarguharson, Harto";"Jarguharson";"Harto";99;"Unkel";"";"Open - Surf Race - Finale";"male";"15";0,00;11,00;9,00;"15";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"von Bottlenberg, Thorsten";"von Bottlenberg";"Thorsten";97;"Berlin";"";"Open - Surf Race - Finale";"male";"17";0,00;10,00;10,00;"17";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"von Bottlenberg, Thorsten";"von Bottlenberg";"Thorsten";97;"Berlin";"";"Open - Surf Race - Finale";"male";"17";0,00;10,00;10,00;"17";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Kasperski, Jonni";"Kasperski";"Jonni";94;"Dormagen";"";"Open - Surf Race - Vorlauf";"male";"20";0,00;20,00;0,00;"20";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Bröcking, Ingenuin";"Bröcking";"Ingenuin";01;"Medebach";"";"Open - Surf Race - Vorlauf";"male";"13";0,00;18,00;2,00;"13";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Nilsson, Luka";"Nilsson";"Luka";96;"Höhr-Grenzhausen";"";"Open - Surf Race - Vorlauf";"male";"18";0,00;16,00;4,00;"18";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -87,7 +87,7 @@
 "";"Engler, Domingo";"Engler";"Domingo";98;"Zell";"";"Open - Surf Ski Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Surf Ski Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Krebs, Gesche";"Krebs";"Gesche";00;"Waldenburg";"";"Open - Board Race - Finale";"female";"4";0,00;20,00;0,00;"4";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Aukschlat, Ines";"Aukschlat";"Ines";03;"Hartenstein";"";"Open - Board Race - Finale";"female";"1";0,00;18,00;2,00;"1";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Mahlke, Mirabella";"Mahlke";"Mirabella";01;"Mayen";"";"Open - Board Race - Finale";"female";"3";0,00;14,00;6,00;"3";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Mahlke, Mirabella";"Mahlke";"Mirabella";01;"Mayen";"";"Open - Board Race - Finale";"female";"3";0,00;14,00;6,00;"3";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Schuling, Helga";"Schuling";"Helga";95;"Burglengenfeld";"";"Open - Board Race - Finale";"female";"9";0,00;"";"";"9";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Fuß, Freddi";"Fuß";"Freddi";95;"Hartenstein";"";"Open - Beach Flags - Finale";"male";"19";0,00;20,00;0,00;"19";"nein";"Beach Flags";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Kasperski, Jonni";"Kasperski";"Jonni";94;"Dormagen";"";"Open - Beach Flags - Finale";"male";"20";0,00;18,00;2,00;"20";"nein";"Beach Flags";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
@@ -139,7 +139,7 @@
 "";"Pohlman, Kirsten";"Pohlman";"Kirsten";96;"Kaltenkirchen";"";"Open - Beach Sprint - Finale";"female";"8";0,00;"";"";"8";"nein";"Beach Sprint";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Scheew, Christfried";"Scheew";"Christfried";02;"Senftenberg";"";"Open - Board Race - Finale";"male";"12";0,00;20,00;0,00;"12";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Mayweg, Bengt";"Mayweg";"Bengt";03;"Königsbrück";"";"Open - Board Race - Finale";"male";"11";0,00;18,00;2,00;"11";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Glassl, Sibard";"Glassl";"Sibard";00;"Zell";"";"Open - Board Race - Finale";"male";"14";0,00;14,00;6,00;"14";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Glassl, Sibard";"Glassl";"Sibard";00;"Zell";"";"Open - Board Race - Finale";"male";"14";0,00;14,00;6,00;"14";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Engler, Domingo";"Engler";"Domingo";98;"Zell";"";"Open - Board Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Mayweg, Bengt";"Mayweg";"Bengt";03;"Königsbrück";"";"Open - Board Race - Zwischenlauf 1";"male";"11";0,00;20,00;0,00;"11";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Glassl, Sibard";"Glassl";"Sibard";00;"Zell";"";"Open - Board Race - Zwischenlauf 1";"male";"14";0,00;18,00;2,00;"14";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"

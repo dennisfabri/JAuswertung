@@ -268,7 +268,8 @@ public class ImportManager {
             if (!isWithinFilter(m, indexOfDiscipline, starters.getRound(), filter)) {
                 continue;
             }
-            if (mwk.isHeatBased()) {
+            // Starters of round 0 are kept per discipline, later rounds per round
+            if (mwk.isHeatBased() && starters.getRound() > 0) {
                 String id = OWDisziplin.getId(m.getAKNummer(), m.isMaennlich(), indexOfDiscipline, starters.getRound());
                 OWDisziplin<Mannschaft> d = mwk.getLauflisteOW().getDisziplin(id);
                 if (d != null && d.contains(m)) {

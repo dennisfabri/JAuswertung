@@ -16,7 +16,7 @@
 5;"Schatz, Tabitha";"Schatz";"Tabitha";05;"Freiburg";"";"Open - Surf Race - Finale";"female";"1";0,00;13,00;7,00;"1";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Siggins, Candy";"Siggins";"Candy";00;"Königsee";"";"Open - Surf Race - Finale";"female";"6";0,00;12,00;8,00;"6";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Loebken, Jennifer";"Loebken";"Jennifer";96;"Freiburg";"";"Open - Surf Race - Finale";"female";"10";0,00;11,00;9,00;"10";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Malter, Heidrun";"Malter";"Heidrun";04;"Weilburg";"";"Open - Surf Race - Finale";"female";"2";0,00;10,00;10,00;"2";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Malter, Heidrun";"Malter";"Heidrun";04;"Weilburg";"";"Open - Surf Race - Finale";"female";"2";0,00;10,00;10,00;"2";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Kadi, Marianne";"Kadi";"Marianne";98;"Bad Segeberg";"";"Open - Surf Race - Vorlauf";"female";"8";0,00;20,00;0,00;"8";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Schatz, Tabitha";"Schatz";"Tabitha";05;"Freiburg";"";"Open - Surf Race - Vorlauf";"female";"1";0,00;18,00;2,00;"1";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Leconte, Madeleine";"Leconte";"Madeleine";99;"Vlotho";"";"Open - Surf Race - Vorlauf";"female";"7";0,00;16,00;4,00;"7";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -64,7 +64,7 @@
 5;"Tuchscherer, Nima";"Tuchscherer";"Nima";97;"Bad Neustadt";"";"Open - Surf Race - Finale";"male";"19";0,00;13,00;7,00;"19";"nein";"Surf Race";5;13,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 6;"Bullau, Helmo";"Bullau";"Helmo";98;"Vlotho";"";"Open - Surf Race - Finale";"male";"18";0,00;12,00;8,00;"18";"nein";"Surf Race";6;12,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 7;"Bride, Arne";"Bride";"Arne";04;"Prichsenstadt";"";"Open - Surf Race - Finale";"male";"12";0,00;11,00;9,00;"12";"nein";"Surf Race";7;11,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-8;"Kleine, Zyrak";"Kleine";"Zyrak";96;"Balingen";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";8;10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Kleine, Zyrak";"Kleine";"Zyrak";96;"Balingen";"";"Open - Surf Race - Finale";"male";"20";0,00;10,00;10,00;"20";"nein";"Surf Race";"";10,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"vom Rath, Filibert";"vom Rath";"Filibert";03;"Weilburg";"";"Open - Surf Race - Vorlauf";"male";"13";0,00;20,00;0,00;"13";"nein";"Surf Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Tuchscherer, Nima";"Tuchscherer";"Nima";97;"Bad Neustadt";"";"Open - Surf Race - Vorlauf";"male";"19";0,00;18,00;2,00;"19";"nein";"Surf Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 3;"Schulz, Walbert";"Schulz";"Walbert";00;"Bottrop";"";"Open - Surf Race - Vorlauf";"male";"16";0,00;16,00;4,00;"16";"nein";"Surf Race";3;16,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
@@ -87,7 +87,7 @@
 "";"Schulz, Walbert";"Schulz";"Walbert";00;"Bottrop";"";"Open - Surf Ski Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Surf Ski Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Leconte, Madeleine";"Leconte";"Madeleine";99;"Vlotho";"";"Open - Board Race - Finale";"female";"7";0,00;20,00;0,00;"7";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Gamble, Franzi";"Gamble";"Franzi";01;"Stromberg";"";"Open - Board Race - Finale";"female";"5";0,00;18,00;2,00;"5";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Schatz, Tabitha";"Schatz";"Tabitha";05;"Freiburg";"";"Open - Board Race - Finale";"female";"1";0,00;14,00;6,00;"1";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Schatz, Tabitha";"Schatz";"Tabitha";05;"Freiburg";"";"Open - Board Race - Finale";"female";"1";0,00;14,00;6,00;"1";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Siggins, Candy";"Siggins";"Candy";00;"Königsee";"";"Open - Board Race - Finale";"female";"6";0,00;"";"";"6";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Tuchscherer, Nima";"Tuchscherer";"Nima";97;"Bad Neustadt";"";"Open - Beach Flags - Finale";"male";"19";0,00;20,00;0,00;"19";"nein";"Beach Flags";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"Kleine, Zyrak";"Kleine";"Zyrak";96;"Balingen";"";"Open - Beach Flags - Finale";"male";"20";0,00;18,00;2,00;"20";"nein";"Beach Flags";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
@@ -139,7 +139,7 @@
 "";"Kadi, Marianne";"Kadi";"Marianne";98;"Bad Segeberg";"";"Open - Beach Sprint - Finale";"female";"8";0,00;"";"";"8";"nein";"Beach Sprint";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"Bride, Arne";"Bride";"Arne";04;"Prichsenstadt";"";"Open - Board Race - Finale";"male";"12";0,00;20,00;0,00;"12";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 2;"vom Rath, Filibert";"vom Rath";"Filibert";03;"Weilburg";"";"Open - Board Race - Finale";"male";"13";0,00;18,00;2,00;"13";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
-4;"Bullau, Helmo";"Bullau";"Helmo";98;"Vlotho";"";"Open - Board Race - Finale";"male";"18";0,00;14,00;6,00;"18";"nein";"Board Race";4;14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"";"Bullau, Helmo";"Bullau";"Helmo";98;"Vlotho";"";"Open - Board Race - Finale";"male";"18";0,00;14,00;6,00;"18";"nein";"Board Race";"";14,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "";"Schulz, Walbert";"Schulz";"Walbert";00;"Bottrop";"";"Open - Board Race - Finale";"male";"16";0,00;"";"";"16";"nein";"Board Race";"";0,00;"S";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 1;"vom Rath, Filibert";"vom Rath";"Filibert";03;"Weilburg";"";"Open - Board Race - Zwischenlauf 1";"male";"13";0,00;20,00;0,00;"13";"nein";"Board Race";1;20,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"
 2;"Bullau, Helmo";"Bullau";"Helmo";98;"Vlotho";"";"Open - Board Race - Zwischenlauf 1";"male";"18";0,00;18,00;2,00;"18";"nein";"Board Race";2;18,00;" ";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"Q"

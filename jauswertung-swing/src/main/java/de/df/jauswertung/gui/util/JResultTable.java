@@ -577,7 +577,7 @@ public final class JResultTable extends JGroupableTable {
                     if (s.isAusserKonkurrenz()) {
                         setValueAt(I18n.get("AusserKonkurrenzShort"), y, RANK_OFFSET);
                     } else {
-                        if (results.hasKeineWertung(y)) {
+                        if (results.hasKeineWertung(y) || results.getPlace(y) <= 0) {
                             setValueAt("-", y, RANK_OFFSET);
                         } else {
                             setValueAt("" + results.getPlace(y), y, RANK_OFFSET);

@@ -66,6 +66,7 @@ import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.print.graphics.Dimension;
 import de.df.jauswertung.print.graphics.Point;
 import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.io.exception.UnreadableFileContentException;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.Lane;
 import de.dm.ares.data.LaneStatus;
@@ -108,6 +109,7 @@ public final class IOUtils {
         if (xml.startsWith("PK")) {
             return null;
         }
+        RuntimeException failure = null;
         if (!xml.startsWith("<?xml")) {
             try {
                 String prefix = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -119,21 +121,21 @@ public final class IOUtils {
                         return o;
                     }
                 }
-            } catch (com.thoughtworks.xstream.mapper.CannotResolveClassException crce) {
-                log.debug("Cannot resolve class", crce);
             } catch (RuntimeException re) {
-                log.debug("Error parsing XML", re);
+                failure = re;
             }
         }
         try {
-            Object o = VersionedDocument.fromXML(xml).toBean();
-            if (o != null) {
-                return o;
-            }
+            return VersionedDocument.fromXML(xml).toBean();
         } catch (RuntimeException re) {
-            log.debug("Error parsing XML", re);
+            // Reading without migration would only fail later at a field the migration handles and hide this error
+            if (failure == null) {
+                failure = re;
+            } else {
+                failure.addSuppressed(re);
+            }
+            throw new UnreadableFileContentException(failure);
         }
-        return VersionedDocument.xstream.fromXML(xml);
     }
 
     static String readText(Reader is) throws IOException {

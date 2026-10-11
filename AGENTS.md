@@ -138,11 +138,14 @@ There is no server behind the UI, so the desktop application is the only line of
 - `docs/issues/` tracks open findings from code work. Each open issue is a self-contained file listed in
   `docs/issues/README.md`'s table. Once an issue is fixed and the fix is verified, delete its file and remove its row
   from the table — do not mark it "Fixed" and leave the file in place, and do not fold a summary of the fix into
-  `README.md` either. The commit that fixes the issue is the record; git history has it.
+  `README.md` either. The commit that fixes the issue is the record; git history has it. Keep
+  `docs/issues/README.md` even when its table is empty.
 - When you find a problem outside the scope of the current task, add an issue there instead of fixing it in the same
   change.
 - `docs/chores/` tracks planned clean-ups of code or data model that are not bugs, with the same rules: one file per
   chore, listed in `docs/chores/README.md`, deleted once done.
+- Every row in both tables has a severity (High/Medium/Low) and a size (S/M/L) as defined in the respective
+  `README.md`; keep the rows ordered by severity, then by size. Rate new entries when you add them.
 
 ## Build, Test, Run
 
@@ -223,7 +226,7 @@ There is no server behind the UI, so the desktop application is the only line of
 
 - SLF4J with Logback (`jauswertung-files/src/main/resources/logback.xml`); `System.out`/`System.err` are redirected to
   SLF4J by `DefaultInit`. Use Lombok's `@Slf4j` in new code; do not add `System.out.println` or `printStackTrace()`.
-  Removing the existing calls is tracked in `docs/issues/console-output-and-printstacktrace.md`.
+  Removing the existing calls is tracked in `docs/chores/console-output-and-printstacktrace.md`.
 - `DEBUG` for diagnostic detail, `INFO` sparingly for lifecycle events (start, file opened/saved), `WARN` for handled
   unexpected situations, `ERROR` for real failures.
 - Competition files contain personal data (names, birth years, clubs). Do not log participant data or whole model

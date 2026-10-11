@@ -5,6 +5,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.laufliste.*;
+import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.SearchUtils;
 
 public class HeatsUtils {
@@ -24,11 +25,8 @@ public class HeatsUtils {
                     T ti = SearchUtils.getSchwimmer(wk, tx);
                     if (ti instanceof Mannschaft && disziplin.round > 0) {
                         Mannschaft m = (Mannschaft) ti;
-                        int[] starter = m.getStarter(OWDisziplin.getId(disziplin.akNummer, disziplin.maennlich,
-                                disziplin.disziplin, disziplin.round - 1));
-                        if (starter == null && disziplin.round == 1) {
-                            starter = m.getStarter(disziplin.disziplin);
-                        }
+                        int[] starter = CompetitionUtils.getStarter(m, disziplin.akNummer, disziplin.maennlich,
+                                disziplin.disziplin, disziplin.round - 1);
                         m.setStarter(disziplin.Id, starter);
                     }
                     disziplin.Schwimmer.add(ti);

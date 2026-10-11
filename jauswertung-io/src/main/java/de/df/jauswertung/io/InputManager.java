@@ -7,6 +7,7 @@ import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.io.exception.UnreadableFileContentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -211,6 +212,9 @@ public final class InputManager {
                 return null;
             }
             return IOUtils.fromXML(zis);
+        } catch (UnreadableFileContentException ef) {
+            log.error("Inhalt der Datei kann nicht gelesen werden", ef);
+            return null;
         } catch (Exception ef) {
             return null;
         }
@@ -219,6 +223,9 @@ public final class InputManager {
     public static synchronized Object ladeUnzippedObject(InputStream is) {
         try {
             return IOUtils.fromXML(is);
+        } catch (UnreadableFileContentException ef) {
+            log.error("Inhalt der Datei kann nicht gelesen werden", ef);
+            return null;
         } catch (Exception ef) {
             return null;
         }
@@ -255,6 +262,9 @@ public final class InputManager {
                 return null;
             }
             return result;
+        } catch (UnreadableFileContentException ef) {
+            log.error("Inhalt der Datei kann nicht gelesen werden", ef);
+            return null;
         } catch (Exception ef) {
             ef.printStackTrace();
             return null;

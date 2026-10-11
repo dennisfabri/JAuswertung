@@ -13,6 +13,7 @@ import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.JResultTable;
+import de.df.jauswertung.util.BestTimeUtils.BestTime;
 import de.df.jauswertung.util.data.Heattime;
 import de.df.jauswertung.util.ergebnis.*;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
@@ -33,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.text.Collator;
 import java.util.*;
 
@@ -474,7 +476,7 @@ public final class DataTableUtils {
                                                                boolean mustShowPoints, int qualified) {
         ASchwimmer t = line.getSchwimmer();
         LinkedList<Object> row = new LinkedList<>();
-        if (line.hasKeineWertung()) {
+        if (line.hasKeineWertung() || line.getPlace() <= 0) {
             row.addLast("");
         } else {
             row.addLast(line.getPlace());
@@ -1533,10 +1535,57 @@ public final class DataTableUtils {
         return maxteamsize;
     }
 
+    /**
+     * Broken time limits, as printed and as shown by the check of time limits.
+     *
+     * @param ageGroup index of the age group; any other value means all age groups
+     */
+    public static <T extends ASchwimmer> DefaultTableModel brokenTimelimits(AWettkampf<T> wk, int ageGroup) {
+        LinkedList<Object[]> rows = new LinkedList<>();
+        for (TimelimitUtils.BrokenTimelimit<T> broken : TimelimitUtils.getBrokenTimelimits(wk, ageGroup)) {
+            T s = broken.swimmer();
+            Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
+            rows.addLast(new Object[]{
+                    s.getName() + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
+                    s.getGliederung(), s.getQualifikationsebene(), I18n.getAgeGroupAsString(s),
+                    StringTools.zeitString(broken.time()),
+                    PenaltyUtils.getPenaltyMediumText(broken.penalty(), broken.ageGroup()),
+                    broken.discipline().getName(), broken.timelimits().getShortname()
+            });
+        }
+        return new DefaultTableModel(rows.toArray(new Object[rows.size()][0]),
+                                     new Object[]{
+                                             I18n.get("Name"), I18n.get("Organisation"), "", I18n.get("AgeGroup"),
+                                             I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Type")
+                                     });
+    }
+
     public static <T extends ASchwimmer> ExtendedTableModel getSchnellsteZeiten(AWettkampf<T> wk, boolean print) {
         if (wk == null) {
             return null;
         }
+        LinkedList<Object[]> mp = wk.isHeatBased() ? schnellsteZeitenUeberAlleRunden(wk) : schnellsteZeiten(wk, print);
+        if (mp.isEmpty()) {
+            return null;
+        }
+
+        ExtendedTableModel etm = new ExtendedTableModel(mp.toArray(new Object[mp.size()][]),
+                                                        new Object[]{
+                                                                I18n.get("Name"), I18n.get("Organisation"),
+                                                                I18n.get("AgeGroup"), I18n.get("Sex"),
+                                                                I18n.get("Discipline"), I18n.get("Time")
+                                                        });
+        etm.setColumnAlignments(
+                new int[]{
+                        SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
+                        SwingConstants.LEFT, SwingConstants.RIGHT
+                });
+        etm.setColumnFormats(new String[]{"", "", "", "", "", "m:ss.00"});
+        etm.setName(I18n.get("SchnellsteZeiten"));
+        return etm;
+    }
+
+    private static <T extends ASchwimmer> LinkedList<Object[]> schnellsteZeiten(AWettkampf<T> wk, boolean print) {
         {
             wk = Utils.copy(wk);
             LinkedList<T> sw = wk.getSchwimmer();
@@ -1581,21 +1630,7 @@ public final class DataTableUtils {
                             }
                             // Equal times have no defined order, so they are listed alphabetically
                             fastest.sort(Comparator.comparing(ASchwimmer::getName, Collator.getInstance()));
-                            StringJoiner name = new StringJoiner(", ");
-                            StringJoiner gld = new StringJoiner(", ");
-                            for (ASchwimmer schwimmer : fastest) {
-                                name.add(schwimmer.getName());
-                                if (schwimmer.getQualifikationsebene().isEmpty()) {
-                                    gld.add(schwimmer.getGliederung());
-                                } else {
-                                    gld.add(schwimmer.getGliederung() + " (" + schwimmer.getQualifikationsebene() + ")");
-                                }
-                            }
-                            mp.addLast(new Object[]{
-                                    name.toString(), gld.toString(), ak.getName(),
-                                    I18n.geschlechtToShortString(aks, y == 1),
-                                    ak.getDisziplin(z, y == 1).getName(), StringTools.zeitString(s.getZeit(0))
-                            });
+                            mp.addLast(schnellsteZeitZeile(aks, ak, y == 1, z, fastest, zeit));
                         } else {
                             mp.addLast(new Object[]{" ", " ", " ", " ", " ", " "});
                         }
@@ -1604,24 +1639,47 @@ public final class DataTableUtils {
                 }
             }
         }
-        if (mp.isEmpty()) {
-            return null;
-        }
+        return mp;
+    }
 
-        ExtendedTableModel etm = new ExtendedTableModel(mp.toArray(new Object[mp.size()][]),
-                                                        new Object[]{
-                                                                I18n.get("Name"), I18n.get("Organisation"),
-                                                                I18n.get("AgeGroup"), I18n.get("Sex"),
-                                                                I18n.get("Discipline"), I18n.get("Time")
-                                                        });
-        etm.setColumnAlignments(
-                new int[]{
-                        SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT,
-                        SwingConstants.LEFT, SwingConstants.RIGHT
-                });
-        etm.setColumnFormats(new String[]{"", "", "", "", "", "m:ss.00"});
-        etm.setName(I18n.get("SchnellsteZeiten"));
-        return etm;
+    private static <T extends ASchwimmer> LinkedList<Object[]> schnellsteZeitenUeberAlleRunden(AWettkampf<T> wk) {
+        LinkedList<Object[]> mp = new LinkedList<>();
+        Regelwerk aks = wk.getRegelwerk();
+        for (int x = 0; x < aks.size(); x++) {
+            Altersklasse ak = aks.getAk(x);
+            for (int y = 0; y < 2; y++) {
+                if (SearchUtils.getSchwimmer(wk, ak, y == 1).isEmpty()) {
+                    continue;
+                }
+                for (int z = 0; z < ak.getDiszAnzahl(); z++) {
+                    BestTime<T> best = BestTimeUtils.getBestTimeOverAllRounds(wk, x, y == 1, z);
+                    if (best == null) {
+                        mp.addLast(new Object[]{" ", " ", " ", " ", " ", " "});
+                    } else {
+                        mp.addLast(schnellsteZeitZeile(aks, ak, y == 1, z, best.swimmers(), best.time()));
+                    }
+                }
+            }
+        }
+        return mp;
+    }
+
+    private static Object[] schnellsteZeitZeile(Regelwerk aks, Altersklasse ak, boolean male, int disziplin,
+            List<? extends ASchwimmer> fastest, int zeit) {
+        StringJoiner name = new StringJoiner(", ");
+        StringJoiner gld = new StringJoiner(", ");
+        for (ASchwimmer schwimmer : fastest) {
+            name.add(schwimmer.getName());
+            if (schwimmer.getQualifikationsebene().isEmpty()) {
+                gld.add(schwimmer.getGliederung());
+            } else {
+                gld.add(schwimmer.getGliederung() + " (" + schwimmer.getQualifikationsebene() + ")");
+            }
+        }
+        return new Object[]{
+                name.toString(), gld.toString(), ak.getName(), I18n.geschlechtToShortString(aks, male),
+                ak.getDisziplin(disziplin, male).getName(), StringTools.zeitString(zeit)
+        };
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel easywkHeattimes(AWettkampf<T> wk) {
