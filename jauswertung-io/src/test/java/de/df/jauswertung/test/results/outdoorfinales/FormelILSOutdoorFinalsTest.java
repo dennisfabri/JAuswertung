@@ -3,8 +3,8 @@ package de.df.jauswertung.test.results.outdoorfinales;
 import static de.df.jauswertung.daten.PropertyConstants.*;
 import static java.util.Arrays.stream;
 import static java.util.Comparator.comparingInt;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedList;

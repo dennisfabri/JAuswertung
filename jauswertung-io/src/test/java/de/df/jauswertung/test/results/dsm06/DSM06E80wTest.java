@@ -3,6 +3,8 @@
  */
 package de.df.jauswertung.test.results.dsm06;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.FileNotFoundException;
 
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -14,9 +16,10 @@ import de.df.jauswertung.test.util.TestImportUtils;
 import de.df.jauswertung.test.util.TestUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class DSM06E80wTest extends TestCase {
+public class DSM06E80wTest {
 
     private static EinzelWettkampf wk = null;
 
@@ -27,12 +30,8 @@ public class DSM06E80wTest extends TestCase {
     private static SchwimmerResult<Teilnehmer>[] results = null;
     private static Object[][] data = null;
 
-    public DSM06E80wTest(String x) {
-        super(x);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         if (wk == null) {
             wk = new EinzelWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwe"),
                     InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", true));
@@ -41,6 +40,7 @@ public class DSM06E80wTest extends TestCase {
         }
     }
 
+    @Test
     public void testResults() throws TableFormatException, FileNotFoundException {
         assertEquals(data[0].length, results.length);
         for (int x = 0; x < results.length; x++) {
@@ -48,6 +48,7 @@ public class DSM06E80wTest extends TestCase {
         }
     }
 
+    @Test
     public void testResult1() throws TableFormatException, FileNotFoundException {
         int x = 0;
         checkRow(x);

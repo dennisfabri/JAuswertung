@@ -73,6 +73,7 @@
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<includeScope>runtime</includeScope>
 							<classifier>linux</classifier>
+							<includeGroupIds>org.openjfx</includeGroupIds>
 						</configuration>
 					</execution>
 					<execution>
@@ -89,6 +90,7 @@
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<includeScope>runtime</includeScope>
 							<classifier>win</classifier>
+							<includeGroupIds>org.openjfx</includeGroupIds>
 						</configuration>
 					</execution>
 					<execution>
@@ -105,6 +107,7 @@
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<includeScope>runtime</includeScope>
 							<classifier>mac</classifier>
+							<includeGroupIds>org.openjfx</includeGroupIds>
 						</configuration>
 					</execution>
 					<execution>
@@ -187,24 +190,6 @@
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
-					<execution>
-						<id>copy-files</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>
-								${project.build.directory}/distribution/main</outputDirectory>
-							<resources>
-								<resource>
-									<directory>
-										${project.basedir}../jauswertung-files/src/main/files</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
 					<execution>
 						<id>copy-jar</id>
 						<phase>package</phase>

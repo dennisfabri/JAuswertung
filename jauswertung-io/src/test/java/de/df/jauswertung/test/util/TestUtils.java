@@ -1,6 +1,6 @@
 package de.df.jauswertung.test.util;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
@@ -21,12 +21,12 @@ public final class TestUtils {
         if (data[7][t.getStartnummer() - 1].toString().startsWith("Ausschlu")
                 || data[7][t.getStartnummer() - 1].toString().startsWith("disq")
                 || data[7][t.getStartnummer() - 1].toString().startsWith("ausg.")) {
-            Assert.assertTrue(t.isAusgeschlossen());
+            Assertions.assertTrue(t.isAusgeschlossen());
         } else {
             if (data[7][t.getStartnummer() - 1].equals("")) {
                 long result1 = 0;
                 long result2 = Math.round(results[x].getPoints() * 100);
-                Assert.assertEquals(t.getName() + " ", result1, result2 + offset);
+                Assertions.assertEquals(result1, result2 + offset, t.getName() + " ");
             } else {
                 double punkte = Double.parseDouble(data[7][t.getStartnummer() - 1].toString());
                 long result1 = Math.round(punkte * 100);
@@ -40,7 +40,7 @@ public final class TestUtils {
                     sb.append(StringTools.zeitString(results[x].getSchwimmer().getZeit(y)));
                 }
                 sb.append(") ");
-                Assert.assertEquals(sb.toString(), result1 - offset, result2);
+                Assertions.assertEquals(result1 - offset, result2, sb.toString());
             }
         }
     }

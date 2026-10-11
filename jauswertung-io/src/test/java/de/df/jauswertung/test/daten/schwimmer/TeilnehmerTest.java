@@ -8,24 +8,26 @@ import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
-import junit.framework.TestCase;
 
-public class TeilnehmerTest extends TestCase {
+
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+public class TeilnehmerTest {
 
     private Regelwerk aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwe");
     private EinzelWettkampf wk = new EinzelWettkampf(aks,
             InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", true));
     private Teilnehmer s;
 
-    public TeilnehmerTest() {
-        super();
-    }
-
-    @Override
-    protected void setUp() {
+    @BeforeEach
+    public void setUp() {
         s = wk.createTeilnehmer("13","Name", "Vorname", 1999, true, "Gliederung", 0, "Bemerkung");
     }
 
+    @Test
     public void testTeilnehmer() {
         assertEquals(s.getCompetitorId(), "13");
         assertEquals(s.getName(), "Name, Vorname");
@@ -45,6 +47,7 @@ public class TeilnehmerTest extends TestCase {
         }
     }
 
+    @Test
     public void testSetVorname() {
         s.setVorname("Test");
 
@@ -53,6 +56,7 @@ public class TeilnehmerTest extends TestCase {
         assertEquals(s.getNachname(), "Name");
     }
 
+    @Test
     public void testSetNachname() {
         s.setNachname("Test");
 
@@ -61,6 +65,7 @@ public class TeilnehmerTest extends TestCase {
         assertEquals(s.getNachname(), "Test");
     }
 
+    @Test
     public void testSetJahrgang() {
         s.setJahrgang(2004);
         assertEquals(s.getJahrgang(), 2004);

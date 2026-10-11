@@ -3,22 +3,24 @@
  */
 package de.df.jauswertung.test.results.files;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.io.InputManager;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-abstract class FilesTestBase extends TestCase {
+abstract class FilesTestBase {
 
     private static final String FILE = "../../required/archive/";
 
     private final String year;
 
-    public FilesTestBase(String name, String y) {
-        super(name);
+    FilesTestBase(String y) {
         year = y;
     }
 
@@ -34,6 +36,7 @@ abstract class FilesTestBase extends TestCase {
     }
 
     @SuppressWarnings("rawtypes")
+    @Test
     public void testResultDMSingle() {
         String name = "dm" + year + "-einzel.wk";
         AWettkampf wk = check(name);
@@ -41,6 +44,7 @@ abstract class FilesTestBase extends TestCase {
     }
 
     @SuppressWarnings("rawtypes")
+    @Test
     public void testResultDMTeam() {
         String name = "dm" + year + "-mannschaft.wk";
         AWettkampf wk = check(name);
@@ -48,6 +52,7 @@ abstract class FilesTestBase extends TestCase {
     }
 
     @SuppressWarnings("rawtypes")
+    @Test
     public void testResultDSMSingle() {
         String name = "dsm" + year + "-einzel.wk";
         AWettkampf wk = check(name);
@@ -55,6 +60,7 @@ abstract class FilesTestBase extends TestCase {
     }
 
     @SuppressWarnings("rawtypes")
+    @Test
     public void testResultDSMTeam() {
         String name = "dsm" + year + "-mannschaft.wk";
         AWettkampf wk = check(name);
