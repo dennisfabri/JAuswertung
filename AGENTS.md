@@ -141,6 +141,8 @@ There is no server behind the UI, so the desktop application is the only line of
   `README.md` either. The commit that fixes the issue is the record; git history has it.
 - When you find a problem outside the scope of the current task, add an issue there instead of fixing it in the same
   change.
+- `docs/chores/` tracks planned clean-ups of code or data model that are not bugs, with the same rules: one file per
+  chore, listed in `docs/chores/README.md`, deleted once done.
 
 ## Build, Test, Run
 
