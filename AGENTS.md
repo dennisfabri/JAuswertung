@@ -104,6 +104,11 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
   whitelist.
 - When changing the model, prove compatibility with a test that loads an existing file from
   `jauswertung-io/src/test/resources` (or a fixture created with the previous version).
+- `jauswertung-io/src/test/resources/compatibility/<year>/` holds one set of competitions per year, created by
+  `jauswertung-misc/.../misc/ErzeugeKompatibilitaetsWettkaempfe` (run with working directory
+  `jauswertung-files/src/main/resources`). Never edit or regenerate an existing year — a failing load of an old year
+  means the model change is incompatible. When new data structures become reachable through the UI, extend the
+  generator so the next year's files contain them.
 - Autosave (`MImportExportPlugin.autosave()`) and undo (serialized snapshots) reuse the same serialization — changes to
   it affect both.
 
