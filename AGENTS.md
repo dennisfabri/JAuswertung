@@ -225,7 +225,7 @@ There is no server behind the UI, so the desktop application is the only line of
 
 - SLF4J with Logback (`jauswertung-files/src/main/resources/logback.xml`); `System.out`/`System.err` are redirected to
   SLF4J by `DefaultInit`. Use Lombok's `@Slf4j` in new code; do not add `System.out.println` or `printStackTrace()`.
-  Removing the existing calls is tracked in `docs/issues/console-output-and-printstacktrace.md`.
+  Removing the existing calls is tracked in `docs/chores/console-output-and-printstacktrace.md`.
 - `DEBUG` for diagnostic detail, `INFO` sparingly for lifecycle events (start, file opened/saved), `WARN` for handled
   unexpected situations, `ERROR` for real failures.
 - Competition files contain personal data (names, birth years, clubs). Do not log participant data or whole model
