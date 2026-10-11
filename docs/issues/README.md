@@ -12,7 +12,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [disqualified-place-in-finals.md](disqualified-place-in-finals.md) | High | S | Disqualified swimmers get a place in finals; they should only keep their points |
 | [stale-round0-starters-after-import.md](stale-round0-starters-after-import.md) | High | M | Round 1 can be built from outdated round-0 starters after an import |
 | [migration-errors-hidden-on-load.md](migration-errors-hidden-on-load.md) | Medium | S | A failing file migration is swallowed and reported as an unrelated XStream error |
 | [timelimit-check-always-disabled.md](timelimit-check-always-disabled.md) | Medium | S | The time limit check can never be started |

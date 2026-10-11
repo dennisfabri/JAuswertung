@@ -249,9 +249,17 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     sd.setTime(0);
                     break;
                 case AUSSCHLUSS:
-                case DISQUALIFIKATION:
                     if ((!isQualified && !isFinal) || round == 0) {
                         sd.setRank(-1);
+                        sd.setPoints(0);
+                    }
+                    sd.setTime(0);
+                    break;
+                case DISQUALIFIKATION:
+                    // In a later round the swimmer has earned the points of this round, but gets no place in it.
+                    // The overall result of the discipline (setPoints) still places them by these points.
+                    sd.setRank(-1);
+                    if ((!isQualified && !isFinal) || round == 0) {
                         sd.setPoints(0);
                     }
                     sd.setTime(0);
@@ -262,6 +270,24 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
             }
             rank += amount;
         }
+    }
+
+    /**
+     * A swimmer disqualified in a final after earlier rounds has no place in the final, but in the overall result of
+     * the discipline is placed by the points earned for reaching it.
+     */
+    private static <T extends ASchwimmer> int placeForOverallResult(SchwimmerResult<T>[] round, SchwimmerData<T> sd,
+            boolean isFinalRound) {
+        if (sd.getRank() > 0 || !isFinalRound || sd.getStrafart() != Strafarten.DISQUALIFIKATION) {
+            return sd.getRank();
+        }
+        int better = 0;
+        for (SchwimmerResult<T> other : round) {
+            if (other.getResults()[0].getPoints() > sd.getPoints()) {
+                better++;
+            }
+        }
+        return better + 1;
     }
 
     /** ----------------- */
@@ -323,7 +349,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
                 SchwimmerInfo<T> si = new SchwimmerInfo<>();
                 si.schwimmer = SearchUtils.getSchwimmer(wk, r[i].getSchwimmer());
-                si.platz = sd.getRank();
+                si.platz = placeForOverallResult(r, sd, x == rounds - 1);
                 si.zeit = sd.getTime();
                 si.strafe = sd.getStrafe();
                 si.runde = x;

@@ -15,6 +15,8 @@ import static de.df.jauswertung.daten.PropertyConstants.HEATS_ROTATE;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_SORTING_ORDER;
 import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
@@ -390,6 +392,34 @@ public class FormelILSFinalsDisqualificationTest {
         assertEquals(6, ergebnisFinale.getResult(10).getPoints());
         assertEquals(7, ergebnisFinale.getResult(9).getPoints());
         assertEquals(8, ergebnisFinale.getResult(8).getPoints());
+    }
+
+    @Test
+    void disqualifiziertImFinaleOhnePlatzMitPunkten() {
+        // Teilnehmer 2 (A-Finale) und 11 (B-Finale) sind im Finale disqualifiziert
+        SchwimmerResult<?> aFinale = ergebnisFinale.getResult(7);
+        SchwimmerResult<?> bFinale = ergebnisFinale.getResult(15);
+
+        assertEquals("Teilnehmer, 2", aFinale.getSchwimmer().getName());
+        assertTrue(aFinale.getPlace() <= 0);
+        assertFalse(aFinale.hasKeineWertung());
+        assertEquals(10, aFinale.getPoints());
+
+        assertEquals("Teilnehmer, 11", bFinale.getSchwimmer().getName());
+        assertTrue(bFinale.getPlace() <= 0);
+        assertFalse(bFinale.hasKeineWertung());
+        assertEquals(1, bFinale.getPoints());
+    }
+
+    @Test
+    void disqualifiziertImFinaleImGesamtergebnisNachPunktenPlatziert() {
+        assertEquals("Teilnehmer, 2", ergebnisGesamt.getResult(7).getSchwimmer().getName());
+        assertEquals(8, ergebnisGesamt.getResult(7).getPlace());
+        assertEquals(10, ergebnisGesamt.getResult(7).getPoints());
+
+        assertEquals("Teilnehmer, 11", ergebnisGesamt.getResult(15).getSchwimmer().getName());
+        assertEquals(16, ergebnisGesamt.getResult(15).getPlace());
+        assertEquals(1, ergebnisGesamt.getResult(15).getPoints());
     }
 
     @Test

@@ -474,7 +474,7 @@ public final class DataTableUtils {
                                                                boolean mustShowPoints, int qualified) {
         ASchwimmer t = line.getSchwimmer();
         LinkedList<Object> row = new LinkedList<>();
-        if (line.hasKeineWertung()) {
+        if (line.hasKeineWertung() || line.getPlace() <= 0) {
             row.addLast("");
         } else {
             row.addLast(line.getPlace());

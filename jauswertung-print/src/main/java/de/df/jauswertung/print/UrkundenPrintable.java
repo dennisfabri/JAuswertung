@@ -82,7 +82,7 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
             if (sr.getPoints() < 0.005) {
                 break;
             }
-            if (sr.hasKeineWertung()) {
+            if (sr.hasKeineWertung() || sr.getPlace() <= 0) {
                 break;
             }
             if (sr.getSchwimmer().isAusserKonkurrenz()) {

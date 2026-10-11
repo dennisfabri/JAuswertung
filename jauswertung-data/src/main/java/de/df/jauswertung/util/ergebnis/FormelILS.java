@@ -313,7 +313,11 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         if (oneDiscipline) {
             for (int x = 0; x < results.length; x++) {
                 results[x].setRank(results[x].getResults()[0].getRank());
-                results[x].setKeineWertung(results[x].getPlace() <= 0);
+                // Disqualified in a later round: no place, but the points of reaching the round count
+                boolean disqualifiedWithPoints = isRealFinal
+                        && results[x].getResults()[0].getStrafart() == Strafarten.DISQUALIFIKATION
+                        && results[x].getPoints() > 0;
+                results[x].setKeineWertung(results[x].getPlace() <= 0 && !disqualifiedWithPoints);
             }
 
             Arrays.sort(results, (Comparator<SchwimmerResult>) (sd1, sd2) -> {

@@ -159,11 +159,14 @@ class DisqualificationPerRoundTest {
     void finaleMit17Startern() {
         Scenario scenario = new Scenario(20, new int[] { 17 }, 1, 2, 17);
 
-        // A-Finale
-        assertPlaced(result(scenario.round(1), 2), 8, 10);
+        // A-Finale: kein Platz, aber die Punkte für das Erreichen des Finales
+        SchwimmerResult<Teilnehmer> aFinale = result(scenario.round(1), 2);
+        assertFalse(aFinale.hasKeineWertung());
+        assertTrue(aFinale.getPlace() <= 0);
+        assertEquals(10, aFinale.getPoints());
         assertPlaced(result(scenario.round(1), 3), 2, 18);
         // Letzter Platz, jenseits der Punktetabelle
-        assertPlaced(result(scenario.round(1), 17), 17, 0);
+        assertUnranked(result(scenario.round(1), 17));
 
         assertPlaced(result(scenario.overall(), 2), 8, 10);
         assertPlaced(result(scenario.overall(), 17), 17, 0);
