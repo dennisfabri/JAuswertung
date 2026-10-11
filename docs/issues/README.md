@@ -12,7 +12,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [heat-list-csv-export-fails-for-finals.md](heat-list-csv-export-fails-for-finals.md) | Medium | M | CSV heat list export throws for competitions with finals |
 | [round-competition-removes-wrong-discipline.md](round-competition-removes-wrong-discipline.md) | Low | S | `createCompetitionFor` removes the selected round instead of the others |
 | [teammember-constructor-ignores-import-id.md](teammember-constructor-ignores-import-id.md) | Low | S | A `Mannschaftsmitglied` constructor drops its import id |
 | [best-times-for-heat-based-competitions.md](best-times-for-heat-based-competitions.md) | Low | M | Pool competitions with finals have times per round but no best times |

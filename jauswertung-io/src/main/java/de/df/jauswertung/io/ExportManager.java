@@ -77,6 +77,8 @@ public class ExportManager {
         }
         switch (datatype) {
             case HEAT_LIST:
+                // Heat lists of competitions with finals are only printed per round
+                return !wk.getLaufliste().isEmpty();
             case STARTKARTEN:
                 return !wk.getLaufliste().isEmpty() || !wk.getLauflisteOW().isEmpty();
             case HEAT_TIMES:
