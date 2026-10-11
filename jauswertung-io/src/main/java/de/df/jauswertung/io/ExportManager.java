@@ -84,10 +84,11 @@ public class ExportManager {
             case PROTOCOL:
             case REGISTRATION:
             case RESULTS:
-            case BEST_TIMES:
             case TIMES:
             case WEITERMELDUNG:
                 return wk.hasSchwimmer();
+            case BEST_TIMES:
+                return wk.hasBestTimes();
             case REFEREES:
                 return wk.getKampfrichterverwaltung() != null;
             case PENALTIES:

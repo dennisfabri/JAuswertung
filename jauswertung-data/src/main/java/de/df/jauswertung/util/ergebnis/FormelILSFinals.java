@@ -243,9 +243,13 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 sd.setRank(rank);
                 sd.setPoints(getPoints(sd.getTime(), d.getRec(), rank, amount, sd.getStrafe(), heatSize));
                 switch (sd.getStrafart()) {
+                case NICHT_ANGETRETEN:
+                    sd.setRank(-1);
+                    sd.setPoints(0);
+                    sd.setTime(0);
+                    break;
                 case AUSSCHLUSS:
                 case DISQUALIFIKATION:
-                case NICHT_ANGETRETEN:
                     if ((!isQualified && !isFinal) || round == 0) {
                         sd.setRank(-1);
                         sd.setPoints(0);
@@ -407,9 +411,13 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                     sd.setRank(rank);
                     sd.setPoints(getPoints(si.zeit, d.getRec(), rank, amount, si.strafe, heatSize));
                     switch (sd.getStrafart()) {
+                    case NICHT_ANGETRETEN:
+                        sd.setRank(-1);
+                        sd.setPoints(0);
+                        sd.setTime(0);
+                        break;
                     case AUSSCHLUSS:
                     case DISQUALIFIKATION:
-                    case NICHT_ANGETRETEN:
                         if (si.runde > 0) {
                             // sd.overridePenalty(Strafe.NICHTS);
                             // sd.setPoints(0);

@@ -102,7 +102,7 @@ public final class ErzeugeWettkaempfe {
         return Strafe.NICHTS;
     }
 
-    private static <T extends ASchwimmer> int getJahrgang(AWettkampf<T> wk, int akx) {
+    private static <T extends ASchwimmer> int getJahrgang(AWettkampf<T> wk, int akx, int jahr) {
         Altersklasse ak = wk.getRegelwerk().getAk(akx);
         int min = ak.getMinimumAlter();
         if (min < 10) {
@@ -112,10 +112,14 @@ public final class ErzeugeWettkaempfe {
         if (range <= 0) {
             range = 5;
         }
-        return Calendar.getInstance().get(Calendar.YEAR) - min - rng.nextInt(range);
+        return jahr - min - rng.nextInt(range);
     }
 
     public static EinzelWettkampf einzel(Namengenerator n, String datei, int anzahl, int zeitenbis) {
+        return einzel(n, datei, anzahl, zeitenbis, Calendar.getInstance().get(Calendar.YEAR));
+    }
+
+    public static EinzelWettkampf einzel(Namengenerator n, String datei, int anzahl, int zeitenbis, int jahr) {
         if (n == null) {
             n = new Namengenerator(null, anzahl);
         }
@@ -131,13 +135,13 @@ public final class ErzeugeWettkaempfe {
         }
         ewk.setProperty(PropertyConstants.HEATS_LANES, lanes);
         erzeugeKampfrichter(ewk, n);
-        erzeugeTexte(ewk, n);
+        erzeugeTexte(ewk, jahr);
 
         for (int a = 0; a < 5; a++) {
             for (int g = 0; g < 2; g++) {
                 for (int x = 0; x < anzahl; x++) {
                     Teilnehmer tn = ewk.createTeilnehmer(n.generateCompetitorId(), n.generateNachname(), n.generateVorname(g == 1),
-                            getJahrgang(ewk, a), g == 1, n.generateGliederung(), a, "");
+                            getJahrgang(ewk, a, jahr), g == 1, n.generateGliederung(), a, "");
                     tn.setQualifikationsebene(n.generateLV(tn.getGliederung()));
                     ewk.addSchwimmer(tn);
                     if (tn.getAK().isDisciplineChoiceAllowed()) {
@@ -197,12 +201,12 @@ public final class ErzeugeWettkaempfe {
         return ewk;
     }
 
-    private static <T extends ASchwimmer> void erzeugeTexte(AWettkampf<T> wk, Namengenerator ng) {
+    private static <T extends ASchwimmer> void erzeugeTexte(AWettkampf<T> wk, int jahr) {
         wk.setProperty(NAME, "Bezirksmeisterschaften Musterhausen");
         wk.setProperty(LOCATION, "Musterhausen");
         wk.setProperty(ORGANIZER, "DLRG Musterhausen");
         wk.setProperty(AUSRICHTER, "DLRG Musterhausen Ost");
-        wk.setProperty(DATE, "01.01." + Calendar.getInstance().get(Calendar.YEAR));
+        wk.setProperty(DATE, "01.01." + jahr);
         wk.setProperty(BEGIN, "10:00 Uhr");
         wk.setProperty(END, "18:00 Uhr");
         wk.setProperty(OTHER_COMPETITION_INFO, "");
@@ -265,6 +269,11 @@ public final class ErzeugeWettkaempfe {
     }
 
     public static MannschaftWettkampf mannschaft(Namengenerator n, String datei, int anzahl, int zeitenbis) {
+        return mannschaft(n, datei, anzahl, zeitenbis, Calendar.getInstance().get(Calendar.YEAR));
+    }
+
+    public static MannschaftWettkampf mannschaft(Namengenerator n, String datei, int anzahl, int zeitenbis,
+            int jahr) {
         if (n == null) {
             n = new Namengenerator(null, anzahl);
         }
@@ -281,7 +290,7 @@ public final class ErzeugeWettkaempfe {
         }
         mwk.setProperty(PropertyConstants.HEATS_LANES, lanes);
         erzeugeKampfrichter(mwk, n);
-        erzeugeTexte(mwk, n);
+        erzeugeTexte(mwk, jahr);
 
         for (int a = 0; a < 5; a++) {
             for (int g = 0; g < 2; g++) {
@@ -317,7 +326,7 @@ public final class ErzeugeWettkaempfe {
                             alter = 20;
                         }
                         if (alter > 0) {
-                            mm.setJahrgang(Calendar.getInstance().get(Calendar.YEAR) - alter);
+                            mm.setJahrgang(jahr - alter);
                         }
                     }
 

@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.text.Collator;
 import java.util.*;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
@@ -560,8 +561,9 @@ public final class DataTableUtils {
                 row.addLast("");
             }
         }
-        if (t.getAK().hasHLW()) {
-            if (t.hasHLWSet()) {
+        // The combined table always has this column, a table per age group only if the age group has it
+        if ((!separate) || t.getAK().hasHLW()) {
+            if (t.getAK().hasHLW() && t.hasHLWSet()) {
                 row.addLast(t.getHLWPunkte());
             } else {
                 row.addLast("");
@@ -1569,27 +1571,25 @@ public final class DataTableUtils {
                         if (result.getRowCount() > 0) {
                             ASchwimmer s = result.getResult(0).getSchwimmer();
                             int zeit = s.getZeit(0);
-                            StringBuilder name = new StringBuilder(s.getName());
-                            StringBuilder gld = new StringBuilder(s.getGliederung());
-                            if (!s.getQualifikationsebene().isEmpty()) {
-                                gld.append(" (");
-                                gld.append(s.getQualifikationsebene());
-                                gld.append(")");
-                            }
+                            List<ASchwimmer> fastest = new ArrayList<>();
+                            fastest.add(s);
                             int pos = 1;
                             while ((pos < result.getRowCount())
                                     && (result.getResult(pos).getSchwimmer().getZeit(0) == zeit)) {
-                                ASchwimmer schwimmer = result.getResult(pos).getSchwimmer();
-                                name.append(", ");
-                                name.append(schwimmer.getName());
-                                gld.append(", ");
-                                gld.append(schwimmer.getGliederung());
-                                if (!schwimmer.getQualifikationsebene().isEmpty()) {
-                                    gld.append(" (");
-                                    gld.append(schwimmer.getQualifikationsebene());
-                                    gld.append(")");
-                                }
+                                fastest.add(result.getResult(pos).getSchwimmer());
                                 pos++;
+                            }
+                            // Equal times have no defined order, so they are listed alphabetically
+                            fastest.sort(Comparator.comparing(ASchwimmer::getName, Collator.getInstance()));
+                            StringJoiner name = new StringJoiner(", ");
+                            StringJoiner gld = new StringJoiner(", ");
+                            for (ASchwimmer schwimmer : fastest) {
+                                name.add(schwimmer.getName());
+                                if (schwimmer.getQualifikationsebene().isEmpty()) {
+                                    gld.add(schwimmer.getGliederung());
+                                } else {
+                                    gld.add(schwimmer.getGliederung() + " (" + schwimmer.getQualifikationsebene() + ")");
+                                }
                             }
                             mp.addLast(new Object[]{
                                     name.toString(), gld.toString(), ak.getName(),

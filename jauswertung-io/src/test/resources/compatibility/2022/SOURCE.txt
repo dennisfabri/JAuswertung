@@ -1,0 +1,5 @@
+commit: dcef254f19186e67c9f3adc14078f52d552f1e18
+commit date: 2022-02-27T16:02:52+01:00
+generated: 2026-10-11T11:42:13+02:00
+backfill: generator and CompatibilityTest copied into this commit and adapted to its API; snapshots created by this commit's code
+note: No certificate layout: 2022 writes java.awt types into it but cannot read them back (XStream whitelist).

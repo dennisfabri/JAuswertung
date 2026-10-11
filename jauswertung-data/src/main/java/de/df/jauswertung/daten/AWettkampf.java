@@ -1131,6 +1131,14 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return FormelManager.isDLRGBased(getRegelwerk().getFormelID());
     }
 
+    /**
+     * Best times use the time of the only round. Competitions with finals keep their times per round, and competitions
+     * that record places instead of times have none.
+     */
+    public boolean hasBestTimes() {
+        return hasSchwimmer() && !isHeatBased() && getDataType() == DataType.TIME;
+    }
+
     public boolean isHeatBased() {
         return FormelManager.isHeatBased(getRegelwerk().getFormelID());
     }
