@@ -122,9 +122,9 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
     }
 
     public static void main(String[] args) {
-        int jahr = Calendar.getInstance().get(Calendar.YEAR);
-        String ziel = args.length > 0 ? args[0] : "../../../../jauswertung-io/src/test/resources/compatibility/" + jahr;
-        String namen = args.length > 1 ? args[1] : "../../../../jauswertung-io/src/test/resources/values";
+        int jahr = args.length > 0 ? Integer.parseInt(args[0]) : Calendar.getInstance().get(Calendar.YEAR);
+        String ziel = args.length > 1 ? args[1] : "../../../../jauswertung-io/src/test/resources/compatibility/" + jahr;
+        String namen = args.length > 2 ? args[2] : "../../../../jauswertung-io/src/test/resources/values";
         File verzeichnis = new File(ziel);
         File[] vorhanden = verzeichnis.listFiles((d, n) -> n.endsWith(".wk"));
         if (vorhanden != null && vorhanden.length > 0) {
@@ -135,16 +135,16 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
 
         int anzahl = SCHWIMMER_JE_AK_UND_GESCHLECHT;
         speichern(vervollstaendigen(
-                ErzeugeWettkaempfe.einzel(new Namengenerator(namen, anzahl * 10), null, anzahl, -1)),
+                ErzeugeWettkaempfe.einzel(new Namengenerator(namen, anzahl * 10), null, anzahl, -1, jahr), jahr),
                 ziel + "/Einzel.wk");
         speichern(vervollstaendigen(
-                ErzeugeWettkaempfe.mannschaft(new Namengenerator(namen, anzahl * 10), null, anzahl, -1)),
+                ErzeugeWettkaempfe.mannschaft(new Namengenerator(namen, anzahl * 10), null, anzahl, -1, jahr), jahr),
                 ziel + "/Mannschaft.wk");
 
         Namengenerator ng = new Namengenerator(namen, SCHWIMMER_JE_GESCHLECHT_FINALE * 4);
-        speichern(finale(new EinzelWettkampf(ozean(true), InputManager.ladeStrafen(null, true)), ng),
+        speichern(finale(new EinzelWettkampf(ozean(true), InputManager.ladeStrafen(null, true)), ng, jahr),
                 ziel + "/Finale-Einzel.wk");
-        speichern(finale(new MannschaftWettkampf(ozean(false), InputManager.ladeStrafen(null, false)), ng),
+        speichern(finale(new MannschaftWettkampf(ozean(false), InputManager.ladeStrafen(null, false)), ng, jahr),
                 ziel + "/Finale-Mannschaft.wk");
     }
 
@@ -155,9 +155,9 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         log.info("Erzeugt: {}", datei);
     }
 
-    private static <T extends ASchwimmer> AWettkampf<T> vervollstaendigen(AWettkampf<T> wk) {
+    private static <T extends ASchwimmer> AWettkampf<T> vervollstaendigen(AWettkampf<T> wk, int jahr) {
         regelwerk(wk.getRegelwerk());
-        eigenschaften(wk);
+        eigenschaften(wk, jahr);
         schwimmer(wk);
         kampfrichter(wk.getKampfrichterverwaltung());
         filter(wk);
@@ -227,9 +227,7 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         aks.setZusatzwertungBasispunkte(300);
     }
 
-    private static <T extends ASchwimmer> void eigenschaften(AWettkampf<T> wk) {
-        int jahr = Calendar.getInstance().get(Calendar.YEAR);
-
+    private static <T extends ASchwimmer> void eigenschaften(AWettkampf<T> wk, int jahr) {
         wk.setProperty(HEATS_LANES, BAHNEN);
         wk.setProperty(SHORTNAME, "BM Musterhausen");
         wk.setProperty(ART_DES_WETTKAMPFS, Wettkampfart.Landesmeisterschaften);
@@ -516,14 +514,14 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         return aks;
     }
 
-    private static <T extends ASchwimmer> AWettkampf<T> finale(AWettkampf<T> wk, Namengenerator ng) {
+    private static <T extends ASchwimmer> AWettkampf<T> finale(AWettkampf<T> wk, Namengenerator ng, int jahr) {
         wk.setProperty(HEATS_LANES, BAHNEN);
         for (boolean maennlich : new boolean[] { false, true }) {
             for (int x = 0; x < SCHWIMMER_JE_GESCHLECHT_FINALE; x++) {
                 ASchwimmer s = switch (wk) {
                 case EinzelWettkampf ewk -> {
                     Teilnehmer t = ewk.createTeilnehmer(ng.generateCompetitorId(), ng.generateNachname(),
-                            ng.generateVorname(maennlich), Calendar.getInstance().get(Calendar.YEAR) - 20 - x,
+                            ng.generateVorname(maennlich), jahr - 20 - x,
                             maennlich, ng.generateGliederung(), 0, "");
                     ewk.addSchwimmer(t);
                     yield t;
