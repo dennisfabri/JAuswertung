@@ -2,6 +2,7 @@ package de.df.jauswertung.daten;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
@@ -66,7 +67,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         filter = new Filter[]{new Filter(I18n.get("Filter.NoFilter"), null)};
         filterindex = 0;
 
-        startnummern = new Startnummern();
         laufliste = new Laufliste<>(this);
         lauflisteow = new OWLaufliste<>(this);
         schwimmer = new LinkedList<>();
@@ -85,25 +85,13 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private final HLWListe<T> hlwliste;
     private final Strafen strafen;
     private final LinkedList<T> schwimmer;
-    @SuppressWarnings("unused")
-    private final LinkedList<Einspruch> einsprueche = new LinkedList<>();
     private final Hashtable<String, Object> properties;
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
 
-    @Deprecated
-    @SuppressWarnings("unused")
-    private Ergebnisfreigabe exportfreigabe;
-    @Deprecated
-    @SuppressWarnings("unused")
-    private Ergebnisfreigabe webfreigabe;
-
     private final PropertyChangeManager pcManager;
 
     private TimelimitsContainer timelimits;
-
-    @SuppressWarnings("unused")
-    private Startnummern startnummern;
 
     private Filter[] filter;
     @XStreamAsAttribute
@@ -215,7 +203,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
                 changedSinceDisable |= update;
                 return;
             }
-            startnummern = null;
             setProperty(VERSION, I18n.getVersion());
             setProperty(LAST_CHANGE, new Date());
             if (update) {
@@ -1067,6 +1054,16 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public void setNachruecker(int[][] limits) {
         setIntArray2("NACHRUECKER", limits);
+    }
+
+    /**
+     * Called after loading (XStream and Java serialization), where no constructor runs.
+     */
+    @Serial
+    protected Object readResolve() {
+        // Settings of the removed HLW heat list
+        properties.keySet().removeIf(key -> key.startsWith("Hlw"));
+        return this;
     }
 
     @SuppressWarnings("unused")

@@ -33,11 +33,6 @@ public class Strafe implements Serializable {
     @XStreamAsAttribute
     private int hoehe = 0;
 
-    // Keep for compatibility with XStream
-    @SuppressWarnings("unused")
-    @Deprecated
-    private String durchsage = "";
-
     public Strafe(Strafe s) {
         if (s == null) {
             setName("");

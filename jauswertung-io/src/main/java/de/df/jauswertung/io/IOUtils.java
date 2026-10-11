@@ -32,6 +32,7 @@ import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Filter;
 import de.df.jauswertung.daten.HLWStates;
 import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.Mannschaftsmitgliederexportkennung;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.Mannschaftsmitgliedermeldung;
@@ -48,7 +49,6 @@ import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.Duration;
 import de.df.jauswertung.daten.laufliste.HLWLauf;
 import de.df.jauswertung.daten.laufliste.HLWListe;
 import de.df.jauswertung.daten.laufliste.Lauf;
@@ -61,7 +61,6 @@ import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
-import de.df.jauswertung.daten.regelwerk.Einspruch;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -215,7 +214,6 @@ public final class IOUtils {
             instance.alias("LauflisteEinteilung", Laufliste.Einteilung.class);
             instance.alias("LauflisteBlockEinteilung", Laufliste.BlockEinteilung.class);
             instance.alias("Time", Time.class);
-            instance.alias("Duration", Duration.class);
 
             instance.alias("BugReport", BugReport.class);
 
@@ -235,7 +233,6 @@ public final class IOUtils {
             instance.alias("OWLauf", OWLauf.class);
             instance.alias("OWLaufliste", OWLaufliste.class);
 
-            instance.alias("Einspruch", Einspruch.class);
             instance.alias("Strafe", Strafe.class);
             instance.alias("Strafen", Strafen.class);
             instance.alias("StrafenKapitel", StrafenKapitel.class);
@@ -263,7 +260,6 @@ public final class IOUtils {
             instance.useAttributeFor(ASchwimmer.class, "startunterlagen");
 
             instance.useAttributeFor(Mannschaft.class, "name");
-            instance.useAttributeFor(Mannschaft.class, "mitglieder");
 
             instance.useAttributeFor(Teilnehmer.class, "jahrgang");
             instance.useAttributeFor(Teilnehmer.class, "vorname");
@@ -276,6 +272,19 @@ public final class IOUtils {
             instance.aliasAttribute(Laufliste.class, "verteilung", "verteilung2");
 
             instance.registerConverter(new StringConverter());
+
+            // Removed fields that old files still contain
+            instance.omitField(AWettkampf.class, "einsprueche");
+            instance.omitField(AWettkampf.class, "exportfreigabe");
+            instance.omitField(AWettkampf.class, "webfreigabe");
+            instance.omitField(AWettkampf.class, "startnummern");
+            instance.omitField(Strafe.class, "durchsage");
+            instance.omitField(Lauf.class, "checked");
+            instance.omitField(Lauf.class, "retyped");
+            instance.omitField(KampfrichterPosition.class, "required");
+            instance.omitField(Altersklasse.class, "minpunkte");
+            instance.omitField(Altersklasse.class, "kompakt");
+            instance.omitField(Mannschaftsmitgliederexportkennung.class, "exportedOnDate");
         }
 
         return instance;

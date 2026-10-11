@@ -14,3 +14,4 @@ verified, delete the file and its row here (see `AGENTS.md` → *docs/issues/*).
 | [timelimit-check-always-disabled.md](timelimit-check-always-disabled.md) | The time limit check can never be started |
 | [teammember-constructor-ignores-import-id.md](teammember-constructor-ignores-import-id.md) | A `Mannschaftsmitglied` constructor drops its import id |
 | [round-competition-removes-wrong-discipline.md](round-competition-removes-wrong-discipline.md) | `createCompetitionFor` removes the selected round instead of the others |
+| [heat-list-csv-export-fails-for-finals.md](heat-list-csv-export-fails-for-finals.md) | CSV heat list export throws for competitions with finals |

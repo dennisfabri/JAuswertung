@@ -8,19 +8,10 @@ public class KampfrichterPosition implements Serializable {
 
     private KampfrichterStufe minstufe;
     private String position;
-    private boolean required;
 
     public KampfrichterPosition(String position, KampfrichterStufe stufe) {
-        this(position, stufe, true);
-    }
-
-    public KampfrichterPosition(String position, KampfrichterStufe stufe, boolean required) {
         setPosition(position);
         setMinimaleStufe(stufe);
-    }
-
-    public boolean isRequired() {
-        return required;
     }
 
     public KampfrichterStufe getMinimaleStufe() {

@@ -18,8 +18,6 @@ public class Mannschaft extends ASchwimmer {
 
     @XStreamAsAttribute
     private String name = "";
-    @XStreamAsAttribute
-    private String mitglieder = null;
     private Mannschaftsmitglied[] mitglieder2;
 
     Mannschaft(MannschaftWettkampf mwk, String name, boolean geschlecht, String gliederung, int ak, String bemerkung) {
