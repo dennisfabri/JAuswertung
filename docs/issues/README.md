@@ -12,7 +12,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [migration-errors-hidden-on-load.md](migration-errors-hidden-on-load.md) | Medium | S | A failing file migration is swallowed and reported as an unrelated XStream error |
 | [timelimit-check-always-disabled.md](timelimit-check-always-disabled.md) | Medium | S | The time limit check can never be started |
 | [custom-heat-split-with-mixed-startgroups.md](custom-heat-split-with-mixed-startgroups.md) | Medium | M | Custom heat split throws in `reorderDisciplines` when a start group mixes discipline counts |
 | [heat-list-csv-export-fails-for-finals.md](heat-list-csv-export-fails-for-finals.md) | Medium | M | CSV heat list export throws for competitions with finals |
