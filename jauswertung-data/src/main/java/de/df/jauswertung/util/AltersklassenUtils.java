@@ -93,7 +93,7 @@ public final class AltersklassenUtils {
 
     public static Regelwerk generateGesamtwertungAKs() {
         Regelwerk aks = new Regelwerk(1, false, FormelDLRG.ID);
-        Altersklasse gesamtwertungAK = new Altersklasse("Gesamtwertung", new Disziplin[2][0], false, true);
+        Altersklasse gesamtwertungAK = new Altersklasse("Gesamtwertung", new Disziplin[2][0], false);
         aks.setAk(0, gesamtwertungAK);
         return aks;
     }

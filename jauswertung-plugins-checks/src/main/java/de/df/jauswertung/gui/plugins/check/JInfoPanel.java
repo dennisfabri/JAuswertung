@@ -25,7 +25,6 @@ import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.HLWLauf;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.plugins.CorePlugin;

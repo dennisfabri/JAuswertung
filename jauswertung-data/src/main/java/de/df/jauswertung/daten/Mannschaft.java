@@ -2,6 +2,7 @@ package de.df.jauswertung.daten;
 
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -18,9 +19,8 @@ public class Mannschaft extends ASchwimmer {
 
     @XStreamAsAttribute
     private String name = "";
-    @XStreamAsAttribute
-    private String mitglieder = null;
     private Mannschaftsmitglied[] mitglieder2;
+    private int[][] starter;
 
     Mannschaft(MannschaftWettkampf mwk, String name, boolean geschlecht, String gliederung, int ak, String bemerkung) {
         super(mwk, geschlecht, gliederung, ak, bemerkung);
@@ -276,6 +276,72 @@ public class Mannschaft extends ASchwimmer {
         initMembers();
         for (Mannschaftsmitglied m : mitglieder2) {
             m.clear();
+        }
+    }
+
+    @Override
+    public int[] getStarter(int disz) {
+        if (!isDisciplineChosen(disz)) {
+            return null;
+        }
+        initStarter();
+        return starter[disz];
+    }
+
+    @Override
+    public synchronized void setStarter(int disciplineIndex, int[] st) {
+        initStarter();
+        if (st == null) {
+            Arrays.fill(starter[disciplineIndex], 0);
+        } else {
+            Arrays.fill(starter[disciplineIndex], 0);
+            System.arraycopy(st, 0, starter[disciplineIndex], 0, Math.min(st.length, starter[disciplineIndex].length));
+        }
+    }
+
+    @Override
+    public void setStarter(int[][] c) {
+        if (c == null) {
+            throw new NullPointerException("Argument must not be null!");
+        }
+        initStarter();
+        if (c.length == getDisciplineChoiceCount()) {
+            int y = 0;
+            for (int[] aC : c) {
+                while (!isDisciplineChosen(y)) {
+                    y++;
+                }
+                setStarter(y, aC);
+                y++;
+            }
+            return;
+        }
+
+        if (starter.length != c.length) {
+            throw new IllegalArgumentException(
+                    "Starterarray must have correct size, which is either the "
+                            + "number of disciplines in its Agegroup or the number of chosen disciplines ("
+                            + c.length + " != " + starter.length + " and " + getAK().getDiszAnzahl() + ").");
+        }
+        System.arraycopy(c, 0, starter, 0, c.length);
+    }
+
+    private void initStarter() {
+        if (starter == null) {
+            starter = new int[getAK().getDiszAnzahl()][getMaxMembers()];
+        } else if (starter.length != getAK().getDiszAnzahl()) {
+            int[][] copy = new int[getAK().getDiszAnzahl()][getMaxMembers()];
+            System.arraycopy(starter, 0, copy, 0, Math.min(copy.length, starter.length));
+            starter = copy;
+        }
+        for (int x = 0; x < starter.length; x++) {
+            if (starter[x] == null) {
+                starter[x] = new int[getMaxMembers()];
+            } else if (starter[x].length != getMaxMembers()) {
+                int[] copy = new int[getMaxMembers()];
+                System.arraycopy(starter[x], 0, copy, 0, Math.min(copy.length, starter[x].length));
+                starter[x] = copy;
+            }
         }
     }
 }

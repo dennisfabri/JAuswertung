@@ -32,6 +32,7 @@ import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Filter;
 import de.df.jauswertung.daten.HLWStates;
 import de.df.jauswertung.daten.Mannschaft;
+import de.df.jauswertung.daten.Mannschaftsmitgliederexportkennung;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
 import de.df.jauswertung.daten.Mannschaftsmitgliedermeldung;
@@ -42,26 +43,19 @@ import de.df.jauswertung.daten.Timelimits;
 import de.df.jauswertung.daten.TimelimitsContainer;
 import de.df.jauswertung.daten.Wettkampfart;
 import de.df.jauswertung.daten.Zielrichterentscheid;
-import de.df.jauswertung.daten.event.PropertyChangeListener;
-import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.Kampfrichter;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterPosition;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
-import de.df.jauswertung.daten.laufliste.Duration;
-import de.df.jauswertung.daten.laufliste.HLWLauf;
-import de.df.jauswertung.daten.laufliste.HLWListe;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.laufliste.OWSelection;
-import de.df.jauswertung.daten.laufliste.Time;
 import de.df.jauswertung.daten.misc.BugReport;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
-import de.df.jauswertung.daten.regelwerk.Einspruch;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -182,9 +176,6 @@ public final class IOUtils {
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Startgruppe", Startgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.regelwerk.Wertungsgruppe", Wertungsgruppe.class);
             instance.aliasType("de.dm.auswertung.daten.Eingabe", Eingabe.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.HLWListe$1", HLWListe.WettkampfChangeListener.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.HLWListe$Einteilung", HLWListe.Einteilung.class);
-            instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$1", Laufliste.WettkampfChangeListener.class);
             instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$Einteilung", Laufliste.Einteilung.class);
             instance.aliasType("de.dm.auswertung.daten.laufliste.Laufliste$BlockEinteilung",
                     Laufliste.BlockEinteilung.class);
@@ -202,20 +193,11 @@ public final class IOUtils {
             instance.alias("Zielrichterentscheid", Zielrichterentscheid.class);
             instance.alias("Eingabe", Eingabe.class);
 
-            instance.alias("PropertyChangeListener", PropertyChangeListener.class);
-            instance.alias("PropertyChangeManager", PropertyChangeManager.class);
 
-            instance.alias("HLW", HLWLauf.class);
-            instance.alias("HLWListe", HLWListe.class);
-            instance.alias("HLWListeWettkampfChangeListener", HLWListe.WettkampfChangeListener.class);
-            instance.alias("HLWListeEinteilung", HLWListe.Einteilung.class);
             instance.alias("Lauf", Lauf.class);
             instance.alias("Laufliste", Laufliste.class);
-            instance.alias("LauflisteWettkampfChangeListener", Laufliste.WettkampfChangeListener.class);
             instance.alias("LauflisteEinteilung", Laufliste.Einteilung.class);
             instance.alias("LauflisteBlockEinteilung", Laufliste.BlockEinteilung.class);
-            instance.alias("Time", Time.class);
-            instance.alias("Duration", Duration.class);
 
             instance.alias("BugReport", BugReport.class);
 
@@ -235,7 +217,6 @@ public final class IOUtils {
             instance.alias("OWLauf", OWLauf.class);
             instance.alias("OWLaufliste", OWLaufliste.class);
 
-            instance.alias("Einspruch", Einspruch.class);
             instance.alias("Strafe", Strafe.class);
             instance.alias("Strafen", Strafen.class);
             instance.alias("StrafenKapitel", StrafenKapitel.class);
@@ -263,7 +244,6 @@ public final class IOUtils {
             instance.useAttributeFor(ASchwimmer.class, "startunterlagen");
 
             instance.useAttributeFor(Mannschaft.class, "name");
-            instance.useAttributeFor(Mannschaft.class, "mitglieder");
 
             instance.useAttributeFor(Teilnehmer.class, "jahrgang");
             instance.useAttributeFor(Teilnehmer.class, "vorname");
@@ -276,6 +256,23 @@ public final class IOUtils {
             instance.aliasAttribute(Laufliste.class, "verteilung", "verteilung2");
 
             instance.registerConverter(new StringConverter());
+
+            // Removed fields that old files still contain
+            instance.omitField(AWettkampf.class, "einsprueche");
+            instance.omitField(AWettkampf.class, "exportfreigabe");
+            instance.omitField(AWettkampf.class, "webfreigabe");
+            instance.omitField(AWettkampf.class, "startnummern");
+            instance.omitField(AWettkampf.class, "empty");
+            instance.omitField(Strafe.class, "durchsage");
+            instance.omitField(Lauf.class, "checked");
+            instance.omitField(Lauf.class, "retyped");
+            instance.omitField(KampfrichterPosition.class, "required");
+            instance.omitField(Altersklasse.class, "minpunkte");
+            instance.omitField(Altersklasse.class, "kompakt");
+            instance.omitField(Mannschaftsmitgliederexportkennung.class, "exportedOnDate");
+            instance.omitField(Teilnehmer.class, "starter");
+            instance.omitField(AWettkampf.class, "pcManager");
+            instance.omitField(AWettkampf.class, "hlwliste");
         }
 
         return instance;

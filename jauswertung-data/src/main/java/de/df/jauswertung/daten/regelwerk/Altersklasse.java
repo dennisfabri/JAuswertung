@@ -32,11 +32,8 @@ public class Altersklasse implements Serializable {
     private boolean hlw;
     private Disziplin[][] disziplinen;
     private boolean[] gesamtwertung = { true, true };
-    private double[] minpunkte = { 0, 0 };
     private int[] alter = { 0, 0 };
     private int[] alterMannschaft = { 0, 0 };
-    @XStreamAsAttribute
-    private boolean kompakt = false;
     @XStreamAsAttribute
     private boolean diszchoice = false;
     @XStreamAsAttribute
@@ -66,7 +63,7 @@ public class Altersklasse implements Serializable {
     @XStreamAsAttribute
     private String wertungsgruppe = null;
 
-    private InterneStartgruppe interneStartgruppe = new InterneStartgruppe();
+    private transient InterneStartgruppe interneStartgruppe;
 
     /**
      * Erzeugt eine neue Altersklasse.
@@ -93,19 +90,6 @@ public class Altersklasse implements Serializable {
     }
 
     /**
-     * Erzeugt eine Altersklasse mit selbstdefinierten Werten.
-     * 
-     * @param aName       Gibt den Namen an.
-     * @param aDiszes     Gibt die einzelnen Disziplinen als Array an.
-     * @param aHlw        Gibt an, ob eine HLW durchgeführt werden muss oder nicht.
-     * @param aKompakt    Kompakt
-     */
-    public Altersklasse(String aName, Disziplin[][] aDiszes, boolean aHlw, boolean aKompakt) {
-        this(aName, aDiszes, aHlw);
-        kompakt = aKompakt;
-    }
-
-    /**
      * Erzeugt eine leere Altersklasse.
      */
     public Altersklasse() {
@@ -121,14 +105,6 @@ public class Altersklasse implements Serializable {
         hlw = false;
         disziplinen = new Disziplin[][] { { new Disziplin(), new Disziplin(), new Disziplin(), new Disziplin() },
                 { new Disziplin(), new Disziplin(), new Disziplin(), new Disziplin() } };
-    }
-
-    public synchronized void setKompaktToString(boolean b) {
-        kompakt = b;
-    }
-
-    public boolean getKompaktToString() {
-        return kompakt;
     }
 
     /**
@@ -151,14 +127,6 @@ public class Altersklasse implements Serializable {
             aName = "";
         }
         name = aName.trim();
-    }
-
-    public void setMinimalPoints(boolean male, double d) {
-        minpunkte[male ? 1 : 0] = d;
-    }
-
-    public double getMinimalPoints(boolean male) {
-        return minpunkte[male ? 1 : 0];
     }
 
     /**

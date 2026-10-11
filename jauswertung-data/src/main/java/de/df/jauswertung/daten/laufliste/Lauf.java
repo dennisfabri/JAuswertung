@@ -27,16 +27,9 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
     private int[] diszes = null;
     private int laufnummer = 0;
     private int laufbuchstabe = 0;
-    private boolean leftToRight = false;
+    private transient boolean leftToRight = false;
 
-    private boolean[] usable = null;
-
-    @Deprecated
-    @SuppressWarnings("unused")
-    private boolean checked = false;
-    @Deprecated
-    @SuppressWarnings("unused")
-    private boolean retyped = false;
+    private transient boolean[] usable = null;
 
     public Lauf(int bahnen, int lnummer, int lbuchstabe, boolean[] usable) {
         this(bahnen, lnummer, lbuchstabe);

@@ -106,7 +106,6 @@ public class MAltersklassenPlugin extends ANullPlugin {
                 if (wk.getLauflisteOW() != null) {
                     wk.getLauflisteOW().check(changedOrder);
                 }
-                wk.getHLWListe().check();
                 wk.changedNow();
                 controller.sendDataUpdateEvent("ChangeRB",
                         UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_ZW_LIST_CHANGED

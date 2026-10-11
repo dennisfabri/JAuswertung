@@ -2,6 +2,7 @@ package de.df.jauswertung.daten;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
@@ -12,8 +13,6 @@ import org.dom4j.Element;
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.daten.event.PropertyChangeListener;
-import de.df.jauswertung.daten.event.PropertyChangeManager;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.*;
@@ -45,7 +44,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             throw new NullPointerException("Argument must not be null!");
         }
         properties = new Hashtable<>();
-        pcManager = new PropertyChangeManager(this);
 
         strafen = s;
 
@@ -66,11 +64,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         filter = new Filter[]{new Filter(I18n.get("Filter.NoFilter"), null)};
         filterindex = 0;
 
-        startnummern = new Startnummern();
         laufliste = new Laufliste<>(this);
         lauflisteow = new OWLaufliste<>(this);
         schwimmer = new LinkedList<>();
-        hlwliste = new HLWListe<>(this);
         aks = altersklassen;
         kampfrichter = null;
         zielrichterentscheide = new LinkedList<>();
@@ -82,36 +78,47 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private final Regelwerk aks;
     private final Laufliste<T> laufliste;
     private final OWLaufliste<T> lauflisteow;
-    private final HLWListe<T> hlwliste;
     private final Strafen strafen;
     private final LinkedList<T> schwimmer;
-    @SuppressWarnings("unused")
-    private final LinkedList<Einspruch> einsprueche = new LinkedList<>();
     private final Hashtable<String, Object> properties;
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
 
-    @Deprecated
-    @SuppressWarnings("unused")
-    private Ergebnisfreigabe exportfreigabe;
-    @Deprecated
-    @SuppressWarnings("unused")
-    private Ergebnisfreigabe webfreigabe;
-
-    private final PropertyChangeManager pcManager;
 
     private TimelimitsContainer timelimits;
-
-    @SuppressWarnings("unused")
-    private Startnummern startnummern;
 
     private Filter[] filter;
     @XStreamAsAttribute
     private int filterindex;
 
-    private boolean[] disciplinesComplete = new boolean[0];
-    private boolean[][][] disciplinesAgeGroupComplete = new boolean[0][0][0];
-    private boolean[][] hlwAkComplete = new boolean[0][0];
+    // Input status, recomputed by updateInputStatus()
+    private transient boolean[] disciplinesComplete = new boolean[0];
+    private transient boolean[][][] disciplinesAgeGroupComplete = new boolean[0][0][0];
+    private transient boolean[][] hlwAkComplete = new boolean[0][0];
+
+    private boolean[] inputStatusDisciplines() {
+        ensureInputStatus();
+        return disciplinesComplete;
+    }
+
+    private boolean[][][] inputStatusPerDiscipline() {
+        ensureInputStatus();
+        return disciplinesAgeGroupComplete;
+    }
+
+    private boolean[][] inputStatusZusatzwertung() {
+        ensureInputStatus();
+        return hlwAkComplete;
+    }
+
+    /**
+     * The input status is not saved; after loading it is computed on first use.
+     */
+    private void ensureInputStatus() {
+        if (disciplinesComplete == null || disciplinesAgeGroupComplete == null || hlwAkComplete == null) {
+            updateInputStatus();
+        }
+    }
 
     public byte[] getLogo() {
         return (byte[]) properties.get(PropertyConstants.LOGO);
@@ -141,16 +148,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     /**
-     * Listener auf Aenderungen der Einstellungen hinzufuegen.
-     *
-     * @param pcl Listener
-     */
-    public final void addPropertyChangeListener(PropertyChangeListener pcl) {
-        pcManager.add(pcl);
-        changedNow(false);
-    }
-
-    /**
      * Kampfrichterverwaltung festlegen.
      *
      * @param k Kampfrichterverwaltung
@@ -169,8 +166,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return kampfrichter;
     }
 
-    private boolean updatesDisabled = false;
-    private boolean changedSinceDisable = false;
+    private transient boolean updatesDisabled = false;
+    private transient boolean changedSinceDisable = false;
 
     public void disableUpdates() {
         updatesDisabled = true;
@@ -203,7 +200,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return (Date) getProperty(LAST_CHANGE);
     }
 
-    private boolean changing = false;
+    private transient boolean changing = false;
 
     private void changedNow(boolean update) {
         if (changing) {
@@ -215,7 +212,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
                 changedSinceDisable |= update;
                 return;
             }
-            startnummern = null;
             setProperty(VERSION, I18n.getVersion());
             setProperty(LAST_CHANGE, new Date());
             if (update) {
@@ -242,10 +238,10 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      *             false sonst.
      */
     public final boolean isToDisciplineComplete(int disz, int ak, boolean male) {
-        if (disciplinesAgeGroupComplete.length > ak) {
+        if (inputStatusPerDiscipline().length > ak) {
             for (int x = 0; x < disz + 1; x++) {
-                if (disciplinesAgeGroupComplete[ak].length > x) {
-                    if (!disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+                if (inputStatusPerDiscipline()[ak].length > x) {
+                    if (!inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                         return false;
                     }
                 }
@@ -255,7 +251,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isDisciplineComplete(int disz, int ak, boolean male) {
-        return disciplinesAgeGroupComplete[ak][disz][male ? 1 : 0];
+        return inputStatusPerDiscipline()[ak][disz][male ? 1 : 0];
     }
 
     /**
@@ -267,7 +263,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      */
     public final boolean isToDisciplineComplete(int disz) {
         for (int x = 0; x < disz + 1; x++) {
-            if (!disciplinesComplete[x]) {
+            if (!inputStatusDisciplines()[x]) {
                 return false;
             }
         }
@@ -279,17 +275,17 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final int getToDisciplineComplete() {
-        for (int x = 0; x < disciplinesComplete.length; x++) {
-            if (!disciplinesComplete[x]) {
+        for (int x = 0; x < inputStatusDisciplines().length; x++) {
+            if (!inputStatusDisciplines()[x]) {
                 return x - 1;
             }
         }
-        return disciplinesComplete.length - 1;
+        return inputStatusDisciplines().length - 1;
     }
 
     public final boolean isOneDisciplineComplete(int ak, boolean male) {
-        for (int x = 0; x < disciplinesAgeGroupComplete[ak].length; x++) {
-            if (disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+        for (int x = 0; x < inputStatusPerDiscipline()[ak].length; x++) {
+            if (inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                 return true;
             }
         }
@@ -314,12 +310,12 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final int getToDisciplineComplete(int ak, boolean male) {
-        for (int x = 0; x < disciplinesAgeGroupComplete[ak].length; x++) {
-            if (!disciplinesAgeGroupComplete[ak][x][male ? 1 : 0]) {
+        for (int x = 0; x < inputStatusPerDiscipline()[ak].length; x++) {
+            if (!inputStatusPerDiscipline()[ak][x][male ? 1 : 0]) {
                 return x;
             }
         }
-        return disciplinesAgeGroupComplete[ak].length;
+        return inputStatusPerDiscipline()[ak].length;
     }
 
     /**
@@ -327,7 +323,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * wurden.
      */
     public final boolean isDisciplinesComplete() {
-        for (boolean aDisciplinesComplete : disciplinesComplete) {
+        for (boolean aDisciplinesComplete : inputStatusDisciplines()) {
             if (!aDisciplinesComplete) {
                 return false;
             }
@@ -336,9 +332,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isAgegroupComplete(int ak) {
-        for (int y = 0; y < disciplinesAgeGroupComplete[ak].length; y++) {
-            for (int z = 0; z < disciplinesAgeGroupComplete[ak][y].length; z++) {
-                if (!disciplinesAgeGroupComplete[ak][y][z]) {
+        for (int y = 0; y < inputStatusPerDiscipline()[ak].length; y++) {
+            for (int z = 0; z < inputStatusPerDiscipline()[ak][y].length; z++) {
+                if (!inputStatusPerDiscipline()[ak][y][z]) {
                     return false;
                 }
             }
@@ -347,8 +343,8 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final boolean isAgegroupComplete(int ak, boolean male) {
-        for (int y = 0; y < disciplinesAgeGroupComplete[ak].length; y++) {
-            if (!disciplinesAgeGroupComplete[ak][y][male ? 1 : 0]) {
+        for (int y = 0; y < inputStatusPerDiscipline()[ak].length; y++) {
+            if (!inputStatusPerDiscipline()[ak][y][male ? 1 : 0]) {
                 return false;
             }
         }
@@ -362,11 +358,11 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      *           eingegeben wurden. false sonst.
      */
     public final boolean isHlwComplete(int ak, boolean male) {
-        return hlwAkComplete[ak][male ? 1 : 0];
+        return inputStatusZusatzwertung()[ak][male ? 1 : 0];
     }
 
     public final boolean isHlwComplete() {
-        for (boolean[] aHlwAkComplete : hlwAkComplete) {
+        for (boolean[] aHlwAkComplete : inputStatusZusatzwertung()) {
             for (int y = 0; y < 2; y++) {
                 if (!aHlwAkComplete[y]) {
                     return false;
@@ -382,12 +378,12 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
      * @return true, wenn alle Zeiten eingegeben wurden. false sonst.
      */
     public final boolean isCompetitionComplete() {
-        for (boolean aDisciplinesComplete : disciplinesComplete) {
+        for (boolean aDisciplinesComplete : inputStatusDisciplines()) {
             if (!aDisciplinesComplete) {
                 return false;
             }
         }
-        for (boolean[] aHlwAkComplete : hlwAkComplete) {
+        for (boolean[] aHlwAkComplete : inputStatusZusatzwertung()) {
             if (!aHlwAkComplete[0]) {
                 return false;
             }
@@ -401,10 +397,14 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     // 1. Agegroup
     // 2. Sex
     // 3. discipline
-    private int[] lastcomplete = null;
-    private boolean[][] empty = new boolean[0][0];
+    private transient int[] lastcomplete = null;
 
     private void updateInputStatus() {
+        if (disciplinesComplete == null || disciplinesAgeGroupComplete == null || hlwAkComplete == null) {
+            disciplinesComplete = new boolean[0];
+            disciplinesAgeGroupComplete = new boolean[0][0][0];
+            hlwAkComplete = new boolean[0][0];
+        }
         int amount = aks.size();
         int length = aks.getMaxDisciplineCount();
 
@@ -420,7 +420,7 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             }
         }
 
-        empty = new boolean[amount][2];
+        boolean[][] empty = new boolean[amount][2];
         for (int x = 0; x < amount; x++) {
             for (int y = 0; y < 2; y++) {
                 empty[x][y] = !SearchUtils.hasSchwimmer(this, aks.getAk(x), y == 1);
@@ -624,9 +624,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
             if (lauflisteow != null) {
                 lauflisteow.remove(t);
             }
-            if (hlwliste != null) {
-                hlwliste.remove(t);
-            }
         }
         return geloescht;
     }
@@ -718,9 +715,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return lauflisteow;
     }
 
-    public final HLWListe<T> getHLWListe() {
-        return hlwliste;
-    }
 
     public Object getProperty(String name) {
         return properties.get(name);
@@ -744,7 +738,9 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         } else {
             properties.put(name, value);
         }
-        pcManager.firePropertyChangeEvent(name);
+        if (HEATS_LANES.equals(name) && laufliste != null) {
+            laufliste.setBahnen(getIntegerProperty(HEATS_LANES));
+        }
         changedNow(false);
     }
 
@@ -848,9 +844,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     }
 
     public final void check() {
-        if (getHLWListe() != null) {
-            getHLWListe().check();
-        }
         if (getLaufliste() != null) {
             getLaufliste().check(getLauflisteOW() != null && !getLauflisteOW().isEmpty());
         }
@@ -1067,6 +1060,16 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
 
     public void setNachruecker(int[][] limits) {
         setIntArray2("NACHRUECKER", limits);
+    }
+
+    /**
+     * Called after loading (XStream and Java serialization), where no constructor runs.
+     */
+    @Serial
+    protected Object readResolve() {
+        // Settings of the removed HLW heat list
+        properties.keySet().removeIf(key -> key.startsWith("Hlw"));
+        return this;
     }
 
     @SuppressWarnings("unused")
