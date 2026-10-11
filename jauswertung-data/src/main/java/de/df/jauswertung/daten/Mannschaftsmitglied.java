@@ -22,13 +22,6 @@ public class Mannschaftsmitglied implements Serializable {
         clear();
     }
 
-    public Mannschaftsmitglied(String vorname, String nachname, Geschlecht geschlecht, int jahrgang, String importId) {
-        Vorname = vorname;
-        Nachname = nachname;
-        this.geschlecht = geschlecht;
-        Jahrgang = jahrgang;
-    }
-
     public boolean isEmpty() {
         return !HasName();
     }

@@ -12,5 +12,4 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [Team member constructor ignores the import id](teammember-constructor-ignores-import-id.md) | Low | S | A `Mannschaftsmitglied` constructor drops its import id |
 | [Best times are missing for heat-based competitions with times](best-times-for-heat-based-competitions.md) | Low | M | Pool competitions with finals have times per round but no best times |
