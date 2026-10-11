@@ -14,7 +14,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_POINTS_CHANGED;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,30 +23,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTable.PrintMode;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
+import de.df.jauswertung.util.TimelimitUtils;
+import de.df.jauswertung.util.DataTableUtils;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Timelimits;
-import de.df.jauswertung.daten.TimelimitsContainer;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
-import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Strafe;
-import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.vergleicher.ZeitenVergleicher;
 import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
@@ -55,7 +45,6 @@ import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.JTablePrintable;
-import de.df.jutils.util.StringTools;
 
 /**
  * @author Dennis Fabri @date 17.10.2004
@@ -199,118 +188,11 @@ class BrokenLimitsPrinter implements Printer {
     }
 
     static boolean checkRecords(AWettkampf<ASchwimmer> wk, int index) {
-        TimelimitsContainer tc = wk.getTimelimits();
-
-        int akmin = 0;
-        int akmax = wk.getRegelwerk().size();
-        if ((index >= 0) && (index < wk.getRegelwerk().size())) {
-            akmin = index;
-            akmax = index + 1;
-        }
-        for (int x = akmin; x < akmax; x++) {
-            Altersklasse ak = wk.getRegelwerk().getAk(x);
-            for (int y = 0; y < 2; y++) {
-                LinkedList<ASchwimmer> swimmer = SearchUtils.getSchwimmer(wk, ak, y == 1);
-                for (ASchwimmer s : swimmer) {
-                    if (wk.isHeatBased()) {
-                        OWDisziplin<ASchwimmer>[] disziplinen = wk.getLauflisteOW().getDisziplinen();
-                        for (OWDisziplin<ASchwimmer> disziplin : disziplinen) {
-                            if (s.hasInput(disziplin.Id)) {
-                                if (tc.isBrokenBy(s.getZeit(disziplin.Id), s.getAkkumulierteStrafe(disziplin.Id),
-                                        ak.getDisziplin(disziplin.disziplin, s.isMaennlich()).getName(), s,
-                                        wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION),
-                                        disziplin.round)) {
-                                    return true;
-                                }
-                            }
-                        }
-                    } else {
-                        for (int z = 0; z < ak.getDiszAnzahl(); z++) {
-                            Disziplin d = ak.getDisziplin(z, y == 1);
-                            if (s.hasInput(z)) {
-                                if (tc.isBrokenBy(s.getZeit(z), s.getAkkumulierteStrafe(z), d.getName(), s,
-                                        wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0)) {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
+        return TimelimitUtils.hasBrokenTimelimits(wk, index);
     }
 
     JTable getData(AWettkampf<ASchwimmer> wk, int index) {
-        TimelimitsContainer tlc = wk.getTimelimits();
-
-        LinkedList<Object[]> result = new LinkedList<>();
-
-        if (tlc != null && !tlc.isEmpty()) {
-            int akmin = 0;
-            int akmax = wk.getRegelwerk().size();
-            if ((index >= 0) && (index < wk.getRegelwerk().size())) {
-                akmin = index;
-                akmax = index + 1;
-            }
-            for (Timelimits tl : tlc.getTimelimits()) {
-                for (int x = akmin; x < akmax; x++) {
-                    Altersklasse ak = wk.getRegelwerk().getAk(x);
-                    for (int y = 0; y < 2; y++) {
-                        LinkedList<ASchwimmer> swimmer = SearchUtils.getSchwimmer(wk, ak, y == 1);
-                        if (wk.isHeatBased()) {
-                            OWDisziplin<ASchwimmer>[] disziplinen = wk.getLauflisteOW().getDisziplinen();
-                            for (OWDisziplin<ASchwimmer> disziplin : disziplinen) {
-                                for (ASchwimmer s : swimmer) {
-                                    Disziplin d = ak.getDisziplin(disziplin.disziplin, y == 1);
-                                    if (s.hasInput(disziplin.Id) && tl.isBrokenBy(s.getZeit(disziplin.Id),
-                                            s.getAkkumulierteStrafe(disziplin.Id), d.getName(),
-                                            s, wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION),
-                                            disziplin.round)) {
-                                        Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-                                        Object[] data = new Object[] { s.getName()
-                                                + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
-                                                s.getGliederung(), s.getQualifikationsebene(),
-                                                I18n.getAgeGroupAsString(s),
-                                                StringTools.zeitString(s.getZeit(disziplin.Id)),
-                                                PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(disziplin.Id),
-                                                        ak),
-                                                d.getName(), tl.getShortname() };
-                                        result.addLast(data);
-                                    }
-                                }
-                            }
-                        } else {
-                            for (int z = 0; z < ak.getDiszAnzahl(); z++) {
-                                Collections.sort(swimmer, new ZeitenVergleicher(z));
-                                for (ASchwimmer s : swimmer) {
-                                    Disziplin d = ak.getDisziplin(z, y == 1);
-                                    if (s.hasInput(z)
-                                            && tl.isBrokenBy(s.getZeit(z), s.getAkkumulierteStrafe(z), d.getName(), s,
-                                                    wk.getIntegerProperty(PropertyConstants.YEAR_OF_COMPETITION), 0)) {
-                                        Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
-                                        Object[] data = new Object[] { s.getName()
-                                                + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
-                                                s.getGliederung(), s.getQualifikationsebene(),
-                                                I18n.getAgeGroupAsString(s),
-                                                StringTools.zeitString(s.getZeit(z)),
-                                                PenaltyUtils.getPenaltyMediumText(s.getAkkumulierteStrafe(z), ak),
-                                                d.getName(), tl.getShortname() };
-                                        result.addLast(data);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        TableModel tm = new DefaultTableModel(result.toArray(new Object[result.size()][0]),
-                new Object[] { I18n.get("Name"), I18n.get("Organisation"), "",
-                        I18n.get("AgeGroup"), I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Type") });
-        JTable table = new JTable(tm);
+        JTable table = new JTable(DataTableUtils.brokenTimelimits(wk, index));
         if (PrintUtils.printOmitOrganisationForTeams && (((AWettkampf) wk) instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 1);
         }

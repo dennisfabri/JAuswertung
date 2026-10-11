@@ -19,7 +19,7 @@ public class TimelimitsContainer implements Serializable {
     }
 
     public boolean hasTimelimits() {
-        return false;
+        return !isEmpty();
     }
 
     public Timelimits[] getTimelimits() {

@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.text.Collator;
 import java.util.*;
 
@@ -1531,6 +1532,31 @@ public final class DataTableUtils {
         }
 
         return maxteamsize;
+    }
+
+    /**
+     * Broken time limits, as printed and as shown by the check of time limits.
+     *
+     * @param ageGroup index of the age group; any other value means all age groups
+     */
+    public static <T extends ASchwimmer> DefaultTableModel brokenTimelimits(AWettkampf<T> wk, int ageGroup) {
+        LinkedList<Object[]> rows = new LinkedList<>();
+        for (TimelimitUtils.BrokenTimelimit<T> broken : TimelimitUtils.getBrokenTimelimits(wk, ageGroup)) {
+            T s = broken.swimmer();
+            Strafe str = s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF);
+            rows.addLast(new Object[]{
+                    s.getName() + (str.isStrafe() ? " (" + I18n.getPenaltyShort(str) + ")" : ""),
+                    s.getGliederung(), s.getQualifikationsebene(), I18n.getAgeGroupAsString(s),
+                    StringTools.zeitString(broken.time()),
+                    PenaltyUtils.getPenaltyMediumText(broken.penalty(), broken.ageGroup()),
+                    broken.discipline().getName(), broken.timelimits().getShortname()
+            });
+        }
+        return new DefaultTableModel(rows.toArray(new Object[rows.size()][0]),
+                                     new Object[]{
+                                             I18n.get("Name"), I18n.get("Organisation"), "", I18n.get("AgeGroup"),
+                                             I18n.get("Time"), "", I18n.get("Discipline"), I18n.get("Type")
+                                     });
     }
 
     public static <T extends ASchwimmer> ExtendedTableModel getSchnellsteZeiten(AWettkampf<T> wk, boolean print) {

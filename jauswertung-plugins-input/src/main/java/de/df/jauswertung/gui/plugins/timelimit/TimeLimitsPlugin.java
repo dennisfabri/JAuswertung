@@ -4,12 +4,15 @@ import java.util.function.Consumer;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.table.DefaultTableModel;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.TimelimitsContainer;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.util.DataTableUtils;
+import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -34,9 +37,7 @@ public class TimeLimitsPlugin extends ANullPlugin {
         edit.setToolTipText(I18n.getToolTip("Edit"));
 
         check = new JMenuItem(I18n.get("Check"));
-        check.addActionListener(arg0 -> {
-            // showEditor(false);
-        });
+        check.addActionListener(arg0 -> showBrokenTimelimits());
         check.setToolTipText(I18n.getToolTip("Check"));
         check.setEnabled(true);
 
@@ -83,6 +84,17 @@ public class TimeLimitsPlugin extends ANullPlugin {
         JTimelimitsEditor editor = new JTimelimitsEditor(getController().getWindow(), wk.getTimelimits(), callback,
                 female, male);
         ModalFrameUtil.showAsModal(editor, getController().getWindow());
+    }
+
+    private void showBrokenTimelimits() {
+        DefaultTableModel broken = DataTableUtils.brokenTimelimits(core.getWettkampf(), -1);
+        if (broken.getRowCount() == 0) {
+            DialogUtils.inform(getController().getWindow(), I18n.get("TimelimitsNotBroken"),
+                    I18n.get("TimelimitsNotBroken.Note"));
+            return;
+        }
+        ModalFrameUtil.showAsModal(new JBrokenTimelimitsFrame(getController().getWindow(), broken),
+                getController().getWindow());
     }
 
     void saveResult(TimelimitsContainer tlc) {

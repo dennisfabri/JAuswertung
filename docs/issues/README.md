@@ -12,7 +12,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [timelimit-check-always-disabled.md](timelimit-check-always-disabled.md) | Medium | S | The time limit check can never be started |
 | [custom-heat-split-with-mixed-startgroups.md](custom-heat-split-with-mixed-startgroups.md) | Medium | M | Custom heat split throws in `reorderDisciplines` when a start group mixes discipline counts |
 | [heat-list-csv-export-fails-for-finals.md](heat-list-csv-export-fails-for-finals.md) | Medium | M | CSV heat list export throws for competitions with finals |
 | [round-competition-removes-wrong-discipline.md](round-competition-removes-wrong-discipline.md) | Low | S | `createCompetitionFor` removes the selected round instead of the others |
