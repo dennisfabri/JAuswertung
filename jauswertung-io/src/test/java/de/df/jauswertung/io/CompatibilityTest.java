@@ -139,8 +139,9 @@ class CompatibilityTest {
         AWettkampf<?> wk = laden(BASIS.resolve(datei));
         assumeFalse(wk.isHeatBased(), "Finale enthalten nur Runden");
 
-        pruefeDatenOhneExport(wk);
-        pruefeDatenOhneExport(nachSpeichernUndLaden(wk, temp));
+        int jahr = Integer.parseInt(datei.getName(0).toString());
+        pruefeDatenOhneExport(wk, jahr);
+        pruefeDatenOhneExport(nachSpeichernUndLaden(wk, temp), jahr);
     }
 
     @ParameterizedTest(name = "{0}")
@@ -299,14 +300,18 @@ class CompatibilityTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static void pruefeDatenOhneExport(AWettkampf<?> wk) {
+    private static void pruefeDatenOhneExport(AWettkampf<?> wk, int jahr) {
         assertNotNull(wk.getLogo(), "Logo");
-        assertTrue(((Hashtable<String, Object>[]) wk.getProperty(URKUNDE)).length > 0, "Urkunde");
-        assertTrue(((Hashtable<String, Object>[]) wk.getProperty(URKUNDE_EINZELWERTUNG)).length > 0,
-                "Urkunde Einzelwertung");
+        if (jahr >= 2023) {
+            assertTrue(((Hashtable<String, Object>[]) wk.getProperty(URKUNDE)).length > 0, "Urkunde");
+            assertTrue(((Hashtable<String, Object>[]) wk.getProperty(URKUNDE_EINZELWERTUNG)).length > 0,
+                    "Urkunde Einzelwertung");
+        }
         assertFalse(((Hashtable<String, boolean[]>) wk.getProperty(HEATS_LANE_SELECTION)).isEmpty(), "Bahnauswahl");
         assertInstanceOf(int[][][].class, wk.getProperty(DSM_MODE_DATA), "DSM-Daten");
-        assertFalse(wk.getStringProperty(UPLOAD_ID, "").isEmpty(), "Upload-Id");
+        if (jahr >= 2025) {
+            assertFalse(wk.getStringProperty(UPLOAD_ID, "").isEmpty(), "Upload-Id");
+        }
 
         assertNotEquals(Wettkampfart.SonstigerWettkampf, wk.getProperty(ART_DES_WETTKAMPFS), "Art des Wettkampfs");
         assertNotEquals(1, wk.getIntegerProperty(HEATS_FIRST_HEAT), "Erster Lauf");
@@ -333,8 +338,12 @@ class CompatibilityTest {
                 "Qualifikationen");
         assertTrue(new HashSet<>(schwimmer.stream().map(ASchwimmer::getStartunterlagen).toList()).size() > 1,
                 "Startunterlagen");
-        assertTrue(schwimmer.stream().allMatch(s -> s.getImportId() != null), "Import-Ids");
-        assertTrue(schwimmer.stream().anyMatch(s -> s.getMeldePlatz() > 0), "Meldeplatz");
+        if (jahr >= 2025) {
+            assertTrue(schwimmer.stream().allMatch(s -> s.getImportId() != null), "Import-Ids");
+        }
+        if (jahr >= 2026) {
+            assertTrue(schwimmer.stream().anyMatch(s -> s.getMeldePlatz() > 0), "Meldeplatz");
+        }
         assertTrue(schwimmer.stream().anyMatch(ASchwimmer::hasDopingkontrolle), "Dopingkontrolle");
         assertTrue(schwimmer.stream().anyMatch(ASchwimmer::isAusserKonkurrenz), "Außer Konkurrenz");
     }
