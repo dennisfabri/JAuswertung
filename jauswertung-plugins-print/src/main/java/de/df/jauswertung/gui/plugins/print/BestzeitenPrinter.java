@@ -76,7 +76,7 @@ public class BestzeitenPrinter implements Printer {
     @SuppressWarnings("rawtypes")
     @Override
     public void dataUpdated(UpdateEvent due, AWettkampf wk, AWettkampf filteredwk) {
-        boolean b = wk.hasSchwimmer() && !wk.isHeatBased();
+        boolean b = wk.hasBestTimes();
         preview.setEnabled(b);
         print.setEnabled(b);
     }
