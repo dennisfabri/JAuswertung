@@ -3,6 +3,8 @@
  */
 package de.df.jauswertung.test.results.dsm06;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.FileNotFoundException;
 
 import de.df.jauswertung.daten.Mannschaft;
@@ -14,25 +16,22 @@ import de.df.jauswertung.test.util.TestImportUtils;
 import de.df.jauswertung.test.util.TestUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class DSM06M240wTest extends TestCase {
+public class DSM06M240wTest {
 
     private static final String FILE = "src/test/resources/competitions/dsm06/mannschaft-ak240w.csv";
     private static final boolean MALE = false;
     private static final int AK = 10;
-
-    public DSM06M240wTest(String x) {
-        super(x);
-    }
 
     private static MannschaftWettkampf wk = null;
 
     private static SchwimmerResult<Mannschaft>[] results = null;
     private static Object[][] data = null;
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         if (wk == null) {
             wk = new MannschaftWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm"),
                     InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", false));
@@ -41,6 +40,7 @@ public class DSM06M240wTest extends TestCase {
         }
     }
 
+    @Test
     public void testResults() throws TableFormatException, FileNotFoundException {
         assertEquals(data[0].length, results.length);
         for (int x = 0; x < results.length; x++) {
@@ -48,11 +48,13 @@ public class DSM06M240wTest extends TestCase {
         }
     }
 
+    @Test
     public void testResult1() throws TableFormatException, FileNotFoundException {
         int x = 0;
         checkRow(x);
     }
 
+    @Test
     public void testResult2() throws TableFormatException, FileNotFoundException {
         int x = 1;
         checkRow(x);

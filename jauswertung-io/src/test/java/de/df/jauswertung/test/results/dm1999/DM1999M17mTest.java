@@ -3,6 +3,8 @@
  */
 package de.df.jauswertung.test.results.dm1999;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.FileNotFoundException;
 
 import de.df.jauswertung.daten.Mannschaft;
@@ -14,9 +16,10 @@ import de.df.jauswertung.test.util.TestImportUtils;
 import de.df.jauswertung.test.util.TestUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class DM1999M17mTest extends TestCase {
+public class DM1999M17mTest {
 
     private static MannschaftWettkampf wk = null;
 
@@ -27,12 +30,8 @@ public class DM1999M17mTest extends TestCase {
     private static SchwimmerResult<Mannschaft>[] results = null;
     private static Object[][] data = null;
 
-    public DM1999M17mTest(String x) {
-        super(x);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         if (wk == null) {
             wk = new MannschaftWettkampf(AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm"),
                     InputManager.ladeStrafen("src/test/resources/rulebooks/DLRG 1999", false));
@@ -41,6 +40,7 @@ public class DM1999M17mTest extends TestCase {
         }
     }
 
+    @Test
     public void testResults() throws TableFormatException, FileNotFoundException {
         assertEquals(data[0].length, results.length);
         for (int x = 0; x < results.length; x++) {
@@ -48,141 +48,169 @@ public class DM1999M17mTest extends TestCase {
         }
     }
 
+    @Test
     public void testResult1() throws TableFormatException, FileNotFoundException {
         int x = 0;
         checkRow(x);
     }
 
+    @Test
     public void testResult2() throws TableFormatException, FileNotFoundException {
         int x = 1;
         checkRow(x);
     }
 
+    @Test
     public void testResult3() throws TableFormatException, FileNotFoundException {
         int x = 2;
         checkRow(x);
     }
 
+    @Test
     public void testResult4() throws TableFormatException, FileNotFoundException {
         int x = 3;
         checkRow(x);
     }
 
+    @Test
     public void testResult5() throws TableFormatException, FileNotFoundException {
         int x = 4;
         checkRow(x);
     }
 
+    @Test
     public void testResult6() throws TableFormatException, FileNotFoundException {
         int x = 5;
         checkRow(x);
     }
 
+    @Test
     public void testResult7() throws TableFormatException, FileNotFoundException {
         int x = 6;
         checkRow(x);
     }
 
+    @Test
     public void testResult8() throws TableFormatException, FileNotFoundException {
         int x = 7;
         checkRow(x);
     }
 
+    @Test
     public void testResult9() throws TableFormatException, FileNotFoundException {
         int x = 8;
         checkRow(x);
     }
 
+    @Test
     public void testResult10() throws TableFormatException, FileNotFoundException {
         int x = 9;
         checkRow(x);
     }
 
+    @Test
     public void testResult11() throws TableFormatException, FileNotFoundException {
         int x = 10;
         checkRow(x);
     }
 
+    @Test
     public void testResult12() throws TableFormatException, FileNotFoundException {
         int x = 11;
         checkRow(x);
     }
 
+    @Test
     public void testResult13() throws TableFormatException, FileNotFoundException {
         int x = 12;
         checkRow(x);
     }
 
+    @Test
     public void testResult14() throws TableFormatException, FileNotFoundException {
         int x = 13;
         checkRow(x);
     }
 
+    @Test
     public void testResult15() throws TableFormatException, FileNotFoundException {
         int x = 14;
         checkRow(x);
     }
 
+    @Test
     public void testResult16() throws TableFormatException, FileNotFoundException {
         int x = 15;
         checkRow(x);
     }
 
+    @Test
     public void testResult17() throws TableFormatException, FileNotFoundException {
         int x = 16;
         checkRow(x);
     }
 
+    @Test
     public void testResult18() throws TableFormatException, FileNotFoundException {
         int x = 17;
         checkRow(x);
     }
 
+    @Test
     public void testResult19() throws TableFormatException, FileNotFoundException {
         int x = 18;
         checkRow(x);
     }
 
+    @Test
     public void testResult20() throws TableFormatException, FileNotFoundException {
         int x = 19;
         checkRow(x);
     }
 
+    @Test
     public void testResult21() throws TableFormatException, FileNotFoundException {
         int x = 20;
         checkRow(x);
     }
 
+    @Test
     public void testResult22() throws TableFormatException, FileNotFoundException {
         int x = 21;
         checkRow(x);
     }
 
+    @Test
     public void testResult23() throws TableFormatException, FileNotFoundException {
         int x = 22;
         checkRow(x);
     }
 
+    @Test
     public void testResult24() throws TableFormatException, FileNotFoundException {
         int x = 23;
         checkRow(x);
     }
 
+    @Test
     public void testResult25() throws TableFormatException, FileNotFoundException {
         int x = 24;
         checkRow(x);
     }
 
+    @Test
     public void testResult26() throws TableFormatException, FileNotFoundException {
         int x = 25;
         checkRow(x);
     }
 
+    @Test
     public void testResult27() throws TableFormatException, FileNotFoundException {
         int x = 26;
         checkRow(x);
     }
 
+    @Test
     public void testResult28() throws TableFormatException, FileNotFoundException {
         int x = 27;
         checkRow(x);

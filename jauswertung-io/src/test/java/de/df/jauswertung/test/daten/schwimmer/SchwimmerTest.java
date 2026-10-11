@@ -8,9 +8,16 @@ import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
-import junit.framework.TestCase;
 
-public class SchwimmerTest extends TestCase {
+
+import org.junit.jupiter.api.AfterEach;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class SchwimmerTest {
 
     private Regelwerk aks = AgeGroupIOUtils.ladeAKs("src/test/resources/rulebooks/DLRG 1999.rwm");
     private MannschaftWettkampf wk = new MannschaftWettkampf(aks,
@@ -19,22 +26,19 @@ public class SchwimmerTest extends TestCase {
     private ASchwimmer s2;
     private ASchwimmer s1;
 
-    public SchwimmerTest() {
-        super();
-    }
-
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         s1 = wk.createMannschaft("Name 1", false, "Gliederung 1", 0, "Bemerkung 1");
         s2 = wk.createMannschaft("Name 2", true, "Gliederung 2", 0, "Bemerkung 2");
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @AfterEach
+    public void tearDown() throws Exception {
         s1 = null;
         s2 = null;
     }
 
+    @Test
     public void testConstructor() {
         assertEquals(s1.getName(), "Name 1");
         assertEquals(s1.isMaennlich(), false);
@@ -49,14 +53,17 @@ public class SchwimmerTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetAK() {
         assertSame(s1.getAK(), aks.getAk(0));
     }
 
+    @Test
     public void testToString() {
         assertEquals(s1.toString(), "S#0 - AK 12 weiblich - Gliederung 1 - Name 1");
     }
 
+    @Test
     public void testCompareTo() {
         assertTrue(s1.compareTo(s1) == 0);
         assertTrue(s1.compareTo(s2) == 0);
@@ -76,6 +83,7 @@ public class SchwimmerTest extends TestCase {
         }
     }
 
+    @Test
     public void testEquals() {
         assertTrue(s1.equals(s1));
         assertTrue(s1.equals(s2));
@@ -90,6 +98,7 @@ public class SchwimmerTest extends TestCase {
         assertFalse(s1.equals(null));
     }
 
+    @Test
     public void testAK() {
         s1.setAKNummer(1, true);
 
