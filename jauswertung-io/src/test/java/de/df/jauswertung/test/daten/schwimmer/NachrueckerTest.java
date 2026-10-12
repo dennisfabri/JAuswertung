@@ -3,9 +3,12 @@ package de.df.jauswertung.test.daten.schwimmer;
 import static de.df.jauswertung.daten.ASchwimmer.DISCIPLINE_NUMBER_SELF;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -134,6 +137,18 @@ class NachrueckerTest {
         assertEquals(erwartet(9, 9, 9), qualifiziert());
     }
 
+    @Test
+    void fortlaufendePlatzierungenUeberAlleLaeufeQualifizierenJeLauf() {
+        int platz = 1;
+        for (List<Integer> lauf : laeufe) {
+            for (int bahn = 1; bahn <= BAHNEN; bahn++) {
+                schwimmer(lauf, bahn).getEingabe(vorlauf.getId()).setZeit(platz++);
+            }
+        }
+
+        assertEquals(erwartet(9, 9, 9), qualifiziert());
+    }
+
     @ParameterizedTest
     @ValueSource(ints = { 0, 1, 2 })
     void abmeldenNachErzeugenDerLauflisteIstUnwirksam(int lauf) {
@@ -141,6 +156,40 @@ class NachrueckerTest {
         schwimmer(laeufe.get(lauf), 9).addStrafe(vorlauf.getId(), Strafe.WITHDRAW);
 
         assertEquals(erwartet(9, 9, 9), imZwischenlauf());
+    }
+
+    /** Lauf und Bahn je Startnummer in der Laufliste des Zwischenlaufs. */
+    private Map<Integer, List<Integer>> positionenImZwischenlauf() {
+        Map<Integer, List<Integer>> result = new HashMap<>();
+        List<OWLauf<Teilnehmer>> zwischenlaeufe = wk.getLauflisteOW().getDisziplin(zwischenlauf).getLaeufe();
+        for (int l = 0; l < zwischenlaeufe.size(); l++) {
+            OWLauf<Teilnehmer> lauf = zwischenlaeufe.get(l);
+            for (int bahn = 0; bahn < lauf.getBahnen(); bahn++) {
+                Teilnehmer t = lauf.getSchwimmer(bahn);
+                if (t != null) {
+                    result.put(t.getStartnummer(), List.of(l, bahn));
+                }
+            }
+        }
+        return result;
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 0, 1, 2 })
+    void bearbeitenNimmtNachrueckerOhneEinteilungAuf(int lauf) {
+        erzeugeLaufliste(zwischenlauf);
+        Map<Integer, List<Integer>> positionenVorher = positionenImZwischenlauf();
+        int abgemeldet = laeufe.get(lauf).get(8);
+        int nachruecker = laeufe.get(lauf).get(9);
+        SearchUtils.getSchwimmer(wk, abgemeldet).addStrafe(vorlauf.getId(), Strafe.WITHDRAW);
+
+        HeatsUtils.aktualisiereTeilnehmer(wk, zwischenlauf);
+
+        assertEquals(mitNachrueckerAus(lauf), imZwischenlauf());
+        Map<Integer, List<Integer>> positionenNachher = positionenImZwischenlauf();
+        positionenVorher.remove(abgemeldet);
+        assertEquals(positionenVorher, positionenNachher);
+        assertFalse(positionenNachher.containsKey(nachruecker));
     }
 
     @ParameterizedTest
