@@ -413,6 +413,22 @@ public class ResultUtils {
         return false;
     }
 
+    /**
+     * Allgemeine Strafen dürfen das Ergebnis einer Runde nicht mehr ändern, wenn die Folgerunde schon eingeteilt wurde,
+     * weil deren Läufe auf diesem Ergebnis beruhen.
+     */
+    private static <T extends ASchwimmer> boolean istInFolgerundeEingeteilt(AWettkampf<T> cwk, ASchwimmer s,
+            OWSelection t, int runden) {
+        for (int round = t.round + 1; round < runden; round++) {
+            OWDisziplin<T> folgerunde = cwk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, round);
+            if (folgerunde != null && folgerunde.getSchwimmer().stream()
+                    .anyMatch(x -> x.getStartnummer() == s.getStartnummer())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(AWettkampf<T> cwk, OWSelection t) {
         if (cwk == null) {
             return null;
@@ -545,7 +561,9 @@ public class ResultUtils {
                 zeit = sx.getZeit(d.Id);
                 strafen = sx.getStrafen(d.Id);
             }
-            strafen.addAll(s.getAllgemeineStrafen());
+            if (!istInFolgerundeEingeteilt(cwk, s, t, disziplin.getRunden().length + 1)) {
+                strafen.addAll(s.getAllgemeineStrafen());
+            }
             s.setBemerkung("" + s.getStartnummer());
             s.clear();
             s.setZeit(0, zeit);

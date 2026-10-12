@@ -226,6 +226,54 @@ class StartetNichtTest {
         }
 
         @Test
+        void allgemeinerAusschlussNachEinteilungInDieFolgerundeLaesstDasErgebnisDerRundeStehen() {
+            OWSelection finale = schwimmeVorlaufUndErzeugeFinale();
+            schwimmer(3).addStrafe(DISCIPLINE_NUMBER_SELF, Strafe.AUSSCHLUSS);
+
+            assertEquals(List.of(), rundenkopie(disziplin0, 3).getStrafen(0));
+            assertEquals(List.of(Strafe.AUSSCHLUSS), rundenkopie(finale, 3).getStrafen(0));
+        }
+
+        @Test
+        void allgemeineStrafenNachEinteilungInDieFolgerundeLassenDasErgebnisDerRundeStehen() {
+            OWSelection finale = schwimmeVorlaufUndErzeugeFinale();
+            schwimmer(3).addStrafe(DISCIPLINE_NUMBER_SELF, new Strafe(10));
+
+            assertEquals(List.of(), rundenkopie(disziplin0, 3).getStrafen(0));
+            assertEquals(List.of(new Strafe(10)), rundenkopie(finale, 3).getStrafen(0));
+        }
+
+        @Test
+        void allgemeinerAusschlussOhneEinteilungInDieFolgerundeGiltFuerDieRunde() {
+            schwimmeVorlaufUndErzeugeFinale();
+            schwimmer(ANZAHL).addStrafe(DISCIPLINE_NUMBER_SELF, Strafe.AUSSCHLUSS);
+
+            assertEquals(List.of(Strafe.AUSSCHLUSS), rundenkopie(disziplin0, ANZAHL).getStrafen(0));
+        }
+
+        @Test
+        void allgemeinerAusschlussVorDerEinteilungDerFolgerundeGiltFuerDieRunde() {
+            schwimmer(3).addStrafe(DISCIPLINE_NUMBER_SELF, Strafe.AUSSCHLUSS);
+
+            assertEquals(List.of(Strafe.AUSSCHLUSS), rundenkopie(disziplin0, 3).getStrafen(0));
+        }
+
+        private OWSelection schwimmeVorlaufUndErzeugeFinale() {
+            for (int x = 1; x <= ANZAHL; x++) {
+                schwimmer(x).getEingabe(disziplin0.getId(), true).setZeit(6000 + x);
+            }
+            OWSelection finale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, 0, 1);
+            erzeugeLaufliste(finale);
+            assertTrue(wk.getLauflisteOW().getDisziplin(finale).getSchwimmer().contains(schwimmer(3)));
+            assertFalse(wk.getLauflisteOW().getDisziplin(finale).getSchwimmer().contains(schwimmer(ANZAHL)));
+            return finale;
+        }
+
+        private Teilnehmer rundenkopie(OWSelection selection, int startnummer) {
+            return SearchUtils.getSchwimmer(ResultUtils.createCompetitionFor(wk, selection), startnummer);
+        }
+
+        @Test
         void allgemeinerAusschlussGiltFuerAlleRunden() {
             schwimmer(3).addStrafe(DISCIPLINE_NUMBER_SELF, Strafe.AUSSCHLUSS);
 
