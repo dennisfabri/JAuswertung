@@ -28,7 +28,7 @@
         <jackson.version>2.22.3</jackson.version>
         <lombok.version>1.18.48</lombok.version>
         <opencsv.version>5.12.0</opencsv.version>
-        <nv-i18n.version>1.29</nv-i18n.version>
+        <nv-i18n.version>1.36.0</nv-i18n.version>
         <log4j.version>2.26.1</log4j.version>
         <commons-xmt.version>1.2.1-SNAPSHOT</commons-xmt.version>
         <cloning.version>1.13.0</cloning.version>
@@ -501,7 +501,7 @@
                 <version>${opencsv.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.neovisionaries</groupId>
+                <groupId>uk.co.foundationsedge</groupId>
                 <artifactId>nv-i18n</artifactId>
                 <version>${nv-i18n.version}</version>
             </dependency>

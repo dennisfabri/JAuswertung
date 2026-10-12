@@ -51,7 +51,7 @@ For detailed documentation, please visit the [official documentation](https://ww
 
 We appreciate feedback and contribution to this repo! Before you get started, please see the following:
 
-- [Our contribution guidelines](https://github.com/dennisfabri/JAuswertung/blob/main//GENERAL-CONTRIBUTING.md)
+- [Our contribution guidelines](https://github.com/dennisfabri/JAuswertung/blob/main/CONTRIBUTION.md)
 - [Our code of conduct guidelines](https://github.com/dennisfabri/JAuswertung/blob/main/CODE-OF-CONDUCT.md)
 
 ## Support + Feedback
