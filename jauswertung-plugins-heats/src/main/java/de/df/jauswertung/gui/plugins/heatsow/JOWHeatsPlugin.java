@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -26,7 +27,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWSelection;
-import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.heats.EditHeatlistUtils;
@@ -41,8 +41,6 @@ import de.df.jauswertung.print.RecorderPrintable;
 import de.df.jauswertung.print.SprecherlistePrintable;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.data.HeatsUtils;
-import de.df.jauswertung.util.ergebnis.ResultCalculator;
-import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.ModalFrameUtil;
@@ -196,30 +194,12 @@ public class JOWHeatsPlugin extends ANullPlugin {
             // First round: Nothing to do
             return;
         }
-        OWSelection t1 = new OWSelection(ows.ak, ows.akNummer, ows.male, ows.discipline, ows.round - 1);
-
-        AWettkampf<T> wk = createCompetitionFor(t1);
-
         AWettkampf<T> cwk = core.getWettkampf();
-        int qualifiziert = cwk.getRegelwerk().getAk(ows.akNummer).getDisziplin(ows.discipline, ows.male)
-                .getRunden()[t1.round];
         OWDisziplin<T> owd = cwk.getLauflisteOW().getDisziplin(ows);
-        SchwimmerResult<T>[] result = ResultCalculator.getResults(wk, wk.getRegelwerk().getAk(t1.akNummer), t1.male);
+        List<T> aktuell = ResultUtils.getQualifizierte(cwk, ows);
         EDTUtils.waitOnEDT();
 
         LinkedList<T> gemeldet = owd.getSchwimmer();
-        LinkedList<T> aktuell = new LinkedList<>();
-        for (SchwimmerResult<T> tSchwimmerResult : result) {
-            T t = tSchwimmerResult.getSchwimmer();
-            Strafe s = t.getAkkumulierteStrafe(0);
-            if (!s.isWithdraw() && !s.cancelsPoints()) {
-                aktuell.add(t);
-            }
-            if (aktuell.size() >= qualifiziert) {
-                break;
-            }
-        }
-
         for (T t : gemeldet) {
             boolean found = false;
             for (T tneu : aktuell) {
