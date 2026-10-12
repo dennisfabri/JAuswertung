@@ -417,6 +417,16 @@
                 <version>${filechooser.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.lisasp.swing</groupId>
+                <artifactId>filechooser-dbus</artifactId>
+                <version>${filechooser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.swing</groupId>
+                <artifactId>filechooser-awt</artifactId>
+                <version>${filechooser.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-math3</artifactId>
                 <version>${commons-math3.version}</version>

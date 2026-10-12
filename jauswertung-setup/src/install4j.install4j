@@ -88,7 +88,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -118,7 +122,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -148,7 +156,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -183,7 +195,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -213,7 +229,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -243,7 +263,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -273,7 +297,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -303,7 +331,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -333,7 +365,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
@@ -362,7 +398,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/alphaserver-16.png" />
@@ -393,7 +433,11 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
-java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED</content>
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../target/distribution/main/icons/jauswertung-16.png" />
