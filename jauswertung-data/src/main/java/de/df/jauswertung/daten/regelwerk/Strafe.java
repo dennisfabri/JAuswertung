@@ -258,6 +258,11 @@ public class Strafe implements Serializable {
         return getArt() == WITHDRAW.getArt() && WITHDRAW.getShortname().equalsIgnoreCase(shortname);
     }
 
+    public boolean isAbmeldung() {
+        return isWithdraw() || (getArt() == WITHDRAW_BEFORE_FIRST_START.getArt()
+                && WITHDRAW_BEFORE_FIRST_START.getShortname().equalsIgnoreCase(shortname));
+    }
+
     public boolean isDidNotStart() {
         return getArt() == Strafarten.NICHT_ANGETRETEN;
     }

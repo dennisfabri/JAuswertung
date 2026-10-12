@@ -13,3 +13,4 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
+| [Bahnenliste shows starters of the wrong discipline for multi-line teams](bahnenliste-starter-wrong-lane.md) | Medium | S | `BahnenListe` reads the discipline for a team's starters from the heat index instead of the lane |

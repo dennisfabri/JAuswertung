@@ -11,6 +11,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
+import de.df.jauswertung.gui.util.DurchgestrichenerText;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.util.BestTimeUtils.BestTime;
@@ -1016,35 +1017,22 @@ public final class DataTableUtils {
                 row.addLast("");
             }
             for (int x = 0; x < bahnen; x++) {
-                switch (offset) {
-                    case 0:
-                        if (lauf.getSchwimmer(x) != null) {
-                            row.addLast(lauf.getSchwimmer(x).getName());
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    case 1:
-                        if (lauf.getSchwimmer(x) != null) {
-                            String g = lauf.getSchwimmer(x).getGliederung();
-                            String q = lauf.getSchwimmer(x).getQualifikationsebene().trim();
-                            if (!q.isEmpty()) {
-                                g += " (" + q + ")";
-                            }
-                            row.addLast(g);
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    case 2:
-                        if (lauf.getSchwimmer(x) != null) {
-                            row.addLast(I18n.getAgeGroupAsString(lauf.getSchwimmer(x)));
-                        } else {
-                            row.addLast("");
-                        }
-                        break;
-                    default:
+                T s = lauf.getSchwimmer(x);
+                if (s == null) {
+                    row.addLast("");
+                    continue;
                 }
+                Object text = switch (offset) {
+                    case 0 -> s.getName();
+                    case 1 -> {
+                        String g = s.getGliederung();
+                        String q = s.getQualifikationsebene().trim();
+                        yield q.isEmpty() ? g : g + " (" + q + ")";
+                    }
+                    case 2 -> I18n.getAgeGroupAsString(s);
+                    default -> "";
+                };
+                row.addLast(DurchgestrichenerText.wenn(s.startetNicht(lauf.getDisznummer(x)), text));
             }
         }
         return row.toArray();

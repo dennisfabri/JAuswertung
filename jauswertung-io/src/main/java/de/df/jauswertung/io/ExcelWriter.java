@@ -31,6 +31,7 @@ import org.apache.poi.xssf.usermodel.XSSFTableStyleInfo;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import de.df.jauswertung.daten.ASchwimmer;
+import de.df.jauswertung.gui.util.DurchgestrichenerText;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.util.SpreadsheetUtils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
@@ -303,6 +304,9 @@ public class ExcelWriter {
                                 ? styles.getTableStyle(tm.getColumnAlignment(x), tm.getColumnFormat(x), true)
                                 : styles.getStyle(tm.getColumnAlignment(x), top, right, bottom, left, colored,
                                         tm.getColumnFormat(x), groupsize > 1, true));
+                    }
+                    if (o instanceof DurchgestrichenerText) {
+                        cell.setCellStyle(styles.getDurchgestrichen(cell.getCellStyle()));
                     }
                 }
             }

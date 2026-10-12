@@ -127,7 +127,8 @@ public final class TableHeatUtils {
 
                 for (int x = 0; x < diszAnzahl; x++) {
                     if ((x < si.getLaufCount()) && (!si.getLauf(x).equals("-"))) {
-                        data[y][pos + x] = si.getLauf(x) + " / " + si.getBahn(x);
+                        data[y][pos + x] = DurchgestrichenerText.wenn(t.startetNicht(x),
+                                si.getLauf(x) + " / " + si.getBahn(x));
                     } else {
                         data[y][pos + x] = " ";
                     }
@@ -284,6 +285,7 @@ public final class TableHeatUtils {
 
         JTableUtils.setPreferredCellSizes(table);
         JTableUtils.setTableCellRenderer(table, new ConditionalCenterRenderer(3));
+        Durchstreichen.tabelle(table);
         header.setReorderingAllowed(false);
 
         return table;
@@ -573,6 +575,7 @@ public final class TableHeatUtils {
 
             JTableUtils.setPreferredCellSizes(table);
             JTableUtils.setTableCellRenderer(table, new ConditionalCenterRenderer(3));
+            Durchstreichen.tabelle(table);
             header.setReorderingAllowed(false);
 
             tables[y] = table;
@@ -602,6 +605,7 @@ public final class TableHeatUtils {
 
             JTableUtils.setPreferredCellSizes(table);
             JTableUtils.setTableCellRenderer(table, new ConditionalCenterRenderer(2));
+            Durchstreichen.tabelle(table);
             header.setReorderingAllowed(false);
 
             tables[y] = table;
@@ -632,6 +636,7 @@ public final class TableHeatUtils {
 
             JTableUtils.setPreferredCellSizes(table);
             JTableUtils.setTableCellRenderer(table, new ConditionalCenterRenderer(2));
+            Durchstreichen.tabelle(table);
             header.setReorderingAllowed(false);
 
             tables[y] = table;
@@ -703,7 +708,11 @@ public final class TableHeatUtils {
                 }
             }
         }
-        return EDTUtils.executeOnEDTwithReturn(() -> getLaufliste(dtm));
+        return EDTUtils.executeOnEDTwithReturn(() -> {
+            JTable table = getLaufliste(dtm);
+            Durchstreichen.tabelle(table);
+            return table;
+        });
     }
 
     public static <T extends ASchwimmer> JTable getLaufzeiten(AWettkampf<T> wk, boolean emptylanes) {
@@ -843,7 +852,8 @@ public final class TableHeatUtils {
 
                 for (int x = 0; x < diszAnzahl; x++) {
                     if (x < si.getLaufCount()) {
-                        data[y][3 + x] = si.getBahn(x);
+                        data[y][3 + x] = DurchgestrichenerText.wenn(t.startetNicht(x) && !"-".equals(si.getBahn(x)),
+                                si.getBahn(x));
                     } else {
                         data[y][3 + x] = "-";
                     }
@@ -970,6 +980,7 @@ public final class TableHeatUtils {
 
             JTableUtils.setPreferredCellSizes(table);
             JTableUtils.setTableCellRenderer(table, new ConditionalCenterRenderer(3));
+            Durchstreichen.tabelle(table);
             header.setReorderingAllowed(false);
 
             tables[y] = table;

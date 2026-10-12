@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.ExtendedColor;
 import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -36,6 +37,8 @@ public class ExcelStyles {
     private static final String TABLE_STYLE = "JAuswertung";
 
     private Hashtable<String, CellStyle> styles;
+    private Hashtable<Integer, CellStyle> durchgestrichen = new Hashtable<>();
+    private Font durchgestrichenFont;
     private Workbook wb;
     private DataFormat dataformat;
     private ExtendedColor fillColor;
@@ -81,6 +84,19 @@ public class ExcelStyles {
         }
         cellStyle.setWrapText(wrap);
         return cellStyle;
+    }
+
+    public CellStyle getDurchgestrichen(CellStyle style) {
+        return durchgestrichen.computeIfAbsent(style.getIndex() & 0xFFFF, i -> {
+            if (durchgestrichenFont == null) {
+                durchgestrichenFont = wb.createFont();
+                durchgestrichenFont.setStrikeout(true);
+            }
+            CellStyle result = wb.createCellStyle();
+            result.cloneStyleFrom(style);
+            result.setFont(durchgestrichenFont);
+            return result;
+        });
     }
 
     private static HorizontalAlignment toHorizontalAlignment(int align) {

@@ -23,6 +23,8 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.gui.util.DurchgestrichenerText;
+import de.df.jauswertung.gui.util.Durchstreichen;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
@@ -182,6 +184,12 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
                     data[6] = "<html><body>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</body></html>";
                 }
 
+                if (s.startetNicht(lauf.getDisznummer(x))) {
+                    for (int y = 0; y < 6; y++) {
+                        data[y] = new DurchgestrichenerText(data[y]);
+                    }
+                }
+
                 swimmers.add(new SwimmerTableRow<>(s, data));
             }
         }
@@ -221,6 +229,7 @@ public final class RecorderPrintable<T extends ASchwimmer> extends ComponentPack
                                 SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.RIGHT },
                         SwingConstants.LEFT));
         JPrintTable.initPrintableJTable(table);
+        Durchstreichen.tabelle(table);
         JTableUtils.setPreferredCellSizes(table);
 
         FormLayout layout = new FormLayout("fill:default:grow", "fill:default,fill:default");

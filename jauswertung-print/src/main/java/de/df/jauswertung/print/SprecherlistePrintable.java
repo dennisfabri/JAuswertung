@@ -23,6 +23,8 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
+import de.df.jauswertung.gui.util.DurchgestrichenerText;
+import de.df.jauswertung.gui.util.Durchstreichen;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
@@ -215,6 +217,11 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                             s.getAK().getDisziplin(lauf.getDisznummer(x), s.isMaennlich()).toString());
                     data[7] = StringTools.zeitString(s.getMeldezeit(lauf.getDisznummer(x)));
                     data[8] = "                ";
+                    if (s.startetNicht(lauf.getDisznummer(x))) {
+                        for (int y = showSN ? 0 : 1; y < 8; y++) {
+                            data[y] = new DurchgestrichenerText(data[y]);
+                        }
+                    }
                 }
                 datas.addLast(data);
             }
@@ -253,6 +260,7 @@ public final class SprecherlistePrintable<T extends ASchwimmer> extends Componen
                                                  SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.CENTER, SwingConstants.LEFT,
                                                  SwingConstants.RIGHT}, SwingConstants.LEFT));
         JPrintTable.initPrintableJTable(table);
+        Durchstreichen.tabelle(table);
         JTableUtils.setPreferredCellSizes(table);
 
 
