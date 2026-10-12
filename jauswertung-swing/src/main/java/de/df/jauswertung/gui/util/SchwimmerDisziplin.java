@@ -90,6 +90,10 @@ public class SchwimmerDisziplin<T extends ASchwimmer>
         return "";
     }
 
+    public boolean startetNicht() {
+        return swimmer != null && swimmer.startetNicht(discipline);
+    }
+
     public int getDiscipline() {
         return discipline;
     }

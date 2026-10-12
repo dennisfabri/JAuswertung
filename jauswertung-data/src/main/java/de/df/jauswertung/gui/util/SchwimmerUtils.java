@@ -220,12 +220,14 @@ public final class SchwimmerUtils {
                 Lauf<T> l = li.next();
                 for (int x = 0; x < l.getBahnen(); x++) {
                     T s = l.getSchwimmer(x);
-                    if (s != null) {
-                        listen[x].addLast(new Startkarte(s, roundId, l, x + 1));
-                    } else {
+                    if (s == null) {
                         if (includeEmptyLanes) {
                             listen[x].addLast(new Startkarte(l, roundId, x + 1));
                         }
+                    } else if (s.startetNicht(l.getDisznummer(x))) {
+                        listen[x].addLast(new Startkarte(l, roundId, x + 1));
+                    } else {
+                        listen[x].addLast(new Startkarte(s, roundId, l, x + 1));
                     }
                 }
             }

@@ -545,6 +545,7 @@ public class ResultUtils {
                 zeit = sx.getZeit(d.Id);
                 strafen = sx.getStrafen(d.Id);
             }
+            strafen.addAll(s.getAllgemeineStrafen());
             s.setBemerkung("" + s.getStartnummer());
             s.clear();
             s.setZeit(0, zeit);

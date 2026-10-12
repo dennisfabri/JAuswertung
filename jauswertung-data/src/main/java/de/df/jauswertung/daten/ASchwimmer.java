@@ -1219,6 +1219,19 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         return getStrafen(discipline).stream().anyMatch(Strafe::isWithdraw);
     }
 
+    public boolean startetNicht(int disz) {
+        return startetNicht(getAllgemeineStrafen())
+                || (disz >= 0 && disz < strafen.length && startetNicht(getStrafen(disz)));
+    }
+
+    public boolean startetNicht(String id) {
+        return startetNicht(getAllgemeineStrafen()) || startetNicht(getStrafen(id));
+    }
+
+    private static boolean startetNicht(List<Strafe> strafen) {
+        return strafen.stream().anyMatch(s -> s.isAbmeldung() || s.getArt() == Strafarten.AUSSCHLUSS);
+    }
+
     public String getNationality() {
         if (nationality == null) {
             return "";

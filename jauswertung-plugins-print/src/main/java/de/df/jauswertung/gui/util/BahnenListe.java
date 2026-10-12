@@ -42,7 +42,7 @@ public class BahnenListe<T extends ASchwimmer> {
         daten = wk.getLaufliste();
     }
 
-    private String[][] toBahnenListe(int puppe) {
+    private Object[][] toBahnenListe(int puppe) {
         if (daten == null) {
             return null;
         }
@@ -64,7 +64,7 @@ public class BahnenListe<T extends ASchwimmer> {
         HeatsNumberingScheme scheme = wk.getHeatsNumberingScheme();
         boolean isMultiline = wk.isMultiline();
 
-        String[][] ergebnis = new String[laufliste.size()][6];
+        Object[][] ergebnis = new Object[laufliste.size()][6];
         for (int x = 0; x < ergebnis.length; x++) {
             for (int y = 0; y < 6; y++) {
                 ergebnis[x][y] = "";
@@ -94,6 +94,11 @@ public class BahnenListe<T extends ASchwimmer> {
                     int disz = lauf.getDisznummer(puppe - 1);
                     ergebnis[x][3] = I18n.getDisziplinShort(ak.getDisziplin(disz, s.isMaennlich()).toString());
                     ergebnis[x][4] = ak.toString() + " " + I18n.geschlechtToShortString(s);
+                    if (s.startetNicht(disz)) {
+                        for (int y = 1; y <= 4; y++) {
+                            ergebnis[x][y] = new DurchgestrichenerText(ergebnis[x][y]);
+                        }
+                    }
                 }
             } catch (IndexOutOfBoundsException ioobe) {
                 ioobe.printStackTrace();
@@ -104,9 +109,9 @@ public class BahnenListe<T extends ASchwimmer> {
     }
 
     private DefaultTableModel getTableModel(int bahn) {
-        String[][] ergebnis = toBahnenListe(bahn);
+        Object[][] ergebnis = toBahnenListe(bahn);
         if (ergebnis == null) {
-            ergebnis = new String[0][0];
+            ergebnis = new Object[0][0];
         }
         return new SimpleTableModel(ergebnis, titel);
 
@@ -120,6 +125,7 @@ public class BahnenListe<T extends ASchwimmer> {
         if (PrintUtils.printOmitOrganisationForTeams && (wk instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 2);
         }
+        Durchstreichen.tabelle(table);
 
         return table;
     }
