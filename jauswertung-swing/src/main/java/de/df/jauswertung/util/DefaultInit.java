@@ -11,6 +11,9 @@ import de.df.jutils.util.OSUtils;
 import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
 import org.lisasp.swing.filechooser.FileChooser;
 import org.lisasp.swing.filechooser.FileChooserUtils;
+import org.lisasp.swing.filechooser.SafeFileChooser;
+import org.lisasp.swing.filechooser.awt.FileChooserAwt;
+import org.lisasp.swing.filechooser.dbus.FileChooserDBus;
 import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
 import org.slf4j.Logger;
@@ -82,7 +85,7 @@ public final class DefaultInit {
             return new FileChooserJFX();
         }
         if (OSUtils.isLinux()) {
-            //return new FileChooserJFX();
+            return new SafeFileChooser(new FileChooserDBus(), new FileChooserAwt(new FileChooserL2f()));
         }
         return new FileChooserL2f();
 

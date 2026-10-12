@@ -6,3 +6,7 @@ java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
 java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
 --add-exports
 java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED
