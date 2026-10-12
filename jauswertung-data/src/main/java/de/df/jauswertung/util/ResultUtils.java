@@ -1,8 +1,11 @@
 package de.df.jauswertung.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -429,6 +432,67 @@ public class ResultUtils {
         return false;
     }
 
+    /**
+     * Teilnehmer, die sich aus der vorherigen Runde für die Runde t qualifiziert haben. Wer in der vorherigen Runde
+     * abgemeldet, disqualifiziert oder ausgeschlossen ist, gibt seinen Platz an den Nächstplatzierten ab. Allgemeine
+     * Strafen zählen nur, solange der Teilnehmer nicht in eine Folgerunde eingeteilt ist (siehe
+     * {@link #createCompetitionFor(AWettkampf, OWSelection)}). Bei platzbasierter Wertung qualifizieren sich die Ersten
+     * jedes Laufs, Nachrücker kommen daher aus demselben Lauf. Bei gleicher Platzierung am Schnitt qualifizieren sich alle Gleichplatzierten.
+     */
+    public static <T extends ASchwimmer> List<T> getQualifizierte(AWettkampf<T> cwk, OWSelection t) {
+        if (t.round == 0) {
+            throw new IllegalArgumentException("round must be at least 1.");
+        }
+        OWSelection t1 = new OWSelection(cwk.getRegelwerk().getAk(t.akNummer), t.akNummer, t.male, t.discipline,
+                t.round - 1);
+        AWettkampf<T> wk = createCompetitionFor(cwk, t1);
+        if (wk == null) {
+            return List.of();
+        }
+        int qualifiziert = cwk.getRegelwerk().getAk(t.akNummer).getDisziplin(t.discipline, t.male)
+                .getRunden()[t1.round];
+
+        Map<Integer, SchwimmerData<T>> ergebnisse = new HashMap<>();
+        for (SchwimmerResult<T> r : ResultCalculator.getResults(wk, wk.getRegelwerk().getAk(t.akNummer), t.male)) {
+            SchwimmerData<T> sd = r.getResults()[0];
+            Strafe s = r.getSchwimmer().getAkkumulierteStrafe(0);
+            if (sd.getRank() > 0 && !s.isWithdraw() && !s.cancelsPoints()) {
+                ergebnisse.put(r.getSchwimmer().getStartnummer(), sd);
+            }
+        }
+
+        List<List<SchwimmerData<T>>> gruppen = new ArrayList<>();
+        int anzahl = qualifiziert;
+        List<Lauf<T>> laeufe = wk.getLaufliste().getLaufliste();
+        if (cwk.getDataType() == DataType.RANK && laeufe != null && !laeufe.isEmpty()) {
+            anzahl = (qualifiziert + laeufe.size() - 1) / laeufe.size();
+            for (Lauf<T> lauf : laeufe) {
+                List<SchwimmerData<T>> gruppe = new ArrayList<>();
+                for (int x = 0; x < lauf.getBahnen(); x++) {
+                    T s = lauf.getSchwimmer(x);
+                    if (s != null && ergebnisse.containsKey(s.getStartnummer())) {
+                        gruppe.add(ergebnisse.get(s.getStartnummer()));
+                    }
+                }
+                gruppen.add(gruppe);
+            }
+        } else {
+            gruppen.add(new ArrayList<>(ergebnisse.values()));
+        }
+
+        List<T> result = new ArrayList<>();
+        for (List<SchwimmerData<T>> gruppe : gruppen) {
+            gruppe.sort(Comparator.comparingInt(SchwimmerData::getRank));
+            for (int x = 0; x < gruppe.size(); x++) {
+                if (x >= anzahl && gruppe.get(x).getRank() != gruppe.get(x - 1).getRank()) {
+                    break;
+                }
+                result.add(SearchUtils.getSchwimmer(cwk, gruppe.get(x).getSchwimmer().getStartnummer()));
+            }
+        }
+        return result;
+    }
+
     public static <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(AWettkampf<T> cwk, OWSelection t) {
         if (cwk == null) {
             return null;
@@ -484,37 +548,10 @@ public class ResultUtils {
             wk.removeSchwimmerWhen(s -> !sn.contains(s.getStartnummer()));
             wk.enableUpdates();
         } else {
-            OWSelection t1 = new OWSelection(cwk.getRegelwerk().getAk(t.akNummer), t.akNummer, t.male, t.discipline,
-                    t.round - 1);
-            AWettkampf<T> wk1a = createCompetitionFor(cwk, t1);
-
+            Set<Integer> sn = getQualifizierte(cwk, t).stream().map(ASchwimmer::getStartnummer)
+                    .collect(Collectors.toSet());
             wk.disableUpdates();
-
-            wk1a.getRegelwerk().getAk(t.akNummer).setEinzelwertung(true);
-            wk1a.getRegelwerk().getAk(t.akNummer).setChosenDisciplines(1, 1, 1);
-            wk1a.getRegelwerk().setFormelID(FormelILS.ID);
-            AWettkampf<T> wk1 = generateEinzelwertungswettkampfForQualification(wk1a, t.akNummer, true);
-            if (wk1 == null) {
-                return null;
-            }
-            int qualified = cwk.getRegelwerk().getAk(t.akNummer).getDisziplin(t.discipline, t.male)
-                    .getRunden()[t1.round];
-            SchwimmerResult<T>[] results = ResultCalculator.getResults(wk1, wk1.getRegelwerk().getAk(0), t.male);
-
-            HashSet<Integer> sn = new HashSet<>();
-            for (SchwimmerResult<T> r : results) {
-                SchwimmerData<T> rs = r.getResults()[0];
-                if (rs.getRank() >= 0 && rs.getRank() <= qualified) {
-                    int snx = Integer.parseInt(r.getSchwimmer().getBemerkung());
-                    sn.add(snx);
-                }
-            }
-            for (T s : wk.getSchwimmer()) {
-                if (!sn.contains(s.getStartnummer())) {
-                    wk.removeSchwimmer(s);
-                }
-            }
-
+            wk.removeSchwimmerWhen(s -> !sn.contains(s.getStartnummer()));
             wk.enableUpdates();
         }
 
