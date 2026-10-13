@@ -25,17 +25,21 @@ import de.df.jutils.gui.jtable.JTableUtils;
 import de.df.jutils.gui.jtable.SimpleTableModel;
 import de.df.jutils.gui.renderer.AlignmentCellRenderer;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class BahnenListe<T extends ASchwimmer> {
 
     private final Laufliste<T> daten;
     private final AWettkampf<T> wk;
 
-    private final String[] titel = { I18n.get("Heat"), I18n.get("Name"), I18n.get("Organisation"),
+    private final String[] titel = {I18n.get("Heat"), I18n.get("Name"), I18n.get("Organisation"),
             I18n.get("Discipline"), I18n.get("AgeGroup"),
-            "        " + I18n.get("Time") + "        " };
+            "        " + I18n.get("Time") + "        "};
 
-    /** Creates new BahnenListe */
+    /**
+     * Creates new BahnenListe
+     */
 
     public BahnenListe(AWettkampf<T> wettkampf) {
         wk = wettkampf;
@@ -74,26 +78,21 @@ public class BahnenListe<T extends ASchwimmer> {
                 ergebnis[x][0] = lauf.getName(scheme);
                 T s = lauf.getSchwimmer(puppe - 1);
                 if (s != null) {
+                    int disz = lauf.getDisznummer(puppe - 1);
                     Mannschaft m = isMultiline && s instanceof Mannschaft ? (Mannschaft) s : null;
-                    String name = "";
-                    if (m != null) {
-                        if (s.getName().equals(s.getGliederung())) {
-                            name = StringTools.shorten(m.getStarterShort(lauf.getDisznummer(x), ", "), 30, "...");
-                        } else {
-                            // name = I18n.get("TeamnameMultiline", s.getName(),
-                            // m.getStarterShort(lauf.getDisznummer(x), ", "));
-                            name = s.getName();
+                    String name = s.getName();
+                    if (m != null && name.equals(s.getGliederung())) {
+                        String starter = m.getStarterShort(disz, ", ");
+                        if (!starter.isEmpty()) {
+                            name = StringTools.shorten(starter, 30, "...");
                         }
-                    } else {
-                        name = s.getName();
                     }
 
                     ergebnis[x][1] = name;
                     ergebnis[x][2] = s.getGliederung();
                     Altersklasse ak = s.getAK();
-                    int disz = lauf.getDisznummer(puppe - 1);
                     ergebnis[x][3] = I18n.getDisziplinShort(ak.getDisziplin(disz, s.isMaennlich()).toString());
-                    ergebnis[x][4] = ak.toString() + " " + I18n.geschlechtToShortString(s);
+                    ergebnis[x][4] = ak + " " + I18n.geschlechtToShortString(s);
                     if (s.startetNicht(disz)) {
                         for (int y = 1; y <= 4; y++) {
                             ergebnis[x][y] = new DurchgestrichenerText(ergebnis[x][y]);
@@ -101,8 +100,7 @@ public class BahnenListe<T extends ASchwimmer> {
                     }
                 }
             } catch (IndexOutOfBoundsException ioobe) {
-                ioobe.printStackTrace();
-                // Nothing to do
+                log.warn("Index problem", ioobe);
             }
         }
         return ergebnis;
@@ -120,7 +118,7 @@ public class BahnenListe<T extends ASchwimmer> {
     public JTable toJTable(int bahn) {
         JTable table = new JTable(getTableModel(bahn));
         JTableUtils.setTableCellRenderer(table,
-                new AlignmentCellRenderer(new int[] { SwingConstants.CENTER }, SwingConstants.LEFT));
+                                         new AlignmentCellRenderer<>(new int[]{SwingConstants.CENTER}, SwingConstants.LEFT));
 
         if (PrintUtils.printOmitOrganisationForTeams && (wk instanceof MannschaftWettkampf)) {
             JTableUtils.hideColumnAndRemoveData(table, 2);
