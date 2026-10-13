@@ -4,14 +4,7 @@
 package de.df.jauswertung.misc;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
@@ -50,22 +43,22 @@ public final class ErzeugeStrafen {
                 return strafen;
             }
             switch (type) {
-            case Change:
-                for (int x = 1; x < 4; x++) {
-                    String name = String.format("%s (%s. auf den %s. Schwimmer)", s.getName(), "" + x, "" + (x + 1));
-                    String shortname = String.format("%s#%s", s.getShortname(), "" + (x + 1));
-                    strafen.add(new Strafe(name, shortname, s.getArt(), s.getStrafpunkte()));
-                }
-                break;
-            case Member:
-                for (int x = 1; x <= 4; x++) {
-                    String name = String.format("%s (%s. Schwimmer)", s.getName(), "" + x);
-                    String shortname = String.format("%s#%s", s.getShortname(), "" + x);
-                    strafen.add(new Strafe(name, shortname, s.getArt(), s.getStrafpunkte()));
-                }
-                break;
-            default:
-                break;
+                case Change:
+                    for (int x = 1; x < 4; x++) {
+                        String name = String.format("%s (%s. auf den %s. Schwimmer)", s.getName(), "" + x, "" + (x + 1));
+                        String shortname = String.format("%s#%s", s.getShortname(), "" + (x + 1));
+                        strafen.add(new Strafe(name, shortname, s.getArt(), s.getStrafpunkte()));
+                    }
+                    break;
+                case Member:
+                    for (int x = 1; x <= 4; x++) {
+                        String name = String.format("%s (%s. Schwimmer)", s.getName(), "" + x);
+                        String shortname = String.format("%s#%s", s.getShortname(), "" + x);
+                        strafen.add(new Strafe(name, shortname, s.getArt(), s.getStrafpunkte()));
+                    }
+                    break;
+                default:
+                    break;
             }
             return strafen;
         }
@@ -75,7 +68,7 @@ public final class ErzeugeStrafen {
         // Hide constructor
     }
 
-    private static TeamPenaltyDefinition[] teamDefs = new TeamPenaltyDefinition[] {
+    private static final TeamPenaltyDefinition[] teamDefs = new TeamPenaltyDefinition[]{
             new TeamPenaltyDefinition("R1", TeamPenaltyType.Member),
             new TeamPenaltyDefinition("R2", TeamPenaltyType.Member),
             new TeamPenaltyDefinition("R3", TeamPenaltyType.Member),
@@ -102,7 +95,7 @@ public final class ErzeugeStrafen {
             new TeamPenaltyDefinition("G7", TeamPenaltyType.Member),
             new TeamPenaltyDefinition("G8", TeamPenaltyType.Member),
             new TeamPenaltyDefinition("G9", TeamPenaltyType.Member),
-            new TeamPenaltyDefinition("G10", TeamPenaltyType.Member), };
+            new TeamPenaltyDefinition("G10", TeamPenaltyType.Member),};
 
     private static Collection<Strafe> expand(Strafe s, TeamPenaltyDefinition[] defs) {
         for (TeamPenaltyDefinition def : defs) {
@@ -110,7 +103,7 @@ public final class ErzeugeStrafen {
                 return def.expand(s);
             }
         }
-        return Arrays.asList(s);
+        return Collections.singletonList(s);
     }
 
     public static void main(String[] args) throws IOException {
@@ -177,7 +170,7 @@ public final class ErzeugeStrafen {
                         if (st.equals("n.a.")) {
                             art = Strafarten.NICHT_ANGETRETEN;
                         } else {
-                            throw new RuntimeException("" + x + ": Unknown penalty " + st);
+                            throw new RuntimeException(x + ": Unknown penalty " + st);
                         }
                     }
                 }
