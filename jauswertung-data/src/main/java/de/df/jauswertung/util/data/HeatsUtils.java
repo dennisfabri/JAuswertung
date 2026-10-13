@@ -44,28 +44,42 @@ public class HeatsUtils {
     }
 
 
+    public record TeilnehmerAenderung<T extends ASchwimmer>(List<T> entfernt, List<T> hinzugefuegt) {
+
+        public boolean isEmpty() {
+            return entfernt.isEmpty() && hinzugefuegt.isEmpty();
+        }
+    }
+
     /**
-     * Gleicht die Teilnehmer einer eingeteilten Runde mit den Qualifizierten ab, wie sie beim Erzeugen der Laufliste
-     * ermittelt würden. Verbleibende behalten Lauf und Bahn, Hinzukommende sind noch nicht eingeteilt.
+     * Ermittelt, wie sich die Teilnehmer einer eingeteilten Runde ändern, wenn sie mit den Qualifizierten abgeglichen
+     * werden, wie sie beim Erzeugen der Laufliste ermittelt würden. Die Runde selbst bleibt unverändert.
      */
-    public static <T extends ASchwimmer> void aktualisiereTeilnehmer(AWettkampf<T> wk, OWSelection t) {
+    public static <T extends ASchwimmer> TeilnehmerAenderung<T> pruefeTeilnehmer(AWettkampf<T> wk, OWSelection t) {
         OWDisziplin<T> disziplin = wk.getLauflisteOW().getDisziplin(t);
         if (t.round == 0 || disziplin == null) {
-            return;
+            return new TeilnehmerAenderung<>(List.of(), List.of());
         }
         List<T> qualifizierte = ResultUtils.getQualifizierte(wk, t);
         Set<Integer> qualifiziert = qualifizierte.stream().map(ASchwimmer::getStartnummer).collect(Collectors.toSet());
-        for (T s : disziplin.getSchwimmer()) {
-            if (!qualifiziert.contains(s.getStartnummer())) {
-                disziplin.remove(s);
-            }
+        List<T> eingeteilte = disziplin.getSchwimmer();
+        Set<Integer> eingeteilt = eingeteilte.stream().map(ASchwimmer::getStartnummer).collect(Collectors.toSet());
+        return new TeilnehmerAenderung<>(
+                eingeteilte.stream().filter(s -> !qualifiziert.contains(s.getStartnummer())).toList(),
+                qualifizierte.stream().filter(s -> !eingeteilt.contains(s.getStartnummer())).toList());
+    }
+
+    /**
+     * Übernimmt eine mit {@link #pruefeTeilnehmer(AWettkampf, OWSelection)} ermittelte Änderung. Verbleibende behalten
+     * Lauf und Bahn, Hinzukommende sind noch nicht eingeteilt.
+     */
+    public static <T extends ASchwimmer> void aktualisiereTeilnehmer(AWettkampf<T> wk, OWSelection t,
+            TeilnehmerAenderung<T> aenderung) {
+        OWDisziplin<T> disziplin = wk.getLauflisteOW().getDisziplin(t);
+        if (disziplin == null) {
+            return;
         }
-        Set<Integer> eingeteilt = disziplin.getSchwimmer().stream().map(ASchwimmer::getStartnummer)
-                .collect(Collectors.toSet());
-        for (T s : qualifizierte) {
-            if (!eingeteilt.contains(s.getStartnummer())) {
-                disziplin.addSchwimmer(s);
-            }
-        }
+        aenderung.entfernt().forEach(disziplin::remove);
+        aenderung.hinzugefuegt().forEach(disziplin::addSchwimmer);
     }
 }

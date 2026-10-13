@@ -4,6 +4,7 @@ import static de.df.jauswertung.daten.ASchwimmer.DISCIPLINE_NUMBER_SELF;
 import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.data.HeatsUtils;
+import de.df.jauswertung.util.data.HeatsUtils.TeilnehmerAenderung;
 import de.df.jauswertung.util.ergebnis.FormelILSFinals;
 import de.df.jauswertung.util.ergebnis.FormelILSOutdoorFinals;
 
@@ -176,6 +178,30 @@ class NachrueckerTest {
 
     @ParameterizedTest
     @ValueSource(ints = { 0, 1, 2 })
+    void pruefenMeldetAenderungenOhneDieLauflisteZuAendern(int lauf) {
+        erzeugeLaufliste(zwischenlauf);
+        Map<Integer, List<Integer>> positionenVorher = positionenImZwischenlauf();
+        Teilnehmer abgemeldet = schwimmer(laeufe.get(lauf), 9);
+        Teilnehmer nachruecker = schwimmer(laeufe.get(lauf), 10);
+        abgemeldet.addStrafe(vorlauf.getId(), Strafe.WITHDRAW);
+
+        TeilnehmerAenderung<Teilnehmer> aenderung = HeatsUtils.pruefeTeilnehmer(wk, zwischenlauf);
+
+        assertEquals(List.of(abgemeldet), aenderung.entfernt());
+        assertEquals(List.of(nachruecker), aenderung.hinzugefuegt());
+        assertEquals(erwartet(9, 9, 9), imZwischenlauf());
+        assertEquals(positionenVorher, positionenImZwischenlauf());
+    }
+
+    @Test
+    void pruefenOhneAenderungMeldetNichts() {
+        erzeugeLaufliste(zwischenlauf);
+
+        assertTrue(HeatsUtils.pruefeTeilnehmer(wk, zwischenlauf).isEmpty());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 0, 1, 2 })
     void bearbeitenNimmtNachrueckerOhneEinteilungAuf(int lauf) {
         erzeugeLaufliste(zwischenlauf);
         Map<Integer, List<Integer>> positionenVorher = positionenImZwischenlauf();
@@ -183,7 +209,7 @@ class NachrueckerTest {
         int nachruecker = laeufe.get(lauf).get(9);
         SearchUtils.getSchwimmer(wk, abgemeldet).addStrafe(vorlauf.getId(), Strafe.WITHDRAW);
 
-        HeatsUtils.aktualisiereTeilnehmer(wk, zwischenlauf);
+        HeatsUtils.aktualisiereTeilnehmer(wk, zwischenlauf, HeatsUtils.pruefeTeilnehmer(wk, zwischenlauf));
 
         assertEquals(mitNachrueckerAus(lauf), imZwischenlauf());
         Map<Integer, List<Integer>> positionenNachher = positionenImZwischenlauf();
