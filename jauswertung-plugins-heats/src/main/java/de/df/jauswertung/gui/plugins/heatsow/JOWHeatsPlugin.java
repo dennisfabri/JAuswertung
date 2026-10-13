@@ -12,8 +12,11 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_SWIMMER_DELETED;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -39,6 +42,7 @@ import de.df.jauswertung.print.RecorderPrintable;
 import de.df.jauswertung.print.SprecherlistePrintable;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.data.HeatsUtils;
+import de.df.jauswertung.util.data.HeatsUtils.TeilnehmerAenderung;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.ModalFrameUtil;
@@ -187,9 +191,31 @@ public class JOWHeatsPlugin extends ANullPlugin {
         EditHeatlistUtils.laufliste(getController(), this, wk, true, wkx -> save(t, wkx, false));
     }
 
-    private void updateCompetitors(OWSelection ows) {
-        HeatsUtils.aktualisiereTeilnehmer(core.getWettkampf(), ows);
+    private <T extends ASchwimmer> void updateCompetitors(OWSelection ows) {
+        AWettkampf<T> wk = core.getWettkampf();
+        TeilnehmerAenderung<T> aenderung = HeatsUtils.pruefeTeilnehmer(wk, ows);
+        if (aenderung.isEmpty() || !DialogUtils.ask(getController().getWindow(),
+                I18n.get("Heats.TeilnehmerGeaendert"), beschreibe(aenderung))) {
+            return;
+        }
+        HeatsUtils.aktualisiereTeilnehmer(wk, ows, aenderung);
         EDTUtils.waitOnEDT();
+    }
+
+    private static String beschreibe(TeilnehmerAenderung<?> aenderung) {
+        List<String> zeilen = new ArrayList<>();
+        if (!aenderung.entfernt().isEmpty()) {
+            zeilen.add(I18n.get("Heats.TeilnehmerEntfernt", namen(aenderung.entfernt())));
+        }
+        if (!aenderung.hinzugefuegt().isEmpty()) {
+            zeilen.add(I18n.get("Heats.TeilnehmerHinzugefuegt", namen(aenderung.hinzugefuegt())));
+        }
+        zeilen.add(I18n.get("Heats.TeilnehmerBehaltenPosition"));
+        return String.join("\n", zeilen);
+    }
+
+    private static String namen(List<? extends ASchwimmer> schwimmer) {
+        return schwimmer.stream().map(ASchwimmer::getName).collect(Collectors.joining(", "));
     }
 
     <T extends ASchwimmer> void zeigeLaufliste(OWSelection t) {
