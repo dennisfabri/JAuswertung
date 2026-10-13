@@ -152,8 +152,9 @@ There is no server behind the UI, so the desktop application is the only line of
 - Sibling dependencies (uistate, swingfx, swingbits, commons.xmt, l2fprod-common, filechooser, jutils-legacy,
   AlphaServer) are built and installed to `~/.m2` by `../build-dependencies.sh` (extra args such as `-DskipTests` are
   passed to Maven). Rebuild `jutils-legacy` first whenever a change here relies on a change there.
+- Do not call `mvn install` on this project.
 - Fast compile check: `mvn clean compile -DskipTests`
-- Full build with tests: `mvn clean install`
+- Full build with tests: `mvn clean verify`. When finishing a branch, a call to `mvn verify` is required.
 - Single module: `mvn -pl <module> -am test` (e.g. `mvn -pl jauswertung-io -am test`)
 - Single test class / method: `mvn -pl <module> -am test -Dtest=ClassName` / `-Dtest=ClassName#methodName`
   (add `-Dsurefire.failIfNoSpecifiedTests=false` when `-am` pulls in modules without that test)
