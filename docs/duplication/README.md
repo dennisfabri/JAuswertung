@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
-| [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Medium | M | The EDT fix of commit 98261395 reached print paths, not the duplicated preview paths |
 | [MFilePlugin exists twice](file-plugin-twice.md) | Medium | M | The jteams copy of `MFilePlugin` has drifted from the main one |
 | [Print-queue status and error handling exists twice](print-queue-callback-twice.md) | Medium | M | `PPrintPlugin` and `PPrintTeammembersPlugin` copy the callbacks including a busy loop |
 | [The sheet loop of the table imports is copied six times](import-sheet-loop.md) | Medium | M | Six copies of the sheet loop in `ImportUtils`; two lose the file name in header errors |
@@ -36,6 +35,7 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | [Excel2007Utils and ExcelReader are parallel facades](excel-reader-facades.md) | Low | S | Same facade for XSSF and HSSF |
 | [RegisteredTeamnamesPrinter2 copies RegisteredTeamnamesPrinter](jteams-teamnames-printer.md) | Low | S | jteams copies a printer it could use from plugins-print |
 | [Small helpers are copied between plugins](small-plugin-helpers.md) | Low | S | `addInfoToGlass`, arrow-key navigation and `createCompetitionFor` wrappers |
+| [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Low | M | Preview creators read widgets in the background; harmless because the preview blocks its parent, but against the EDT rule |
 | [Editor dialogs copy their frame](editor-dialog-frame.md) | Low | M | Buttons, ENTER/ESC bindings and strategy are copied across five editor dialogs |
 | [AresWriterBlocks copies the ARES writer](ares-writer-blocks.md) | Low | M | Developer tool in misc copies and has drifted from `jauswertung-ares` |
 | [Test code is heavily duplicated](test-code-duplication.md) | Low | L | 235 near-identical championship test classes and copied ILS finals fixtures |
