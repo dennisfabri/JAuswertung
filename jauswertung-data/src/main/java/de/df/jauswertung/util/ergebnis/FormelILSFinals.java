@@ -53,7 +53,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
     class ComparatorT2 implements Comparator<SchwimmerData<T>> {
 
         private final Map<Integer, SchwimmerInfo<T>> hsi;
-        private final ILSComparator c = new ILSComparator();
+        private final Comparator<SchwimmerData<T>> c = new ILSComparator<>();
 
         public ComparatorT2(Map<Integer, SchwimmerInfo<T>> si) {
             hsi = si;
@@ -79,62 +79,6 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 return i;
             }
             return c.compare(t1, t2);
-        }
-    }
-
-    @SuppressWarnings("rawtypes")
-    static final class ILSComparator implements Comparator<SchwimmerData>, Serializable {
-
-        @Override
-        public int compare(SchwimmerData sd1, SchwimmerData sd2) {
-            if (sd1.getStrafart() != sd2.getStrafart()) {
-                if ((sd1.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return -1;
-                }
-            }
-            if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
-                return 0;
-            }
-            boolean zeroed1 = false;
-            boolean zeroed2 = false;
-            if (sd1.getStrafart() != Strafarten.NICHTS) {
-                zeroed1 = true;
-            }
-            if (sd2.getStrafart() != Strafarten.NICHTS) {
-                zeroed2 = true;
-            }
-            if (sd1.getTime() == 0) {
-                zeroed1 = true;
-            }
-            if (sd2.getTime() == 0) {
-                zeroed2 = true;
-            }
-
-            if (zeroed1 && zeroed2) {
-                return 0;
-            }
-            if (zeroed1) {
-                return 1;
-            }
-            if (zeroed2) {
-                return -1;
-            }
-            return sd1.getTime() - sd2.getTime();
         }
     }
 
@@ -243,16 +187,9 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 sd.setRank(rank);
                 sd.setPoints(getPoints(sd.getTime(), d.getRec(), rank, amount, sd.getStrafe(), heatSize));
                 switch (sd.getStrafart()) {
-                case NICHT_ANGETRETEN:
+                case NICHT_ANGETRETEN, AUSSCHLUSS:
                     sd.setRank(-1);
                     sd.setPoints(0);
-                    sd.setTime(0);
-                    break;
-                case AUSSCHLUSS:
-                    if ((!isQualified && !isFinal) || round == 0) {
-                        sd.setRank(-1);
-                        sd.setPoints(0);
-                    }
                     sd.setTime(0);
                     break;
                 case DISQUALIFIKATION:
@@ -349,7 +286,7 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
 
                 SchwimmerInfo<T> si = new SchwimmerInfo<>();
                 si.schwimmer = SearchUtils.getSchwimmer(wk, r[i].getSchwimmer());
-                si.platz = placeForOverallResult(r, sd, x == rounds - 1);
+                si.platz = placeForOverallResult(r, sd, x > 0 && x == rounds - 1);
                 si.zeit = sd.getTime();
                 si.strafe = sd.getStrafe();
                 si.runde = x;
@@ -434,19 +371,19 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 if (si != null) {
                     sd.setTime(si.zeit);
                     sd.overridePenalty(si.strafe);
-                    sd.setRank(rank);
-                    sd.setPoints(getPoints(si.zeit, d.getRec(), rank, amount, si.strafe, heatSize));
+                    // The final keeps its own places, so a gap there (e.g. an A-finalist not starting) does not move
+                    // the B-final up.
+                    int platz = si.runde == rounds - 1 && si.platz > 0 ? si.platz : rank;
+                    sd.setRank(platz);
+                    sd.setPoints(getPoints(si.zeit, d.getRec(), platz, amount, si.strafe, heatSize));
                     switch (sd.getStrafart()) {
-                    case NICHT_ANGETRETEN:
+                    case NICHT_ANGETRETEN, AUSSCHLUSS:
                         sd.setRank(-1);
                         sd.setPoints(0);
                         sd.setTime(0);
                         break;
-                    case AUSSCHLUSS:
                     case DISQUALIFIKATION:
                         if (si.runde > 0) {
-                            // sd.overridePenalty(Strafe.NICHTS);
-                            // sd.setPoints(0);
                             sd.setTime(0);
                         } else {
                             sd.setRank(-1);

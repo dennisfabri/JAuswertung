@@ -19,7 +19,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [ILS finals rank penalty points the old way](ils-finals-penalty-points-ranking.md) | High | S | `FormelILSFinals` keeps a copy of the ILS comparator that missed the penalty-points change |
 | [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md) | High | M | `FormelLinear` ignores "penalty counts as disqualification" and the all-did-not-start rule |
 | [Medal list per discipline hides the organisation column the wrong way round](medals-per-discipline-organisation-column.md) | Medium | S | Inverted "omit organisation" flag in one of three copies of `getPseudoTable` |
 | [JTeams launcher builds its UI on the main thread](jteams-launcher-off-edt.md) | Medium | S | `JAuswertungTeammembersLauncher` is a copy of `JAuswertungLauncher` without `invokeLater` |

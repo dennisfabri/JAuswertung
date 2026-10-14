@@ -6,11 +6,10 @@ In `jauswertung-data/.../util/ergebnis/`:
   `DLRGComparator`/`RankComparator(2)` in DLRG2007 (`:28-79`) and Linear.
 - The finals ranking / judges' decision (Zielrichterentscheid) block also appears in `FormelMedaillen.java:219-255`.
 - The "severe penalty first" comparator exists in `FormelDLRG2007:33-54`, `FormelFeuerwehr2005:62-83`,
-  `FormelILS:34-54`, `FormelILSSERC:32-52`, `FormelILSFinals:89-109` and `FormelLinear:30-51`.
+  `FormelILS:27-57`, `FormelILSSERC:32-52` and `FormelLinear:30-51`.
 
-The copies have already drifted, see [ILS finals rank penalty points the old way](ils-finals-penalty-points-ranking.md)
-and [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md). `FormelILSSERC` and `FormelMedaillen`
-rank differently by design and stay separate.
+The copies have already drifted, see [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md).
+`FormelILSSERC` and `FormelMedaillen` rank differently by design and stay separate.
 
 ## Done when
 
