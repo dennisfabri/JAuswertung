@@ -96,9 +96,6 @@ public class RulebookSettingsPrintable extends HeaderFooterPrintable {
             case INTERNATIONAL_PER_DISCIPLINE:
                 gesamtwertung4.append(I18n.get("BestenJeDisziplinInternationalWerten"));
                 break;
-            case MEDAILLEN:
-                gesamtwertung4.append(I18n.get("MedaillenWerten"));
-                break;
             case KEINER:
                 break;
             }

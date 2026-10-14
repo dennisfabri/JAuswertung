@@ -42,7 +42,6 @@ class AKsGesamtwertungPanel extends JPanel {
     JRadioButton noscale;
     JRadioButton scalePoints;
     JRadioButton internationalScale;
-    JRadioButton medaillen;
 
     private ButtonGroup groupEvaluationModes;
     private ButtonGroup groupScale;
@@ -68,14 +67,12 @@ class AKsGesamtwertungPanel extends JPanel {
             bestTeamWithoutBlocking.setEnabled(selected);
             bestPerDiscipline.setEnabled(selected);
             scalePoints.setEnabled(selected);
-            medaillen.setEnabled(selected);
             labelSeparator.setEnabled(selected);
 
             noscale.setEnabled(selected);
             internationalScale.setEnabled(selected);
             internationalPerDiscipline.setEnabled(selected && force);
             punkteanpassung.setEnabled(selected);
-            medaillen.setEnabled(selected);
 
             if ((!force) && (internationalPerDiscipline.isSelected())) {
                 internationalScale.setSelected(true);
@@ -96,8 +93,6 @@ class AKsGesamtwertungPanel extends JPanel {
 
         scalePoints = new JRadioButton(I18n.get("ScaleGroupEvaluation"));
         scalePoints.setEnabled(false);
-        medaillen = new JRadioButton(I18n.get("Medaillen"));
-        medaillen.setEnabled(false);
         noscale = new JRadioButton(I18n.get("NoPointsScale"));
         noscale.setEnabled(false);
         internationalScale = new JRadioButton(I18n.get("InternationalPointsScale"));
@@ -122,7 +117,6 @@ class AKsGesamtwertungPanel extends JPanel {
         groupScale.add(internationalScale);
         groupScale.add(scalePoints);
         groupScale.add(internationalPerDiscipline);
-        groupScale.add(medaillen);
 
         ActionListener change = arg0 -> {
             parent.notifyChange();
@@ -145,7 +139,6 @@ class AKsGesamtwertungPanel extends JPanel {
         scalePoints.addActionListener(change);
         internationalScale.addActionListener(change);
         noscale.addActionListener(change);
-        medaillen.addActionListener(change);
     }
 
     private void initGUI() {
@@ -161,7 +154,6 @@ class AKsGesamtwertungPanel extends JPanel {
         sfm.add(scalePoints, true);
         sfm.add(internationalScale, true);
         sfm.add(internationalPerDiscipline, true);
-        sfm.add(medaillen, true);
 
         sfm.add(labelSeparator, true);
 
@@ -211,9 +203,6 @@ class AKsGesamtwertungPanel extends JPanel {
         case INTERNATIONAL_PER_DISCIPLINE:
             internationalPerDiscipline.setSelected(true);
             break;
-        case MEDAILLEN:
-            medaillen.setSelected(true);
-            break;
         }
     }
 
@@ -223,8 +212,6 @@ class AKsGesamtwertungPanel extends JPanel {
         Skalierungsmodus skalierung = Skalierungsmodus.KEINER;
         if (scalePoints.isSelected()) {
             skalierung = Skalierungsmodus.ANZAHL_DISZIPLINEN;
-        } else if (medaillen.isSelected()) {
-            skalierung = Skalierungsmodus.MEDAILLEN;
         } else if (internationalScale.isSelected()) {
             skalierung = Skalierungsmodus.INTERNATIONAL;
         } else if (internationalPerDiscipline.isSelected()) {

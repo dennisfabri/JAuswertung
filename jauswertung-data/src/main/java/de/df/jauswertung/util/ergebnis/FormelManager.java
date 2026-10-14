@@ -39,7 +39,6 @@ public final class FormelManager {
         add(new FormelDP<>());
         add(new FormelDSV<>(), false);
         add(new FormelFeuerwehr2005<>(), false);
-        add(new FormelMedaillen<>(), false);
         add(new FormelLinear<>());
         add(new FormelDirectPoints<>(), false);
     }

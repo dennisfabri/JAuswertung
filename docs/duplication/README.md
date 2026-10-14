@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
-| [Overall scoring scales points with and without "no rating"](gesamtwertung-scale-points.md) | Medium | S | `scalePointsInternational` and `scalePointsMedaillen` differ in `hasKeineWertung()` — decide which is intended |
 | [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Medium | M | The EDT fix of commit 98261395 reached print paths, not the duplicated preview paths |
 | [MFilePlugin exists twice](file-plugin-twice.md) | Medium | M | The jteams copy of `MFilePlugin` has drifted from the main one |
 | [Print-queue status and error handling exists twice](print-queue-callback-twice.md) | Medium | M | `PPrintPlugin` and `PPrintTeammembersPlugin` copy the callbacks including a busy loop |
@@ -48,7 +47,7 @@ These look alike but were left as they are:
 - `Laufliste.startgruppeVerteilenILS`/`…ILSOutdoor`: only the setup is shared; the distribution algorithms differ on
   purpose.
 - `Team.FromCode00`/`FromCode01`: versioned readers for the file format; separate for compatibility.
-- `FormelILSSERC` and `FormelMedaillen` comparators: different ranking rules by design.
+- `FormelILSSERC` comparator: different ranking rules by design.
 - `DataTableUtils` time as text vs. as an Excel day fraction (`:1705`/`:1770`): different on purpose.
 - `CsvExporter`/`ASpreadsheetExporter`: thin wrappers that already delegate to `DataTableUtils`.
 - Long/short variants (`Mannschaft.getStarter`/`getStarterShort`, `Lauf.getDisziplin`/`getDisziplinShort`,
