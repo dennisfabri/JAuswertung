@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
-| [MFilePlugin exists twice](file-plugin-twice.md) | Medium | M | The jteams copy of `MFilePlugin` has drifted from the main one |
 | [Print-queue status and error handling exists twice](print-queue-callback-twice.md) | Medium | M | `PPrintPlugin` and `PPrintTeammembersPlugin` copy the callbacks including a busy loop |
 | [The sheet loop of the table imports is copied six times](import-sheet-loop.md) | Medium | M | Six copies of the sheet loop in `ImportUtils`; two lose the file name in header errors |
 | [A scoring group is turned into an age group in three places](scoring-group-as-age-group-three-times.md) | Medium | M | `getResultWettkampf`, `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` share their steps — investigate |
