@@ -504,11 +504,8 @@ public final class CompetitionUtils {
                 Altersklasse ak = wkx.getRegelwerk().getAk(pos);
                 Wertungsgruppe wg = wgs[x];
 
-                ak.setName(wg.getName());
-                ak.setEinzelwertung(wg.isProtokollMitEinzelwertung());
-                ak.setEinzelwertungHlw(wg.isEinzelwertungHlw());
+                wg.applyTo(ak);
                 ak.setMehrkampfwertung(true);
-                ak.setStrafeIstDisqualifikation(wg.isStrafeIstDisqualifikation());
                 ak.setWertungsgruppe(null);
 
                 for (T t : swimmers[x]) {

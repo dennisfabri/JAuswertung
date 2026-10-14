@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md) | High | M | `FormelLinear` ignores "penalty counts as disqualification" and the all-did-not-start rule |
-| [Result competition from scoring groups is built twice](result-competition-from-scoring-groups.md) | Medium | S | `ResultsPrinter.getWettkampf` is a copy of `ResultSelectionUtils.getResultWettkampf` |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | Exporter and printer of the Veranstaltungswertung copy the preparation; the exporter skips a check |
 | [The penalty list printable exists twice](penalty-list-printable-twice.md) | Medium | S | Protocol and penalty list build the list differently regarding did-not-start — decide which is intended |
 | [Overall scoring scales points with and without "no rating"](gesamtwertung-scale-points.md) | Medium | S | `scalePointsInternational` and `scalePointsMedaillen` differ in `hasKeineWertung()` — decide which is intended |

@@ -21,13 +21,13 @@ onto it. They differ in focus:
 The individual rankings of a scoring group therefore reach the user through two constructions: the printouts above use
 `generateEinzelwertungswettkampf(wk, wgname, …)`, the CSV and Excel exports merge with
 `generateWertungsgruppenwettkampf` and split with `generateEinzelwertungswettkampf(merged, index, …)`
-(`DataTableUtils:296`). They agree today only because both copy the same settings relevant to the split.
+(`DataTableUtils:296`). Both take the settings from `Wertungsgruppe.applyTo`; the merge itself is still duplicated.
 
 Also noticed: `generateWertungsgruppenwettkampf` calls `disableUpdates()`/`enableUpdates()` on the original `wk` while
 it removes swimmers from the copy `wkx`.
 
-A third construction adds a copy of the group instead of merging, see [Result competition from scoring groups is built
-twice](result-competition-from-scoring-groups.md).
+A third construction, `ResultSelectionUtils.getResultWettkampf`, adds a copy of the group instead of merging; it uses
+`Wertungsgruppe.applyTo` as well.
 
 ## Investigate
 
@@ -38,4 +38,4 @@ twice](result-competition-from-scoring-groups.md).
   result test before changing anything.
 - Whether the `disableUpdates()` on the wrong object has an effect.
 
-Then keep one merge of a scoring group, with the settings copied in one place (`Wertungsgruppe.applyTo(Altersklasse)`).
+Then keep one merge of a scoring group.
