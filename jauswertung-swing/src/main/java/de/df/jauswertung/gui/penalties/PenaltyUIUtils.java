@@ -82,10 +82,6 @@ public class PenaltyUIUtils {
         }
     }
 
-    public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, boolean kurz) {
-        return getPenalties(wk, -1, null, false, kurz);
-    }
-
     public static <T extends ASchwimmer> JPanel[] getPenalties(AWettkampf<T> wk, int index, boolean[][] selected,
             boolean ignoreNA, boolean kurz) {
         Hashtable<String, JPanel> panels = new Hashtable<>();

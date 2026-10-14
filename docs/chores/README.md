@@ -17,6 +17,7 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Undo/redo uses Java serialization](undo-java-serialization.md) | Medium | M | Undo snapshots use Java serialization, unlike the files, and swallow errors |
 | [LimitsCheck duplicates the search for broken time limits](limits-check-duplicates-timelimit-search.md) | Low | S | `LimitsCheck` in misc has its own copy of the search for broken time limits |
 | [OWDisziplin.Id is stored although it is derived](owdisziplin-id-derived.md) | Low | M | `OWDisziplin.Id` is stored although it is derived from its components |
+| [Review which penalties are printed and how](penalty-list-review.md) | Low | M | Penalty list: which penalties it contains, what a card shows, and a more compact table layout |
 | [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
 | [Replace printStackTrace() and System.out/System.err](console-output-and-printstacktrace.md) | Low | L | 166 `printStackTrace()` and 169 `System.out`/`System.err` calls bypass logging and error handling |
 | [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |

@@ -95,7 +95,7 @@ public final class PrintUtils {
 
     public static boolean printYearOfBirth = true;
 
-    public static boolean printDidNotStart = true;
+    public static boolean printDidNotStart = false;
 
     public static BarcodeType barcodeType = BarcodeType.CODE128;
 
