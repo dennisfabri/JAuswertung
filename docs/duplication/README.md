@@ -19,7 +19,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
 | [Heat chunking in TableHeatUtils is copied three times](table-heat-chunking.md) | Low | S | Splitting into heats and merging sparse tables is repeated in `TableHeatUtils` |
 | [Sex labels are looked up by hand with different fallbacks](sex-labels-by-hand.md) | Low | S | Several places bypass the `I18n` sex helpers; `TimeLimitsPlugin` falls back to English |
 | [Gender exists twice with the same name](gender-class-twice.md) | Low | S | `org.lisasp.competition.base.api.type.Gender` is in jauswertung-io and portal-adapter |

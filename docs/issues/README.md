@@ -13,4 +13,4 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Issue | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Low | M | 21 preview creators read widgets in the background; mitigated because the preview blocks its parent |
+| [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Low | M | 20 preview creators read widgets in the background; mitigated because the preview blocks its parent |

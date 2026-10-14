@@ -3,7 +3,7 @@
 jutils `PrintExecutor.preview` hands the `PrintableCreator` to `JPrintPreview`, which calls `create()` in a
 `SwingWorker` (`JPrintPreview.java:291-301`) when the preview opens, after page setup and on PDF export
 (`:206`, `:422`). Commit 98261395 made every print action read its widget state on the EDT first; the preview actions
-were left out. In 21 of the 56 preview calls the creator still reads widgets, against the `AGENTS.md` rule "never read
+were left out. In 20 of the 56 preview calls the creator still reads widgets, against the `AGENTS.md` rule "never read
 Swing components inside the lambda".
 
 In `jauswertung-plugins-print/.../gui/plugins/print/` (preview line, widgets read):
@@ -20,9 +20,7 @@ In `jauswertung-plugins-print/.../gui/plugins/print/` (preview line, widgets rea
 - `ALauflistenPrinter:200,208` (`comments`), `SprecherlistePrinter:222,230` (`columns`), `AFilledKartenPrinter:226,238`
   (`pages`, plus the fields `allheats`/`minheat`/`maxheat`)
 
-Elsewhere: `JAKsEditor:511` (`getRegelwerkForPrint()` reads the whole editor) and the Veranstaltungswertung
-`ResultsPrinter:292` in the normal view (`resultmodus`, the font selection, and `getVeranstaltung()` writes the panel
-values into the event).
+Elsewhere: `JAKsEditor:511` (`getRegelwerkForPrint()` reads the whole editor).
 
 The print path of each of these already captures the values on the EDT.
 

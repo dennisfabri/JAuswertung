@@ -4,11 +4,10 @@ import java.awt.Font;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,16 +17,11 @@ import javax.swing.table.TableModel;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.util.TableUtils;
-import de.df.jauswertung.util.GesamtwertungWettkampf;
-import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.jtable.ColumnGroup;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.gui.jtable.GroupableTableHeader;
@@ -47,7 +41,6 @@ class ResultsPrinter implements Printer {
     private JButton resultpreview;
     private JButton resultprint;
     JComboBox<String> resultmodus;
-    JCheckBox resultcompact;
     private JPanel panel;
 
     final JVeranstaltungswertung parent;
@@ -66,9 +59,6 @@ class ResultsPrinter implements Printer {
         resultprint.addActionListener(e -> {
             print();
         });
-        resultcompact = new JCheckBox(I18n.get("CompactView"));
-        resultcompact.setSelected(true);
-        resultcompact.setVisible(false);
 
         resultmodus = new JComboBox<>(new String[] { I18n.get("Organisation"), I18n.get("Qualifikationsebene") });
 
@@ -76,90 +66,40 @@ class ResultsPrinter implements Printer {
                 "4dlu:grow,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1, 4, 0)));
 
-        panel.add(resultcompact, CC.xy(2, 2));
         panel.add(new JLabel(I18n.get("Print.WertungNach")), CC.xy(4, 2));
         panel.add(resultmodus, CC.xy(6, 2));
         panel.add(resultpreview, CC.xy(8, 2));
         panel.add(resultprint, CC.xy(10, 2));
     }
 
-    @SuppressWarnings({ "unchecked", "null", "rawtypes" })
-    public static <T extends ASchwimmer> Printable getGesamtwertungPrintable(AWettkampf<T> wk, Veranstaltung vs,
-            boolean gliederung) {
-
-        AWettkampf[] wks = VeranstaltungsUtils.getWettkaempfe(vs.getCompetitions());
-        String[] nx = vs.getCompetitionNames();
-        LinkedList<Integer> sizes = new LinkedList<>();
-        LinkedList<String> names = new LinkedList<>();
-        LinkedList<String> sexes = new LinkedList<>();
-        for (int x = 0; x < wks.length; x++) {
-            int amount = 0;
-            if (wks[x] != null) {
-                if (!gliederung) {
-                    ListIterator<ASchwimmer> li = wks[x].getSchwimmer().listIterator();
-                    while (li.hasNext()) {
-                        ASchwimmer s = li.next();
-                        if (s.getQualifikationsebene().trim().length() == 0) {
-                            li.remove();
-                        } else {
-                            s.setGliederung(s.getQualifikationsebene());
-                        }
-                    }
-                }
-                for (int y = 0; y < wks[x].getRegelwerk().size(); y++) {
-                    if (SearchUtils.hasSchwimmer(wks[x], wks[x].getRegelwerk().getAk(y))) {
-                        amount++;
-                        sexes.add(wks[x].getRegelwerk().getTranslation("femaleShort", I18n.get("sex1Short")));
-                        sexes.add(wks[x].getRegelwerk().getTranslation("maleShort", I18n.get("sex2Short")));
-                    }
-                }
-            }
-            if (amount > 0) {
-                sizes.addLast(amount);
-                names.addLast(nx[x]);
-            }
-        }
-        if (sizes.isEmpty()) {
-            return EmptyPrintable.Instance;
-        }
-
-        TableModel tm = TableUtils.buildGesamtwertungsergebnis(wk, false, sexes.toArray(new String[sexes.size()]));
+    @SuppressWarnings("rawtypes")
+    static Printable getGesamtwertungPrintable(Veranstaltungsergebnis ergebnis) {
+        AWettkampf wk = ergebnis.wettkampf();
+        TableModel tm = TableUtils.buildGesamtwertungsergebnis(wk, false, null);
         if (tm == null || tm.getRowCount() == 0) {
             return EmptyPrintable.Instance;
         }
 
-        ListIterator<Integer> lis = sizes.listIterator();
-        ListIterator<String> lin = names.listIterator();
-        int size = 0;
-        String name = "";
-
         JGroupableTable t = new JGroupableTable(tm);
-        if (tm instanceof ExtendedTableModel) {
-            ExtendedTableModel etm = (ExtendedTableModel) tm;
+        if (tm instanceof ExtendedTableModel etm) {
             GroupableTableHeader gth = (GroupableTableHeader) t.getTableHeader();
+            List<String> wettkaempfe = wettkampfJeSpalte(etm, ergebnis.wettkampfnamen());
 
-            ColumnGroup cgx = null;
-            for (int x = 0; x < (etm.getColumnCount() - 3) / 2; x++) {
-                if (size <= 0) {
-                    if (cgx != null) {
-                        gth.addColumnGroup(cgx);
+            ColumnGroup wettkampf = null;
+            for (int x = 0; x < wettkaempfe.size(); x++) {
+                if ((wettkampf == null) || !wettkaempfe.get(x).equals(wettkaempfe.get(x - 1))) {
+                    if (wettkampf != null) {
+                        gth.addColumnGroup(wettkampf);
                     }
-
-                    size = lis.next();
-                    name = lin.next();
-                    cgx = new ColumnGroup(name);
+                    wettkampf = new ColumnGroup(wettkaempfe.get(x));
                 }
-                int ak = Integer.parseInt(etm.getExtendedTitleRows()[0].cells[3 + x].title);
-                ColumnGroup cg = new ColumnGroup(wk.getRegelwerk().getAk(ak).getName());
+                ColumnGroup cg = new ColumnGroup(wk.getRegelwerk().getAk(altersklasse(etm, x)).getName());
                 cg.add(t.getColumnModel().getColumn(3 + 2 * x));
                 cg.add(t.getColumnModel().getColumn(3 + 2 * x + 1));
-
-                cgx.add(cg);
-
-                size--;
+                wettkampf.add(cg);
             }
-            if (cgx != null) {
-                gth.addColumnGroup(cgx);
+            if (wettkampf != null) {
+                gth.addColumnGroup(wettkampf);
             }
         }
 
@@ -169,80 +109,51 @@ class ResultsPrinter implements Printer {
         return PrintManager.getPrintable(t, "", JTablePrintable.OPT_ALL, true, true);
     }
 
-    @SuppressWarnings("rawtypes")
-    Printable getPrintableCompact() {
-        return getPrintableCompact(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0,
-                parent.getSelectedFont());
+    /**
+     * @return the competition of every age-group column of the overall result table, from left to right
+     */
+    static List<String> wettkampfJeSpalte(ExtendedTableModel etm, String[] wettkampfnamen) {
+        return IntStream.range(0, (etm.getColumnCount() - 3) / 2)
+                .mapToObj(x -> wettkampfnamen[altersklasse(etm, x)]).toList();
     }
 
-    @SuppressWarnings("rawtypes")
-    private static Printable getPrintableCompact(Veranstaltung vs, boolean gliederungen, Font f) {
-        AWettkampf[] wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
+    private static int altersklasse(ExtendedTableModel etm, int spalte) {
+        return Integer.parseInt(etm.getExtendedTitleRows()[0].cells[3 + spalte].title);
+    }
+
+    private static Printable getPrintable(Veranstaltung vs, boolean gliederungen, Font f) {
+        Veranstaltungsergebnis[] ergebnisse = VeranstaltungsUtils.veranstaltungsergebnisse(vs, gliederungen, true);
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        return getPrintableCompact(vs, wks, title, f);
+        return getPrintable(vs, ergebnisse, title, f);
     }
 
-    private static MultiplePrintable getPrintableCompact(Veranstaltung vs, AWettkampf[] wks, String title, Font f) {
+    private static MultiplePrintable getPrintable(Veranstaltung vs, Veranstaltungsergebnis[] ergebnisse, String title,
+            Font f) {
         MultiplePrintable mp = new MultiplePrintable();
-        for (AWettkampf wk : wks) {
-            if (wk.hasSchwimmer()) {
-                mp.add(getPrintableCompact(vs, wk, title, f));
+        if (ergebnisse == null) {
+            return mp;
+        }
+        for (Veranstaltungsergebnis ergebnis : ergebnisse) {
+            if (ergebnis.wettkampf().hasSchwimmer()) {
+                mp.add(getPrintable(vs, ergebnis, title, f));
             }
         }
         return mp;
     }
 
-    @SuppressWarnings({ "unchecked" })
-    static Printable getPrintableCompact(Veranstaltung vs, @SuppressWarnings("rawtypes") AWettkampf wk, String title,
-            Font f) {
+    private static Printable getPrintable(Veranstaltung vs, Veranstaltungsergebnis ergebnis, String title, Font f) {
         if (f != null) {
             PrintManager.setFont(f);
         }
 
-        Printable p = null;
-
-        if (wk != null) {
-            p = getGesamtwertungPrintable(wk, vs, true);
-        }
-        if (p == null) {
-            return EmptyPrintable.Instance;
-        }
+        Printable p = getGesamtwertungPrintable(ergebnis);
         if (p instanceof EmptyPrintable) {
             return p;
         }
         HeaderFooterPrintable hfp = new HeaderFooterPrintable(p, new MessageFormat(title), null, f);
         hfp.setHeader(new MessageFormat(vs.getName()), HeaderFooterPrintable.LEFT);
         hfp.setHeader(new MessageFormat(vs.getLocationAndDate()), HeaderFooterPrintable.RIGHT);
-        p = hfp;
-        return PrintManager.getFinalPrintable(p, new Date(), (String) null, I18n.get("GroupEvaluation"));
-    }
-
-    Printable getPrintableNormal() {
-        return getPrintableNormal(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0,
-                parent.getSelectedFont());
-    }
-
-    private Printable getPrintableNormal(Veranstaltung vs, boolean gliederungen, Font f) {
-        if (f != null) {
-            PrintManager.setFont(f);
-        }
-
-        Printable p = null;
-
-        p = veranstaltung2Printable(vs, gliederungen);
-        if (p == null) {
-            return EmptyPrintable.Instance;
-        }
-        if (p instanceof EmptyPrintable) {
-            return p;
-        }
-        String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-        HeaderFooterPrintable hfp = new HeaderFooterPrintable(p, new MessageFormat(title), null, f);
-        hfp.setHeader(new MessageFormat(vs.getName()), HeaderFooterPrintable.LEFT);
-        hfp.setHeader(new MessageFormat(vs.getLocationAndDate()), HeaderFooterPrintable.RIGHT);
-        p = hfp;
-        return PrintManager.getFinalPrintable(p, new Date(), (String) null, I18n.get("GroupEvaluation"));
-
+        return PrintManager.getFinalPrintable(hfp, new Date(), (String) null, I18n.get("GroupEvaluation"));
     }
 
     @SuppressWarnings("rawtypes")
@@ -261,112 +172,39 @@ class ResultsPrinter implements Printer {
         return panel;
     }
 
-    private Printable getPrintable(boolean compact, Veranstaltung vs, boolean gliederungen, Font f) {
-        if (compact) {
-            return getPrintableCompact(vs, gliederungen, f);
-        }
-        return getPrintableNormal(vs, gliederungen, f);
-    }
-
     void print() {
-        boolean compact = resultcompact.isSelected();
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
         Font f = parent.getSelectedFont();
-        PrintExecutor.print(() -> getPrintable(compact, vs, gliederungen, f), I18n.get("GroupEvaluation"), parent);
+        PrintExecutor.print(() -> getPrintable(vs, gliederungen, f), I18n.get("GroupEvaluation"), parent);
     }
 
     void preview() {
         parent.setEnabled(false);
-        // if (getPrintable(compact.isSelected()) == null) {
-        // DialogUtils.normaleMeldung(parent, I18n.get("NoDataToPrint"));
-        // return;
-        // }
-        PrintableCreator pc = null;
-        if (resultcompact.isSelected()) {
-            pc = new CompactPrintableCreator();
-        } else {
-            pc = new NormalPrintableCreator();
-        }
+        PrintableCreator pc = new ResultsPrintableCreator();
         parent.setEnabled(true);
         PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
                 IconManager.getTitleImages());
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private Printable veranstaltung2Printable(Veranstaltung vs, boolean gliederungen) {
-        AWettkampf[] wks = VeranstaltungsUtils.getWettkaempfe(vs.getCompetitions());
-        if (!gliederungen) {
-            for (AWettkampf wk : wks) {
-                if (wk != null) {
-                    LinkedList<ASchwimmer> swimmers = wk.getSchwimmer();
-                    for (ListIterator<ASchwimmer> li = swimmers.listIterator(); li.hasNext();) {
-                        ASchwimmer s = li.next();
-                        if (s.getQualifikationsebene().length() == 0) {
-                            li.remove();
-                        } else {
-                            s.setGliederung(s.getQualifikationsebene());
-                        }
-                    }
-                }
-            }
-        }
+    private final class ResultsPrintableCreator implements PrintableCreator {
 
-        GesamtwertungWettkampf[] gws = new GesamtwertungWettkampf[wks.length];
-        for (int x = 0; x < wks.length; x++) {
-            if (wks[x] != null) {
-                Regelwerk aks = wks[x].getRegelwerk();
-                aks.setGesamtwertung(true);
-                aks.setGesamtwertungHart(vs.isGesamtwertungHart());
-                aks.setGesamtwertungSkalieren(vs.getGesamtwertungSkalieren());
-                aks.setGesamtwertungsmodus(vs.getGesamtwertungsmodus());
-                gws[x] = new GesamtwertungWettkampf(wks[x]);
-            }
-        }
-
-        String[] titles = vs.getCompetitionNames();
-        MultiplePrintable mp = new MultiplePrintable();
-        for (int x = 0; x < wks.length; x++) {
-            if (wks[x] != null)
-                mp.add(PrintUtils.getGesamtwertungPrintable(wks[x], titles[x]));
-        }
-
-        return mp;
-    }
-
-    private final class CompactPrintableCreator implements PrintableCreator {
-
-        @SuppressWarnings("rawtypes")
-        private final AWettkampf[] wks;
+        private final Veranstaltungsergebnis[] ergebnisse;
         private final Veranstaltung vs;
         private final String t;
         private final Font f;
 
-        public CompactPrintableCreator() {
-            long start = System.currentTimeMillis();
+        ResultsPrintableCreator() {
             vs = parent.getVeranstaltung();
-            System.out.println("Veranstaltung: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
             boolean gliederungen = resultmodus.getSelectedIndex() == 0;
-            wks = VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true);
-            System.out.println("Wettkämpfe: " + (System.currentTimeMillis() - start));
-            start = System.currentTimeMillis();
+            ergebnisse = VeranstaltungsUtils.veranstaltungsergebnisse(vs, gliederungen, true);
             f = parent.getSelectedFont();
-            System.out.println("Font: " + (System.currentTimeMillis() - start));
             t = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
-            System.out.println("Title: " + (System.currentTimeMillis() - start));
         }
 
         @Override
         public Printable create() {
-            return getPrintableCompact(vs, wks, t, f);
-        }
-    }
-
-    final class NormalPrintableCreator implements PrintableCreator {
-        @Override
-        public Printable create() {
-            return getPrintableNormal();
+            return getPrintable(vs, ergebnisse, t, f);
         }
     }
 }

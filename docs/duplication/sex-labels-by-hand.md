@@ -5,9 +5,7 @@ defaults. Hand-written lookups with other fallbacks:
 
 - `TimeLimitsPlugin.java:78-82` — English defaults (`"Female"`, `"female"`, `"f"`).
 - `AresWriterFinals.java:55,388` — hard-coded `"m"`/`"w"`.
-- Veranstaltungswertung `ResultsPrinter.java:112-113` — falls back to
-  `sex1Short`/`sex2Short`.
-- `VeranstaltungsUtils.java:39-40,64-65`, `ImportUtils.java:1110-1119`, `AKsSexesPanel.java:86-91`.
+- `VeranstaltungsUtils.java:48-49,69-70`, `ImportUtils.java:1110-1119`, `AKsSexesPanel.java:86-91`.
 
 ## Done when
 
