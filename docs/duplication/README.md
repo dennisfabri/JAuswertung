@@ -20,11 +20,10 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md) | High | M | `FormelLinear` ignores "penalty counts as disqualification" and the all-did-not-start rule |
-| [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | Exporter and printer of the Veranstaltungswertung copy the preparation; the exporter skips a check |
+| [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
 | [The penalty list printable exists twice](penalty-list-printable-twice.md) | Medium | S | Protocol and penalty list build the list differently regarding did-not-start — decide which is intended |
 | [Overall scoring scales points with and without "no rating"](gesamtwertung-scale-points.md) | Medium | S | `scalePointsInternational` and `scalePointsMedaillen` differ in `hasKeineWertung()` — decide which is intended |
 | [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Medium | M | The EDT fix of commit 98261395 reached print paths, not the duplicated preview paths |
-| [JHeatPresentationFrame exists twice](presentation-frame-twice.md) | Medium | M | Two drifted copies of the full-screen heat presentation, both with an off-by-one |
 | [MFilePlugin exists twice](file-plugin-twice.md) | Medium | M | The jteams copy of `MFilePlugin` has drifted from the main one |
 | [Print-queue status and error handling exists twice](print-queue-callback-twice.md) | Medium | M | `PPrintPlugin` and `PPrintTeammembersPlugin` copy the callbacks including a busy loop |
 | [The sheet loop of the table imports is copied six times](import-sheet-loop.md) | Medium | M | Six copies of the sheet loop in `ImportUtils`; two lose the file name in header errors |

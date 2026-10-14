@@ -215,7 +215,7 @@ public class JHeatPresentationFrame<T extends ASchwimmer> extends JFrame {
             setUndecorated(true);
 
             GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-            if (screenIndex < 0 || screenIndex > devices.length) {
+            if (screenIndex < 0 || screenIndex >= devices.length) {
                 screenIndex = 0;
             }
             GraphicsDevice device = devices[screenIndex];
