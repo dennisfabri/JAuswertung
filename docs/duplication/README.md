@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | The Veranstaltungswertung printer re-loads and re-filters the competitions; the competition headers can be misaligned |
-| [The sheet loop of the table imports is copied six times](import-sheet-loop.md) | Medium | M | Six copies of the sheet loop in `ImportUtils`; two lose the file name in header errors |
 | [A scoring group is turned into an age group in three places](scoring-group-as-age-group-three-times.md) | Medium | M | `getResultWettkampf`, `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` share their steps — investigate |
 | [Scoring formula bodies are copied](scoring-formula-bodies.md) | Medium | L | `setPoints`/`toResults` and the penalty comparators exist in several formulas |
 | [Heat chunking in TableHeatUtils is copied three times](table-heat-chunking.md) | Low | S | Splitting into heats and merging sparse tables is repeated in `TableHeatUtils` |

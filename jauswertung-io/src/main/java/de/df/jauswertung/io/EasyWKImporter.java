@@ -5,9 +5,6 @@ package de.df.jauswertung.io;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -38,17 +35,6 @@ public final class EasyWKImporter implements IImporter {
 
     private static final String[] SUFFIXES = { ".csv" };
 
-    private static final char[] SEPARATORS = { ',', ',', ';' };
-
-    static {
-        NumberFormat nf = NumberFormat.getInstance();
-        if (nf instanceof DecimalFormat) {
-            DecimalFormat df = (DecimalFormat) nf;
-            DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-            SEPARATORS[0] = dfs.getPatternSeparator();
-        }
-    }
-
     public EasyWKImporter() {
         // Nothing to do
     }
@@ -72,16 +58,6 @@ public final class EasyWKImporter implements IImporter {
             String filename)
             throws TableFormatException, TableEntryException, TableException {
         return null;
-    }
-
-    static char identifySeparator(String data) {
-        for (char SEPARATOR : SEPARATORS) {
-            int index = data.indexOf(SEPARATOR);
-            if (index >= 0) {
-                return SEPARATOR;
-            }
-        }
-        return SEPARATORS[0];
     }
 
     @Override
