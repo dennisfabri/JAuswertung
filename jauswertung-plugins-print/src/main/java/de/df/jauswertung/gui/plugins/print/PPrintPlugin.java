@@ -15,10 +15,8 @@ import java.awt.print.Printable;
 import java.util.LinkedList;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -27,6 +25,7 @@ import com.l2fprod.common.tasks.JTaskPaneGroup;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.PrintQueueStatus;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.print.JSelectionDialog.PrintCallBack;
 import de.df.jauswertung.gui.util.I18n;
@@ -37,12 +36,9 @@ import de.df.jauswertung.print.UnterschriftPrintable;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.plaf.GradientTaskPaneGroupUI;
-import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ActionInfo;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.plugin.JPFrame;
 import de.df.jutils.plugin.MenuInfo;
 import de.df.jutils.plugin.PanelInfo;
 import de.df.jutils.plugin.UpdateEvent;
@@ -70,7 +66,7 @@ public class PPrintPlugin extends ANullPlugin {
 
     PanelInfo panelInfo = null;
 
-    PrintCallback printcallback;
+    PrintQueueStatus printcallback;
 
     public PPrintPlugin() {
         panelInfo = new PanelInfo(I18n.get("Print"), IconManager.getBigIcon("print"), false, true, 2000) {
@@ -84,7 +80,7 @@ public class PPrintPlugin extends ANullPlugin {
             }
         };
 
-        printcallback = new PrintCallback();
+        printcallback = new PrintQueueStatus(() -> getController().getWindow());
         PrintQueue.getInstance().addPrintCallback(printcallback);
     }
 
@@ -297,88 +293,5 @@ public class PPrintPlugin extends ANullPlugin {
         }
         return PrintManager.getFinalPrintable(new UnterschriftPrintable(new MultiplePrintable(ps)),
                 wk.getLastChangedDate(), true, I18n.get("Results"));
-    }
-
-    void showError(String title, String message, String note) {
-        new ErrorScheduler(title, message, note).start();
-    }
-
-    boolean showErrorI(String title, String message, String note) {
-        JFrame parent = getController().getWindow();
-        if (parent.isEnabled()) {
-            DialogUtils.warn(parent, title, message, note);
-            return true;
-        }
-        return false;
-    }
-
-    private final class PrintCallback implements PrintQueue.IPrintCallback {
-        @Override
-        @SuppressWarnings("synthetic-access")
-        public void jobFinished(String job, int jobs) {
-            SwingUtilities.invokeLater(new StatusTextChanger(getController().getWindow(), ""));
-        }
-
-        @Override
-        public void jobAdded(String job, int jobs) {
-            jobStarted(job, jobs);
-        }
-
-        @Override
-        @SuppressWarnings("synthetic-access")
-        public void jobStarted(String job, int jobs) {
-            SwingUtilities.invokeLater(
-                    new StatusTextChanger(getController().getWindow(), I18n.get("PrintingJobOfJobs", job, jobs)));
-        }
-
-        @Override
-        @SuppressWarnings("synthetic-access")
-        public void jobError(String job, int jobs, String title, String message, String note) {
-            showError(title, message, note);
-            SwingUtilities.invokeLater(new StatusTextChanger(getController().getWindow(), ""));
-        }
-
-        @Override
-        @SuppressWarnings("synthetic-access")
-        public void queueEmpty() {
-            SwingUtilities.invokeLater(new StatusTextChanger(getController().getWindow(), null));
-        }
-    }
-
-    private static class StatusTextChanger implements Runnable {
-
-        private final JPFrame frame;
-        private final String text;
-
-        public StatusTextChanger(JPFrame f, String t) {
-            frame = f;
-            text = t;
-        }
-
-        @Override
-        public void run() {
-            frame.setStatusBarText(text);
-        }
-    }
-
-    private class ErrorScheduler extends Thread {
-
-        private final String title;
-        private final String message;
-        private final String note;
-
-        public ErrorScheduler(String title, String message, String note) {
-            this.title = title;
-            this.message = message;
-            this.note = note;
-        }
-
-        @Override
-        public void run() {
-            boolean ok = false;
-            while (!ok) {
-                ok = EDTUtils.executeOnEDTwithReturn(() -> PPrintPlugin.this.showErrorI(title, message, note));
-            }
-        }
     }
 }
