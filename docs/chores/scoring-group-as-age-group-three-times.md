@@ -49,3 +49,8 @@ every scoring group to get the swimmers to add.
 - Whether CSV/Excel and the printouts produce the same results for a scoring group, ideally pinned by result tests
   before changing anything.
 - Whether the `disableUpdates()` on the wrong object has an effect.
+
+## Done when
+
+The questions above are answered and pinned by result tests, and the three methods build the age group of a scoring
+group with one shared step.

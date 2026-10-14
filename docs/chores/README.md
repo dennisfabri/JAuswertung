@@ -15,6 +15,7 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Saved block split is never restored](heat-split-blocks.md) | High | S | Saved block split is never restored; fix or remove it |
 | [Referees are keyed by the position name](referees-keyed-by-position-name.md) | Medium | M | Referees of a unit are kept in a map keyed by the position name |
 | [Undo/redo uses Java serialization](undo-java-serialization.md) | Medium | M | Undo snapshots use Java serialization, unlike the files, and swallow errors |
+| [A scoring group is turned into an age group in three places](scoring-group-as-age-group-three-times.md) | Medium | M | `getResultWettkampf`, `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` share their steps; investigate before merging them |
 | [LimitsCheck duplicates the search for broken time limits](limits-check-duplicates-timelimit-search.md) | Low | S | `LimitsCheck` in misc has its own copy of the search for broken time limits |
 | [OWDisziplin.Id is stored although it is derived](owdisziplin-id-derived.md) | Low | M | `OWDisziplin.Id` is stored although it is derived from its components |
 | [Review which penalties are printed and how](penalty-list-review.md) | Low | M | Penalty list: which penalties it contains, what a card shows, and a more compact table layout |
