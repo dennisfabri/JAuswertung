@@ -1,6 +1,3 @@
-/*
- * Created on 19.02.2006
- */
 package de.df.jauswertung.gui.plugins.check;
 
 import com.jgoodies.forms.factories.CC;
@@ -34,23 +31,23 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
     private static final long serialVersionUID = 1973322987330030590L;
 
-    private CorePlugin core;
-    private FEditorPlugin editor;
-    private JMissingInputFrame parent;
+    private final CorePlugin core;
+    private final FEditorPlugin editor;
+    private final JMissingInputFrame parent;
 
-    ASchwimmer[][] swimmers = new ASchwimmer[0][0];
-    StatusDetail[][] stati = new StatusDetail[0][0];
+    private final ZeitenPruefliste pruefliste;
+    private final boolean mitStrafen;
 
-    private JGlassPanel<JPanel>[] panels;
-    JIntegerField[][] input;
+    private ASchwimmer[][] swimmers = new ASchwimmer[0][0];
+    private StatusDetail[][] stati = new StatusDetail[0][0];
+
+    private JIntegerField[][] input;
     private JTimeField[][] time;
     private JButton[][] penalty;
     private JLabel[][] penaltytext;
@@ -59,21 +56,23 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
     private JLabel[][] signal;
     private JLabel[][] discipline;
 
-    JList<String> disciplines;
-    JPanel container;
-    CardLayout layout;
+    private JList<String> disciplines;
+    private JPanel container;
+    private CardLayout layout;
 
-    private JPanel panel;
+    private final JPanel panel;
 
     private boolean changed = false;
 
-    public JTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
+    JTimesInputPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor, Zeitart art) {
         super(new JPanel());
         panel = getComponent();
         panel.setBorder(BorderUtils.createSpaceBorder());
         this.core = core;
         this.editor = editor;
         this.parent = parent;
+        this.pruefliste = new ZeitenPruefliste(art);
+        this.mitStrafen = art == Zeitart.ZEIT;
 
         init();
     }
@@ -109,8 +108,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
                                                           boolean arg4) {
                 Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
-                if (c instanceof JComponent) {
-                    JComponent jc = (JComponent) c;
+                if (c instanceof JComponent jc) {
                     jc.setBorder(BorderUtils.createSpaceBorder(2));
                 }
                 return c;
@@ -128,120 +126,18 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
     }
 
     void updateData() {
-        AWettkampf<ASchwimmer> wk = core.getWettkampf();
-        if (wk.isHeatBased()) {
-            swimmers = new ASchwimmer[0][0];
-            return;
-        }
-        if (!wk.hasSchwimmer()) {
-            swimmers = new ASchwimmer[0][0];
-            return;
-        }
-        int max = wk.getRegelwerk().getMaxDisciplineCount();
-        @SuppressWarnings("unchecked")
-        LinkedList<ASchwimmer>[] notimes = new LinkedList[max];
-        @SuppressWarnings("unchecked")
-        LinkedList<StatusDetail>[] timestatus = new LinkedList[max];
-        for (int x = 0; x < max; x++) {
-            notimes[x] = new LinkedList<>();
-            timestatus[x] = new LinkedList<>();
-        }
-
-        LinkedList<ASchwimmer> swimmerlist = wk.getSchwimmer();
-        ListIterator<ASchwimmer> li = swimmerlist.listIterator();
-        while (li.hasNext()) {
-            ASchwimmer s = li.next();
-            for (int x = 0; x < s.getAK().getDiszAnzahl(); x++) {
-                switch (SchwimmerUtils.getTimeStatus(wk, s, x)) {
-                    case FAST:
-                        notimes[x].addLast(s);
-                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.FAST));
-                        break;
-                    case SLOW:
-                        notimes[x].addLast(s);
-                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.SLOW));
-                        break;
-                    case NORMAL:
-                        break;
-                    case NONE:
-                        notimes[x].addLast(s);
-                        timestatus[x].addLast(new StatusDetail(s, TimeStatus.NONE));
-                        break;
-                }
-            }
-        }
-        boolean hasSchwimmer = false;
-        for (int x = 0; x < max; x++) {
-            if (notimes[x].size() > 0) {
-                hasSchwimmer = true;
-                break;
-            }
-        }
-        if (hasSchwimmer) {
-            swimmers = new ASchwimmer[max][0];
-            stati = new StatusDetail[max][0];
-            for (int x = 0; x < max; x++) {
-                updateSwimmers(notimes[x], timestatus[x], x);
-            }
-        } else {
-            swimmers = new ASchwimmer[0][0];
-            stati = new StatusDetail[0][0];
-        }
+        pruefliste.baue(core.getWettkampf());
+        uebernehmeEintraege();
     }
 
-    static final class StatusDetail {
-
-        private final ASchwimmer swimmer;
-
-        private final TimeStatus status;
-
-        public StatusDetail(ASchwimmer s, TimeStatus status) {
-            swimmer = s;
-            this.status = status;
+    private void uebernehmeEintraege() {
+        int anzahl = pruefliste.getDisziplinen();
+        swimmers = new ASchwimmer[anzahl][];
+        stati = new StatusDetail[anzahl][];
+        for (int x = 0; x < anzahl; x++) {
+            stati[x] = pruefliste.getEintraege(x).toArray(new StatusDetail[0]);
+            swimmers[x] = Arrays.stream(stati[x]).map(StatusDetail::schwimmer).toArray(ASchwimmer[]::new);
         }
-
-        public ASchwimmer getSchwimmer() {
-            return swimmer;
-        }
-
-        public TimeStatus getStatus() {
-            return status;
-        }
-    }
-
-    private void updateSwimmers(LinkedList<ASchwimmer> notimes, LinkedList<StatusDetail> timestatus, int x) {
-        swimmers[x] = notimes.toArray(new ASchwimmer[notimes.size()]);
-        stati[x] = timestatus.toArray(new StatusDetail[timestatus.size()]);
-        sortSwimmers(x);
-    }
-
-    private void sortSwimmers(int x) {
-        Arrays.sort(swimmers[x], new Comparator<ASchwimmer>() {
-            @Override
-            public int compare(ASchwimmer o1, ASchwimmer o2) {
-                if (o1.getAKNummer() != o2.getAKNummer()) {
-                    return o1.getAKNummer() - o2.getAKNummer();
-                }
-                if (o1.isMaennlich() != o2.isMaennlich()) {
-                    return (o1.isMaennlich() ? 1 : -1);
-                }
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-        Arrays.sort(stati[x], new Comparator<StatusDetail>() {
-            @Override
-            public int compare(StatusDetail s1, StatusDetail s2) {
-                ASchwimmer o1 = s1.getSchwimmer();
-                ASchwimmer o2 = s2.getSchwimmer();
-                if (o1.getAKNummer() != o2.getAKNummer()) {
-                    return o1.getAKNummer() - o2.getAKNummer();
-                }
-                if (o1.isMaennlich() != o2.isMaennlich()) {
-                    return (o1.isMaennlich() ? 1 : -1);
-                }
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
     }
 
     @SuppressWarnings({"unchecked"})
@@ -256,7 +152,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         AWettkampf wk = core.getWettkampf();
 
         int dcount = wk.getRegelwerk().getMaxDisciplineCount();
-        panels = new JGlassPanel[dcount];
+        JGlassPanel<JPanel>[] panels = new JGlassPanel[dcount];
         input = new JIntegerField[dcount][0];
         time = new JTimeField[dcount][0];
         penalty = new JButton[dcount][0];
@@ -292,8 +188,10 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                     "4dlu,right:default,4dlu,fill:default:grow," + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
                             + "4dlu,fill:default:grow,4dlu,fill:default,"
                             + "4dlu,fill:default:grow,4dlu,fill:default:grow,"
-                            + "4dlu,fill:default:grow,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                            + (mitStrafen ? "4dlu,fill:default:grow,4dlu,fill:default," : "")
+                            + "4dlu,fill:default,4dlu,fill:default,4dlu",
                     FormLayoutUtils.createLayoutString(swimmers[x].length + 1));
+            int editSpalte = mitStrafen ? 22 : 18;
             p.setLayout(formlayout);
             p.add(new JLabel(I18n.get("StartnumberShort")), CC.xy(2, 2, "center,center"));
             p.add(new JLabel(I18n.get("Name")), CC.xy(4, 2, "center,center"));
@@ -302,8 +200,10 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             p.add(new JLabel(I18n.get("Discipline")), CC.xy(10, 2, "center,center"));
             p.add(new JLabel(I18n.get("TimeInput")), CC.xy(14, 2, "center,center"));
             p.add(new JLabel(I18n.get("Time")), CC.xy(16, 2, "center,center"));
-            p.add(new JLabel(I18n.get("Penalty")), CC.xy(18, 2, "center,center"));
-            p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(24, 2, "center,center"));
+            if (mitStrafen) {
+                p.add(new JLabel(I18n.get("Penalty")), CC.xy(18, 2, "center,center"));
+            }
+            p.add(new JLabel(I18n.get("Rec-Value")), CC.xy(editSpalte + 2, 2, "center,center"));
             for (int y = 0; y < swimmers[x].length; y++) {
                 input[x][y] = new JIntegerField(JTimeField.MAX_TIME, false, true);
                 input[x][y].setValidator((Validator) value -> {
@@ -326,15 +226,16 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                 discipline[x][y] = new JLabel();
 
                 if (swimmers[x][y].getAK().getDiszAnzahl() > x) {
-                    if (swimmers[x][y].getZeit(x) > 0) {
-                        time[x][y].setTimeAsInt(swimmers[x][y].getZeit(x));
+                    int zeit = pruefliste.getArt().getZeit(swimmers[x][y], x);
+                    if (zeit > 0) {
+                        time[x][y].setTimeAsInt(zeit);
                     }
                     penaltytext[x][y].setText(PenaltyUtils.getPenaltyShortText(swimmers[x][y].getAkkumulierteStrafe(x),
                                                                                swimmers[x][y].getAK()));
                     Disziplin disziplin = swimmers[x][y].getAK().getDisziplin(x, swimmers[x][y].isMaennlich());
                     recs[x][y].setText(StringTools.zeitString(disziplin.getRec()));
                     discipline[x][y].setText(disziplin.getName());
-                    updateStatus(signal[x][y], stati[x][y].getStatus());
+                    updateStatus(signal[x][y], stati[x][y].status());
                     input[x][y].addFocusListener(new HighPointsListener(x, y));
                     input[x][y].getDocument().addDocumentListener(new InputListener(x, y));
                     penalty[x][y].addActionListener(new PenaltyListener(x, y));
@@ -355,15 +256,17 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                 p.add(signal[x][y], CC.xy(12, y * 2 + 4));
                 p.add(input[x][y], CC.xy(14, y * 2 + 4));
                 p.add(time[x][y], CC.xy(16, y * 2 + 4));
-                p.add(penaltytext[x][y], CC.xy(18, y * 2 + 4));
-                p.add(penalty[x][y], CC.xy(20, y * 2 + 4));
-                p.add(edit[x][y], CC.xy(22, y * 2 + 4));
-                p.add(recs[x][y], CC.xy(24, y * 2 + 4, "right,fill"));
+                if (mitStrafen) {
+                    p.add(penaltytext[x][y], CC.xy(18, y * 2 + 4));
+                    p.add(penalty[x][y], CC.xy(20, y * 2 + 4));
+                }
+                p.add(edit[x][y], CC.xy(editSpalte, y * 2 + 4));
+                p.add(recs[x][y], CC.xy(editSpalte + 2, y * 2 + 4, "right,fill"));
             }
         }
 
         int index = Math.max(0, disciplines.getSelectedIndex());
-        disciplines.setListData(discs.toArray(new String[discs.size()]));
+        disciplines.setListData(discs.toArray(new String[0]));
         if (index < discs.size()) {
             disciplines.setSelectedIndex(index);
         } else {
@@ -373,9 +276,6 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
     static void updateStatus(JLabel label, TimeStatus ts) {
         switch (ts) {
-            default:
-            case NONE:
-                return;
             case FAST:
                 label.setIcon(IconManager.getSmallIcon("fast"));
                 label.setToolTipText(I18n.getToolTip("TimeTooLow"));
@@ -383,6 +283,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
             case SLOW:
                 label.setIcon(IconManager.getSmallIcon("slow"));
                 label.setToolTipText(I18n.getToolTip("TimeTooHigh"));
+                break;
+            default:
                 break;
         }
     }
@@ -392,6 +294,9 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
     }
 
     public void updatePenalties() {
+        if (!mitStrafen) {
+            return;
+        }
         changed = true;
         for (int x = 0; x < swimmers.length; x++) {
             for (int y = 0; y < swimmers[x].length; y++) {
@@ -403,59 +308,12 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
     void setTime(int x, int y) {
         changed = true;
-        swimmers[x][y].setZeit(x, time[x][y].getTimeAsInt());
+        pruefliste.getArt().setZeit(swimmers[x][y], x, time[x][y].getTimeAsInt());
     }
 
     void check(ASchwimmer s) {
-        StatusDetail sd = null;
-        for (int x = 0; x < swimmers.length; x++) {
-            boolean remove = false;
-            boolean add = false;
-            if ((s.getAK().getDiszAnzahl() > x) && s.isDisciplineChosen(x)) {
-                if (SchwimmerUtils.hasIncompleteTime(s, x)) {
-                    add = true;
-                    sd = new StatusDetail(s, TimeStatus.NONE);
-                }
-            } else {
-                remove = true;
-            }
-
-            sortSwimmers(x);
-
-            if (add) {
-                boolean found = false;
-                LinkedList<ASchwimmer> temp1 = new LinkedList<>();
-                LinkedList<StatusDetail> temp2 = new LinkedList<>();
-                for (int y = 0; y < swimmers[x].length; y++) {
-                    if (swimmers[x][y].equals(s)) {
-                        found = true;
-                        break;
-                    }
-                    temp1.addLast(swimmers[x][y]);
-                    temp2.addLast(stati[x][y]);
-                }
-                if (!found) {
-                    temp1.addLast(s);
-                    temp2.addLast(sd);
-                    updateSwimmers(temp1, temp2, x);
-                }
-            } else if (remove) {
-                boolean found = false;
-                LinkedList<ASchwimmer> temp1 = new LinkedList<>();
-                LinkedList<StatusDetail> temp2 = new LinkedList<>();
-                for (int y = 0; y < swimmers[x].length; y++) {
-                    if (swimmers[x][y].equals(s)) {
-                        found = true;
-                    } else {
-                        temp1.addLast(swimmers[x][y]);
-                        temp2.addLast(stati[x][y]);
-                    }
-                }
-                if (found) {
-                    updateSwimmers(temp1, temp2, x);
-                }
-            }
-        }
+        pruefliste.pruefe(core.getWettkampf(), s);
+        uebernehmeEintraege();
     }
 
     void edit(int x, int y) {
@@ -555,8 +413,8 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         private final int index;
         private final int disziplin;
 
-        public CursorListener(int d, int x) {
-            index = x;
+        public CursorListener(int d, int index) {
+            this.index = index;
             this.disziplin = d;
         }
 

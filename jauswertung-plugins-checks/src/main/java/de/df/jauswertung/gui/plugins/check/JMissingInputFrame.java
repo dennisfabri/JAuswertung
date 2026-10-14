@@ -40,7 +40,7 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
     private JInfoPanel general;
     private JZWInputPanel hlwpanel;
     private JTimesInputPanel timespanel;
-    private JRegistrationTimesInputPanel registrationtimespanel;
+    private JTimesInputPanel registrationtimespanel;
     private JYearInputPanel yearpanel;
     private JMembersInputPanel memberspanel;
     private JRegistrationPanel registrationpanel;
@@ -126,8 +126,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         registrationpanel = new JRegistrationPanel(this, core, editor);
         general = new JInfoPanel(this, core, editor);
         hlwpanel = new JZWInputPanel(this, core, editor);
-        timespanel = new JTimesInputPanel(this, core, editor);
-        registrationtimespanel = new JRegistrationTimesInputPanel(this, core, editor);
+        timespanel = new JTimesInputPanel(this, core, editor, Zeitart.ZEIT);
+        registrationtimespanel = new JTimesInputPanel(this, core, editor, Zeitart.MELDEZEIT);
         similaritypanel = new JOrganizationSimilarityPanel(this, core, editor);
 
         if (((AWettkampf<?>) core.getWettkampf()) instanceof EinzelWettkampf) {
