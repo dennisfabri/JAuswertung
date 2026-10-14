@@ -20,7 +20,6 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
 | [FormelLinear has drifted from FormelDLRG2007](formel-linear-drifted.md) | High | M | `FormelLinear` ignores "penalty counts as disqualification" and the all-did-not-start rule |
-| [JTeams launcher builds its UI on the main thread](jteams-launcher-off-edt.md) | Medium | S | `JAuswertungTeammembersLauncher` is a copy of `JAuswertungLauncher` without `invokeLater` |
 | [Times input panels in the checks plugin add swimmers by different rules](times-input-panels-diverged.md) | Medium | S | `JTimesInputPanel` re-checks with a narrower rule than its initial fill |
 | [Result competition from scoring groups is built twice](result-competition-from-scoring-groups.md) | Medium | S | `ResultsPrinter.getWettkampf` is a copy of `ResultSelectionUtils.getResultWettkampf` |
 | [Event-scoring results prepare their input twice](veranstaltung-results-preparation.md) | Medium | S | Exporter and printer of the Veranstaltungswertung copy the preparation; the exporter skips a check |
