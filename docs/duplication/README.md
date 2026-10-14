@@ -29,6 +29,7 @@ duplicated search for broken time limits in `LimitsCheck` is already tracked in
 | [MFilePlugin exists twice](file-plugin-twice.md) | Medium | M | The jteams copy of `MFilePlugin` has drifted from the main one |
 | [Print-queue status and error handling exists twice](print-queue-callback-twice.md) | Medium | M | `PPrintPlugin` and `PPrintTeammembersPlugin` copy the callbacks including a busy loop |
 | [The sheet loop of the table imports is copied six times](import-sheet-loop.md) | Medium | M | Six copies of the sheet loop in `ImportUtils`; two lose the file name in header errors |
+| [Merging the age groups of a scoring group exists twice](scoring-group-merge-twice.md) | Medium | M | `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` both merge a scoring group — investigate |
 | [Scoring formula bodies are copied](scoring-formula-bodies.md) | Medium | L | `setPoints`/`toResults` and the penalty comparators exist in several formulas |
 | [Heat chunking in TableHeatUtils is copied three times](table-heat-chunking.md) | Low | S | Splitting into heats and merging sparse tables is repeated in `TableHeatUtils` |
 | [Sex labels are looked up by hand with different fallbacks](sex-labels-by-hand.md) | Low | S | Several places bypass the `I18n` sex helpers; `TimeLimitsPlugin` falls back to English |
