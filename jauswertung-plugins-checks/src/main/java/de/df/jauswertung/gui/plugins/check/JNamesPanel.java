@@ -59,8 +59,6 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
     private Hashtable<String, Teilnehmer[]> organizations;
     private JPanel panel;
 
-    private boolean changed = false;
-
     public JNamesPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
         panel = getComponent();
@@ -68,14 +66,6 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         this.editor = editor;
         this.parent = parent;
         init();
-    }
-
-    public boolean hasChanged() {
-        return changed;
-    }
-
-    public void unsetChanged() {
-        changed = false;
     }
 
     private synchronized void init() {

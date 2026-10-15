@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;

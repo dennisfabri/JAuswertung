@@ -33,7 +33,6 @@ class JStrafenkatalogFrame extends JFrame {
 
     private Window parent = null;
     private JStrafenkatalogPanel panel = null;
-    private boolean cancelled = false;
 
     public JStrafenkatalogFrame(JFrame p, Strafen s) {
         this(p, null, s);
@@ -98,7 +97,6 @@ class JStrafenkatalogFrame extends JFrame {
     }
 
     private void doClose() {
-        cancelled = true;
         setVisible(false);
     }
 }
