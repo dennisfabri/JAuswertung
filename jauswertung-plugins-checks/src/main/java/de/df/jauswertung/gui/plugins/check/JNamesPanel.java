@@ -243,10 +243,6 @@ public class JNamesPanel extends JGlassPanel<JPanel> {
         }
     }
 
-    void changeData() {
-        changed = true;
-    }
-
     void check(ASchwimmer s) {
         // Nothing to do
     }

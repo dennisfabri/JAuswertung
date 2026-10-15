@@ -160,10 +160,6 @@ public class JRegistrationPanel extends JGlassPanel<JPanel> {
         dfb.getPanel();
     }
 
-    void changeHLW(int index) {
-        changed = true;
-    }
-
     void check(ASchwimmer s) {
         sortSwimmers();
 
