@@ -232,42 +232,43 @@ public class StatisticsUtils {
 
         PenaltyCounter[][] counter = countPenaltiesPerAgeGroup(wk);
 
-        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(17),
+        FormLayout layout = new FormLayout(FormLayoutUtils.createLayoutString(19),
                                            FormLayoutUtils.createLayoutString(3 + counter.length + 1));
-        layout.setColumnGroups(new int[][]{{6, 8, 10, 12, 16, 18, 20, 22, 26, 28, 30, 32}});
+        layout.setColumnGroups(new int[][]{{6, 8, 10, 12, 14, 18, 20, 22, 24, 26, 30, 32, 34, 36, 38}});
         JPanel panel = new JPanel(layout);
         panel.setName(I18n.get("Penalties"));
 
-        panel.add(new JLabel(I18n.get("Penalties")), CC.xywh(2, 2, 33, 1, "center,center"));
+        panel.add(new JLabel(I18n.get("Penalties")), CC.xywh(2, 2, 37, 1, "center,center"));
 
         panel.add(new JLabel(I18n.get("AgeGroup")), CC.xywh(2, 4, 1, 3, "center,center"));
-        panel.add(new JLabel(I18n.geschlechtToString(rw, false)), CC.xywh(6, 4, 7, 1, "center,center"));
-        panel.add(new JLabel(I18n.geschlechtToString(rw, true)), CC.xywh(16, 4, 7, 1, "center,center"));
-        panel.add(new JLabel(I18n.get("Gesamt")), CC.xywh(26, 4, 7, 1, "center,center"));
+        panel.add(new JLabel(I18n.geschlechtToString(rw, false)), CC.xywh(6, 4, 9, 1, "center,center"));
+        panel.add(new JLabel(I18n.geschlechtToString(rw, true)), CC.xywh(18, 4, 9, 1, "center,center"));
+        panel.add(new JLabel(I18n.get("Gesamt")), CC.xywh(30, 4, 9, 1, "center,center"));
 
         for (int x = 0; x < 3; x++) {
-            panel.add(new JLabel("   "), CC.xy(4 + x * 10, 6));
-            panel.add(new JLabel(I18n.get("Points")), CC.xy(6 + x * 10, 6, "center,center"));
-            panel.add(new JLabel(I18n.get("DisqualifiedShort")), CC.xy(8 + x * 10, 6, "center,center"));
-            panel.add(new JLabel(I18n.get("DebarmentShort")), CC.xy(10 + x * 10, 6, "center,center"));
-            panel.add(new JLabel(I18n.get("Sum")), CC.xy(12 + x * 10, 6, "center,center"));
+            panel.add(new JLabel("   "), CC.xy(4 + x * 12, 6));
+            panel.add(new JLabel(I18n.get("Points")), CC.xy(6 + x * 12, 6, "center,center"));
+            panel.add(new JLabel(I18n.get("DisqualifiedShort")), CC.xy(8 + x * 12, 6, "center,center"));
+            panel.add(new JLabel(I18n.get("DebarmentShort")), CC.xy(10 + x * 12, 6, "center,center"));
+            panel.add(new JLabel(I18n.get("DidNotStartShort")), CC.xy(12 + x * 12, 6, "center,center"));
+            panel.add(new JLabel(I18n.get("Sum")), CC.xy(14 + x * 12, 6, "center,center"));
         }
 
         Regelwerk aks = wk.getRegelwerk();
         for (int x = 0; x < counter.length; x++) {
             panel.add(new JLabel(aks.getAk(x).getName()), CC.xy(2, 8 + 2 * x));
             for (int y = 0; y < 2; y++) {
-                for (int z = 0; z < 4; z++) {
+                for (int z = 0; z < 5; z++) {
                     int amount = counter[x][y].getAmount(z);
                     if (amount > 0) {
-                        panel.add(new JLabel("" + amount), CC.xy(6 + 2 * z + 10 * y, 8 + 2 * x, "center,center"));
+                        panel.add(new JLabel("" + amount), CC.xy(6 + 2 * z + 12 * y, 8 + 2 * x, "center,center"));
                     }
                 }
             }
-            for (int z = 0; z < 4; z++) {
+            for (int z = 0; z < 5; z++) {
                 int amount = counter[x][0].getAmount(z) + counter[x][1].getAmount(z);
                 if (amount > 0) {
-                    panel.add(new JLabel("" + amount), CC.xy(26 + 2 * z, 8 + 2 * x, "center,center"));
+                    panel.add(new JLabel("" + amount), CC.xy(30 + 2 * z, 8 + 2 * x, "center,center"));
                 }
             }
         }
@@ -275,24 +276,24 @@ public class StatisticsUtils {
         {
             panel.add(new JLabel(I18n.get("Gesamt")), CC.xy(2, 8 + 2 * counter.length));
             for (int y = 0; y < 2; y++) {
-                for (int z = 0; z < 4; z++) {
+                for (int z = 0; z < 5; z++) {
                     int amount = 0;
                     for (PenaltyCounter[] penaltyCounters : counter) {
                         amount += penaltyCounters[y].getAmount(z);
                     }
                     if (amount > 0) {
                         panel.add(new JLabel("" + amount),
-                                  CC.xy(6 + 2 * z + 10 * y, 8 + 2 * counter.length, "center,center"));
+                                  CC.xy(6 + 2 * z + 12 * y, 8 + 2 * counter.length, "center,center"));
                     }
                 }
             }
-            for (int z = 0; z < 4; z++) {
+            for (int z = 0; z < 5; z++) {
                 int amount = 0;
                 for (PenaltyCounter[] penaltyCounters : counter) {
                     amount += penaltyCounters[0].getAmount(z) + penaltyCounters[1].getAmount(z);
                 }
                 if (amount > 0) {
-                    panel.add(new JLabel("" + amount), CC.xy(26 + 2 * z, 8 + 2 * counter.length, "center,center"));
+                    panel.add(new JLabel("" + amount), CC.xy(30 + 2 * z, 8 + 2 * counter.length, "center,center"));
                 }
             }
         }
@@ -711,6 +712,8 @@ public class StatisticsUtils {
                 case 2:
                     return getExcluded();
                 case 3:
+                    return getDidNotStart();
+                case 4:
                     return getSumOfPenalties();
             }
             return -1;
