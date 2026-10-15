@@ -70,10 +70,6 @@ public class Teammember {
         return lastname.isEmpty() && firstname.isEmpty();
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     public String getLastname() {
         return lastname;
     }

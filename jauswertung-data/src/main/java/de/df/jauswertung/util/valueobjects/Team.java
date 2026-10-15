@@ -359,8 +359,4 @@ public class Team {
     public String getCode() {
         return code;
     }
-
-    public int getAk() {
-        return ak;
-    }
 }
