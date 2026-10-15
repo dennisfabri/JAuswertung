@@ -126,20 +126,6 @@ public class HttpServerPlugin extends ANullPlugin {
         return quicks;
     }
 
-    public String registerDataProvider(IDataProvider dp) {
-        getDataProvider();
-        return source.registerDataProvider(dp);
-    }
-
-    public void unregisterDataProvider(String key) {
-        getDataProvider();
-        source.unregisterDataProvider(key);
-    }
-
-    public boolean isEnabled() {
-        return state;
-    }
-
     boolean startUp() {
         try {
             state = true;
