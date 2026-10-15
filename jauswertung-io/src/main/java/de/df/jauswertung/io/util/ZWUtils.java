@@ -74,36 +74,6 @@ public class ZWUtils {
         return result;
     }
 
-    public static <T extends ASchwimmer> int[][][] getHLWStatusKompakt(AWettkampf<T> wk) {
-        int[][][] result = new int[wk.getRegelwerk().size()][2][3];
-        for (int x = 0; x < result.length; x++) {
-            for (int y = 0; y < result[x].length; y++) {
-                for (int z = 0; z < result[x][y].length; z++) {
-                    result[x][y][z] = 0;
-                }
-            }
-        }
-        for (T s : wk.getSchwimmer()) {
-            if (s.getAK().hasHLW()) {
-                for (int x = 0; x < s.getMaximaleHLW(); x++) {
-                    HLWStates state = s.getHLWState(x);
-                    switch (state) {
-                    case NOT_ENTERED:
-                        result[s.getAKNummer()][s.isMaennlich() ? 1 : 0][0]++;
-                        break;
-                    case ENTERED:
-                    case NICHT_ANGETRETEN:
-                    case DISQALIFIKATION:
-                        result[s.getAKNummer()][s.isMaennlich() ? 1 : 0][1]++;
-                        break;
-                    }
-                    result[s.getAKNummer()][s.isMaennlich() ? 1 : 0][2]++;
-                }
-            }
-        }
-        return result;
-    }
-
     public static <T extends ASchwimmer> HLWStates getHLWState(AWettkampf<T> wk, String pen) {
         pen = pen.trim();
         if (pen.length() == 0) {
