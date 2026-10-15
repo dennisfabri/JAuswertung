@@ -17,8 +17,18 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Undo/redo uses Java serialization](undo-java-serialization.md) | Medium | M | Undo snapshots use Java serialization, unlike the files, and swallow errors |
 | [A scoring group is turned into an age group in three places](scoring-group-as-age-group-three-times.md) | Medium | M | `getResultWettkampf`, `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` share their steps; investigate before merging them |
 | [Remove the Mersenne Twister](remove-mersenne-twister.md) | Low | S | commons-math3's `MersenneTwister` adds nothing over a JDK generator and is shared unsynchronized in `Laufliste` |
+| [Replace sysout-over-slf4j](replace-sysout-over-slf4j.md) | Low | S | Dead since about 2017; replace by a small `System.setOut` forwarder or drop it |
 | [OWDisziplin.Id is stored although it is derived](owdisziplin-id-derived.md) | Low | M | `OWDisziplin.Id` is stored although it is derived from its components |
 | [Review which penalties are printed and how](penalty-list-review.md) | Low | M | Penalty list: which penalties it contains, what a card shows, and a more compact table layout |
+| [Replace jgraphx](replace-jgraphx.md) | Low | M | Fork of a dead library with a single maintainer; used in three files |
+| [Replace swingfx](replace-swingfx.md) | Low | M | Hand-maintained fork of a dead library; used in three files |
+| [Replace uistate](replace-uistate.md) | Low | M | Hand-maintained fork of a dead library for window and component state |
+| [Replace swingbits](replace-swingbits.md) | Low | M | Hand-maintained fork of a dead library; inline the used parts or use plain Swing |
+| [Replace commons.xmt](replace-commons-xmt.md) | Low | M | Hand-maintained fork of a dead library, pinned to a SNAPSHOT; needs a design decision |
+| [Check nrjavaserial](check-nrjavaserial.md) | Low | M | Slowly maintained RXTX fork; evaluate jSerialComm with real hardware |
 | [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
 | [Replace printStackTrace() and System.out/System.err](console-output-and-printstacktrace.md) | Low | L | 166 `printStackTrace()` and 169 `System.out`/`System.err` calls bypass logging and error handling |
 | [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |
+| [Replace l2fprod-common](replace-l2fprod-common.md) | Low | L | Hand-maintained fork of a dead library; 20 files, four components |
+| [Replace filechooser](replace-filechooser.md) | Low | L | Hand-maintained native file dialog library; 21 files |
+| [Replace jgoodies-forms](replace-jgoodies-forms.md) | Low | L | Only sporadic releases; 193 files, optional |
