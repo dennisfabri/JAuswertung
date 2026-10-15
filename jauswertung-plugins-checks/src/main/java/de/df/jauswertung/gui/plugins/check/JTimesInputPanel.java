@@ -2,7 +2,6 @@ package de.df.jauswertung.gui.plugins.check;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.shared.swing.renderer.DefaultCellRenderer;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
@@ -85,7 +84,6 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         changed = false;
     }
 
-    @SuppressWarnings("unchecked")
     private void init() {
         JLabel info = new JLabel(I18n.get("NoMissingTimesInfo"));
         info.setBorder(BorderUtils.createLabeledBorder(I18n.get("Information"), true));
@@ -100,20 +98,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
         disciplines = new JList<>();
         disciplines.setMinimumSize(new Dimension(100, 10));
         disciplines.setPreferredSize(new Dimension(100, 10));
-        disciplines.setCellRenderer(new DefaultCellRenderer() {
-            private static final long serialVersionUID = -4064957849985467566L;
-
-            @SuppressWarnings("rawtypes")
-            @Override
-            public Component getListCellRendererComponent(JList arg0, Object arg1, int arg2, boolean arg3,
-                                                          boolean arg4) {
-                Component c = super.getListCellRendererComponent(arg0, arg1, arg2, arg3, arg4);
-                if (c instanceof JComponent jc) {
-                    jc.setBorder(BorderUtils.createSpaceBorder(2));
-                }
-                return c;
-            }
-        });
+        disciplines.setCellRenderer(new DisciplineListRenderer());
         disciplines.addListSelectionListener(e -> {
             layout.show(container, "" + disciplines.getSelectedIndex());
         });

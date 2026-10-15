@@ -4,7 +4,7 @@
 `l2fprod-common/`.
 
 Replaced by own components in `jutils-swing` (`de.df.jutils.gui`) on 2026-10-15: `JButtonBar`, `TipOfTheDay` with
-`TipOfTheDayPanel`/`TipOfTheDayDialog`, and `JStatusBar` (used by `JPFrame`). `DesignInit` sets the table, tooltip and text field fonts itself (`tweakFonts()`).
+`TipOfTheDayPanel`/`TipOfTheDayDialog`, and `JStatusBar` (used by `JPFrame`). `DesignInit` sets the table, tooltip and text field fonts itself (`tweakFonts()`), and the discipline list of `JTimesInputPanel` uses the JDK's `DefaultListCellRenderer`.
 
 ## Still used (checked 2026-10-15)
 
@@ -13,7 +13,6 @@ Replaced by own components in `jutils-swing` (`de.df.jutils.gui`) on 2026-10-15:
 | `JTaskPaneGroup` | 9 files (registration plugins, `JSchwimmerEditieren`, `JSimpleInputPanel`, `JTeammembersInputPanel`, `PPrintPlugin`, ...) | own collapsible group |
 | `BasicTaskPaneGroupUI` | `GradientTaskPaneGroupUI` (`jutils-legacy`) | goes away with the task pane |
 | `JFontChooser` | `JFontDialog`, `MOptionenPlugin`, `OPrintOptionsPlugin`, `JVeranstaltungsschriftart` | own dialog (family, size, bold, italic) |
-| `DefaultCellRenderer` | `JTimesInputPanel` | `DefaultTableCellRenderer` |
 
 ## Font chooser: evaluated, not adopted (2026-10-15)
 
