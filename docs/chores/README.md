@@ -25,7 +25,7 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Replace commons.xmt](replace-commons-xmt.md) | Low | M | Hand-maintained fork of a dead library, pinned to a SNAPSHOT; needs a design decision |
 | [Check nrjavaserial](check-nrjavaserial.md) | Low | M | Slowly maintained RXTX fork; evaluate jSerialComm with real hardware |
 | [Replace System.out/System.err with logging](replace-system-out-with-logging.md) | Low | M | 118 lines in 34 files print to the console; they reach the log only through the stream redirect, without logger name or level |
-| [Replace l2fprod-common](replace-l2fprod-common.md) | Low | M | Button bar, tip of the day and status bar are replaced; task pane, font chooser, look-and-feel tweaks and one cell renderer remain |
+| [Replace l2fprod-common](replace-l2fprod-common.md) | Low | M | Button bar, tip of the day, status bar and look-and-feel tweaks are replaced; task pane, font chooser and one cell renderer remain |
 | [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
 | [Replace printStackTrace()](replace-printstacktrace.md) | Low | L | 166 `printStackTrace()` calls bypass logging and error handling; often the failure is swallowed |
 | [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |
