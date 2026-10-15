@@ -223,8 +223,4 @@ public class JOWHeatsEditWindow<T extends ASchwimmer> extends JFrame {
     void setSelected(int x) {
         right.setViewportView(panels[x]);
     }
-
-    public boolean isOk() {
-        return isOk;
-    }
 }
