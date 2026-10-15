@@ -41,10 +41,4 @@ public class KampfrichterVerwaltung implements Serializable {
         return einheiten.size();
     }
 
-    public void clearInput() {
-        for (KampfrichterEinheit ke : einheiten) {
-            ke.clearInput();
-        }
-    }
-
 }
