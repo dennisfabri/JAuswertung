@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.editor;
 import java.awt.Window;
 import java.util.LinkedList;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -96,28 +95,7 @@ public class FEditorPlugin extends AFeature {
 
     }
 
-    public void editSchwimmer(JDialog parent, ASchwimmer s, boolean delete) {
-        if (s instanceof Teilnehmer) {
-            edit(parent, (Teilnehmer) s, delete);
-            return;
-        }
-        if (s instanceof Mannschaft) {
-            edit(parent, (Mannschaft) s, delete);
-        }
-
-    }
-
-    public void edit(Teilnehmer t, boolean delete) {
-        edit(getController().getWindow(), t, delete);
-    }
-
     public void edit(JFrame parent, Teilnehmer t, boolean delete) {
-        JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<>(t, core.getEinzelWettkampf(), parent,
-                delete, core);
-        editAndUpdateSwimmer(t, jte);
-    }
-
-    public void edit(JDialog parent, Teilnehmer t, boolean delete) {
         JSchwimmerEditieren<Teilnehmer> jte = new JSchwimmerEditieren<>(t, core.getEinzelWettkampf(), parent,
                 delete, core);
         editAndUpdateSwimmer(t, jte);
@@ -127,17 +105,7 @@ public class FEditorPlugin extends AFeature {
         return editAndUpdateOrganization(new JOrganizationEditor(getController(), core, gld, parent));
     }
 
-    public void edit(Mannschaft t, boolean delete) {
-        edit(getController().getWindow(), t, delete);
-    }
-
     public void edit(JFrame parent, Mannschaft t, boolean delete) {
-        JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<>(t, core.getMannschaftWettkampf(),
-                parent, delete, core);
-        editAndUpdateTeam(t, jmal);
-    }
-
-    public void edit(JDialog parent, Mannschaft t, boolean delete) {
         JSchwimmerEditieren<Mannschaft> jmal = new JSchwimmerEditieren<>(t, core.getMannschaftWettkampf(),
                 parent, delete, core);
         editAndUpdateTeam(t, jmal);
@@ -218,21 +186,6 @@ public class FEditorPlugin extends AFeature {
     }
 
     public <T extends ASchwimmer> void runPenaltyEditor(JFrame parent, AWettkampf<T> wk, T s, String disz) {
-        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
-                penaltyPrint.getPrintEnabled());
-        ModalFrameUtil.showAsModal(editor, parent);
-    }
-
-    public <T extends ASchwimmer> void runPenaltyEditor(JDialog parent, AWettkampf<T> wk, T s, int disz) {
-        if ((s.getAK().getDiszAnzahl() < disz)) {
-            disz = s.getAK().getDiszAnzahl();
-        }
-        JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
-                penaltyPrint.getPrintEnabled());
-        ModalFrameUtil.showAsModal(editor, parent);
-    }
-
-    public <T extends ASchwimmer> void runPenaltyEditor(JDialog parent, AWettkampf<T> wk, T s, String disz) {
         JPenaltyEditor<T> editor = new JPenaltyEditor<>(parent, getController(), wk, s, disz,
                 penaltyPrint.getPrintEnabled());
         ModalFrameUtil.showAsModal(editor, parent);

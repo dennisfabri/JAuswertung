@@ -301,14 +301,6 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         window.setVisible(false);
     }
 
-    String[] getDisziplinen() {
-        String[] temp = schwimmer.getAK().getDisziplinenNamen();
-        String[] result = new String[temp.length + 1];
-        System.arraycopy(temp, 0, result, 1, temp.length);
-        result[0] = I18n.get("General");
-        return result;
-    }
-
     private class InfoPanel extends WizardInfoPage {
         public InfoPanel() {
             super(I18n.get("Penalty.Information"), I18n.get("Penalty.Information.Information"),
