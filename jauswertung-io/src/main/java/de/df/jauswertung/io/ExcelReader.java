@@ -29,23 +29,10 @@ public final class ExcelReader {
         return result;
     }
 
-    public static Object[][] sheetsToTable(String s) throws IOException {
-        FileInputStream fis = new FileInputStream(s);
-        Object[][][] result = sheetsToTable(fis);
-        fis.close();
-        return result;
-    }
-
     public static Object[][] sheetToTable(InputStream name, int sheetnumber) throws IOException {
         POIFSFileSystem fs = new POIFSFileSystem(name);
         HSSFWorkbook wb = new HSSFWorkbook(fs);
         return sheetToTable(wb, sheetnumber);
-    }
-
-    public static Object[][][] sheetsToTable(InputStream name) throws IOException {
-        POIFSFileSystem fs = new POIFSFileSystem(name);
-        HSSFWorkbook wb = new HSSFWorkbook(fs);
-        return sheetsToTable(wb);
     }
 
     public static Object[][][] sheetsToTable(HSSFWorkbook wb) {
