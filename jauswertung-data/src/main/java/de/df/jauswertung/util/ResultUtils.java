@@ -83,7 +83,7 @@ public class ResultUtils {
 
     @SuppressWarnings({ "unchecked" })
     private static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampfI(AWettkampf<T> wk, int akn,
-            IncludeSex filter, boolean removeEmpty, boolean forQualification) {
+            IncludeSex filter, boolean removeEmpty) {
         if (wk == null) {
             throw new NullPointerException();
         }
@@ -156,9 +156,6 @@ public class ResultUtils {
             for (int y = 0; y < results.size(); y++) {
                 ASchwimmer s = results.getSchwimmer(y);
                 if (removeEmpty && results.hasKeineWertung(y)) {
-                    continue;
-                }
-                if (forQualification && s.hasWithdrawn(0)) {
                     continue;
                 }
                 boolean include = true;
@@ -310,18 +307,12 @@ public class ResultUtils {
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
             boolean maennlich, boolean removeEmpty) {
-        return generateEinzelwertungswettkampfI(wk, akn, maennlich ? IncludeSex.Male : IncludeSex.Female, removeEmpty,
-                false);
+        return generateEinzelwertungswettkampfI(wk, akn, maennlich ? IncludeSex.Male : IncludeSex.Female, removeEmpty);
     }
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
             boolean removeEmpty) {
-        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty, false);
-    }
-
-    public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampfForQualification(AWettkampf<T> wk,
-            int akn, boolean removeEmpty) {
-        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty, true);
+        return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty);
     }
 
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, String wgname,
@@ -352,7 +343,7 @@ public class ResultUtils {
         if (index < 0) {
             return null;
         }
-        return generateEinzelwertungswettkampfI(wk, index, IncludeSex.Both, removeEmpty, false);
+        return generateEinzelwertungswettkampfI(wk, index, IncludeSex.Both, removeEmpty);
     }
 
     public static <T extends ASchwimmer> boolean hasEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
