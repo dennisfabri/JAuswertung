@@ -138,18 +138,8 @@ public class BugReport implements Serializable {
         this.info = info;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
     @SuppressWarnings("unused")
     private void migrate1(VersionedDocument dom, Stack<Integer> versions) {
-        // migrator1(dom.getRootElement());
-    }
-
-    public static void migrator1(Element node) {
-        Element wk = node.element("daten");
-        AWettkampf.migrator1(wk);
     }
 
     @SuppressWarnings("unused")

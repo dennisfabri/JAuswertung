@@ -24,11 +24,6 @@ public class Mannschaftsmitgliedermeldung {
 
     @SuppressWarnings("unused")
     private void migrate1(VersionedDocument dom, Stack<Integer> versions) {
-        // migrator1(dom.getRootElement());
-    }
-
-    public static void migrator1(Element node) {
-        // AWettkampf.migrator1(node.element("mwk"));
     }
 
     @SuppressWarnings("unused")
