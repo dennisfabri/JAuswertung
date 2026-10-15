@@ -11,7 +11,6 @@ import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jutils.util.ArrayUtils;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -1184,11 +1183,6 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         e.setZeit(timeAsInt);
     }
 
-    public String[] getDisciplinesOW() {
-        getEingabe("", false);
-        return ArrayUtils.toArray(eingaben.keys());
-    }
-
     public boolean isFinished(String id) {
         if (getZeit(id) > 0) {
             return true;
@@ -1222,10 +1216,6 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
     public boolean startetNicht(int disz) {
         return startetNicht(getAllgemeineStrafen())
                 || (disz >= 0 && disz < strafen.length && startetNicht(getStrafen(disz)));
-    }
-
-    public boolean startetNicht(String id) {
-        return startetNicht(getAllgemeineStrafen()) || startetNicht(getStrafen(id));
     }
 
     private static boolean startetNicht(List<Strafe> strafen) {
