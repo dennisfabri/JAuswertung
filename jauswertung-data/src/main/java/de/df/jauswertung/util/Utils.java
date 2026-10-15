@@ -108,23 +108,6 @@ public final class Utils {
         return build.getString("builddate");
     }
 
-    public static void setDevelopmentMode(boolean enable) {
-        try {
-            if (enable) {
-                Preferences dev = getPreferences().node("development");
-                dev.put("dsm", "1");
-                dev.put("pluginmanager", "1");
-                dev.put("switchagegroups", "1");
-            } else {
-                if (getPreferences().nodeExists("development")) {
-                    getPreferences().node("development").removeNode();
-                }
-            }
-        } catch (BackingStoreException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static boolean isInDevelopmentMode() {
         if (!initialized) {
             initialize();

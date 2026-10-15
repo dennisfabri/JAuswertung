@@ -35,7 +35,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.function.Consumer;
@@ -119,6 +118,7 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     private boolean isUpdating = false;
+    private boolean hasResults = false;
 
     boolean checkMeldungen(AWettkampf<?> wk, long reason) {
         try {
@@ -126,7 +126,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
             boolean result = false;
             if (wk != null) {
-                result = print.isEnabled();
+                result = hasResults;
                 if (wk.isHeatBased()) {
                     result = wk.getLauflisteOW() != null && !wk.getLauflisteOW().isEmpty();
                     agegroup.removeAllItems();
@@ -172,10 +172,12 @@ abstract class APerDisciplinePrinter implements Printer {
                 }
             }
 
+            hasResults = result;
+            boolean printable = result && isPrintable(wk);
             agegroup.setEnabled(result && (agegroup.getItemCount() > 1));
-            print.setEnabled(result);
-            export.setEnabled(result && hasExport());
-            preview.setEnabled(result);
+            print.setEnabled(printable);
+            export.setEnabled(printable && hasExport());
+            preview.setEnabled(printable);
             checkWarning(wk);
             return result;
         } catch (RuntimeException e) {
@@ -273,12 +275,12 @@ abstract class APerDisciplinePrinter implements Printer {
     @SuppressWarnings("rawtypes")
     protected abstract LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification);
 
-    @SuppressWarnings("rawtypes")
-    protected void export(AWettkampf wk, OutputStream os) {
-    }
-
     protected boolean hasExport() {
         return false;
+    }
+
+    protected boolean isPrintable(AWettkampf<?> wk) {
+        return true;
     }
 
     @SuppressWarnings("unchecked")

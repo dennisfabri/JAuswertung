@@ -12,7 +12,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -611,28 +610,6 @@ public class PHeatInputPlugin extends ANullPlugin {
             this.index = index;
         }
 
-        public void moveDown() {
-            if (index + 1 < inputs.length) {
-                JIntegerField input = inputs[index + 1];
-                EDTUtils.requestFocus(controller.getWindow(), input);
-            } else {
-                if (fl[index].checkTime()) {
-                    nextHeat();
-                }
-            }
-        }
-
-        public void moveUp() {
-            if (index > 0) {
-                JIntegerField input = inputs[index - 1];
-                EDTUtils.requestFocus(controller.getWindow(), input);
-            } else {
-                if (fl[index].checkTime()) {
-                    previousHeat(false);
-                }
-            }
-        }
-
         public void updateTime() {
             changeTime();
             updatePenalty();
@@ -659,16 +636,10 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public JTimeField getTimeField() {
-            return times[index];
-        }
-
-        @Override
         public boolean checkHighPoints() {
             return PHeatInputPlugin.this.hasHighPoints(index);
         }
 
-        @Override
         public int getIndex() {
             return index;
         }
@@ -704,7 +675,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public void runMeanTimeEditor() {
-            editor.runMeanTimeEditor(getSchwimmer(), getDiscipline(), finishedSuccessfully -> {
+            strategy.runMeanTimeEditor(getIndex(), finishedSuccessfully -> {
                 if (!finishedSuccessfully) {
                     return;
                 }

@@ -92,12 +92,6 @@ class JSchwimmerEditieren<T extends ASchwimmer> extends JDialog {
         init(swimmer, wettkampf, delete, core);
     }
 
-    public JSchwimmerEditieren(T swimmer, AWettkampf<T> wettkampf, JDialog parent, boolean delete, CorePlugin core) {
-        super(parent, true);
-        this.parent = parent;
-        init(swimmer, wettkampf, delete, core);
-    }
-
     private void init(T swimmer, AWettkampf<T> wettkampf, boolean delete, CorePlugin coreplugin) {
         if (swimmer == null) {
             throw new NullPointerException();

@@ -133,10 +133,6 @@ class SiegerlistePrinter implements Printer {
         return c;
     }
 
-    Printable getPrintable() {
-        return getPrintable(parent.getVeranstaltung(), resultmodus.getSelectedIndex() == 0, getSelectedFont());
-    }
-
     private Printable getPrintable(Veranstaltung vs, boolean gliederungen, Font f) {
         String title = gliederungen ? vs.getTitleOrganization() : vs.getTitleQualifikationsebene();
         return getPrintable(vs, VeranstaltungsUtils.veranstaltung2Wettkampf(vs, gliederungen, true), title, f);
@@ -165,15 +161,6 @@ class SiegerlistePrinter implements Printer {
         // return PrintManager.getFinalPrintable(p, new Date(), vs.getName(),
         // I18n
         // .get("GroupEvaluation"));
-    }
-
-    @SuppressWarnings("rawtypes")
-    @Override
-    public void dataUpdated(AWettkampf wk) {
-        Printable p = getPrintable();
-        boolean enabled = (p != null);
-        resultpreview.setEnabled(enabled);
-        resultprint.setEnabled(enabled);
     }
 
     @Override

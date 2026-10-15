@@ -139,20 +139,6 @@ public class HeatTableModel<T extends ASchwimmer> implements TableModel {
         return list.toArray(new SchwimmerDisziplin[list.size()]);
     }
 
-    public void update(T s) {
-        ListIterator<Lauf<T>> li = heats.getLaufliste().listIterator();
-        int row = 0;
-        while (li.hasNext()) {
-            Lauf<T> lauf = li.next();
-            for (int x = 0; x < lauf.getBahnen(); x++) {
-                if ((lauf.getSchwimmer(x) == s) || (lauf.getSchwimmer(x) == null)) {
-                    fireUpdate(row, x + 3);
-                }
-            }
-            row++;
-        }
-    }
-
     public void updateNumbers() {
         fireEvent(new TableModelEvent(this, 0, getRowCount(), 0, TableModelEvent.UPDATE));
     }

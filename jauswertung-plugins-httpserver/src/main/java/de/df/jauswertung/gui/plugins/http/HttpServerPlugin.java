@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 import javax.swing.JToggleButton;
 
@@ -124,20 +123,6 @@ public class HttpServerPlugin extends ANullPlugin {
     @Override
     public ButtonInfo[] getQuickButtons() {
         return quicks;
-    }
-
-    public String registerDataProvider(IDataProvider dp) {
-        getDataProvider();
-        return source.registerDataProvider(dp);
-    }
-
-    public void unregisterDataProvider(String key) {
-        getDataProvider();
-        source.unregisterDataProvider(key);
-    }
-
-    public boolean isEnabled() {
-        return state;
     }
 
     boolean startUp() {

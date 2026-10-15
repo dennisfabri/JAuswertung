@@ -4,84 +4,22 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitArray;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import de.df.jutils.gui.JIcon;
 
 public class BarcodeUtils {
 
-    public static final byte VALUE_OK = 1;
-    public static final byte VALUE_NOT_OK = 0;
-    public static final byte VALUE_DNS = 3;
-
-    public enum ZWResultType {
-        OK, NOT_OK, DNS
-    }
-
-    private static int calculateChecksum(int i) {
-        int cs = 0;
-        int index = 0;
-        while (i > 0) {
-            int ziffer = i % 10;
-            i = i / 10;
-            if (index % 2 == 0) {
-                cs += ziffer * 2;
-            } else {
-                cs += ziffer;
-            }
-            index++;
-        }
-        cs = cs % 10;
-        return 9 - cs;
-    }
-
-    public static boolean checkZWCode(String code) {
-        try {
-            code = code.trim();
-            if (code.length() <= 1) {
-                return false;
-            }
-            int value = Integer.parseInt(code.substring(0, code.length() - 1));
-            int cs = Integer.parseInt(code.substring(code.length() - 1));
-            return (cs == calculateChecksum(value));
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static JComponent getBarcode(String key) {
-        if ((key == null) || (key.trim().length() == 0)) {
-            return null;
-        }
-        while (key.length() < 6) {
-            key = "0" + key;
-        }
-        return new JIcon(getBarCodeImage(key, 150, 50), true);
-    }
-
     public static JComponent getQRCode(String key) {
         if ((key == null) || (key.trim().length() == 0)) {
             return null;
         }
         return new JIcon(getQRCodeImage(key, 300), true);
-    }
-
-    public static Image getBarCodeImage(String key, int width, int height) {
-        if ((key == null) || (key.trim().length() == 0)) {
-            return null;
-        }
-
-        Code128Writer writer = new Code128Writer();
-        BitMatrix bitMatrix = writer.encode(key, BarcodeFormat.CODE_128, width, height);
-        BufferedImage i = toBufferedImage(bitMatrix);
-        return cropImage2(i);
     }
 
     public static Image getQRCodeImage(String key, int size) {

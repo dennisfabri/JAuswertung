@@ -104,10 +104,6 @@ abstract class ALauflistenPrinter implements Printer {
         checkLaufliste();
     }
 
-    Printable getPrintable() {
-        return getPrintable(core.getWettkampf(), getName(), comments.isSelected(), false, showTimes);
-    }
-
     Printable getPrintable(AWettkampf<?>[] wkx, String header, boolean withComments, boolean withDisciplines, boolean withTimes) {
         ArrayList<Printable> px = new ArrayList<>();
         for (AWettkampf<?> wk : wkx) {

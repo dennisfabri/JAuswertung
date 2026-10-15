@@ -6,24 +6,15 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jutils.gui.JIntegerField;
-import de.df.jutils.gui.JTimeField;
 
 interface TimeInputAdapter {
     ASchwimmer getSchwimmer();
 
     JIntegerField getInputField();
 
-    JTimeField getTimeField();
-
-    void moveUp();
-
-    void moveDown();
-
     void updateTime();
 
     boolean checkHighPoints();
-
-    int getIndex();
 
     int getDiscipline();
 

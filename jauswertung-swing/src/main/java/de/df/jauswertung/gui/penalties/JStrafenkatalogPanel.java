@@ -436,11 +436,6 @@ class JStrafenkatalogPanel extends JPanel {
         beenden();
     }
 
-    void kapitelSelected() {
-        refreshStrafen();
-        refreshDisplay();
-    }
-
     void paragraphSelected() {
         refreshStrafen();
         refreshDisplay();

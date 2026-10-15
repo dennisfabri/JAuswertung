@@ -34,8 +34,6 @@ public class JDisciplineSelector extends JFrame {
     private JTable table;
     private JCheckBox showAll;
 
-    private boolean cancelled = false;
-
     public JDisciplineSelector(String title, String text, AWettkampf<?> wk, OWSelection[] selection, OWSelection[] fullSelection, boolean multiselect,
                                Consumer<OWSelection[]> callback) {
         this.callback = callback;
@@ -173,7 +171,6 @@ public class JDisciplineSelector extends JFrame {
     }
 
     private void doCancel() {
-        cancelled = true;
         setVisible(false);
     }
 
@@ -182,16 +179,9 @@ public class JDisciplineSelector extends JFrame {
         if (isVisible() == v) {
             return;
         }
-        if (v) {
-            cancelled = false;
-        }
         super.setVisible(v);
         if (!v) {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
-    }
-
-    public boolean isCancelled() {
-        return cancelled;
     }
 }

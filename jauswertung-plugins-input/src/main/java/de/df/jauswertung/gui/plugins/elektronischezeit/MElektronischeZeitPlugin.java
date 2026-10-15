@@ -9,7 +9,6 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.ModalFrameUtil;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -28,8 +27,6 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
 
     private MenuInfo[] menu = null;
     private JMenuItem item = null;
-
-    private String importedlast = "";
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
@@ -86,25 +83,6 @@ public class MElektronischeZeitPlugin extends ANullPlugin {
         JElektronischeZeit<T> jm = new JElektronischeZeit<>(getController().getWindow(),
                 (AWettkampf<T>) core.getWettkampf(), this);
         ModalFrameUtil.showAsModal(jm, getController().getWindow());
-    }
-
-    void setPort(int port) {
-        Utils.getPreferences().putInt("TimeServerPort", port);
-    }
-
-    int getPort() {
-        return Utils.getPreferences().getInt("TimeServerPort", 80);
-    }
-
-    void setLastImportedHeatID(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id must not be null!");
-        }
-        importedlast = id;
-    }
-
-    String getLastImportedHeatID() {
-        return importedlast;
     }
 
     /**

@@ -78,17 +78,13 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
             if (isVisible()) {
                 return;
             }
-            registrationpanel.unsetChanged();
             registrationtimespanel.unsetChanged();
             hlwpanel.unsetChanged();
             timespanel.unsetChanged();
-            similaritypanel.unsetChanged();
             if (yearpanel != null) {
                 yearpanel.unsetChanged();
-                namespanel.unsetChanged();
             } else {
                 memberspanel.unsetChanged();
-                teamnamespanel.unsetChanged();
             }
         }
         parent.setEnabled(!v);
@@ -295,11 +291,8 @@ class JMissingInputFrame extends JInfiniteProgressFrame {
         boolean t = timespanel.hasChanged();
         boolean y = (yearpanel != null && yearpanel.hasChanged());
         boolean m = (memberspanel != null && memberspanel.hasChanged());
-        boolean r = registrationpanel.hasChanged() || (namespanel != null && namespanel.hasChanged())
-                || (teamnamespanel != null && teamnamespanel.hasChanged())
-                || similaritypanel.hasChanged() || registrationtimespanel.hasChanged();
-        boolean s = similaritypanel.hasChanged();
-        boolean ymrs = y || m || r || s;
+        boolean r = registrationtimespanel.hasChanged();
+        boolean ymrs = y || m || r;
         if (h && t && ymrs) {
             return new UpdateEvent("ChangeTimeAndZWAndSwimmer",
                     UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED

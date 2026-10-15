@@ -64,21 +64,15 @@ public class PenaltyUIUtils {
 
     static class PenaltyCallback implements IPenaltyCallback {
 
-        private boolean called = false;
         private Strafe s = null;
 
         @Override
         public void setStrafe(Strafe s) {
-            called = true;
             this.s = s;
         }
 
         public Strafe getStrafe() {
             return s;
-        }
-
-        public boolean isCalled() {
-            return called;
         }
     }
 

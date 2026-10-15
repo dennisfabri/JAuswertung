@@ -38,7 +38,6 @@ import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
@@ -50,7 +49,6 @@ import de.df.jutils.gui.wizard.WizardCheckboxPage;
 import de.df.jutils.gui.wizard.WizardIntegerPage;
 import de.df.jutils.gui.wizard.WizardOptionPage;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -196,63 +194,54 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
             swimmer = swimmer2;
         }
 
-        if (mode.getSelectedIndex() < BUILD_IN) {
-            switch (mode.getSelectedIndex()) {
-            default:
-            case 0: {
-                // None
-                // Nothing to do
-                break;
+        switch (mode.getSelectedIndex()) {
+        default:
+        case 0: {
+            // None
+            // Nothing to do
+            break;
+        }
+        case 1: {
+            // All
+            ListIterator<? extends ASchwimmer> li = swimmer.listIterator();
+            while (li.hasNext()) {
+                root.getSelection().setValue(li.next(), true);
             }
-            case 1: {
-                // All
-                ListIterator<? extends ASchwimmer> li = swimmer.listIterator();
-                while (li.hasNext()) {
-                    root.getSelection().setValue(li.next(), true);
-                }
-                break;
+            break;
+        }
+        case 2: {
+            select(swimmer, amount.getInt(0));
+            break;
+        }
+        case 3: {
+            // Anzahl je Gliederung
+            AWettkampf wk = core.getWettkampf();
+            LinkedList<String> gliederungen = wk.getGliederungenMitQGliederung();
+            ListIterator<String> gli = gliederungen.listIterator();
+            while (gli.hasNext()) {
+                select(SearchUtils.getSchwimmer(wk, new String[] { gli.next() }, true), amount.getInt(0));
             }
-            case 2: {
-                select(swimmer, amount.getInt(0));
-                break;
-            }
-            case 3: {
-                // Anzahl je Gliederung
-                AWettkampf wk = core.getWettkampf();
-                LinkedList<String> gliederungen = wk.getGliederungenMitQGliederung();
-                ListIterator<String> gli = gliederungen.listIterator();
-                while (gli.hasNext()) {
-                    select(SearchUtils.getSchwimmer(wk, new String[] { gli.next() }, true), amount.getInt(0));
-                }
-                break;
-            }
-            case 4: {
-                // Anzahl je Altersklasse
-                AWettkampf wk = core.getWettkampf();
-                wk.setProperty(meldekey, melde2.getSelectedIndex());
-                for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-                    for (int y = 0; y < 2; y++) {
-                        LinkedList<ASchwimmer> liste = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1);
-                        if (!liste.isEmpty()) {
-                            if (melde.isSelected()) {
-                                SearchUtils.filtereMeldepunkte(liste, melde.getValue(x, y == 1),
-                                        melde2.getSelectedIndex());
-                            }
-                            select(liste, amount.getInt(0), melde.isWeighted());
+            break;
+        }
+        case 4: {
+            // Anzahl je Altersklasse
+            AWettkampf wk = core.getWettkampf();
+            wk.setProperty(meldekey, melde2.getSelectedIndex());
+            for (int x = 0; x < wk.getRegelwerk().size(); x++) {
+                for (int y = 0; y < 2; y++) {
+                    LinkedList<ASchwimmer> liste = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1);
+                    if (!liste.isEmpty()) {
+                        if (melde.isSelected()) {
+                            SearchUtils.filtereMeldepunkte(liste, melde.getValue(x, y == 1),
+                                    melde2.getSelectedIndex());
                         }
+                        select(liste, amount.getInt(0), melde.isWeighted());
                     }
                 }
-                break;
             }
-            }
-        } else {
-            int index = mode.getSelectedIndex() - BUILD_IN;
-            ISelector[] selectors = root.getSelectors();
-            ISelector sel = selectors[index];
-            sel.select(core.getWettkampf(), root);
+            break;
         }
-        // Utils.getPreferences().putBoolean(i18nprefix + ".IncludeNotStarted",
-        // options.isSelected(0));
+        }
 
         controller.sendDataUpdateEvent(I18n.get(i18nprefix + ".Event"), UpdateEventConstants.REASON_SWIMMER_CHANGED,
                 null);
@@ -338,15 +327,6 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         }
     }
 
-    class ExportFeedback implements Feedback {
-
-        @Override
-        public void showFeedback(String text) {
-            InfiniteProgressUtils.setTextAsync(JSelectionWizard.this, text);
-        }
-    }
-
-    @SuppressWarnings("rawtypes")
     public String[] getModes() {
         LinkedList<String> result = new LinkedList<>();
         result.addLast(I18n.get("None"));
@@ -354,10 +334,6 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         result.addLast(I18n.get("FixedAmount"));
         result.addLast(I18n.get("FixedAmountPerOrganisation"));
         result.addLast(I18n.get("FixedAmountPerAgeGroup"));
-        ISelector[] add = root.getSelectors();
-        for (ISelector anAdd : add) {
-            result.addLast(anAdd.getName());
-        }
         return result.toArray(new String[result.size()]);
     }
 
@@ -378,8 +354,6 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
         public void update() {
             super.update();
             if (getSelectedIndex() < 1) {
-                wizard.setNextButtonEnabled(false);
-            } else if (getSelectedIndex() >= BUILD_IN) {
                 wizard.setNextButtonEnabled(false);
             } else {
                 wizard.setNextButtonEnabled(true);

@@ -35,7 +35,6 @@ import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
@@ -46,7 +45,6 @@ import de.df.jutils.gui.wizard.PageSwitchListener;
 import de.df.jutils.gui.wizard.UpdateListener;
 import de.df.jutils.gui.wizard.WizardOptionPage;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -185,14 +183,6 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
         zulassung.execute();
         controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_SWIMMER_CHANGED, null, null, null);
         return 1;
-    }
-
-    class ExportFeedback implements Feedback {
-
-        @Override
-        public void showFeedback(String text) {
-            InfiniteProgressUtils.setTextAsync(JZulassungWizard.this, text);
-        }
     }
 
     class JMuliIntPage extends AWizardPage implements PageSwitchListener {

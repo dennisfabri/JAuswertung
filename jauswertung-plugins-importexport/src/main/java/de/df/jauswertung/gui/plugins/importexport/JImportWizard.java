@@ -544,10 +544,7 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                                                        s -> insertText(s));
                 } catch (TableEntryException tee) {
                     if (display) {
-                        DialogUtils.warn(JImportWizard.this,
-                                         I18n.get("EntryError",
-                                                  StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn())),
-                                         tee.getData(), null);
+                        DialogUtils.warn(JImportWizard.this, getEntryErrorTitle(tee), tee.getData(), null);
                     }
                     results = null;
                 } catch (TableFormatException tfe) {
@@ -730,6 +727,14 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
     @Override
     public void cancel() {
         setVisible(false);
+    }
+
+    static String getEntryErrorTitle(TableEntryException tee) {
+        String cell = StringTools.getCellName(tee.getSheet(), tee.getRow(), tee.getColumn());
+        if (tee.getFile() == null) {
+            return I18n.get("EntryError", cell);
+        }
+        return I18n.get("EntryErrorInFile", cell, new File(tee.getFile()).getName());
     }
 
 }

@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.List;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.io.model.StartersImportDto;
 import de.df.jauswertung.io.model.TeamMembersImportDto;
-import de.df.jauswertung.io.value.TeamWithStarters;
 import de.df.jauswertung.io.value.ZWStartnummer;
-import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.util.Feedback;
 
 /**
@@ -50,9 +47,6 @@ public interface IImporter {
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> AWettkampf<T> heats(InputStream name, AWettkampf<T> wk, Feedback fb)
-            throws TableFormatException, TableEntryException, TableException, IOException;
-
-    <T extends ASchwimmer> AWettkampf<T> zusatzwertung(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException;
 
     <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)

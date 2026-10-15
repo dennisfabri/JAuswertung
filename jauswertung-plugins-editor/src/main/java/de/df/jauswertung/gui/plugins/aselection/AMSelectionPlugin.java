@@ -10,7 +10,6 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANG
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -37,9 +36,6 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
     FEditorPlugin editor = null;
 
     private JMenuItem[] menu = null;
-
-    @SuppressWarnings("rawtypes")
-    private static LinkedList<ISelector> selectors = new LinkedList<>();
 
     private final String i18nprefix;
     private final String meldekey;
@@ -87,11 +83,6 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
         return m;
     }
 
-    @SuppressWarnings("rawtypes")
-    ISelector[] getSelectors() {
-        return selectors.toArray(new ISelector[selectors.size()]);
-    }
-
     private void disableButtons() {
         setButtons(false);
     }
@@ -115,17 +106,6 @@ public abstract class AMSelectionPlugin extends ANullPlugin {
         if ((due.getChangeReason() & bitmap) > 0) {
             updateButtons();
         }
-    }
-
-    @SuppressWarnings("rawtypes")
-    public void addSelector(ISelector sel) {
-        if (sel == null) {
-            throw new IllegalArgumentException("Selector must not be null.");
-        }
-        if (selectors.contains(sel)) {
-            throw new IllegalStateException("Selector must not be added twice.");
-        }
-        selectors.addLast(sel);
     }
 
     void updateButtons() {

@@ -30,10 +30,6 @@ public class TimelimitsContainer implements Serializable {
         limits.add(limit);
     }
 
-    public void remove(int index) {
-        limits.remove(index);
-    }
-
     public Timelimits getTimelimits(int index) {
         return limits.get(index);
     }

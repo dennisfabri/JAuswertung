@@ -16,7 +16,6 @@ import java.util.ListIterator;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -299,14 +298,6 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         controller.sendDataUpdateEvent("SetPenalty", REASON_POINTS_CHANGED | REASON_PENALTY, schwimmer,
                 strategy.getEventInfo(), null);
         window.setVisible(false);
-    }
-
-    String[] getDisziplinen() {
-        String[] temp = schwimmer.getAK().getDisziplinenNamen();
-        String[] result = new String[temp.length + 1];
-        System.arraycopy(temp, 0, result, 1, temp.length);
-        result[0] = I18n.get("General");
-        return result;
     }
 
     private class InfoPanel extends WizardInfoPage {

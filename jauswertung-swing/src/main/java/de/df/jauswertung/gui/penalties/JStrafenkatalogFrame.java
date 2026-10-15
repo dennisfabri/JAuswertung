@@ -33,7 +33,6 @@ class JStrafenkatalogFrame extends JFrame {
 
     private Window parent = null;
     private JStrafenkatalogPanel panel = null;
-    private boolean cancelled = false;
 
     public JStrafenkatalogFrame(JFrame p, Strafen s) {
         this(p, null, s);
@@ -72,13 +71,6 @@ class JStrafenkatalogFrame extends JFrame {
         super.setVisible(visible);
     }
 
-    public Strafe getStrafe() {
-        if (cancelled) {
-            return null;
-        }
-        return panel.getStrafe();
-    }
-
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
@@ -105,7 +97,6 @@ class JStrafenkatalogFrame extends JFrame {
     }
 
     private void doClose() {
-        cancelled = true;
         setVisible(false);
     }
 }

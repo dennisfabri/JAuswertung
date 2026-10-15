@@ -10,8 +10,4 @@ public class RandomUtils {
         return new RandomAdaptor(new MersenneTwister());
     }
 
-    public static Random getRandomNumberGenerator(long seed) {
-        return new RandomAdaptor(new MersenneTwister(seed));
-    }
-
 }

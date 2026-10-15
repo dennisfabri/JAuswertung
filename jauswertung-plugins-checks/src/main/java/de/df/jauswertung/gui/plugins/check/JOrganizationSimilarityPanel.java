@@ -49,8 +49,6 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
 
     private JPanel panel;
 
-    private boolean changed = false;
-
     public JOrganizationSimilarityPanel(JMissingInputFrame parent, CorePlugin core, FEditorPlugin editor) {
         super(new JPanel());
         panel = getComponent();
@@ -58,14 +56,6 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
         this.editor = editor;
         this.parent = parent;
         init();
-    }
-
-    public boolean hasChanged() {
-        return changed;
-    }
-
-    public void unsetChanged() {
-        changed = false;
     }
 
     private void init() {
@@ -176,10 +166,6 @@ public class JOrganizationSimilarityPanel extends JGlassPanel<JPanel> {
             panel.add(p, CC.xy(2, y));
             y += 2;
         }
-    }
-
-    void changeData() {
-        changed = true;
     }
 
     void check(ASchwimmer s) {

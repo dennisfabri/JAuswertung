@@ -168,8 +168,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
 
         void updatePenalties();
 
-        String getId();
-
     }
 
     class JPenaltyDisciplineEditor extends JPanel {
@@ -249,11 +247,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                     penalties.setSelectedIndex(index);
                 }
             }
-
-            @Override
-            public String getId() {
-                return "" + discipline;
-            }
         }
 
         private class PenaltyDisciplineEditorByHeat implements IPenaltyDisciplineEditorStrategy {
@@ -330,11 +323,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
                     penalties.setSelectedIndex(index);
                 }
             }
-
-            @Override
-            public String getId() {
-                return id;
-            }
         }
 
         final IPenaltyDisciplineEditorStrategy editor;
@@ -348,10 +336,6 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
         JPenaltyDisciplineEditor(int discipline, boolean alwaysDisq) {
             editor = new PenaltyDisciplineEditorByTime(discipline);
             init(alwaysDisq);
-        }
-
-        public String getId() {
-            return editor.getId();
         }
 
         public JPenaltyDisciplineEditor(String id, boolean alwaysDisq) {

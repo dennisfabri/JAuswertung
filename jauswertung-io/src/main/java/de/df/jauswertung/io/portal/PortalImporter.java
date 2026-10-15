@@ -439,12 +439,6 @@ public class PortalImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> zusatzwertung(InputStream name, AWettkampf<T> wk, Feedback fb)
-            throws TableFormatException, TableEntryException, TableException, IOException {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException, TableException, IOException {
         throw new NotImplementedException();

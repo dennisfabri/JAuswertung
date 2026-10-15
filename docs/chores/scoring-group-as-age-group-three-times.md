@@ -6,11 +6,11 @@ of the same steps:
 - `ResultSelectionUtils.getResultWettkampf(wk)` (`jauswertung-plugins-editor/.../core/ResultSelectionUtils.java`):
   result printout, printout with detailed filter, HTTP server.
 - `CompetitionUtils.generateWertungsgruppenwettkampf(wk, nurMehrkampf)` (`jauswertung-data/.../CompetitionUtils.java`):
-  scoring-group sections of the full result printout, PDF export and HTTP server (`PrintUtils:172`), protocol
-  (`PrintUtils:626`), Excel export (`ASpreadsheetExporter:76`), CSV/Excel result tables (`DataTableUtils:280`).
+  scoring-group sections of the full result printout, PDF export and HTTP server (`PrintUtils:169`), protocol
+  (`PrintUtils:514`), Excel export (`ASpreadsheetExporter:76`), CSV/Excel result tables (`DataTableUtils:280`).
 - `ResultUtils.generateEinzelwertungswettkampf(wk, wgname, removeEmpty)` (`jauswertung-data/.../ResultUtils.java`):
-  individual rankings of a scoring group in the full result printout and protocol (`PrintUtils:611`), "results per
-  discipline", "documents of the individual ranking" (`APerDisciplinePrinter:266`) and the medal list per discipline
+  individual rankings of a scoring group in the full result printout and protocol (`PrintUtils:499`), "results per
+  discipline", "documents of the individual ranking" (`APerDisciplinePrinter:268`) and the medal list per discipline
   (`ListOfMedalsPerDisciplinePrinter:233`).
 
 ## Shared steps

@@ -134,13 +134,4 @@ public class OWLauf<T extends ASchwimmer> implements Serializable {
         schwimmer[x] = s;
     }
 
-    public boolean isEmpty() {
-        return getSchwimmer() == null;
-    }
-
-    public boolean isMale() {
-        T t = getSchwimmer();
-        return t == null || t.isMaennlich();
-    }
-
 }

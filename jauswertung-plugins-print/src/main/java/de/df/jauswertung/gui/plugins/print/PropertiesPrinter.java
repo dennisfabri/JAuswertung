@@ -6,7 +6,6 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -96,14 +95,6 @@ class PropertiesPrinter implements Printer {
         return PrintManager.getFinalPrintable(PropertiesTableCreator.getPrintable(core.getWettkampf()),
                 core.getLastChangedDate(),
                 I18n.get("CompetitionInformation"), I18n.get("CompetitionInformation"));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    static Printable getPrintable(@SuppressWarnings("rawtypes") AWettkampf wk, Date date) {
-        return PrintManager.getFinalPrintable(
-                PrintManager.getHeaderPrintable(PropertiesTableCreator.getPrintable(wk),
-                        I18n.get("CompetitionInformation")),
-                date, true, I18n.get("CompetitionInformation"));
     }
 
     final class PrintActionListener implements ActionListener {

@@ -3,10 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.zielrichterentscheid;
 
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_PROPERTIES_CHANGED;
-import static de.df.jauswertung.gui.UpdateEventConstants.REASON_ZW_LIST_CHANGED;
-
 import javax.swing.JMenuItem;
 
 import de.df.jauswertung.gui.UpdateEventConstants;
@@ -19,7 +15,6 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MZielrichterentscheidPlugin extends ANullPlugin {
 
-    static final long BITMASK = REASON_LAUF_LIST_CHANGED | REASON_ZW_LIST_CHANGED | REASON_PROPERTIES_CHANGED;
     private JMenuItem menu;
     @SuppressWarnings("rawtypes")
     JZielrichterentscheidFrame dialog;
@@ -77,14 +72,5 @@ public class MZielrichterentscheidPlugin extends ANullPlugin {
                 dialog.start(core.getWettkampf());
             }
         });
-    }
-
-    void change() {
-        try {
-            dialog.apply();
-            getController().sendDataUpdateEvent("ChangeProperties", BITMASK, this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

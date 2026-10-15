@@ -40,10 +40,6 @@ public class StrafenKapitel implements Serializable {
         return name;
     }
 
-    public String getKapitel() {
-        return kapitel;
-    }
-
     public void setName(String sName) {
         if (sName == null) {
             return;
@@ -52,16 +48,6 @@ public class StrafenKapitel implements Serializable {
             return;
         }
         name = sName;
-    }
-
-    public void setKapitel(String kName) {
-        if (kName == null) {
-            return;
-        }
-        if (kName.length() == 0) {
-            return;
-        }
-        kapitel = kName;
     }
 
     public void addParagraph(StrafenParagraph sp) {

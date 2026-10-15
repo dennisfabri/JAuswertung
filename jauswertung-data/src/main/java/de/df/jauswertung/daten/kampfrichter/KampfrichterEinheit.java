@@ -36,15 +36,6 @@ public class KampfrichterEinheit implements Serializable {
         return pos;
     }
 
-    public KampfrichterStufe[] getMinimaleStufen() {
-        KampfrichterStufe[] pos = new KampfrichterStufe[positionen.size()];
-        KampfrichterPosition[] kpos = positionen.toArray(new KampfrichterPosition[positionen.size()]);
-        for (int x = 0; x < pos.length; x++) {
-            pos[x] = kpos[x].getMinimaleStufe();
-        }
-        return pos;
-    }
-
     public KampfrichterStufe getMinimaleStufe(String pos) {
         KampfrichterPosition[] kpos = positionen.toArray(new KampfrichterPosition[positionen.size()]);
         for (KampfrichterPosition kpo : kpos) {
@@ -143,13 +134,6 @@ public class KampfrichterEinheit implements Serializable {
         return name;
     }
 
-    public void setName(String n) {
-        if (n == null) {
-            throw new NullPointerException();
-        }
-        name = n;
-    }
-
     public void addPosition(String position) {
         addPosition(position, KampfrichterStufe.KEINE, 1);
     }
@@ -232,14 +216,6 @@ public class KampfrichterEinheit implements Serializable {
         return result.toArray(new String[result.size()][0]);
     }
 
-    public void clearInput() {
-        for (KampfrichterPosition s : positionen) {
-            LinkedList<Kampfrichter> kr = new LinkedList<>();
-            kr.addLast(new Kampfrichter());
-            kampfrichter.put(s.getPosition(), kr);
-        }
-    }
-
     public void exchange(int x, int y) {
         if (y < 0 || x < 0) {
             throw new IllegalArgumentException("Arguments must be at least 0.");
@@ -260,9 +236,5 @@ public class KampfrichterEinheit implements Serializable {
         KampfrichterPosition kpY = positionen.get(y);
         positionen.set(x, kpY);
         positionen.set(y, kpX);
-    }
-
-    public int size() {
-        return positionen.size();
     }
 }

@@ -12,8 +12,6 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Hashtable;
-import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -131,16 +129,6 @@ class DataProvider {
             return true;
         }
 
-        for (String key : providers.keySet()) {
-            if (name.startsWith("/" + key + "/")) {
-                IDataProvider dp = providers.get(key);
-                boolean ok = dp.knowsFile(name.substring(key.length() + 2));
-                if (ok) {
-                    return true;
-                }
-            }
-        }
-
         System.out.println("Unkown URL: " + name);
         return false;
     }
@@ -229,16 +217,6 @@ class DataProvider {
         if (name.equals("/groupevaluation.html")) {
             getGroupEvaluationData(out, wk);
             return;
-        }
-
-        for (String key : providers.keySet()) {
-            if (name.startsWith("/" + key + "/")) {
-                IDataProvider dp = providers.get(key);
-                boolean ok = dp.provide(name.substring(key.length() + 2), out);
-                if (ok) {
-                    return;
-                }
-            }
         }
 
         throw new IOException("File not found: " + name);
@@ -394,21 +372,5 @@ class DataProvider {
             }
         } while (result == Printable.PAGE_EXISTS);
         zos.close();
-    }
-
-    private Hashtable<String, IDataProvider> providers = new Hashtable<>();
-
-    public String registerDataProvider(IDataProvider dp) {
-        String key = null;
-        while (key == null || providers.containsKey(key)) {
-            key = UUID.randomUUID().toString();
-        }
-        providers.put(key, dp);
-        dp.setKey(key);
-        return key;
-    }
-
-    public void unregisterDataProvider(String key) {
-        providers.remove(key);
     }
 }

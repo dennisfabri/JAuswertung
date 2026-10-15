@@ -146,10 +146,6 @@ public class JSelectionDialog {
         WindowUtils.center(dialog, parent);
     }
 
-    public void setTitle(String s) {
-        dialog.setTitle(s);
-    }
-
     @SuppressWarnings({ "unchecked" })
     private void refreshDialog() {
         boolean printEnabled = false;

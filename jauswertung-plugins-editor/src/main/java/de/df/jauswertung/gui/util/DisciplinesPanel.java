@@ -207,10 +207,6 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
         listeners.add(cl);
     }
 
-    public void removeListener(DataChangeListener cl) {
-        listeners.remove(cl);
-    }
-
     void fireChangeEvent() {
         for (DataChangeListener cl : listeners) {
             try {

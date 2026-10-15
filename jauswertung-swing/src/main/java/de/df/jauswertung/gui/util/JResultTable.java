@@ -410,33 +410,6 @@ public final class JResultTable extends JGroupableTable {
         return x == D_PENALTY_OFFSET;
     }
 
-    public boolean isRankColumn(int x) {
-        x = x - PREFIX - (einzel ? 1 : 0);
-        if (x < 0) {
-            return false;
-        }
-        x = x % LENGTH;
-        return x == D_RANK_OFFSET;
-    }
-
-    public boolean isTimeColumn(int x) {
-        x = x - PREFIX - (einzel ? 1 : 0);
-        if (x < 0) {
-            return false;
-        }
-        x = x % LENGTH;
-        return x == D_TIME_OFFSET;
-    }
-
-    public boolean isPointsColumn(int x) {
-        x = x - PREFIX - (einzel ? 1 : 0);
-        if (x < 0) {
-            return false;
-        }
-        x = x % LENGTH;
-        return x == D_POINTS_OFFSET;
-    }
-
     @SuppressWarnings("rawtypes")
     public String getChecksum() {
         List<String> text = new ArrayList<>();

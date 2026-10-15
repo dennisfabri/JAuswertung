@@ -81,13 +81,6 @@ public class RegistrationExportModel {
         private String comment;
         @JsonInclude(Include.NON_EMPTY)
         private Map<Integer, String> relayPositions;
-
-        public Discipline(String name, Integer timeInMilliseconds, String comment, boolean selected) {
-            this.name = name;
-            this.timeInMilliseconds = timeInMilliseconds;
-            this.comment = comment;
-            this.selected = selected;
-        }
     }
 
     @Data

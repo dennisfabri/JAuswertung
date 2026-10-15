@@ -112,12 +112,6 @@ class SprecherlistePrinter implements Printer {
     }
         
     
-    Printable getPrintable() {
-        boolean discipline = (columns.getSelectedIndex() % 2 != 0);
-        boolean times = (columns.getSelectedIndex() > 1);
-        return getPrintable(core.getWettkampf(), getName(), false, discipline, times);
-    }
-
     Printable getPrintable(AWettkampf<?>[] wkx, String header, boolean withComments, boolean withDiscipline, boolean withTimes) {
         List<Printable> px = new ArrayList<>();
         for (AWettkampf<?> wk : wkx) {

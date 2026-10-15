@@ -202,8 +202,4 @@ public class JKariStufenButton extends JPanel {
             changes.add(listener);
         }
     }
-
-    public void removeStateListener(ChangeListener listener) {
-        changes.remove(listener);
-    }
 }

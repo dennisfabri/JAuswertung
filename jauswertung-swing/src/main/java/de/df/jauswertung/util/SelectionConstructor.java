@@ -28,9 +28,4 @@ public class SelectionConstructor {
         }
         return result;
     }
-
-    public void reset() {
-        text.clear();
-        values.clear();
-    }
 }

@@ -103,10 +103,6 @@ class JTeammembersBarcodeScanPanel extends JPanel {
         initPanel();
     }
 
-    void prepare() {
-        clear(true);
-    }
-
     void clear(boolean cleartext) {
         clear(cleartext, true);
     }
@@ -632,17 +628,5 @@ class JTeammembersBarcodeScanPanel extends JPanel {
                 }
             });
         }
-    }
-
-    public boolean input(String path) {
-        if (acceptsInput(path)) {
-            input.setText(path);
-            return enterValue();
-        }
-        return false;
-    }
-
-    public boolean acceptsInput(String path) {
-        return input.hasFocus();
     }
 }

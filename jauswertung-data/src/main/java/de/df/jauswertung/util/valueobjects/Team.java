@@ -9,7 +9,6 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import org.oxbow.swingbits.util.Strings;
 
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jutils.util.StringTools;
@@ -358,9 +357,5 @@ public class Team {
 
     public String getCode() {
         return code;
-    }
-
-    public int getAk() {
-        return ak;
     }
 }

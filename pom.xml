@@ -115,7 +115,6 @@
         <module>jauswertung</module>
         <module>jauswertung-misc</module>
         <module>jauswertung-meldeunterlagen</module>
-        <module>jauswertung-portal-adapter</module>
     </modules>
     <profiles>
         <profile>
@@ -311,11 +310,6 @@
             <dependency>
                 <groupId>de.dennisfabri.jauswertung</groupId>
                 <artifactId>jauswertung-meldeunterlagen</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.dennisfabri.jauswertung</groupId>
-                <artifactId>jauswertung-portal-adapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

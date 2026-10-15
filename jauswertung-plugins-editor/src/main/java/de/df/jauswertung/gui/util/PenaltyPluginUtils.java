@@ -12,16 +12,6 @@ import de.df.jauswertung.gui.penalties.PenaltyUIUtils.PenaltyListener;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 
 public class PenaltyPluginUtils {
-    public static JPanel[] getPenalties(CorePlugin core, int index, boolean[][] selected, boolean ignoreNA,
-            boolean kurz) {
-        return getPenalties(core, index, selected, null, ignoreNA, kurz);
-    }
-
-    public static JPanel[] getPenalties(CorePlugin core, int index, boolean[][] selected, PenaltyListener pl,
-            boolean ignoreNA, boolean kurz) {
-        return getPenalties(core, index, selected, pl != null, pl, ignoreNA, kurz);
-    }
-
     public static JPanel[] getPenalties(CorePlugin core, PenaltyListener pl, boolean ignoreNA, boolean kurz) {
         return getPenalties(core, -1, null, pl != null, pl, ignoreNA, kurz);
     }

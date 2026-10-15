@@ -41,10 +41,6 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
     private Startkarte[] startkarten = null;
     private boolean etime = true;
 
-    public boolean hasEtime() {
-        return etime;
-    }
-
     public void setEtime(boolean etime) {
         this.etime = etime;
     }

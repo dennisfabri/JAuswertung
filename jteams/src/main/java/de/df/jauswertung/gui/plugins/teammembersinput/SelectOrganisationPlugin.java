@@ -33,13 +33,6 @@ public class SelectOrganisationPlugin extends ANullPlugin {
         listeners.add(listener);
     }
 
-    public void removeelectionListener(ISelectionListener listener) {
-        if (!listeners.contains(listener)) {
-            return;
-        }
-        listeners.remove(listener);
-    }
-
     private void notifyListeners() {
         String selected = (String) this.selection.getSelectedItem();
         for (ISelectionListener listener : listeners) {

@@ -16,18 +16,13 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Filter;
 import de.df.jauswertung.daten.HLWStates;
-import de.df.jauswertung.daten.Mannschaft;
-import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Strafarten;
-import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
-import de.df.jauswertung.util.ergebnis.SchwimmerData;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
 import de.df.jauswertung.util.vergleicher.SchwimmerGliederungVergleicher;
@@ -277,185 +272,6 @@ public final class CompetitionUtils {
         }
     }
 
-    private static class Result implements Comparable<Result> {
-
-        private final double punkte;
-        private final int time;
-        private final Strafe strafe;
-
-        public Result(double p, int t, Strafe s) {
-            punkte = p;
-            time = t;
-            strafe = s;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof Result) {
-                return compareTo((Result) obj) == 0;
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-
-            return Double.valueOf(punkte).hashCode();
-        }
-
-        @Override
-        public int compareTo(Result o) {
-            return (int) ((o.punkte - punkte) * 100);
-        }
-
-        public int getZeit() {
-            return time;
-        }
-
-        public Strafe getStrafe() {
-            return strafe;
-        }
-    }
-
-    /**
-     * Erstellt anhand der "Bemerkungen" der Schwimmer zusammengehörende
-     * Mannschaften. Die Zeiten der Mannschaften entsprechen der der durch
-     * schnittszeit der besten <code>min</code> Schwimmer.
-     * 
-     * @param wk
-     * @param min
-     * @param max
-     * @return
-     */
-    public static <T extends ASchwimmer> MannschaftWettkampf generateTeamCompetition(AWettkampf<T> wk, int min,
-            int max) {
-        if (min <= 0) {
-            throw new IllegalArgumentException("Min must not be lower than or equal to 0.");
-        }
-        if (max < min) {
-            throw new IllegalArgumentException("Min must not be higher than max.");
-        }
-
-        Hashtable<String, LinkedList<T>> teams = new Hashtable<>();
-        {
-            ListIterator<T> li = wk.getSchwimmer().listIterator();
-            while (li.hasNext()) {
-                T t = li.next();
-                if (t.getBemerkung().length() > 0) {
-                    String team = t.getBemerkung();
-
-                    LinkedList<T> ll = teams.get(team);
-                    if (ll == null) {
-                        ll = new LinkedList<>();
-                        teams.put(team, ll);
-                    }
-                    ll.addLast(t);
-                }
-            }
-        }
-
-        MannschaftWettkampf mwk = new MannschaftWettkampf(wk.getRegelwerk(), wk.getStrafen());
-
-        Enumeration<String> en = teams.keys();
-        while (en.hasMoreElements()) {
-            String team = en.nextElement();
-            LinkedList<T> ll = teams.get(team);
-            if ((ll.size() >= min) && (ll.size() <= max)) {
-                T tn = ll.getFirst();
-
-                int index = team.indexOf("|");
-                if (index > 0) {
-                    team = team.substring(0, index).trim();
-                }
-
-                int aknummer = tn.getAKNummer();
-
-                ListIterator<T> li = ll.listIterator();
-                while (li.hasNext()) {
-                    T t = li.next();
-                    if (t.getAKNummer() > aknummer) {
-                        aknummer = t.getAKNummer();
-                    }
-                }
-
-                String[] disziplinen = tn.getAK().getDisziplinenNamen();
-                Mannschaft m = mwk.createMannschaft(team, tn.isMaennlich(), tn.getGliederung(), aknummer, "");
-                li = ll.listIterator();
-                while (li.hasNext()) {
-                    T t = li.next();
-                    if (t.isMaennlich()) {
-                        m.setMaennlich(true);
-                    }
-                    boolean penalty = false;
-                    if (t.getAK().getDiszAnzahl() != disziplinen.length) {
-                        penalty = true;
-                    } else {
-                        for (int x = 0; x < t.getAK().getDiszAnzahl(); x++) {
-                            if (!disziplinen[x].equals(t.getAK().getDisziplin(x, true).getName())) {
-                                penalty = true;
-                            }
-                        }
-                    }
-                    if (penalty) {
-                        if (m.getStrafen(ASchwimmer.DISCIPLINE_NUMBER_SELF).isEmpty()) {
-                            m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
-                                    new Strafe(I18n.get("MixedAgegroups"), "GA", Strafarten.DISQUALIFIKATION, 0));
-                        }
-                    }
-                }
-
-                Altersklasse ak = wk.getRegelwerk().getAk(aknummer);
-
-                for (int i = 0; i < ak.getDiszAnzahl(); i++) {
-                    LinkedList<Result> times = new LinkedList<>();
-                    SchwimmerResult<T>[] result = ResultCalculator.getResults(wk, ll, ak, m.isMaennlich(), null, true);
-                    for (SchwimmerResult<T> sr : result) {
-                        SchwimmerData<T> sd = sr.getResults()[i];
-                        T t = sr.getSchwimmer();
-                        if ((t.isDisciplineChosen(i)) && (t.getZeit(i) > 0)) {
-                            Strafe s = t.getAkkumulierteStrafe(i);
-                            switch (s.getArt()) {
-                            case NICHT_ANGETRETEN:
-                            case DISQUALIFIKATION:
-                            case AUSSCHLUSS:
-                                // Time will not be included
-                                break;
-                            case STRAFPUNKTE:
-                                times.addLast(new Result(sd.getPoints(), t.getZeit(i), s));
-                                break;
-                            default:
-                            case NICHTS:
-                                times.addLast(new Result(sd.getPoints(), t.getZeit(i), s));
-                                break;
-                            }
-                        }
-                    }
-
-                    if (times.size() >= min) {
-                        Collections.sort(times);
-                        ListIterator<Result> time = times.listIterator();
-                        int counter = 0;
-                        while (counter < min) {
-                            Result r = time.next();
-                            int zeit = r.getZeit();
-                            m.setZeit(i, m.getZeit(i) + zeit);
-                            m.addStrafe(i, r.getStrafe());
-                            counter++;
-                        }
-                        m.setZeit(i, (int) Math.round((double) m.getZeit(i) / (double) min));
-                    } else {
-                        m.addStrafe(i,
-                                new Strafe(I18n.get("NotEnoughValidTimes"), "GZ", Strafarten.NICHT_ANGETRETEN, 0));
-                    }
-                }
-
-                mwk.addSchwimmer(m);
-
-            }
-        }
-        return mwk;
-    }
-
     public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk) {
         return generateWertungsgruppenwettkampf(wk, false);
     }
@@ -577,25 +393,6 @@ public final class CompetitionUtils {
         for (int x = 0; x < wk.getRegelwerk().size(); x++) {
             for (int y = 0; y < 2; y++) {
                 amounts[x][y] = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1).size();
-            }
-        }
-        return amounts;
-    }
-
-    public static <T extends ASchwimmer> int[][] getOrganizationAmounts(AWettkampf<T> wk) {
-        Hashtable<String, String> orgs = new Hashtable<>();
-        int[][] amounts = new int[wk.getRegelwerk().size()][2];
-        for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-            for (int y = 0; y < 2; y++) {
-                orgs.clear();
-                LinkedList<T> swimmers = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1);
-                for (T t : swimmers) {
-                    String key = t.getGliederungMitQGliederung();
-                    if (!orgs.containsKey(key)) {
-                        orgs.put(key, key);
-                    }
-                }
-                amounts[x][y] = orgs.size();
             }
         }
         return amounts;

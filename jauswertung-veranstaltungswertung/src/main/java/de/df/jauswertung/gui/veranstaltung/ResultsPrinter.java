@@ -156,12 +156,6 @@ class ResultsPrinter implements Printer {
         return PrintManager.getFinalPrintable(hfp, new Date(), (String) null, I18n.get("GroupEvaluation"));
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public void dataUpdated(AWettkampf wk) {
-        // Nothing to do
-    }
-
     @Override
     public String getName() {
         return I18n.get("Results");

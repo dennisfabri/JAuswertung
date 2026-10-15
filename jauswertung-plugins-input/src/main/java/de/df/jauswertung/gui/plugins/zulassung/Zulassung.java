@@ -375,18 +375,6 @@ public class Zulassung<T extends ASchwimmer> {
         }
     }
 
-    public LinkedList<T>[][] getDirekt() {
-        return direkt;
-    }
-
-    public LinkedList<T>[][] getPunkte() {
-        return punkte;
-    }
-
-    public LinkedList<T>[][] getGesetzt() {
-        return gesetzt;
-    }
-
     public LinkedList<T>[][] getGesperrte() {
         return gesperrt;
     }
