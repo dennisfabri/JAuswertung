@@ -25,8 +25,9 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Replace swingbits](replace-swingbits.md) | Low | M | Hand-maintained fork of a dead library; inline the used parts or use plain Swing |
 | [Replace commons.xmt](replace-commons-xmt.md) | Low | M | Hand-maintained fork of a dead library, pinned to a SNAPSHOT; needs a design decision |
 | [Check nrjavaserial](check-nrjavaserial.md) | Low | M | Slowly maintained RXTX fork; evaluate jSerialComm with real hardware |
+| [Replace System.out/System.err with logging](replace-system-out-with-logging.md) | Low | M | 118 lines in 34 files print to the console; they reach the log only through the stream redirect, without logger name or level |
 | [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
-| [Replace printStackTrace() and System.out/System.err](console-output-and-printstacktrace.md) | Low | L | 166 `printStackTrace()` and 169 `System.out`/`System.err` calls bypass logging and error handling |
+| [Replace printStackTrace()](replace-printstacktrace.md) | Low | L | 166 `printStackTrace()` calls bypass logging and error handling; often the failure is swallowed |
 | [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |
 | [Replace l2fprod-common](replace-l2fprod-common.md) | Low | L | Hand-maintained fork of a dead library; 20 files, four components |
 | [Replace filechooser](replace-filechooser.md) | Low | L | Hand-maintained native file dialog library; 21 files |
