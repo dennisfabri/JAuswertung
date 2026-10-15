@@ -5,8 +5,6 @@ package de.df.jauswertung.gui.plugins;
 
 import java.io.File;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -217,21 +215,6 @@ public class CorePlugin extends AFeature {
 
         mwk.addSchwimmer(mannschaft);
         return mannschaft;
-    }
-
-    public void add(LinkedList<? extends ASchwimmer> schwimmer) {
-        boolean found = false;
-        ListIterator<? extends ASchwimmer> li = schwimmer.listIterator();
-        while (li.hasNext()) {
-            @SuppressWarnings("unchecked")
-            boolean b = wk.addSchwimmer(li.next());
-            found = found || b;
-        }
-        if (found) {
-            getController().sendDataUpdateEvent("Import",
-                    UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED,
-                    schwimmer.toArray(), null, this);
-        }
     }
 
     public boolean remove(ASchwimmer[] s) {
