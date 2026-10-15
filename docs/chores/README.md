@@ -19,7 +19,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Remove the Mersenne Twister](remove-mersenne-twister.md) | Low | S | commons-math3's `MersenneTwister` adds nothing over a JDK generator and is shared unsynchronized in `Laufliste` |
 | [OWDisziplin.Id is stored although it is derived](owdisziplin-id-derived.md) | Low | M | `OWDisziplin.Id` is stored although it is derived from its components |
 | [Review which penalties are printed and how](penalty-list-review.md) | Low | M | Penalty list: which penalties it contains, what a card shows, and a more compact table layout |
-| [Replace jgraphx](replace-jgraphx.md) | Low | M | Fork of a dead library with a single maintainer; used in three files |
 | [Replace swingfx](replace-swingfx.md) | Low | M | Hand-maintained fork of a dead library; used in three files |
 | [Replace uistate](replace-uistate.md) | Low | M | Hand-maintained fork of a dead library for window and component state |
 | [Replace swingbits](replace-swingbits.md) | Low | M | Hand-maintained fork of a dead library; inline the used parts or use plain Swing |

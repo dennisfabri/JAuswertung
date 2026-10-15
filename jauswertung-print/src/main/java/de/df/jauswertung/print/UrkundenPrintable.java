@@ -6,17 +6,11 @@ package de.df.jauswertung.print;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
-import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.text.NumberFormat;
 import java.util.Hashtable;
 import java.util.LinkedList;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-
-import com.mxgraph.view.mxGraph;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -25,12 +19,11 @@ import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Strafarten;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.print.urkunden.UrkundenSeite;
 import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.Results;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.print.printables.ComponentPagePrintable;
 
 public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
 
@@ -151,56 +144,23 @@ public class UrkundenPrintable<T extends ASchwimmer> implements Printable {
         eintraege = temp.toArray(new String[temp.size()][0]);
     }
 
-    private mxGraph lastgraph = null;
-    private int lastpage = -1;
-
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         if (pageIndex >= eintraege.length) {
             return NO_SUCH_PAGE;
         }
 
+        UrkundenSeite seite = new UrkundenSeite();
+        GraphUtils.populateGraph(seite, cells, IDS, eintraege[pageIndex]);
+
         Graphics2D g2d = (Graphics2D) graphics.create();
-        g2d.setClip((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY(),
-                (int) pageFormat.getImageableWidth(),
-                (int) pageFormat.getImageableHeight());
-
-        Paper p = new Paper();
-        p.setSize(pageFormat.getWidth(), pageFormat.getHeight());
-        p.setImageableArea(0, 0, p.getWidth(), p.getHeight());
-        PageFormat pf = new PageFormat();
-        // pf.setOrientation(pageFormat.getOrientation());
-        pf.setPaper(p);
-
-        if (lastgraph == null) {
-            lastgraph = GraphUtils.createGraph(true);
-            lastpage = pageIndex - 1;
+        try {
+            g2d.setClip((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY(),
+                    (int) pageFormat.getImageableWidth(), (int) pageFormat.getImageableHeight());
+            seite.paintContent(g2d);
+        } finally {
+            g2d.dispose();
         }
-        if (lastpage != pageIndex) {
-            // GraphUtils.clear(lastgraph);
-            lastgraph = GraphUtils.createGraph(true);
-            GraphUtils.populateGraph(lastgraph, cells, false, IDS, eintraege[pageIndex], true);
-            // lastgraph.setSelectionEnabled(false);
-            try {
-                lastgraph.setSelectionCell(new Object[0]);
-            } catch (NullPointerException npe) {
-                // Nothing to do
-            }
-
-            lastpage = pageIndex;
-        }
-        mxGraph graph = lastgraph;
-        JComponent display = GraphUtils.createDisplay(graph, true);
-
-        JFrame f = new JFrame();
-        f.add(display);
-        f.pack();
-        EDTUtils.sleep();
-        f.removeAll();
-        EDTUtils.sleep();
-
-        ComponentPagePrintable.printComponent(display, g2d, pf);
-
         return PAGE_EXISTS;
     }
 }
