@@ -1,7 +1,7 @@
 # Development mode features belong in the beta plugin
 
 Development mode is the Java Preferences node `jauswertung/development` (`Utils.isInDevelopmentMode()`,
-`isInDevelopmentModeFor(type)` in `jauswertung-data/.../util/Utils.java:128-147`). It can only be switched on from
+`isInDevelopmentModeFor(type)` in `jauswertung-data/.../util/Utils.java:111-130`). It can only be switched on from
 outside the application (`jauswertung-files/src/main/resources/development/install-prefs.sh`, `.reg`, `prefs.xml`), so
 the features behind it are invisible to users. All of them should be switched through `OBetaPlugin`
 (`jauswertung-plugins-editor/.../gui/plugins/OBetaPlugin.java`, descriptor `de.dm.auswertung.beta.plugin`) instead.
