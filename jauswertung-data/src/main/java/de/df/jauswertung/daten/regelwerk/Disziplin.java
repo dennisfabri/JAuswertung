@@ -42,10 +42,6 @@ public class Disziplin implements Serializable {
         this("-", 1, 50, 1);
     }
 
-    public Disziplin(Disziplin d) {
-        this(d.getName(), d.getRec(), d.getLaenge(), d.getLaps());
-    }
-
     /**
      * Creates new Disziplin
      * 

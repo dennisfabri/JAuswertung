@@ -9,8 +9,6 @@ import java.awt.Font;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
 import java.util.BitSet;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.StringJoiner;
@@ -33,7 +31,6 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.MannschaftWettkampf;
-import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.laufliste.HeatsNumberingScheme;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
@@ -269,115 +266,6 @@ public final class PrintUtils {
             }
         }
         return ps;
-    }
-
-    @SuppressWarnings({"unchecked", "null"})
-    public static <T extends ASchwimmer> LinkedList<Printable> getBestOfDisciplineResultsPrintable(boolean[][] selected,
-                                                                                                   AWettkampf<T> wk, boolean reducedview, boolean points) {
-
-        // Disziplinen erkennen
-        boolean strafeIstDisqualifikation = false;
-        Hashtable<String, Disziplin[]> disziplinen = new Hashtable<>();
-        for (int x = 0; x < selected[0].length; x++) {
-            if (selected[0][x] | selected[1][x]) {
-                Altersklasse ak = wk.getRegelwerk().getAk(x);
-                if (ak.isStrafeIstDisqualifikation()) {
-                    strafeIstDisqualifikation = true;
-                }
-                for (int y = 0; y < ak.getDiszAnzahl(); y++) {
-                    Disziplin f = new Disziplin(ak.getDisziplin(y, false));
-                    Disziplin m = new Disziplin(ak.getDisziplin(y, true));
-
-                    if (disziplinen.get(m.getName()) != null) {
-                        Disziplin[] d = disziplinen.get(m.getName());
-                        if (d[0].getRec() <= 0) {
-                            d[0].setRec(f.getRec());
-                        } else if ((d[0].getRec() > f.getRec()) && (f.getRec() > 0)) {
-                            d[0].setRec(f.getRec());
-                        }
-                        if (d[1].getRec() <= 0) {
-                            d[1].setRec(m.getRec());
-                        } else if ((d[1].getRec() > m.getRec()) && (m.getRec() > 0)) {
-                            d[1].setRec(m.getRec());
-                        }
-                    } else {
-                        disziplinen.put(m.getName(), new Disziplin[]{f, m});
-                    }
-                }
-            }
-        }
-
-        // Altersklassen aufbauen
-        Hashtable<String, Integer> swimmer = new Hashtable<>();
-        Regelwerk aks = new Regelwerk(wk.getRegelwerk().isEinzel(), wk.getRegelwerk().getFormelID());
-        aks.setSize(disziplinen.size());
-        {
-            int x = 0;
-            Enumeration<String> keys = disziplinen.keys();
-            while (keys.hasMoreElements()) {
-                String name = keys.nextElement();
-                Disziplin[] d = disziplinen.get(name);
-                Altersklasse ak = new Altersklasse("", new Disziplin[][]{{d[0]}, {d[1]}}, false);
-                ak.setStrafeIstDisqualifikation(strafeIstDisqualifikation);
-                ak.setEinzelwertung(true);
-                ak.setChosenDisciplines(1, 1, 1);
-
-                swimmer.put(name, x);
-                aks.setAk(x, ak);
-
-                x++;
-            }
-        }
-
-        // Wettkampf aufbauen
-        AWettkampf<T> nwk = null;
-        EinzelWettkampf ewk = null;
-        MannschaftWettkampf mwk = null;
-        if (wk instanceof EinzelWettkampf) {
-            ewk = new EinzelWettkampf(aks, wk.getStrafen());
-            nwk = (AWettkampf<T>) ewk;
-        } else {
-            mwk = new MannschaftWettkampf(aks, wk.getStrafen());
-            nwk = (AWettkampf<T>) mwk;
-        }
-        wk.copyPropertiesTo(nwk);
-
-        // Schwimmer hinzufügen
-        for (int x = 0; x < selected[0].length; x++) {
-            for (int y = 0; y < selected.length; y++) {
-                if (selected[y][x]) {
-                    Altersklasse ak = wk.getRegelwerk().getAk(x);
-                    LinkedList<T> swimmers = SearchUtils.getSchwimmer(wk, ak, y == 1);
-                    for (T s : swimmers) {
-                        for (int a = 0; a < ak.getDiszAnzahl(); a++) {
-                            T t = null;
-                            if (wk instanceof EinzelWettkampf) {
-                                Teilnehmer sx = (Teilnehmer) s;
-                                t = (T) ewk.createTeilnehmer(sx.getCompetitorId(), sx.getNachname(), sx.getVorname(), sx.getJahrgang(),
-                                                             sx.isMaennlich(), sx.getGliederung(),
-                                                             swimmer.get(ak.getDisziplin(a, sx.isMaennlich()).getName()), sx.getBemerkung());
-                            } else {
-                                t = (T) mwk.createMannschaft(s.getName(), s.isMaennlich(), s.getGliederung(),
-                                                             swimmer.get(ak.getDisziplin(a, s.isMaennlich()).getName()), s.getBemerkung());
-                            }
-                            t.setDisciplineChoice(0, true);
-                            t.setZeit(0, s.getZeit(a));
-                            t.setStrafen(0, s.getStrafen(a));
-                            nwk.addSchwimmer(t);
-                        }
-                    }
-                }
-            }
-        }
-
-        selected = new boolean[2][aks.size()];
-        for (int x = 0; x < selected.length; x++) {
-            for (int y = 0; y < selected[x].length; y++) {
-                selected[x][y] = true;
-            }
-        }
-
-        return getFullResultsPrintable(selected, nwk, true, true, 0);
     }
 
     /**
@@ -756,22 +644,6 @@ public final class PrintUtils {
             return null;
         }
         return mp.toArray(new JComponent[mp.size()]);
-    }
-
-    public static <T extends ASchwimmer> LinkedList<Printable> getEinzelwertungPrintables(AWettkampf<T> wk, int ak,
-                                                                                          boolean removeEmpty, int qualification) {
-        LinkedList<Printable> mp = new LinkedList<>();
-        for (int y = 0; y < 2; y++) {
-            AWettkampf<T> w = ResultUtils.generateEinzelwertungswettkampf(wk, ak, y == 1);
-            if (w != null) {
-                Printable p = getResultsPrintable(w, true, PrintUtils.printPointsInDisciplineResults, removeEmpty,
-                                                  qualification);
-                if (p != null) {
-                    mp.add(p);
-                }
-            }
-        }
-        return mp;
     }
 
     private static class LaufInfo<T extends ASchwimmer> {
