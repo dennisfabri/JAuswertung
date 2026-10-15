@@ -13,9 +13,7 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 - **Size:** S = a local change of a few lines with a test; M = several classes or a migration; L = spread over many
   modules or needs a design decision.
 
-Findings that need a decision before they can be resolved have a *Decide* section instead of *Done when*. The
-duplicated search for broken time limits in `LimitsCheck` is already tracked in
-[docs/chores](../chores/limits-check-duplicates-timelimit-search.md).
+Findings that need a decision before they can be resolved have a *Decide* section instead of *Done when*.
 
 | Finding | Severity | Size | Summary |
 | --- | --- | --- | --- |
