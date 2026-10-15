@@ -7,7 +7,7 @@
 - `System.out` / `System.err`: 169 calls in 44 files. `jauswertung-misc` has 17 files; there these are command-line
   developer tools and console output may be intended.
 
-`DefaultInit` redirects `System.out`/`System.err` to SLF4J (sysout-over-slf4j), so the output does reach the log, but
+`DefaultInit` redirects `System.out`/`System.err` to SLF4J (`SystemStreamsToLog`), so the output does reach the log, but
 without logger name, without a meaningful level, and with stack traces split into one log event per line.
 
 A `printStackTrace()` in a `catch` block usually also means the failure is swallowed: the user gets no feedback that
