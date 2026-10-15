@@ -142,12 +142,6 @@ public final class ExcelImporter implements IImporter {
     }
 
     @Override
-    public <T extends ASchwimmer> AWettkampf<T> zusatzwertung(InputStream name, AWettkampf<T> wk, Feedback fb)
-            throws TableFormatException, TableEntryException {
-        return null;
-    }
-
-    @Override
     public <T extends ASchwimmer> AWettkampf<T> results(InputStream name, AWettkampf<T> wk, Feedback fb)
             throws TableFormatException, TableEntryException {
         return null;
