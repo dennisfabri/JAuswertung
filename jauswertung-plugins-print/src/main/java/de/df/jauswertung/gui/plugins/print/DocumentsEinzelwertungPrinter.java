@@ -42,4 +42,9 @@ class DocumentsEinzelwertungPrinter extends APerDisciplinePrinter {
         }
         return ll;
     }
+
+    @Override
+    protected boolean isPrintable(AWettkampf<?> wk) {
+        return GraphUtils.hasDocuments(wk, true);
+    }
 }

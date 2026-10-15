@@ -119,6 +119,7 @@ abstract class APerDisciplinePrinter implements Printer {
     }
 
     private boolean isUpdating = false;
+    private boolean hasResults = false;
 
     boolean checkMeldungen(AWettkampf<?> wk, long reason) {
         try {
@@ -126,7 +127,7 @@ abstract class APerDisciplinePrinter implements Printer {
 
             boolean result = false;
             if (wk != null) {
-                result = print.isEnabled();
+                result = hasResults;
                 if (wk.isHeatBased()) {
                     result = wk.getLauflisteOW() != null && !wk.getLauflisteOW().isEmpty();
                     agegroup.removeAllItems();
@@ -172,10 +173,12 @@ abstract class APerDisciplinePrinter implements Printer {
                 }
             }
 
+            hasResults = result;
+            boolean printable = result && isPrintable(wk);
             agegroup.setEnabled(result && (agegroup.getItemCount() > 1));
-            print.setEnabled(result);
-            export.setEnabled(result && hasExport());
-            preview.setEnabled(result);
+            print.setEnabled(printable);
+            export.setEnabled(printable && hasExport());
+            preview.setEnabled(printable);
             checkWarning(wk);
             return result;
         } catch (RuntimeException e) {
@@ -279,6 +282,10 @@ abstract class APerDisciplinePrinter implements Printer {
 
     protected boolean hasExport() {
         return false;
+    }
+
+    protected boolean isPrintable(AWettkampf<?> wk) {
+        return true;
     }
 
     @SuppressWarnings("unchecked")
