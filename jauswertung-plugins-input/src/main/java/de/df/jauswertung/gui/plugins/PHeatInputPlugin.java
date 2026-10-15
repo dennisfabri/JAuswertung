@@ -704,7 +704,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
         @Override
         public void runMeanTimeEditor() {
-            editor.runMeanTimeEditor(getSchwimmer(), getDiscipline(), finishedSuccessfully -> {
+            strategy.runMeanTimeEditor(getIndex(), finishedSuccessfully -> {
                 if (!finishedSuccessfully) {
                     return;
                 }
