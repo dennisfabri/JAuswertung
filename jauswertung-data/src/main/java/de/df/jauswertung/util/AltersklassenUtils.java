@@ -19,32 +19,6 @@ public final class AltersklassenUtils {
         // Never used
     }
 
-    public static int getAKNummer(final Altersklasse ak, final Regelwerk aks) {
-        if (ak == null) {
-            return -1;
-        }
-        if (aks == null) {
-            return -1;
-        }
-
-        for (int x = 0; x < aks.size(); x++) {
-            if (ak.equals(aks.getAk(x))) {
-                return x;
-            }
-        }
-        return -1;
-    }
-
-    public static int getMaxDiszCount(Regelwerk aks) {
-        int count = 0;
-        for (int x = 0; x < aks.size(); x++) {
-            if (aks.getAk(x).getDiszAnzahl() > count) {
-                count = aks.getAk(x).getDiszAnzahl();
-            }
-        }
-        return count;
-    }
-
     private static String[] DISCIPLINE_PREFIXES = new String[] { "1x", "2x", "3x", "4x", "1*", "2*", "3*", "4*", "25m",
             "50m", "100m", "200m" };
 

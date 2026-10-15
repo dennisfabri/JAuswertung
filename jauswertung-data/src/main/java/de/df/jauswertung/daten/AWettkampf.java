@@ -296,15 +296,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return isOneDisciplineComplete(ak, true) || isOneDisciplineComplete(ak, false);
     }
 
-    public final boolean isOneDisciplineInOneAgeGroupComplete() {
-        for (int x = 0; x < aks.size(); x++) {
-            if (isOneDisciplineComplete(x)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * Ueberprueft, ob bis zu einer bestimmten Disziplin alle Zeiten eingetragen
      * wurden.
