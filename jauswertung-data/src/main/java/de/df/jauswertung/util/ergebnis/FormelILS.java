@@ -24,62 +24,35 @@ import static de.df.jauswertung.daten.PropertyConstants.IS_QUALIFIED;
 
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
-    private static final class ILSComparator<T extends ASchwimmer>
-            implements Comparator<SchwimmerData<T>>, Serializable {
+    static final class ILSComparator<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
 
         @Serial
         private static final long serialVersionUID = -7952635514437923875L;
 
         @Override
         public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {
-            if (sd1.getStrafart() != sd2.getStrafart()) {
-                if ((sd1.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return -1;
-                }
+            int order = Integer.compare(order(sd1.getStrafart()), order(sd2.getStrafart()));
+            if (order != 0) {
+                return order;
             }
-            if (sd1.getStrafart() != Strafarten.NICHTS && sd2.getStrafart() != Strafarten.NICHTS) {
+            if (sd1.getStrafart() != Strafarten.NICHTS && sd1.getStrafart() != Strafarten.STRAFPUNKTE) {
                 return 0;
             }
-            boolean zeroed1 = false;
-            boolean zeroed2 = false;
-            if (sd1.getStrafart() != Strafarten.NICHTS) {
-                // zeroed1 = true;
+            boolean zeroed1 = sd1.getTime() == 0;
+            boolean zeroed2 = sd2.getTime() == 0;
+            if (zeroed1 || zeroed2) {
+                return Boolean.compare(zeroed1, zeroed2);
             }
-            if (sd2.getStrafart() != Strafarten.NICHTS) {
-                // zeroed2 = true;
-            }
-            if (sd1.getTime() == 0) {
-                zeroed1 = true;
-            }
-            if (sd2.getTime() == 0) {
-                zeroed2 = true;
-            }
+            return Integer.compare(sd1.getTime(), sd2.getTime());
+        }
 
-            if (zeroed1 && zeroed2) {
-                return 0;
-            }
-            if (zeroed1) {
-                return 1;
-            }
-            if (zeroed2) {
-                return -1;
-            }
-            return sd1.getTime() - sd2.getTime();
+        private static int order(Strafarten art) {
+            return switch (art) {
+                case NICHTS, STRAFPUNKTE -> 0;
+                case NICHT_ANGETRETEN -> 1;
+                case DISQUALIFIKATION -> 2;
+                case AUSSCHLUSS -> 3;
+            };
         }
     }
 
@@ -402,7 +375,7 @@ public class FormelILS<T extends ASchwimmer> implements Formel<T> {
         double points = switch (s.getArt()) {
             case AUSSCHLUSS, NICHT_ANGETRETEN -> 0;
             case DISQUALIFIKATION -> getPoints(rank + amount - 1);
-            case STRAFPUNKTE -> getPoints(rank) - s.getStrafpunkte();
+            case STRAFPUNKTE -> Math.max(0, getPoints(rank) - s.getStrafpunkte());
             default -> getPoints(rank);
         };
         return points;

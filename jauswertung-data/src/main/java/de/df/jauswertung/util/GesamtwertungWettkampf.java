@@ -14,7 +14,6 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.util.ergebnis.FormelILS;
-import de.df.jauswertung.util.ergebnis.FormelMedaillen;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 
@@ -123,9 +122,6 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 
     private void scalePoints() {
         switch (wk.getRegelwerk().getGesamtwertungSkalieren()) {
-        case MEDAILLEN:
-            scalePointsMedaillen();
-            break;
         case INTERNATIONAL:
             scalePointsInternational();
             break;
@@ -180,51 +176,6 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
                         }
                         copywk.addSchwimmer(m);
                     }
-                }
-            }
-        }
-        wk = copywk;
-        aks = aks2;
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    private void scalePointsMedaillen() {
-        Regelwerk aks2 = Utils.copy(aks);
-        aks2.setFormelID(FormelMedaillen.ID);
-        for (int x = 0; x < aks2.size(); x++) {
-            aks2.getAk(x).setDiszAnzahl(1);
-            aks2.getAk(x).setDisciplineChoiceAllowed(false);
-            aks2.getAk(x).setHLW(false);
-        }
-        MannschaftWettkampf copywk = new MannschaftWettkampf(aks2, wk.getStrafen());
-
-        for (int a = 0; a < aks.size(); a++) {
-            for (int b = 0; b < 2; b++) {
-                Altersklasse ak = aks.getAk(a);
-                boolean male = (b == 1);
-                SchwimmerResult<ASchwimmer>[] result = ResultCalculator.getResults(wk, ak, male);
-
-                ak = copywk.getRegelwerk().getAk(a);
-                for (SchwimmerResult<ASchwimmer> aResult : result) {
-                    ASchwimmer s = aResult.getSchwimmer();
-                    Mannschaft m = copywk.createMannschaft(s.getName(), male, s.getGliederungMitQGliederung(), a, "");
-                    if (aResult.getPlace() < 0) {
-                        m.addStrafe(0, Strafe.DISQUALIFIKATION);
-                    } else {
-                        m.setZeit(0, aResult.getPlace());
-                    }
-                    switch (s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF).getArt()) {
-                    case DISQUALIFIKATION:
-                    case AUSSCHLUSS:
-                    case NICHT_ANGETRETEN:
-                        m.addStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF,
-                                s.getAkkumulierteStrafe(ASchwimmer.DISCIPLINE_NUMBER_SELF));
-                        break;
-                    case NICHTS:
-                    case STRAFPUNKTE:
-                        break;
-                    }
-                    copywk.addSchwimmer(m);
                 }
             }
         }

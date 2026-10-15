@@ -159,6 +159,10 @@ There is no server behind the UI, so the desktop application is the only line of
 - Single test class / method: `mvn -pl <module> -am test -Dtest=ClassName` / `-Dtest=ClassName#methodName`
   (add `-Dsurefire.failIfNoSpecifiedTests=false` when `-am` pulls in modules without that test)
 - Installer: `mvn -Psetup package` (needs install4j).
+- Mutation testing (PIT, profile `mutation`): `mvn -Pmutation -pl <module> test-compile
+  org.pitest:pitest-maven:mutationCoverage -DtargetClasses=<classes> -DtargetTests=<tests>`; the report is in
+  `<module>/target/pit-reports/`. To mutate classes of a lower module with the tests of a higher one, list both modules
+  (and those in between) with `-pl` and add `-DcrossModule=true`.
 - Version updates: `versions-maven-plugin` with `version-rules.xml`.
 - Run: main class `de.df.jauswertung.gui.JAuswertungLauncher` from module `jauswertung`, **working directory
   `jauswertung-files/src/main/resources`** (plugins and images are resolved relative to `user.dir`), with the VM options

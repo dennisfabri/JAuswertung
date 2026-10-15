@@ -1,7 +1,6 @@
 package de.df.jauswertung.gui.veranstaltung;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.print.Printable;
 import java.text.MessageFormat;
@@ -13,7 +12,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -24,9 +22,8 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.GesamtwertungSchwimmer;
 import de.df.jauswertung.util.GesamtwertungWettkampf;
-import de.df.jutils.gui.border.ExtendedLineBorder;
+import de.df.jauswertung.print.PseudoTable;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
-import de.df.jutils.gui.jtable.JPrintTable;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
@@ -119,82 +116,6 @@ class SiegerlistePrinter implements Printer {
         return EmptyPrintable.Instance;
     }
 
-    private static JComponent getPseudoTable(ExtendedTableModel etm) {
-        JPanel p = new JPanel(new FormLayout(FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount(), 0),
-                FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0))) {
-            @Override
-            public void setFont(Font font) {
-                super.setFont(font);
-                if (font != null) {
-                    for (Component c : getComponents()) {
-                        c.setFont(font);
-                    }
-                }
-            }
-
-            @Override
-            public void setBackground(Color bg) {
-                super.setBackground(bg);
-                if (bg != null) {
-                    for (Component c : getComponents()) {
-                        c.setBackground(bg);
-                    }
-                }
-            }
-
-            @Override
-            public void setForeground(Color bg) {
-                super.setForeground(bg);
-                if (bg != null) {
-                    for (Component c : getComponents()) {
-                        c.setForeground(bg);
-                    }
-                }
-            }
-        };
-        p.setBackground(Color.WHITE);
-
-        Color marker = JPrintTable.getRowMarkerColor();
-
-        for (int y = 0; y < etm.getColumnCount(); y++) {
-            JLabel l1 = new JLabel(etm.getColumnName(y));
-            l1.setHorizontalAlignment(SwingConstants.CENTER);
-            l1.setOpaque(true);
-            l1.setBackground(marker);
-            l1.setBorder(new ExtendedLineBorder(Color.BLACK, 0, 0, 1, 0));
-            p.add(l1, CC.xy(2 + 2 * y, 2));
-        }
-
-        for (int x = 0; x < etm.getRowCount(); x++) {
-            for (int y = 0; y < etm.getColumnCount(); y++) {
-                JLabel l1 = new JLabel(etm.getValueAt(x, y).toString());
-                l1.setHorizontalAlignment(etm.getColumnAlignment(y));
-                l1.setOpaque(true);
-                if (x % 2 != 0) {
-                    l1.setBackground(marker);
-                } else {
-                    l1.setBackground(Color.WHITE);
-                }
-                p.add(l1, CC.xy(2 + 2 * y, 4 + 2 * x));
-
-                JLabel l2 = new JLabel(" ");
-                l2.setOpaque(true);
-                if (x % 2 != 0) {
-                    l2.setBackground(marker);
-                } else {
-                    l2.setBackground(Color.WHITE);
-                }
-                p.add(l2, CC.xy(2 + 2 * y, 4 + 2 * x - 1));
-            }
-        }
-
-        p.setFont(PrintManager.getFont());
-        p.setForeground(Color.BLACK);
-
-        p.setBorder(new LineBorder(Color.BLACK, 1));
-        return p;
-    }
-
     private static JComponent getResults(ExtendedTableModel etm) {
 
         JLabel title = new JLabel(etm.getName());
@@ -207,7 +128,7 @@ class SiegerlistePrinter implements Printer {
         c.setForeground(Color.BLACK);
 
         c.add(title, CC.xy(2, 2, "center,center"));
-        c.add(getPseudoTable(etm), CC.xy(2, 4));
+        c.add(PseudoTable.create(etm, PrintManager.getFont(), PseudoTable.NO_HIDDEN_COLUMN), CC.xy(2, 4));
 
         return c;
     }

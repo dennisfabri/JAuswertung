@@ -3,8 +3,6 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
@@ -15,28 +13,21 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.UpdateEventConstants;
-import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.print.PrintUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
 import de.df.jutils.print.api.PrintableCreator;
-import de.df.jutils.print.printables.ComponentListPrintable2;
-import de.df.jutils.print.printables.ComponentPackingPrintable;
-import de.df.jutils.print.printables.EmptyPrintable;
 
 /**
  * @author Dennis Fabri
@@ -212,31 +203,9 @@ public class PenaltylistePrinter implements Printer {
         disziplin.setSelectedIndex(index);
     }
 
-    static <T extends ASchwimmer> Printable getPrintable(CorePlugin core, int index, boolean[][] selected,
-            boolean kurz) {
-        JPanel[] panels = PenaltyUIUtils.getPenalties(core.getFilteredWettkampf(), index, selected,
-                !PrintUtils.printDidNotStart, kurz);
-        if (panels == null) {
-            return EmptyPrintable.Instance;
-        }
-        Component[] cs = new Component[panels.length];
-        for (int x = 0; x < panels.length; x++) {
-            panels[x].setOpaque(false);
-            panels[x].setForeground(Color.BLACK);
-            panels[x].setBackground(Color.WHITE);
-            panels[x].setBorder(new LineBorder(Color.BLACK, 1));
-            cs[x] = panels[x];
-        }
-        Printable p = null;
-        if (kurz) {
-            p = new ComponentPackingPrintable(3, 3, false, cs);
-        } else {
-            p = new ComponentListPrintable2(3, false, cs);
-        }
-        return PrintManager.getHeaderPrintable(p, I18n.get("Penaltylist")
-                + (core.getWettkampf().getCurrentFilterIndex() > 0
-                        ? " (" + core.getWettkampf().getCurrentFilter().getName() + ")"
-                        : ""));
+    static Printable getPrintable(CorePlugin core, int index, boolean[][] selected, boolean kurz) {
+        return de.df.jauswertung.print.PrintableCreator.createPenaltiesPrintable(core.getFilteredWettkampf(), index,
+                selected, kurz);
     }
 
     Printable getPrintable(boolean[][] selected) {

@@ -10,9 +10,7 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
-import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,16 +23,14 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
-import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.plugins.CorePlugin;
+import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.UnterschriftPrintable;
-import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
@@ -351,47 +347,8 @@ class ResultsPrinter implements Printer {
         dialog.setVisible(true);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     private <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
-        AWettkampf wk = Utils.copy(core.getFilteredWettkampf());
-        CompetitionUtils.minimizeCompetition(wk);
-        for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
-            if (wg.isProtokollMitMehrkampfwertung()) {
-                Hashtable<Integer, Altersklasse> aks = new Hashtable<>();
-                int index = -1;
-                for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-                    Altersklasse ak = wk.getRegelwerk().getAk(x);
-                    if ((ak.getWertungsgruppe() != null) && (ak.getWertungsgruppe().equals(wg.getName()))) {
-                        aks.put(x, ak);
-                        index = x;
-                    }
-                }
-                LinkedList<ASchwimmer> swimmers = Utils.copy(wk).getSchwimmer();
-                ListIterator<ASchwimmer> li = swimmers.listIterator();
-                LinkedList<ASchwimmer> result = new LinkedList<>();
-                while (li.hasNext()) {
-                    ASchwimmer s = li.next();
-                    if (aks.containsKey(s.getAKNummer())) {
-                        result.addLast(s);
-                    }
-                }
-                if (!result.isEmpty()) {
-                    Altersklasse ak = Utils.copy(wk.getRegelwerk().getAk(index));
-                    ak.setStrafeIstDisqualifikation(wg.isStrafeIstDisqualifikation());
-                    ak.setName(wg.getName());
-
-                    index = wk.getRegelwerk().size();
-
-                    wk.getRegelwerk().setSize(index + 1);
-                    wk.getRegelwerk().setAk(index, ak);
-                    for (ASchwimmer s : result) {
-                        wk.addSchwimmer(s);
-                        s.setAKNummer(index, false);
-                    }
-                }
-            }
-        }
-        return wk;
+        return ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
     }
 
     final class PrintActionListener implements ActionListener {

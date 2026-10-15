@@ -336,10 +336,7 @@ public class ResultUtils {
                 LinkedList<T> temp = SearchUtils.getSchwimmer(wk, ak);
                 if (index < 0) {
                     index = x;
-                    ak.setEinzelwertung(wg.isProtokollMitEinzelwertung());
-                    ak.setEinzelwertungHlw(wg.isEinzelwertungHlw());
-                    ak.setStrafeIstDisqualifikation(wg.isStrafeIstDisqualifikation());
-                    ak.setName(wg.getName());
+                    wg.applyTo(ak);
                 } else {
                     for (T t : temp) {
                         t.setAKNummer(index, false);

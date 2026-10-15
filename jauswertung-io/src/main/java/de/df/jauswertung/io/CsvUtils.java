@@ -35,7 +35,13 @@ public class CsvUtils {
     }
 
     public static Object[][] read(InputStream name) {
+        return read(name, 0);
+    }
 
+    /**
+     * @param extraColumns number of empty columns appended to every row
+     */
+    public static Object[][] read(InputStream name, int extraColumns) {
         String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
         if ((lines == null) || (lines.length <= 1)) {
             return null;
@@ -51,6 +57,7 @@ public class CsvUtils {
             data[x] = new Object[line.length];
             System.arraycopy(line, 0, data[x], 0, line.length);
         }
+        maxline += extraColumns;
 
         for (int x = 0; x < data.length; x++) {
             if (data[x].length < maxline) {

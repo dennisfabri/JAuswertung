@@ -26,13 +26,22 @@ class VeranstaltungsUtils {
 
     public static AWettkampf<?>[] veranstaltung2Wettkampf(Veranstaltung vs, boolean gliederungen,
             boolean separateByGender) {
+        Veranstaltungsergebnis[] ergebnisse = veranstaltungsergebnisse(vs, gliederungen, separateByGender);
+        if (ergebnisse == null) {
+            return null;
+        }
+        return stream(ergebnisse).map(Veranstaltungsergebnis::wettkampf).toArray(AWettkampf[]::new);
+    }
+
+    static Veranstaltungsergebnis[] veranstaltungsergebnisse(Veranstaltung vs, boolean gliederungen,
+            boolean separateByGender) {
         AWettkampf<?>[] wks = getWettkaempfe(vs.getCompetitions());
         if (wks.length == 0) {
             return null;
         }
 
-        List<AWettkampf<?>> result = new ArrayList<>();
-        result.add(veranstaltung2Wettkampf(vs, gliederungen));
+        List<Veranstaltungsergebnis> result = new ArrayList<>();
+        result.add(veranstaltung2Wettkampf(wks, gliederungen, vs));
         if (separateByGender) {
             Set<String> genders = new HashSet<>();
             for (AWettkampf<?> wk : wks) {
@@ -44,20 +53,16 @@ class VeranstaltungsUtils {
                 result.add(veranstaltung2Wettkampf(vs, gliederungen, gender));
             }
         }
-        return result.toArray(new AWettkampf[0]);
+        return result.toArray(new Veranstaltungsergebnis[0]);
     }
 
-    private static AWettkampf<?> veranstaltung2Wettkampf(Veranstaltung vs, boolean gliederungen, String gender) {
+    private static Veranstaltungsergebnis veranstaltung2Wettkampf(Veranstaltung vs, boolean gliederungen,
+            String gender) {
         AWettkampf<?>[] wks = getWettkaempfe(vs.getCompetitions());
-        if (wks.length == 0) {
-            return null;
-        }
-
         for (AWettkampf<?> wk : wks) {
             filterCompetitorsByGender(gender, wk);
         }
-        return veranstaltung2Wettkampf(stream(wks).filter(AWettkampf::hasSchwimmer).toArray(AWettkampf[]::new),
-                gliederungen, vs);
+        return veranstaltung2Wettkampf(wks, gliederungen, vs);
     }
 
     private static <T extends ASchwimmer> void filterCompetitorsByGender(String gender, AWettkampf<T> wk) {
@@ -73,18 +78,9 @@ class VeranstaltungsUtils {
         }
     }
 
-    @SuppressWarnings({ "rawtypes" })
-    private static AWettkampf veranstaltung2Wettkampf(Veranstaltung vs, boolean gliederungen) {
-        AWettkampf[] wks = getWettkaempfe(vs.getCompetitions());
-        if (wks.length == 0) {
-            return null;
-        }
-
-        return veranstaltung2Wettkampf(wks, gliederungen, vs);
-    }
-
-    private static MannschaftWettkampf veranstaltung2Wettkampf(AWettkampf<?>[] wks, boolean gliederungen,
+    private static Veranstaltungsergebnis veranstaltung2Wettkampf(AWettkampf<?>[] wks, boolean gliederungen,
             Veranstaltung vs) {
+        String[] namen = vs.getCompetitionNames();
         for (AWettkampf<?> wk : wks) {
             if (wk != null) {
                 wk.removeSchwimmerWhen(ASchwimmer::isAusserKonkurrenz);
@@ -117,14 +113,17 @@ class VeranstaltungsUtils {
             }
         }
         aks.setSize(amount);
+        String[] wettkampfnamen = new String[amount];
 
         int offset = 0;
-        for (AWettkampf<?> wk2 : wks) {
+        for (int x = 0; x < wks.length; x++) {
+            AWettkampf<?> wk2 = wks[x];
             if (wk2 != null) {
                 Regelwerk a = wk2.getRegelwerk();
                 for (int y = 0; y < a.size(); y++) {
                     if (SearchUtils.hasSchwimmer(wk2, wk2.getRegelwerk().getAk(y))) {
                         aks.setAk(offset, a.getAk(y));
+                        wettkampfnamen[offset] = namen[x];
                         aks.getAk(offset).setName(aks.getAk(offset).getName());
 
                         offset++;
@@ -134,6 +133,9 @@ class VeranstaltungsUtils {
         }
 
         Strafen str = InputManager.ladeStrafen(null, false);
+        if (str == null) {
+            str = new Strafen();
+        }
         MannschaftWettkampf wk = new MannschaftWettkampf(aks, str);
         offset = 0;
         for (AWettkampf<?> wk1 : wks) {
@@ -186,7 +188,7 @@ class VeranstaltungsUtils {
         aks.setGesamtwertungSkalieren(vs.getGesamtwertungSkalieren());
         aks.setGesamtwertungsmodus(vs.getGesamtwertungsmodus());
 
-        return wk;
+        return new Veranstaltungsergebnis(wk, wettkampfnamen);
     }
 
     @SuppressWarnings("rawtypes")

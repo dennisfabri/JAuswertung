@@ -77,8 +77,8 @@ public class ResultSelectionUtils {
                 }
                 if (!result.isEmpty()) {
                     Altersklasse ak = Utils.copy(wk.getRegelwerk().getAk(index));
-                    ak.setStrafeIstDisqualifikation(wg.isStrafeIstDisqualifikation());
-                    ak.setName(wg.getName());
+                    wg.applyTo(ak);
+                    ak.setMehrkampfwertung(true);
 
                     index = wk.getRegelwerk().size();
 

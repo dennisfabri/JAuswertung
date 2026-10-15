@@ -6,6 +6,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterEinheit;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
+import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Startunterlagen;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.model.StartersImportDto;
@@ -59,20 +60,23 @@ public class ImportUtils {
         return -1;
     }
 
-    static <T extends ASchwimmer> TeamMembersImportDto tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
-                                                                           String[] sheets, Object[][][] tables)
-            throws TableEntryException, TableException {
+    @FunctionalInterface
+    private interface SheetRows<E extends Exception> {
+        void read(String sheet, Object[][] data, String[] titles, int[] indizes) throws TableEntryException, E;
+    }
 
-        Hashtable<String, Teammember> result = new Hashtable<>();
-        int[][] startsak = new int[wk.getRegelwerk().size()][2];
-
+    /**
+     * Reports and skips empty sheets and sheets without the required columns, hands the other sheets to {@code rows}
+     * and reports when no sheet could be used.
+     *
+     * @return the number of sheets handed to {@code rows}
+     */
+    private static <T extends ASchwimmer, E extends Exception> int forEachSheet(AWettkampf<T> wk, Feedback fb,
+            String[] sheets, Object[][][] tables, boolean einzel, boolean required, String file, int[] requiredColumns,
+            SheetRows<E> rows) throws TableEntryException, E {
         int valid = 0;
-
         for (int y = 0; y < tables.length; y++) {
-            int size = result.size();
-
             String sheet = sheets[y];
-
             fb.showFeedback(I18n.get("ImportingSheet", sheet));
 
             Object[][] data = tables[y];
@@ -80,37 +84,66 @@ public class ImportUtils {
                 fb.showFeedback(I18n.get("Error.SheetEmpty"));
                 continue;
             }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
+            String[] titles = new String[data[0].length];
+            for (int x = 0; x < titles.length; x++) {
                 titles[x] = data[0][x].toString();
             }
-            int[] indizes = null;
+            int[] indizes;
             try {
-                indizes = identifyIndizes(wk, titles, false, false, null, sheet);
-                boolean first = true;
-                StringBuilder text = new StringBuilder();
-                if (indizes[STARTNUMMER] < 0) {
-                    text.append("\t").append(I18n.get("Startnumber"));
-                    first = false;
-                }
-                if (indizes[NACHNAME] < 0) {
-                    text.append(first ? "\t" : ", ").append(I18n.get("Surname"));
-                    first = false;
-                }
-                if (indizes[VORNAME] < 0) {
-                    text.append(first ? "\t" : ", ").append(I18n.get("FirstName"));
-                    first = false;
-                }
-                if (!text.isEmpty()) {
-                    fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
-                    continue;
-                }
+                indizes = identifyIndizes(wk, titles, einzel, required, file, sheet);
             } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
+                fb.showFeedback(missingColumns(wk, tfe.getData()));
                 continue;
             }
+            int[] missing = Arrays.stream(requiredColumns).filter(column -> indizes[column] < 0).toArray();
+            if (missing.length > 0) {
+                fb.showFeedback(missingColumns(wk, missing));
+                continue;
+            }
+
+            rows.read(sheet, data, titles, indizes);
+            valid++;
+        }
+        if (valid == 0) {
+            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
+        }
+        return valid;
+    }
+
+    private static <T extends ASchwimmer> String missingColumns(AWettkampf<T> wk, int[] columns) {
+        return I18n.get("Error.NotAllHeadersFound", "\t" + Arrays.stream(columns)
+                .mapToObj(column -> columnName(wk.getRegelwerk(), column)).collect(Collectors.joining(", ")));
+    }
+
+    private static String columnName(Regelwerk rw, int column) {
+        return switch (column) {
+            case ALTERSKLASSE -> I18n.get("AgeGroup");
+            case GESCHLECHT -> I18n.get("Sex");
+            case GLIEDERUNG -> I18n.get("Organisation");
+            case JAHRGANG -> I18n.get("YearOfBirth");
+            case NACHNAME -> I18n.get("FamilyName");
+            case NAME -> I18n.get("Name");
+            case VORNAME -> I18n.get("FirstName");
+            case STARTNUMMER -> I18n.get("Startnumber");
+            case DISCIPLINE -> I18n.get("Discipline");
+            case CATEGORY -> I18n.get("Category");
+            case POSITION -> I18n.get("Position");
+            case STUFE -> I18n.get("Level");
+            case ZW -> rw == null ? I18n.get("UnknownField") : rw.getZusatzwertungShort();
+            default -> I18n.get("UnknownField");
+        };
+    }
+
+    static <T extends ASchwimmer> TeamMembersImportDto tablesToTeammembers(AWettkampf<T> wk, Feedback fb,
+                                                                           String[] sheets, Object[][][] tables)
+            throws TableEntryException, TableException {
+
+        Hashtable<String, Teammember> result = new Hashtable<>();
+        int[][] startsak = new int[wk.getRegelwerk().size()][2];
+
+        int valid = forEachSheet(wk, fb, sheets, tables, false, false, null,
+                new int[] { STARTNUMMER, NACHNAME, VORNAME }, (sheet, data, titles, indizes) -> {
+            int size = result.size();
             for (int x = 1; x < data.length; x++) {
                 String snText = data[x][indizes[STARTNUMMER]].toString().trim().toLowerCase();
                 if (snText.length() < 2) {
@@ -152,13 +185,9 @@ public class ImportUtils {
             }
 
             fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        } else {
+        if (valid > 0) {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedNamesForTeamsExtended", wk.getRegelwerk().getAk(x).getName(),
@@ -187,50 +216,14 @@ public class ImportUtils {
 
         List<TeamWithStarters> result = new ArrayList<>();
 
-        int valid = 0;
 
         MannschaftWettkampf mwk = (MannschaftWettkampf) wk;
 
-        for (int y = 0; y < tables.length; y++) {
+        forEachSheet(wk, fb, sheets, tables, false, false, null,
+                new int[] { STARTNUMMER, DISCIPLINE }, (sheet, data, titles, indizes) -> {
             int size = result.size();
-
-            String sheet = sheets[y];
-
-            fb.showFeedback(I18n.get("ImportingSheet", sheet));
-
-            Object[][] data = tables[y];
-            if ((data == null) || (data.length == 0)) {
-                fb.showFeedback(I18n.get("Error.SheetEmpty"));
-                continue;
-            }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
-                titles[x] = data[0][x].toString();
-            }
-            int[] indizes = null;
-            try {
-                indizes = identifyIndizes(wk, titles, false, false, null, sheet);
-                boolean first = true;
-                StringBuilder text = new StringBuilder();
-                if (indizes[STARTNUMMER] < 0) {
-                    text.append("\t").append(I18n.get("Startnumber"));
-                    first = false;
-                }
-                if (indizes[DISCIPLINE] < 0) {
-                    text.append(first ? "\t" : ", ").append(I18n.get("Discipline"));
-                }
-                if (!text.isEmpty()) {
-                    fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
-                    continue;
-                }
-            } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
-                continue;
-            }
             for (int x = 1; x < data.length; x++) {
-                int sn = getStartnummer(wk, data[x], indizes[STARTNUMMER], x, sheets[y], null);
+                int sn = getStartnummer(wk, data[x], indizes[STARTNUMMER], x, sheet, null);
                 String discipline = data[x][indizes[DISCIPLINE]] == null ? "" : data[x][indizes[DISCIPLINE]].toString();
                 if (discipline.isBlank()) {
                     continue;
@@ -243,19 +236,14 @@ public class ImportUtils {
                     continue;
                 }
 
-                int[] starters = getStarters(data[x], tables[y][0]);
+                int[] starters = getStarters(data[x], data[0]);
 
                 result.add(new TeamWithStarters(sn, discipline, 0, starters));
             }
 
             fb.showFeedback(I18n.get("ImportedNamesForTeams", result.size() - size));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        }
         fb.showFeedback(I18n.get("ImportFinished"));
 
         if (result.isEmpty()) {
@@ -1177,50 +1165,9 @@ public class ImportUtils {
             throws TableException, TableEntryException {
         Hashtable<ZWStartnummer, Double> result = new Hashtable<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
-        int valid = 0;
-        for (int y = 0; y < tables.length; y++) {
+        int valid = forEachSheet(wk, fb, sheets, tables, false, false, file,
+                new int[] { STARTNUMMER, ZW }, (sheet, data, titles, indizes) -> {
             int size = result.size();
-
-            String sheet = sheets[y];
-
-            fb.showFeedback(I18n.get("ImportingSheet", sheet));
-
-            Object[][] data = tables[y];
-            if ((data == null) || (data.length == 0)) {
-                fb.showFeedback(I18n.get("Error.SheetEmpty"));
-                continue;
-            }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
-                titles[x] = data[0][x].toString();
-            }
-            int[] indizes = null;
-            try {
-                indizes = identifyIndizes(wk, titles, false, false, file, sheet);
-                boolean first = true;
-                StringBuilder text = new StringBuilder();
-                if (indizes[STARTNUMMER] < 0) {
-                    text.append("\t").append(I18n.get("Startnumber"));
-                    first = false;
-                }
-                if (indizes[ZW] < 0) {
-                    if (!first) {
-                        text.append(", ");
-                    } else {
-                        first = false;
-                    }
-                    text.append("\t").append(wk.getRegelwerk().getZusatzwertungShort()).append(", ");
-                }
-                if (text.length() > 0) {
-                    fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
-                    continue;
-                }
-            } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
-                continue;
-            }
             for (int x = 1; x < data.length; x++) {
                 ZWStartnummer sn = getStartnummerHLW(wk, data[x], indizes[STARTNUMMER], x, sheet, file);
                 if (sn == null) {
@@ -1264,13 +1211,9 @@ public class ImportUtils {
             }
 
             fb.showFeedback(I18n.get("ImportedPoints", result.size() - size));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        } else {
+        if (valid > 0) {
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
                     fb.showFeedback(I18n.get("ImportedPointsExtended", wk.getRegelwerk().getAk(x).getName(),
@@ -1295,34 +1238,10 @@ public class ImportUtils {
         LinkedList<T> result = new LinkedList<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
-        int valid = 0;
-
-        for (int y = 0; y < tables.length; y++) {
+        int valid = forEachSheet(wk, fb, sheets, tables, einzel, true, file,
+                new int[0], (sheet, data, titles, indizes) -> {
             int size = result.size();
             int starts = getStarts(result);
-
-            String sheet = sheets[y];
-
-            fb.showFeedback(I18n.get("ImportingSheet", sheet));
-
-            Object[][] data = tables[y];
-            if ((data == null) || (data.length == 0)) {
-                fb.showFeedback(I18n.get("Error.SheetEmpty"));
-                continue;
-            }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
-                titles[x] = data[0][x].toString();
-            }
-            int[] indizes = null;
-            try {
-                indizes = identifyIndizes(wk, titles, einzel, true, file, sheet);
-            } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "")));
-                continue;
-            }
             for (int x = 1; x < data.length; x++) {
                 T s = generateSchwimmer(data[x], indizes, titles, wk, x, sheet, file);
                 if (s != null) {
@@ -1332,13 +1251,9 @@ public class ImportUtils {
             }
 
             fb.showFeedback(I18n.get("ImportedEntries", result.size() - size, getStarts(result) - starts));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        } else {
+        if (valid > 0) {
             fb.showFeedback(I18n.get("ResultsOfImport"));
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
@@ -1366,34 +1281,10 @@ public class ImportUtils {
         LinkedList<T> result = new LinkedList<>();
         int[][] startsak = new int[wk.getRegelwerk().size()][2];
 
-        int valid = 0;
-
-        for (int y = 0; y < tables.length; y++) {
+        int valid = forEachSheet(wk, fb, sheets, tables, einzel, false, file,
+                new int[0], (sheet, data, titles, indizes) -> {
             int size = result.size();
             int starts = getStarts(result);
-
-            String sheet = sheets[y];
-
-            fb.showFeedback(I18n.get("ImportingSheet", sheet));
-
-            Object[][] data = tables[y];
-            if ((data == null) || (data.length == 0)) {
-                fb.showFeedback(I18n.get("Error.SheetEmpty"));
-                continue;
-            }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
-                titles[x] = data[0][x].toString();
-            }
-            int[] indizes = null;
-            try {
-                indizes = identifyIndizes(wk, titles, einzel, false, file, sheet);
-            } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "")));
-                continue;
-            }
             for (int x = 1; x < data.length; x++) {
                 T s = generateSchwimmerUpdate(data[x], indizes, titles, wk, x, sheet, file);
                 if (s != null) {
@@ -1403,13 +1294,9 @@ public class ImportUtils {
             }
 
             fb.showFeedback(I18n.get("ImportedEntries", result.size() - size, getStarts(result) - starts));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        } else {
+        if (valid > 0) {
             fb.showFeedback(I18n.get("ResultsOfImport"));
             for (int x = 0; x < startsak.length; x++) {
                 if (startsak[x][0] + startsak[x][1] > 0) {
@@ -1438,64 +1325,11 @@ public class ImportUtils {
                 ke.setKampfrichter(aPositionen, new LinkedList<>());
             }
         }
-        int referees = 0;
-        int valid = 0;
+        int[] referees = { 0 };
 
-        for (int y = 0; y < tables.length; y++) {
-            int size = referees;
-
-            String sheet = sheets[y];
-
-            fb.showFeedback(I18n.get("ImportingSheet", sheet));
-
-            Object[][] data = tables[y];
-            if ((data == null) || (data.length == 0)) {
-                fb.showFeedback(I18n.get("Error.SheetEmpty"));
-                continue;
-            }
-            int length = data[0].length;
-
-            String[] titles = new String[length];
-            for (int x = 0; x < length; x++) {
-                titles[x] = data[0][x].toString();
-            }
-            int[] indizes = null;
-            try {
-                indizes = identifyIndizes(wk, titles, false, false, file, sheet);
-
-                LinkedList<String> missing = new LinkedList<>();
-
-                if (indizes[CATEGORY] < 0) {
-                    missing.addLast(I18n.get("Category"));
-                }
-                if (indizes[POSITION] < 0) {
-                    missing.addLast(I18n.get("Position"));
-                }
-                if (indizes[NAME] < 0) {
-                    missing.addLast(I18n.get("Name"));
-                }
-                if (indizes[STUFE] < 0) {
-                    missing.addLast(I18n.get("Level"));
-                }
-                if (!missing.isEmpty()) {
-                    StringBuilder text = new StringBuilder();
-                    text.append("\t");
-                    text.append(missing.getFirst());
-                    missing.removeFirst();
-                    for (String s : missing) {
-                        text.append(",\n\t");
-                        text.append(s);
-                    }
-                    if (text.length() > 0) {
-                        fb.showFeedback(I18n.get("Error.NotAllHeadersFound", text.toString()));
-                        continue;
-                    }
-                }
-            } catch (TableFormatException tfe) {
-                fb.showFeedback(I18n.get("Error.NotAllHeadersFound", ImportUtils.indizesToNames(tfe.getData(), "\t")));
-                continue;
-            }
-
+        forEachSheet(wk, fb, sheets, tables, false, false, file,
+                new int[] { CATEGORY, POSITION, NAME, STUFE }, (sheet, data, titles, indizes) -> {
+            int imported = 0;
             for (int x = 1; x < data.length; x++) {
                 String category = data[x][indizes[CATEGORY]].toString();
                 String position = data[x][indizes[POSITION]].toString();
@@ -1527,20 +1361,16 @@ public class ImportUtils {
                                                   indizes[POSITION]);
                 }
 
-                referees++;
+                imported++;
             }
+            referees[0] += imported;
 
-            fb.showFeedback(I18n.get("ImportedReferees", referees - size));
+            fb.showFeedback(I18n.get("ImportedReferees", imported));
+        });
 
-            valid++;
-        }
-
-        if (valid == 0) {
-            fb.showFeedback(I18n.get("Error.NoValidSheetFound"));
-        }
         fb.showFeedback(I18n.get("ImportFinished"));
 
-        if (referees == 0) {
+        if (referees[0] == 0) {
             return null;
         }
 
@@ -2605,40 +2435,8 @@ public class ImportUtils {
     }
 
     public static String indizesToNames(int[] indizes, String spacer) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(spacer);
-        for (int x = 0; x < indizes.length; x++) {
-            if (x > 0) {
-                sb.append(", ");
-            }
-            switch (indizes[x]) {
-                case ImportConstants.ALTERSKLASSE:
-                    sb.append(I18n.get("AgeGroup"));
-                    break;
-                case ImportConstants.GESCHLECHT:
-                    sb.append(I18n.get("Sex"));
-                    break;
-                case ImportConstants.GLIEDERUNG:
-                    sb.append(I18n.get("Organisation"));
-                    break;
-                case ImportConstants.JAHRGANG:
-                    sb.append(I18n.get("YearOfBirth"));
-                    break;
-                case ImportConstants.NACHNAME:
-                    sb.append(I18n.get("FamilyName"));
-                    break;
-                case ImportConstants.NAME:
-                    sb.append(I18n.get("Name"));
-                    break;
-                case ImportConstants.VORNAME:
-                    sb.append(I18n.get("FirstName"));
-                    break;
-                default:
-                    sb.append(I18n.get("UnknownField"));
-                    break;
-            }
-        }
-        return sb.toString();
+        return spacer + Arrays.stream(indizes).mapToObj(column -> columnName(null, column))
+                .collect(Collectors.joining(", "));
     }
 
 }

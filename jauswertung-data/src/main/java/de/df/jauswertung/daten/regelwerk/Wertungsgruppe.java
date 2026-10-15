@@ -72,4 +72,12 @@ public class Wertungsgruppe implements Serializable {
         this.strafeIstDisqualifikation = strafeIstDisqualifikation;
     }
 
+    /** Applies the settings of this scoring group to the age group that represents it in the results. */
+    public void applyTo(Altersklasse ak) {
+        ak.setName(name);
+        ak.setStrafeIstDisqualifikation(strafeIstDisqualifikation);
+        ak.setEinzelwertung(protokollMitEinzelwertung);
+        ak.setEinzelwertungHlw(einzelwertunghlw);
+    }
+
 }

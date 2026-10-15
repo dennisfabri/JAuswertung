@@ -20,7 +20,6 @@ class JVeranstaltungsausgabe extends JPanel {
         PrinterCollection pc = new PrinterCollection("Results");
         pc.add(new ResultsPrinter(parent));
         pc.add(new SiegerlistePrinter(parent));
-        pc.add(new ResultsExporter(parent));
         pc.doLayoutOneColumn();
 
         add(pc.getPanel(), CC.xy(2, 2));

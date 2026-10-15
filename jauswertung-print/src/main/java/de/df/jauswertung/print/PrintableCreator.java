@@ -43,9 +43,14 @@ public class PrintableCreator {
         return p;
     }
 
+    @SuppressWarnings("rawtypes")
+    public static Printable createPenaltiesPrintable(AWettkampf wk, boolean kurz) {
+        return createPenaltiesPrintable(wk, -1, null, kurz);
+    }
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static <T extends ASchwimmer> Printable createPenaltiesPrintable(AWettkampf wk, boolean kurz) {
-        JPanel[] panels = PenaltyUIUtils.getPenalties(wk, kurz);
+    public static Printable createPenaltiesPrintable(AWettkampf wk, int index, boolean[][] selected, boolean kurz) {
+        JPanel[] panels = PenaltyUIUtils.getPenalties(wk, index, selected, !PrintUtils.printDidNotStart, kurz);
         if (panels == null) {
             return EmptyPrintable.Instance;
         }
@@ -65,7 +70,15 @@ public class PrintableCreator {
             p = new ComponentListPrintable2(3, false, cs);
         }
 
-        return PrintManager.getHeaderPrintable(p, I18n.get("Penaltylist"));
+        return PrintManager.getHeaderPrintable(p, penaltiesTitle(wk));
+    }
+
+    @SuppressWarnings("rawtypes")
+    static String penaltiesTitle(AWettkampf wk) {
+        if (wk.getCurrentFilterIndex() > 0) {
+            return I18n.get("Penaltylist") + " (" + wk.getCurrentFilter().getName() + ")";
+        }
+        return I18n.get("Penaltylist");
     }
 
     public static <T extends ASchwimmer> Printable createBestzeitenPrintable(AWettkampf<T> wk) {

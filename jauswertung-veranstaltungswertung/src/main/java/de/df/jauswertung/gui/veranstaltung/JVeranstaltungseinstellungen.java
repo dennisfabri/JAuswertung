@@ -41,7 +41,6 @@ class JVeranstaltungseinstellungen extends JPanel {
     JRadioButton noscale;
     JRadioButton scalePoints;
     JRadioButton internationalScale;
-    JRadioButton medaillen;
 
     private ButtonGroup groupEvaluationModes;
     private ButtonGroup groupScale;
@@ -69,7 +68,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         bestPerDiscipline = new JRadioButton(I18n.get("BestenJeDisziplinWerten"));
 
         scalePoints = new JRadioButton(I18n.get("ScaleGroupEvaluation"));
-        medaillen = new JRadioButton(I18n.get("Medaillen"));
         noscale = new JRadioButton(I18n.get("NoPointsScale"));
         internationalScale = new JRadioButton(I18n.get("InternationalPointsScale"));
         internationalPerDiscipline = new JRadioButton(I18n.get("InternationalPerDisciplineScale"));
@@ -86,7 +84,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         groupScale.add(internationalScale);
         groupScale.add(scalePoints);
         groupScale.add(internationalPerDiscipline);
-        groupScale.add(medaillen);
 
         ActionListener change = arg0 -> {
             parent.setModified();
@@ -107,7 +104,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         scalePoints.addActionListener(change);
         internationalScale.addActionListener(change);
         noscale.addActionListener(change);
-        medaillen.addActionListener(change);
     }
 
     private void initGUI() {
@@ -127,7 +123,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         sfm.add(scalePoints, indent);
         sfm.add(internationalScale, indent);
         sfm.add(internationalPerDiscipline, indent);
-        sfm.add(medaillen, indent);
 
         sfm.addSeparator(I18n.get("GroupEvaluationMode"));
         // sfm.add(separatorGroupEvaluationMode, indent);
@@ -184,9 +179,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         case INTERNATIONAL_PER_DISCIPLINE:
             internationalPerDiscipline.setSelected(true);
             break;
-        case MEDAILLEN:
-            medaillen.setSelected(true);
-            break;
         }
     }
 
@@ -199,8 +191,6 @@ class JVeranstaltungseinstellungen extends JPanel {
         Skalierungsmodus skalierung = Skalierungsmodus.KEINER;
         if (scalePoints.isSelected()) {
             skalierung = Skalierungsmodus.ANZAHL_DISZIPLINEN;
-        } else if (medaillen.isSelected()) {
-            skalierung = Skalierungsmodus.MEDAILLEN;
         } else if (internationalScale.isSelected()) {
             skalierung = Skalierungsmodus.INTERNATIONAL;
         } else if (internationalPerDiscipline.isSelected()) {

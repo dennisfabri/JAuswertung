@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.daten.regelwerk.Strafarten;
 
 /**
  * @author Dennis Fabri
@@ -30,29 +29,6 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
 
         @Override
         public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {
-            if (sd1.getStrafart() != sd2.getStrafart()) {
-                if ((sd1.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.AUSSCHLUSS)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.DISQUALIFIKATION)) {
-                    return -1;
-                }
-                if ((sd1.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return 1;
-                }
-                if ((sd2.getStrafart() == Strafarten.NICHT_ANGETRETEN)) {
-                    return -1;
-                }
-            }
-            if (sd1.isWithdraw() != sd2.isWithdraw()) {
-                // return sd1.isWithdraw() ? 1 : -1;
-            }
             return -(sd1.getTime() - sd2.getTime());
         }
     }

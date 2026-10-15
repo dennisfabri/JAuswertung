@@ -10,13 +10,10 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.io.model.StartersImportDto;
 import de.df.jauswertung.io.model.TeamMembersImportDto;
 import de.df.jauswertung.io.value.ZWStartnummer;
-import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.Feedback;
-import de.df.jutils.util.StringTools;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -82,37 +79,11 @@ public final class CsvImporter implements IImporter {
         filename = filename.trim();
         fb.showFeedback(I18n.get("LoadingFileWithFilename", filename.length(), filename));
 
-        String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
-        if ((lines == null) || (lines.length <= 1)) {
+        // The last column is reserved for sheet-based agegroup detection, which does not work with csv
+        Object[][] data = CsvUtils.read(name, 1);
+        if (data == null) {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
-        }
-        char separator = identifySeparator(lines[0]);
-        Object[][] data = new Object[lines.length][0];
-        int maxline = 0;
-        for (int x = 0; x < lines.length; x++) {
-            String[] line = StringTools.separateCsvLine(lines[x], separator);
-            if (line.length > maxline) {
-                maxline = line.length;
-            }
-            data[x] = new Object[line.length];
-            System.arraycopy(line, 0, data[x], 0, line.length);
-        }
-
-        // Ensure that the last column is always empty.
-        // The last column is reserved for sheet-based agegroup detection
-        // which does not work with csv
-        maxline++;
-
-        for (int x = 0; x < data.length; x++) {
-            if (data[x].length < maxline) {
-                Object[] line = new Object[maxline];
-                System.arraycopy(data[x], 0, line, 0, data[x].length);
-                for (int y = data[x].length; y < line.length; y++) {
-                    line[y] = "";
-                }
-                data[x] = line;
-            }
         }
 
         return ImportUtils.tablesToRegistration(wk, fb, new String[]{""}, new Object[][][]{data},
@@ -193,37 +164,11 @@ public final class CsvImporter implements IImporter {
         filename = filename.trim();
         fb.showFeedback(I18n.get("LoadingFileWithFilename", filename.length(), filename));
 
-        String[] lines = FileUtils.readTextFile(name, StandardCharsets.UTF_8.name());
-        if ((lines == null) || (lines.length <= 1)) {
+        // The last column is reserved for sheet-based agegroup detection, which does not work with csv
+        Object[][] data = CsvUtils.read(name, 1);
+        if (data == null) {
             fb.showFeedback(I18n.get("FileNotFoundOrEmpty"));
             return null;
-        }
-        char separator = identifySeparator(lines[0]);
-        Object[][] data = new Object[lines.length][0];
-        int maxline = 0;
-        for (int x = 0; x < lines.length; x++) {
-            String[] line = StringTools.separateCsvLine(lines[x], separator);
-            if (line.length > maxline) {
-                maxline = line.length;
-            }
-            data[x] = new Object[line.length];
-            System.arraycopy(line, 0, data[x], 0, line.length);
-        }
-
-        // Ensure that the last column is always empty.
-        // The last column is reserved for sheet-based agegroup detection
-        // which does not work with csv
-        maxline++;
-
-        for (int x = 0; x < data.length; x++) {
-            if (data[x].length < maxline) {
-                Object[] line = new Object[maxline];
-                System.arraycopy(data[x], 0, line, 0, data[x].length);
-                for (int y = data[x].length; y < line.length; y++) {
-                    line[y] = "";
-                }
-                data[x] = line;
-            }
         }
 
         return ImportUtils.tablesToRegistrationUpdate(wk, fb, new String[]{""},

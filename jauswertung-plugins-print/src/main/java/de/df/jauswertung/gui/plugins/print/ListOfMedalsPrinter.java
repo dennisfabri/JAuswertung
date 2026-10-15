@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.print;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -27,12 +25,11 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.PrintUtils;
+import de.df.jauswertung.print.PseudoTable;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
-import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
-import de.df.jutils.gui.jtable.JPrintTable;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
@@ -56,6 +53,8 @@ class ListOfMedalsPrinter implements Printer {
     private JButton preview;
     private JLabel filter;
     private JCheckBox bigPrint;
+
+    private static final int ORGANISATION = 2;
 
     private float fontscale = 1.8f;
     private int gapscale = 50;
@@ -172,7 +171,9 @@ class ListOfMedalsPrinter implements Printer {
             }
         }
 
-        JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]), big);
+        int versteckteSpalte = PrintUtils.isOrganisationOmitted(wk) ? ORGANISATION : PseudoTable.NO_HIDDEN_COLUMN;
+        JComponent[] parts = getResults(results.toArray(new ExtendedTableModel[results.size()]), versteckteSpalte,
+                big);
 
         return PrintManager.getFinalPrintable(
                 new ComponentListPrintable2(big ? gapscale : 0, false, parts),
@@ -180,94 +181,7 @@ class ListOfMedalsPrinter implements Printer {
                 getName(), getName());
     }
 
-    private JComponent getPseudoTable(ExtendedTableModel etm, boolean big) {
-        FormLayout layout = null;
-        if (PrintUtils.printOmitOrganisationForTeams) {
-            layout = new FormLayout(
-                    FormLayoutUtils.createGrowingLayoutString(2, 0) + ",0dlu,"
-                            + FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount() - 3, 0),
-                    FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
-        } else {
-            layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(etm.getColumnCount(), 0),
-                    FormLayoutUtils.createLayoutString(etm.getRowCount() + 1, 1, 0));
-        }
-
-        JPanel p = new JPanel(layout) {
-            @Override
-            public void setFont(Font font) {
-                super.setFont(font);
-                if (font != null) {
-                    for (Component c : getComponents()) {
-                        c.setFont(font);
-                    }
-                }
-            }
-
-            @Override
-            public void setBackground(Color bg) {
-                super.setBackground(bg);
-                if (bg != null) {
-                    for (Component c : getComponents()) {
-                        c.setBackground(bg);
-                    }
-                }
-            }
-
-            @Override
-            public void setForeground(Color bg) {
-                super.setForeground(bg);
-                if (bg != null) {
-                    for (Component c : getComponents()) {
-                        c.setForeground(bg);
-                    }
-                }
-            }
-        };
-        p.setBackground(Color.WHITE);
-
-        Color marker = JPrintTable.getRowMarkerColor();
-
-        for (int y = 0; y < etm.getColumnCount(); y++) {
-            JLabel l1 = new JLabel(etm.getColumnName(y));
-            l1.setHorizontalAlignment(SwingConstants.CENTER);
-            l1.setOpaque(true);
-            l1.setBackground(marker);
-            l1.setBorder(new ExtendedLineBorder(Color.BLACK, 0, 0, 1, 0));
-            p.add(l1, CC.xy(2 + 2 * y, 2));
-        }
-
-        for (int x = 0; x < etm.getRowCount(); x++) {
-            for (int y = 0; y < etm.getColumnCount(); y++) {
-                JLabel l1 = new JLabel(etm.getValueAt(x, y).toString());
-                l1.setHorizontalAlignment(etm.getColumnAlignment(y));
-                l1.setOpaque(true);
-                if (x % 2 != 0) {
-                    l1.setBackground(marker);
-                } else {
-                    l1.setBackground(Color.WHITE);
-                }
-                p.add(l1, CC.xy(2 + 2 * y, 4 + 2 * x));
-
-                JLabel l2 = new JLabel(" ");
-                l2.setOpaque(true);
-                if (x % 2 != 0) {
-                    l2.setBackground(marker);
-                } else {
-                    l2.setBackground(Color.WHITE);
-                }
-                p.add(l2, CC.xy(2 + 2 * y, 4 + 2 * x - 1));
-            }
-        }
-
-        Font f = PrintManager.getFont();
-        p.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
-        p.setForeground(Color.BLACK);
-
-        p.setBorder(new LineBorder(Color.BLACK, 1));
-        return p;
-    }
-
-    private JComponent[] getResults(ExtendedTableModel[] etm, boolean big) {
+    private JComponent[] getResults(ExtendedTableModel[] etm, int versteckteSpalte, boolean big) {
 
         JComponent[] result = new JComponent[etm.length];
         for (int x = 0; x < etm.length; x++) {
@@ -276,7 +190,8 @@ class ListOfMedalsPrinter implements Printer {
             title.setForeground(Color.BLACK);
             title.setBackground(Color.WHITE);
             Font f = PrintManager.getFont();
-            title.setFont(f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f)));
+            Font font = f.deriveFont(f.getSize2D() * (big ? fontscale : 1.0f));
+            title.setFont(font);
 
             FormLayout layout = new FormLayout(FormLayoutUtils.createGrowingLayoutString(1),
                     "0dlu,fill:default,1dlu,fill:default,2dlu");
@@ -285,7 +200,7 @@ class ListOfMedalsPrinter implements Printer {
             c.setForeground(Color.BLACK);
 
             c.add(title, CC.xy(2, 2, "center,center"));
-            c.add(getPseudoTable(etm[x], big), CC.xy(2, 4));
+            c.add(PseudoTable.create(etm[x], font, versteckteSpalte), CC.xy(2, 4));
 
             result[x] = c;
         }
