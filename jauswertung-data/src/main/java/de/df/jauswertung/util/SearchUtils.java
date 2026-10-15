@@ -9,7 +9,6 @@ import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.Set;
 
 /**
  * Created 27.03.2004
@@ -94,16 +93,6 @@ public final class SearchUtils {
         LinkedList<T> suchen;
         suchen = new LinkedList<>(wk.getSchwimmer());
         return suchen;
-    }
-
-    private static <T extends ASchwimmer> void filtereName(LinkedList<T> suchen, String n) {
-        if (n == null) {
-            return;
-        }
-        if (suchen.isEmpty()) {
-            return;
-        }
-        suchen.removeIf(jetzt -> !n.equals(jetzt.getName()));
     }
 
     public static <T extends ASchwimmer> void filtereMeldepunkte(LinkedList<T> suchen, int amount, int meldeindex) {
@@ -243,13 +232,6 @@ public final class SearchUtils {
         suchen.removeIf(jetzt -> jetzt.getStartnummer() != nummer);
     }
 
-    private static <T extends ASchwimmer> void filtereStartnumbers(LinkedList<T> suchen, Set<Integer> startnumbers) {
-        if (suchen == null) {
-            return;
-        }
-        suchen.removeIf(jetzt -> !startnumbers.contains(jetzt.getStartnummer()));
-    }
-
     private static <T extends ASchwimmer> void filtereBemerkung(LinkedList<T> suchen, String bemerkung) {
         if (suchen == null) {
             return;
@@ -282,19 +264,6 @@ public final class SearchUtils {
             return null;
         }
         return suchen.getFirst();
-    }
-
-    /**
-     * Liefert die Schwimmer mit dem gesuchten Namen.
-     *
-     * @param wk   Wettkampf
-     * @param name Name
-     * @return Liefert eine Liste der gesuchten Schwimmer.
-     */
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, String name) {
-        LinkedList<T> suchen = startGetSchwimmer(wk);
-        filtereName(suchen, name);
-        return suchen;
     }
 
     public static <T extends ASchwimmer> boolean hasSchwimmer(AWettkampf<T> wk, Altersklasse ak) {
@@ -359,12 +328,6 @@ public final class SearchUtils {
         return suchen;
     }
 
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, boolean maennlich) {
-        LinkedList<T> suchen = startGetSchwimmer(wk);
-        filtereGeschlecht(suchen, maennlich);
-        return suchen;
-    }
-
     public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Altersklasse ak) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAK(suchen, ak);
@@ -413,12 +376,6 @@ public final class SearchUtils {
     public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Startgruppe sg) {
         LinkedList<T> suchen = startGetSchwimmer(wk);
         filtereAKs(suchen, wk.getRegelwerk().getAKsForStartgroup(sg));
-        return suchen;
-    }
-
-    public static <T extends ASchwimmer> LinkedList<T> getSchwimmer(AWettkampf<T> wk, Set<Integer> startnumbers) {
-        LinkedList<T> suchen = startGetSchwimmer(wk);
-        filtereStartnumbers(suchen, startnumbers);
         return suchen;
     }
 }

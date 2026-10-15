@@ -72,13 +72,6 @@ public class SchwimmerResult<T extends ASchwimmer> {
         return keineWertung;
     }
 
-    public void setStrafe(Strafe s) {
-        if (s == null) {
-            throw new NullPointerException();
-        }
-        strafe = s;
-    }
-
     public Strafe getStrafe() {
         return strafe;
     }
