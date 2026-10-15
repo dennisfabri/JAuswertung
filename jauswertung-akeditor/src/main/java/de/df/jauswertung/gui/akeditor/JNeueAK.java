@@ -18,7 +18,7 @@ import javax.swing.KeyStroke;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.buttonbar.JButtonBar;
+import de.df.jutils.gui.JButtonBar;
 
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
@@ -65,7 +65,6 @@ public class JNeueAK extends JDialog {
         setResizable(false);
         UIStateUtils.uistatemanage(this, JNeueAK.class.getName());
         pack();
-        setSize(getWidth(), getHeight() + 80);
 
         addActions();
     }
@@ -121,7 +120,7 @@ public class JNeueAK extends JDialog {
 
     private JButtonBar getMannschaftStaffelBar() {
         JButtonBar buttonBar = new JButtonBar();
-        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions"), true));
+        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions")));
 
         for (String aMannschaftNamen : mannschaftNamen) {
             JButton aks = new JButton(aMannschaftNamen.substring(0, aMannschaftNamen.length() - 4),
@@ -138,7 +137,7 @@ public class JNeueAK extends JDialog {
      */
     private JButtonBar getEinzelBar() {
         JButtonBar buttonBar = new JButtonBar();
-        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions"), true));
+        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions")));
 
         for (String anEinzelNamen : einzelNamen) {
             JButton aks = new JButton(anEinzelNamen.substring(0, anEinzelNamen.length() - 4),

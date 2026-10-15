@@ -21,10 +21,6 @@
 			<groupId>org.lisasp.legacy</groupId>
 			<artifactId>l2fprod-common-fontchooser</artifactId>
 		</dependency>		
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-buttonbar</artifactId>
-		</dependency>		
 	</dependencies>
   
 </project>

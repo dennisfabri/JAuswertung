@@ -19,11 +19,6 @@
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-swing</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-buttonbar</artifactId>
 		</dependency>		
 	</dependencies>
 </project>

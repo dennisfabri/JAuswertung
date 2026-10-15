@@ -1,10 +1,20 @@
 # Replace l2fprod-common
 
-`org.lisasp.legacy:l2fprod-common-*` (totd, tasks, buttonbar, fontchooser) is a fork of the dead L2FProd Swing
-components, maintained by hand in `l2fprod-common/`. grep finds 20 Java files using `com.l2fprod`.
+`org.lisasp.legacy:l2fprod-common-*` is a fork of the dead L2FProd Swing components, maintained by hand in
+`l2fprod-common/`.
 
-Replace per module: tip of the day, task pane, button bar and font chooser each need an own replacement or a small
-component in `jutils-legacy`.
+Replaced by own components in `jutils-swing` (`de.df.jutils.gui`) on 2026-10-15: `JButtonBar`, `TipOfTheDay` with
+`TipOfTheDayPanel`/`TipOfTheDayDialog`, and `JStatusBar` (used by `JPFrame`).
+
+## Still used (checked 2026-10-15)
+
+| Component | Used in | Replacement |
+| --- | --- | --- |
+| `JTaskPaneGroup` | 9 files (registration plugins, `JSchwimmerEditieren`, `JSimpleInputPanel`, `JTeammembersInputPanel`, `PPrintPlugin`, ...) | own collapsible group |
+| `BasicTaskPaneGroupUI` | `GradientTaskPaneGroupUI` (`jutils-legacy`) | goes away with the task pane |
+| `JFontChooser` | `JFontDialog`, `MOptionenPlugin`, `OPrintOptionsPlugin`, `JVeranstaltungsschriftart` | own dialog (family, size, bold, italic) |
+| `LookAndFeelTweaks` | `DesignInit` (`jutils-legacy`) | inline the `UIManager` defaults that are still needed |
+| `DefaultCellRenderer` | `JTimesInputPanel` | `DefaultTableCellRenderer` |
 
 ## Done when
 

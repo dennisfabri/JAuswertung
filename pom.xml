@@ -395,17 +395,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-totd</artifactId>
-                <version>${l2fprod.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.legacy</groupId>
                 <artifactId>l2fprod-common-fontchooser</artifactId>
-                <version>${l2fprod.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-buttonbar</artifactId>
                 <version>${l2fprod.version}</version>
             </dependency>
             <dependency>
