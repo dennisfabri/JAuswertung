@@ -4,7 +4,6 @@
 package de.df.jauswertung.gui.plugins.print;
 
 import java.awt.print.Printable;
-import java.io.OutputStream;
 import java.util.LinkedList;
 
 import de.df.jauswertung.daten.AWettkampf;
@@ -38,10 +37,6 @@ class ResultsPerDisciplinePrinter extends APerDisciplinePrinter {
     protected LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification) {
         return PrintUtils.getFullResultsPrintable(selected, wk, true, PrintUtils.printPointsInDisciplineResults,
                 qualification);
-    }
-
-    @Override
-    protected void export(AWettkampf wk, OutputStream os) {
     }
 
     @Override

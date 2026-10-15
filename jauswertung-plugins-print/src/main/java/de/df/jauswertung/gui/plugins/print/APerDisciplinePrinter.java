@@ -35,7 +35,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.function.Consumer;
@@ -275,10 +274,6 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     protected abstract LinkedList<Printable> getPrintable(boolean[][] selected, AWettkampf wk, int qualification);
-
-    @SuppressWarnings("rawtypes")
-    protected void export(AWettkampf wk, OutputStream os) {
-    }
 
     protected boolean hasExport() {
         return false;

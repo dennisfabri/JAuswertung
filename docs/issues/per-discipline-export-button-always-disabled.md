@@ -7,8 +7,7 @@ panels "Ergebnisse je Disziplin" and "Urkunden Einzelwertung" show an Export but
 
 The export itself only handles heat-based competitions: `ExportActionListener` (`:434`) asks for a round and writes it
 with `export(OWSelection)`; for other competitions it does nothing, which is probably why 8e8d7921 disabled the button.
-As a side effect, the export of a round to Excel is no longer reachable for heat-based competitions either. The empty
-hooks `export(AWettkampf, OutputStream)` in both classes are leftovers.
+As a side effect, the export of a round to Excel is no longer reachable for heat-based competitions either.
 
 ## Done when
 

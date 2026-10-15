@@ -34,21 +34,6 @@ public class PrinterCollection implements Printer {
         printers.add(p);
     }
 
-    public void doLayoutOneColumn() {
-        panel.removeAll();
-        int x = 0;
-        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
-                FormLayoutUtils.createLayoutString(printers.size() * 2, 1));
-        panel.setLayout(layout);
-
-        for (Printer p : printers) {
-            panel.add(new JLabelSeparator(p.getName()), CC.xy(2, x * 4 + 2));
-            panel.add(p.getPanel(), CC.xyw(1, x * 4 + 4, 3));
-
-            x++;
-        }
-    }
-
     public void doLayout() {
         panel.removeAll();
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu,6dlu,fill:default:grow,4dlu",
