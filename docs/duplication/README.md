@@ -41,5 +41,5 @@ These look alike but were left as they are:
 - `DataTableUtils` time as text vs. as an Excel day fraction (`:1705`/`:1770`): different on purpose.
 - `CsvExporter`/`ASpreadsheetExporter`: thin wrappers that already delegate to `DataTableUtils`.
 - Long/short variants (`Mannschaft.getStarter`/`getStarterShort`, `Lauf.getDisziplin`/`getDisziplinShort`,
-  `ZWUtils.getHLWStatus`/`…Kompakt`, `CompetitionUtils.getOrganizationAmounts`/`getQOrganizationAmounts`), and small UI
-  boilerplate (wizard pages, drop target listeners, `JNeuerWettkampf`/`JNeueKV`, akeditor group panels).
+  `ZWUtils.getHLWStatus`/`…Kompakt`), and small UI boilerplate (wizard pages, drop target listeners,
+  `JNeuerWettkampf`/`JNeueKV`, akeditor group panels).

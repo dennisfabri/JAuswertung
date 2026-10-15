@@ -398,25 +398,6 @@ public final class CompetitionUtils {
         return amounts;
     }
 
-    public static <T extends ASchwimmer> int[][] getOrganizationAmounts(AWettkampf<T> wk) {
-        Hashtable<String, String> orgs = new Hashtable<>();
-        int[][] amounts = new int[wk.getRegelwerk().size()][2];
-        for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-            for (int y = 0; y < 2; y++) {
-                orgs.clear();
-                LinkedList<T> swimmers = SearchUtils.getSchwimmer(wk, wk.getRegelwerk().getAk(x), y == 1);
-                for (T t : swimmers) {
-                    String key = t.getGliederungMitQGliederung();
-                    if (!orgs.containsKey(key)) {
-                        orgs.put(key, key);
-                    }
-                }
-                amounts[x][y] = orgs.size();
-            }
-        }
-        return amounts;
-    }
-
     public static <T extends ASchwimmer> int[][] getQOrganizationAmounts(AWettkampf<T> wk) {
         Hashtable<String, String> orgs = new Hashtable<>();
         int[][] amounts = new int[wk.getRegelwerk().size()][2];
