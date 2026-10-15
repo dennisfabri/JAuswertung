@@ -30,7 +30,7 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
 | `jauswertung-files` | No Java. Runtime resource tree: `plugins/` and `plugins-mmm/` (plugin descriptors), `aks/` (`.rwe`/`.rwm` rulebooks), `penalties/`, icons, images, `logback.xml`, `development/`. **This is the runtime working directory.** |
 | `jauswertung-data` | Domain model `de.df.jauswertung.daten` (`AWettkampf`, `EinzelWettkampf`/`MannschaftWettkampf`, `ASchwimmer`, `Laufliste`, `regelwerk.*`), `util.Utils`, `gui.util.I18n`. Lowest level. |
 | `jauswertung-swing` | Shared Swing utilities, `util.DefaultInit` (application init). |
-| `jauswertung-print` | Printing infrastructure (flying-saucer, jgraphx). |
+| `jauswertung-print` | Printing infrastructure (flying-saucer, certificate page `UrkundenSeite`). |
 | `jauswertung-io` | Load/save (`InputManager`, `OutputManager`, `IOUtils`), CSV/Excel/HTML/PDF/XML/JSON import/export, portal model. Holds almost all tests. |
 | `jauswertung-times-extractor`, `-ares`, `-dp-extensions`, `-web` | Integrations: time extraction, Ares timing, display tool/splitter, result upload. |
 | `jauswertung-akeditor` | Rulebook/age-group editor (`JAKsEditor`). |
@@ -231,7 +231,8 @@ There is no server behind the UI, so the desktop application is the only line of
 
 - SLF4J with Logback (`jauswertung-files/src/main/resources/logback.xml`); `System.out`/`System.err` are redirected to
   SLF4J by `DefaultInit`. Use Lombok's `@Slf4j` in new code; do not add `System.out.println` or `printStackTrace()`.
-  Removing the existing calls is tracked in `docs/chores/console-output-and-printstacktrace.md`.
+  Removing the existing calls is tracked in `docs/chores/replace-system-out-with-logging.md` and
+  `docs/chores/replace-printstacktrace.md`.
 - `DEBUG` for diagnostic detail, `INFO` sparingly for lifecycle events (start, file opened/saved), `WARN` for handled
   unexpected situations, `ERROR` for real failures.
 - Competition files contain personal data (names, birth years, clubs). Do not log participant data or whole model

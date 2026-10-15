@@ -22,7 +22,7 @@ import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.buttonbar.JButtonBar;
+import de.df.jutils.gui.JButtonBar;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.EinzelWettkampf;
@@ -88,7 +88,6 @@ public class JNeuerWettkampf extends JDialog {
         WindowUtils.center(this, parent);
         UIStateUtils.uistatemanage(this, "JNeuerWettkampf");
         pack();
-        setSize(getWidth(), getHeight() + 80);
 
         addActions();
     }
@@ -195,7 +194,7 @@ public class JNeuerWettkampf extends JDialog {
 
     private JButtonBar getMannschaftStaffelBar() {
         JButtonBar buttonBar = new JButtonBar();
-        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions"), true));
+        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("TeamCompetitions")));
 
         for (int x = 0; x < mannschaftNamen.length; x++) {
             JButton aks = new JButton(mannschaftNamen[x].substring(0, mannschaftNamen[x].length() - 4),
@@ -216,7 +215,7 @@ public class JNeuerWettkampf extends JDialog {
      */
     private JButtonBar getEinzelBar() {
         JButtonBar buttonBar = new JButtonBar();
-        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions"), true));
+        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("PersonalCompetitions")));
 
         for (int x = 0; x < einzelNamen.length; x++) {
             JButton aks = new JButton(einzelNamen[x].substring(0, einzelNamen[x].length() - 4),

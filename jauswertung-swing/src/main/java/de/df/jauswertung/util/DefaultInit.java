@@ -19,7 +19,6 @@ import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skt.swing.scroll.ScrollGestureRecognizer;
-import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,7 +53,7 @@ public final class DefaultInit {
             CheckThreadViolationRepaintManager.init();
             // EventDispatchThreadHangMonitor.initMonitoring();
         }
-        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        SystemStreamsToLog.install();
 
         UIStateUtils.initUIState();
         initFileChooser();

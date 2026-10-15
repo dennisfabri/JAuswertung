@@ -8,14 +8,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.File;
@@ -42,10 +37,6 @@ import javax.swing.border.EmptyBorder;
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
-import com.mxgraph.model.mxCell;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
@@ -55,6 +46,9 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.FileFilters;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.OutputManager;
+import de.df.jauswertung.print.urkunden.UrkundenFeld;
+import de.df.jauswertung.print.urkunden.UrkundenSeite;
+import de.df.jauswertung.print.urkunden.UrkundenSeiteInteraktion;
 import de.df.jauswertung.print.util.GraphUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.ShadowBorder;
@@ -77,11 +71,9 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
     private AWettkampf<T> wk;
     private IPluginManager controller;
 
-    mxGraph graph;
-    mxGraphComponent jgraph;
+    UrkundenSeite seite;
+    private UrkundenSeiteInteraktion interaktion;
     JPanel inner;
-
-    Point clicked;
 
     JPopupMenu menu;
     JMenuItem font;
@@ -128,58 +120,23 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
     @SuppressWarnings({ "unchecked" })
     private void init() {
-        graph = GraphUtils.createGraph(false);
-        jgraph = GraphUtils.createDisplay(graph, false);
-
-        mxGraphComponent.mxGraphControl gc = jgraph.getGraphControl();
-
-        gc.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_DELETE)) {
-                    removeSelectedFields();
-                }
-            }
+        seite = GraphUtils.createSeite(true);
+        interaktion = new UrkundenSeiteInteraktion(seite);
+        interaktion.setNewFieldListener(r -> {
+            GraphUtils.addTextfield(seite, r.x, r.y, r.width, r.height, null);
+            add.setSelected(false);
+            interaktion.setAddMode(false);
         });
-        gc.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (add.isSelected()) {
-                        clicked = new Point(e.getX(), e.getY());
-                    }
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (e.isConsumed()) {
-                    return;
-                }
-                if (e.isPopupTrigger()) {
-                    menu.show(jgraph, e.getX(), e.getY());
-                }
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (add.isSelected()) {
-                        GraphUtils.addTextfield(graph, clicked.getX(), clicked.getY(), e.getX() - clicked.getX(),
-                                e.getY() - clicked.getY(), null, true);
-                        add.setSelected(false);
-                    }
-                }
-                clicked = null;
-            }
-        });
+        interaktion.setPopupListener((x, y) -> menu.show(seite, x, y));
 
         String key = PropertyConstants.URKUNDE;
         if (einzelwertung) {
             key = PropertyConstants.URKUNDE_EINZELWERTUNG;
         }
-        GraphUtils.populateGraph(graph, (Hashtable<String, Object>[]) wk.getProperty(key), true, false);
+        GraphUtils.populateGraph(seite, (Hashtable<String, Object>[]) wk.getProperty(key));
 
         inner = new JPanel(new BorderLayout());
-        inner.add(jgraph, BorderLayout.CENTER);
+        inner.add(seite, BorderLayout.CENTER);
         inner.setBorder(new CompoundBorder(new ShadowBorder(), new RulerBorder()));
 
         graphcontainer = new JPanel(new CenterLayout());
@@ -265,7 +222,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
             @Override
             public void setVisible(boolean b) {
                 if (b) {
-                    boolean e = !graph.isSelectionEmpty();
+                    boolean e = !seite.getSelection().isEmpty();
                     font.setEnabled(e);
                     alignment.setEnabled(e);
                 }
@@ -288,6 +245,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
         add = new JToggleButton(IconManager.getSmallIcon("newtextfield"));
         add.setToolTipText(I18n.getToolTip("DocumentNewTextfield"));
+        add.addActionListener(e -> interaktion.setAddMode(add.isSelected()));
 
         JToggleButton gridButton = new JToggleButton(IconManager.getSmallIcon("grid"));
         gridButton.setToolTipText(I18n.getToolTip("SetGrid"));
@@ -371,10 +329,8 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
                 String note = I18n.get("OpenFailed.Note", name);
                 DialogUtils.warn(this, meldung, note);
             } else {
-                graph.getModel().beginUpdate();
-                GraphUtils.clear(graph);
-                GraphUtils.populateGraph(graph, neu, true, false);
-                graph.getModel().endUpdate();
+                seite.clear();
+                GraphUtils.populateGraph(seite, neu);
             }
         }
     }
@@ -388,7 +344,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
                         I18n.get("OverwriteFileQuestion.Note", name));
             }
             if (result) {
-                result = OutputManager.speichereObject(name, GraphUtils.collectGraph(graph));
+                result = OutputManager.speichereObject(name, GraphUtils.collectGraph(seite));
                 if (!result) {
                     String meldung = I18n.get("SaveFailedText", name);
                     String note = I18n.get("SaveFailedText.Note", name);
@@ -416,7 +372,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
             }
 
             private DocumentsCreator createGraphDocument() {
-                return new DocumentsCreator(GraphUtils.collectGraph(graph));
+                return new DocumentsCreator(GraphUtils.collectGraph(seite));
             }
         });
 
@@ -427,7 +383,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
         JMenuItem neu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("new"));
         neu.addActionListener(e -> {
-            GraphUtils.clear(graph);
+            seite.clear();
         });
 
         JMenuItem load = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
@@ -460,50 +416,27 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         double width = pf.getWidth();
         double height = pf.getHeight();
 
-        jgraph.setSize((int) width, (int) height);
-
-        Dimension d = new Dimension((int) width, (int) height);
-        jgraph.setPreferredSize(d);
-        jgraph.setMinimumSize(d);
-        jgraph.setMaximumSize(d);
+        seite.setPageSize(new Dimension((int) width, (int) height));
 
         SwingUtilities.invokeLater(graphcontainer::updateUI);
     }
 
     void updateGrid(boolean b) {
         grid = b;
-        graph.setGridEnabled(grid);
-        // graph.setGridVisible(grid);
+        seite.setGridEnabled(grid);
 
         Utils.getPreferences().putBoolean("GridEnabled", grid);
     }
 
     void removeSelectedFields() {
-        if (!graph.isSelectionEmpty()) {
-            Object[] cells = graph.getSelectionCells();
-            // cells = graph.getDescendants(cells);
-            graph.getModel().beginUpdate();
-            for (Object cell : cells) {
-                graph.getModel().remove(cell);
-            }
-            graph.getModel().endUpdate();
-        }
+        seite.removeSelected();
     }
 
     void setAlignment(int align) {
-        if (!graph.isSelectionEmpty()) {
-            // GraphLayoutCache glc = graph.getGraphLayoutCache();
-            Object[] cells = graph.getSelectionCells();
-            for (Object o : cells) {
-                if (o instanceof mxCell) {
-                    mxCell c = (mxCell) o;
-                    // mxConstants.setHorizontalAlignment(c.getAttributes(),
-                    // align);
-                    // glc.editCell(c, c.getAttributes());
-                    GraphUtils.setAlign(graph, c, align);
-                }
-            }
+        for (UrkundenFeld feld : seite.getSelection()) {
+            feld.setAlignment(align);
         }
+        seite.repaint();
     }
 
     void setCellFont(Font f) {
@@ -511,27 +444,14 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
             return;
         }
         lastfont = f;
-        if (!graph.isSelectionEmpty()) {
-            Object[] cells = graph.getSelectionCells();
-            for (Object o : cells) {
-                if (o instanceof mxCell) {
-                    mxCell c = (mxCell) o;
-                    GraphUtils.setFont(graph, c, f);
-                    // mxConstants.setFont(c.getAttributes(), f);
-                    // glc.editCell(c, c.getAttributes());
-                } else {
-                    System.err.println(o.getClass().toString());
-                }
-            }
+        for (UrkundenFeld feld : seite.getSelection()) {
+            feld.setFont(f);
         }
+        seite.repaint();
     }
 
     boolean cellsSelected() {
-        if (graph.isSelectionEmpty()) {
-            return false;
-        }
-        Object[] cells = graph.getSelectionCells();
-        return (cells != null) && (cells.length > 0);
+        return !seite.getSelection().isEmpty();
     }
 
     @Override
@@ -542,7 +462,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
             if (einzelwertung) {
                 key = PropertyConstants.URKUNDE_EINZELWERTUNG;
             }
-            wk.setProperty(key, GraphUtils.collectGraph(graph));
+            wk.setProperty(key, GraphUtils.collectGraph(seite));
             controller.sendDataUpdateEvent("DocumentChanged", UpdateEventConstants.REASON_PROPERTIES_CHANGED, null);
         }
         super.setVisible(v);

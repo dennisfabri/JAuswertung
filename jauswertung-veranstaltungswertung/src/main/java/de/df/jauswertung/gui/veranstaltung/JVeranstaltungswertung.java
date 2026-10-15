@@ -7,12 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -21,7 +22,7 @@ import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.buttonbar.JButtonBar;
+import de.df.jutils.gui.JButtonBar;
 
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.I18n;
@@ -80,14 +81,21 @@ class JVeranstaltungswertung extends JGlassFrame {
         panels.add(this.output, "4");
         cards.show(panels, "1");
 
-        JButton competitionsbutton = new JButton(I18n.get("Competitions"), IconManager.getBigIcon("competition"));
+        JToggleButton competitionsbutton = new JToggleButton(I18n.get("Competitions"), IconManager.getBigIcon("competition"));
         competitionsbutton.addActionListener(new ButtonsListener("1"));
-        JButton propertiesbutton = new JButton(I18n.get("Properties"), IconManager.getBigIcon("eigenschaften"));
+        JToggleButton propertiesbutton = new JToggleButton(I18n.get("Properties"), IconManager.getBigIcon("eigenschaften"));
         propertiesbutton.addActionListener(new ButtonsListener("2"));
-        JButton fontbutton = new JButton(I18n.get("Font"), IconManager.getBigIcon("font"));
+        JToggleButton fontbutton = new JToggleButton(I18n.get("Font"), IconManager.getBigIcon("font"));
         fontbutton.addActionListener(new ButtonsListener("3"));
-        JButton outputbutton = new JButton(I18n.get("Output"), IconManager.getBigIcon("resulttable"));
+        JToggleButton outputbutton = new JToggleButton(I18n.get("Output"), IconManager.getBigIcon("resulttable"));
         outputbutton.addActionListener(new ButtonsListener("4"));
+
+        competitionsbutton.setSelected(true);
+        ButtonGroup views = new ButtonGroup();
+        views.add(competitionsbutton);
+        views.add(propertiesbutton);
+        views.add(fontbutton);
+        views.add(outputbutton);
 
         JButtonBar buttons = new JButtonBar(SwingConstants.VERTICAL);
         buttons.setBorder(new ShadowBorder());

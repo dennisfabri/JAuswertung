@@ -28,20 +28,17 @@
         <jackson.version>2.22.3</jackson.version>
         <lombok.version>1.18.48</lombok.version>
         <opencsv.version>5.12.0</opencsv.version>
-        <nv-i18n.version>1.36.0</nv-i18n.version>
         <log4j.version>2.26.1</log4j.version>
         <commons-xmt.version>1.2.1-SNAPSHOT</commons-xmt.version>
         <cloning.version>1.13.0</cloning.version>
         <zxing.version>3.5.4</zxing.version>
         <httpclient5.version>5.6.5</httpclient5.version>
         <l2fprod.version>7.4.0-SNAPSHOT</l2fprod.version>
-        <jgraphx.version>4.2.2</jgraphx.version>
         <flying-saucer.version>9.9.5</flying-saucer.version>
         <commons-text.version>1.15.0</commons-text.version>
         <commons-math3.version>3.6.1</commons-math3.version>
         <filechooser.version>1.0.0-SNAPSHOT</filechooser.version>
         <xstream.version>1.4.21</xstream.version>
-        <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
         <juniversalchardet.version>2.5.1</juniversalchardet.version>
         <jakarta-validation.version>3.1.1</jakarta-validation.version>
 
@@ -398,23 +395,8 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-totd</artifactId>
-                <version>${l2fprod.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.legacy</groupId>
                 <artifactId>l2fprod-common-fontchooser</artifactId>
                 <version>${l2fprod.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-buttonbar</artifactId>
-                <version>${l2fprod.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.vlsi.mxgraph</groupId>
-                <artifactId>jgraphx</artifactId>
-                <version>${jgraphx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.xhtmlrenderer</groupId>
@@ -467,11 +449,6 @@
                 <version>${logback.version}</version>
             </dependency>
             <dependency>
-                <groupId>uk.org.lidalia</groupId>
-                <artifactId>sysout-over-slf4j</artifactId>
-                <version>${sysout-over-slf4j.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.albfernandez</groupId>
                 <artifactId>juniversalchardet</artifactId>
                 <version>${juniversalchardet.version}</version>
@@ -519,11 +496,6 @@
                 <groupId>com.opencsv</groupId>
                 <artifactId>opencsv</artifactId>
                 <version>${opencsv.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>uk.co.foundationsedge</groupId>
-                <artifactId>nv-i18n</artifactId>
-                <version>${nv-i18n.version}</version>
             </dependency>
 
 

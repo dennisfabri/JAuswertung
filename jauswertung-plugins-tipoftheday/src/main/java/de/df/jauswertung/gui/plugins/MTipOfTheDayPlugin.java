@@ -4,20 +4,19 @@
 package de.df.jauswertung.gui.plugins;
 
 import java.io.File;
+import java.util.List;
+import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import com.l2fprod.common.totd.JTipOfTheDay;
-import com.l2fprod.common.totd.JTipOfTheDay.ShowOnStartupChoice;
-import com.l2fprod.common.totd.tips.DefaultTip;
-import com.l2fprod.common.totd.tips.DefaultTipModel;
 
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.Utils;
+import de.df.jutils.gui.TipOfTheDay;
+import de.df.jutils.gui.TipOfTheDayDialog;
 import de.df.jutils.i18n.I18nUtils;
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.plugin.ANullPlugin;
@@ -26,15 +25,15 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class MTipOfTheDayPlugin extends ANullPlugin {
 
-    private JTipOfTheDay tips = null;
-    JDialog dialog;
-    private JMenuItem item = new JMenuItem(I18n.get("Tips"));
+    private static final String PREFERENCE_NODE = "l2fprod";
+    private static final String PREFERENCE_KEY = "ShowTipOnStartup";
+
+    private TipOfTheDay tips = null;
+    private final JMenuItem item = new JMenuItem(I18n.get("Tips"));
 
     public MTipOfTheDayPlugin() {
         item.setToolTipText(I18n.getToolTip("TipOfTheDay"));
-        item.addActionListener(arg0 -> {
-            showTips();
-        });
+        item.addActionListener(arg0 -> showTips());
     }
 
     @Override
@@ -42,63 +41,60 @@ public class MTipOfTheDayPlugin extends ANullPlugin {
         return new MenuInfo[] { new MenuInfo(I18n.get("?"), 1000, item, 910) };
     }
 
-    private synchronized JTipOfTheDay getTips() {
+    private synchronized TipOfTheDay getTips() {
         if (tips == null) {
             String[] text = FileUtils.readTextFile(
                     I18nUtils.getLocalizedFile(Utils.getUserDir() + "tips" + File.separator + "tips.txt"), "utf-8");
-
-            DefaultTip[] tiptext = new DefaultTip[text.length];
-            for (int x = 0; x < tiptext.length; x++) {
-                tiptext[x] = new DefaultTip("", text[x]);
-            }
-
-            UIManager.put("TipOfTheDay.didYouKnowText", I18n.get("TipOfTheDay.didYouKnowText"));
-
-            tips = new JTipOfTheDay(new DefaultTipModel(tiptext));
-            tips.setCurrentTip((int) (Math.random() * tiptext.length));
+            tips = new TipOfTheDay(List.of(text));
+            tips.setCurrentIndex((int) (Math.random() * text.length));
         }
-
         return tips;
     }
 
     @Override
     public void dataUpdated(UpdateEvent due) {
         if (due.isReason(UpdateEventConstants.REASON_STARTUP)) {
-            showTipAtStartup();
+            SwingUtilities.invokeLater(this::showTipAtStartup);
         }
     }
 
-    void showTips() {
-        SwingUtilities.invokeLater(() -> {
-            if (dialog == null) {
-                dialog = createDialog();
-            }
-            dialog.setVisible(true);
-        });
+    private void showTips() {
+        SwingUtilities.invokeLater(() -> createDialog().setVisible(true));
     }
 
-    JDialog createDialog() {
-        ShowOnStartupChoice choice = new ShowOnStartupChoice() {
-            @Override
-            public boolean isShowingOnStartup() {
-                return Utils.getPreferences().node("l2fprod").getBoolean(JTipOfTheDay.PREFERENCE_KEY, true);
-            }
-
-            @Override
-            public void setShowingOnStartup(boolean showOnStartup) {
-                if (showOnStartup != isShowingOnStartup()) {
-                    Utils.getPreferences().node("l2fprod").putBoolean(JTipOfTheDay.PREFERENCE_KEY, showOnStartup);
-                }
-            }
-        };
-        return getTips().getUI().createDialog(getController().getWindow(), choice);
+    private void showTipAtStartup() {
+        if (isShowingOnStartup()) {
+            createDialog().setVisible(true);
+        }
     }
 
-    void showTipAtStartup() {
-        SwingUtilities.invokeLater(this::showTipAtStartupI);
+    private JDialog createDialog() {
+        TipOfTheDay.Texts texts = new TipOfTheDay.Texts(I18n.get("TipOfTheDay.dialogTitle"),
+                I18n.get("TipOfTheDay.didYouKnowText"), I18n.get("TipOfTheDay.showOnStartupText"),
+                I18n.get("TipOfTheDay.previousTipText"), I18n.get("TipOfTheDay.nextTipText"),
+                I18n.get("TipOfTheDay.closeText"));
+        return TipOfTheDayDialog.create(getController().getWindow(), getTips(), texts, IconManager.getBigIcon("tip"),
+                new ShowOnStartupChoice());
     }
 
-    void showTipAtStartupI() {
-        getTips().showDialog(getController().getWindow(), Utils.getPreferences().node("l2fprod"));
+    private static boolean isShowingOnStartup() {
+        return preferences().getBoolean(PREFERENCE_KEY, true);
+    }
+
+    private static Preferences preferences() {
+        return Utils.getPreferences().node(PREFERENCE_NODE);
+    }
+
+    private static final class ShowOnStartupChoice implements TipOfTheDay.ShowOnStartupChoice {
+
+        @Override
+        public boolean isShowingOnStartup() {
+            return MTipOfTheDayPlugin.isShowingOnStartup();
+        }
+
+        @Override
+        public void setShowingOnStartup(boolean showOnStartup) {
+            preferences().putBoolean(PREFERENCE_KEY, showOnStartup);
+        }
     }
 }

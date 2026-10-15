@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.buttonbar.JButtonBar;
+import de.df.jutils.gui.JButtonBar;
 
 import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.gui.util.I18n;
@@ -74,7 +74,6 @@ class JNeueKV extends JDialog {
         pack();
         UIStateUtils.uistatemanage(parent, this, "NeueKampfrichtereinteilung");
         pack();
-        setSize(getWidth(), getHeight() + 40);
 
         addActions();
     }
@@ -147,7 +146,7 @@ class JNeueKV extends JDialog {
      */
     private JButtonBar getEinzelBar() {
         JButtonBar buttonBar = new JButtonBar();
-        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("RefereeDefinitions"), true));
+        buttonBar.setBorder(BorderUtils.createLabeledBorder(I18n.get("RefereeDefinitions")));
 
         for (String anEinzelNamen : einzelNamen) {
             JButton aks = new JButton(anEinzelNamen.substring(3, anEinzelNamen.length() - 3),
