@@ -72,13 +72,6 @@ class JStrafenkatalogFrame extends JFrame {
         super.setVisible(visible);
     }
 
-    public Strafe getStrafe() {
-        if (cancelled) {
-            return null;
-        }
-        return panel.getStrafe();
-    }
-
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {

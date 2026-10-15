@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BaseMultiResolutionImage;
 import java.awt.image.BufferedImage;
-import java.awt.image.MultiResolutionImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -129,41 +128,12 @@ public final class IconManager {
         return iconimages;
     }
 
-    public static synchronized Image getImage(String name) {
-        ImageIcon icon = getImageIcon(name);
-        if (icon == null) {
-            return null;
-        }
-        return icon.getImage();
-    }
-
     public static synchronized ImageIcon getSmallIcon(String name) {
         return getIcon(name, true);
     }
 
     public static synchronized ImageIcon getBigIcon(String name) {
         return getIcon(name, false);
-    }
-
-    public static synchronized ImageIcon getGrayIcon(String name, boolean small) {
-        return toGrayIcon(getIcon(name, small));
-    }
-
-    public static synchronized ImageIcon toGrayIcon(ImageIcon icon) {
-        if (icon.getImage() instanceof MultiResolutionImage image) {
-            // Keep the larger variants for screens with display scaling
-            Image[] grays = image.getResolutionVariants().stream()
-                    .map(variant -> toGray(variant, variant.getWidth(null), variant.getHeight(null)))
-                    .toArray(Image[]::new);
-            return new ImageIcon(new BaseMultiResolutionImage(grays));
-        }
-        return new ImageIcon(toGray(icon.getImage(), icon.getIconWidth(), icon.getIconHeight()));
-    }
-
-    private static BufferedImage toGray(Image image, int width, int height) {
-        BufferedImage i = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-        i.getGraphics().drawImage(image, 0, 0, null);
-        return i;
     }
 
     public static AIconBundle getIconBundle() {
