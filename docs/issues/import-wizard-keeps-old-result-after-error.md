@@ -3,7 +3,7 @@
 `JImportWizard.JProgressPage.processFiles` (`jauswertung-plugins-importexport/.../importexport/JImportWizard.java`)
 stores the import in the field `results`. The handlers for `TableEntryException` and `TableFormatException` reset it to
 `null`; the handlers for `TableException`, `NotSupportedException`/`NotEnabledException`, `IOException` and
-`OldExcelFormatException`/`LeftoverDataException` (`:561-575`) do not. `ImportRunner` then enables the Next button with
+`OldExcelFormatException`/`LeftoverDataException` (`:558-572`) do not. `ImportRunner` then enables the Next button with
 `results != null` (`:536`).
 
 `results` is only cleared when the wizard opens (`setVisible`, `:118`), not when the progress page runs again. So within

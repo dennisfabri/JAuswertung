@@ -9,7 +9,7 @@ Swing components inside the lambda".
 In `jauswertung-plugins-print/.../gui/plugins/print/` (preview line, widgets read):
 
 - `ResultsPrinter:308` (`discipline`, `unterschrift`), `ResultsWithDetailedFilterPrinter:252` (`diszipline`,
-  `unterschrift`), `ZWResultsPrinter:185` (`unterschrift`), `APerDisciplinePrinter:366` (`agegroup`)
+  `unterschrift`), `ZWResultsPrinter:185` (`unterschrift`), `APerDisciplinePrinter:368` (`agegroup`)
 - `ListOfMedalsPrinter:216` (`bigPrint`), `ListOfMedalsPerDisciplinePrinter:322` (`agegroup`, `bigPrint`),
   `BrokenLimitsPrinter:214` (`agegroup`), `BrokenRecordsPrinter:310` (`agegroup`, `allRecords`)
 - `PenaltylistePrinter:82` (`disziplin`, `kurz`), `GesamtwertungPrinter:170` (`type`)
@@ -17,7 +17,7 @@ In `jauswertung-plugins-print/.../gui/plugins/print/` (preview line, widgets rea
   (`organisation`), `WeitermeldungPrinter:242` (`alltimes`)
 - `BahnenlistenPrinter:176` (`number`), `LaufeinteilungPrinter:206` (`selection`)
 - `FehlermeldekartenPrinter:118`, `ZieleinlaufkartenPrinter:123`, `StartkartenPrinter:131` (`pages`, `etime`)
-- `ALauflistenPrinter:200,208` (`comments`), `SprecherlistePrinter:222,230` (`columns`), `AFilledKartenPrinter:226,238`
+- `ALauflistenPrinter:196,204` (`comments`), `SprecherlistePrinter:216,224` (`columns`), `AFilledKartenPrinter:226,238`
   (`pages`, plus the fields `allheats`/`minheat`/`maxheat`)
 
 Elsewhere: `JAKsEditor:511` (`getRegelwerkForPrint()` reads the whole editor).
