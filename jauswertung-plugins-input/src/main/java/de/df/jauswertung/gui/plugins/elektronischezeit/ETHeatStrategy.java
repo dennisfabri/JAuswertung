@@ -210,19 +210,6 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
         return true;
     }
 
-    public void getTime(int heatnr, int index, int time) {
-        OWLauf<T> lauf = getLauf(heatnr);
-        if (lauf == null) {
-            return;
-        }
-        T t = lauf.getSchwimmer(index);
-        if (t == null) {
-            return;
-        }
-        Eingabe e = t.getEingabe(lauf.getDisciplineId(), true);
-        e.setZeit(time);
-    }
-
     @Override
     public void setTimes(int heatnr, int[] times) {
         OWLauf<T> lauf = getLauf(heatnr);
@@ -325,12 +312,11 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
             int time = 0;
             String penalty = t == null ? ""
                     : PenaltyUtils.getPenaltyShortText(t.getAkkumulierteStrafe(lauf.getDisciplineId()), t.getAK());
-            int disz = wk.getLauflisteOW().getDisziplin(lauf.getDisciplineId()).disziplin;
             Eingabe e = t == null ? null : t.getEingabe(lauf.getDisciplineId());
             if (e != null) {
                 time = e.getZeit();
             }
-            lis[x] = new LaneInfo(t, disz, time, penalty);
+            lis[x] = new LaneInfo(t, time, penalty);
         }
 
         OWDisziplin<T> owd = wk.getLauflisteOW().getDisziplin(lauf.getDisciplineId());

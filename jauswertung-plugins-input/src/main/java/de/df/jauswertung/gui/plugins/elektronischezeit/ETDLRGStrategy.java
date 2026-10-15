@@ -271,7 +271,7 @@ class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
             if (t != null) {
                 int disz = lauf.getDisznummer(x);
                 String penalty = PenaltyUtils.getPenaltyShortText(t.getAkkumulierteStrafe(disz), t.getAK());
-                LaneInfo lane = new LaneInfo(t, disz, t.getZeit(disz), penalty);
+                LaneInfo lane = new LaneInfo(t, t.getZeit(disz), penalty);
                 laneinfos[x] = lane;
             }
         }
