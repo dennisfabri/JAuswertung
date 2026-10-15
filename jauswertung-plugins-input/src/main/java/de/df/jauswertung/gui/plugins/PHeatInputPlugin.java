@@ -611,28 +611,6 @@ public class PHeatInputPlugin extends ANullPlugin {
             this.index = index;
         }
 
-        public void moveDown() {
-            if (index + 1 < inputs.length) {
-                JIntegerField input = inputs[index + 1];
-                EDTUtils.requestFocus(controller.getWindow(), input);
-            } else {
-                if (fl[index].checkTime()) {
-                    nextHeat();
-                }
-            }
-        }
-
-        public void moveUp() {
-            if (index > 0) {
-                JIntegerField input = inputs[index - 1];
-                EDTUtils.requestFocus(controller.getWindow(), input);
-            } else {
-                if (fl[index].checkTime()) {
-                    previousHeat(false);
-                }
-            }
-        }
-
         public void updateTime() {
             changeTime();
             updatePenalty();
@@ -659,16 +637,10 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public JTimeField getTimeField() {
-            return times[index];
-        }
-
-        @Override
         public boolean checkHighPoints() {
             return PHeatInputPlugin.this.hasHighPoints(index);
         }
 
-        @Override
         public int getIndex() {
             return index;
         }

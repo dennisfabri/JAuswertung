@@ -82,23 +82,6 @@ public class PTimeInputPlugin extends ANullPlugin {
         }
 
         @Override
-        public JTimeField getTimeField() {
-            return times[index];
-        }
-
-        @Override
-        public void moveUp() {
-            previousRow(index);
-
-        }
-
-        @Override
-        public void moveDown() {
-            nextRow(index);
-
-        }
-
-        @Override
         public void updateTime() {
             changeTime(index);
             // updateRow(index, false);
@@ -116,11 +99,6 @@ public class PTimeInputPlugin extends ANullPlugin {
                 return false;
             }
             return true;
-        }
-
-        @Override
-        public int getIndex() {
-            return index;
         }
 
         @Override
