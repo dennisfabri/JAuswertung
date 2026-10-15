@@ -21,10 +21,6 @@ public class BarcodeUtils {
     public static final byte VALUE_NOT_OK = 0;
     public static final byte VALUE_DNS = 3;
 
-    public enum ZWResultType {
-        OK, NOT_OK, DNS
-    }
-
     private static int calculateChecksum(int i) {
         int cs = 0;
         int index = 0;

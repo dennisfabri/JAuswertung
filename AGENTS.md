@@ -32,7 +32,7 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
 | `jauswertung-swing` | Shared Swing utilities, `util.DefaultInit` (application init). |
 | `jauswertung-print` | Printing infrastructure (flying-saucer, jgraphx). |
 | `jauswertung-io` | Load/save (`InputManager`, `OutputManager`, `IOUtils`), CSV/Excel/HTML/PDF/XML/JSON import/export, portal model. Holds almost all tests. |
-| `jauswertung-times-extractor`, `-ares`, `-dp-extensions`, `-web`, `-portal-adapter` | Integrations: time extraction, Ares timing, display tool/splitter, result upload, registration portal. |
+| `jauswertung-times-extractor`, `-ares`, `-dp-extensions`, `-web` | Integrations: time extraction, Ares timing, display tool/splitter, result upload. |
 | `jauswertung-akeditor` | Rulebook/age-group editor (`JAKsEditor`). |
 | `jauswertung-plugins-*` | GUI plugins. `-core` (`CorePlugin`: holds the current competition, load/save) and `-editor` are the base most others build on; `-input` (time entry, electronic timing, referees, …), `-print` (all printers), `-heats`, `-checks`, `-importexport` (wizards, autosave), `-undoredo`, etc. |
 | `jauswertung-veranstaltungswertung` | Event-wide scoring (`.vs` files). |

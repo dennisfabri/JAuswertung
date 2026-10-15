@@ -42,8 +42,6 @@ public final class PrinterUtils {
         ergebnisse.add(new ResultsPrinter(controller, plugin, warn));
         ergebnisse.add(new ResultsWithDetailedFilterPrinter(controller, plugin, warn));
         ergebnisse.add(new ResultsPerDisciplinePrinter(controller, plugin));
-        // ergebnisse.add(new DisciplineresultsOverAllPrinter(controller,
-        // plugin));
         ergebnisse.add(new GesamtwertungPrinter(controller, plugin));
         ergebnisse.add(new ListOfMedalsPrinter(controller, plugin));
         ergebnisse.add(new ListOfMedalsPerDisciplinePrinter(controller, plugin));

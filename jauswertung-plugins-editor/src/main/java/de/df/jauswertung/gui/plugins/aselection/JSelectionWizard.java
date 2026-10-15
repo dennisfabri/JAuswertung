@@ -38,7 +38,6 @@ import de.df.jauswertung.util.vergleicher.SchwimmerMeldepunkteVergleicher;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
-import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
@@ -50,7 +49,6 @@ import de.df.jutils.gui.wizard.WizardCheckboxPage;
 import de.df.jutils.gui.wizard.WizardIntegerPage;
 import de.df.jutils.gui.wizard.WizardOptionPage;
 import de.df.jutils.plugin.IPluginManager;
-import de.df.jutils.util.Feedback;
 import de.df.jutils.util.StringTools;
 
 /**
@@ -335,14 +333,6 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
             if (z >= anzahl) {
                 break;
             }
-        }
-    }
-
-    class ExportFeedback implements Feedback {
-
-        @Override
-        public void showFeedback(String text) {
-            InfiniteProgressUtils.setTextAsync(JSelectionWizard.this, text);
         }
     }
 

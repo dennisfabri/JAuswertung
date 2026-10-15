@@ -19,7 +19,6 @@ Findings that need a decision before they can be resolved have a *Decide* sectio
 | --- | --- | --- | --- |
 | [Heat chunking in TableHeatUtils is copied three times](table-heat-chunking.md) | Low | S | Splitting into heats and merging sparse tables is repeated in `TableHeatUtils` |
 | [Sex labels are looked up by hand with different fallbacks](sex-labels-by-hand.md) | Low | S | Several places bypass the `I18n` sex helpers; `TimeLimitsPlugin` falls back to English |
-| [Gender exists twice with the same name](gender-class-twice.md) | Low | S | `org.lisasp.competition.base.api.type.Gender` is in jauswertung-io and portal-adapter |
 | [RecordsUpdater's copy of the time parser recurses forever](records-updater-time-parser.md) | Low | S | Developer tool: text times end in `StackOverflowError` |
 | [PrinterCollection exists twice](printer-collection-twice.md) | Low | S | Two `PrinterCollection` classes with different `Printer` interfaces |
 | [Referee table creators are copied](referees-table-creators.md) | Low | S | `RefereesTableCreator` and `RefereesTableCompactCreator` share code and hard-code "Stufe" |
@@ -44,4 +43,3 @@ These look alike but were left as they are:
 - Long/short variants (`Mannschaft.getStarter`/`getStarterShort`, `Lauf.getDisziplin`/`getDisziplinShort`,
   `ZWUtils.getHLWStatus`/`…Kompakt`, `CompetitionUtils.getOrganizationAmounts`/`getQOrganizationAmounts`), and small UI
   boilerplate (wizard pages, drop target listeners, `JNeuerWettkampf`/`JNeueKV`, akeditor group panels).
-- `Sex` vs. `Gender` in portal-adapter: different API types.
