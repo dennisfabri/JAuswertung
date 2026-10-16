@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.fontchooser.JFontChooser;
+import de.df.jutils.gui.fontchooser.JFontChooser;
 
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
 import de.df.jauswertung.gui.util.I18n;
