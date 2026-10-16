@@ -22,19 +22,7 @@
 		
 		<dependency>
 			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-jfx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-l2f</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-dbus</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.lisasp.swing</groupId>
-			<artifactId>filechooser-awt</artifactId>
+			<artifactId>filechooser-platform</artifactId>
 		</dependency>
 	</dependencies>
 </project>

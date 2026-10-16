@@ -410,22 +410,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-jfx</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-l2f</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-dbus</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-awt</artifactId>
+                <artifactId>filechooser-platform</artifactId>
                 <version>${filechooser.version}</version>
             </dependency>
             <dependency>
