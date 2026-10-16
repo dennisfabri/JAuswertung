@@ -21,7 +21,7 @@ class JFontDialog extends JDialog {
 
     private static final long serialVersionUID = -9025893350153624458L;
 
-    private JFontChooser fonts = new JFontChooser();
+    private final JFontChooser fonts = new JFontChooser();
     private boolean accepted = false;
 
     public JFontDialog(JFrame parent) {
