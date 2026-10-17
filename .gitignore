@@ -28,6 +28,7 @@ bin/
 /*.html
 
 *.vs
+!/jauswertung-veranstaltungswertung/src/test/resources/**/*.vs
 
 jauswertung-misc/src/test/resources/competitions/Ergebnisse.csv
 

@@ -27,8 +27,6 @@ import de.df.jutils.gui.JButtonBar;
 import de.df.jauswertung.daten.veranstaltung.Veranstaltung;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JGlassFrame;
 import de.df.jutils.gui.border.ShadowBorder;
@@ -193,7 +191,7 @@ class JVeranstaltungswertung extends JGlassFrame {
         if (filename == null) {
             throw new IllegalArgumentException("name must not be null.");
         }
-        Veranstaltung v = (Veranstaltung) InputManager.ladeObject(filename);
+        Veranstaltung v = Veranstaltungsdatei.lade(filename);
         if (v != null) {
             this.filename = filename;
             vs = v;
@@ -230,7 +228,7 @@ class JVeranstaltungswertung extends JGlassFrame {
             throw new IllegalArgumentException("name must not be null");
         }
         updateVeranstaltung();
-        boolean result = OutputManager.speichereObject(name, vs);
+        boolean result = Veranstaltungsdatei.speichere(name, vs);
         if (!result) {
             DialogUtils.error(this, I18n.get("SaveFailed"), I18n.get("SaveFailedText", filename),
                     I18n.get("SaveFailed.Note", filename));
