@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="Schriftart" id="de.df.jauswertung.veranstaltung.schriftart" description="" classname="de.df.jauswertung.gui.veranstaltung.PSchriftartPlugin">
+</plugin>

@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
 import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
@@ -45,11 +47,11 @@ class JVeranstaltungseinstellungen extends JPanel {
     private ButtonGroup groupEvaluationModes;
     private ButtonGroup groupScale;
 
-    final JVeranstaltungswertung parent;
+    private final Runnable onChange;
+    private boolean updating;
 
-    public JVeranstaltungseinstellungen(JVeranstaltungswertung parent) {
-        this.parent = parent;
-        setBorder(BorderUtils.createLabeledBorder(I18n.get("Properties")));
+    public JVeranstaltungseinstellungen(Runnable onChange) {
+        this.onChange = onChange;
         init();
         initGUI();
     }
@@ -86,14 +88,35 @@ class JVeranstaltungseinstellungen extends JPanel {
         groupScale.add(internationalPerDiscipline);
 
         ActionListener change = arg0 -> {
-            parent.setModified();
-
             boolean force = !bestTeamWithoutBlocking.isSelected();
             internationalPerDiscipline.setEnabled(force);
             if ((!force) && (internationalPerDiscipline.isSelected())) {
                 internationalScale.setSelected(true);
             }
+            changed();
         };
+
+        DocumentListener textChange = new DocumentListener() {
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                changed();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changed();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changed();
+            }
+        };
+        name.getDocument().addDocumentListener(textChange);
+        titleG.getDocument().addDocumentListener(textChange);
+        titleQ.getDocument().addDocumentListener(textChange);
+        location.getDocument().addDocumentListener(textChange);
 
         allAGs.addActionListener(change);
         allTeams.addActionListener(change);
@@ -139,7 +162,22 @@ class JVeranstaltungseinstellungen extends JPanel {
         sfm.getPanel();
     }
 
+    private void changed() {
+        if (!updating) {
+            onChange.run();
+        }
+    }
+
     public void setProperties(Veranstaltung vs) {
+        updating = true;
+        try {
+            setPropertiesI(vs);
+        } finally {
+            updating = false;
+        }
+    }
+
+    private void setPropertiesI(Veranstaltung vs) {
         name.setText(vs.getName());
         location.setText(vs.getLocationAndDate());
         titleG.setText(vs.getTitleOrganization());

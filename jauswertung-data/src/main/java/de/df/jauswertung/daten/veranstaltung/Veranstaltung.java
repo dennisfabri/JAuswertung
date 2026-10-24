@@ -1,6 +1,7 @@
 package de.df.jauswertung.daten.veranstaltung;
 
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,6 @@ public class Veranstaltung implements Serializable {
     private String locationAndDate = "";
 
     public Veranstaltung() {
-        // Nothing to do
     }
 
     private Object getProperty(String id) {
@@ -129,5 +129,34 @@ public class Veranstaltung implements Serializable {
 
     public void setLocationAndDate(String locationAndDate) {
         this.locationAndDate = locationAndDate;
+    }
+
+    public void verweiseRelativieren(String veranstaltungsdatei) {
+        String verzeichnis = verzeichnis(veranstaltungsdatei);
+        for (CompetitionContainer cc : competitions) {
+            String datei = cc.getFilename();
+            int trenner = letzterTrenner(datei);
+            if (trenner >= 0 && verzeichnis(datei).equals(verzeichnis)) {
+                cc.setFilename(datei.substring(trenner + 1));
+            }
+        }
+    }
+
+    public void verweiseAufloesen(String veranstaltungsdatei) {
+        Path verzeichnis = Path.of(veranstaltungsdatei).getParent();
+        for (CompetitionContainer cc : competitions) {
+            String datei = cc.getFilename();
+            if (!datei.isEmpty() && letzterTrenner(datei) < 0) {
+                cc.setFilename(verzeichnis.resolve(datei).toString());
+            }
+        }
+    }
+
+    private static String verzeichnis(String datei) {
+        return datei.substring(0, Math.max(letzterTrenner(datei), 0));
+    }
+
+    private static int letzterTrenner(String datei) {
+        return Math.max(datei.lastIndexOf('/'), datei.lastIndexOf('\\'));
     }
 }

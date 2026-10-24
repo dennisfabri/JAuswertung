@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="Ausgabe" id="de.df.jauswertung.veranstaltung.ausgabe" description="" classname="de.df.jauswertung.gui.veranstaltung.PAusgabePlugin">
+    <dependency id="de.df.jauswertung.veranstaltung.core"/>
+    <dependency id="de.df.jauswertung.veranstaltung.schriftart"/>
+</plugin>

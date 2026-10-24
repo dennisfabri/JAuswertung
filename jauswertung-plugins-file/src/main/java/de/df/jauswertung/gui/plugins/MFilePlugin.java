@@ -4,10 +4,10 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.io.FileFilters;
 import de.df.jutils.plugin.IPluginManager;
 
-public class MFilePlugin extends AFilePlugin {
+public class MFilePlugin extends AFilePlugin<CorePlugin> {
 
     public MFilePlugin() {
-        super(FileFilters.FF_COMPETITION, null, MFilePlugin::neuerWettkampf);
+        super("de.df.jauswertung.core", FileFilters.FF_COMPETITION, "Competition", null, MFilePlugin::neuerWettkampf);
     }
 
     @SuppressWarnings("rawtypes")

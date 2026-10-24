@@ -8,7 +8,7 @@ class JVeranstaltungsschriftartTest {
 
     @Test
     void noFontIsReturnedUntilTheUserChoseOne() {
-        JVeranstaltungsschriftart panel = new JVeranstaltungsschriftart(null);
+        JVeranstaltungsschriftart panel = new JVeranstaltungsschriftart();
 
         assertNull(panel.getSelectedFont());
     }

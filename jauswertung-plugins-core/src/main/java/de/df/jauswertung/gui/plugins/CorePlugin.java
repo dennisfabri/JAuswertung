@@ -34,7 +34,7 @@ import de.df.jutils.util.StringTools;
  * @author Dennis Fabri
  * @date 14.05.2004
  */
-public class CorePlugin extends AFeature {
+public class CorePlugin extends AFeature implements FileCore {
 
     public enum Filemode {
         Competition, Teammembers

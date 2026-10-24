@@ -41,9 +41,9 @@ class SiegerlistePrinter implements Printer {
     JComboBox<String> resultmodus;
     private JPanel panel;
 
-    final JVeranstaltungswertung parent;
+    final Ausgabekontext parent;
 
-    public SiegerlistePrinter(JVeranstaltungswertung parent) {
+    public SiegerlistePrinter(Ausgabekontext parent) {
         this.parent = parent;
         initUI();
     }
@@ -177,14 +177,15 @@ class SiegerlistePrinter implements Printer {
         Veranstaltung vs = parent.getVeranstaltung();
         boolean gliederungen = resultmodus.getSelectedIndex() == 0;
         Font f = getSelectedFont();
-        PrintExecutor.print(() -> getPrintable(vs, gliederungen, f), I18n.get("GroupEvaluation"), parent);
+        PrintExecutor.print(() -> getPrintable(vs, gliederungen, f), I18n.get("GroupEvaluation"),
+                parent.getWindow());
     }
 
     void preview() {
-        parent.setEnabled(false);
+        parent.getWindow().setEnabled(false);
         PrintableCreator pc = new SiegerlistePrintableCreator();
-        parent.setEnabled(true);
-        PrintExecutor.preview(parent, pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
+        parent.getWindow().setEnabled(true);
+        PrintExecutor.preview(parent.getWindow(), pc, I18n.get("GroupEvaluation"), IconManager.getIconBundle(),
                 IconManager.getTitleImages());
     }
 
