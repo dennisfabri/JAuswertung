@@ -108,9 +108,7 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
                         evt -> {
                             options.notifyChange();
                         });
-                JScrollPane scroll = new JScrollPane(fontChooser);
-                scroll.setBorder(null);
-                fontPanel.add(scroll, CC.xy(2, 2));
+                fontPanel.add(fontChooser, CC.xy(2, 2));
             }
 
             results = new JCheckBox(I18n.get("PrintResultsHorizontallyInProtocol"));
