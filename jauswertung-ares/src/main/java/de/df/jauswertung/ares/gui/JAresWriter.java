@@ -60,6 +60,7 @@ public class JAresWriter extends JFrame {
     private ModifiableListModel<FileLocation> filesmodel;
     private JList<FileLocation> files;
     private JTextField directory;
+    private JButton chooseDirectory;
     private JButton add;
     private JButton remove;
     private JMenuItem saveExportSet;
@@ -70,6 +71,7 @@ public class JAresWriter extends JFrame {
         files = new JList<>(filesmodel);
         files.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         directory = new JWarningTextField(true, false);
+        chooseDirectory = new JButton("...");
         add = new JButton(IconManager.getSmallIcon("more"));
         remove = new JButton(IconManager.getSmallIcon("less"));
 
@@ -100,15 +102,16 @@ public class JAresWriter extends JFrame {
 
     private void initUI() {
         FormLayout layout = new FormLayout(
-                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu",
                 "4dlu,fill:default,4dlu,fill:default:grow,4dlu,fill:default,4dlu,fill:default,4dlu");
         setLayout(layout);
         add(add, CC.xy(2, 2));
         add(remove, CC.xy(4, 2));
-        add(new JScrollPane(files), CC.xyw(2, 4, 7));
-        add(new JLabel(I18n.get("AresWriter.ExportDirectory")), CC.xyw(2, 6, 7));
+        add(new JScrollPane(files), CC.xyw(2, 4, 9));
+        add(new JLabel(I18n.get("AresWriter.ExportDirectory")), CC.xyw(2, 6, 9));
         add(directory, CC.xyw(2, 8, 5));
-        add(export, CC.xy(8, 8));
+        add(chooseDirectory, CC.xy(8, 8));
+        add(export, CC.xy(10, 8));
     }
 
     private void initEvents() {
@@ -127,6 +130,9 @@ public class JAresWriter extends JFrame {
         });
         remove.addActionListener(e -> {
             doRemove();
+        });
+        chooseDirectory.addActionListener(e -> {
+            doChooseDirectory();
         });
         directory.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -204,6 +210,13 @@ public class JAresWriter extends JFrame {
         checkStates();
     }
 
+    private void doChooseDirectory() {
+        String dir = FileChooserUtils.chooseDirectory(this);
+        if (dir != null) {
+            directory.setText(dir);
+        }
+    }
+
     private void doRemove() {
         if (files.isSelectionEmpty()) {
             return;
@@ -217,6 +230,10 @@ public class JAresWriter extends JFrame {
         if (fn == null || fn.isEmpty()) {
             return;
         }
+        openExportSet(fn);
+    }
+
+    public void openExportSet(String fn) {
         AresExportSet set;
         try {
             set = exportSetFile.read(Path.of(fn));
@@ -278,7 +295,8 @@ public class JAresWriter extends JFrame {
 
     private void doClose() {
         if (hasUnsavedChanges() && !DialogUtils.askAndWarn(this, I18n.get("QuitEditorTitle", I18n.get("AresWriter")),
-                I18n.get("QuitEditorText", I18n.get("AresWriter")), I18n.get("QuitEditor.Note"))) {
+                I18n.get("AresWriter.QuitUnsavedChanges", I18n.get("AresWriter")),
+                I18n.get("AresWriter.QuitUnsavedChanges.Note"))) {
             return;
         }
         setVisible(false);
