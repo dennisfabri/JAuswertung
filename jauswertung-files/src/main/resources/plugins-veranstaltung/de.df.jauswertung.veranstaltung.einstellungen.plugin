@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="Einstellungen" id="de.df.jauswertung.veranstaltung.einstellungen" description="" classname="de.df.jauswertung.gui.veranstaltung.PEinstellungenPlugin">
+    <dependency id="de.df.jauswertung.veranstaltung.core"/>
+</plugin>

@@ -3,7 +3,7 @@ package de.df.jauswertung.gui;
 import de.df.jauswertung.gui.akeditor.JAKsEditor;
 import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.veranstaltung.Veranstaltungswertung;
+import de.df.jauswertung.gui.veranstaltung.VeranstaltungswertungLauncher;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.util.PrinterInit;
 import de.df.jauswertung.util.DefaultInit;
@@ -50,7 +50,7 @@ public final class Launcher {
                     return;
                 }
                 if ((name.equalsIgnoreCase("-veranstaltungswertung"))) {
-                    launchVeranstaltungswertung();
+                    VeranstaltungswertungLauncher.main(new String[0]);
                     return;
                 }
                 if (name.equalsIgnoreCase("-alphaserver") || name.equalsIgnoreCase("-as")) {
@@ -75,7 +75,7 @@ public final class Launcher {
                 return;
             }
             if (name.toLowerCase().endsWith(".vs")) {
-                launchVeranstaltungswertung(name);
+                VeranstaltungswertungLauncher.main(new String[] { "-open", name });
                 return;
             }
         } else {
@@ -121,13 +121,5 @@ public final class Launcher {
 
     private static void launchAlphaServer() {
         EDTUtils.executeOnEDT(JCollector::run);
-    }
-
-    private static void launchVeranstaltungswertung() {
-        EDTUtils.executeOnEDT(Veranstaltungswertung::start);
-    }
-
-    private static void launchVeranstaltungswertung(String filename) {
-        EDTUtils.executeOnEDT(() -> Veranstaltungswertung.start(filename));
     }
 }

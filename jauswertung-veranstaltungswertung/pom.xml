@@ -16,6 +16,14 @@
 			<groupId>de.dennisfabri.jauswertung</groupId>
 			<artifactId>jauswertung-io</artifactId>
 		</dependency>		
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.dennisfabri.jauswertung</groupId>
+			<artifactId>jauswertung-plugins-info</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>de.dennisfabri.jutils</groupId>

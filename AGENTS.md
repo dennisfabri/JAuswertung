@@ -27,7 +27,7 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
 
 | Module | Purpose |
 | --- | --- |
-| `jauswertung-files` | No Java. Runtime resource tree: `plugins/` and `plugins-mmm/` (plugin descriptors), `aks/` (`.rwe`/`.rwm` rulebooks), `penalties/`, icons, images, `logback.xml`, `development/`. **This is the runtime working directory.** |
+| `jauswertung-files` | No Java. Runtime resource tree: `plugins/`, `plugins-mmm/` and `plugins-veranstaltung/` (plugin descriptors), `aks/` (`.rwe`/`.rwm` rulebooks), `penalties/`, icons, images, `logback.xml`, `development/`. **This is the runtime working directory.** |
 | `jauswertung-data` | Domain model `de.df.jauswertung.daten` (`AWettkampf`, `EinzelWettkampf`/`MannschaftWettkampf`, `ASchwimmer`, `Laufliste`, `regelwerk.*`), `util.Utils`, `gui.util.I18n`. Lowest level. |
 | `jauswertung-swing` | Shared Swing utilities, `util.DefaultInit` (application init). |
 | `jauswertung-print` | Printing infrastructure (flying-saucer, certificate page `UrkundenSeite`). |
@@ -35,7 +35,7 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
 | `jauswertung-times-extractor`, `-ares`, `-dp-extensions`, `-web` | Integrations: time extraction, Ares timing, display tool/splitter, result upload. |
 | `jauswertung-akeditor` | Rulebook/age-group editor (`JAKsEditor`). |
 | `jauswertung-plugins-*` | GUI plugins. `-core` (`CorePlugin`: holds the current competition, load/save) and `-editor` are the base most others build on; `-input` (time entry, electronic timing, referees, …), `-print` (all printers), `-heats`, `-checks`, `-importexport` (wizards, autosave), `-undoredo`, etc. |
-| `jauswertung-veranstaltungswertung` | Event-wide scoring (`.vs` files). |
+| `jauswertung-veranstaltungswertung` | Event-wide scoring app (`.vs` files, uses `plugins-veranstaltung/`). |
 | `jteams` | Team-member registration app (uses `plugins-mmm/`). |
 | `jauswertung` | Aggregator: entry points (`gui.JAuswertungLauncher`, `gui.Launcher` file-association dispatcher, `AresLauncher`, …) and the German user manual (`src/site/markdown`). |
 | `jauswertung-misc` | Developer tools with their own `main` methods (test-data generation, anonymizer, records updater). Tests skipped. |
@@ -57,10 +57,10 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
 `APlugin`, `AFeature`, `PluginManager`, `UpdateEvent`).
 
 - Each plugin has an XML descriptor **without file extension** in `jauswertung-files/src/main/resources/plugins/`
-  (and `plugins-mmm/` if jteams needs it), e.g.
+  (and `plugins-mmm/` if jteams needs it; the Veranstaltungswertung has its own set in `plugins-veranstaltung/`), e.g.
   `<plugin name="Printplugin" id="de.df.jauswertung.print" classname="de.df.jauswertung.gui.plugins.print.PPrintPlugin"><dependency id="de.df.jauswertung.core"/></plugin>`.
-- `PluginManager` scans `user.dir/plugins`, sorts plugins topologically by declared dependencies, and instantiates the
-  classes from the classpath.
+- `PluginManager` scans the plugin directory of the application (`user.dir/plugins` for JAuswertung), sorts plugins
+  topologically by declared dependencies, and instantiates the classes from the classpath.
 - Adding a plugin means: the class, its descriptor, a `<dependency>` element for every plugin it looks up, and a Maven
   dependency on its module in `jauswertung/pom.xml` (and `jteams/pom.xml` if applicable). Missing any of these fails
   only at runtime.

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="Wettkaempfe" id="de.df.jauswertung.veranstaltung.wettkaempfe" description="" classname="de.df.jauswertung.gui.veranstaltung.PWettkaempfePlugin">
+    <dependency id="de.df.jauswertung.veranstaltung.core"/>
+</plugin>

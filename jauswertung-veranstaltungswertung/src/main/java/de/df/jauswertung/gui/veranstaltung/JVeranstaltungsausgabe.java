@@ -6,15 +6,10 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jutils.gui.border.BorderUtils;
 
 class JVeranstaltungsausgabe extends JPanel {
 
-    final JVeranstaltungswertung parent;
-
-    public JVeranstaltungsausgabe(JVeranstaltungswertung parent) {
-        this.parent = parent;
-        setBorder(BorderUtils.createLabeledBorder(I18n.get("Output")));
+    public JVeranstaltungsausgabe(Ausgabekontext parent) {
         setLayout(new FormLayout("4dlu,fill:default:grow,4dlu", "4dlu,fill:default,4dlu"));
 
         PrinterCollection pc = new PrinterCollection("Results");

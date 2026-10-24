@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -37,6 +36,7 @@ import de.df.jutils.gui.border.ShadowBorder;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.WindowUtils;
+import de.df.jutils.plugin.IPluginManager;
 
 class JCompetitionCollector extends JPanel {
 
@@ -50,10 +50,12 @@ class JCompetitionCollector extends JPanel {
     private JTransparentButton remove;
     private JTransparentButton check;
 
-    JFrame parent;
+    private final IPluginManager controller;
+    private final Runnable onChange;
 
-    public JCompetitionCollector(JFrame parent) {
-        this.parent = parent;
+    public JCompetitionCollector(IPluginManager controller, Runnable onChange) {
+        this.controller = controller;
+        this.onChange = onChange;
 
         setBorder(BorderUtils.createLabeledBorder(I18n.get("Competitions")));
         data = new ModifiableListModel<>();
@@ -100,6 +102,7 @@ class JCompetitionCollector extends JPanel {
 
     void setProperties(Veranstaltung vs) {
         setCompetitions(vs.getCompetitions());
+        updateButtons();
     }
 
     void getProperties(Veranstaltung vs) {
@@ -184,6 +187,7 @@ class JCompetitionCollector extends JPanel {
 
     void addCompetition() {
         data.addLast(new CompetitionContainer("", ""));
+        onChange.run();
         editiere(data.getSize() - 1);
         updateButtons();
     }
@@ -198,6 +202,7 @@ class JCompetitionCollector extends JPanel {
     void deleteCompetition() {
         if (competitions.getSelectedIndex() >= 0) {
             data.remove(competitions.getSelectedIndex());
+            onChange.run();
         }
         updateButtons();
     }
@@ -225,7 +230,7 @@ class JCompetitionCollector extends JPanel {
                 names.addLast(c.getName());
             }
         }
-        new JSimilarityCheck(parent, (AWettkampf[]) wks.toArray(new AWettkampf[wks.size()]),
+        new JSimilarityCheck(controller.getWindow(), (AWettkampf[]) wks.toArray(new AWettkampf[wks.size()]),
                 (String[]) names.toArray(new String[names.size()]))
                         .setVisible(true);
     }
@@ -237,7 +242,7 @@ class JCompetitionCollector extends JPanel {
         private final CompetitionContainer container;
 
         public JCompetitionEditor(int index) {
-            super(parent, I18n.get("Edit"), true);
+            super(controller.getWindow(), I18n.get("Edit"), true);
 
             container = data.getElementAt(index);
             name.setText(container.getName());
@@ -270,7 +275,7 @@ class JCompetitionCollector extends JPanel {
             add(buttons, CC.xyw(2, 6, 5));
 
             pack();
-            WindowUtils.center(this, parent);
+            WindowUtils.center(this, controller.getWindow());
         }
 
         void ok() {
@@ -278,6 +283,7 @@ class JCompetitionCollector extends JPanel {
             container.setFilename(file.getText());
             EDTUtils.repaintLater(competitions);
             setVisible(false);
+            onChange.run();
         }
 
         void cancel() {
@@ -285,7 +291,7 @@ class JCompetitionCollector extends JPanel {
         }
 
         void browse() {
-            String fn = FileChooserUtils.openFile(parent, wkff);
+            String fn = FileChooserUtils.openFile(this, wkff);
             if (fn != null) {
                 file.setText(fn);
             }
