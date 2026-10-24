@@ -13,6 +13,11 @@ public final class AresLauncher {
     public static void main(String[] args) {
         DefaultInit.init();
         DesignInit.init();
-        new JAresWriter().setVisible(true);
+        JAresWriter writer = new JAresWriter();
+        writer.setVisible(true);
+        if (args != null && args.length > 1 && "-open".equalsIgnoreCase(args[0]) && args[1] != null
+                && !args[1].isBlank()) {
+            writer.openExportSet(args[1].trim());
+        }
     }
 }

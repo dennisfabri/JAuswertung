@@ -346,7 +346,7 @@ java.desktop/sun.awt.X11=ALL-UNNAMED</content>
       </iconImageFiles>
     </launcher>
     <launcher name="AresWriter" id="476">
-      <executable name="AresWriter" iconSet="true" executableDir="." stderrFile="~/.JAuswertungHome/areswriter-error.log" executableMode="gui" singleInstance="true" />
+      <executable name="AresWriter" iconSet="true" executableDir="." stderrFile="~/.JAuswertungHome/areswriter-error.log" executableMode="gui" />
       <splashScreen show="true" bitmapFile="../target/distribution/main/images/banner.png" />
       <java mainClass="de.df.jauswertung.gui.AresLauncher">
         <classPath>
@@ -783,6 +783,18 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="description" type="string">Veranstaltungswertung</property>
                   <property name="extension" type="string">vs</property>
+                  <property name="launcherId" type="string">366</property>
+                  <property name="windowsIconFile">
+                    <object class="com.install4j.api.beans.ExternalFile">
+                      <string>../target/distribution/main/icons/jDatei.ico</string>
+                    </object>
+                  </property>
+                </serializedBean>
+              </action>
+              <action name="aex" id="1187" beanClass="com.install4j.runtime.beans.actions.desktop.CreateFileAssociationAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="description" type="string">Ares-Exportliste</property>
+                  <property name="extension" type="string">aex</property>
                   <property name="launcherId" type="string">366</property>
                   <property name="windowsIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">

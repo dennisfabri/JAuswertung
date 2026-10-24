@@ -78,6 +78,10 @@ public final class Launcher {
                 VeranstaltungswertungLauncher.main(new String[] { "-open", name });
                 return;
             }
+            if (name.toLowerCase().endsWith(".aex")) {
+                AresLauncher.main(new String[] { "-open", name });
+                return;
+            }
         } else {
             launchAKsEditor(null);
             return;

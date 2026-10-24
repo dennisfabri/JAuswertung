@@ -217,6 +217,10 @@ public class JAresWriter extends JFrame {
         if (fn == null || fn.isEmpty()) {
             return;
         }
+        openExportSet(fn);
+    }
+
+    public void openExportSet(String fn) {
         AresExportSet set;
         try {
             set = exportSetFile.read(Path.of(fn));
