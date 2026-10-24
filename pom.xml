@@ -394,9 +394,9 @@
                 <version>${httpclient5.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.legacy</groupId>
-                <artifactId>l2fprod-common-fontchooser</artifactId>
-                <version>${l2fprod.version}</version>
+                <groupId>de.dennisfabri.jutils</groupId>
+                <artifactId>jutils-fontchooser</artifactId>
+                <version>${jutils.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.xhtmlrenderer</groupId>
@@ -410,22 +410,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-jfx</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-l2f</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-dbus</artifactId>
-                <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.swing</groupId>
-                <artifactId>filechooser-awt</artifactId>
+                <artifactId>filechooser-platform</artifactId>
                 <version>${filechooser.version}</version>
             </dependency>
             <dependency>

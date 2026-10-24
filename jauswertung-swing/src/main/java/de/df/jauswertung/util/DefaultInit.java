@@ -7,15 +7,8 @@ package de.df.jauswertung.util;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.util.OSUtils;
 import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
-import org.lisasp.swing.filechooser.FileChooser;
-import org.lisasp.swing.filechooser.FileChooserUtils;
-import org.lisasp.swing.filechooser.SafeFileChooser;
-import org.lisasp.swing.filechooser.awt.FileChooserAwt;
-import org.lisasp.swing.filechooser.dbus.FileChooserDBus;
-import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
-import org.lisasp.swing.filechooser.l2f.FileChooserL2f;
+import org.lisasp.swing.filechooser.platform.PlatformFileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skt.swing.scroll.ScrollGestureRecognizer;
@@ -56,7 +49,7 @@ public final class DefaultInit {
         SystemStreamsToLog.install();
 
         UIStateUtils.initUIState();
-        initFileChooser();
+        PlatformFileChooser.initialize();
 
         SwingUtilities.invokeLater(() -> {
             try {
@@ -66,28 +59,6 @@ public final class DefaultInit {
                 re.printStackTrace();
             }
         });
-    }
-
-    private static void initFileChooser() {
-        FileChooserUtils.initialize(determineFileChooser());
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new JFileChooser();
-            } catch (RuntimeException re) {
-                re.printStackTrace();
-            }
-        });
-    }
-
-    private static FileChooser determineFileChooser() {
-        if (OSUtils.isWindows()) {
-            return new FileChooserJFX();
-        }
-        if (OSUtils.isLinux()) {
-            return new SafeFileChooser(new FileChooserDBus(), new FileChooserAwt(new FileChooserL2f()));
-        }
-        return new FileChooserL2f();
-
     }
 
     static void initPrintManager() {

@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.fontchooser.JFontChooser;
+import de.df.jutils.gui.fontchooser.JFontChooser;
 
 import de.df.jauswertung.gui.plugins.MOptionenPlugin;
 import de.df.jauswertung.gui.util.I18n;
@@ -108,9 +108,7 @@ public class OPrintOptionsPlugin extends AFeature implements MOptionenPlugin.Opt
                         evt -> {
                             options.notifyChange();
                         });
-                JScrollPane scroll = new JScrollPane(fontChooser);
-                scroll.setBorder(null);
-                fontPanel.add(scroll, CC.xy(2, 2));
+                fontPanel.add(fontChooser, CC.xy(2, 2));
             }
 
             results = new JCheckBox(I18n.get("PrintResultsHorizontallyInProtocol"));

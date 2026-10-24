@@ -18,8 +18,8 @@
 		</dependency>		
 
 		<dependency>
-			<groupId>org.lisasp.legacy</groupId>
-			<artifactId>l2fprod-common-fontchooser</artifactId>
+			<groupId>de.dennisfabri.jutils</groupId>
+			<artifactId>jutils-fontchooser</artifactId>
 		</dependency>		
 	</dependencies>
   

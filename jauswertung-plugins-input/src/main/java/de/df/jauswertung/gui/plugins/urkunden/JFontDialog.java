@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-import com.l2fprod.common.fontchooser.JFontChooser;
+import de.df.jutils.gui.fontchooser.JFontChooser;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
@@ -21,7 +21,7 @@ class JFontDialog extends JDialog {
 
     private static final long serialVersionUID = -9025893350153624458L;
 
-    private JFontChooser fonts = new JFontChooser();
+    private final JFontChooser fonts = new JFontChooser();
     private boolean accepted = false;
 
     public JFontDialog(JFrame parent) {
