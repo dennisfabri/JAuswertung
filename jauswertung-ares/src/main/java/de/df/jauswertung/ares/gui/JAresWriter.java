@@ -295,7 +295,8 @@ public class JAresWriter extends JFrame {
 
     private void doClose() {
         if (hasUnsavedChanges() && !DialogUtils.askAndWarn(this, I18n.get("QuitEditorTitle", I18n.get("AresWriter")),
-                I18n.get("QuitEditorText", I18n.get("AresWriter")), I18n.get("QuitEditor.Note"))) {
+                I18n.get("AresWriter.QuitUnsavedChanges", I18n.get("AresWriter")),
+                I18n.get("AresWriter.QuitUnsavedChanges.Note"))) {
             return;
         }
         setVisible(false);
