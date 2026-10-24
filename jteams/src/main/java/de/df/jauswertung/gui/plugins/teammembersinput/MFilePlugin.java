@@ -5,10 +5,10 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.CorePlugin.Filemode;
 import de.df.jauswertung.io.FileFilters;
 
-public class MFilePlugin extends AFilePlugin {
+public class MFilePlugin extends AFilePlugin<CorePlugin> {
 
     public MFilePlugin() {
-        super(FileFilters.FF_TEAMMEMBERS, "Teammembers");
+        super("de.df.jauswertung.core", FileFilters.FF_TEAMMEMBERS, "Competition", "Teammembers", null);
     }
 
     @Override

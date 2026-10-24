@@ -26,17 +26,19 @@ import de.df.jutils.plugin.RemoteAction;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.RecentlyUsedFiles;
 
-public abstract class AFilePlugin extends ANullPlugin {
+public abstract class AFilePlugin<C extends FileCore> extends ANullPlugin {
 
     record SaveActions(boolean save, boolean saveAs, boolean saveButton) {
     }
 
+    private final String coreId;
     private final SimpleFileFilter filter;
+    private final String subject;
     private final RecentlyUsedFiles recentlyFiles;
-    private final BiConsumer<IPluginManager, CorePlugin> newFile;
+    private final BiConsumer<IPluginManager, C> newFile;
 
     private IPluginManager controller;
-    private CorePlugin core;
+    private C core;
 
     private JMenuItem[] menu;
     private JMenuItem[] recent;
@@ -45,13 +47,16 @@ public abstract class AFilePlugin extends ANullPlugin {
     private JMenuItem saveAsMenu;
     private JButton saveButton;
 
-    protected AFilePlugin(SimpleFileFilter filter, String recentlyUsedKey) {
-        this(filter, recentlyUsedKey, null);
-    }
-
-    protected AFilePlugin(SimpleFileFilter filter, String recentlyUsedKey,
-            BiConsumer<IPluginManager, CorePlugin> newFile) {
+    /**
+     * @param coreId  id of the core plugin that holds the file
+     * @param subject suffix of the tooltip keys, e.g. "Competition" for "ToolTip.OpenCompetition"
+     * @param newFile creates a new file; {@code null} offers no "New" action
+     */
+    protected AFilePlugin(String coreId, SimpleFileFilter filter, String subject, String recentlyUsedKey,
+            BiConsumer<IPluginManager, C> newFile) {
+        this.coreId = coreId;
         this.filter = filter;
+        this.subject = subject;
         this.newFile = newFile;
         recentlyFiles = RecentlyUsedFiles.open(Utils.getPreferences(), recentlyUsedKey);
     }
@@ -61,14 +66,15 @@ public abstract class AFilePlugin extends ANullPlugin {
         return new SaveActions(save, true, save || !hasFilename);
     }
 
-    protected void prepare(CorePlugin c) {
+    protected void prepare(C c) {
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void setController(IPluginManager c, String uid) {
         super.setController(c, uid);
         controller = c;
-        core = (CorePlugin) controller.getFeature("de.df.jauswertung.core", uid);
+        core = (C) controller.getFeature(coreId, uid);
         prepare(core);
         initialize();
         controller.addRemoteActionListener(new IRemoteActionListener() {
@@ -95,41 +101,41 @@ public abstract class AFilePlugin extends ANullPlugin {
 
         if (newFile != null) {
             JMenuItem newMenu = new JMenuItem(I18n.get("New"), IconManager.getSmallIcon("newfile"));
-            newMenu.setToolTipText(I18n.getToolTip("NewCompetition"));
+            newMenu.setToolTipText(I18n.getToolTip("New" + subject));
             newMenu.setAccelerator(I18n.getKeyStroke("newfile"));
             newMenu.addActionListener(e -> newFile.accept(controller, core));
             menuItems.add(newMenu);
 
             JButton newButton = new JButton(IconManager.getSmallIcon("newfile"));
-            newButton.setToolTipText(I18n.getToolTip("NewCompetition"));
+            newButton.setToolTipText(I18n.getToolTip("New" + subject));
             newButton.addActionListener(e -> newFile.accept(controller, core));
             buttonList.add(newButton);
         }
 
         JMenuItem openMenu = new JMenuItem(I18n.get("Open"), IconManager.getSmallIcon("openfile"));
-        openMenu.setToolTipText(I18n.getToolTip("OpenCompetition"));
+        openMenu.setToolTipText(I18n.getToolTip("Open" + subject));
         openMenu.setAccelerator(I18n.getKeyStroke("openfile"));
         openMenu.addActionListener(e -> openFile());
         menuItems.add(openMenu);
 
         saveMenu = new JMenuItem(I18n.get("Save"), IconManager.getSmallIcon("savefile"));
-        saveMenu.setToolTipText(I18n.getToolTip("SaveCompetition"));
+        saveMenu.setToolTipText(I18n.getToolTip("Save" + subject));
         saveMenu.setAccelerator(I18n.getKeyStroke("savefile"));
         saveMenu.addActionListener(e -> saveFile());
         menuItems.add(saveMenu);
 
         saveAsMenu = new JMenuItem(I18n.get("SaveAs"), IconManager.getSmallIcon("saveasfile"));
-        saveAsMenu.setToolTipText(I18n.getToolTip("SaveAsCompetition"));
+        saveAsMenu.setToolTipText(I18n.getToolTip("SaveAs" + subject));
         saveAsMenu.addActionListener(e -> saveAsFile());
         menuItems.add(saveAsMenu);
 
         JButton openButton = new JButton(IconManager.getSmallIcon("openfile"));
-        openButton.setToolTipText(I18n.getToolTip("OpenCompetition"));
+        openButton.setToolTipText(I18n.getToolTip("Open" + subject));
         openButton.addActionListener(e -> openFile());
         buttonList.add(openButton);
 
         saveButton = new JButton(IconManager.getSmallIcon("savefile"));
-        saveButton.setToolTipText(I18n.getToolTip("SaveCompetition"));
+        saveButton.setToolTipText(I18n.getToolTip("Save" + subject));
         saveButton.addActionListener(e -> saveOrSaveAs());
         buttonList.add(saveButton);
 
