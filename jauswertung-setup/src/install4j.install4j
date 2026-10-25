@@ -413,6 +413,108 @@ java.desktop/sun.awt.X11=ALL-UNNAMED</content>
         <file path="../target/distribution/main/icons/alphaserver-256.png" />
       </iconImageFiles>
     </launcher>
+    <launcher name="AlphaTiming" id="1387">
+      <executable name="AlphaTiming" iconSet="true" stderrFile="~/.JAuswertungHome/alphatiming-error.log" executableMode="gui" />
+      <java mainClass="org.lisasp.alphatiming.ui.AlphaTimingLauncher">
+        <classPath>
+          <archive location="alphatiming/alphatiming.jar" failOnError="false" />
+          <scanDirectory location="alphatiming/lib" failOnError="false" />
+        </classPath>
+      </java>
+      <vmOptionsFile mode="content">
+        <content># Enter one VM parameter per line
+# To include another file, uncomment the following line:
+# -include-options [path to other .vmoption file]
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED
+--enable-native-access=ALL-UNNAMED</content>
+      </vmOptionsFile>
+      <iconImageFiles>
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-16.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-32.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-48.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-128.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-256.png" />
+      </iconImageFiles>
+    </launcher>
+    <launcher name="alphatiming-tui" id="1388" excludeFromMenu="true">
+      <executable name="alphatiming-tui" iconSet="true" redirectStderr="false" executableMode="console" />
+      <java mainClass="org.lisasp.alphatiming.tui.TuiLauncher">
+        <classPath>
+          <archive location="alphatiming/alphatiming-tui.jar" failOnError="false" />
+          <scanDirectory location="alphatiming/lib" failOnError="false" />
+        </classPath>
+      </java>
+      <vmOptionsFile mode="content">
+        <content># Enter one VM parameter per line
+# To include another file, uncomment the following line:
+# -include-options [path to other .vmoption file]
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED
+--enable-native-access=ALL-UNNAMED</content>
+      </vmOptionsFile>
+      <iconImageFiles>
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-16.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-32.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-48.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-128.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-256.png" />
+      </iconImageFiles>
+    </launcher>
+    <launcher name="alphatiming-cli" id="1389" excludeFromMenu="true">
+      <executable name="alphatiming-cli" iconSet="true" redirectStderr="false" executableMode="console" />
+      <java mainClass="org.lisasp.alphatiming.cli.RecordLauncher">
+        <classPath>
+          <archive location="alphatiming/alphatiming-cli.jar" failOnError="false" />
+          <scanDirectory location="alphatiming/lib" failOnError="false" />
+        </classPath>
+      </java>
+      <vmOptionsFile mode="content">
+        <content># Enter one VM parameter per line
+# To include another file, uncomment the following line:
+# -include-options [path to other .vmoption file]
+--add-opens
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-exports
+java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt=ALL-UNNAMED
+--add-exports
+java.desktop/sun.awt.X11=ALL-UNNAMED
+--enable-native-access=ALL-UNNAMED</content>
+      </vmOptionsFile>
+      <iconImageFiles>
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-16.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-32.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-48.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-128.png" />
+        <file path="../target/distribution/main/alphatiming/icons/alphatiming-256.png" />
+      </iconImageFiles>
+    </launcher>
     <launcher name="dpsplitter-cmd" id="1153" excludeFromMenu="true">
       <executable name="dpsplitter-cmd" iconSet="true" redirectStderr="false" executableMode="console" />
       <splashScreen bitmapFile="../target/distribution/main/images/banner.png" />
