@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.mozilla.universalchardet.UniversalDetector;
@@ -24,6 +25,10 @@ import org.slf4j.LoggerFactory;
 import com.pmease.commons.xmt.VersionedDocument;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
+import com.thoughtworks.xstream.security.ArrayTypePermission;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -67,10 +72,6 @@ import de.df.jauswertung.print.graphics.Dimension;
 import de.df.jauswertung.print.graphics.Point;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.io.exception.UnreadableFileContentException;
-import de.dm.ares.data.Heat;
-import de.dm.ares.data.Lane;
-import de.dm.ares.data.LaneStatus;
-import de.dm.ares.data.util.XStreamUtil;
 
 /**
  * @author Dennis Fabri @date 22.01.2005
@@ -169,7 +170,7 @@ public final class IOUtils {
 
     public static XStream getXStream() {
         if (instance == null) {
-            instance = XStreamUtil.getXStream();
+            instance = new XStream();
             setupPermissions(instance);
 
             instance.aliasType("java.awt.Point", Point.class);
@@ -281,7 +282,11 @@ public final class IOUtils {
     }
 
     private static void setupPermissions(XStream xstream) {
-        xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
+        xstream.addPermission(NoTypePermission.NONE);
+        xstream.addPermission(NullPermission.NULL);
+        xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+        xstream.addPermission(ArrayTypePermission.ARRAYS);
+        xstream.allowTypeHierarchy(Collection.class);
         xstream.allowTypesByWildcard(new String[] { "de.df.jauswertung.daten.**", "java.util.*", "java.lang.*",
                 "de.df.jauswertung.print.graphics.*",
                 "de.df.jutils.print.PageSetting" });

@@ -24,6 +24,10 @@
             <artifactId>jauswertung-io</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.lisasp.alphatiming</groupId>
+            <artifactId>alphatimer-legacy-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
         </dependency>

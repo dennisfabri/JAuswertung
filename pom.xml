@@ -21,6 +21,7 @@
         <!-- Dependencies: compile & runtime -->
         <jutils.version>18.0.2</jutils.version>
         <alphaserver.version>${jutils.version}</alphaserver.version>
+        <alphatiming.version>1.0.0-SNAPSHOT</alphatiming.version>
         <poi.version>5.5.1</poi.version>
         <slf4j.version>2.0.20</slf4j.version>
         <logback.version>1.6.5</logback.version>
@@ -363,6 +364,17 @@
                 <groupId>de.dennisfabri.alphaserver</groupId>
                 <artifactId>alphaserver-server</artifactId>
                 <version>${alphaserver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatiming</groupId>
+                <artifactId>alphatimer-legacy-api</artifactId>
+                <version>${alphatiming.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatiming</groupId>
+                <artifactId>alphatimer-distribution</artifactId>
+                <version>${alphatiming.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>

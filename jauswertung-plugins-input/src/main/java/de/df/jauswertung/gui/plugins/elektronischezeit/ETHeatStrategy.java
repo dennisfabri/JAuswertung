@@ -31,7 +31,7 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.dm.ares.data.Heat;
+import org.lisasp.alphatiming.legacy.api.Heat;
 
 class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
 

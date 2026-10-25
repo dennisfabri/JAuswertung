@@ -1,7 +1,7 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit;
 
 import de.df.jauswertung.gui.plugins.elektronischezeit.layer.HeatInfo;
-import de.dm.ares.data.Heat;
+import org.lisasp.alphatiming.legacy.api.Heat;
 
 public interface IETStrategy {
 

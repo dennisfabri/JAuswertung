@@ -26,7 +26,7 @@ import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.dm.ares.data.Heat;
+import org.lisasp.alphatiming.legacy.api.Heat;
 
 class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
@@ -161,8 +161,8 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         boolean failed = true;
         Heat[] heatsnew = loadHeats();
         if (heatsnew != null) {
-            for (Heat h : heatsnew) {
-                h.updateTimes(10);
+            for (int x = 0; x < heatsnew.length; x++) {
+                heatsnew[x] = ElectronicHeats.inHundredths(heatsnew[x]);
             }
             failed = false;
         } else {

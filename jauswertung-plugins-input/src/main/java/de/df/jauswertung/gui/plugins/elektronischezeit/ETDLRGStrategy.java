@@ -28,8 +28,8 @@ import de.df.jauswertung.util.RandomUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
-import de.dm.ares.data.Heat;
-import de.dm.ares.data.LaneStatus;
+import org.lisasp.alphatiming.legacy.api.Heat;
+import org.lisasp.alphatiming.legacy.api.LaneStatus;
 
 class ETDLRGStrategy<T extends ASchwimmer> implements IETStrategy {
 

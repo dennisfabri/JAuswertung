@@ -1,6 +1,6 @@
 package de.df.jauswertung.gui.plugins.elektronischezeit.sources;
 
-import de.dm.ares.data.Heat;
+import org.lisasp.alphatiming.legacy.api.Heat;
 
 public interface ITimesSource {
     public Heat[] getHeats();
