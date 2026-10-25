@@ -118,7 +118,7 @@ class ETimeOptionsPlugin implements MOptionenPlugin.OptionsPlugin {
             aresfile.setText(SourcesConfig.getAresfile());
             aresfile.getDocument().addDocumentListener(new DocumentChangeListener());
 
-            as = new JRadioButton("AlphaServer");
+            as = new JRadioButton("AlphaServer / AlphaTiming");
             as.addActionListener(new ChangeListener());
             af = new JRadioButton("ARES21-Ergebnisdatei");
             af.addActionListener(new ChangeListener());

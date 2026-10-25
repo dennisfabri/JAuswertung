@@ -2,6 +2,7 @@ package de.df.jauswertung.gui.plugins.elektronischezeit.sources;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import org.lisasp.alphatiming.legacy.api.Heat;
 import org.lisasp.alphatiming.legacy.api.LegacySerialization;
@@ -15,8 +16,13 @@ public class HttpTimesSource implements ITimesSource {
     @Override
     public Heat[] getHeats() {
         String address = SourcesConfig.getAddress();
+        Optional<TimesServerAddress> server = TimesServerAddress.parse(address);
+        if (server.isEmpty()) {
+            log.warn("The timing server address {} is invalid", address);
+            return null;
+        }
         try {
-            byte[] data = HttpUtils.download("http://" + address + ":1999/legacy/heats.xml");
+            byte[] data = HttpUtils.download(server.get().heatsUrl());
             return LegacySerialization.fromXML(new ByteArrayInputStream(data));
         } catch (IOException e) {
             log.warn("Could not load the heats from {}", address, e);
