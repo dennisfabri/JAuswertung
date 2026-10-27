@@ -17,6 +17,7 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.sources.AresfileTimesSour
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.HttpTimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.ITimesSource;
 import de.df.jauswertung.gui.plugins.elektronischezeit.sources.SourcesConfig;
+import de.df.jauswertung.gui.plugins.elektronischezeit.sources.TimesSourceException;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.exception.NotEnabledException;
@@ -28,12 +29,15 @@ import de.df.jutils.plugin.IPlugin;
 import de.df.jutils.plugin.IPluginManager;
 import org.lisasp.alphatiming.legacy.api.Heat;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
     private static final long serialVersionUID = -2312160133856798878L;
 
     private boolean changed = false;
-    private Heat[] heats = null;
+    private Heat[] heats = new Heat[0];
 
     private final MElektronischeZeitPlugin electric;
     private ITimesSource source = null;
@@ -149,7 +153,7 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         super.setVisible(visible);
     }
 
-    private Heat[] loadHeats() {
+    private Heat[] loadHeats() throws TimesSourceException {
         String address = SourcesConfig.getAddress();
         if (address.equalsIgnoreCase("dummy") && Utils.isInDevelopmentMode()) {
             return strategy.generateHeats();
@@ -157,23 +161,37 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
         return source.getHeats();
     }
 
+    /** On failure the times shown so far are kept, so a failed update does not empty the window. */
     void update() {
-        boolean failed = true;
-        Heat[] heatsnew = loadHeats();
-        if (heatsnew != null) {
+        try {
+            Heat[] heatsnew = loadHeats();
             for (int x = 0; x < heatsnew.length; x++) {
                 heatsnew[x] = ElectronicHeats.inHundredths(heatsnew[x]);
             }
-            failed = false;
-        } else {
-            heatsnew = new Heat[0];
-        }
-        heats = heatsnew;
-        if (failed) {
-            heats = new Heat[0];
-            DialogUtils.wichtigeMeldung(this, I18n.get("Error.DownloadOfTimesFailed"));
+            heats = heatsnew;
+        } catch (TimesSourceException e) {
+            log.warn("Could not load the times", e);
+            DialogUtils.wichtigeMeldung(this, describe(e));
         }
         time.updateTimes();
+    }
+
+    static String describe(TimesSourceException e) {
+        String source = e.getSource();
+        String port = String.valueOf(e.getPort());
+        String text = switch (e.getReason()) {
+            case INVALID_ADDRESS -> I18n.get("Error.Times.InvalidAddress", source);
+            case UNKNOWN_HOST -> I18n.get("Error.Times.UnknownHost", source);
+            case NOT_RUNNING -> I18n.get("Error.Times.NotRunning", source, port);
+            case NO_ANSWER -> I18n.get("Error.Times.NoAnswer", source, port);
+            case CONNECTION_FAILED -> I18n.get("Error.Times.ConnectionFailed", source, port);
+            case WRONG_SERVER -> I18n.get("Error.Times.WrongServer", source, port, String.valueOf(e.getHttpStatus()));
+            case UNREADABLE_DATA -> I18n.get("Error.Times.UnreadableData", source, port);
+            case FILE_NOT_SET -> I18n.get("Error.Times.FileNotSet");
+            case FILE_NOT_FOUND -> I18n.get("Error.Times.FileNotFound", source);
+            case FILE_UNREADABLE -> I18n.get("Error.Times.FileUnreadable", source);
+        };
+        return text + "\n\n" + I18n.get("Error.Times.SeeLog");
     }
 
     Heat[] getHeats() {
