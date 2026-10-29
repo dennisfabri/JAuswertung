@@ -126,8 +126,8 @@ There is no server behind the UI, so the desktop application is the only line of
 ## Internationalisation
 
 - UI text is German and lives in `jauswertung-data/src/main/resources/jauswertung.properties` (plus
-  `disziplinen.properties`/`aks.properties` in `jauswertung-io`). Write non-ASCII characters as `\uXXXX` escapes, as the
-  existing file does.
+  `disziplinen.properties`/`aks.properties` in `jauswertung-io`). Properties files are UTF-8 without `\uXXXX` escapes;
+  write umlauts directly.
 - Look up strings with `I18n.get(key, args…)`, tooltips with `I18n.getToolTip(key)` (key `ToolTip.<key>`), shortcuts
   with `I18n.getKeyStroke(key)`. Missing keys silently fall back to the key itself, so check every new key exists.
 - Never hardcode user-visible text in Java code.
