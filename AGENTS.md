@@ -118,9 +118,9 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
 There is no server behind the UI, so the desktop application is the only line of defense. Validate where data enters:
 
 - In the UI, before applying input to the model — surface problems immediately, at the field.
-- At every import boundary: Excel/CSV registrations, timing data (Ares, AlphaServer, times extractor), portal/upload
-  data, and files from disk. Treat their content as untrusted and reject or report invalid data instead of letting it
-  into the model.
+- At every import boundary: Excel/CSV registrations, timing data (Ares, AlphaServer, AlphaTiming, times extractor),
+  portal/upload data, and files from disk. Treat their content as untrusted and reject or report invalid data instead
+  of letting it into the model.
 - Plausibility checks of a complete competition (missing times, implausible values) belong in `jauswertung-plugins-checks`.
 
 ## Internationalisation
@@ -150,8 +150,11 @@ There is no server behind the UI, so the desktop application is the only line of
 ## Build, Test, Run
 
 - Sibling dependencies (uistate, swingfx, swingbits, commons.xmt, l2fprod-common, filechooser, jutils-legacy,
-  AlphaServer) are built and installed to `~/.m2` by `../build-dependencies.sh` (extra args such as `-DskipTests` are
-  passed to Maven). Rebuild `jutils-legacy` first whenever a change here relies on a change there.
+  AlphaServer, alphatimer) are built and installed to `~/.m2` by `../build-dependencies.sh` (extra args such as
+  `-DskipTests` are passed to Maven). Rebuild `jutils-legacy` first whenever a change here relies on a change there.
+- Electronic timing reads its heats through `alphatimer-legacy-api` (`../alphatimer`: `Heat`, `LegacySerialization`,
+  `AresResultFile`); the installer bundles AlphaTiming from `alphatimer-distribution` into its own `alphatiming/`
+  folder with its own class path. AlphaServer is still bundled and started through `Launcher -as`.
 - Do not call `mvn install` on this project.
 - Fast compile check: `mvn clean compile -DskipTests`
 - Full build with tests: `mvn clean verify`. When finishing a branch, a call to `mvn verify` is required.

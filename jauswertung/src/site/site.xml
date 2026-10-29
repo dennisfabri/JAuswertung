@@ -27,6 +27,7 @@
 			<item name="Veranstaltungswertung" href="programme/veranstaltungswertung/veranstaltungswertung.html" />
 			<item name="JTeams" href="programme/jteams/jteams.html" />
 			<item name="AlphaServer" href="programme/alphaserver/alphaserver.html" />
+			<item name="AlphaTiming" href="programme/alphatiming/alphatiming.html" />
 		</menu>
 		<menu name="Ablauf eines Wettkampfs">		
 			<item name="Übersicht" href="ablauf/ablauf.html" />

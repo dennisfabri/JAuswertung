@@ -196,9 +196,9 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
             agegroup.setText(heat.getAltersklasse());
             discipline.setText(heat.getDisziplin());
 
-            for (int x = 0; x < heat.getLanecount(); x++) {
-                // T t = lauf.getSchwimmer(x);
-                LaneInfo lane = heat.getLanes()[x];
+            // every row, so that rows of an empty lane or beyond a smaller heat show nothing of the previous heat
+            for (int x = 0; x < inputs.length; x++) {
+                LaneInfo lane = x < heat.getLanecount() ? heat.getLanes()[x] : null;
                 inputs[x].setEnabled(lane != null);
                 if (lane != null) {
                     heatinfo[1][x].setText(lane.getName());
@@ -216,6 +216,7 @@ class JHeatPanel<T extends ASchwimmer> extends JPanel {
                     for (int y = 1; y < heatinfo.length - 1; y++) {
                         heatinfo[y][x].setText("");
                     }
+                    inputs[x].setText("");
                 }
             }
             if (time != null) {

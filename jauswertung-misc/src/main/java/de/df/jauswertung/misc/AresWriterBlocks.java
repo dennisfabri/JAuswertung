@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
+
+import org.lisasp.alphatiming.legacy.api.Heat;
+import org.lisasp.alphatiming.legacy.api.LaneStatus;
+import org.lisasp.alphatiming.legacy.api.LegacySerialization;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -22,9 +27,6 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.io.InputManager;
-import de.dm.ares.data.Heat;
-import de.dm.ares.data.LaneStatus;
-import de.dm.collector.AlphaHttpServer;
 
 public class AresWriterBlocks {
 
@@ -65,7 +67,7 @@ public class AresWriterBlocks {
             }
         }
         Heat[] ha = heats.toArray(new Heat[0]);
-        fos.write(AlphaHttpServer.toData(ha));
+        fos.write(LegacySerialization.toXML(ha).getBytes(StandardCharsets.UTF_8));
         fos.close();
     }
 

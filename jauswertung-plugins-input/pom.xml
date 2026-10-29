@@ -22,8 +22,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.dennisfabri.alphaserver</groupId>
-			<artifactId>alphaserver-server</artifactId>
+			<groupId>org.lisasp.alphatiming</groupId>
+			<artifactId>alphatimer-legacy-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.dennisfabri.jutils</groupId>

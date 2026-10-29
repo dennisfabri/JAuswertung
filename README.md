@@ -75,6 +75,7 @@ but is not limited to these. In fact, it can be used for any time based contest.
 
 - Technical libaries: [JUtils](https://github.com/dennisfabri/jutils-legacy)
 - Timekeeping connector: [AlphaServer](https://github.com/dennisfabri/AlphaServer)
+- Timekeeping recorder: [AlphaTiming](https://github.com/LISASP-org/alphatimer)
 - Project website: [dennisfabri.de](https://github.com/dennisfabri/dennisfabri.de)
 
 ## License

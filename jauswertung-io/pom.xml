@@ -30,8 +30,8 @@
 			<artifactId>httpclient5</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.dennisfabri.alphaserver</groupId>
-			<artifactId>alphaserver-api</artifactId>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

@@ -19,7 +19,7 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
-import de.dm.ares.data.Heat;
+import org.lisasp.alphatiming.legacy.api.Heat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -178,9 +178,10 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
             }
         } else {
             Heat h = heats[index];
-            updateLower(h.getMaxLane() + 1);
-            long[][] t = h.getTimes();
-            for (int x = 0; x <= h.getMaxLane(); x++) {
+            int maxLane = ElectronicHeats.maxLane(h);
+            updateLower(maxLane + 1);
+            long[][] t = ElectronicHeats.times(h);
+            for (int x = 0; x <= maxLane; x++) {
                 String[] tx = new String[t[x].length];
                 for (int y = 0; y < tx.length; y++) {
                     tx[y] = StringTools.zeitString(t[x][y]);
@@ -251,15 +252,15 @@ class JTimePanel<T extends ASchwimmer> extends JPanel {
                 return;
             }
         }
-        if ((index == heats.length - 1) && (h.hasMissingTime(lanes.length))) {
+        if ((index == heats.length - 1) && (ElectronicHeats.hasMissingTime(h, lanes.length))) {
             boolean ok = DialogUtils.ask(parent, I18n.get("Question.HeatMaybeIncomplete"),
                     I18n.get("Question.HeatMaybeIncomplete.Note"));
             if (!ok) {
                 return;
             }
         }
-        long[][] tx = h.getTimes();
-        int[] result = new int[h.getMaxLane() + 1];
+        long[][] tx = ElectronicHeats.times(h);
+        int[] result = new int[tx.length];
         for (int x = 0; x < result.length; x++) {
             if (tx[x].length > 0) {
                 int y = Math.max(0, times[x].getSelectedIndex());
