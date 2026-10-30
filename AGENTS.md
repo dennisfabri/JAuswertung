@@ -190,11 +190,12 @@ There is no server behind the UI, so the desktop application is the only line of
 - **Comments**: do not write a comment unless it provides benefit on its own — standing alone, with no other context,
   it must tell the reader something they could not already get from the code around it (names, types, structure, a
   nearby signature). A comment that restates what the code does, restates a parameter's name/type/default in prose, or
-  explains something inferable in a few seconds of reading does not clear this bar. The only comments that clear it: a
-  hidden constraint, a subtle invariant, or a workaround for a specific bug that isn't obvious from the code itself.
-  When in doubt, don't add the comment. This is a hard rule, not a default that yields to matching a file's existing
-  style — a comment already present in a file is not evidence it belongs there. Whenever you touch a file or area of
-  code, also remove any existing comment in that area that fails this test.
+  explains something inferable in a few seconds of reading does not clear this bar — do not write it. The only comments
+  that clear it: a hidden constraint, a subtle invariant, or a workaround for a specific bug that isn't obvious from the
+  code itself. When in doubt, don't add the comment. This is a hard rule, not a default that yields to convenience or to
+  matching a file's existing style — a comment already present in a file is not evidence it belongs there. Whenever you
+  touch a file or area of code, also remove any existing comment in that area that fails this test; do not leave it in
+  place because it predates this rule or because removing it feels out of scope.
 - **PTDD (Predictive TDD)**: follow Red-Green-Refactor, but make two predictions explicit. Before writing a test, state
   precisely what the code should do and how you'll observe it (e.g. Given-When-Then). Before running a newly written or
   adjusted test, predict exactly how it will fail; if the actual failure differs, or the test passes unexpectedly, stop
@@ -208,6 +209,16 @@ There is no server behind the UI, so the desktop application is the only line of
   concern is file compatibility, data integrity of a running competition, or correctness of results.
 - **Language**: identifiers in the domain and GUI follow the existing German vocabulary (`Wettkampf`, `Schwimmer`,
   `Laufliste`, `Altersklasse`, `Strafe`); reuse those terms instead of introducing English synonyms for the same concept.
+
+## Git Workflow
+
+- While developing a feature, work on a feature branch and stay on it until the feature is finished. Do not merge into
+  `main` in between. When the feature needs changes in a sibling library, build against that library's feature branch
+  installed into `~/.m2` (see the workspace guide), not against an early merge of it.
+- Start a branch before the first commit when `main` is checked out. Follow-up work goes on the branch that is checked
+  out; do not create further branches unasked.
+- Merge into `main` only when the feature is finished and the user asks for it, with a real merge commit
+  (`git merge --no-ff`), never a fast-forward.
 - **Commit messages**: write them in German, matching the existing history. The body is a brief bullet list of at most
   3–4 one-line bullets. Focus on intention — why the change was made and what behavior it affects — not mechanics
   visible in the diff. Don't mention tests that accompany a code change; do state it when a commit only adds or changes
