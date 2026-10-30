@@ -3,6 +3,7 @@ package de.df.jauswertung.gui;
 import de.df.jauswertung.gui.akeditor.JAKsEditor;
 import de.df.jauswertung.gui.penalties.PenaltyUIUtils;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.UIPreferences;
 import de.df.jauswertung.gui.veranstaltung.VeranstaltungswertungLauncher;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.io.util.PrinterInit;
@@ -26,7 +27,7 @@ public final class Launcher {
 
         DefaultInit.init();
         PrinterInit.init();
-        DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), Utils.getUIPerformanceMode());
+        DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), UIPreferences.getUIPerformanceMode());
 
         if ((args != null) && (args.length > 0) && (args[0] != null)) {
             String name = args[0].trim();

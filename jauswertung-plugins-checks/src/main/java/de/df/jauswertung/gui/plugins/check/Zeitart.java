@@ -2,7 +2,7 @@ package de.df.jauswertung.gui.plugins.check;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.gui.util.TimeStatus;
 
 enum Zeitart {

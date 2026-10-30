@@ -25,7 +25,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jutils.functional.BooleanConsumer;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JIntegerField.Validator;
@@ -188,7 +188,7 @@ class JMeanTimeEditor extends JDialog {
         int zeit = schwimmer.getZeit(disziplin);
         if (zeit != meantime) {
             schwimmer.setZeit(disziplin, meantime);
-            if (SchwimmerUtils.checkTimeAndNotify(this, schwimmer, disziplin)) {
+            if (TimeWarnings.checkTimeAndNotify(this, schwimmer, disziplin)) {
                 controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer, disziplin, null);
             } else {
                 schwimmer.setZeit(disziplin, zeit);

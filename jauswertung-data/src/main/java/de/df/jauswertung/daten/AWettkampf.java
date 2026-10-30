@@ -15,7 +15,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;

@@ -12,7 +12,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.LaufInfo;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 
 class ZielrichterentscheidListCellRenderer extends DefaultListCellRenderer {
 

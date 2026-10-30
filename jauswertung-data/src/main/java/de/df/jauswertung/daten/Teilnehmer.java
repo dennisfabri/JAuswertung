@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 
 /**
  * @author Dennis Fabri

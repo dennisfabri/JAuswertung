@@ -41,7 +41,7 @@ import de.df.jauswertung.gui.plugins.zielrichterentscheid.MZielrichterentscheidP
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.JZieleinlaufDialog;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
@@ -563,7 +563,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         if (swimmers[index] == null) {
             return true;
         }
-        if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
+        if (!TimeWarnings.checkTimeAndNotify(controller.getWindow(), swimmers[index],
                                                strategy.getDiscipline(index))) {
             JIntegerField input = inputs[index];
             EDTUtils.requestFocus(controller.getWindow(), input);

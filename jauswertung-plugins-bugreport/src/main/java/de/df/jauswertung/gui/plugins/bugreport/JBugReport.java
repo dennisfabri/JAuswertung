@@ -56,7 +56,7 @@ final class JBugReport extends JDialog {
     }
 
     void setData(Throwable e, Thread t, Object daten) {
-        br = new BugReport(e, t, daten);
+        br = BugReportCollector.collect(e, t, daten);
         EDTUtils.executeOnEDT(updater);
     }
 

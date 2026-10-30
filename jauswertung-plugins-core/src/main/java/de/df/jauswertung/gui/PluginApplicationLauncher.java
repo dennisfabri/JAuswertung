@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.UIPreferences;
 import de.df.jauswertung.io.util.PrinterInit;
 import de.df.jauswertung.util.BetaFeature;
 import de.df.jauswertung.util.DefaultInit;
@@ -58,7 +59,7 @@ public final class PluginApplicationLauncher {
         tm.start("Loading " + name);
 
         PrinterInit.init();
-        DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), Utils.getUIPerformanceMode());
+        DesignInit.init(Utils.getPreferences().getBoolean("MayUseSystemLaF", true), UIPreferences.getUIPerformanceMode());
 
         tm.start("Loading Splashscreen");
         ProgressSplashWindow splash = new ProgressSplashWindow(getBanner(), 4, false);

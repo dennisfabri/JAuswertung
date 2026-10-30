@@ -5,8 +5,7 @@ look like something else (paths relative to `jauswertung-data/.../daten/`):
 
 | Class | Why it is a candidate |
 | --- | --- |
-| `misc/BugReport` | Diagnostic report, not competition data; collects fonts and printers (see `data-without-swing-and-print.md`) |
-| `misc/ReportBuilder` | Text builder for `BugReport` (`CharArrayWriter`/`PrintWriter`) |
+| `misc/BugReport` | Diagnostic report, not competition data; only holds the collected text (collected by `BugReportCollector` in plugins-bugreport) |
 | `Mannschaftsmitgliedermeldung` | Wrapper around a `MannschaftWettkampf`, root object of `.wkmm` files — check whether it is a file envelope rather than model |
 | `laufliste/OWSelection` | Selection of age group, sex, discipline and round, used by 37 classes outside data, but also stored (`IOUtils` alias) — check whether it is model or a key/DTO |
 | `PropertyConstants` | Constants for the generic property maps of the model; probably model, confirm |

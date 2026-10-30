@@ -12,7 +12,7 @@ moved to its own chore or done here) and remove it once settled.
 | `ASchwimmer` | `util.SearchUtils` | |
 | `ASchwimmer` | `jutils.util.StringTools` | |
 | `AWettkampf` | `gui.util.I18n` | |
-| `AWettkampf` | `gui.util.SchwimmerUtils` | `SchwimmerUtils` leaves `gui.util` (`data-without-swing-and-print.md`) |
+| `AWettkampf` | `util.SchwimmerUtils` | |
 | `AWettkampf` | `util.ergebnis.DataType` | |
 | `AWettkampf` | `util.ergebnis.FormelManager` | |
 | `AWettkampf` | `util.SearchUtils` | |
@@ -20,7 +20,7 @@ moved to its own chore or done here) and remove it once settled.
 | `EinzelWettkampf` | `util.AltersklassenUtils` | |
 | `MannschaftWettkampf` | `util.AltersklassenUtils` | |
 | `MannschaftWettkampf` | `util.RandomUtils` | returns `new Random()`; could be inlined |
-| `Teilnehmer` | `gui.util.SchwimmerUtils` | as above |
+| `Teilnehmer` | `util.SchwimmerUtils` | |
 | `Zielrichterentscheid` | `util.SearchUtils` | |
 | `laufliste/Lauf` | `gui.util.I18n` | |
 | `laufliste/Lauf` | `jutils.util.StringTools` | |
@@ -38,8 +38,6 @@ moved to its own chore or done here) and remove it once settled.
 | `veranstaltung/CompetitionContainer` | `java.io.File` | |
 | `veranstaltung/Veranstaltung` | `java.nio.file.Path` | |
 | `misc/BugReport` | `gui.util.I18n` | `BugReport` may leave `daten` (`daten-only-model.md`) |
-| `misc/BugReport` | `jutils.print.PrintManager`, `java.awt.*`, `java.awt.print.PrinterJob`, `javax.print.PrintService` | `data-without-swing-and-print.md` |
-| `misc/ReportBuilder` | `java.io.CharArrayWriter`, `java.io.PrintWriter` | `ReportBuilder` may leave `daten` (`daten-only-model.md`) |
 
 Found from the `import` statements; fully qualified uses in code are not covered — check with a grep for
 `de.df.` / `java.` outside import lines when working through the list.

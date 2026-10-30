@@ -33,7 +33,7 @@ import de.df.jauswertung.daten.Teilnehmer;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.gui.util.DurchgestrichenerText;
 import de.df.jauswertung.gui.util.SchwimmerDisziplin;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.gui.util.TableHeatUtils;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.CsvExporter;

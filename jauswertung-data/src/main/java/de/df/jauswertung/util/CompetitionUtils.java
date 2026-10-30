@@ -3,14 +3,13 @@
  */
 package de.df.jauswertung.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
-
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -21,7 +20,6 @@ import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
-import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
@@ -96,9 +94,17 @@ public final class CompetitionUtils {
         wk.getRegelwerk().setSize(min);
     }
 
-    public static <T extends ASchwimmer> TableModel generateMedaillenspiegel(AWettkampf<T> wk) {
+    /**
+     * One row of the medal table.
+     *
+     * @param rank 0 when tied with the row above
+     */
+    public record MedalCount(int rank, String gliederung, int gold, int silver, int bronze) {
+    }
+
+    public static <T extends ASchwimmer> List<MedalCount> generateMedaillenspiegel(AWettkampf<T> wk) {
         if (!wk.hasSchwimmer()) {
-            return null;
+            return List.of();
         }
         Regelwerk aks = wk.getRegelwerk();
         Hashtable<String, int[]> medaille = new Hashtable<>();
@@ -141,87 +147,35 @@ public final class CompetitionUtils {
         }
         Collections.sort(medals);
 
+        List<MedalCount> result = new ArrayList<>();
         int x = 0;
         int points = 0;
         int offset = 1;
-        ListIterator<Medal> lm = medals.listIterator();
-        while (lm.hasNext()) {
-            Medal m = lm.next();
+        for (Medal m : medals) {
+            int rank = 0;
             if (points != m.getPoints()) {
                 x += offset;
                 points = m.getPoints();
                 offset = 1;
-                m.setRank(x);
+                rank = x;
             } else {
                 offset++;
-                m.setRank(-1);
             }
+            result.add(new MedalCount(rank, m.getName(), m.getMedals(0), m.getMedals(1), m.getMedals(2)));
         }
-        return new MedalTableModel(medals.toArray(new Medal[medals.size()]));
+        return result;
     }
 
-    static class MedalTableModel extends AbstractTableModel {
-
-        private static String[] titles = new String[] { I18n.get("Rank"), I18n.get("Organisation"),
-                "  " + I18n.get("Gold") + "  ",
-                "  " + I18n.get("Silver") + "  ", "  " + I18n.get("Bronze") + "  " };
-
-        private final Medal[] medals;
-
-        @Override
-        public String getColumnName(int column) {
-            return titles[column];
-        }
-
-        public MedalTableModel(Medal[] medals) {
-            this.medals = medals;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 5;
-        }
-
-        @Override
-        public int getRowCount() {
-            return medals.length;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            switch (columnIndex) {
-            case 0:
-                int rank = medals[rowIndex].getRank();
-                if (rank <= 0) {
-                    return "";
-                }
-                return rank;
-            case 1:
-                return medals[rowIndex].getName();
-            case 2:
-                return medals[rowIndex].getMedals(0);
-            case 3:
-                return medals[rowIndex].getMedals(1);
-            case 4:
-                return medals[rowIndex].getMedals(2);
-            default:
-                return null;
-            }
-        }
-    }
-
-    static class Medal implements Comparable<Medal> {
+    private static class Medal implements Comparable<Medal> {
 
         private String name;
         private int[] medals;
         private int points;
-        private int rank;
 
         public Medal(String name, int[] medals) {
             this.name = name;
             this.medals = medals;
             points = 0;
-            rank = 0;
             for (int x = 0; x < medals.length; x++) {
                 points += (medals.length - x) * medals[x];
             }
@@ -249,7 +203,7 @@ public final class CompetitionUtils {
 
         @Override
         public int hashCode() {
-            return (name + points + rank).hashCode();
+            return (name + points).hashCode();
         }
 
         @Override
@@ -260,14 +214,6 @@ public final class CompetitionUtils {
                 }
             }
             return 0;
-        }
-
-        public int getRank() {
-            return rank;
-        }
-
-        public void setRank(int rank) {
-            this.rank = rank;
         }
     }
 

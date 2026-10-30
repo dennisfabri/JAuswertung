@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jutils.gui.JMiddleline;
 import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.layout.SimpleTableBuilder;

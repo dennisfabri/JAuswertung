@@ -24,7 +24,6 @@ import com.rits.cloning.IFastCloner;
 
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 
-import de.df.jutils.gui.util.UIPerformanceMode;
 
 public final class Utils {
 
@@ -208,17 +207,5 @@ public final class Utils {
             return null;
         }
         return cloner.deepClone(t);
-    }
-
-    public static UIPerformanceMode getUIPerformanceMode() {
-        return switch (getPreferences().getInt("UIPerformanceMode", UIPerformanceMode.Default.value)) {
-            case 1 -> UIPerformanceMode.Software;
-            case 2 -> UIPerformanceMode.OpenGL;
-            default -> UIPerformanceMode.Default;
-        };
-    }
-
-    public static void setUIPerformanceMode(UIPerformanceMode mode) {
-        getPreferences().putInt("UIPerformanceMode", mode.value);
     }
 }

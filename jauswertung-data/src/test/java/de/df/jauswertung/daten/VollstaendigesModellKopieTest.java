@@ -50,7 +50,6 @@ class VollstaendigesModellKopieTest {
             DATEN + ".veranstaltung.CompetitionContainer", "Veranstaltungswertung (.vs)",
             DATEN + ".veranstaltung.Veranstaltung", "Veranstaltungswertung (.vs)",
             DATEN + ".misc.BugReport", "Fehlerberichte",
-            DATEN + ".misc.ReportBuilder", "Fehlerberichte",
             DATEN + ".PropertyConstants", "nur Konstanten",
             DATEN + ".laufliste.Laufliste$Meldesorter", "Comparator, wird nicht gespeichert",
             DATEN + ".laufliste.Laufliste$MeldezeitenComparator", "Comparator, wird nicht gespeichert",

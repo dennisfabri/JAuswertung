@@ -20,7 +20,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.print.util.JTimeSpacer;
 import de.df.jauswertung.util.valueobjects.Startkarte;
 import de.df.jutils.gui.JDottingLabel;

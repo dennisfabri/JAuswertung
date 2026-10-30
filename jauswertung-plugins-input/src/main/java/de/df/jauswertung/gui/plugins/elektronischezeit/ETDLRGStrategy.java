@@ -22,7 +22,7 @@ import de.df.jauswertung.gui.penalties.PenaltyUtils;
 import de.df.jauswertung.gui.plugins.elektronischezeit.layer.HeatInfo;
 import de.df.jauswertung.gui.plugins.elektronischezeit.layer.LaneInfo;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.gui.util.TimeStatus;
 import de.df.jauswertung.util.RandomUtils;
 import de.df.jutils.gui.util.DialogUtils;

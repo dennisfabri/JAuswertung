@@ -10,7 +10,6 @@ in `de.df.jauswertung.gui` and `de.df.jauswertung.print` of this module. Current
 | `gui/util/TimeStatus` | Yes — enum |
 | `print/Zieleinlaufkarte` | Yes — values of a finish card, read from a `Lauf` |
 | `gui/util/SchwimmerInfo` | Check — data class, but `getHeatDifference` and `isSimilar` carry comparison logic |
-| `gui/util/SchwimmerUtils` | No — utility; leaves `gui.util` (`data-without-swing-and-print.md`) |
 | `gui/penalties/PenaltyUtils` | No — utility that formats penalty texts; also referenced from the model (`Strafen`) |
 | `gui/util/I18n` | No — text lookup utility; *Modules* names it as part of this module, so its place needs a decision |
 

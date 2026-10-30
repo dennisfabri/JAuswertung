@@ -10,8 +10,8 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
 import de.df.jauswertung.gui.util.TimeStatus;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JGlassPanel;
 import de.df.jutils.gui.JIntegerField;
@@ -368,7 +368,7 @@ public class JTimesInputPanel extends JGlassPanel<JPanel> {
                 return;
             }
             data = input[disz][index].getText();
-            if (!SchwimmerUtils.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JTimesInputPanel.this),
+            if (!TimeWarnings.checkTimeAndNotify(SwingUtilities.getWindowAncestor(JTimesInputPanel.this),
                                                    swimmers[disz][index], disz)) {
                 EDTUtils.requestFocus(input[disz][index]);
             }

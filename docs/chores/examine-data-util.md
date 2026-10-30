@@ -5,9 +5,8 @@ formulas), `format`, `valueobjects` and `vergleicher` (comparators). *Packages i
 leaves it unclassified until it has been examined; the model already depends on it heavily (see
 `daten-outgoing-references.md`).
 
-Known findings so far: `CompetitionUtils` builds a Swing `TableModel` and `Utils` holds the UI performance mode
-(`data-without-swing-and-print.md`), the team-code format has moved from `Team` to `valueobjects.TeamCode`,
-`RandomUtils` only returns `new Random()`.
+Known findings so far: the team-code format has moved from `Team` to `valueobjects.TeamCode`, `SchwimmerUtils` has
+moved here from `gui.util`, `RandomUtils` only returns `new Random()`.
 
 ## Done when
 

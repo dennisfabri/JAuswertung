@@ -18,7 +18,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.LaufInfo;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jutils.gui.JLabelSeparator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.ModifiableListModel;
