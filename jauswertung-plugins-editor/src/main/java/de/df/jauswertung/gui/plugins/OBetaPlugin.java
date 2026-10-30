@@ -46,8 +46,8 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
         FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
                 "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
         optionsPanel = new JPanel(layout);
-        optionsPanel.setName(I18n.get("Beta"));
-        optionsPanel.setToolTipText(I18n.getToolTip("BetaOptions"));
+        optionsPanel.setName(I18n.get("DeveloperOptions"));
+        optionsPanel.setToolTipText(I18n.getToolTip("DeveloperOptions"));
 
         optionsPanel.add(createArea(Area.FEATURES, "BetaFeatures.Features"), CC.xy(2, 2));
         optionsPanel.add(createArea(Area.DIAGNOSTICS, "BetaFeatures.Diagnostics"), CC.xy(2, 4));
@@ -56,7 +56,7 @@ public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlug
 
     private JPanel createArea(Area area, String titleKey) {
         JPanel panel = new JPanel(new SimpleTableLayout(1, 5, 5));
-        panel.setBorder(BorderUtils.createLabeledBorder(I18n.get(titleKey)));
+        panel.setBorder(BorderUtils.createLabeledBorder(I18n.get(titleKey), true));
         for (BetaFeature feature : BetaFeature.inArea(area)) {
             String key = "BetaFeature." + feature.getKey();
             JCheckBox checkBox = new JCheckBox(I18n.get(key));
