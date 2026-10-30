@@ -149,8 +149,17 @@ names in brackets.
 applies its changes: neither a new competition (rulebook file from `JNeuerWettkampf`) nor opening a competition file
 checks it.
 
-A file is loaded unchecked, so its member age groups may break a "must match" rule. Then the merged age group takes
-that setting from the first member; `getResultWettkampf` switches from the last member to the first.
+A file is loaded unchecked, so its member age groups may break a "must match" rule. Then the merge does not build
+the scoring group but reports the broken rule (scoring group, setting, age groups), and the place that uses the
+functionality shows an error message:
+
+- printouts and the protocol: a dialog, nothing is printed;
+- CSV/Excel/PDF export: a dialog, the export fails;
+- HTTP server: an error response instead of the page.
+
+`jauswertung-data` must not show dialogs (*Dependency Rules*), so the merge signals the error (an exception or a
+result type) and the callers in the UI modules turn it into the message. Loading the file and all other functions keep
+working.
 
 Swimmers appearing twice in `getResultWettkampf` (own age group and scoring group) is intended.
 
