@@ -153,8 +153,6 @@ public class PSearchPlugin extends ANullPlugin {
             }
         }
         model = new SimpleTableModel(new Object[0][0], titles) {
-            private static final long serialVersionUID = 1817151708284665793L;
-
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return PSearchPlugin.this.getColumnClass(columnIndex);
@@ -756,11 +754,6 @@ public class PSearchPlugin extends ANullPlugin {
 
     class JEditPopup extends JPopupMenu {
 
-        /**
-         * Comment for <code>serialVersionUID</code>
-         */
-        private static final long serialVersionUID = 3256441404417716535L;
-
         JMenuItem edititem = null;
         JMenuItem starteritem = null;
         JMenuItem heatsitem = null;
@@ -860,8 +853,6 @@ public class PSearchPlugin extends ANullPlugin {
     }
 
     private class JTableHeaderPopup extends JPopupMenu {
-
-        private static final long serialVersionUID = -2482446706877923019L;
 
         private final JMenuItem[] items = new JMenuItem[IDS.length];
 

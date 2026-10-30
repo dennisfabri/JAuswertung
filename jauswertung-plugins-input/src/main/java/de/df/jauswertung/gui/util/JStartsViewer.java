@@ -30,8 +30,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class JStartsViewer<T extends ASchwimmer> extends JDialog {
 
-    private static final long serialVersionUID = -3805525839643937074L;
-
     private T schwimmer;
     private AWettkampf<T> wk;
 

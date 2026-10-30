@@ -41,8 +41,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JKampfrichterPositionPanel extends JPanel {
 
-    private static final long serialVersionUID = -2978602096884551760L;
-
     private String position;
     private KampfrichterEinheit einheit;
 
@@ -256,7 +254,6 @@ class JKampfrichterPositionPanel extends JPanel {
 
     private Color defaultForeground;
 
-    @SuppressWarnings("serial")
     private void createTop() {
         title = new JLabel();
         Color c = UIManager.getColor("InternalFrame.activeTitleForeground");

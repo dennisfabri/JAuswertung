@@ -80,8 +80,6 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
                                            "0dlu,fill:default,1dlu,fill:default,1dlu,fill:default,"
                                                    + "1dlu,fill:default,1dlu,fill:default:grow," + "1dlu,fill:default,1dlu,fill:default,0dlu");
         JPanel panel = new JPanel(layout) {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();
@@ -134,8 +132,6 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
         // layout.setRowGroups(new int[][] { { 2, 4, 6, 8 } });
 
         JPanel panel = new JPanel(layout) {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();
@@ -194,8 +190,6 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
         layout.setRowGroups(new int[][]{{2, 4, 6, 8}});
 
         JPanel panel = new JPanel(layout) {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();

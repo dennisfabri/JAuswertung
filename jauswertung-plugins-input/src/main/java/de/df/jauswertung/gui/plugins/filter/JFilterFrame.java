@@ -41,8 +41,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JFilterFrame<T extends ASchwimmer> extends JGlassFrame {
 
-    private static final long serialVersionUID = -3625688252323330067L;
-
     private AWettkampf<T> wk = null;
 
     private JPanel main;

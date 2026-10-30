@@ -21,8 +21,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 class JMeldezeitenPanel<T extends ASchwimmer> extends JPanel {
 
-    private static final long serialVersionUID = -5048680404158227209L;
-
     private AWettkampf<T> wk;
     private Altersklasse ak;
     private boolean male;

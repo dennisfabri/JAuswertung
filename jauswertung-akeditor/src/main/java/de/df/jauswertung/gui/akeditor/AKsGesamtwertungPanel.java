@@ -23,11 +23,6 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
  */
 class AKsGesamtwertungPanel extends JPanel {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257288011191498036L;
-
     JCheckBox groupEvaluation;
     JCheckBox allAGs;
     JRadioButton allTeams;

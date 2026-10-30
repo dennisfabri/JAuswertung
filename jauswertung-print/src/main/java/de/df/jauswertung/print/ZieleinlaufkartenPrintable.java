@@ -56,8 +56,6 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
 
     private static JPanel getPanel(Zieleinlaufkarte karte) {
         JPanel panel = new JPanel() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();

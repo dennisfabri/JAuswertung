@@ -34,8 +34,6 @@ import de.df.jutils.plugin.UpdateEvent;
 
 final class JZielrichterentscheidCheckDialog<T extends ASchwimmer> extends JDialog {
 
-    private static final long serialVersionUID = -1245349186646716314L;
-
     private final JFrame parent;
     private final IPluginManager controller;
     private final AWettkampf<T> wk;

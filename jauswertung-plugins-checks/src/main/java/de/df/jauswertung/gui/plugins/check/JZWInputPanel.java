@@ -38,8 +38,6 @@ import de.df.jutils.util.StringTools;
 
 public class JZWInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private CorePlugin core;
     private FEditorPlugin editor;
     private JMissingInputFrame parent;

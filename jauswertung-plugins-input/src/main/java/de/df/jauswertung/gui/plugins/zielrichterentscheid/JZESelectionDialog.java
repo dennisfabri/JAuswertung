@@ -22,7 +22,6 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
-@SuppressWarnings("serial")
 final class JZESelectionDialog<T extends ASchwimmer> extends JDialog {
 
     private JList liste = new JList();

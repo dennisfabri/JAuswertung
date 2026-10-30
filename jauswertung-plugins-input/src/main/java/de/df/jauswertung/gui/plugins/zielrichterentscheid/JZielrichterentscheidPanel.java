@@ -26,8 +26,6 @@ import de.df.jutils.util.StringTools;
 
 class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
 
-    private static final long serialVersionUID = 8251280743952459484L;
-
     private Zielrichterentscheid<T> ze = null;
 
     private JLabel zeit = new JLabel();

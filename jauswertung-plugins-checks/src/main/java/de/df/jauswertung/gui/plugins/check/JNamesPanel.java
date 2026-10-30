@@ -40,8 +40,6 @@ import de.df.jutils.util.TimeMeasurement;
 
 public class JNamesPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private static final String[] SURNAMES;
     private static final String[] FIRSTNAMES_MALE;
     private static final String[] FIRSTNAMES_FEMALE;

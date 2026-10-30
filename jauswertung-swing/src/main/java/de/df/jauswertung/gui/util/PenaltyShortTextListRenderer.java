@@ -17,8 +17,6 @@ public class PenaltyShortTextListRenderer extends DefaultListCellRenderer {
         // Nothing to do
     }
 
-    private static final long serialVersionUID = 4675647196125434845L;
-
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
             boolean cellHasFocus) {

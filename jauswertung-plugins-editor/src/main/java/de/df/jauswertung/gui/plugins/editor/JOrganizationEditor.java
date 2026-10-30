@@ -32,11 +32,6 @@ import de.df.jutils.plugin.IPluginManager;
 
 class JOrganizationEditor extends JDialog {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3256719580843227188L;
-
     JWarningTextField value = null;
     JButton ok = null;
 

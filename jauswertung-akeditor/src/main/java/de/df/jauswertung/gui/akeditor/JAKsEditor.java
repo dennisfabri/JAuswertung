@@ -61,11 +61,6 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 public class JAKsEditor extends JGlassFrame {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3761966081656437047L;
-
     private AKsEditorPanel editor = null;
     private JPanel panel = new JPanel(new BorderLayout(5, 5));
     private boolean fullAccess = false;
@@ -146,8 +141,6 @@ public class JAKsEditor extends JGlassFrame {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 doClose();

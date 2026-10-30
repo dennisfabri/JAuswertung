@@ -42,8 +42,6 @@ import de.df.jutils.gui.jlist.JListUtils;
  */
 class JStrafenkatalogPanel extends JPanel {
 
-    private static final long serialVersionUID = -3908181088972213538L;
-
     private DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 
     private JTree kategorien = new JTree(root);

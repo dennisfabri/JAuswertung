@@ -160,7 +160,6 @@ public final class CompetitionUtils {
         return new MedalTableModel(medals.toArray(new Medal[medals.size()]));
     }
 
-    @SuppressWarnings("serial")
     static class MedalTableModel extends AbstractTableModel {
 
         private static String[] titles = new String[] { I18n.get("Rank"), I18n.get("Organisation"),

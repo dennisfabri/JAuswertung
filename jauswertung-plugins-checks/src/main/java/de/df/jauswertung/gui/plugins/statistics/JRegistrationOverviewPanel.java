@@ -18,8 +18,6 @@ import de.df.jutils.gui.util.UIUtils;
 
 public class JRegistrationOverviewPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private CorePlugin core;
 
     public JRegistrationOverviewPanel(CorePlugin core) {

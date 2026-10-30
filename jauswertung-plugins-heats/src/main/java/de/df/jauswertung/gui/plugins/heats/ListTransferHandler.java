@@ -12,8 +12,6 @@ import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 
 class ListTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T> {
 
-    private static final long serialVersionUID = 3373858402029357418L;
-
     private int index = -1;
 
     // Bundle up the selected items in the list

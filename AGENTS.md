@@ -110,9 +110,11 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
 - Serialization is XStream via `IOUtils.getXStream()` (`jauswertung-io`), with an `allowTypes` whitelist and
   `aliasType` entries for old package names. Versioned classes use commons.xmt `VersionedDocument` with private
   `migrateN(...)` methods (e.g. in `AWettkampf`, `Regelwerk`, `Altersklasse`).
-- Files are read and written only with XStream. Java serialization is not supported: model classes do not implement
-  `Serializable` or declare a `serialVersionUID`, and bug reports written with Java serialization by old versions no
-  longer load.
+- Files are read and written only with XStream. Java serialization is not supported: classes do not implement
+  `Serializable` and do not declare a `serialVersionUID` (Swing classes and exceptions included), and bug reports
+  written with Java serialization by old versions no longer load. Eclipse's "missing serialVersionUID" warning is
+  switched off (`org.eclipse.jdt.core.compiler.problem.missingSerialVersion=ignore`); do not add
+  `@SuppressWarnings("serial")` instead.
 - **Users open files from previous years and previous versions. Every change to a serialized class must keep older
   files loadable.** Renaming or moving a class or field in `de.df.jauswertung.daten` requires an alias or a new migrate
   step; never edit an existing `migrateN`. New types that end up in a file must be covered by the `allowTypes`

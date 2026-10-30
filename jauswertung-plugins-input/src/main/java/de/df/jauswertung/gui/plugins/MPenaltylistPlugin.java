@@ -99,8 +99,6 @@ public class MPenaltylistPlugin extends ANullPlugin {
 
     private class JPenaltyList extends JFrame {
 
-        private static final long serialVersionUID = 8515041458848007238L;
-
         private final JPanel panel = new JPanel();
 
         private Window parent;

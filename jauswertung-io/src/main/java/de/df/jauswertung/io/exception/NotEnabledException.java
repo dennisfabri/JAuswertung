@@ -9,8 +9,6 @@ package de.df.jauswertung.io.exception;
  */
 public class NotEnabledException extends RuntimeException {
 
-    private static final long serialVersionUID = 2320779078523041573L;
-
     public NotEnabledException() {
         super();
     }

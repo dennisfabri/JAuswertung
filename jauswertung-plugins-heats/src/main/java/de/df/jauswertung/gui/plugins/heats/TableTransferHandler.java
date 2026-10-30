@@ -16,8 +16,6 @@ import de.df.jutils.gui.jtable.JTableUtils;
 
 class TableTransferHandler<T extends ASchwimmer> extends AHeatTransferHandler<T> {
 
-    private static final long serialVersionUID = -587285451733079256L;
-
     private int row = -1;
     private int col = -1;
 

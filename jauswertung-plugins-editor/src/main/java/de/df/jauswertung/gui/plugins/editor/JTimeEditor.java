@@ -32,11 +32,6 @@ import de.df.jutils.plugin.IPluginManager;
 
 class JTimeEditor extends JDialog {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3256719580843227188L;
-
     ASchwimmer schwimmer = null;
     int disziplin = 0;
     JIntegerField integer = null;

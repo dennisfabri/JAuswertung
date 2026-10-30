@@ -24,8 +24,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JMeldezeiten<T extends ASchwimmer> extends JFrame {
 
-    private static final long serialVersionUID = -2312160133856798878L;
-
     private final AWettkampf<T> wk;
     private boolean changed = false;
     @SuppressWarnings("rawtypes")

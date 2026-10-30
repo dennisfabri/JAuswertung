@@ -19,8 +19,6 @@ import de.df.jutils.gui.util.UIStateUtils;
 
 class JFontDialog extends JDialog {
 
-    private static final long serialVersionUID = -9025893350153624458L;
-
     private final JFontChooser fonts = new JFontChooser();
     private boolean accepted = false;
 

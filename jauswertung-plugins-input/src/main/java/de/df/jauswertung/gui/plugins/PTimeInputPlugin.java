@@ -496,8 +496,6 @@ public class PTimeInputPlugin extends ANullPlugin {
 
     class ScrollableJPanel extends JPanel implements Scrollable {
 
-        private static final long serialVersionUID = 680058034328664232L;
-
         @Override
         public Dimension getPreferredScrollableViewportSize() {
             return getPreferredSize();

@@ -15,8 +15,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class MessagePanel extends JPanel {
 
-    private static final long serialVersionUID = -5958437895949458261L;
-
     private JLabel title;
     private JLabel[] labels;
     private int[] indizes;

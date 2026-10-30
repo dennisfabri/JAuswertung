@@ -30,7 +30,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [gui and print in jauswertung-data hold more than data classes](data-gui-print-packages.md) | Low | M | `PenaltyUtils`, `SchwimmerUtils` and `I18n` are utilities; `SchwimmerInfo` to check |
 | [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | Kept on purpose: `Disziplin` stores name, length and laps per gender although they are always equal |
 | [Replace printStackTrace()](replace-printstacktrace.md) | Low | L | 166 `printStackTrace()` calls bypass logging and error handling; often the failure is swallowed |
-| [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |
 | [Replace filechooser](replace-filechooser.md) | Low | L | Hand-maintained native file dialog library; 21 files |
 | [Replace jgoodies-forms](replace-jgoodies-forms.md) | Low | L | Only sporadic releases; 193 files, optional |
 | [References from daten to other packages are unreviewed](daten-outgoing-references.md) | Low | L | 31 references from the model to `util`, `gui`, jutils and `java.io`, each to be examined |

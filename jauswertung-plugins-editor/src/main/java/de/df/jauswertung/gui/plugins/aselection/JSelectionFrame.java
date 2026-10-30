@@ -33,8 +33,6 @@ import de.df.jutils.plugin.IPluginManager;
 
 class JSelectionFrame extends JGlassFrame {
 
-    private static final long serialVersionUID = 3735076099011819345L;
-
     private final JFrame parent;
     private final CorePlugin core;
     private final FEditorPlugin editor;

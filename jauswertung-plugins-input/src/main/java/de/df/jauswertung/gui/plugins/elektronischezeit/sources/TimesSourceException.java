@@ -6,8 +6,6 @@ import lombok.Getter;
 @Getter
 public final class TimesSourceException extends Exception {
 
-    private static final long serialVersionUID = 1L;
-
     public enum Reason {
         INVALID_ADDRESS,
         UNKNOWN_HOST,

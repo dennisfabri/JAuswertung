@@ -99,8 +99,6 @@ public class JResultsSelectionButton extends JToggleButton {
 
     private JPopupMenu initDialog() {
         return new JPopupMenu() {
-            private static final long serialVersionUID = -4238370182220289817L;
-
             @Override
             public void setVisible(boolean b) {
                 if (!b) {

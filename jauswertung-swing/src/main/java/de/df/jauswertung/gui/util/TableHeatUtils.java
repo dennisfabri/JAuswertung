@@ -661,8 +661,6 @@ public final class TableHeatUtils {
         }
 
         return new SimpleTableModel(o, titel) {
-            private static final long serialVersionUID = -6113292199287086090L;
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -687,8 +685,6 @@ public final class TableHeatUtils {
         }
 
         return new SimpleTableModel(o, titel) {
-            private static final long serialVersionUID = -6113292199287086090L;
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;

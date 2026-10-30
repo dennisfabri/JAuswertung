@@ -34,8 +34,6 @@ import java.util.LinkedList;
 
 public class JTimesInputPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 1973322987330030590L;
-
     private final CorePlugin core;
     private final FEditorPlugin editor;
     private final JMissingInputFrame parent;

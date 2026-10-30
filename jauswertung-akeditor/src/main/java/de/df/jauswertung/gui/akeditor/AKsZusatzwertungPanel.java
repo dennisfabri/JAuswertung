@@ -20,10 +20,6 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
  */
 class AKsZusatzwertungPanel extends JPanel {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257288011191498036L;
     private JWarningTextField zusatz = null;
     private JWarningTextField zusatzKurz = null;
     private JIntegerField points = null;
