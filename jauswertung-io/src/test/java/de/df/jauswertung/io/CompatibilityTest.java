@@ -60,6 +60,7 @@ import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 import de.df.jauswertung.gui.util.OWUtils;
+import de.df.jauswertung.util.Utils;
 import de.df.jutils.util.NullFeedback;
 
 /**
@@ -131,6 +132,18 @@ class CompatibilityTest {
         AWettkampf<?> wk = laden(BASIS.resolve(datei));
         pruefeReferenzen(wk);
         pruefeReferenzen(nachSpeichernUndLaden(wk, temp));
+    }
+
+    /**
+     * Undo/redo keeps its snapshots as such copies.
+     */
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("dateien")
+    void exporteUndReferenzenNachKopie(Path datei) throws IOException {
+        AWettkampf<?> kopie = Utils.copy(laden(BASIS.resolve(datei)));
+
+        pruefeReferenzen(kopie);
+        vergleiche(datei, exporte(kopie), "_copy", false);
     }
 
     @ParameterizedTest(name = "{0}")
@@ -293,7 +306,7 @@ class CompatibilityTest {
             for (OWLauf<T> lauf : disziplin.getLaeufe()) {
                 for (int bahn = 0; bahn < lauf.getBahnen(); bahn++) {
                     T s = lauf.getSchwimmer(bahn);
-                    assertTrue(s == null || schwimmer.contains(s), disziplin.Id + " Bahn " + (bahn + 1));
+                    assertTrue(s == null || schwimmer.contains(s), disziplin.getId() + " Bahn " + (bahn + 1));
                 }
             }
         }

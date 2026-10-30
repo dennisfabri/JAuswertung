@@ -31,8 +31,6 @@ import de.df.jutils.plugin.UpdateEvent;
 
 class JMissingInputFrame extends JInfiniteProgressFrame {
 
-    private static final long serialVersionUID = -7597461480874952948L;
-
     private final CorePlugin core;
     private final FEditorPlugin editor;
     private final JFrame parent;

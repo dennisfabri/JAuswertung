@@ -3,7 +3,6 @@
  */
 package de.df.jauswertung.util.ergebnis;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -23,9 +22,7 @@ public class FormelILSSERC<T extends ASchwimmer> extends FormelILS<T> {
     }
 
     private static final class ILSComparatorSERC<T extends ASchwimmer>
-            implements Comparator<SchwimmerData<T>>, Serializable {
-
-        private static final long serialVersionUID = -7952635514437923875L;
+            implements Comparator<SchwimmerData<T>> {
 
         @Override
         public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {

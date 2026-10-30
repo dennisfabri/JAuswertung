@@ -14,8 +14,6 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 
 class JKampfrichterTeamPanel extends JPanel {
 
-    private static final long serialVersionUID = -2152155460517268613L;
-
     boolean changed = false;
     private KampfrichterVerwaltung team;
 

@@ -43,7 +43,7 @@ public class JStarterPerDiscipline extends JPanel {
     public JStarterPerDiscipline(Mannschaft s, OWDisziplin<Mannschaft> o) {
         schwimmer = s;
         disziplin = o;
-        eingabe = s.getEingabe(o.Id);
+        eingabe = s.getEingabe(o.getId());
         this.disz = o.disziplin;
 
         @SuppressWarnings("unchecked")

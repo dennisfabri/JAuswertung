@@ -1,10 +1,8 @@
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serializable;
-
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-public class Wertungsgruppe implements Serializable {
+public class Wertungsgruppe {
 
     @XStreamAsAttribute
     private String name = "";

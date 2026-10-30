@@ -1,13 +1,12 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
-public class TimelimitsContainer implements Serializable {
+public class TimelimitsContainer {
 
     private List<Timelimits> limits = new LinkedList<>();
 

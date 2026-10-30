@@ -57,11 +57,6 @@ import de.df.jutils.util.StringTools;
  */
 class JSelectionWizard extends JWizardDialog implements FinishListener, CancelListener {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3545515093153625141L;
-
     private static final int BUILD_IN = 5;
 
     static final String[] COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"),
@@ -168,8 +163,6 @@ class JSelectionWizard extends JWizardDialog implements FinishListener, CancelLi
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     boolean finishSelection() {
-        random.setSeed(System.nanoTime());
-
         LinkedList<? extends ASchwimmer> swimmer = core.getWettkampf().getSchwimmer();
         unselect(swimmer);
 

@@ -310,7 +310,7 @@ public class JOWHeatsPlugin extends ANullPlugin {
     private <T extends ASchwimmer> void delete(OWSelection t, Laufliste<T> heats) {
         AWettkampf<T> wk = core.getWettkampf();
         OWDisziplin<T> disziplin = wk.getLauflisteOW().getDisziplin(t.akNummer, t.male, t.discipline, t.round);
-        wk.removeDiscipline(disziplin.Id);
+        wk.removeDiscipline(disziplin.getId());
         EditHeatlistUtils.notifyHeatlistChanged(getController(), this);
     }
 

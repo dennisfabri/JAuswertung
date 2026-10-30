@@ -13,7 +13,7 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.plugin.ANullPlugin;
@@ -57,8 +57,8 @@ public class OGeneralOptionsPlugin extends ANullPlugin implements MOptionenPlugi
         singlewk = preferences.getBoolean("SingleCompetition", false);
         hightimes = preferences.getBoolean("NotifyOnHighTimes", true);
 
-        SchwimmerUtils.EnableHighPointWarning = preferences.getBoolean("NotifyOnLowTimes", true);
-        SchwimmerUtils.EnableHighTimesWarning = hightimes;
+        TimeWarnings.EnableHighPointWarning = preferences.getBoolean("NotifyOnLowTimes", true);
+        TimeWarnings.EnableHighTimesWarning = hightimes;
 
         optionen.addOptionsPlugin(this);
     }
@@ -113,12 +113,12 @@ public class OGeneralOptionsPlugin extends ANullPlugin implements MOptionenPlugi
         state = penaltyCheckbox.isSelected();
         singlewk = singleCheckbox.isSelected();
         hightimes = hightimesCheckbox.isSelected();
-        SchwimmerUtils.EnableHighPointWarning = lowtimesCheckbox.isSelected();
+        TimeWarnings.EnableHighPointWarning = lowtimesCheckbox.isSelected();
 
         Utils.getPreferences().putBoolean("PrintPenalties", state);
         Utils.getPreferences().putBoolean("SingleCompetition", singlewk);
         Utils.getPreferences().putBoolean("NotifyOnHighTimes", hightimes);
-        Utils.getPreferences().putBoolean("NotifyOnLowTimes", SchwimmerUtils.EnableHighPointWarning);
+        Utils.getPreferences().putBoolean("NotifyOnLowTimes", TimeWarnings.EnableHighPointWarning);
     }
 
     @Override
@@ -132,8 +132,8 @@ public class OGeneralOptionsPlugin extends ANullPlugin implements MOptionenPlugi
         if (hightimes != hightimesCheckbox.isSelected()) {
             hightimesCheckbox.setSelected(hightimes);
         }
-        if (SchwimmerUtils.EnableHighPointWarning != lowtimesCheckbox.isSelected()) {
-            lowtimesCheckbox.setSelected(SchwimmerUtils.EnableHighPointWarning);
+        if (TimeWarnings.EnableHighPointWarning != lowtimesCheckbox.isSelected()) {
+            lowtimesCheckbox.setSelected(TimeWarnings.EnableHighPointWarning);
         }
     }
 

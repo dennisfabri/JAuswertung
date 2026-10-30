@@ -30,6 +30,7 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafe;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
 import de.df.jauswertung.util.ergebnis.*;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
@@ -142,7 +143,7 @@ public class ResultUtils {
                     if (owd.akNummer == akn && owd.maennlich == (z == 1)) {
                         OWDisziplin<T> neu = llNeu.addDisziplin(owd.disziplin, z == 1, 0, owd.round);
                         for (OWLauf<T> lauf : owd.laeufe) {
-                            OWLauf<T> laufNeu = new OWLauf<>(w, neu.Id, lauf, false);
+                            OWLauf<T> laufNeu = new OWLauf<>(w, neu.getId(), lauf, false);
                             neu.laeufe.add(laufNeu);
                         }
                     }
@@ -201,7 +202,7 @@ public class ResultUtils {
                                 for (OWDisziplin<T> owd : llow.getDisziplinen()) {
                                     if (owd.akNummer == akn && owd.maennlich == s.isMaennlich() && owd.disziplin == x) {
 
-                                        Eingabe e1 = s.getEingabe(owd.Id);
+                                        Eingabe e1 = s.getEingabe(owd.getId());
                                         if (e1 != null) {
                                             Eingabe e = neu.getEingabe(
                                                     OWDisziplin.getId(x, s.isMaennlich(), 0, owd.round), true);
@@ -315,35 +316,35 @@ public class ResultUtils {
         return generateEinzelwertungswettkampfI(wk, akn, IncludeSex.Both, removeEmpty);
     }
 
+    /**
+     * The individual rankings of one scoring group, one age group per discipline.
+     *
+     * @return {@code null} if no age group belongs to the scoring group or it has no individual ranking
+     * @throws WertungsgruppeException if the age groups of a scoring group differ in a setting that must match
+     */
     public static <T extends ASchwimmer> AWettkampf<T> generateEinzelwertungswettkampf(AWettkampf<T> wk, String wgname,
             boolean removeEmpty) {
-        wk = Utils.copy(wk);
-        Wertungsgruppe wg = wk.getRegelwerk().getWertungsgruppe(wgname);
-        int index = -1;
-        wk.disableUpdates();
-        for (int x = 0; x < wk.getRegelwerk().size(); x++) {
-            Altersklasse ak = wk.getRegelwerk().getAk(x);
-            if (wg.getName().equals(ak.getWertungsgruppe())) {
-                LinkedList<T> temp = SearchUtils.getSchwimmer(wk, ak);
-                if (index < 0) {
-                    index = x;
-                    wg.applyTo(ak);
-                } else {
-                    for (T t : temp) {
-                        t.setAKNummer(index, false);
-                    }
-                }
-            } else {
-                for (T t : SearchUtils.getSchwimmer(wk, ak)) {
-                    wk.removeSchwimmer(t);
-                }
-            }
-        }
-        wk.enableUpdates();
+        // Taken before the merge: it clears the scoring group of the merged age group, and an ordinary age group may
+        // have the same name.
+        int index = indexOfFirstMember(wk.getRegelwerk(), wgname);
         if (index < 0) {
             return null;
         }
-        return generateEinzelwertungswettkampfI(wk, index, IncludeSex.Both, removeEmpty);
+        AWettkampf<T> merged = CompetitionUtils.generateWertungsgruppenwettkampf(wk,
+                wk.getRegelwerk().getWertungsgruppe(wgname));
+        return generateEinzelwertungswettkampfI(merged, index, IncludeSex.Both, removeEmpty);
+    }
+
+    private static int indexOfFirstMember(Regelwerk aks, String wgname) {
+        if (aks.getWertungsgruppe(wgname) == null) {
+            return -1;
+        }
+        for (int x = 0; x < aks.size(); x++) {
+            if (wgname.equals(aks.getAk(x).getWertungsgruppe())) {
+                return x;
+            }
+        }
+        return -1;
     }
 
     public static <T extends ASchwimmer> boolean hasEinzelwertungswettkampf(AWettkampf<T> wk, int akn,
@@ -583,8 +584,8 @@ public class ResultUtils {
             LinkedList<Strafe> strafen = new LinkedList<>();
             if (d != null) {
                 T sx = SearchUtils.getSchwimmer(wk, s.getStartnummer());
-                zeit = sx.getZeit(d.Id);
-                strafen = sx.getStrafen(d.Id);
+                zeit = sx.getZeit(d.getId());
+                strafen = sx.getStrafen(d.getId());
             }
             if (!istInFolgerundeEingeteilt(cwk, s, t, disziplin.getRunden().length + 1)) {
                 strafen.addAll(s.getAllgemeineStrafen());

@@ -25,8 +25,6 @@ import de.df.jutils.gui.util.UIUtils;
 
 public class JOrganizationDetailPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private Hashtable<String, JComponent> presentation = new Hashtable<>();
     private CardLayout cards = new CardLayout();
     private JPanel view = new JPanel(cards);

@@ -1,7 +1,5 @@
 package de.df.jauswertung.util.ergebnis;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -24,10 +22,7 @@ import static de.df.jauswertung.daten.PropertyConstants.IS_QUALIFIED;
 
 public class FormelILS<T extends ASchwimmer> implements Formel<T> {
 
-    static final class ILSComparator<T extends ASchwimmer> implements Comparator<SchwimmerData<T>>, Serializable {
-
-        @Serial
-        private static final long serialVersionUID = -7952635514437923875L;
+    static final class ILSComparator<T extends ASchwimmer> implements Comparator<SchwimmerData<T>> {
 
         @Override
         public int compare(SchwimmerData<T> sd1, SchwimmerData<T> sd2) {

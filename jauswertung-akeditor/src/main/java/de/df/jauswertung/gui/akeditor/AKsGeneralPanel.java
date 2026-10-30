@@ -19,10 +19,6 @@ import de.df.jutils.gui.layout.SimpleFormBuilder;
  */
 class AKsGeneralPanel extends JPanel {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257288011191498036L;
     private JWarningTextField description = null;
 
     JAKsEditor options = null;

@@ -1,6 +1,5 @@
-package de.df.jauswertung.gui.util;
+package de.df.jauswertung.util;
 
-import java.awt.*;
 import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -10,13 +9,15 @@ import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafe;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.gui.util.LaufInfo;
+import de.df.jauswertung.gui.util.SchwimmerInfo;
+import de.df.jauswertung.gui.util.TimeStatus;
 import de.df.jauswertung.print.Zieleinlaufkarte;
-import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
 import de.df.jauswertung.util.valueobjects.Startkarte;
 import de.df.jauswertung.util.vergleicher.SchwimmerInfoStartnummernVergleicher;
-import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.util.StringTools;
 import lombok.extern.slf4j.Slf4j;
 
@@ -336,29 +337,6 @@ public final class SchwimmerUtils {
         }
 
         return rec <= zeit;
-    }
-
-    public static boolean EnableHighPointWarning = true;
-
-    public static boolean EnableHighTimesWarning = false;
-
-    public static boolean checkTimeAndNotify(Window parent, ASchwimmer s, int disz) {
-        if (!EnableHighPointWarning) {
-            return true;
-        }
-        boolean result = checkTime(s, disz);
-        if (!result) {
-            Toolkit.getDefaultToolkit().beep();
-            try {
-                EnableHighPointWarning = false;
-                result = DialogUtils.askAndWarn(parent, I18n.get("PointsVeryHigh"),
-                                                I18n.get("IsTimeCorrect", s.getName(), StringTools.zeitString(s.getZeit(disz))),
-                                                I18n.get("IsTimeCorrect.Note", s.getName(), StringTools.zeitString(s.getZeit(disz))));
-            } finally {
-                EnableHighPointWarning = true;
-            }
-        }
-        return result;
     }
 
     public static TimeStatus getTimeStatus(String formelID, int zeit, int rec) {

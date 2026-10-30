@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jutils.gui.JMiddleline;
 import de.df.jutils.gui.border.ExtendedLineBorder;
 import de.df.jutils.gui.layout.SimpleTableBuilder;
@@ -56,8 +56,6 @@ public final class ZieleinlaufkartenPrintable<T extends ASchwimmer> extends ACom
 
     private static JPanel getPanel(Zieleinlaufkarte karte) {
         JPanel panel = new JPanel() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();

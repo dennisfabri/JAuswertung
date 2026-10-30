@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -11,9 +10,7 @@ import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.daten.laufliste.Laufliste;
 import de.df.jauswertung.util.SearchUtils;
 
-public class Zielrichterentscheid<T extends ASchwimmer> implements Serializable {
-
-    private static final long serialVersionUID = -3488380754349447007L;
+public class Zielrichterentscheid<T extends ASchwimmer> {
 
     @XStreamAsAttribute
     private int disziplin = 0;

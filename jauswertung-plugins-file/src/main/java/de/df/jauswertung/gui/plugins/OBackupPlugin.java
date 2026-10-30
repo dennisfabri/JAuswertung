@@ -90,8 +90,6 @@ public class OBackupPlugin extends AFeature implements MOptionenPlugin.OptionsPl
         optionsPanel.setName(I18n.get("Backup"));
 
         dir = new JWarningTextField(true, false) {
-            private static final long serialVersionUID = 8453456541539574447L;
-
             @Override
             public boolean isValidString() {
                 if (!super.isValidString()) {

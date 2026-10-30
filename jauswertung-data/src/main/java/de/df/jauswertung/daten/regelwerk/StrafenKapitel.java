@@ -9,15 +9,12 @@ package de.df.jauswertung.daten.regelwerk;
  * @version 0.1
  */
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-public class StrafenKapitel implements Serializable {
-
-    private static final long serialVersionUID = -7264804032680202370L;
+public class StrafenKapitel {
 
     private LinkedList<StrafenParagraph> paragraphen;
     @XStreamAsAttribute

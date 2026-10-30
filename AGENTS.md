@@ -48,8 +48,21 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
   `jauswertung` → `misc` / `setup`.
 - Lower modules never depend on plugin or GUI-aggregator modules. The domain model in `jauswertung-data` must not depend
   on Swing panels, plugins, or I/O formats.
+  Two deliberate exceptions: `I18n.getKeyStroke` may return a `javax.swing.KeyStroke` (`gui.util` is UI support, and
+  the UI is Swing), and the model carries its own persistence mapping (XStream annotations, commons.xmt
+  `VersionedDocument`/`migrateN`), because the file format and the model are tied.
 - Avoid cyclic dependencies; when two modules need to share something, move it down to the lowest module that both
   already depend on.
+
+### Packages in jauswertung-data
+
+- `de.df.jauswertung.daten` holds only classes that are part of the model. Everything in it is open to deserialization
+  (`allowTypesByWildcard("de.df.jauswertung.daten.**")` in `IOUtils`), which is one more reason to keep anything else
+  out. Every reference from `daten` to another package is examined individually; the open ones are tracked in
+  `docs/chores/daten-outgoing-references.md`.
+- `de.df.jauswertung.gui` and `de.df.jauswertung.print` in this module hold only data classes for scoped subdomains
+  (DTOs, temporary models) — no utilities, no logic beyond the data they carry.
+- `de.df.jauswertung.util` is not classified yet; see `docs/chores/examine-data-util.md`.
 
 ## Plugin Architecture
 
@@ -97,6 +110,11 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
 - Serialization is XStream via `IOUtils.getXStream()` (`jauswertung-io`), with an `allowTypes` whitelist and
   `aliasType` entries for old package names. Versioned classes use commons.xmt `VersionedDocument` with private
   `migrateN(...)` methods (e.g. in `AWettkampf`, `Regelwerk`, `Altersklasse`).
+- Files are read and written only with XStream. Java serialization is not supported: classes do not implement
+  `Serializable` and do not declare a `serialVersionUID` (Swing classes and exceptions included), and bug reports
+  written with Java serialization by old versions no longer load. Eclipse's "missing serialVersionUID" warning is
+  switched off (`org.eclipse.jdt.core.compiler.problem.missingSerialVersion=ignore`); do not add
+  `@SuppressWarnings("serial")` instead.
 - **Users open files from previous years and previous versions. Every change to a serialized class must keep older
   files loadable.** Renaming or moving a class or field in `de.df.jauswertung.daten` requires an alias or a new migrate
   step; never edit an existing `migrateN`. New types that end up in a file must be covered by the `allowTypes`
@@ -109,8 +127,17 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
   October). `CompatibilityTest` checks them. Never edit or regenerate an existing year — a failing old year means the
   model change is incompatible. When new data structures become reachable through the UI, extend the generator so the
   next year's files contain them.
-- Autosave (`MImportExportPlugin.autosave()`) and undo (serialized snapshots) reuse the same serialization — changes to
-  it affect both.
+  One deliberate exception (2026-10-30): the generator had put age groups with different disciplines into the scoring
+  groups of all `Einzel`/`Mannschaft` files; those groups were reduced to the valid "Senioren" (AK 15/16, AK 17/18,
+  AK Offen) inside the files and `RESULTS.csv` was updated, because the merged age group now requires matching
+  disciplines and settings.
+- Autosave (`MImportExportPlugin.autosave()`) reuses the same serialization — changes to it affect autosave too.
+- Undo/redo keeps deep copies of the whole competition (`Utils.copy`), not serialized snapshots; saving a competition
+  with a logo copies it the same way. Every class reachable from `AWettkampf` must be copyable by it: records are
+  rebuilt through their canonical constructor, and a cycle that runs through a record fails with
+  `RecordCycleException`.
+- `VollstaendigesModell` (`jauswertung-data` tests) builds competitions with every model class; update it with every
+  change to the model. `VollstaendigesModellKopieTest` fails for a model class that is missing there.
 
 ## Validation
 
@@ -143,6 +170,8 @@ There is no server behind the UI, so the desktop application is the only line of
   change.
 - `docs/chores/` tracks planned clean-ups of code or data model that are not bugs, with the same rules: one file per
   chore, listed in `docs/chores/README.md`, deleted once done.
+- `docs/reviews/README.md` logs the latest structured review per module/folder and review type (skill
+  `.agents/skills/structured-review/`); its findings go to `docs/issues/`, `docs/chores/` or `docs/duplication/`.
 - Every row in both tables has a severity (High/Medium/Low) and a size (S/M/L) as defined in the respective
   `README.md`; keep the rows ordered by severity, then by size. Rate new entries when you add them.
 
@@ -216,6 +245,9 @@ There is no server behind the UI, so the desktop application is the only line of
   installed into `~/.m2` (see the workspace guide), not against an early merge of it.
 - Start a branch before the first commit when `main` is checked out. Follow-up work goes on the branch that is checked
   out; do not create further branches unasked.
+- Commit after each finished step without asking (a fix, a chore update, a documentation change), once its build and
+  tests pass. Do not batch several steps into one commit; the history on the feature branch can be reworked before the
+  merge.
 - Merge into `main` only when the feature is finished and the user asks for it, with a real merge commit
   (`git merge --no-ff`), never a fast-forward.
 - **Commit messages**: write them in German, matching the existing history. The body is a brief bullet list of at most

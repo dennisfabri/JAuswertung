@@ -16,8 +16,6 @@ import de.df.jauswertung.util.AltersklassenUtils;
  */
 public class EinzelWettkampf extends AWettkampf<Teilnehmer> {
 
-    private static final long serialVersionUID = -6729452115452029599L;
-
     // Only for xstream
     @Deprecated
     public EinzelWettkampf() {

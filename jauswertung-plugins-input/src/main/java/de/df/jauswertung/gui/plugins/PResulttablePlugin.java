@@ -48,6 +48,7 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.gui.util.JStartsViewer;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.util.ResultUtils;
 import de.df.jauswertung.util.SearchUtils;
@@ -295,6 +296,9 @@ public class PResulttablePlugin extends ANullPlugin {
                 }
                 final AWettkampf printWk = wkx;
                 final boolean[][] printSelection = selection;
+                if (!WertungsgruppenPruefung.pruefe(getController().getWindow(), printWk)) {
+                    return;
+                }
                 if (isHeatBased()) {
                     if (isPartOnly) {
                         final boolean printIsRound = !isCompleteDiscipline;

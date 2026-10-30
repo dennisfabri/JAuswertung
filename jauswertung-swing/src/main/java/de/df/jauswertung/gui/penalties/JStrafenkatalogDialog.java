@@ -25,11 +25,6 @@ import de.df.jutils.gui.util.WindowUtils;
  */
 class JStrafenkatalogDialog extends JDialog {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257285846494558261L;
-
     private Window parent = null;
     private JStrafenkatalogPanel panel = null;
     private boolean cancelled = false;
@@ -76,8 +71,6 @@ class JStrafenkatalogDialog extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 doClose();

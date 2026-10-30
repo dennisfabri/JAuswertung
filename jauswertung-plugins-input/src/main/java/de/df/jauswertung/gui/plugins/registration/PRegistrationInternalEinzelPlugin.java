@@ -32,7 +32,7 @@ import de.df.jauswertung.gui.util.DisciplinesPanel;
 import de.df.jauswertung.gui.util.DisciplinesPanel.DataChangeListener;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.gui.JDoubleField;
 import de.df.jutils.gui.JIntegerField;

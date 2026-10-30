@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten.laufliste;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -11,7 +10,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jutils.util.StringTools;
 
-public class OWLauf<T extends ASchwimmer> implements Serializable {
+public class OWLauf<T extends ASchwimmer> {
 
     @SuppressWarnings("unchecked")
     private T[] schwimmer = (T[]) new ASchwimmer[0];

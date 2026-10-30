@@ -65,8 +65,6 @@ import de.df.jutils.print.elements.RulerBorder;
 
 public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
 
-    private static final long serialVersionUID = -523804656941976436L;
-
     private JFrame parent;
     private AWettkampf<T> wk;
     private IPluginManager controller;
@@ -155,8 +153,6 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
     private void initHelp() {
         help = new JDialog(this, I18n.get("Help"), false) {
 
-            private static final long serialVersionUID = 8645811343569575779L;
-
             @Override
             public void setVisible(boolean b) {
                 Utils.getPreferences().putBoolean("DisplayDocumentsHelp", b);
@@ -217,8 +213,6 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         alignment.add(alignright);
 
         menu = new JPopupMenu() {
-            private static final long serialVersionUID = -7894428422908256188L;
-
             @Override
             public void setVisible(boolean b) {
                 if (b) {

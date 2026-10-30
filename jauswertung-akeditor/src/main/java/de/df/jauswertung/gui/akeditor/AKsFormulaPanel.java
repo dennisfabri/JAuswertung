@@ -27,10 +27,6 @@ import de.df.jutils.gui.util.EDTUtils;
  */
 class AKsFormulaPanel extends JPanel {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257288011191498036L;
     private JRadioButton[] namen = null;
     private JLabel[] formeln = null;
     private JLabel[] descriptions = null;

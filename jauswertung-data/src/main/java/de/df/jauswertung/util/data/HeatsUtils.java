@@ -23,7 +23,7 @@ public class HeatsUtils {
         }
         disziplin.laeufe.clear();
         for (Lauf<T> lauf : heats.getLaufliste()) {
-            OWLauf<T> l = new OWLauf<>(wk, disziplin.Id, lauf);
+            OWLauf<T> l = new OWLauf<>(wk, disziplin.getId(), lauf);
             for (int x = 0; x < l.getBahnen(); x++) {
                 T tx = l.getSchwimmer(x);
                 if (tx != null) {
@@ -32,7 +32,7 @@ public class HeatsUtils {
                         Mannschaft m = (Mannschaft) ti;
                         int[] starter = CompetitionUtils.getStarter(m, disziplin.akNummer, disziplin.maennlich,
                                 disziplin.disziplin, disziplin.round - 1);
-                        m.setStarter(disziplin.Id, starter);
+                        m.setStarter(disziplin.getId(), starter);
                     }
                     disziplin.Schwimmer.add(ti);
                 }

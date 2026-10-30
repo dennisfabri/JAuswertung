@@ -1,13 +1,12 @@
 package de.df.jauswertung.daten.laufliste;
 
-import java.io.Serializable;
 import java.util.Hashtable;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 
-public class OWLaufliste<T extends ASchwimmer> implements Serializable {
+public class OWLaufliste<T extends ASchwimmer> {
 
     private final AWettkampf<T> wk;
     private final Hashtable<String, OWDisziplin<T>> disziplinen = new Hashtable<>();

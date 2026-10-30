@@ -5,8 +5,6 @@ package de.df.jauswertung.io;
 
 public final class TableEntryException extends Exception {
 
-    private static final long serialVersionUID = -6431012784221130245L;
-
     private final String data;
 
     private String sheet = null;

@@ -64,8 +64,6 @@ public class JKariStufenButton extends JPanel {
         }
     }
 
-    private static final long serialVersionUID = 7825192585994417930L;
-
     JToggleButton level = null;
     JPopupMenu dialog = null;
 
@@ -97,8 +95,6 @@ public class JKariStufenButton extends JPanel {
 
     private void initDialog() {
         dialog = new JPopupMenu() {
-            private static final long serialVersionUID = -4238370182220289817L;
-
             @Override
             public void setVisible(boolean b) {
                 if (!b) {

@@ -23,8 +23,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JStatisticsFrame extends JGlassFrame {
 
-    private static final long serialVersionUID = -7597461480874952948L;
-
     private final JFrame parent;
 
     private JButton closebutton;

@@ -36,8 +36,6 @@ import de.df.jutils.gui.window.JOptionsFrame;
 
 class JZielrichterentscheidFrame<T extends ASchwimmer> extends JOptionsFrame {
 
-    private static final long serialVersionUID = 4051325639070265655L;
-
     private final JFrame parent;
 
     JList liste;

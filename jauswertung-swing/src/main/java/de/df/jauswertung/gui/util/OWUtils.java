@@ -118,7 +118,7 @@ public final class OWUtils {
         LinkedList<OWDisziplin<T>> dx = new LinkedList<>(
                 Arrays.asList(wk.getLauflisteOW().getDisziplinen()));
 
-        HashSet<String> ids = dx.stream().map(s -> s.Id).collect(Collectors.toCollection(HashSet::new));
+        HashSet<String> ids = dx.stream().map(s -> s.getId()).collect(Collectors.toCollection(HashSet::new));
 
         List<OWSelection> daten = new ArrayList<>();
         for (OWDisziplin<T> d : dx) {
@@ -145,7 +145,7 @@ public final class OWUtils {
                             boolean generated = false;
                             String id = OWDisziplin.getId(x, y == 1, z, i);
                             for (OWDisziplin<T> d : wk.getLauflisteOW().getDisziplinen()) {
-                                if (d.Id.equals(id)) {
+                                if (d.getId().equals(id)) {
                                     generated = true;
                                     break;
                                 }

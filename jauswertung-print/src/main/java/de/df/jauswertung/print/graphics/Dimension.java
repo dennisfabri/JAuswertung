@@ -1,10 +1,6 @@
 package de.df.jauswertung.print.graphics;
 
-import java.io.Serializable;
-
-public class Dimension implements Serializable {
-
-    private static final long serialVersionUID = 8771743770783648534L;
+public class Dimension {
 
     public int width;
     public int height;

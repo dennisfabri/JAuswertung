@@ -34,8 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
-    private static final long serialVersionUID = -2312160133856798878L;
-
     private boolean changed = false;
     private Heat[] heats = new Heat[0];
 

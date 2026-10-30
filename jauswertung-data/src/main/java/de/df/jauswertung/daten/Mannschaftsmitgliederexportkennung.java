@@ -1,12 +1,10 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
-
 import com.thoughtworks.xstream.annotations.XStreamAliasType;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 @XStreamAliasType("MMGEK")
-public class Mannschaftsmitgliederexportkennung implements Serializable {
+public class Mannschaftsmitgliederexportkennung {
     @XStreamAsAttribute
     private String id;
 

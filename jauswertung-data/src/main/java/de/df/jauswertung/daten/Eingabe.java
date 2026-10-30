@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
-public class Eingabe implements Serializable {
+public class Eingabe {
 
     @XStreamAsAttribute
     private int zeit = 0;

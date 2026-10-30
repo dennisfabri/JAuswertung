@@ -33,11 +33,6 @@ import de.df.jutils.gui.util.UIStateUtils;
  */
 public class JNeueAK extends JDialog {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3906935560202105655L;
-
     private static String[] einzelNamen = null;
     private static String[] mannschaftNamen = null;
 
@@ -99,8 +94,6 @@ public class JNeueAK extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);

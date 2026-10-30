@@ -34,6 +34,7 @@ import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.TeamUtils;
 import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jauswertung.util.valueobjects.Team;
+import de.df.jauswertung.util.valueobjects.TeamCode;
 import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.graphics.ColorUtils;
 import de.df.jutils.gui.JDottingLabel;
@@ -160,7 +161,7 @@ class JTeammembersBarcodeScanPanel extends JPanel {
         Team team = null;
         boolean ok = false;
         try {
-            team = Team.FromCode(input.getText().trim());
+            team = TeamCode.from(input.getText().trim());
         } catch (IOException ioex) {
             // Nothing to do
         }

@@ -1,9 +1,8 @@
 package de.df.jauswertung.daten.veranstaltung;
 
 import java.io.File;
-import java.io.Serializable;
 
-public class CompetitionContainer implements Serializable {
+public class CompetitionContainer {
     private String name;
     private String filename;
 

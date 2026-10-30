@@ -53,11 +53,6 @@ import de.df.jutils.util.StringTools;
  */
 class JZulassungWizard extends JWizardFrame implements FinishListener, CancelListener {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3545515093153625141L;
-
     static final String[] COMPETITIONPARTS = new String[] { I18n.get("PersonalCompetition"),
             I18n.get("TeamCompetition") };
     static final String[] FORMATS = ExportManager.getSupportedFormats();

@@ -3,18 +3,18 @@
  */
 package de.df.jauswertung.daten.kampfrichter;
 
-import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
-public class KampfrichterEinheit implements Serializable {
-
-    private static final long serialVersionUID = -5183109430325434863L;
+public class KampfrichterEinheit {
 
     private String name = "";
     private LinkedList<KampfrichterPosition> positionen = new LinkedList<>();
-    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter = new Hashtable<>();
+    /**
+     * Only read from files written before the referees moved into their positions (keyed by the position name);
+     * {@link #readResolve()} moves the entries into the positions and clears it.
+     */
+    private Hashtable<String, LinkedList<Kampfrichter>> kampfrichter;
 
     public KampfrichterEinheit(String name) {
         if (name == null) {
@@ -37,13 +37,8 @@ public class KampfrichterEinheit implements Serializable {
     }
 
     public KampfrichterStufe getMinimaleStufe(String pos) {
-        KampfrichterPosition[] kpos = positionen.toArray(new KampfrichterPosition[positionen.size()]);
-        for (KampfrichterPosition kpo : kpos) {
-            if (kpo.getPosition().equalsIgnoreCase(pos)) {
-                return kpo.getMinimaleStufe();
-            }
-        }
-        return null;
+        KampfrichterPosition kp = getPosition(pos);
+        return kp == null ? null : kp.getMinimaleStufe();
     }
 
     public void setKampfrichter(String position, LinkedList<Kampfrichter> kr) {
@@ -53,33 +48,18 @@ public class KampfrichterEinheit implements Serializable {
         if (kr == null) {
             throw new NullPointerException();
         }
-        if (!hasPosition(position)) {
-            throw new IllegalArgumentException("Position \"" + position + "\" not found.");
-        }
-        kampfrichter.put(position, kr);
+        existingPosition(position).setKampfrichter(kr);
     }
 
     public boolean hasPosition(String position) {
-        if (position == null) {
-            throw new NullPointerException();
-        }
-        ListIterator<KampfrichterPosition> li = positionen.listIterator();
-        while (li.hasNext()) {
-            KampfrichterPosition kp = li.next();
-            if (kp.getPosition().equals(position)) {
-                return true;
-            }
-        }
-        return false;
+        return getPosition(position) != null;
     }
 
     public KampfrichterPosition getPosition(String position) {
         if (position == null) {
             throw new NullPointerException();
         }
-        ListIterator<KampfrichterPosition> li = positionen.listIterator();
-        while (li.hasNext()) {
-            KampfrichterPosition kp = li.next();
+        for (KampfrichterPosition kp : positionen) {
             if (kp.getPosition().equals(position)) {
                 return kp;
             }
@@ -87,18 +67,20 @@ public class KampfrichterEinheit implements Serializable {
         return null;
     }
 
+    private KampfrichterPosition existingPosition(String position) {
+        KampfrichterPosition kp = getPosition(position);
+        if (kp == null) {
+            throw new IllegalArgumentException("Position \"" + position + "\" not found.");
+        }
+        return kp;
+    }
+
     public void addKampfrichter(String position) {
         addKampfrichter(position, new Kampfrichter());
     }
 
     public void renamePosition(KampfrichterPosition pos, String neuername) {
-        pos = getPosition(pos.getPosition());
-        LinkedList<Kampfrichter> karis = kampfrichter.get(pos.getPosition());
-        if (karis != null) {
-            kampfrichter.remove(pos.getPosition());
-            kampfrichter.put(neuername, karis);
-        }
-        pos.setPosition(neuername);
+        getPosition(pos.getPosition()).setPosition(neuername);
     }
 
     public void addKampfrichter(String position, Kampfrichter kr) {
@@ -108,26 +90,12 @@ public class KampfrichterEinheit implements Serializable {
         if (kr == null) {
             throw new NullPointerException();
         }
-        if (!hasPosition(position)) {
-            throw new IllegalArgumentException("Position \"" + position + "\" not found.");
-        }
-        LinkedList<Kampfrichter> karis = kampfrichter.get(position);
-        if (karis == null) {
-            karis = new LinkedList<>();
-            kampfrichter.put(position, karis);
-        }
-        karis.addLast(kr);
+        existingPosition(position).addKampfrichter(kr);
     }
 
     public Kampfrichter[] getKampfrichter(String position) {
-        if (position == null) {
-            throw new NullPointerException();
-        }
-        try {
-            return kampfrichter.get(position).toArray(new Kampfrichter[kampfrichter.get(position).size()]);
-        } catch (NullPointerException npe) {
-            return new Kampfrichter[0];
-        }
+        KampfrichterPosition kp = getPosition(position);
+        return kp == null ? new Kampfrichter[0] : kp.getKampfrichter();
     }
 
     public String getName() {
@@ -149,25 +117,17 @@ public class KampfrichterEinheit implements Serializable {
         if (stufe == null) {
             throw new NullPointerException();
         }
-        KampfrichterPosition kp = new KampfrichterPosition(position, stufe);
-        if (positionen.contains(kp)) {
-            throw new IllegalArgumentException("\"" + kp + "\" already exists!");
+        if (hasPosition(position)) {
+            throw new IllegalArgumentException("\"" + position + "\" already exists!");
         }
-        positionen.addLast(kp);
+        positionen.addLast(new KampfrichterPosition(position, stufe));
         for (int x = 0; x < anzahl; x++) {
             addKampfrichter(position);
         }
     }
 
     public void removePosition(@SuppressWarnings("hiding") String name) {
-        ListIterator<KampfrichterPosition> li = positionen.listIterator();
-        while (li.hasNext()) {
-            KampfrichterPosition kp = li.next();
-            if (kp.getPosition().equalsIgnoreCase(name)) {
-                li.remove();
-                kampfrichter.remove(kp.getPosition());
-            }
-        }
+        positionen.removeIf(kp -> kp.getPosition().equals(name));
     }
 
     public static String stufeToText(KampfrichterStufe s, boolean show) {
@@ -180,25 +140,20 @@ public class KampfrichterEinheit implements Serializable {
     public String[][] getInhalt() {
         LinkedList<String[]> result = new LinkedList<>();
         for (KampfrichterPosition pos : positionen) {
-            LinkedList<Kampfrichter> karis = kampfrichter.get(pos.getPosition());
             boolean empty = true;
-            if ((karis != null) && (!karis.isEmpty())) {
-                ListIterator<Kampfrichter> li = karis.listIterator();
-                while (li.hasNext()) {
-                    Kampfrichter kr = li.next();
-                    if (kr.getName().trim().length() > 0) {
-                        empty = false;
+            for (Kampfrichter kr : pos.getKampfrichterListe()) {
+                if (kr.getName().trim().length() > 0) {
+                    empty = false;
 
-                        String[] r = new String[6];
-                        r[0] = pos.getPosition();
-                        r[1] = kr.getName().trim();
-                        r[2] = kr.getGliederung().trim();
-                        r[3] = kr.getBemerkung().trim();
-                        r[4] = stufeToText(kr.getStufe(), true);
-                        r[5] = stufeToText(pos.getMinimaleStufe(), false);
+                    String[] r = new String[6];
+                    r[0] = pos.getPosition();
+                    r[1] = kr.getName().trim();
+                    r[2] = kr.getGliederung().trim();
+                    r[3] = kr.getBemerkung().trim();
+                    r[4] = stufeToText(kr.getStufe(), true);
+                    r[5] = stufeToText(pos.getMinimaleStufe(), false);
 
-                        result.addLast(r);
-                    }
+                    result.addLast(r);
                 }
             }
             if (empty) {
@@ -236,5 +191,22 @@ public class KampfrichterEinheit implements Serializable {
         KampfrichterPosition kpY = positionen.get(y);
         positionen.set(x, kpY);
         positionen.set(y, kpX);
+    }
+
+    /**
+     * Called after loading, where no constructor runs. Moves the referees of files written before they moved into
+     * their positions.
+     */
+    private Object readResolve() {
+        if (kampfrichter != null) {
+            for (KampfrichterPosition kp : positionen) {
+                LinkedList<Kampfrichter> karis = kampfrichter.get(kp.getPosition());
+                if (karis != null) {
+                    kp.setKampfrichter(karis);
+                }
+            }
+            kampfrichter = null;
+        }
+        return this;
     }
 }

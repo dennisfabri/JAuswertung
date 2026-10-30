@@ -5,7 +5,7 @@ import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.IPluginManager;
@@ -26,7 +26,7 @@ public class HighTimesPlugin extends ANullPlugin {
     }
 
     public boolean isEnabled() {
-        return SchwimmerUtils.EnableHighTimesWarning;
+        return TimeWarnings.EnableHighTimesWarning;
     }
 
     @Override

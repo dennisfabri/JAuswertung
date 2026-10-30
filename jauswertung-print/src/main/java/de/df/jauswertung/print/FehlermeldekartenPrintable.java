@@ -39,8 +39,6 @@ public final class FehlermeldekartenPrintable extends AComponentMultiOnPagePrint
     @Override
     public JPanel getPanel(int page, int offset) {
         JPanel panel = new JPanel() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();

@@ -39,8 +39,6 @@ import de.df.jutils.util.StringTools;
 
 public class JTeamnamesPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private transient CorePlugin core;
     private transient FEditorPlugin editor;
     private transient JMissingInputFrame parent;

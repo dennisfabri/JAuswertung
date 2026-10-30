@@ -105,8 +105,6 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
         }
     }
 
-    private static final long serialVersionUID = 3256719580843227188L;
-
     IPenaltyAdditorStrategy strategy = null;
     final AWettkampf<T> wk;
     final T schwimmer;
@@ -159,8 +157,6 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
@@ -171,8 +167,6 @@ class JPenaltyAdditor<T extends ASchwimmer> extends JDialog {
 
         KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
         Action enterAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 doOk();

@@ -37,11 +37,6 @@ import de.df.jutils.gui.util.DialogUtils;
  */
 class AKsEditorPanel extends JPanel {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3257846593079095860L;
-
     private JPanel panel;
     ModifiableListModel<String> listmodel;
     JList<String> liste;
@@ -77,8 +72,6 @@ class AKsEditorPanel extends JPanel {
 
         altersklassen = new LinkedList<>();
         listmodel = new ModifiableListModel<String>() {
-
-            private static final long serialVersionUID = -3302798347968933015L;
 
             @Override
             public void move(int from, int to) {
@@ -278,8 +271,6 @@ class AKsEditorPanel extends JPanel {
     }
 
     private class AKPopup extends JPopupMenu {
-
-        private static final long serialVersionUID = -3233163270848511987L;
 
         private final JMenuItem remove;
         private final JMenuItem add;

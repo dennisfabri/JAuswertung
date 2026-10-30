@@ -16,8 +16,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 public class JDetailsDialog<T extends ASchwimmer> extends JDialog {
 
-    private static final long serialVersionUID = -3176484810610448509L;
-
     private JRadioButton all;
     JRadioButton selected;
     JComboBox from;

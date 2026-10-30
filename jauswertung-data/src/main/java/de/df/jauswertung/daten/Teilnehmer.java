@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 
 /**
  * @author Dennis Fabri
@@ -12,8 +12,6 @@ import de.df.jauswertung.gui.util.SchwimmerUtils;
  * @since 9. Februar 2001, 12:11
  */
 public class Teilnehmer extends ASchwimmer {
-
-    private static final long serialVersionUID = -817140386007358149L;
 
     @XStreamAsAttribute
     private int jahrgang;

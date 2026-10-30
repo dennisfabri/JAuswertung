@@ -18,15 +18,13 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.LaufInfo;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jutils.gui.JLabelSeparator;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.jlist.ModifiableListModel;
 import de.df.jutils.util.StringTools;
 
 class JZielrichterentscheidPanel<T extends ASchwimmer> extends JPanel {
-
-    private static final long serialVersionUID = 8251280743952459484L;
 
     private Zielrichterentscheid<T> ze = null;
 

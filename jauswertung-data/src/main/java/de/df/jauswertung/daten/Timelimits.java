@@ -1,11 +1,10 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 import de.df.jauswertung.daten.regelwerk.Strafe;
 
-public class Timelimits implements Serializable {
+public class Timelimits {
 
     private String name = "";
     private String shortname = "";

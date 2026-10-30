@@ -89,7 +89,7 @@ public class AresWriter {
                     owLauf.setSchwimmer(SearchUtils.getSchwimmer(newWk, s.getStartnummer()), 0, x);
                 }
             }
-            disziplin.laeufe.add(new OWLauf<>(newWk, disziplin.Id, owLauf));
+            disziplin.laeufe.add(new OWLauf<>(newWk, disziplin.getId(), owLauf));
         }
 
         return newWk;

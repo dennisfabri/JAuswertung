@@ -106,7 +106,8 @@ class MedaillenspiegelPrinter implements Printer {
     }
 
     Printable getPrintable() {
-        JTable result = new JTable(CompetitionUtils.generateMedaillenspiegel(core.getFilteredWettkampf()));
+        JTable result = new JTable(
+                new MedalTableModel(CompetitionUtils.generateMedaillenspiegel(core.getFilteredWettkampf())));
         JTableUtils.setAlignmentRenderer(result, new int[] { SwingConstants.RIGHT, SwingConstants.LEFT },
                 SwingConstants.CENTER);
         JTableUtils.setPreferredCellWidths(result);

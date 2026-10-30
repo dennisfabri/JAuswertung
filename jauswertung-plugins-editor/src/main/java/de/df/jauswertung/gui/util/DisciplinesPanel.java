@@ -46,8 +46,6 @@ public class DisciplinesPanel<T extends ASchwimmer> extends JPanel {
         }
     }
 
-    private static final long serialVersionUID = 8650758383163688649L;
-
     private LinkedList<DataChangeListener> listeners;
 
     private JCheckBox[][] boxes;

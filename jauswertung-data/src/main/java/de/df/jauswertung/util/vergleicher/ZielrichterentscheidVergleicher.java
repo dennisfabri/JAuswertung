@@ -3,16 +3,15 @@
  */
 package de.df.jauswertung.util.vergleicher;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.Zielrichterentscheid;
 import de.df.jauswertung.gui.util.LaufInfo;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 
 public final class ZielrichterentscheidVergleicher<T extends ASchwimmer>
-        implements Comparator<Zielrichterentscheid<T>>, Serializable {
+        implements Comparator<Zielrichterentscheid<T>> {
 
     @Override
     public int compare(Zielrichterentscheid<T> ze1, Zielrichterentscheid<T> ze2) {

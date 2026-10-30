@@ -1,10 +1,10 @@
-package de.df.jauswertung.daten.misc;
+package de.df.jauswertung.gui.plugins.bugreport;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-public class ReportBuilder {
+class ReportBuilder {
 
     private final StringBuilder sb = new StringBuilder();
 

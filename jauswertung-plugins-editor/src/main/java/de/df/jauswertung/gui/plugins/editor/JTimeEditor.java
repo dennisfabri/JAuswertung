@@ -20,7 +20,7 @@ import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.JIntegerField.Validator;
 import de.df.jutils.gui.JTimeField;
@@ -31,11 +31,6 @@ import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 
 class JTimeEditor extends JDialog {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3256719580843227188L;
 
     ASchwimmer schwimmer = null;
     int disziplin = 0;
@@ -80,7 +75,7 @@ class JTimeEditor extends JDialog {
             int zeit = schwimmer.getZeit(disziplin);
             if (zeit != time.getTimeAsInt()) {
                 schwimmer.setZeit(disziplin, time.getTimeAsInt());
-                if (SchwimmerUtils.checkTimeAndNotify(this, schwimmer, disziplin)) {
+                if (TimeWarnings.checkTimeAndNotify(this, schwimmer, disziplin)) {
                     controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, schwimmer,
                             disziplin, null);
                     setVisible(false);

@@ -45,7 +45,7 @@ import de.df.jauswertung.gui.plugins.editor.FEditorPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.MessagePanel;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.gui.util.TimeWarnings;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
 import de.df.jauswertung.util.ergebnis.FormelManager;
@@ -93,7 +93,7 @@ public class PTimeInputPlugin extends ANullPlugin {
             if (swimmers[index] == null) {
                 return true;
             }
-            if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index],
+            if (!TimeWarnings.checkTimeAndNotify(controller.getWindow(), swimmers[index],
                                                    disciplineNumber)) {
                 EDTUtils.requestFocus(inputs[index]);
                 return false;
@@ -488,15 +488,13 @@ public class PTimeInputPlugin extends ANullPlugin {
                 return;
             }
             data = inputs[index].getText();
-            if (!SchwimmerUtils.checkTimeAndNotify(controller.getWindow(), swimmers[index], disciplineNumber)) {
+            if (!TimeWarnings.checkTimeAndNotify(controller.getWindow(), swimmers[index], disciplineNumber)) {
                 EDTUtils.requestFocus(inputs[index]);
             }
         }
     }
 
     class ScrollableJPanel extends JPanel implements Scrollable {
-
-        private static final long serialVersionUID = 680058034328664232L;
 
         @Override
         public Dimension getPreferredScrollableViewportSize() {

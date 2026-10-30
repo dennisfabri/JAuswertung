@@ -19,8 +19,6 @@ import de.df.jutils.gui.util.UIUtils;
 
 public class JOverviewPanel extends JGlassPanel<JPanel> {
 
-    private static final long serialVersionUID = 8023494074221318513L;
-
     private CorePlugin core;
 
     public JOverviewPanel(CorePlugin core) {

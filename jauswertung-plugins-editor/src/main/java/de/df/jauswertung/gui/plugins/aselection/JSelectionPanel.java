@@ -45,8 +45,6 @@ class JSelectionPanel<T extends ASchwimmer> extends JPanel {
 
     private boolean changed = false;
 
-    private static final long serialVersionUID = 3735076099011819345L;
-
     private final AMSelectionPlugin root;
     private final JFrame parent;
     private final FEditorPlugin editor;

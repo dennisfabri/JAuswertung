@@ -63,11 +63,6 @@ class DisziplinenPanel extends JPanel {
         }
     }
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 4050199739180266296L;
-
     JLabel sex1label = new JLabel(I18n.get("Sex1"));
     JLabel sex2label = new JLabel(I18n.get("Sex2"));
 

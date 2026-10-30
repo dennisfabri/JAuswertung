@@ -22,8 +22,6 @@ import de.df.jutils.gui.util.WindowUtils;
 
 class JFilterSelection extends JDialog {
 
-    private static final long serialVersionUID = -6440431620450596615L;
-
     private JList<String> list = new JList();
 
     public JFilterSelection(JFrame parent, LinkedList<String> names) {

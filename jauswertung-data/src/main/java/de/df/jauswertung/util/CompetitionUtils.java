@@ -3,14 +3,13 @@
  */
 package de.df.jauswertung.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
-
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -21,7 +20,7 @@ import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
-import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
@@ -96,9 +95,17 @@ public final class CompetitionUtils {
         wk.getRegelwerk().setSize(min);
     }
 
-    public static <T extends ASchwimmer> TableModel generateMedaillenspiegel(AWettkampf<T> wk) {
+    /**
+     * One row of the medal table.
+     *
+     * @param rank 0 when tied with the row above
+     */
+    public record MedalCount(int rank, String gliederung, int gold, int silver, int bronze) {
+    }
+
+    public static <T extends ASchwimmer> List<MedalCount> generateMedaillenspiegel(AWettkampf<T> wk) {
         if (!wk.hasSchwimmer()) {
-            return null;
+            return List.of();
         }
         Regelwerk aks = wk.getRegelwerk();
         Hashtable<String, int[]> medaille = new Hashtable<>();
@@ -141,88 +148,35 @@ public final class CompetitionUtils {
         }
         Collections.sort(medals);
 
+        List<MedalCount> result = new ArrayList<>();
         int x = 0;
         int points = 0;
         int offset = 1;
-        ListIterator<Medal> lm = medals.listIterator();
-        while (lm.hasNext()) {
-            Medal m = lm.next();
+        for (Medal m : medals) {
+            int rank = 0;
             if (points != m.getPoints()) {
                 x += offset;
                 points = m.getPoints();
                 offset = 1;
-                m.setRank(x);
+                rank = x;
             } else {
                 offset++;
-                m.setRank(-1);
             }
+            result.add(new MedalCount(rank, m.getName(), m.getMedals(0), m.getMedals(1), m.getMedals(2)));
         }
-        return new MedalTableModel(medals.toArray(new Medal[medals.size()]));
+        return result;
     }
 
-    @SuppressWarnings("serial")
-    static class MedalTableModel extends AbstractTableModel {
-
-        private static String[] titles = new String[] { I18n.get("Rank"), I18n.get("Organisation"),
-                "  " + I18n.get("Gold") + "  ",
-                "  " + I18n.get("Silver") + "  ", "  " + I18n.get("Bronze") + "  " };
-
-        private final Medal[] medals;
-
-        @Override
-        public String getColumnName(int column) {
-            return titles[column];
-        }
-
-        public MedalTableModel(Medal[] medals) {
-            this.medals = medals;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 5;
-        }
-
-        @Override
-        public int getRowCount() {
-            return medals.length;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            switch (columnIndex) {
-            case 0:
-                int rank = medals[rowIndex].getRank();
-                if (rank <= 0) {
-                    return "";
-                }
-                return rank;
-            case 1:
-                return medals[rowIndex].getName();
-            case 2:
-                return medals[rowIndex].getMedals(0);
-            case 3:
-                return medals[rowIndex].getMedals(1);
-            case 4:
-                return medals[rowIndex].getMedals(2);
-            default:
-                return null;
-            }
-        }
-    }
-
-    static class Medal implements Comparable<Medal> {
+    private static class Medal implements Comparable<Medal> {
 
         private String name;
         private int[] medals;
         private int points;
-        private int rank;
 
         public Medal(String name, int[] medals) {
             this.name = name;
             this.medals = medals;
             points = 0;
-            rank = 0;
             for (int x = 0; x < medals.length; x++) {
                 points += (medals.length - x) * medals[x];
             }
@@ -250,7 +204,7 @@ public final class CompetitionUtils {
 
         @Override
         public int hashCode() {
-            return (name + points + rank).hashCode();
+            return (name + points).hashCode();
         }
 
         @Override
@@ -262,13 +216,36 @@ public final class CompetitionUtils {
             }
             return 0;
         }
+    }
 
-        public int getRank() {
-            return rank;
+    /**
+     * Checks every scoring group with swimmers the way the merge does, so that a caller can report a broken rulebook
+     * before it starts a printout or export.
+     *
+     * @throws WertungsgruppeException for the first scoring group whose age groups differ in a setting that must
+     *                                 match
+     */
+    public static void checkWertungsgruppen(AWettkampf<?> wk) {
+        for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
+            checkWertungsgruppe(wk, wg.getName());
         }
+    }
 
-        public void setRank(int rank) {
-            this.rank = rank;
+    /**
+     * @throws WertungsgruppeException if the scoring group has swimmers and its age groups differ in a setting that
+     *                                 must match
+     */
+    public static void checkWertungsgruppe(AWettkampf<?> wk, String wgname) {
+        Regelwerk aks = wk.getRegelwerk();
+        Wertungsgruppe wg = aks.getWertungsgruppe(wgname);
+        if (wg == null) {
+            return;
+        }
+        for (Altersklasse ak : aks.getAks()) {
+            if (wgname.equals(ak.getWertungsgruppe()) && SearchUtils.hasSchwimmer(wk, ak)) {
+                aks.createWertungsgruppenAltersklasse(wg);
+                return;
+            }
         }
     }
 
@@ -276,12 +253,31 @@ public final class CompetitionUtils {
         return generateWertungsgruppenwettkampf(wk, false);
     }
 
+    /**
+     * Turns every scoring group (or only those with a multi-event ranking in the protocol) into one age group at the
+     * position of its first member; the other members stay empty, swimmers outside a scoring group are removed.
+     *
+     * @throws WertungsgruppeException if the age groups of a scoring group with swimmers differ in a setting that
+     *                                 must match
+     */
     public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk,
             boolean nurMehrkampf) {
-        AWettkampf<T> wkx = Utils.copy(wk);
-        Wertungsgruppe[] wgs = wkx.getRegelwerk().getWertungsgruppen(nurMehrkampf);
-        if (wgs.length <= 0) {
+        return generateWertungsgruppenwettkampf(wk, wk.getRegelwerk().getWertungsgruppen(nurMehrkampf));
+    }
+
+    /**
+     * Like {@link #generateWertungsgruppenwettkampf(AWettkampf, boolean)}, but merges only the given scoring groups;
+     * swimmers of the other scoring groups stay in their age groups.
+     */
+    public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk,
+            Wertungsgruppe... wertungsgruppen) {
+        if (wertungsgruppen.length <= 0) {
             return null;
+        }
+        AWettkampf<T> wkx = Utils.copy(wk);
+        Wertungsgruppe[] wgs = new Wertungsgruppe[wertungsgruppen.length];
+        for (int x = 0; x < wgs.length; x++) {
+            wgs[x] = wkx.getRegelwerk().getWertungsgruppe(wertungsgruppen[x].getName());
         }
 
         @SuppressWarnings("unchecked")
@@ -290,14 +286,17 @@ public final class CompetitionUtils {
             swimmers[x] = new LinkedList<>();
         }
 
-        wk.disableUpdates();
-        for (Altersklasse ak : wkx.getRegelwerk().getAks()) {
-            if ((ak.getWertungsgruppe() == null)
-                    || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
-                wkx.removeSchwimmer(SearchUtils.getSchwimmer(wkx, ak));
+        wkx.disableUpdates();
+        try {
+            for (Altersklasse ak : wkx.getRegelwerk().getAks()) {
+                if ((ak.getWertungsgruppe() == null)
+                        || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
+                    wkx.removeSchwimmer(SearchUtils.getSchwimmer(wkx, ak));
+                }
             }
+        } finally {
+            wkx.enableUpdates();
         }
-        wk.enableUpdates();
 
         int[] indizes = new int[wgs.length];
         for (int x = 0; x < wgs.length; x++) {
@@ -314,16 +313,17 @@ public final class CompetitionUtils {
             }
         }
 
+        Altersklasse[] merged = new Altersklasse[wgs.length];
         for (int x = 0; x < wgs.length; x++) {
             if (!swimmers[x].isEmpty()) {
+                merged[x] = wkx.getRegelwerk().createWertungsgruppenAltersklasse(wgs[x]);
+                merged[x].setWertungsgruppe(null);
+            }
+        }
+        for (int x = 0; x < wgs.length; x++) {
+            if (merged[x] != null) {
                 int pos = indizes[x];
-                Altersklasse ak = wkx.getRegelwerk().getAk(pos);
-                Wertungsgruppe wg = wgs[x];
-
-                wg.applyTo(ak);
-                ak.setMehrkampfwertung(true);
-                ak.setWertungsgruppe(null);
-
+                wkx.getRegelwerk().setAk(pos, merged[x]);
                 for (T t : swimmers[x]) {
                     t.setAKNummer(pos, false);
                 }

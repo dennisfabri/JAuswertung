@@ -1,11 +1,10 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-public class Mannschaftsmitglied implements Serializable {
+public class Mannschaftsmitglied {
 
     @XStreamAsAttribute
     private String Vorname;

@@ -119,6 +119,8 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
     private static final Strafarten[] STRAFARTEN_RUNDE = { Strafarten.STRAFPUNKTE, Strafarten.DISQUALIFIKATION,
             Strafarten.NICHT_ANGETRETEN, Strafarten.NICHTS };
 
+    private static final Set<String> SENIOREN = Set.of("AK 15/16", "AK 17/18", "AK Offen");
+
     private ErzeugeKompatibilitaetsWettkaempfe() {
     }
 
@@ -182,15 +184,12 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
         offen.setLaufrotation(false);
         aks.setStartgruppen(new Startgruppe[] { jugend, offen });
 
-        Wertungsgruppe junioren = new Wertungsgruppe("Junioren");
-        junioren.setProtokollMitEinzelwertung(false);
-        junioren.setProtokollMitMehrkampfwertung(true);
-        junioren.setEinzelwertungHlw(true);
-        junioren.setStrafeIstDisqualifikation(true);
+        // As in real competitions: the age groups of a scoring group have the same disciplines and settings.
         Wertungsgruppe senioren = new Wertungsgruppe("Senioren");
-        senioren.setProtokollMitEinzelwertung(false);
+        senioren.setProtokollMitEinzelwertung(true);
         senioren.setProtokollMitMehrkampfwertung(true);
-        aks.setWertungsgruppen(new Wertungsgruppe[] { junioren, senioren });
+        senioren.setStrafeIstDisqualifikation(true);
+        aks.setWertungsgruppen(new Wertungsgruppe[] { senioren });
 
         // Laufliste.erzeugen with a custom split fails when a start group mixes age groups with different numbers
         // of disciplines.
@@ -206,7 +205,9 @@ public final class ErzeugeKompatibilitaetsWettkaempfe {
             } else if (!jung && ak.getDiszAnzahl() == offenDisziplinen) {
                 ak.setStartgruppe(offen.getName());
             }
-            ak.setWertungsgruppe(jung ? junioren.getName() : senioren.getName());
+            if (SENIOREN.contains(ak.getName())) {
+                ak.setWertungsgruppe(senioren.getName());
+            }
             ak.setLaufsortierung(reihenfolgen[x % reihenfolgen.length].getValue());
             ak.setLaufrotation(x % 2 == 0);
         }

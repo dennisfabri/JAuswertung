@@ -16,7 +16,7 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.gui.util.UIPreferences;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.UIPerformanceMode;
 import de.df.jutils.gui.util.WindowUtils;
@@ -40,7 +40,7 @@ public class UIModeWindow extends JFrame {
     }
 
     private void initValues() {
-        UIPerformanceMode uipm = Utils.getUIPerformanceMode();
+        UIPerformanceMode uipm = UIPreferences.getUIPerformanceMode();
         switch (uipm) {
         default:
             uiDefault.setSelected(true);
@@ -136,7 +136,7 @@ public class UIModeWindow extends JFrame {
         } else if (uiSoftware.isSelected()) {
             mode = UIPerformanceMode.Software;
         }
-        Utils.setUIPerformanceMode(mode);
+        UIPreferences.setUIPerformanceMode(mode);
         doExit();
     }
 

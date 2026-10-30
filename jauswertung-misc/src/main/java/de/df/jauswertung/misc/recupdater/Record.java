@@ -1,10 +1,8 @@
 package de.df.jauswertung.misc.recupdater;
 
-import java.io.Serializable;
-
 import de.df.jauswertung.misc.times.Time;
 
-public class Record implements Serializable {
+public class Record {
 
     private String competition;
     private String agegroup;

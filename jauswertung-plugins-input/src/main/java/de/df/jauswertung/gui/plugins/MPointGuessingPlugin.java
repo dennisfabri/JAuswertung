@@ -173,8 +173,6 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
     private static class JStatusDialog extends JDialog {
 
-        private static final long serialVersionUID = -6267515594453985792L;
-
         private JLabel[][] stati;
         private int[][] values;
         private JButton ok;

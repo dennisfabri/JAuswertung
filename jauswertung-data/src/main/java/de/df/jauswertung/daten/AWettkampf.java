@@ -2,8 +2,6 @@ package de.df.jauswertung.daten;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -17,7 +15,7 @@ import de.df.jauswertung.daten.kampfrichter.KampfrichterVerwaltung;
 import de.df.jauswertung.daten.laufliste.*;
 import de.df.jauswertung.daten.regelwerk.*;
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.gui.util.SchwimmerUtils;
+import de.df.jauswertung.util.SchwimmerUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.DataType;
@@ -34,7 +32,7 @@ import de.df.jauswertung.util.ergebnis.FormelManager;
  * Mannschaft
  */
 @Slf4j
-public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
+public abstract class AWettkampf<T extends ASchwimmer> {
 
     public AWettkampf(Regelwerk altersklassen, Strafen s) {
         if (altersklassen == null) {
@@ -83,7 +81,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     private final Hashtable<String, Object> properties;
     private KampfrichterVerwaltung kampfrichter;
     private LinkedList<Zielrichterentscheid<T>> zielrichterentscheide;
-
 
     private TimelimitsContainer timelimits;
 
@@ -706,7 +703,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
         return lauflisteow;
     }
 
-
     public Object getProperty(String name) {
         return properties.get(name);
     }
@@ -1056,7 +1052,6 @@ public abstract class AWettkampf<T extends ASchwimmer> implements Serializable {
     /**
      * Called after loading (XStream and Java serialization), where no constructor runs.
      */
-    @Serial
     protected Object readResolve() {
         // Settings of the removed HLW heat list
         properties.keySet().removeIf(key -> key.startsWith("Hlw"));

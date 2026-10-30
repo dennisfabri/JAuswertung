@@ -37,8 +37,6 @@ import de.df.jutils.plugin.IPluginManager;
 
 class JKampfrichterManager extends JGlassFrame {
 
-    private static final long serialVersionUID = 7129899504844113383L;
-
     @SuppressWarnings("rawtypes")
     private AWettkampf wk;
     KampfrichterVerwaltung kv;

@@ -20,8 +20,6 @@ import de.df.jutils.gui.layout.FormLayoutUtils;
 
 class JKampfrichterEinheitPanel extends JPanel {
 
-    private static final long serialVersionUID = -1471802559987003688L;
-
     boolean changed = false;
     private KampfrichterEinheit einheit;
 

@@ -29,6 +29,7 @@ import de.df.jauswertung.print.util.BarcodeUtils;
 import de.df.jauswertung.print.util.ComponentUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.valueobjects.Team;
+import de.df.jauswertung.util.valueobjects.TeamCode;
 import de.df.jauswertung.util.valueobjects.Teammember;
 import de.df.jutils.gui.JDottingLabel;
 import de.df.jutils.gui.border.ExtendedLineBorder;
@@ -152,7 +153,7 @@ public class TeamnamesRegistrationPrintable extends ComponentListPrintable {
         JPanel p = new JPanel(
                 new FormLayout("0dlu,fill:default:grow,0dlu", "0dlu,fill:default:grow,0dlu,fill:default,0dlu"));
         p.setOpaque(false);
-        p.add(createQRCode(team.getCode()), CC.xy(2, 2));
+        p.add(createQRCode(TeamCode.to(team)), CC.xy(2, 2));
 
         if (!team.isExportIdEmpty()) {
             p.add(createText(team.getExportId(), 1), CC.xy(2, 4, "center,center"));

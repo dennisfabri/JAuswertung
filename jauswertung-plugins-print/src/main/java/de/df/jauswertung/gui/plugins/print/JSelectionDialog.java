@@ -80,8 +80,6 @@ public class JSelectionDialog {
     private void addActions() {
         KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         Action escapeAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 cancel();
@@ -92,8 +90,6 @@ public class JSelectionDialog {
 
         KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
         Action enterAction = new AbstractAction() {
-            private static final long serialVersionUID = 3257572818995525944L;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 reallyPrint();

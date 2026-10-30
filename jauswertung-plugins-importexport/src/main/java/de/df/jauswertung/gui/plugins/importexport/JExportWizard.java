@@ -30,12 +30,14 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.bugreport.BugreportPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
 import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.io.ImportExportTypes;
+import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.autocomplete.FileAutoCompleter;
 import de.df.jutils.gui.util.DialogUtils;
@@ -57,11 +59,6 @@ import de.df.jutils.util.Feedback;
  * @author Dennis Fabri @date 11.07.2004
  */
 class JExportWizard extends JWizardFrame implements FinishListener, CancelListener {
-
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3545515093153625141L;
 
     static final String[] COMPETITIONPARTS = new String[]{I18n.get("PersonalCompetition"),
             I18n.get("TeamCompetition")};
@@ -179,6 +176,9 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
                         if (ex == null) {
                             DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"),
                                               I18n.get("ExportFailed.Note"));
+                        } else if (ex instanceof WertungsgruppeException) {
+                            DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ExportFailed"),
+                                              ex.getMessage());
                         } else if (ex instanceof IOException) {
                             ex.printStackTrace();
                             DialogUtils.error(JExportWizard.this, I18n.get("Error"), I18n.get("ErrorOnFileWrite"),
@@ -208,6 +208,13 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
             }
         }
         ImportExportTypes ioType = ImportExportTypes.getByValue(type.getSelectedIndex());
+        if (ioType == ImportExportTypes.RESULTS || ioType == ImportExportTypes.PROTOCOL) {
+            try {
+                CompetitionUtils.checkWertungsgruppen(wk);
+            } catch (WertungsgruppeException e) {
+                return new ResultInfo(ResultType.Fail, e);
+            }
+        }
         boolean success = ExportManager.export(ioType, file.getText(), FORMATS[format.getSelectedIndex()], wk,
                                                new ExportFeedback());
         return (success ? new ResultInfo(ResultType.Success) : new ResultInfo(ResultType.Fail));

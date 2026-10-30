@@ -30,8 +30,6 @@ import de.df.jutils.gui.jlist.SortableListModel;
 
 class JFilterPanel<T extends ASchwimmer> extends JPanel {
 
-    private static final long serialVersionUID = 1149714415412966195L;
-
     private JTextField name;
 
     private SortableListModel<String> model = new SortableListModel<>();

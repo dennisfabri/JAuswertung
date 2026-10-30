@@ -15,7 +15,6 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.laufliste.Lauf;
 import de.df.jauswertung.gui.util.SchwimmerDisziplin;
 
-@SuppressWarnings("serial")
 class HeatListModel<T extends ASchwimmer> extends AbstractListModel<SchwimmerDisziplin<T>> {
 
     private LinkedList<SchwimmerDisziplin<T>> data;

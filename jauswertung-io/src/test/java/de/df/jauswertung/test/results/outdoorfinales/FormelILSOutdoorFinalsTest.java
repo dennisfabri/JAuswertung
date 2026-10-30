@@ -2,20 +2,19 @@ package de.df.jauswertung.test.results.outdoorfinales;
 
 import static de.df.jauswertung.daten.PropertyConstants.*;
 import static java.util.Arrays.stream;
-import static java.util.Comparator.comparingInt;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.IntStream;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.EinzelWettkampf;
 import de.df.jauswertung.daten.Teilnehmer;
-import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWLauf;
 import de.df.jauswertung.daten.laufliste.OWSelection;
 import de.df.jauswertung.daten.laufliste.Reihenfolge;
@@ -23,9 +22,7 @@ import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.gui.util.JResultTable;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jauswertung.io.InputManager;
-import de.df.jauswertung.io.OutputManager;
 import de.df.jauswertung.util.ResultUtils;
-import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.data.HeatsUtils;
 import de.df.jauswertung.util.ergebnis.DataType;
@@ -44,6 +41,13 @@ public class FormelILSOutdoorFinalsTest {
     private static final int Discipline = 0;
     private static final int Round = 0;
 
+    // Places per heat and lane: every heat has the places 1 to its number of swimmers
+    private static final int[] PLAETZE_VORLAUF = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private static final int[] PLAETZE_FINALE = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    private static final int[][] VORLAUF_OHNE_GLEICHSTAND = { PLAETZE_VORLAUF, PLAETZE_VORLAUF };
+    // First heat is the B final, second the A final
+    private static final int[][] FINALE_OHNE_GLEICHSTAND = { PLAETZE_FINALE, PLAETZE_FINALE };
+
     private EinzelWettkampf wk;
     private OWSelection selectionVorlauf;
     private JResultTable ergebnisVorlauf;
@@ -51,24 +55,21 @@ public class FormelILSOutdoorFinalsTest {
     private JResultTable ergebnisFinale;
     private JResultTable ergebnisGesamt;
 
-    @BeforeEach
-    void prepare() {
+    private void aufbauen(int[][] plaetzeVorlauf, int[][] plaetzeFinale) {
         erstelleWettkampf();
         schwimmerHinzufuegen(wk);
 
         selectionVorlauf = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round);
         erzeugeLaufliste(wk, selectionVorlauf, 10);
-        trageZeitenEin(wk, selectionVorlauf);
+        tragePlaetzeEin(wk, selectionVorlauf, plaetzeVorlauf);
         ergebnisVorlauf = erstelleErgebnis(wk, selectionVorlauf);
 
         selectionFinale = new OWSelection(wk.getRegelwerk().getAk(AK), AK, MALE, Discipline, Round + 1);
         erzeugeLaufliste(wk, selectionFinale, 8);
-        trageZeitenFinaleEin(wk, selectionFinale);
+        tragePlaetzeEin(wk, selectionFinale, plaetzeFinale);
         ergebnisFinale = erstelleErgebnis(wk, selectionFinale);
 
         ergebnisGesamt = erstelleGesamtergebnis(wk);
-
-        OutputManager.speichereWettkampf("FormelILSFinals.wk", wk);
     }
 
     private void erstelleWettkampf() {
@@ -121,43 +122,18 @@ public class FormelILSOutdoorFinalsTest {
         HeatsUtils.save(wk, selection, wkx);
     }
 
-    private static void trageZeitenEin(EinzelWettkampf wk, OWSelection selection) {
-        wk.getLauflisteOW().getDisziplin(selection);
-        int[] plaetze = new int[20];
-        plaetze[0] = 1;
-        plaetze[1] = 1;
-        plaetze[2] = 2;
-        plaetze[3] = 3;
-        plaetze[4] = 2;
-        plaetze[5] = 3;
-        plaetze[6] = 4;
-        plaetze[7] = 5;
-        plaetze[8] = 6;
-        plaetze[9] = 4;
-        plaetze[10] = 5;
-        plaetze[11] = 7;
-        plaetze[12] = 6;
-        plaetze[13] = 7;
-        plaetze[14] = 8;
-        plaetze[15] = 8;
-        plaetze[16] = 9;
-        plaetze[17] = 10;
-        plaetze[18] = 9;
-        plaetze[19] = 10;
-
-        for (int x = 1; x <= AnzahlSchwimmer; x++) {
-            SearchUtils.getSchwimmer(wk, x).getEingabe(selection.getId(), true).setZeit(plaetze[x - 1]);
+    /**
+     * Enters the places of each heat, given per heat and lane.
+     */
+    private static void tragePlaetzeEin(EinzelWettkampf wk, OWSelection selection, int[][] plaetze) {
+        LinkedList<OWLauf<Teilnehmer>> laeufe = wk.getLauflisteOW().<Teilnehmer> getDisziplin(selection.getId())
+                .getLaeufe();
+        assertEquals(plaetze.length, laeufe.size());
+        for (int lauf = 0; lauf < plaetze.length; lauf++) {
+            for (int bahn = 0; bahn < plaetze[lauf].length; bahn++) {
+                laeufe.get(lauf).getSchwimmer(bahn).getEingabe(selection.getId(), true).setZeit(plaetze[lauf][bahn]);
+            }
         }
-    }
-
-    private static void trageZeitenFinaleEin(EinzelWettkampf wk, OWSelection selection) {
-        wk.getLauflisteOW().getDisziplin(selection);
-        for (int x = 1; x <= 16; x++) {
-            SearchUtils.getSchwimmer(wk, x).getEingabe(selection.getId(), true).setZeit(17 - x);
-        }
-        SearchUtils.getSchwimmer(wk, 8).getEingabe(selection.getId(), true).setZeit(17 - 9);
-        SearchUtils.getSchwimmer(wk, 9).getEingabe(selection.getId(), true).setZeit(17 - 10);
-        SearchUtils.getSchwimmer(wk, 10).getEingabe(selection.getId(), true).setZeit(17 - 8);
     }
 
     private static JResultTable erstelleErgebnis(EinzelWettkampf wk, OWSelection t) {
@@ -265,146 +241,124 @@ public class FormelILSOutdoorFinalsTest {
 
     @Test
     void anzahlTeilnehmer() {
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
+
         assertEquals(AnzahlSchwimmer, wk.getSchwimmer().size());
     }
 
     @Test
     void lauflisteVorlauf() {
-        OWDisziplin<Teilnehmer> disziplin = wk.getLauflisteOW().getDisziplin(selectionVorlauf.getId());
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
 
-        LinkedList<OWLauf<Teilnehmer>> laufliste = disziplin.getLaeufe();
-        assertEquals(2, laufliste.size());
-
-        OWLauf<Teilnehmer> heat1 = laufliste.get(0);
-        OWLauf<Teilnehmer> heat2 = laufliste.get(1);
-
-        assertEquals(10, heat1.getAllSchwimmer().size());
-        assertEquals(10, heat2.getAllSchwimmer().size());
-
-        assertEquals(2, heat1.getSchwimmer(0).getStartnummer());
-        assertEquals(8, heat1.getSchwimmer(1).getStartnummer());
-        assertEquals(3, heat1.getSchwimmer(2).getStartnummer());
-        assertEquals(17, heat1.getSchwimmer(3).getStartnummer());
-        assertEquals(7, heat1.getSchwimmer(4).getStartnummer());
-        assertEquals(4, heat1.getSchwimmer(5).getStartnummer());
-        assertEquals(18, heat1.getSchwimmer(6).getStartnummer());
-        assertEquals(12, heat1.getSchwimmer(7).getStartnummer());
-        assertEquals(9, heat1.getSchwimmer(8).getStartnummer());
-        assertEquals(15, heat1.getSchwimmer(9).getStartnummer());
-
-        assertEquals(14, heat2.getSchwimmer(0).getStartnummer());
-        assertEquals(13, heat2.getSchwimmer(1).getStartnummer());
-        assertEquals(20, heat2.getSchwimmer(2).getStartnummer());
-        assertEquals(11, heat2.getSchwimmer(3).getStartnummer());
-        assertEquals(10, heat2.getSchwimmer(4).getStartnummer());
-        assertEquals(19, heat2.getSchwimmer(5).getStartnummer());
-        assertEquals(16, heat2.getSchwimmer(6).getStartnummer());
-        assertEquals(5, heat2.getSchwimmer(7).getStartnummer());
-        assertEquals(6, heat2.getSchwimmer(8).getStartnummer());
-        assertEquals(1, heat2.getSchwimmer(9).getStartnummer());
-
+        assertArrayEquals(new int[][] { { 20, 7, 9, 16, 14, 18, 12, 15, 19, 4 }, { 11, 6, 5, 3, 13, 17, 10, 8, 1, 2 } },
+                bahnen(selectionVorlauf));
     }
 
     @Test
     void ergebnisVorlauf() {
-        assertEquals(AnzahlSchwimmer, ergebnisVorlauf.getRowCount());
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
 
-        final String[] expected = { "Teilnehmer, 1", "Teilnehmer, 2", "Teilnehmer, 3", "Teilnehmer, 5", "Teilnehmer, 4",
-                "Teilnehmer, 6", "Teilnehmer, 7", "Teilnehmer, 10", "Teilnehmer, 8", "Teilnehmer, 11", "Teilnehmer, 9",
-                "Teilnehmer, 13", "Teilnehmer, 12", "Teilnehmer, 14", "Teilnehmer, 15", "Teilnehmer, 16",
-                "Teilnehmer, 17", "Teilnehmer, 19", "Teilnehmer, 18", "Teilnehmer, 20" };
-        String[] actual = new String[AnzahlSchwimmer];
-
-        for (int x = 0; x < AnzahlSchwimmer; x++) {
-            actual[x] = ergebnisVorlauf.getResult(x).getSchwimmer().getName();
-            assertEquals(x < QualiPlaetze ? "Q" : "",
-                    ergebnisVorlauf.getModel().getValueAt(x, ergebnisVorlauf.getModel().getColumnCount() - 1));
-        }
-
-        assertArrayEquals(expected, actual);
+        assertEquals(plaetze(11, 1, 20, 1, 6, 3, 7, 3, 5, 5, 9, 5, 3, 7, 16, 7, 13, 9, 14, 9, 17, 11, 18, 11, 10, 13, 12,
+                13, 8, 15, 15, 15, 1, 17, 19, 17, 2, 19, 4, 19), plaetze(ergebnisVorlauf));
+        assertQualifiziert(ergebnisVorlauf);
     }
 
     @Test
     void lauflisteFinale() {
-        OWDisziplin<Teilnehmer> disziplin = wk.getLauflisteOW().getDisziplin(selectionFinale.getId());
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
 
-        LinkedList<OWLauf<Teilnehmer>> laufliste = disziplin.getLaeufe();
-        assertEquals(2, laufliste.size());
-
-        OWLauf<Teilnehmer> bFinal = laufliste.get(0);
-        OWLauf<Teilnehmer> aFinal = laufliste.get(1);
-
-        assertEquals(8, bFinal.getAllSchwimmer().size());
-        assertEquals(8, aFinal.getAllSchwimmer().size());
-
-        String[] expectedA = new String[] { "Teilnehmer, 1", "Teilnehmer, 2", "Teilnehmer, 3", "Teilnehmer, 4",
-                "Teilnehmer, 5", "Teilnehmer, 6", "Teilnehmer, 7", "Teilnehmer, 10" };
-        String[] expectedB = new String[] { "Teilnehmer, 8", "Teilnehmer, 9", "Teilnehmer, 11", "Teilnehmer, 12",
-                "Teilnehmer, 13", "Teilnehmer, 14", "Teilnehmer, 15", "Teilnehmer, 16" };
-
-        Teilnehmer[] actualTeilnehmerA = new Teilnehmer[8];
-        Teilnehmer[] actualTeilnehmerB = new Teilnehmer[8];
-
-        for (int x = 0; x < 8; x++) {
-            actualTeilnehmerA[x] = aFinal.getSchwimmer(x);
-            actualTeilnehmerB[x] = bFinal.getSchwimmer(x);
-        }
-
-        Arrays.sort(actualTeilnehmerA, comparingInt(ASchwimmer::getStartnummer));
-        Arrays.sort(actualTeilnehmerB, comparingInt(ASchwimmer::getStartnummer));
-
-        assertArrayEquals(expectedA, stream(actualTeilnehmerA).map(Teilnehmer::getName).toArray());
-        assertArrayEquals(expectedB, stream(actualTeilnehmerB).map(Teilnehmer::getName).toArray());
+        assertArrayEquals(new int[][] { { 8, 12, 17, 13, 14, 18, 10, 15 }, { 3, 9, 6, 11, 20, 7, 5, 16 } },
+                bahnen(selectionFinale));
     }
 
     @Test
     void ergebnisFinale() {
-        assertEquals(16, ergebnisFinale.getRowCount());
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
 
-        assertEquals(String.format("Teilnehmer, 10"),
-                ergebnisFinale.getResult(0).getSchwimmer().getName());
-        for (int x = 0; x < 7; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1),
-                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
-        }
-        for (int x = 2; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9),
-                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
-        }
-        assertEquals(String.format("Teilnehmer, 9"),
-                ergebnisFinale.getResult(14).getSchwimmer().getName());
-        assertEquals(String.format("Teilnehmer, 8"),
-                ergebnisFinale.getResult(15).getSchwimmer().getName());
+        assertEquals(plaetze(3, 1, 9, 2, 6, 3, 11, 4, 20, 5, 7, 6, 5, 7, 16, 8, 8, 9, 12, 10, 17, 11, 13, 12, 14, 13, 18,
+                14, 10, 15, 15, 16), plaetze(ergebnisFinale));
     }
 
     @Test
     void ergebnisGesamt() {
-        assertEquals(20, ergebnisGesamt.getRowCount());
+        aufbauen(VORLAUF_OHNE_GLEICHSTAND, FINALE_OHNE_GLEICHSTAND);
 
-        assertEquals(String.format("Teilnehmer, 10"),
-                ergebnisFinale.getResult(0).getSchwimmer().getName());
-        for (int x = 0; x < 7; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1),
-                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
-        }
-        for (int x = 2; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9),
-                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
-        }
-        assertEquals(String.format("Teilnehmer, 9"),
-                ergebnisFinale.getResult(14).getSchwimmer().getName());
-        assertEquals(String.format("Teilnehmer, 8"),
-                ergebnisFinale.getResult(15).getSchwimmer().getName());
+        assertEquals(plaetze(3, 1, 9, 2, 6, 3, 11, 4, 20, 5, 7, 6, 5, 7, 16, 8, 8, 9, 12, 10, 17, 11, 13, 12, 14, 13, 18,
+                14, 10, 15, 15, 16, 1, 17, 19, 17, 2, 19, 4, 19), plaetze(ergebnisGesamt));
+    }
 
-        String[] last = new String[AnzahlSchwimmer - 16];
-        for (int x = 16; x < AnzahlSchwimmer; x++) {
-            last[x - 16] = ergebnisGesamt.getResult(x).getSchwimmer().getName();
-        }
-        Arrays.sort(last);
+    @Test
+    void gleichstandImVorlaufUeberspringtDenNaechstenPlatz() {
+        // Lanes 2 and 3 of heat 1 share place 2, place 3 is skipped
+        aufbauen(new int[][] { { 1, 2, 2, 4, 5, 6, 7, 8, 9, 10 }, PLAETZE_VORLAUF }, FINALE_OHNE_GLEICHSTAND);
 
-        for (int x = 16; x < AnzahlSchwimmer; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1), last[x - 16]);
-        }
+        assertEquals(plaetze(11, 1, 20, 1, 6, 3, 7, 3, 9, 3, 5, 6, 3, 7, 16, 7, 13, 9, 14, 9, 17, 11, 18, 11, 10, 13, 12,
+                13, 8, 15, 15, 15, 1, 17, 19, 17, 2, 19, 4, 19), plaetze(ergebnisVorlauf));
+        assertQualifiziert(ergebnisVorlauf);
+        assertArrayEquals(new int[][] { { 8, 10, 12, 13, 14, 15, 17, 18 }, { 3, 5, 6, 7, 9, 11, 16, 20 } },
+                finalisten(selectionFinale));
+    }
 
+    @Test
+    void mehrereGleichstaendeInVorlaufUndFinale() {
+        // Heat 1: places 2 and 6 shared; heat 2: places 1 and 9 shared
+        // B final: place 2 shared; A final: place 4 shared
+        aufbauen(new int[][] { { 1, 2, 2, 4, 5, 6, 6, 8, 9, 10 }, { 1, 1, 3, 4, 5, 6, 7, 8, 9, 9 } },
+                new int[][] { { 1, 2, 2, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 4, 6, 7, 8 } });
+
+        assertEquals(plaetze(6, 1, 11, 1, 20, 1, 7, 4, 9, 4, 5, 6, 3, 7, 16, 7, 13, 9, 14, 9, 12, 11, 17, 11, 18, 11, 10,
+                14, 8, 15, 15, 15, 1, 17, 2, 17, 19, 17, 4, 20), plaetze(ergebnisVorlauf));
+        assertQualifiziert(ergebnisVorlauf);
+        assertArrayEquals(new int[][] { { 8, 10, 12, 13, 14, 15, 17, 18 }, { 3, 5, 6, 7, 9, 11, 16, 20 } },
+                finalisten(selectionFinale));
+        assertEquals(plaetze(3, 1, 7, 2, 20, 3, 6, 4, 11, 4, 9, 6, 5, 7, 16, 8, 8, 9, 12, 10, 18, 10, 13, 12, 14, 13, 17,
+                14, 10, 15, 15, 16), plaetze(ergebnisFinale));
+        assertEquals(plaetze(3, 1, 7, 2, 20, 3, 6, 4, 11, 4, 9, 6, 5, 7, 16, 8, 8, 9, 12, 10, 18, 10, 13, 12, 14, 13, 17,
+                14, 10, 15, 15, 16, 1, 17, 2, 17, 19, 17, 4, 20), plaetze(ergebnisGesamt));
+    }
+
+    /**
+     * Start numbers per heat in lane order.
+     */
+    private int[][] bahnen(OWSelection selection) {
+        return wk.getLauflisteOW().<Teilnehmer> getDisziplin(selection.getId()).getLaeufe().stream()
+                .map(lauf -> IntStream.range(0, lauf.getBahnen()).map(b -> lauf.getSchwimmer(b).getStartnummer())
+                        .toArray())
+                .toArray(int[][]::new);
+    }
+
+    /**
+     * Start numbers per heat, sorted.
+     */
+    private int[][] finalisten(OWSelection selection) {
+        return Arrays.stream(bahnen(selection)).map(lauf -> IntStream.of(lauf).sorted().toArray()).toArray(int[][]::new);
+    }
+
+    /**
+     * Place per swimmer, keyed by the number in the name: the overall ranking is built from copies with new start
+     * numbers.
+     */
+    private static Map<Integer, Integer> plaetze(JResultTable ergebnis) {
+        Map<Integer, Integer> result = new TreeMap<>();
+        for (int x = 0; x < ergebnis.getRowCount(); x++) {
+            Teilnehmer t = (Teilnehmer) ergebnis.getResult(x).getSchwimmer();
+            result.put(Integer.parseInt(t.getVorname()), ergebnis.getResult(x).getPlace());
+        }
+        return result;
+    }
+
+    private static Map<Integer, Integer> plaetze(int... schwimmerUndPlatz) {
+        Map<Integer, Integer> result = new TreeMap<>();
+        for (int x = 0; x < schwimmerUndPlatz.length; x += 2) {
+            result.put(schwimmerUndPlatz[x], schwimmerUndPlatz[x + 1]);
+        }
+        return result;
+    }
+
+    private static void assertQualifiziert(JResultTable ergebnis) {
+        for (int x = 0; x < ergebnis.getRowCount(); x++) {
+            assertEquals(x < QualiPlaetze ? "Q" : "",
+                    ergebnis.getModel().getValueAt(x, ergebnis.getModel().getColumnCount() - 1));
+        }
     }
 }

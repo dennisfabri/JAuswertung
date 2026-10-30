@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +12,6 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * @author Dennis Fabri @version 0.0
  */
 public class Mannschaft extends ASchwimmer {
-
-    @Serial
-    private static final long serialVersionUID = 3944924584522943400L;
 
     @XStreamAsAttribute
     private String name = "";

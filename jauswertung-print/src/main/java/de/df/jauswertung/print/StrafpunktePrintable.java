@@ -131,8 +131,6 @@ public final class StrafpunktePrintable<T extends ASchwimmer> implements Printab
         layout.setColumnGroups(new int[][] { { 4, 6, 8 } });
 
         JPanel panel = new JPanel(layout) {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void add(Component comp, Object constraints) {
                 Font font = PrintManager.getFont();
