@@ -122,8 +122,13 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
   October). `CompatibilityTest` checks them. Never edit or regenerate an existing year — a failing old year means the
   model change is incompatible. When new data structures become reachable through the UI, extend the generator so the
   next year's files contain them.
-- Autosave (`MImportExportPlugin.autosave()`) and undo (serialized snapshots) reuse the same serialization — changes to
-  it affect both.
+- Autosave (`MImportExportPlugin.autosave()`) reuses the same serialization — changes to it affect autosave too.
+- Undo/redo keeps deep copies of the whole competition (`Utils.copy`), not serialized snapshots; saving a competition
+  with a logo copies it the same way. Every class reachable from `AWettkampf` must be copyable by it: records are
+  rebuilt through their canonical constructor, and a cycle that runs through a record fails with
+  `RecordCycleException`.
+- `VollstaendigesModell` (`jauswertung-data` tests) builds competitions with every model class; update it with every
+  change to the model. `VollstaendigesModellKopieTest` fails for a model class that is missing there.
 
 ## Validation
 

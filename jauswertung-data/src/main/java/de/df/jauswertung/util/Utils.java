@@ -4,14 +4,21 @@
 package de.df.jauswertung.util;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.RecordComponent;
 import java.text.DateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.prefs.Preferences;
 
 import com.rits.cloning.Cloner;
+import com.rits.cloning.CloningException;
 import com.rits.cloning.IDeepCloner;
 import com.rits.cloning.IFastCloner;
 
@@ -24,7 +31,7 @@ public final class Utils {
     private static final Cloner cloner;
 
     static {
-        cloner = new Cloner();
+        cloner = new RecordCloner();
         cloner.registerFastCloner(Hashtable.class, new FastClonerHashtable());
         cloner.registerFastCloner(Date.class, new FastClonerDate());
 
@@ -137,6 +144,62 @@ public final class Utils {
         public Object clone(final Object t, final IDeepCloner cloner, final Map<Object, Object> clones) {
             final Date m = (Date) t;
             return new Date(m.getTime());
+        }
+    }
+
+    /**
+     * Java does not allow setting the final fields of a record, so a record is rebuilt through its canonical
+     * constructor from deep copies of its components. A cycle that runs through a record cannot be rebuilt that way,
+     * because the record has to exist before its components are complete; it fails with a
+     * {@link RecordCycleException} instead of recursing endlessly.
+     */
+    private static final class RecordCloner extends Cloner {
+
+        private final ThreadLocal<Set<Object>> recordsInProgress = ThreadLocal
+                .withInitial(() -> Collections.newSetFromMap(new IdentityHashMap<>()));
+
+        @Override
+        @SuppressWarnings("unchecked")
+        protected <T> T cloneInternal(T o, Map<Object, Object> clones) {
+            if (o == null || !o.getClass().isRecord()) {
+                return super.cloneInternal(o, clones);
+            }
+            if (clones != null && clones.containsKey(o)) {
+                return (T) clones.get(o);
+            }
+            Set<Object> inProgress = recordsInProgress.get();
+            if (!inProgress.add(o)) {
+                throw new RecordCycleException(o.getClass());
+            }
+            try {
+                T copy = cloneRecord(o, clones);
+                if (clones != null) {
+                    clones.put(o, copy);
+                }
+                return copy;
+            } finally {
+                inProgress.remove(o);
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        private <T> T cloneRecord(T o, Map<Object, Object> clones) {
+            RecordComponent[] components = o.getClass().getRecordComponents();
+            Object[] values = new Object[components.length];
+            Class<?>[] types = new Class<?>[components.length];
+            try {
+                for (int x = 0; x < components.length; x++) {
+                    Method accessor = components[x].getAccessor();
+                    accessor.setAccessible(true);
+                    values[x] = cloneInternal(accessor.invoke(o), clones);
+                    types[x] = components[x].getType();
+                }
+                Constructor<?> constructor = o.getClass().getDeclaredConstructor(types);
+                constructor.setAccessible(true);
+                return (T) constructor.newInstance(values);
+            } catch (ReflectiveOperationException e) {
+                throw new CloningException("Cannot copy record " + o.getClass().getName(), e);
+            }
         }
     }
 

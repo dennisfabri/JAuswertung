@@ -6,7 +6,6 @@ package de.df.jauswertung.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
@@ -110,18 +109,6 @@ public final class OutputManager {
             }
 
             zos.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Nothing to do
-        }
-        return false;
-    }
-
-    public static synchronized boolean serializeObject(OutputStream ostream, Serializable o) {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(ostream);
-            oos.writeObject(o);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

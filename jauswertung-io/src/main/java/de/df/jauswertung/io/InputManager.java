@@ -271,18 +271,6 @@ public final class InputManager {
         }
     }
 
-    public static synchronized Object unserializeObject(InputStream is) {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(is);
-            Object o = ois.readObject();
-            ois.close();
-            return o;
-        } catch (Exception ef) {
-            // ef.printStackTrace();
-            return null;
-        }
-    }
-
     public static synchronized Object unserialize(byte[] data) {
         try {
             return IOUtils.fromXML(new ByteArrayInputStream(data));
