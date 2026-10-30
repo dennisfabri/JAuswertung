@@ -2,7 +2,6 @@ package de.df.jauswertung.util;
 
 import static java.util.Arrays.stream;
 
-import java.io.Serial;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -54,9 +53,6 @@ public class GesamtwertungWettkampf extends AWettkampf<GesamtwertungSchwimmer> {
 
         }
     }
-
-    @Serial
-    private static final long serialVersionUID = 2735741444352316840L;
 
     @SuppressWarnings("rawtypes")
     private AWettkampf wk;

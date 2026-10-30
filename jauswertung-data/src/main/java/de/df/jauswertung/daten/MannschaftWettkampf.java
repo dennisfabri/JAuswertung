@@ -13,8 +13,6 @@ import de.df.jauswertung.util.RandomUtils;
 
 public class MannschaftWettkampf extends AWettkampf<Mannschaft> {
 
-    private static final long serialVersionUID = 7430614028771289718L;
-
     private Mannschaftsmitgliederexportkennung[] teammembersRegistrationIds = null;
 
     // Only for xstream

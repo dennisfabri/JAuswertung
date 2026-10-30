@@ -13,8 +13,6 @@ import de.df.jauswertung.gui.util.SchwimmerUtils;
  */
 public class Teilnehmer extends ASchwimmer {
 
-    private static final long serialVersionUID = -817140386007358149L;
-
     @XStreamAsAttribute
     private int jahrgang;
     @XStreamAsAttribute

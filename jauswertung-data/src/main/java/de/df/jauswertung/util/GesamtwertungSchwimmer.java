@@ -16,10 +16,6 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
  */
 public class GesamtwertungSchwimmer extends ASchwimmer {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3688785886313854264L;
     private double[] punkte;
     private Strafarten misc = Strafarten.STRAFPUNKTE;
 
