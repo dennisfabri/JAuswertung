@@ -5,7 +5,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Mannschaft;
 import de.df.jauswertung.daten.MannschaftWettkampf;
 import de.df.jauswertung.daten.Mannschaftsmitglied;
-import de.df.jauswertung.util.valueobjects.Team;
+import de.df.jauswertung.util.valueobjects.TeamCode;
 
 public class TeamUtils {
 
@@ -56,7 +56,7 @@ public class TeamUtils {
 
     public static boolean checkBarcode(String code) {
         try {
-            Team.FromCode(code);
+            TeamCode.from(code);
             return true;
         } catch (Exception ex) {
         }

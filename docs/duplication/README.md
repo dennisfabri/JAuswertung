@@ -36,7 +36,7 @@ These look alike but were left as they are:
 
 - `Laufliste.startgruppeVerteilenILS`/`…ILSOutdoor`: only the setup is shared; the distribution algorithms differ on
   purpose.
-- `Team.FromCode00`/`FromCode01`: versioned readers for the file format; separate for compatibility.
+- `TeamCode.from00`/`from01`: versioned readers for the file format; separate for compatibility.
 - `FormelILSSERC` comparator: different ranking rules by design.
 - `DataTableUtils` time as text vs. as an Excel day fraction (`:1705`/`:1770`): different on purpose.
 - `CsvExporter`/`ASpreadsheetExporter`: thin wrappers that already delegate to `DataTableUtils`.

@@ -6,8 +6,8 @@ leaves it unclassified until it has been examined; the model already depends on 
 `daten-outgoing-references.md`).
 
 Known findings so far: `CompetitionUtils` builds a Swing `TableModel` and `Utils` holds the UI performance mode
-(`data-without-swing-and-print.md`), `Team` holds the team-code format (`team-code.md`), `RandomUtils` only returns
-`new Random()`.
+(`data-without-swing-and-print.md`), the team-code format has moved from `Team` to `valueobjects.TeamCode`,
+`RandomUtils` only returns `new Random()`.
 
 ## Done when
 
