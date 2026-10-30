@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.AFeature;
@@ -36,7 +36,7 @@ public class BugreportPlugin extends AFeature {
             throw new NullPointerException("CorePlugin needed!");
         }
 
-        new InitializerThread(Utils.isInDevelopmentMode()).start();
+        new InitializerThread(BetaFeature.LOG_EXCEPTIONS.isEnabled()).start();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class BugreportPlugin extends AFeature {
     }
 
     public void handle(Exception e) {
-        new BugReportExceptionHandler(BugreportPlugin.this, Utils.isInDevelopmentMode())
+        new BugReportExceptionHandler(BugreportPlugin.this, BetaFeature.LOG_EXCEPTIONS.isEnabled())
                 .uncaughtException(Thread.currentThread(), e);
     }
 }

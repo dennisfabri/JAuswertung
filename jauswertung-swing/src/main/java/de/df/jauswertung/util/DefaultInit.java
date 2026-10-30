@@ -42,7 +42,7 @@ public final class DefaultInit {
         }
         initialized = true;
 
-        if (Utils.isInDevelopmentMode()) {
+        if (BetaFeature.EDT_CHECKS.isEnabled()) {
             CheckThreadViolationRepaintManager.init();
             // EventDispatchThreadHangMonitor.initMonitoring();
         }

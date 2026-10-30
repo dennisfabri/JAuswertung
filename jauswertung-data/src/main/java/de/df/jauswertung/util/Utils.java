@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import com.rits.cloning.Cloner;
@@ -106,27 +105,6 @@ public final class Utils {
             return DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         }
         return build.getString("builddate");
-    }
-
-    public static boolean isInDevelopmentMode() {
-        if (!initialized) {
-            initialize();
-        }
-        try {
-            return getPreferences().nodeExists("development");
-        } catch (BackingStoreException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static boolean isInDevelopmentModeFor(String type) {
-        if (!isInDevelopmentMode()) {
-            return false;
-        }
-
-        Preferences dev = getPreferences().node("development");
-        return dev.getLong(type.toLowerCase(), 0) == 1;
     }
 
     public static String getUserDir() {

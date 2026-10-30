@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 import de.df.jauswertung.daten.ASchwimmer;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
 
 /**
  * @author Dennis Fabri
@@ -61,7 +61,7 @@ public final class FormelManager {
         }
         formeln.put(f.getID(), f);
         flist.addLast(f);
-        if (isPublic || Utils.isInDevelopmentMode()) {
+        if (isPublic || BetaFeature.HIDDEN_FORMULAS.isEnabled()) {
             publicFlist.addLast(f);
             Collections.sort(publicFlist, new Comparator<Formel<ASchwimmer>>() {
 
