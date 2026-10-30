@@ -290,14 +290,17 @@ public final class CompetitionUtils {
             swimmers[x] = new LinkedList<>();
         }
 
-        wk.disableUpdates();
-        for (Altersklasse ak : wkx.getRegelwerk().getAks()) {
-            if ((ak.getWertungsgruppe() == null)
-                    || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
-                wkx.removeSchwimmer(SearchUtils.getSchwimmer(wkx, ak));
+        wkx.disableUpdates();
+        try {
+            for (Altersklasse ak : wkx.getRegelwerk().getAks()) {
+                if ((ak.getWertungsgruppe() == null)
+                        || (wkx.getRegelwerk().getWertungsgruppe(ak.getWertungsgruppe()) == null)) {
+                    wkx.removeSchwimmer(SearchUtils.getSchwimmer(wkx, ak));
+                }
             }
+        } finally {
+            wkx.enableUpdates();
         }
-        wk.enableUpdates();
 
         int[] indizes = new int[wgs.length];
         for (int x = 0; x < wgs.length; x++) {

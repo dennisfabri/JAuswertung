@@ -122,23 +122,9 @@ What changes:
 - An unknown group name: today a `NullPointerException` (`wg.getName()` on null); afterwards `null`, which the callers
   already handle.
 
-Prerequisite: fix the `disableUpdates()` side effect below first, or every individual-ranking printout inherits it.
-
 Gain: the printouts (`PrintUtils:499`, `APerDisciplinePrinter:268`, `ListOfMedalsPerDisciplinePrinter:233`) and
 CSV/Excel take one path, which answers "do they produce the same results" by construction, and one of the three
 copies disappears. `getResultWettkampf` remains; it differs on purpose (adds the group, keeps the members).
-
-## Side effects
-
-- `generateWertungsgruppenwettkampf` calls `disableUpdates()`/`enableUpdates()` on the original `wk`, not on the copy
-  `wkx` it changes. On the original, `enableUpdates()` ends in `changedNow(false)`, which sets the `VERSION` and
-  `LAST_CHANGE` properties. Printing or exporting a result therefore stamps the original competition as changed without
-  any edit. `LAST_CHANGE` is handed to every printout as its date
-  (`PrintManager.getFinalPrintable(…, wk.getLastChangedDate(), …)`, jutils-legacy), so the next printout probably shows
-  the time of the previous printout instead of the last edit. Not checked yet: whether it also
-  marks the file as unsaved. Meanwhile every `removeSchwimmer` on
-  `wkx` runs `updateInputStatus()` once per age group, because its updates are not disabled.
-- `getResultWettkampf` calls `changedNow()` on its copy only, which is harmless.
 
 ## Investigate
 
@@ -151,13 +137,11 @@ copies disappears. `getResultWettkampf` remains; it differs on purpose (adds the
   or moved, and whether the result is split per discipline.
 - Whether CSV/Excel and the printouts produce the same results for a scoring group today, pinned by result tests
   before the proposed first step makes them share one path.
-- Whether the `disableUpdates()` on the wrong object makes the original competition look unsaved after a printout or
-  export (the stamp of `LAST_CHANGE` is certain).
 - Whether swimmers should appear twice (own age group and scoring group) as in `getResultWettkampf`, or only in the
   scoring group as in the other two, and whether that is intended per output.
 
 ## Done when
 
-The `disableUpdates()` side effect is fixed, `generateEinzelwertungswettkampf(wgname)` reuses
+`generateEinzelwertungswettkampf(wgname)` reuses
 `generateWertungsgruppenwettkampf`, the questions above are answered and pinned by result tests, and
 `getResultWettkampf` builds the age group of a scoring group with the same shared step.
