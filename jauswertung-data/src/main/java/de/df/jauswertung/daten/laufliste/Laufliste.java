@@ -152,6 +152,19 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         public boolean isMaennlich() {
             return male;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof BlockEinteilung cmp)) {
+                return false;
+            }
+            return startgroup == cmp.startgroup && male == cmp.male;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(startgroup, male);
+        }
     }
 
     /**
