@@ -53,7 +53,8 @@ class VollstaendigesModellKopieTest {
             DATEN + ".PropertyConstants", "nur Konstanten",
             DATEN + ".laufliste.Laufliste$Meldesorter", "Comparator, wird nicht gespeichert",
             DATEN + ".laufliste.Laufliste$MeldezeitenComparator", "Comparator, wird nicht gespeichert",
-            DATEN + ".laufliste.OWSelection", "Auswahl einer Runde, wird nur übergeben");
+            DATEN + ".laufliste.OWSelection", "Auswahl einer Runde, wird nur übergeben",
+            DATEN + ".regelwerk.WertungsgruppeException", "Fehler, wird nicht gespeichert");
 
     private static final Set<Class<?>> WERTE = Set.of(String.class, Integer.class, Long.class, Short.class, Byte.class,
             Double.class, Float.class, Boolean.class, Character.class);

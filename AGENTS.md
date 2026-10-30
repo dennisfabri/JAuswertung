@@ -127,6 +127,10 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
   October). `CompatibilityTest` checks them. Never edit or regenerate an existing year — a failing old year means the
   model change is incompatible. When new data structures become reachable through the UI, extend the generator so the
   next year's files contain them.
+  One deliberate exception (2026-10-30): the generator had put age groups with different disciplines into the scoring
+  groups of all `Einzel`/`Mannschaft` files; those groups were reduced to the valid "Senioren" (AK 15/16, AK 17/18,
+  AK Offen) inside the files and `RESULTS.csv` was updated, because the merged age group now requires matching
+  disciplines and settings.
 - Autosave (`MImportExportPlugin.autosave()`) reuses the same serialization — changes to it affect autosave too.
 - Undo/redo keeps deep copies of the whole competition (`Utils.copy`), not serialized snapshots; saving a competition
   with a logo copies it the same way. Every class reachable from `AWettkampf` must be copyable by it: records are

@@ -19,6 +19,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.core.AgegroupResultSelection;
@@ -27,6 +28,7 @@ import de.df.jauswertung.gui.plugins.core.JResultsSelectionButton;
 import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.UnterschriftPrintable;
 import de.df.jauswertung.util.SearchUtils;
@@ -104,13 +106,13 @@ class ResultsWithDetailedFilterPrinter implements Printer {
 
             @Override
             public <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
-                return ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+                return getAuswahlWettkampf();
             }
             
         });
         diszipline.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.DESELECTED) {
-                checkWarning(ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf()));
+                checkWarning(getAuswahlWettkampf());
             }
         });
 
@@ -177,6 +179,17 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         @SuppressWarnings("unchecked")
         boolean check = !ResultSelectionUtils.IsCompleteSelection(wk, diszipline.getSelection(wk));
         warning.setVisible(preview.isEnabled() && check);
+    }
+
+    /**
+     * The selection keeps working when a scoring group cannot be merged; printing reports it.
+     */
+    <T extends ASchwimmer> AWettkampf<T> getAuswahlWettkampf() {
+        try {
+            return ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+        } catch (WertungsgruppeException e) {
+            return core.getFilteredWettkampf();
+        }
     }
 
     private <T extends ASchwimmer> AWettkampf<T> getWettkampf() {
@@ -265,6 +278,9 @@ class ResultsWithDetailedFilterPrinter implements Printer {
 
     private void showSelectionDialog(JSelectionDialog dialog) {
         if (!ZielrichterentscheidPrinter.checkWettkampf(controller.getWindow(), core.getWettkampf())) {
+            return;
+        }
+        if (!WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf())) {
             return;
         }
 

@@ -12,6 +12,8 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import de.df.jauswertung.daten.laufliste.OWDisziplin;
 import de.df.jauswertung.daten.laufliste.OWSelection;
+import de.df.jauswertung.gui.util.I18n;
+import de.df.jauswertung.util.Utils;
 import de.df.jauswertung.util.ergebnis.FormelManager;
 import de.df.jutils.util.StringTools;
 
@@ -473,23 +475,8 @@ public class Regelwerk {
                 if ((ak.getWertungsgruppe() != null) && (ak.getWertungsgruppe().equals(wg.getName()))) {
                     if (base == null) {
                         base = ak;
-                    } else {
-                        if (base.hasHLW() != ak.hasHLW()) {
-                            return false;
-                        }
-                        if (base.getDiszAnzahl() != ak.getDiszAnzahl()) {
-                            return false;
-                        }
-                        for (int x = 0; x < base.getDiszAnzahl(); x++) {
-                            for (int y = 0; y < 2; y++) {
-                                Disziplin dx = base.getDisziplin(x, y == 1);
-                                Disziplin dy = ak.getDisziplin(x, y == 1);
-                                if (!dx.getName().equals(dy.getName())) {
-                                    return false;
-                                }
-
-                            }
-                        }
+                    } else if (getWertungsgruppenAbweichung(base, ak) != null) {
+                        return false;
                     }
                 }
             }
@@ -534,6 +521,107 @@ public class Regelwerk {
             }
         }
         return true;
+    }
+
+    /**
+     * Builds the age group that represents a scoring group in the results. Settings that must match are checked;
+     * the others are combined: record values take the smallest non-zero value, age limits the widest range, the
+     * overall ranking is enabled if one member has it, and the start group is cleared. Name, penalty handling,
+     * individual and multi-event ranking come from the scoring group. The result still names the scoring group as
+     * its own.
+     *
+     * @return {@code null} if no age group belongs to the scoring group
+     * @throws WertungsgruppeException if the age groups of the scoring group differ in a setting that must match
+     */
+    public Altersklasse createWertungsgruppenAltersklasse(Wertungsgruppe wg) {
+        List<Altersklasse> mitglieder = new ArrayList<>();
+        for (Altersklasse ak : aks) {
+            if (wg.getName().equals(ak.getWertungsgruppe())) {
+                mitglieder.add(ak);
+            }
+        }
+        if (mitglieder.isEmpty()) {
+            return null;
+        }
+        Altersklasse base = mitglieder.getFirst();
+        for (Altersklasse ak : mitglieder) {
+            String abweichung = getWertungsgruppenAbweichung(base, ak);
+            if (abweichung != null) {
+                throw new WertungsgruppeException(I18n.get("Error.ScoringGroupMismatch", wg.getName(),
+                        I18n.get(abweichung), base.getName(), ak.getName()));
+            }
+        }
+
+        Altersklasse result = Utils.copy(base);
+        wg.applyTo(result);
+        result.setMehrkampfwertung(wg.isProtokollMitMehrkampfwertung());
+        result.setStartgruppe(null);
+        for (int x = 0; x < result.getDiszAnzahl(); x++) {
+            for (int y = 0; y < 2; y++) {
+                int rec = 0;
+                for (Altersklasse ak : mitglieder) {
+                    int r = ak.getDisziplin(x, y == 1).getRec();
+                    if (r > 0 && (rec == 0 || r < rec)) {
+                        rec = r;
+                    }
+                }
+                result.getDisziplin(x, y == 1).setRec(rec);
+            }
+        }
+        for (int y = 0; y < 2; y++) {
+            boolean gesamtwertung = false;
+            for (Altersklasse ak : mitglieder) {
+                gesamtwertung |= ak.getGesamtwertung(y == 1);
+            }
+            result.setGesamtwertung(y == 1, gesamtwertung);
+        }
+        result.setMinimumAlter(untereGrenze(mitglieder.stream().mapToInt(Altersklasse::getMinimumAlter).toArray()));
+        result.setMaximumAlter(obereGrenze(mitglieder.stream().mapToInt(Altersklasse::getMaximumAlter).toArray()));
+        result.setMinimumAlterInSumme(
+                untereGrenze(mitglieder.stream().mapToInt(Altersklasse::getMinimumAlterInSumme).toArray()));
+        result.setMaximumAlterInSumme(
+                obereGrenze(mitglieder.stream().mapToInt(Altersklasse::getMaximumAlterInSumme).toArray()));
+        return result;
+    }
+
+    /** 0 means "no limit", so one member without a limit removes it. */
+    private static int untereGrenze(int[] grenzen) {
+        return Arrays.stream(grenzen).anyMatch(g -> g == 0) ? 0 : Arrays.stream(grenzen).min().orElse(0);
+    }
+
+    /** 0 means "no limit", so one member without a limit removes it. */
+    private static int obereGrenze(int[] grenzen) {
+        return Arrays.stream(grenzen).anyMatch(g -> g == 0) ? 0 : Arrays.stream(grenzen).max().orElse(0);
+    }
+
+    /**
+     * @return the I18n key of the first setting in which two age groups of the same scoring group differ although it
+     *         must match, or {@code null}
+     */
+    private String getWertungsgruppenAbweichung(Altersklasse base, Altersklasse ak) {
+        if (base.getDiszAnzahl() != ak.getDiszAnzahl()) {
+            return "ScoringGroupSetting.DisciplineCount";
+        }
+        for (int x = 0; x < base.getDiszAnzahl(); x++) {
+            for (int y = 0; y < 2; y++) {
+                if (!base.getDisziplin(x, y == 1).getName().equals(ak.getDisziplin(x, y == 1).getName())) {
+                    return "ScoringGroupSetting.DisciplineNames";
+                }
+            }
+        }
+        if (base.hasHLW() != ak.hasHLW()) {
+            return "ScoringGroupSetting.HLW";
+        }
+        if (base.isDisciplineChoiceAllowed() != ak.isDisciplineChoiceAllowed()
+                || base.getMinimalChosenDisciplines() != ak.getMinimalChosenDisciplines()
+                || base.getUsedDisciplines() != ak.getUsedDisciplines()
+                || base.getMaximalChosenDisciplines() != ak.getMaximalChosenDisciplines()) {
+            return "ScoringGroupSetting.DisciplineChoice";
+        }
+        if (!isEinzel() && (base.getMinMembers() != ak.getMinMembers() || base.getMaxMembers() != ak.getMaxMembers())) {
+            return "ScoringGroupSetting.TeamSize";
+        }
+        return null;
     }
 
     public Wertungsgruppe getWertungsgruppe(String name) {
@@ -636,6 +724,7 @@ public class Regelwerk {
     }
 
     public void copyTranslationsTo(Regelwerk aks) {
-        aks.translations = translations.copyOf();
+        // Files written before translations existed have none.
+        aks.translations = translations == null ? new Translation() : translations.copyOf();
     }
 }

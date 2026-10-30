@@ -8,6 +8,7 @@ import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.PseudoTable;
 import de.df.jauswertung.util.ResultUtils;
@@ -314,11 +315,19 @@ class ListOfMedalsPerDisciplinePrinter implements Printer {
     void print() {
         int index = indices[agegroup.getSelectedIndex()];
         Object selectedItem = agegroup.getSelectedItem();
+        if (index < 0 && !WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf(),
+                selectedItem.toString())) {
+            return;
+        }
         boolean big = bigPrint.isSelected();
         PrintExecutor.print(() -> getPrintable(index, selectedItem, big), getName(), true, controller.getWindow());
     }
 
     void preview() {
+        if (indices[agegroup.getSelectedIndex()] < 0 && !WertungsgruppenPruefung.pruefe(controller.getWindow(),
+                core.getFilteredWettkampf(), agegroup.getSelectedItem().toString())) {
+            return;
+        }
         PrintExecutor.preview(controller.getWindow(), new ListOfMedalsPC(), getName(), IconManager.getIconBundle(),
                               IconManager.getTitleImages());
     }

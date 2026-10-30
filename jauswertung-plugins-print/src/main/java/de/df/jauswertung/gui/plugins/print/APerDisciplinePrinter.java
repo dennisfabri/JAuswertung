@@ -13,6 +13,7 @@ import de.df.jauswertung.gui.util.EditMode;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.OWUtils;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.io.ExportManager;
 import de.df.jauswertung.io.ImportExportTypes;
 import de.df.jauswertung.util.ResultUtils;
@@ -246,6 +247,14 @@ abstract class APerDisciplinePrinter implements Printer {
         filter.setVisible(result && (wk != null) && wk.isFilterActive());
     }
 
+    private boolean pruefeWertungsgruppe() {
+        if (indices[agegroup.getSelectedIndex()] >= 0) {
+            return true;
+        }
+        return WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf(),
+                agegroup.getSelectedItem().toString());
+    }
+
     @SuppressWarnings("rawtypes")
     private AWettkampf getWettkampf() {
         return getWettkampf(indices[agegroup.getSelectedIndex()], agegroup.getSelectedItem());
@@ -371,6 +380,9 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     void showPreviewSelectionDialog() {
+        if (!pruefeWertungsgruppe()) {
+            return;
+        }
         AWettkampf w = getWettkampf();
         if (w == null) {
             DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),
@@ -387,6 +399,9 @@ abstract class APerDisciplinePrinter implements Printer {
 
     @SuppressWarnings("rawtypes")
     void showPrintSelectionDialog() {
+        if (!pruefeWertungsgruppe()) {
+            return;
+        }
         AWettkampf w = getWettkampf();
         if (w == null) {
             DialogUtils.warn(controller.getWindow(), I18n.get("Title.NoParticipantsForResultgroup"),

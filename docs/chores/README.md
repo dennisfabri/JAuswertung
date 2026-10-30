@@ -12,7 +12,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 
 | Chore | Severity | Size | Summary |
 | --- | --- | --- | --- |
-| [A scoring group is turned into an age group in three places](scoring-group-as-age-group-three-times.md) | Medium | M | `getResultWettkampf`, `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf(wgname)` share their steps; investigate before merging them |
 | [Review which penalties are printed and how](penalty-list-review.md) | Low | M | Penalty list: which penalties it contains, what a card shows, and a more compact table layout |
 | [Replace swingfx](replace-swingfx.md) | Low | M | Hand-maintained fork of a dead library; used in three files |
 | [Replace uistate](replace-uistate.md) | Low | M | Hand-maintained fork of a dead library for window and component state |

@@ -29,6 +29,7 @@ import de.df.jauswertung.gui.plugins.core.ResultSelectionUtils;
 import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.UnterschriftPrintable;
 import de.df.jauswertung.util.Utils;
@@ -321,6 +322,9 @@ class ResultsPrinter implements Printer {
 
     private void showSelectionDialog(JSelectionDialog dialog) {
         if (!ZielrichterentscheidPrinter.checkWettkampf(controller.getWindow(), core.getWettkampf())) {
+            return;
+        }
+        if (!WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf())) {
             return;
         }
 

@@ -3,9 +3,11 @@ package de.df.jauswertung.gui.plugins.core;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +21,11 @@ import de.df.jauswertung.daten.regelwerk.Disziplin;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Strafen;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
+import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.ergebnis.FormelDLRG2007;
+import de.df.jauswertung.util.ergebnis.ResultCalculator;
 
 class ResultSelectionUtilsTest {
 
@@ -101,5 +106,30 @@ class ResultSelectionUtilsTest {
                 () -> assertTrue(ak.hasEinzelwertung(), "Einzelwertung"),
                 () -> assertTrue(ak.isEinzelwertungHlw(), "Einzelwertung HLW"),
                 () -> assertTrue(ak.hasMehrkampfwertung(), "Mehrkampfwertung"));
+    }
+
+    /**
+     * The result printout adds the scoring group, the full printout, protocol and exports merge it; both rank alike.
+     */
+    @Test
+    void wertungsgruppeWirdWieImZusammengefasstenWettkampfGewertet() {
+        AWettkampf<ASchwimmer> result = ResultSelectionUtils.getResultWettkampf(wk);
+        AWettkampf<Teilnehmer> merged = CompetitionUtils.generateWertungsgruppenwettkampf(wk);
+
+        assertEquals(ergebnis(merged, merged.getRegelwerk().getAk(0)),
+                ergebnis(result, result.getRegelwerk().getAk(GRUPPEN_AK)));
+    }
+
+    @Test
+    void abweichendeAltersklassenWerdenGemeldet() {
+        wk.getRegelwerk().getAk(1).setHLW(false);
+
+        assertThrows(WertungsgruppeException.class, () -> ResultSelectionUtils.getResultWettkampf(wk));
+    }
+
+    private static <T extends ASchwimmer> List<String> ergebnis(AWettkampf<T> wk, Altersklasse ak) {
+        return Stream.of(ResultCalculator.getResults(wk, ak, false))
+                .map(r -> r.getPlace() + " " + ((Teilnehmer) r.getSchwimmer()).getNachname() + " " + r.getPoints())
+                .toList();
     }
 }

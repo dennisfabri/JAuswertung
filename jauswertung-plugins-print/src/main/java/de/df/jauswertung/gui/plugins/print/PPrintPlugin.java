@@ -30,6 +30,7 @@ import de.df.jauswertung.gui.plugins.WarningPlugin;
 import de.df.jauswertung.gui.plugins.print.JSelectionDialog.PrintCallBack;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.io.IOUtils;
 import de.df.jauswertung.print.PrintUtils;
 import de.df.jauswertung.print.UnterschriftPrintable;
@@ -277,6 +278,9 @@ public class PPrintPlugin extends ANullPlugin {
     }
 
     void printResults(@SuppressWarnings("rawtypes") AWettkampf wk, boolean[][] selected, boolean view) {
+        if (!WertungsgruppenPruefung.pruefe(getController().getWindow(), wk)) {
+            return;
+        }
         PrintExecutor.print(() -> getResultsPrintable(wk, selected), I18n.get("Results"), true,
                 getController().getWindow());
     }

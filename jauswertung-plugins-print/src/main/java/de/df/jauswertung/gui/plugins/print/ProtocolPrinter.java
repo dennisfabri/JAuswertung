@@ -17,6 +17,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.ProtocolPrintable;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
@@ -111,6 +112,9 @@ public class ProtocolPrinter implements Printer {
             if (!ZielrichterentscheidPrinter.checkWettkampf(controller.getWindow(), core.getWettkampf())) {
                 return;
             }
+            if (!WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf())) {
+                return;
+            }
 
             PrintExecutor.print(() -> getPrintable(), I18n.get("Protocol"), controller.getWindow());
         }
@@ -121,6 +125,9 @@ public class ProtocolPrinter implements Printer {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (!ZielrichterentscheidPrinter.checkWettkampf(controller.getWindow(), core.getWettkampf())) {
+                return;
+            }
+            if (!WertungsgruppenPruefung.pruefe(controller.getWindow(), core.getFilteredWettkampf())) {
                 return;
             }
 

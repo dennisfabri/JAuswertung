@@ -20,6 +20,7 @@ import de.df.jauswertung.daten.laufliste.OWLaufliste;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.daten.regelwerk.Wertungsgruppe;
+import de.df.jauswertung.daten.regelwerk.WertungsgruppeException;
 import de.df.jauswertung.util.ergebnis.ResultCalculator;
 import de.df.jauswertung.util.ergebnis.SchwimmerResult;
 import de.df.jauswertung.util.vergleicher.SchwimmerAKVergleicher;
@@ -217,16 +218,66 @@ public final class CompetitionUtils {
         }
     }
 
+    /**
+     * Checks every scoring group with swimmers the way the merge does, so that a caller can report a broken rulebook
+     * before it starts a printout or export.
+     *
+     * @throws WertungsgruppeException for the first scoring group whose age groups differ in a setting that must
+     *                                 match
+     */
+    public static void checkWertungsgruppen(AWettkampf<?> wk) {
+        for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
+            checkWertungsgruppe(wk, wg.getName());
+        }
+    }
+
+    /**
+     * @throws WertungsgruppeException if the scoring group has swimmers and its age groups differ in a setting that
+     *                                 must match
+     */
+    public static void checkWertungsgruppe(AWettkampf<?> wk, String wgname) {
+        Regelwerk aks = wk.getRegelwerk();
+        Wertungsgruppe wg = aks.getWertungsgruppe(wgname);
+        if (wg == null) {
+            return;
+        }
+        for (Altersklasse ak : aks.getAks()) {
+            if (wgname.equals(ak.getWertungsgruppe()) && SearchUtils.hasSchwimmer(wk, ak)) {
+                aks.createWertungsgruppenAltersklasse(wg);
+                return;
+            }
+        }
+    }
+
     public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk) {
         return generateWertungsgruppenwettkampf(wk, false);
     }
 
+    /**
+     * Turns every scoring group (or only those with a multi-event ranking in the protocol) into one age group at the
+     * position of its first member; the other members stay empty, swimmers outside a scoring group are removed.
+     *
+     * @throws WertungsgruppeException if the age groups of a scoring group with swimmers differ in a setting that
+     *                                 must match
+     */
     public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk,
             boolean nurMehrkampf) {
-        AWettkampf<T> wkx = Utils.copy(wk);
-        Wertungsgruppe[] wgs = wkx.getRegelwerk().getWertungsgruppen(nurMehrkampf);
-        if (wgs.length <= 0) {
+        return generateWertungsgruppenwettkampf(wk, wk.getRegelwerk().getWertungsgruppen(nurMehrkampf));
+    }
+
+    /**
+     * Like {@link #generateWertungsgruppenwettkampf(AWettkampf, boolean)}, but merges only the given scoring groups;
+     * swimmers of the other scoring groups stay in their age groups.
+     */
+    public static <T extends ASchwimmer> AWettkampf<T> generateWertungsgruppenwettkampf(AWettkampf<T> wk,
+            Wertungsgruppe... wertungsgruppen) {
+        if (wertungsgruppen.length <= 0) {
             return null;
+        }
+        AWettkampf<T> wkx = Utils.copy(wk);
+        Wertungsgruppe[] wgs = new Wertungsgruppe[wertungsgruppen.length];
+        for (int x = 0; x < wgs.length; x++) {
+            wgs[x] = wkx.getRegelwerk().getWertungsgruppe(wertungsgruppen[x].getName());
         }
 
         @SuppressWarnings("unchecked")
@@ -262,16 +313,17 @@ public final class CompetitionUtils {
             }
         }
 
+        Altersklasse[] merged = new Altersklasse[wgs.length];
         for (int x = 0; x < wgs.length; x++) {
             if (!swimmers[x].isEmpty()) {
+                merged[x] = wkx.getRegelwerk().createWertungsgruppenAltersklasse(wgs[x]);
+                merged[x].setWertungsgruppe(null);
+            }
+        }
+        for (int x = 0; x < wgs.length; x++) {
+            if (merged[x] != null) {
                 int pos = indizes[x];
-                Altersklasse ak = wkx.getRegelwerk().getAk(pos);
-                Wertungsgruppe wg = wgs[x];
-
-                wg.applyTo(ak);
-                ak.setMehrkampfwertung(true);
-                ak.setWertungsgruppe(null);
-
+                wkx.getRegelwerk().setAk(pos, merged[x]);
                 for (T t : swimmers[x]) {
                     t.setAKNummer(pos, false);
                 }

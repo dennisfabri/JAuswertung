@@ -51,6 +51,13 @@ public class ResultSelectionUtils {
         return true;
     }
 
+    /**
+     * The competition with each scoring group that has a multi-event ranking in the protocol as an additional age
+     * group; its swimmers also stay in their own age groups.
+     *
+     * @throws de.df.jauswertung.daten.regelwerk.WertungsgruppeException if the age groups of such a scoring group
+     *                                                                  differ in a setting that must match
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static <T extends ASchwimmer> AWettkampf<T> getResultWettkampf(AWettkampf wk) {
         wk = Utils.copy(wk);
@@ -58,12 +65,10 @@ public class ResultSelectionUtils {
         for (Wertungsgruppe wg : wk.getRegelwerk().getWertungsgruppen()) {
             if (wg.isProtokollMitMehrkampfwertung()) {
                 Hashtable<Integer, Altersklasse> aks = new Hashtable<>();
-                int index = -1;
                 for (int x = 0; x < wk.getRegelwerk().size(); x++) {
                     Altersklasse ak = wk.getRegelwerk().getAk(x);
                     if ((ak.getWertungsgruppe() != null) && (ak.getWertungsgruppe().equals(wg.getName()))) {
                         aks.put(x, ak);
-                        index = x;
                     }
                 }
                 LinkedList<ASchwimmer> swimmers = Utils.copy(wk).getSchwimmer();
@@ -76,11 +81,9 @@ public class ResultSelectionUtils {
                     }
                 }
                 if (!result.isEmpty()) {
-                    Altersklasse ak = Utils.copy(wk.getRegelwerk().getAk(index));
-                    wg.applyTo(ak);
-                    ak.setMehrkampfwertung(true);
+                    Altersklasse ak = wk.getRegelwerk().createWertungsgruppenAltersklasse(wg);
 
-                    index = wk.getRegelwerk().size();
+                    int index = wk.getRegelwerk().size();
 
                     wk.getRegelwerk().setSize(index + 1);
                     wk.getRegelwerk().setAk(index, ak);
