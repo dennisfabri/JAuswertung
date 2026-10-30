@@ -29,7 +29,7 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Module rules are enforced only by convention](enforce-module-rules.md) | Low | M | ArchUnit and Maven Enforcer rules for *Dependency Rules*, after the data module is clean |
 | [daten contains classes that are not part of the model](daten-only-model.md) | Low | M | `BugReport`, `ReportBuilder` and three more to check; moving them must keep old files loadable |
 | [gui and print in jauswertung-data hold more than data classes](data-gui-print-packages.md) | Low | M | `PenaltyUtils`, `SchwimmerUtils` and `I18n` are utilities; `SchwimmerInfo` to check |
-| [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | `Disziplin` stores name, length and laps per gender although they are always equal |
+| [Discipline values are stored per gender](discipline-values-per-gender.md) | Low | L | Kept on purpose: `Disziplin` stores name, length and laps per gender although they are always equal |
 | [Replace printStackTrace()](replace-printstacktrace.md) | Low | L | 166 `printStackTrace()` calls bypass logging and error handling; often the failure is swallowed |
 | [serialVersionUID in Swing classes](serialversionuid-in-swing-classes.md) | Low | L | Swing classes declare a `serialVersionUID` although they are never serialized |
 | [Replace filechooser](replace-filechooser.md) | Low | L | Hand-maintained native file dialog library; 21 files |
