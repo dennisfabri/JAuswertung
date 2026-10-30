@@ -1,15 +1,17 @@
-/*
- * Created on 05.12.2004
- */
 package de.df.jauswertung.gui.plugins;
 
-import java.util.LinkedList;
+import java.util.EnumMap;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jgoodies.forms.factories.CC;
+import com.jgoodies.forms.layout.FormLayout;
+
 import de.df.jauswertung.gui.util.I18n;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
+import de.df.jauswertung.util.BetaFeature.Area;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.SimpleTableLayout;
 import de.df.jutils.plugin.AFeature;
@@ -18,148 +20,68 @@ import de.df.jutils.plugin.UpdateEvent;
 
 public class OBetaPlugin extends AFeature implements MOptionenPlugin.OptionsPlugin {
 
-    JPanel optionsPanel;
+    private final EnumMap<BetaFeature, JCheckBox> checkBoxes = new EnumMap<>(BetaFeature.class);
 
-    JCheckBox oldCheckBox;
-    JCheckBox betaCheckBox;
+    private JPanel optionsPanel;
 
-    boolean betaEnabled = false;
-    boolean oldEnabled = false;
-
-    MOptionenPlugin optionen;
-
-    private LinkedList<BetaListener> betaListeners;
-    private LinkedList<BetaListener> oldListeners;
-
-    public OBetaPlugin() {
-        betaListeners = new LinkedList<>();
-        oldListeners = new LinkedList<>();
-
-        optionsPanel = new JPanel(new SimpleTableLayout(1, 5, 5));
-        optionsPanel.setName(I18n.get("Beta"));
-        optionsPanel.setName(I18n.getToolTip("BetaOptions"));
-        optionsPanel.setBorder(BorderUtils.createSpaceBorder());
-
-        oldCheckBox = new JCheckBox(I18n.get("EnableOldFeatures"));
-        oldCheckBox.setToolTipText("EnableOldFeatures");
-        oldCheckBox.addActionListener(e -> {
-            optionen.notifyChange();
-        });
-        oldCheckBox.setEnabled(false);
-        oldCheckBox.setSelected(oldEnabled);
-
-        betaCheckBox = new JCheckBox(I18n.get("EnableBetaFeatures"));
-        betaCheckBox.setToolTipText("EnableBetaFeatures");
-        betaCheckBox.addActionListener(e -> {
-            optionen.notifyChange();
-        });
-        betaCheckBox.setEnabled(false);
-        betaCheckBox.setSelected(betaEnabled);
-
-        optionsPanel.add(oldCheckBox);
-        optionsPanel.add(betaCheckBox);
-    }
+    private MOptionenPlugin optionen;
 
     @Override
     public void setController(IPluginManager plugincontroller, String pluginuid) {
         super.setController(plugincontroller, pluginuid);
 
         optionen = (MOptionenPlugin) plugincontroller.getFeature("de.df.jauswertung.options", pluginuid);
+        optionen.addOptionsPlugin(this);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#getPanel()
-     */
     @Override
     public JPanel[] getPanels() {
-        if (!Utils.isInDevelopmentMode()) {
-            return new JPanel[0];
+        if (optionsPanel == null) {
+            initPanel();
         }
         return new JPanel[] { optionsPanel };
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#ok()
-     */
+    private void initPanel() {
+        FormLayout layout = new FormLayout("4dlu,fill:default:grow,4dlu",
+                "4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu");
+        optionsPanel = new JPanel(layout);
+        optionsPanel.setName(I18n.get("Beta"));
+        optionsPanel.setToolTipText(I18n.getToolTip("BetaOptions"));
+
+        optionsPanel.add(createArea(Area.FEATURES, "BetaFeatures.Features"), CC.xy(2, 2));
+        optionsPanel.add(createArea(Area.DIAGNOSTICS, "BetaFeatures.Diagnostics"), CC.xy(2, 4));
+        optionsPanel.add(new JLabel(I18n.get("BetaFeatures.RestartRequired")), CC.xy(2, 6));
+    }
+
+    private JPanel createArea(Area area, String titleKey) {
+        JPanel panel = new JPanel(new SimpleTableLayout(1, 5, 5));
+        panel.setBorder(BorderUtils.createLabeledBorder(I18n.get(titleKey)));
+        for (BetaFeature feature : BetaFeature.inArea(area)) {
+            String key = "BetaFeature." + feature.getKey();
+            JCheckBox checkBox = new JCheckBox(I18n.get(key));
+            checkBox.setToolTipText(I18n.getToolTip(key));
+            checkBox.setSelected(feature.isEnabled());
+            checkBox.addActionListener(e -> optionen.notifyChange());
+            checkBoxes.put(feature, checkBox);
+            panel.add(checkBox);
+        }
+        return panel;
+    }
+
     @Override
     public void apply() {
-        if (betaEnabled != betaCheckBox.isSelected()) {
-            betaEnabled = betaCheckBox.isSelected();
-            for (BetaListener listener : betaListeners) {
-                try {
-                    listener.stateChanged(betaEnabled);
-                } catch (Exception t) {
-                    t.printStackTrace();
-                }
-            }
-        }
-        if (oldEnabled != oldCheckBox.isSelected()) {
-            oldEnabled = oldCheckBox.isSelected();
-            for (BetaListener listener : oldListeners) {
-                try {
-                    listener.stateChanged(oldEnabled);
-                } catch (Exception t) {
-                    t.printStackTrace();
-                }
-            }
-        }
+        checkBoxes.forEach((feature, checkBox) -> feature.setEnabled(checkBox.isSelected()));
     }
 
-    public boolean getBetaState() {
-        return betaEnabled;
-    }
-
-    public boolean getOldState() {
-        return oldEnabled;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see de.df.jauswertung.gui.plugins.MOptionenPlugin.OptionsPlugin#cancel()
-     */
     @Override
     public void cancel() {
-        betaCheckBox.setSelected(betaEnabled);
-        oldCheckBox.setSelected(oldEnabled);
+        checkBoxes.forEach((feature, checkBox) -> checkBox.setSelected(feature.isEnabled()));
     }
 
     @Override
     public void dataUpdated(UpdateEvent due) {
         // Nothing to do here
-    }
-
-    public void addBetaListener(BetaListener listener) {
-        betaListeners.add(listener);
-        betaCheckBox.setEnabled(true);
-        update();
-    }
-
-    public void addOldListener(BetaListener listener) {
-        oldListeners.add(listener);
-        oldCheckBox.setEnabled(true);
-        update();
-    }
-
-    public static interface BetaListener {
-        void stateChanged(boolean enabled);
-    }
-
-    private void update() {
-        switch (betaListeners.size() + oldListeners.size()) {
-        case 0:
-            optionen.removeOptionsPlugin(this);
-            break;
-        case 1:
-            optionen.addOptionsPlugin(this);
-            break;
-        default:
-            break;
-        }
     }
 
     @Override

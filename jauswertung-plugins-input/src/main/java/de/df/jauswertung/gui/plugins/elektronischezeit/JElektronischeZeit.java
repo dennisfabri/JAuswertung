@@ -21,7 +21,7 @@ import de.df.jauswertung.gui.plugins.elektronischezeit.sources.TimesSourceExcept
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.exception.NotEnabledException;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
@@ -155,7 +155,7 @@ class JElektronischeZeit<T extends ASchwimmer> extends JFrame {
 
     private Heat[] loadHeats() throws TimesSourceException {
         String address = SourcesConfig.getAddress();
-        if (address.equalsIgnoreCase("dummy") && Utils.isInDevelopmentMode()) {
+        if (address.equalsIgnoreCase("dummy") && BetaFeature.DUMMY_TIMES_SOURCE.isEnabled()) {
             return strategy.generateHeats();
         }
         return source.getHeats();

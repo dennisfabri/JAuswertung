@@ -10,8 +10,8 @@ import de.df.jauswertung.gui.UpdateEventConstants;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jauswertung.util.CompetitionUtils;
-import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
@@ -25,7 +25,7 @@ public class BSwitchAgeGroupsPlugin extends ANullPlugin {
 
     private CorePlugin core = null;
 
-    private final static boolean ENABLED = Utils.isInDevelopmentModeFor("SwitchAgeGroups");
+    private final static boolean ENABLED = BetaFeature.SWITCH_AGE_GROUPS.isEnabled();
 
     public BSwitchAgeGroupsPlugin() {
         if (ENABLED) {

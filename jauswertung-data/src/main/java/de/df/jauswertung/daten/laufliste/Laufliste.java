@@ -17,10 +17,10 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.daten.regelwerk.Altersklasse;
 import de.df.jauswertung.daten.regelwerk.Startgruppe;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jauswertung.util.CompetitionUtils;
 import de.df.jauswertung.util.RandomUtils;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.Utils;
 
 /**
  * Erzeugt und verwaltet die Laufliste eines Wettkampfes
@@ -814,7 +814,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
 
     @SuppressWarnings("unchecked")
     private boolean startDSMMode() {
-        if (!Utils.isInDevelopmentModeFor("DSM")) {
+        if (!BetaFeature.DSM.isEnabled()) {
             return false;
         }
         Object o = wk.getProperty(PropertyConstants.DSM_MODE_DATA);

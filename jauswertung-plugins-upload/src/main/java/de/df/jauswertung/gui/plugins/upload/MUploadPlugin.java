@@ -13,7 +13,7 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jauswertung.web.iscupload.ResultUploader;
 import de.df.jutils.plugin.ANullPlugin;
 import de.df.jutils.plugin.ButtonInfo;
@@ -51,7 +51,7 @@ public class MUploadPlugin extends ANullPlugin {
         buttons = new ButtonInfo[1];
         buttons[0] = new ButtonInfo(uploadButton, 1010);
 
-        long period = Utils.isInDevelopmentMode() ? FIFTEEN_SECOND : ONE_MINUTE;
+        long period = BetaFeature.FAST_UPLOAD.isEnabled() ? FIFTEEN_SECOND : ONE_MINUTE;
 
         Timer uploadTimer = new Timer("ISC Upload Timer", true);
         uploadTimer.schedule(new TimerTask() {

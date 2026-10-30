@@ -34,6 +34,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.WizardUIElementsProvider;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jauswertung.util.SearchUtils;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.JIntegerField;
@@ -57,7 +58,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     private static final Logger logger = LoggerFactory.getLogger(JNewHeatsWizard.class);
 
-    private static final boolean DSM = Utils.isInDevelopmentModeFor("DSM");
+    private static final boolean DSM = BetaFeature.DSM.isEnabled();
 
     private final AWettkampf<T> wk;
     private final IFeature origin;

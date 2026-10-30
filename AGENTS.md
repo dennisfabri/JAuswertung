@@ -87,9 +87,8 @@ The plugin framework is `jutils-plugin` in the sibling project `jutils-legacy` (
   final boolean big = bigPrint.isSelected();
   PrintExecutor.print(() -> getPrintable(big), getName(), true, controller.getWindow());
   ```
-- Development mode (Java Preferences node `jauswertung/development`, installed via
-  `jauswertung-files/src/main/resources/development/install-prefs.sh`) enables `CheckThreadViolationRepaintManager`; use
-  it when touching threading code.
+- The diagnostic "Zugriffe auf Swing außerhalb des EDT melden" (Optionen → Weitere Funktionen, `BetaFeature.EDT_CHECKS`)
+  enables `CheckThreadViolationRepaintManager` after a restart; use it when touching threading code.
 
 ## Persistence and Compatibility
 

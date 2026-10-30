@@ -17,4 +17,3 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Team member scan never shows the "Names" signal](teammember-scan-partial-signal-unreachable.md) | Low | S | The `else if` repeats the first condition, so the orange signal is unreachable |
 | [Export button of the per-discipline printers is always disabled](per-discipline-export-button-always-disabled.md) | Low | S | `hasExport()` is false everywhere; Excel export of a round is unreachable |
 | [Print previews read Swing widgets off the EDT](print-preview-reads-widgets-off-edt.md) | Low | M | 20 preview creators read widgets in the background; mitigated because the preview blocks its parent |
-| [Development mode features belong in the beta plugin](development-mode-to-beta-plugin.md) | Low | L | Features and diagnostics behind the `development` preferences node should be switched by `OBetaPlugin` |

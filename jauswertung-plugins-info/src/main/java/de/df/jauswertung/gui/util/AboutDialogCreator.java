@@ -4,7 +4,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
-import de.df.jauswertung.util.Utils;
+import de.df.jauswertung.util.BetaFeature;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.window.JAboutDialog;
 
@@ -22,7 +22,7 @@ public final class AboutDialogCreator {
         general.setName(I18n.get("AboutGeneralTitle"));
 
         JComponent[] c = null;
-        if (Utils.isInDevelopmentMode()) {
+        if (BetaFeature.SYSTEM_INFORMATION.isEnabled()) {
             c = new JComponent[] { general,
                     JAboutDialog.getSystemInformation(
                             new String[] { I18n.get("Systeminformation"), I18n.get("Property"), I18n.get("Value") }),
