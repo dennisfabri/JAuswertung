@@ -270,6 +270,7 @@ public final class IOUtils {
             instance.omitField(Lauf.class, "checked");
             instance.omitField(Lauf.class, "retyped");
             instance.omitField(KampfrichterPosition.class, "required");
+            instance.omitField(OWDisziplin.class, "Id");
             instance.omitField(Altersklasse.class, "minpunkte");
             instance.omitField(Altersklasse.class, "kompakt");
             instance.omitField(Mannschaftsmitgliederexportkennung.class, "exportedOnDate");

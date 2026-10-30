@@ -306,7 +306,7 @@ class CompatibilityTest {
             for (OWLauf<T> lauf : disziplin.getLaeufe()) {
                 for (int bahn = 0; bahn < lauf.getBahnen(); bahn++) {
                     T s = lauf.getSchwimmer(bahn);
-                    assertTrue(s == null || schwimmer.contains(s), disziplin.Id + " Bahn " + (bahn + 1));
+                    assertTrue(s == null || schwimmer.contains(s), disziplin.getId() + " Bahn " + (bahn + 1));
                 }
             }
         }

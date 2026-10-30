@@ -9,7 +9,6 @@ import de.df.jauswertung.daten.ASchwimmer;
 
 public class OWDisziplin<T extends ASchwimmer> implements Comparable<OWDisziplin<T>> {
 
-    public final String Id;
     public final int akNummer;
     public final boolean maennlich;
     public final int disziplin;
@@ -23,8 +22,11 @@ public class OWDisziplin<T extends ASchwimmer> implements Comparable<OWDisziplin
         return String.format("%d-%s-%d-%d", akNummer, male ? "m" : "f", disziplin, round);
     }
 
+    public String getId() {
+        return getId(akNummer, maennlich, disziplin, round);
+    }
+
     public OWDisziplin(int ak, boolean m, int disz, int round) {
-        Id = getId(ak, m, disz, round);
         akNummer = ak;
         maennlich = m;
         disziplin = disz;

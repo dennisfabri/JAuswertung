@@ -86,7 +86,7 @@ public class JStarterEditor extends JFrame {
             for (OWDisziplin<Mannschaft> dx : dis) {
                 if (dx.getSchwimmer() != null
                         && SearchUtils.hasSchwimmer(dx.getSchwimmer(), mannschaft.getStartnummer())) {
-                    Eingabe e = mannschaft.getEingabe(dx.Id, true);
+                    Eingabe e = mannschaft.getEingabe(dx.getId(), true);
                     if (e != null) {
                         JStarterPerDiscipline d = new JStarterPerDiscipline(m, dx);
                         disciplines.add(d);

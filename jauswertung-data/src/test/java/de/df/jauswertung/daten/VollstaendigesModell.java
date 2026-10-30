@@ -200,9 +200,9 @@ public final class VollstaendigesModell {
         disziplin.addSchwimmer(erster);
         Lauf<T> owLauf = new Lauf<>(BAHNEN, 1, 0, null);
         owLauf.setSchwimmer(erster, 0, 0);
-        disziplin.laeufe.add(new OWLauf<>(wk, disziplin.Id, owLauf));
-        erster.setZeit(disziplin.Id, 3900);
-        erster.setStarter(disziplin.Id, new int[] { 1 });
-        erster.addStrafe(disziplin.Id, new Strafe("Runde", "R", Strafarten.DISQUALIFIKATION, 0));
+        disziplin.laeufe.add(new OWLauf<>(wk, disziplin.getId(), owLauf));
+        erster.setZeit(disziplin.getId(), 3900);
+        erster.setStarter(disziplin.getId(), new int[] { 1 });
+        erster.addStrafe(disziplin.getId(), new Strafe("Runde", "R", Strafarten.DISQUALIFIKATION, 0));
     }
 }

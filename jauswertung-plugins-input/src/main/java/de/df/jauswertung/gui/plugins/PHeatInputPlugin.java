@@ -1245,10 +1245,10 @@ public class PHeatInputPlugin extends ANullPlugin {
 
                     ASchwimmer s = swimmers[x];
 
-                    if (s.getZeit(d.Id) == 0) {
+                    if (s.getZeit(d.getId()) == 0) {
                         clearInput(x);
                     } else {
-                        setTime(x, s.getZeit(d.Id));
+                        setTime(x, s.getZeit(d.getId()));
                     }
                     names[x].setText(s.getName());
                     String q = s.getQualifikationsebene();
@@ -1259,7 +1259,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                     agegroups[x].setText(I18n.getAgeGroupAsString(s));
                     startnumbers[x].setText(StartnumberFormatManager.format(s));
                     penaltiestext[x]
-                            .setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.Id), s.getAK()));
+                            .setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.getId()), s.getAK()));
                     icons[x].setVisible(isTimeLimitBroken(index, x));
                 }
             }
@@ -1298,7 +1298,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 penaltiestext[lane].setText("");
             } else {
                 ASchwimmer s = swimmers[lane];
-                penaltiestext[lane].setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.Id), s.getAK()));
+                penaltiestext[lane].setText(PenaltyUtils.getPenaltyShortText(s.getAkkumulierteStrafe(d.getId()), s.getAK()));
             }
             updateZieleinlauf(current);
         }
@@ -1308,10 +1308,10 @@ public class PHeatInputPlugin extends ANullPlugin {
             OWDisziplin<T> d = owlaeufe.get(index).Item2;
 
             if (byTimes) {
-                swimmers[lane].setZeit(d.Id, times[lane].getTimeAsInt());
+                swimmers[lane].setZeit(d.getId(), times[lane].getTimeAsInt());
                 icons[lane].setVisible(isTimeLimitBroken(index, lane));
             } else {
-                swimmers[lane].setZeit(d.Id, inputs[lane].getInt());
+                swimmers[lane].setZeit(d.getId(), inputs[lane].getInt());
             }
             controller.sendDataUpdateEvent("ChangeTime", UpdateEventConstants.REASON_POINTS_CHANGED, swimmers[lane],
                                            d.disziplin, PHeatInputPlugin.this);
@@ -1328,8 +1328,8 @@ public class PHeatInputPlugin extends ANullPlugin {
             }
 
             String disziplin = s.getAK().getDisziplin(d.disziplin, s.isMaennlich()).getName();
-            int time = s.getZeit(d.Id);
-            Strafe penalty = s.getAkkumulierteStrafe(d.Id);
+            int time = s.getZeit(d.getId());
+            Strafe penalty = s.getAkkumulierteStrafe(d.getId());
 
             if (time <= 0) {
                 return false;
@@ -1346,7 +1346,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             OWDisziplin<T> d = info.Item2;
 
             ASchwimmer t = swimmers[lane];
-            Eingabe e = t.getEingabe(d.Id, true);
+            Eingabe e = t.getEingabe(d.getId(), true);
             e.addStrafe(strafe);
         }
 
@@ -1355,7 +1355,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
             ASchwimmer t = swimmers[lane];
-            Eingabe e = t.getEingabe(d.Id, true);
+            Eingabe e = t.getEingabe(d.getId(), true);
 
             if (e.getStrafen().isEmpty() && strafen.isEmpty()) {
                 return false;
@@ -1369,7 +1369,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         public void runPenaltyEditor(int index, int lane) {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
-            editor.runPenaltyEditor(wk, swimmers[lane], d.Id);
+            editor.runPenaltyEditor(wk, swimmers[lane], d.getId());
             focus(lane);
         }
 
@@ -1378,7 +1378,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         public void runPenaltyPoints(int index, int lane) {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
-            editor.runPenaltyPoints(wk, swimmers[lane], d.Id);
+            editor.runPenaltyPoints(wk, swimmers[lane], d.getId());
             focus(lane);
         }
 
@@ -1387,7 +1387,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         public void runPenaltyCode(int index, int lane) {
             HeatInfo info = owlaeufe.get(index);
             OWDisziplin<T> d = info.Item2;
-            editor.runPenaltyCode(wk, swimmers[lane], d.Id, wk.getStrafen());
+            editor.runPenaltyCode(wk, swimmers[lane], d.getId(), wk.getStrafen());
             focus(lane);
         }
 

@@ -162,7 +162,7 @@ public final class EasyWKImporter implements IImporter {
                         int[] rundenIds = d.getRundenIds();
                         for (int r = 0; r < rundenIds.length; r++) {
                             if (rundenIds[r] == competitionNumber) {
-                                String id = wk.getLauflisteOW().getDisziplin(x, z == 1, y, r).Id;
+                                String id = wk.getLauflisteOW().getDisziplin(x, z == 1, y, r).getId();
                                 try {
                                     switch (status) {
                                     case NICHTS: {

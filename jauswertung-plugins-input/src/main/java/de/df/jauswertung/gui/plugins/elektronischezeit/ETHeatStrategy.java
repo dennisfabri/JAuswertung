@@ -328,6 +328,6 @@ class ETHeatStrategy<T extends ASchwimmer> implements IETStrategy {
                 lauf.getLaufnummer(), lauf.getLaufbuchstabe(), lis);
         // return new HeatInfo(I18n.getAgeGroupAsString(ak, owd.maennlich), d.getName()
         // + " - " + I18n.getRound(owd.round, owd.round == d.getRunden().length),
-        // getIndex(owd.Id), lauf.getLaufnummer(), lis);
+        // getIndex(owd.getId()), lauf.getLaufnummer(), lis);
     }
 }

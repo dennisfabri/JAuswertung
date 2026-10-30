@@ -1816,7 +1816,7 @@ public final class DataTableUtils {
                     if (t != null) {
                         int competitionId = wk.getRegelwerk().getRundenId(dis);
                         int heat = lauf.getLaufnummer();
-                        Strafe s = t.getAkkumulierteStrafe(dis.Id);
+                        Strafe s = t.getAkkumulierteStrafe(dis.getId());
                         Disziplin disziplin = wk.getRegelwerk().getAk(dis.akNummer).getDisziplin(dis.disziplin,
                                                                                                  dis.maennlich);
 

@@ -142,7 +142,7 @@ public class ResultUtils {
                     if (owd.akNummer == akn && owd.maennlich == (z == 1)) {
                         OWDisziplin<T> neu = llNeu.addDisziplin(owd.disziplin, z == 1, 0, owd.round);
                         for (OWLauf<T> lauf : owd.laeufe) {
-                            OWLauf<T> laufNeu = new OWLauf<>(w, neu.Id, lauf, false);
+                            OWLauf<T> laufNeu = new OWLauf<>(w, neu.getId(), lauf, false);
                             neu.laeufe.add(laufNeu);
                         }
                     }
@@ -201,7 +201,7 @@ public class ResultUtils {
                                 for (OWDisziplin<T> owd : llow.getDisziplinen()) {
                                     if (owd.akNummer == akn && owd.maennlich == s.isMaennlich() && owd.disziplin == x) {
 
-                                        Eingabe e1 = s.getEingabe(owd.Id);
+                                        Eingabe e1 = s.getEingabe(owd.getId());
                                         if (e1 != null) {
                                             Eingabe e = neu.getEingabe(
                                                     OWDisziplin.getId(x, s.isMaennlich(), 0, owd.round), true);
@@ -583,8 +583,8 @@ public class ResultUtils {
             LinkedList<Strafe> strafen = new LinkedList<>();
             if (d != null) {
                 T sx = SearchUtils.getSchwimmer(wk, s.getStartnummer());
-                zeit = sx.getZeit(d.Id);
-                strafen = sx.getStrafen(d.Id);
+                zeit = sx.getZeit(d.getId());
+                strafen = sx.getStrafen(d.getId());
             }
             if (!istInFolgerundeEingeteilt(cwk, s, t, disziplin.getRunden().length + 1)) {
                 strafen.addAll(s.getAllgemeineStrafen());

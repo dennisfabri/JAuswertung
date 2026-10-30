@@ -126,9 +126,9 @@ public class JPenaltyEditor<T extends ASchwimmer> extends JFrame {
             Arrays.sort(dx);
             for (OWDisziplin<T> d : dx) {
                 if (d.Schwimmer.contains(swimmer)) {
-                    p = new JPenaltyDisciplineEditor(d.Id, alwaysDisq);
+                    p = new JPenaltyDisciplineEditor(d.getId(), alwaysDisq);
                     penaltyTabs.addTab(p.getName(), p);
-                    ids.add(d.Id);
+                    ids.add(d.getId());
                 }
             }
         } else {

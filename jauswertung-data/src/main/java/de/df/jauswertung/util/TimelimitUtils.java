@@ -57,10 +57,10 @@ public final class TimelimitUtils {
                         for (OWDisziplin<T> round : wk.getLauflisteOW().getDisziplinen()) {
                             Disziplin d = ak.getDisziplin(round.disziplin, male);
                             for (T s : swimmers) {
-                                if (s.hasInput(round.Id) && limits.isBrokenBy(s.getZeit(round.Id),
-                                        s.getAkkumulierteStrafe(round.Id), d.getName(), s, year, round.round)) {
-                                    result.add(new BrokenTimelimit<>(s, ak, d, s.getZeit(round.Id),
-                                            s.getAkkumulierteStrafe(round.Id), limits));
+                                if (s.hasInput(round.getId()) && limits.isBrokenBy(s.getZeit(round.getId()),
+                                        s.getAkkumulierteStrafe(round.getId()), d.getName(), s, year, round.round)) {
+                                    result.add(new BrokenTimelimit<>(s, ak, d, s.getZeit(round.getId()),
+                                            s.getAkkumulierteStrafe(round.getId()), limits));
                                 }
                             }
                         }
