@@ -236,6 +236,9 @@ There is no server behind the UI, so the desktop application is the only line of
   installed into `~/.m2` (see the workspace guide), not against an early merge of it.
 - Start a branch before the first commit when `main` is checked out. Follow-up work goes on the branch that is checked
   out; do not create further branches unasked.
+- Commit after each finished step without asking (a fix, a chore update, a documentation change), once its build and
+  tests pass. Do not batch several steps into one commit; the history on the feature branch can be reworked before the
+  merge.
 - Merge into `main` only when the feature is finished and the user asks for it, with a real merge commit
   (`git merge --no-ff`), never a fast-forward.
 - **Commit messages**: write them in German, matching the existing history. The body is a brief bullet list of at most
