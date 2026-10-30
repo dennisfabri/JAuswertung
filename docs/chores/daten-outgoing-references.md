@@ -19,14 +19,14 @@ moved to its own chore or done here) and remove it once settled.
 | `AWettkampf` | `util.Utils` | |
 | `EinzelWettkampf` | `util.AltersklassenUtils` | |
 | `MannschaftWettkampf` | `util.AltersklassenUtils` | |
-| `MannschaftWettkampf` | `util.RandomUtils` | see `remove-mersenne-twister.md` |
+| `MannschaftWettkampf` | `util.RandomUtils` | returns `new Random()`; could be inlined |
 | `Teilnehmer` | `gui.util.SchwimmerUtils` | as above |
 | `Zielrichterentscheid` | `util.SearchUtils` | |
 | `laufliste/Lauf` | `gui.util.I18n` | |
 | `laufliste/Lauf` | `jutils.util.StringTools` | |
 | `laufliste/Laufliste` | `util.BetaFeature` | feature flag inside the model |
 | `laufliste/Laufliste` | `util.CompetitionUtils` | |
-| `laufliste/Laufliste` | `util.RandomUtils` | see `remove-mersenne-twister.md` |
+| `laufliste/Laufliste` | `util.RandomUtils` | returns `new Random()`; could be inlined |
 | `laufliste/Laufliste` | `util.SearchUtils` | |
 | `laufliste/OWLauf` | `util.SearchUtils` | |
 | `laufliste/OWLauf` | `jutils.util.StringTools` | |

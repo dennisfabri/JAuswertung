@@ -37,7 +37,6 @@
         <l2fprod.version>7.4.0-SNAPSHOT</l2fprod.version>
         <flying-saucer.version>9.9.5</flying-saucer.version>
         <commons-text.version>1.15.0</commons-text.version>
-        <commons-math3.version>3.6.1</commons-math3.version>
         <filechooser.version>1.0.0-SNAPSHOT</filechooser.version>
         <xstream.version>1.4.21</xstream.version>
         <juniversalchardet.version>2.5.1</juniversalchardet.version>
@@ -424,11 +423,6 @@
                 <groupId>org.lisasp.swing</groupId>
                 <artifactId>filechooser-platform</artifactId>
                 <version>${filechooser.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-math3</artifactId>
-                <version>${commons-math3.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>

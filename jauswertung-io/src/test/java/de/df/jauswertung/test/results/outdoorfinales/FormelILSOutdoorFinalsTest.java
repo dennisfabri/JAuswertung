@@ -44,6 +44,9 @@ public class FormelILSOutdoorFinalsTest {
     private static final int Discipline = 0;
     private static final int Round = 0;
 
+    private static final String[] ERGEBNIS_FINALE = Arrays.stream(new int[] { 10, 7, 6, 5, 4, 3, 2, 1, 16, 15, 14, 12, 11, 9, 8, 19 })
+            .mapToObj(x -> "Teilnehmer, " + x).toArray(String[]::new);
+
     private EinzelWettkampf wk;
     private OWSelection selectionVorlauf;
     private JResultTable ergebnisVorlauf;
@@ -281,27 +284,27 @@ public class FormelILSOutdoorFinalsTest {
         assertEquals(10, heat1.getAllSchwimmer().size());
         assertEquals(10, heat2.getAllSchwimmer().size());
 
-        assertEquals(2, heat1.getSchwimmer(0).getStartnummer());
-        assertEquals(8, heat1.getSchwimmer(1).getStartnummer());
-        assertEquals(3, heat1.getSchwimmer(2).getStartnummer());
-        assertEquals(17, heat1.getSchwimmer(3).getStartnummer());
-        assertEquals(7, heat1.getSchwimmer(4).getStartnummer());
-        assertEquals(4, heat1.getSchwimmer(5).getStartnummer());
-        assertEquals(18, heat1.getSchwimmer(6).getStartnummer());
-        assertEquals(12, heat1.getSchwimmer(7).getStartnummer());
-        assertEquals(9, heat1.getSchwimmer(8).getStartnummer());
-        assertEquals(15, heat1.getSchwimmer(9).getStartnummer());
+        assertEquals(20, heat1.getSchwimmer(0).getStartnummer());
+        assertEquals(7, heat1.getSchwimmer(1).getStartnummer());
+        assertEquals(9, heat1.getSchwimmer(2).getStartnummer());
+        assertEquals(16, heat1.getSchwimmer(3).getStartnummer());
+        assertEquals(14, heat1.getSchwimmer(4).getStartnummer());
+        assertEquals(18, heat1.getSchwimmer(5).getStartnummer());
+        assertEquals(12, heat1.getSchwimmer(6).getStartnummer());
+        assertEquals(15, heat1.getSchwimmer(7).getStartnummer());
+        assertEquals(19, heat1.getSchwimmer(8).getStartnummer());
+        assertEquals(4, heat1.getSchwimmer(9).getStartnummer());
 
-        assertEquals(14, heat2.getSchwimmer(0).getStartnummer());
-        assertEquals(13, heat2.getSchwimmer(1).getStartnummer());
-        assertEquals(20, heat2.getSchwimmer(2).getStartnummer());
-        assertEquals(11, heat2.getSchwimmer(3).getStartnummer());
-        assertEquals(10, heat2.getSchwimmer(4).getStartnummer());
-        assertEquals(19, heat2.getSchwimmer(5).getStartnummer());
-        assertEquals(16, heat2.getSchwimmer(6).getStartnummer());
-        assertEquals(5, heat2.getSchwimmer(7).getStartnummer());
-        assertEquals(6, heat2.getSchwimmer(8).getStartnummer());
-        assertEquals(1, heat2.getSchwimmer(9).getStartnummer());
+        assertEquals(11, heat2.getSchwimmer(0).getStartnummer());
+        assertEquals(6, heat2.getSchwimmer(1).getStartnummer());
+        assertEquals(5, heat2.getSchwimmer(2).getStartnummer());
+        assertEquals(3, heat2.getSchwimmer(3).getStartnummer());
+        assertEquals(13, heat2.getSchwimmer(4).getStartnummer());
+        assertEquals(17, heat2.getSchwimmer(5).getStartnummer());
+        assertEquals(10, heat2.getSchwimmer(6).getStartnummer());
+        assertEquals(8, heat2.getSchwimmer(7).getStartnummer());
+        assertEquals(1, heat2.getSchwimmer(8).getStartnummer());
+        assertEquals(2, heat2.getSchwimmer(9).getStartnummer());
 
     }
 
@@ -340,7 +343,7 @@ public class FormelILSOutdoorFinalsTest {
         String[] expectedA = new String[] { "Teilnehmer, 1", "Teilnehmer, 2", "Teilnehmer, 3", "Teilnehmer, 4",
                 "Teilnehmer, 5", "Teilnehmer, 6", "Teilnehmer, 7", "Teilnehmer, 10" };
         String[] expectedB = new String[] { "Teilnehmer, 8", "Teilnehmer, 9", "Teilnehmer, 11", "Teilnehmer, 12",
-                "Teilnehmer, 13", "Teilnehmer, 14", "Teilnehmer, 15", "Teilnehmer, 16" };
+                "Teilnehmer, 14", "Teilnehmer, 15", "Teilnehmer, 16", "Teilnehmer, 19" };
 
         Teilnehmer[] actualTeilnehmerA = new Teilnehmer[8];
         Teilnehmer[] actualTeilnehmerB = new Teilnehmer[8];
@@ -361,40 +364,14 @@ public class FormelILSOutdoorFinalsTest {
     void ergebnisFinale() {
         assertEquals(16, ergebnisFinale.getRowCount());
 
-        assertEquals(String.format("Teilnehmer, 10"),
-                ergebnisFinale.getResult(0).getSchwimmer().getName());
-        for (int x = 0; x < 7; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1),
-                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
-        }
-        for (int x = 2; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9),
-                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
-        }
-        assertEquals(String.format("Teilnehmer, 9"),
-                ergebnisFinale.getResult(14).getSchwimmer().getName());
-        assertEquals(String.format("Teilnehmer, 8"),
-                ergebnisFinale.getResult(15).getSchwimmer().getName());
+        assertArrayEquals(ERGEBNIS_FINALE, namen(ergebnisFinale, 16));
     }
 
     @Test
     void ergebnisGesamt() {
         assertEquals(20, ergebnisGesamt.getRowCount());
 
-        assertEquals(String.format("Teilnehmer, 10"),
-                ergebnisFinale.getResult(0).getSchwimmer().getName());
-        for (int x = 0; x < 7; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 1),
-                    ergebnisFinale.getResult(7 - x).getSchwimmer().getName());
-        }
-        for (int x = 2; x < 8; x++) {
-            assertEquals(String.format("Teilnehmer, %d", x + 9),
-                    ergebnisFinale.getResult(15 - x).getSchwimmer().getName());
-        }
-        assertEquals(String.format("Teilnehmer, 9"),
-                ergebnisFinale.getResult(14).getSchwimmer().getName());
-        assertEquals(String.format("Teilnehmer, 8"),
-                ergebnisFinale.getResult(15).getSchwimmer().getName());
+        assertArrayEquals(ERGEBNIS_FINALE, namen(ergebnisFinale, 16));
 
         String[] last = new String[AnzahlSchwimmer - 16];
         for (int x = 16; x < AnzahlSchwimmer; x++) {
@@ -406,5 +383,13 @@ public class FormelILSOutdoorFinalsTest {
             assertEquals(String.format("Teilnehmer, %d", x + 1), last[x - 16]);
         }
 
+    }
+
+    private static String[] namen(JResultTable ergebnis, int anzahl) {
+        String[] result = new String[anzahl];
+        for (int x = 0; x < anzahl; x++) {
+            result[x] = ergebnis.getResult(x).getSchwimmer().getName();
+        }
+        return result;
     }
 }
