@@ -8,7 +8,8 @@ bin/
 
 .idea
 *.iml
-.claude/
+.claude/*
+!.claude/skills/
 
 *.install4j~
 
