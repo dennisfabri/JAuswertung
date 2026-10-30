@@ -126,22 +126,41 @@ Gain: the printouts (`PrintUtils:499`, `APerDisciplinePrinter:268`, `ListOfMedal
 CSV/Excel take one path, which answers "do they produce the same results" by construction, and one of the three
 copies disappears. `getResultWettkampf` remains; it differs on purpose (adds the group, keeps the members).
 
+## Decided: settings of the merged age group
+
+The merged age group no longer copies a template; each setting follows one rule. `Altersklasse` / `Disziplin` field
+names in brackets.
+
+| Setting | Rule |
+| --- | --- |
+| Name, penalty is disqualification, individual ranking, individual ranking HLW | from the scoring group (`Wertungsgruppe.applyTo`) |
+| Multi-event ranking (`keineMehrkampfwertung`) | from the scoring group (`isProtokollMitMehrkampfwertung`) |
+| Number of disciplines, discipline names, HLW (`hlw`) | must match (already in `isValid()`) |
+| Discipline choice (`diszchoice`) | must match; `mindisz`, `useddisz`, `maxdisz` must match only when it is switched on |
+| Team size (`minMembers`, `maxMembers`) | must match |
+| Record value per discipline and gender (`rec`) | smallest non-zero value; 0 if all are 0 |
+| Age limits (`alter`, `alterMannschaft`) | lowest lower and highest upper limit; 0 ("no limit") if any member has 0 for that bound |
+| Overall ranking per gender (`gesamtwertung`) | enabled if enabled in at least one member |
+| Start group (`startgruppe`) | does not matter; cleared |
+| Discipline length and laps (`laenge`, `laps`) | do not matter (timekeeping only) |
+| Rounds and lane rotation (`runden`, `rundenIds`, `laufrotation`) | do not matter (heat-based competitions are excluded by `isValid()`) |
+
+`Regelwerk.isValid()` is extended by the new "must match" rules. It keeps running only when the rulebook editor
+applies its changes: neither a new competition (rulebook file from `JNeuerWettkampf`) nor opening a competition file
+checks it.
+
+Swimmers appearing twice in `getResultWettkampf` (own age group and scoring group) is intended.
+
 ## Investigate
 
-- Which member age group should be the template (first or last). Moot if `isValid()` is extended to record values and
-  the other point-relevant settings and enforced on load as well; otherwise the choice must be made and documented.
-- Whether `isValid()` should run when a competition is loaded or a rulebook is imported, and what happens to existing
-  files that fail it.
-- Whether the three can share one step "build the age group of a scoring group" (find members, choose the template,
-  apply the settings, collect the swimmers), with the callers only deciding whether the swimmers are added as copies
-  or moved, and whether the result is split per discipline.
+- What the merge does with a file whose member age groups break a "must match" rule (it is loaded unchecked).
+  Proposed: the first member decides, as in `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf`;
+  `getResultWettkampf` switches from the last member to the first.
 - Whether CSV/Excel and the printouts produce the same results for a scoring group today, pinned by result tests
   before the proposed first step makes them share one path.
-- Whether swimmers should appear twice (own age group and scoring group) as in `getResultWettkampf`, or only in the
-  scoring group as in the other two, and whether that is intended per output.
 
 ## Done when
 
-`generateEinzelwertungswettkampf(wgname)` reuses
-`generateWertungsgruppenwettkampf`, the questions above are answered and pinned by result tests, and
-`getResultWettkampf` builds the age group of a scoring group with the same shared step.
+`Regelwerk.isValid()` checks the new "must match" rules, the three methods build the merged age group with one shared
+step that follows the rules above (pinned by result tests), `generateEinzelwertungswettkampf(wgname)` reuses
+`generateWertungsgruppenwettkampf`, and `getResultWettkampf` uses the same shared step.
