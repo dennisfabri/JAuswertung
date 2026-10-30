@@ -48,8 +48,21 @@ Listed bottom-up; the order of `<modules>` in the root `pom.xml` follows this la
   `jauswertung` → `misc` / `setup`.
 - Lower modules never depend on plugin or GUI-aggregator modules. The domain model in `jauswertung-data` must not depend
   on Swing panels, plugins, or I/O formats.
+  Two deliberate exceptions: `I18n.getKeyStroke` may return a `javax.swing.KeyStroke` (`gui.util` is UI support, and
+  the UI is Swing), and the model carries its own persistence mapping (XStream annotations, commons.xmt
+  `VersionedDocument`/`migrateN`), because the file format and the model are tied.
 - Avoid cyclic dependencies; when two modules need to share something, move it down to the lowest module that both
   already depend on.
+
+### Packages in jauswertung-data
+
+- `de.df.jauswertung.daten` holds only classes that are part of the model. Everything in it is open to deserialization
+  (`allowTypesByWildcard("de.df.jauswertung.daten.**")` in `IOUtils`), which is one more reason to keep anything else
+  out. Every reference from `daten` to another package is examined individually; the open ones are tracked in
+  `docs/chores/daten-outgoing-references.md`.
+- `de.df.jauswertung.gui` and `de.df.jauswertung.print` in this module hold only data classes for scoped subdomains
+  (DTOs, temporary models) — no utilities, no logic beyond the data they carry.
+- `de.df.jauswertung.util` is not classified yet; see `docs/chores/examine-data-util.md`.
 
 ## Plugin Architecture
 

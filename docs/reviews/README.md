@@ -8,3 +8,4 @@ Target+Scope+Type defaults its baseline to that commit (except Test coverage, wh
 
 | Target | Scope | Type | Date | Commit |
 | --- | --- | --- | --- | --- |
+| jauswertung-data | module | Architecture | 2026-10-30 | 75f357c5 |

@@ -77,7 +77,8 @@ Standards/Spec sub-agents → aggregate) with three adjustments:
   `git log --name-status <baseline>..HEAD -- docs/issues docs/chores` and, for every issue/chore file added, changed,
   or deleted by a commit that also touches the pathspec, use its content (`git show <sha>^:<file>` for deleted ones)
   as the spec. If there is none, skip the Spec sub-agent without asking and note "no spec available" — a module
-  review is usually not tied to one feature.
+  review is usually not tied to one feature. Also skip it when the baseline is the root commit: a full review of the
+  current state is not the implementation of the issues fixed along the way, and they are long closed.
 
 When the mechanism is a deterministic tool (PIT, `scripts/i18n-missing-keys.sh`), run it directly per
 `REVIEW_TYPES.md`.
