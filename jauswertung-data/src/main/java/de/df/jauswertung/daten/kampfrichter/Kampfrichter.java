@@ -1,10 +1,6 @@
 package de.df.jauswertung.daten.kampfrichter;
 
-import java.io.Serializable;
-
-public class Kampfrichter implements Serializable {
-
-    private static final long serialVersionUID = 5335749933632670503L;
+public class Kampfrichter {
 
     private String name;
     private String bemerkung;

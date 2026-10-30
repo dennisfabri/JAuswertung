@@ -1,10 +1,8 @@
 package de.df.jauswertung.util.vergleicher;
 
-import java.io.Serializable;
-
 import de.df.jauswertung.daten.ASchwimmer;
 
-public class SchwimmerMeldepunkteVergleicher<T extends ASchwimmer> implements java.util.Comparator<T>, Serializable {
+public class SchwimmerMeldepunkteVergleicher<T extends ASchwimmer> implements java.util.Comparator<T> {
 
     private final int prefix;
     private final int index;

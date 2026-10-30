@@ -3,13 +3,9 @@
  */
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
-
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-public class Filter implements Serializable {
-
-    private static final long serialVersionUID = -3906984074449558946L;
+public class Filter {
 
     @XStreamAsAttribute
     private String name = "";

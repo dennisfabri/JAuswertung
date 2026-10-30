@@ -1,10 +1,6 @@
 package de.df.jauswertung.daten.kampfrichter;
 
-import java.io.Serializable;
-
-public class KampfrichterPosition implements Serializable {
-
-    private static final long serialVersionUID = -7701938416920708064L;
+public class KampfrichterPosition {
 
     private KampfrichterStufe minstufe;
     private String position;

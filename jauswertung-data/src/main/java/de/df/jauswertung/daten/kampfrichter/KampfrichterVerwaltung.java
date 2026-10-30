@@ -3,12 +3,9 @@
  */
 package de.df.jauswertung.daten.kampfrichter;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 
-public class KampfrichterVerwaltung implements Serializable {
-
-    private static final long serialVersionUID = 126306416716148176L;
+public class KampfrichterVerwaltung {
 
     private final LinkedList<KampfrichterEinheit> einheiten;
 

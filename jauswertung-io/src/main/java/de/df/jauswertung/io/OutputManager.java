@@ -4,11 +4,9 @@
 
 package de.df.jauswertung.io;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.zip.ZipEntry;
@@ -115,17 +113,5 @@ public final class OutputManager {
             // Nothing to do
         }
         return false;
-    }
-
-    public static synchronized byte[] serialize(Serializable o) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            IOUtils.toXML(o, bos);
-            return bos.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Nothing to do
-        }
-        return null;
     }
 }

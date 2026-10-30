@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten;
 
-import java.io.Serializable;
 import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -16,7 +15,7 @@ import de.df.jutils.util.StringTools;
 /**
  * @author Dennis Fabri @version 0.1 @since 9. Februar 2001, 12:10
  */
-public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable {
+public abstract class ASchwimmer implements Comparable<ASchwimmer> {
 
     /*
      * Definiert den Index für die Zusatzwertung.
@@ -744,7 +743,6 @@ public abstract class ASchwimmer implements Comparable<ASchwimmer>, Serializable
         }
         return hlwState[index];
     }
-
 
     private void initHLW() {
         if ((hlwState == null) || (hlwState.length == 0)) {

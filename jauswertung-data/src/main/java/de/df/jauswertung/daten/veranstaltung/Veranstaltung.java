@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten.veranstaltung;
 
-import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.Map;
 import de.df.jauswertung.daten.regelwerk.GroupEvaluationMode;
 import de.df.jauswertung.daten.regelwerk.Skalierungsmodus;
 
-public class Veranstaltung implements Serializable {
+public class Veranstaltung {
 
     private Map<String, Object> properties = new HashMap<>();
     private List<CompetitionContainer> competitions = new ArrayList<>();

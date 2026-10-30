@@ -25,7 +25,6 @@ Every row has a severity and a size; keep the table ordered by severity (High, M
 | [Check nrjavaserial](check-nrjavaserial.md) | Low | M | Slowly maintained RXTX fork; evaluate jSerialComm with real hardware |
 | [Replace System.out/System.err with logging](replace-system-out-with-logging.md) | Low | M | 118 lines in 34 files print to the console; they reach the log only through the stream redirect, without logger name or level |
 | [Replace l2fprod-common](replace-l2fprod-common.md) | Low | M | Button bar, tip of the day, status bar, look-and-feel tweaks and cell renderer are replaced; task pane and font chooser remain |
-| [The model is Serializable only for old bug reports](model-serialversionuid.md) | Low | M | `Serializable` and `serialVersionUID` in 35 model classes only serve loading old Java-serialized bug reports |
 | [jauswertung-data depends on Swing and printing](data-without-swing-and-print.md) | Low | M | Dialog, printer lookup, `TableModel` and UI performance mode in the model; `jutils-print` dependency |
 | [Module rules are enforced only by convention](enforce-module-rules.md) | Low | M | ArchUnit and Maven Enforcer rules for *Dependency Rules*, after the data module is clean |
 | [daten contains classes that are not part of the model](daten-only-model.md) | Low | M | `BugReport`, `ReportBuilder` and three more to check; moving them must keep old files loadable |

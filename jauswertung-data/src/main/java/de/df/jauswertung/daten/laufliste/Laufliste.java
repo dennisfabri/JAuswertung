@@ -3,8 +3,6 @@ package de.df.jauswertung.daten.laufliste;
 import static de.df.jauswertung.daten.PropertyConstants.*;
 import static de.df.jauswertung.daten.laufliste.Reihenfolge.fromValue;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +24,7 @@ import de.df.jauswertung.util.SearchUtils;
  * Erzeugt und verwaltet die Laufliste eines Wettkampfes
  */
 @Slf4j
-public class Laufliste<T extends ASchwimmer> implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 2268666080913175340L;
+public class Laufliste<T extends ASchwimmer> {
 
     private final AWettkampf<T> wk;
     private LinkedList<Lauf<T>> laufliste;
@@ -57,7 +52,6 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
     /**
      * Called after loading, where field initializers do not run.
      */
-    @Serial
     private Object readResolve() {
         isfinal = true;
         return this;
@@ -81,7 +75,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
     }
 
-    public static class Einteilung implements Serializable {
+    public static class Einteilung {
 
         @XStreamAsAttribute
         private final int startgroup;
@@ -136,7 +130,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
     }
 
-    public static class BlockEinteilung implements Serializable {
+    public static class BlockEinteilung {
         private final int startgroup;
         private final boolean male;
 
@@ -1798,7 +1792,7 @@ public class Laufliste<T extends ASchwimmer> implements Serializable {
         }
     }
 
-    private static final class MeldezeitenComparator implements Comparator<ASchwimmer>, Serializable {
+    private static final class MeldezeitenComparator implements Comparator<ASchwimmer> {
 
         private final int disziplin;
 

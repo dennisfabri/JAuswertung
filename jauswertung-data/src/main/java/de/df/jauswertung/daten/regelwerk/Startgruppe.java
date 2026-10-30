@@ -1,12 +1,10 @@
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serializable;
-
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import de.df.jauswertung.daten.laufliste.Reihenfolge;
 
-public class Startgruppe implements Serializable {
+public class Startgruppe {
 
     @XStreamAsAttribute
     private String name = "";

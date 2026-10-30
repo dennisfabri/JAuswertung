@@ -8,9 +8,8 @@ model must not depend on Swing panels, plugins, or I/O formats, but `jauswertung
 - `gui/util/SchwimmerUtils.java:345-356`: `checkTimeAndNotify(Window parent, …)` beeps through `Toolkit` and asks the
   user with `DialogUtils.askAndWarn`. Callers: `JTimeEditor`, `JMeanTimeEditor` (plugins-editor).
 - `daten/misc/BugReport.java:73-80`: collects fonts and printers through `PrintManager`, `java.awt` and `javax.print`.
-  `BugReport` itself is saved with Java serialization (`InputManager.ladeBugReport`) and as XStream alias
-  `BugReport` (`IOUtils:205`), so only the collecting code may move — the class must keep its name and package, or old
-  bug reports no longer load.
+  `BugReport` itself is saved under the XStream alias `BugReport` (`IOUtils:205`), so only the collecting code may move
+  — the class must keep its alias, or old bug reports no longer load.
 - `util/CompetitionUtils.java:99-164`: `generateMedaillenspiegel` returns a Swing `TableModel` built by its own
   `MedalTableModel extends AbstractTableModel`. Caller: `MedaillenspiegelPrinter` (plugins-print).
 - `util/Utils.java:150-160`: `getUIPerformanceMode`/`setUIPerformanceMode` use jutils-swing's `UIPerformanceMode`.

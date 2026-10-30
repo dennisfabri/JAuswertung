@@ -3,14 +3,11 @@
  */
 package de.df.jauswertung.daten.kampfrichter;
 
-import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class KampfrichterEinheit implements Serializable {
-
-    private static final long serialVersionUID = -5183109430325434863L;
+public class KampfrichterEinheit {
 
     private String name = "";
     private LinkedList<KampfrichterPosition> positionen = new LinkedList<>();

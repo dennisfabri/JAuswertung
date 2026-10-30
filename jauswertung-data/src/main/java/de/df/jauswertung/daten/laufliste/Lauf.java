@@ -1,7 +1,5 @@
 package de.df.jauswertung.daten.laufliste;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Arrays;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -16,10 +14,7 @@ import de.df.jutils.util.StringTools;
  * @author Dennis Fabri
  * @version 0.1
  */
-public class Lauf<T extends ASchwimmer> implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 6116586299663275071L;
+public class Lauf<T extends ASchwimmer> {
 
     public static final int HLW = -1;
 
@@ -657,7 +652,6 @@ public class Lauf<T extends ASchwimmer> implements Serializable {
 
         return ergebnis;
     }
-
 
     public int getSchwimmer(T s) {
         if (s == null) {

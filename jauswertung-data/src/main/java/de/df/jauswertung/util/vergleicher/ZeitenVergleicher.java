@@ -1,11 +1,10 @@
 package de.df.jauswertung.util.vergleicher;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import de.df.jauswertung.daten.ASchwimmer;
 
-public class ZeitenVergleicher implements Comparator<ASchwimmer>, Serializable {
+public class ZeitenVergleicher implements Comparator<ASchwimmer> {
 
     private int disz = 0;
 

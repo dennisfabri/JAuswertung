@@ -1,6 +1,5 @@
 package de.df.jauswertung.util.ergebnis;
 
-import java.io.Serializable;
 import java.util.*;
 
 import de.df.jauswertung.daten.ASchwimmer;
@@ -345,7 +344,6 @@ public class FormelILSFinals<T extends ASchwimmer> extends FormelILS<T> {
                 current.add(tSchwimmerData);
             }
         }
-
 
         int round = 0;
         for (int x = 0; x < rounds; x++) {

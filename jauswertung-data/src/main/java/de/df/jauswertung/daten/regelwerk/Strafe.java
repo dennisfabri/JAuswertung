@@ -1,7 +1,5 @@
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Objects;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -10,10 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * Strafe.java Created on 7. August 2001, 20:15
  * @author Dennis Fabri
  */
-public class Strafe implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = -6097335676567287451L;
+public class Strafe {
 
     public static final Strafe NICHTS = new Strafe("", "", Strafarten.NICHTS, 0);
     public static final Strafe NICHT_ANGETRETEN = new Strafe("", "", Strafarten.NICHT_ANGETRETEN, 0);

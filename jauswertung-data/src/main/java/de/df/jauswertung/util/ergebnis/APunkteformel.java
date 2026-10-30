@@ -1,6 +1,5 @@
 package de.df.jauswertung.util.ergebnis;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -22,9 +21,7 @@ import de.df.jauswertung.daten.regelwerk.Strafe;
 public abstract class APunkteformel<T extends ASchwimmer> implements Formel<T> {
 
     @SuppressWarnings("rawtypes")
-    static final class DLRGComparator implements Comparator<SchwimmerData>, Serializable {
-
-        private static final long serialVersionUID = -2216015217269788502L;
+    static final class DLRGComparator implements Comparator<SchwimmerData> {
 
         @Override
         public int compare(SchwimmerData sd1, SchwimmerData sd2) {
@@ -33,9 +30,7 @@ public abstract class APunkteformel<T extends ASchwimmer> implements Formel<T> {
     }
 
     @SuppressWarnings("rawtypes")
-    static final class RankComparator2 implements Comparator<SchwimmerResult>, Serializable {
-
-        private static final long serialVersionUID = 1502922864742461102L;
+    static final class RankComparator2 implements Comparator<SchwimmerResult> {
 
         @Override
         public int compare(SchwimmerResult sd1, SchwimmerResult sd2) {

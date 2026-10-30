@@ -8,13 +8,12 @@ look like something else (paths relative to `jauswertung-data/.../daten/`):
 | `misc/BugReport` | Diagnostic report, not competition data; collects fonts and printers (see `data-without-swing-and-print.md`) |
 | `misc/ReportBuilder` | Text builder for `BugReport` (`CharArrayWriter`/`PrintWriter`) |
 | `Mannschaftsmitgliedermeldung` | Wrapper around a `MannschaftWettkampf`, root object of `.wkmm` files — check whether it is a file envelope rather than model |
-| `laufliste/OWSelection` | Not `Serializable`; selection of age group, sex, discipline and round, used by 37 classes outside data, but also stored (`IOUtils` alias) — check whether it is model or a key/DTO |
+| `laufliste/OWSelection` | Selection of age group, sex, discipline and round, used by 37 classes outside data, but also stored (`IOUtils` alias) — check whether it is model or a key/DTO |
 | `PropertyConstants` | Constants for the generic property maps of the model; probably model, confirm |
 
-Every class here is serialization-relevant: `BugReport` is also read with Java serialization
-(`InputManager.ladeBugReport`), and `BugReport`, `OWSelection` and `Mannschaftsmitgliedermeldung` have XStream
-aliases (`IOUtils:205,219,239`). Moving one out of `daten` needs it added to the `allowTypes` whitelist, must keep its
-alias, and must not break Java-serialized files — prove it with a test that loads an existing file.
+Every class here is serialization-relevant: `BugReport`, `OWSelection` and `Mannschaftsmitgliedermeldung` have XStream
+aliases (`IOUtils:205,219,239`). Moving one out of `daten` needs it added to the `allowTypes` whitelist and must keep
+its alias — prove it with a test that loads an existing file.
 
 ## Done when
 

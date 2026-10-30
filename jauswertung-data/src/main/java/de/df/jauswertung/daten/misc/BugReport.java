@@ -9,8 +9,6 @@ import org.dom4j.Element;
 import javax.print.PrintService;
 import java.awt.*;
 import java.awt.print.PrinterJob;
-import java.io.Serial;
-import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
 import java.util.Enumeration;
@@ -22,10 +20,7 @@ import static java.util.Arrays.stream;
 /**
  * @author Dennis Fabri @since 15. Oktober 2001, 21:59
  */
-public class BugReport implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = -6433894027809485390L;
+public class BugReport {
 
     private String data = "";
     private String info = "";

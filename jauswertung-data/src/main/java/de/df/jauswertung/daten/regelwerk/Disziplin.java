@@ -4,7 +4,6 @@
 
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -16,9 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * @version 0.2
  */
 
-public class Disziplin implements Serializable {
-
-    private static final long serialVersionUID = 3831806024414464536L;
+public class Disziplin {
 
     @XStreamAsAttribute
     private String name = "";

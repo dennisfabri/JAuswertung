@@ -1,9 +1,8 @@
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serializable;
 import java.util.Hashtable;
 
-public class Translation implements Serializable {
+public class Translation {
 
     private final Hashtable<String, String> translations;
 

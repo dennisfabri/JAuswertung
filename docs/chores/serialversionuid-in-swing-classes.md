@@ -2,7 +2,7 @@
 
 Swing classes declare a `serialVersionUID` only because `java.awt.Component` is `Serializable` and IDEs warn about the
 missing field. Swing components are never serialized: files are written with XStream, which ignores the field, and
-the only Java serialization left reads old bug reports (`InputManager.ladeBugReport`), not UI objects. The build does
+nothing uses Java serialization any more. The build does
 not enable `-Xlint:serial`.
 
 Usage is inconsistent: about 77 files in the `gui`, `print` and `swing` packages declare the field, many other Swing

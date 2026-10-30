@@ -1,6 +1,5 @@
 package de.df.jauswertung.daten.regelwerk;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Stack;
@@ -21,9 +20,7 @@ import lombok.Getter;
  *
  * @author Dennis Fabri
  */
-public class Altersklasse implements Serializable {
-
-    private static final long serialVersionUID = -3984390739372155907L;
+public class Altersklasse {
 
     @Getter
     @XStreamAsAttribute

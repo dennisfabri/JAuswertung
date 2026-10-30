@@ -2,8 +2,6 @@ package de.df.jauswertung.daten.regelwerk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.*;
 import java.util.zip.CRC32;
 
@@ -23,10 +21,7 @@ import de.df.jutils.util.StringTools;
  * @author Dennis Fabri
  * @version 0.3
  */
-public class Regelwerk implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = -2388841285709038732L;
+public class Regelwerk {
 
     /**
      * Enthaelt alle Alterklassen.

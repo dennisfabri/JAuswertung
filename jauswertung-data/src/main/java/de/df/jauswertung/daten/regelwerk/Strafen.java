@@ -2,16 +2,11 @@ package de.df.jauswertung.daten.regelwerk;
 
 import de.df.jauswertung.gui.penalties.PenaltyUtils;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public final class Strafen implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1664311476306024507L;
+public final class Strafen {
 
     private static final String[] dnsNames = new String[]{"DNS", "D.N.S.", "n.a."};
     private static final String[] dnfNames = new String[]{"DNF", "D.N.F.", "n.b.", "S1"};

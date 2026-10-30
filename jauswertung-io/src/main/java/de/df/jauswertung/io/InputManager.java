@@ -118,13 +118,7 @@ public final class InputManager {
     }
 
     public static synchronized BugReport ladeBugReport(String name) {
-        try {
-            try (FileInputStream is = new FileInputStream(name); ObjectInputStream ois = new ObjectInputStream(is)) {
-                return (BugReport) ois.readObject();
-            }
-        } catch (RuntimeException | IOException | ClassNotFoundException e) {
-            return (BugReport) ladeObject(name);
-        }
+        return (BugReport) ladeObject(name);
     }
 
     public static synchronized Object ladeObject(String name) {
