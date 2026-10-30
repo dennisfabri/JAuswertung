@@ -149,13 +149,13 @@ names in brackets.
 applies its changes: neither a new competition (rulebook file from `JNeuerWettkampf`) nor opening a competition file
 checks it.
 
+A file is loaded unchecked, so its member age groups may break a "must match" rule. Then the merged age group takes
+that setting from the first member; `getResultWettkampf` switches from the last member to the first.
+
 Swimmers appearing twice in `getResultWettkampf` (own age group and scoring group) is intended.
 
 ## Investigate
 
-- What the merge does with a file whose member age groups break a "must match" rule (it is loaded unchecked).
-  Proposed: the first member decides, as in `generateWertungsgruppenwettkampf` and `generateEinzelwertungswettkampf`;
-  `getResultWettkampf` switches from the last member to the first.
 - Whether CSV/Excel and the printouts produce the same results for a scoring group today, pinned by result tests
   before the proposed first step makes them share one path.
 
