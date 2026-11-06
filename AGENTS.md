@@ -197,7 +197,9 @@ There is no server behind the UI, so the desktop application is the only line of
 - Version updates: `versions-maven-plugin` with `version-rules.xml`.
 - Run: main class `de.df.jauswertung.gui.JAuswertungLauncher` from module `jauswertung`, **working directory
   `jauswertung-files/src/main/resources`** (plugins and images are resolved relative to `user.dir`), with the VM options
-  from `jauswertung-setup/src/global.vmoptions`. Open a file directly with `-open <file>.wk`.
+  from `jauswertung-setup/src/global.vmoptions` plus `-Dlogback.configurationFile=logback.xml`. Only the installed
+  application has that directory on its class path; without the option Logback does not find `logback.xml` and logs
+  to the console only, without a log file. Open a file directly with `-open <file>.wk`.
 - The compiler plugin replaces `default-compile`/`default-testCompile` with the executions `java-compile` /
   `java-test-compile`; Lombok runs as an annotation processor there. Keep that in mind when editing compiler config.
 - Sample competitions for manual testing are in `data/` (gitignored); old rulebooks in `archive/`.
