@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +24,6 @@ import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
-
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.Eingabe;
@@ -62,8 +60,11 @@ import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.PanelInfo;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.util.StringTools;
+import lombok.extern.slf4j.Slf4j;
 import net.miginfocom.swing.MigLayout;
 
+@SuppressWarnings("unused")
+@Slf4j
 public class PHeatInputPlugin extends ANullPlugin {
 
     private static final String INPUT = I18n.get("HeatResultInput");
@@ -275,9 +276,9 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     void updatePanel(UpdateEvent due) {
         if (wk.isHeatBased()) {
-            strategy = new HeatInputStrategyByHeat<ASchwimmer>();
+            strategy = new HeatInputStrategyByHeat<>();
         } else {
-            strategy = new HeatInputStrategyByTime<ASchwimmer>();
+            strategy = new HeatInputStrategyByTime<>();
         }
         strategy.init();
 
@@ -470,8 +471,8 @@ public class PHeatInputPlugin extends ANullPlugin {
         return hasNextLane(currentLane(), switchheat);
     }
 
-    boolean previousLane(boolean switchheat) {
-        return previousLane(currentLane(), switchheat);
+    void previousLane() {
+        previousLane(currentLane());
     }
 
     boolean hasNextLane(int index, boolean switchheat) {
@@ -497,27 +498,24 @@ public class PHeatInputPlugin extends ANullPlugin {
         return false;
     }
 
-    boolean previousLane(int index, boolean switchheat) {
-        int i = index;
+    void previousLane(int index) {
+        int previousLaneIndex = getPreviousLaneIndex(index);
+        boolean hasPreviousLane = previousLaneIndex >= 0;
 
-        index--;
-        while ((index >= 0) && (!inputs[index].isEnabled())) {
-            index--;
-        }
-        if (index >= 0) {
-            JIntegerField input = inputs[index];
+        if (hasPreviousLane) {
+            JIntegerField input = inputs[previousLaneIndex];
             EDTUtils.requestFocus(controller.getWindow(), input);
-            return true;
+        } else if (fl[index].checkTime()) {
+            previousHeat(false);
         }
+    }
 
-        if (switchheat) {
-            if (fl[i].checkTime()) {
-                previousHeat(false);
-            }
-        } else {
-            Toolkit.getDefaultToolkit().beep();
-        }
-        return false;
+    private int getPreviousLaneIndex(int index) {
+        int previousLaneIndex = index;
+        do {
+            previousLaneIndex--;
+        } while ((previousLaneIndex >= 0) && (!inputs[previousLaneIndex].isEnabled()));
+        return previousLaneIndex;
     }
 
     private synchronized void clearInput(int x) {
@@ -544,7 +542,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     private class PenaltyListener implements ActionListener {
 
-        private int index = 0;
+        private final int index;
 
         public PenaltyListener(int x) {
             if ((x < 0) || (x >= bahnen)) {
@@ -564,7 +562,7 @@ public class PHeatInputPlugin extends ANullPlugin {
             return true;
         }
         if (!TimeWarnings.checkTimeAndNotify(controller.getWindow(), swimmers[index],
-                                               strategy.getDiscipline(index))) {
+                                             strategy.getDiscipline(index))) {
             JIntegerField input = inputs[index];
             EDTUtils.requestFocus(controller.getWindow(), input);
             return false;
@@ -574,7 +572,7 @@ public class PHeatInputPlugin extends ANullPlugin {
 
     private final class HighPointsListener extends FocusAdapter {
 
-        private int index = 0;
+        private final int index;
 
         private String data = "";
 
@@ -717,8 +715,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                 int index = heat.getSelectedIndex();
                 strategy.heatChanged(index);
             } catch (NullPointerException npe) {
-                npe.printStackTrace();
-                // Nothing to do
+                log.warn("Problem during HeatActionListener", npe);
             }
         }
     }
@@ -775,7 +772,7 @@ public class PHeatInputPlugin extends ANullPlugin {
                         e.consume();
                         break;
                     case KeyEvent.VK_UP:
-                        previousLane(true);
+                        previousLane();
                         e.consume();
                         break;
                     case KeyEvent.VK_DOWN:
@@ -789,7 +786,7 @@ public class PHeatInputPlugin extends ANullPlugin {
         }
     }
 
-    boolean nextHeat() {
+    void nextHeat() {
         int index = heat.getSelectedIndex() + 1;
         if (index < heat.getItemCount()) {
             heat.setSelectedIndex(index);
@@ -799,14 +796,13 @@ public class PHeatInputPlugin extends ANullPlugin {
                     break;
                 }
             }
-            return true;
+            return;
         }
 
         Toolkit.getDefaultToolkit().beep();
-        return false;
     }
 
-    boolean previousHeat(boolean top) {
+    void previousHeat(boolean top) {
         int index = heat.getSelectedIndex() - 1;
         if (index >= 0) {
             heat.setSelectedIndex(index);
@@ -826,11 +822,10 @@ public class PHeatInputPlugin extends ANullPlugin {
                     }
                 }
             }
-            return true;
+            return;
         }
 
         Toolkit.getDefaultToolkit().beep();
-        return false;
     }
 
     void zeigeZieleinlauf() {
