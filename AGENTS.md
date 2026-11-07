@@ -250,6 +250,8 @@ There is no server behind the UI, so the desktop application is the only line of
 - Commit after each finished step without asking (a fix, a chore update, a documentation change), once its build and
   tests pass. Do not batch several steps into one commit; the history on the feature branch can be reworked before the
   merge.
+- Refactorings and cleanups done while touching code (interface declarations, removing stale comments) get their own
+  commit, so the requested change stays readable: commit the requested change first, then the refactoring/cleanup.
 - Merge into `main` only when the feature is finished and the user asks for it, with a real merge commit
   (`git merge --no-ff`), never a fast-forward.
 - **Commit messages**: write them in German, matching the existing history. The body is a brief bullet list of at most
@@ -264,6 +266,17 @@ There is no server behind the UI, so the desktop application is the only line of
 - Prefer composition over large utility or god classes; keep methods short and intention-revealing.
 - Use records for new immutable value and DTO types. Lombok is available (`@Slf4j`, `@Value`, `@Getter`,
   `@RequiredArgsConstructor`); prefer constructor injection of collaborators.
+- Declare variables, parameters, return types, and fields by interface (`List`, `Map`, `Set`, `Deque`, …), not by
+  implementation (`LinkedList`, `HashMap`, …); name the implementation only at `new`. Existing code is converted over
+  time: whenever you touch a file or area of code, change the declarations in that area too — like stale comments,
+  this is not an unrelated refactoring and needs no chore. It goes into its own commit after the requested change (see
+  *Git Workflow*). Exception: instance fields
+  (neither `static` nor `transient`) of classes written by XStream (everything in `de.df.jauswertung.daten` and the
+  other `allowTypes` packages) keep their declared type, e.g. `private LinkedList<Strafe> allgemeineStrafen` in
+  `ASchwimmer`; local variables, parameters, and return types in these classes are converted like any other. XStream writes no `class` attribute when the value matches the declared type and falls back to its default
+  implementation when reading a field declared as an interface, so changing such a field changes the file format and
+  how older files load. Methods of these classes may still take and return interfaces; for public methods used by
+  other modules, the *Working approach* rule on public APIs applies.
 - Do not introduce new static mutable state or manual singletons (`getInstance()`, static instance holders); pass
   collaborators explicitly or obtain them through the plugin controller.
 
