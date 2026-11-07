@@ -3,6 +3,8 @@
  */
 package de.df.jauswertung.gui.plugins.print;
 
+import static de.df.jauswertung.daten.PropertyConstants.HEATS_LANES;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
@@ -37,6 +39,8 @@ import de.df.jutils.print.api.PrintableCreator;
  */
 abstract class AFilledKartenPrinter implements Printer {
 
+    static final int ALLE_BAHNEN = 0;
+
     CorePlugin core;
     IPluginManager controller;
 
@@ -44,23 +48,27 @@ abstract class AFilledKartenPrinter implements Printer {
     private JButton print;
     private JButton preview;
     private JComboBox<String> pages;
+    private JComboBox<String> bahnen;
 
     private String text;
+    private final boolean bahnauswahl;
 
     private boolean allheats = true;
     private int minheat = 0;
     private int maxheat = 0;
 
-    public AFilledKartenPrinter(IPluginManager pm, CorePlugin plugin, String text) {
+    AFilledKartenPrinter(IPluginManager pm, CorePlugin plugin, String text, boolean bahnauswahl) {
         core = plugin;
         controller = pm;
         this.text = text;
+        this.bahnauswahl = bahnauswahl;
         initGUI();
     }
 
     private void initGUI() {
+        String bahnenSpalte = bahnauswahl ? "fill:default,4dlu," : "";
         FormLayout layout = new FormLayout(
-                "4dlu:grow,fill:default,4dlu,fill:default," + "4dlu,fill:default,4dlu,fill:default,4dlu",
+                "4dlu:grow," + bahnenSpalte + "fill:default,4dlu,fill:default,4dlu,fill:default,4dlu,fill:default,4dlu",
                 FormLayoutUtils.createLayoutString(1));
         panel = new JPanel(layout);
 
@@ -76,10 +84,18 @@ abstract class AFilledKartenPrinter implements Printer {
         preview.setEnabled(false);
         print.setEnabled(false);
 
-        panel.add(pages, CC.xy(2, 2));
-        panel.add(new JLabel(I18n.get("PerPage")), CC.xy(4, 2));
-        panel.add(preview, CC.xy(6, 2));
-        panel.add(print, CC.xy(8, 2));
+        int spalte = 2;
+        if (bahnauswahl) {
+            bahnen = new JComboBox<>();
+            bahnen.addItem(I18n.get("AllLanes"));
+            bahnen.setEnabled(false);
+            panel.add(bahnen, CC.xy(spalte, 2));
+            spalte += 2;
+        }
+        panel.add(pages, CC.xy(spalte, 2));
+        panel.add(new JLabel(I18n.get("PerPage")), CC.xy(spalte + 2, 2));
+        panel.add(preview, CC.xy(spalte + 4, 2));
+        panel.add(print, CC.xy(spalte + 6, 2));
     }
 
     @SuppressWarnings("rawtypes")
@@ -90,13 +106,33 @@ abstract class AFilledKartenPrinter implements Printer {
         pages.setEnabled(b);
         print.setEnabled(b);
         preview.setEnabled(b);
+        if (bahnauswahl) {
+            updateBahnen(wk.getIntegerProperty(HEATS_LANES));
+            bahnen.setEnabled(b);
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see de.df.jauswertung.gui.plugins.print.Printer#getPanels()
-     */
+    private void updateBahnen(int anzahl) {
+        if (anzahl == bahnen.getItemCount() - 1) {
+            return;
+        }
+        int bahn = getBahn();
+        bahnen.removeAllItems();
+        for (int x = 1; x <= anzahl; x++) {
+            bahnen.addItem(I18n.get("LaneNumber", x));
+        }
+        bahnen.addItem(I18n.get("AllLanes"));
+        bahnen.setSelectedIndex(bahn == ALLE_BAHNEN || bahn > anzahl ? anzahl : bahn - 1);
+    }
+
+    private int getBahn() {
+        if (!bahnauswahl) {
+            return ALLE_BAHNEN;
+        }
+        int index = bahnen.getSelectedIndex();
+        return index < 0 || index == bahnen.getItemCount() - 1 ? ALLE_BAHNEN : index + 1;
+    }
+
     @Override
     public JPanel getPanel() {
         return panel;
@@ -119,14 +155,16 @@ abstract class AFilledKartenPrinter implements Printer {
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    <T extends ASchwimmer> Printable getPrintable(AWettkampf[] wkx) {
-        return getPrintable(wkx, getMode(), PrintUtils.printEmptyCards, allheats, minheat, maxheat);
-    }
-
     @SuppressWarnings({"hiding", "rawtypes"})
     protected abstract Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
-                                              int minheat, int maxheat);
+                                              int minheat, int maxheat, int bahn);
+
+    @SuppressWarnings("rawtypes")
+    private PrintableCreator createPrintableCreator(AWettkampf[] wks, boolean all, int min, int max) {
+        PageMode mode = getMode();
+        int bahn = getBahn();
+        return () -> getPrintable(wks, mode, PrintUtils.printEmptyCards, all, min, max, bahn);
+    }
 
     <T extends ASchwimmer> boolean setPrintAllHeats(AWettkampf<T> wk) {
         JDetailsDialog<T> details = new JDetailsDialog<>(controller.getWindow(), wk, text);
@@ -138,12 +176,6 @@ abstract class AFilledKartenPrinter implements Printer {
             return true;
         }
         return false;
-    }
-
-    private void setPrintAllHeats() {
-        allheats = true;
-        minheat = 0;
-        maxheat = 0;
     }
 
     <T extends ASchwimmer> AWettkampf<T> createCompetitionFor(OWSelection t) {
@@ -162,82 +194,46 @@ abstract class AFilledKartenPrinter implements Printer {
 
     final class PrintActionListener implements ActionListener {
 
-        @SuppressWarnings("rawtypes")
-        <T extends ASchwimmer> void printLaufliste(OWSelection[] t) {
-            AWettkampf[] wks = createCompetitionsFor(t);
-            setPrintAllHeats();
-            PageMode mode = getMode();
-            PrintExecutor.print(() -> getPrintable(wks, mode, PrintUtils.printEmptyCards, true, 0, 0), text, true,
-                                controller.getWindow());
-        }
-
         @Override
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
                 Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
-                        printLaufliste(t);
+                        PrintExecutor.print(createPrintableCreator(createCompetitionsFor(t), true, 0, 0), text, true,
+                                            controller.getWindow());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
                                                EditMode.READ, cb);
-            } else {
-                if (setPrintAllHeats(wk)) {
-                    PageMode mode = getMode();
-                    boolean all = allheats;
-                    int min = minheat;
-                    int max = maxheat;
-                    PrintExecutor.print(() -> getPrintable(new AWettkampf[]{wk}, mode, PrintUtils.printEmptyCards, all,
-                                                           min, max),
-                                        text, true, controller.getWindow());
-                }
+            } else if (setPrintAllHeats(wk)) {
+                PrintExecutor.print(createPrintableCreator(new AWettkampf[]{wk}, allheats, minheat, maxheat), text,
+                                    true, controller.getWindow());
             }
         }
     }
 
     final class PreviewActionListener implements ActionListener {
 
-        class PPrintableCreator implements PrintableCreator {
-
-            @SuppressWarnings("rawtypes")
-            private final AWettkampf[] wks;
-
-            @SuppressWarnings("rawtypes")
-            public PPrintableCreator(AWettkampf[] wks) {
-                this.wks = wks;
-            }
-
-            @Override
-            public Printable create() {
-                return getPrintable(wks);
-            }
-        }
-
         @Override
         public void actionPerformed(ActionEvent arg0) {
             AWettkampf<?> wk = core.getWettkampf();
             if (wk.isHeatBased()) {
                 Consumer<OWSelection[]> cb = t -> {
                     if (t != null) {
-                        AWettkampf[] wkx = createCompetitionsFor(t);
-                        setPrintAllHeats();
-                        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(wkx), text,
+                        PrintExecutor.preview(controller.getWindow(),
+                                              createPrintableCreator(createCompetitionsFor(t), true, 0, 0), text,
                                               IconManager.getIconBundle(), IconManager.getTitleImages());
                     }
                 };
                 OWUtils.showRoundMultiSelector(controller.getWindow(), wk, "Laufliste auswählen",
                                                "Laufliste zum Drucken auswählen",
                                                EditMode.READ, cb);
-            } else {
-                // PrintManager.preview(controller.getWindow(), new PPrintableCreator(wk),
-                // I18n.get("Laufzeiten"),
-                // IconManager.getIconBundle(), IconManager.getTitleImages());
-                if (setPrintAllHeats(wk)) {
-                    PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(new AWettkampf[]{wk}), text,
-                                          IconManager.getIconBundle(), IconManager.getTitleImages());
-                }
+            } else if (setPrintAllHeats(wk)) {
+                PrintExecutor.preview(controller.getWindow(),
+                                      createPrintableCreator(new AWettkampf[]{wk}, allheats, minheat, maxheat), text,
+                                      IconManager.getIconBundle(), IconManager.getTitleImages());
             }
         }
     }

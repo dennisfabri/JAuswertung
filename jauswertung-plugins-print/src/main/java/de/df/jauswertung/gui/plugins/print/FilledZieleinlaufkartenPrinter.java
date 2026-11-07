@@ -19,7 +19,7 @@ import de.df.jutils.print.PageMode;
 class FilledZieleinlaufkartenPrinter extends AFilledKartenPrinter {
 
     public FilledZieleinlaufkartenPrinter(IPluginManager window, CorePlugin plugin) {
-        super(window, plugin, I18n.get("Zieleinlaufkarten"));
+        super(window, plugin, I18n.get("Zieleinlaufkarten"), false);
     }
 
     @Override
@@ -30,7 +30,7 @@ class FilledZieleinlaufkartenPrinter extends AFilledKartenPrinter {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
-            int minheat, int maxheat) {
+            int minheat, int maxheat, int bahn) {
         return new ZieleinlaufkartenPrintable(wk, mode, allheats, minheat, maxheat);
     }
 }
