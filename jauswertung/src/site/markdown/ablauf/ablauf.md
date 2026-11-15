@@ -1,8 +1,8 @@
 # Ablauf eines Wettkampfs
 
-Dieses Kapitel beschreibt, wie ein Wettkampf mit JAuswertung durchgeführt werden kann. Dabei fängt ein Wettkampf bereits mit der Ausschreibung an und endet mit dem veröffentlichen der Ergebnisse im Internet. Dem entsprechend ergibt sich folgende Gliederung:
+Dieses Kapitel beschreibt, wie ein Wettkampf mit JAuswertung durchgefÃ¼hrt werden kann. Dabei fÃ¤ngt ein Wettkampf bereits mit der Ausschreibung an und endet mit dem verÃ¶ffentlichen der Ergebnisse im Internet. Dem entsprechend ergibt sich folgende Gliederung:
 
-- Vorbereitungen: Was ist frühzeitig vor einem Wettkampf zu erledigen? Wie kann ich mir spätere Arbeiten erleichtern?
+- Vorbereitungen: Was ist frÃ¼hzeitig vor einem Wettkampf zu erledigen? Wie kann ich mir spÃ¤tere Arbeiten erleichtern?
 - Vor dem Wettkampf: Was ist kurz vor dem Wettkampf zu tun?
-- Während des Wettkampfs: Was ist während des eigentlichen Wettkampfs zu tun?
+- WÃ¤hrend des Wettkampfs: Was ist wÃ¤hrend des eigentlichen Wettkampfs zu tun?
 - Nach dem Wettkampf: Urkunden und Co.

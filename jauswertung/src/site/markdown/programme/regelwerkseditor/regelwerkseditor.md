@@ -5,44 +5,44 @@ Der Regelwerkseditor dient zum Festlegen der folgenden Punkte:
 - Formel zur Punktevergabe
 - Anzahl und Namen der Alterklassen
 - Anzahl der Disziplinen je Altersklasse (inkl. Festlegung von Rec-Werten und Namen)
-- Durchführung einer Zusatzwertung
+- DurchfÃ¼hrung einer Zusatzwertung
 - Wertung in der Gesamtwertung
-- Einzelwertung ggf. mit Zusatzwertung (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die Zusatzwertung bestanden haben)
-- Auswahl von Disziplinen (Teilnehmer müssen nicht alle Disziplinen absolvieren. In diesen Fällen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dürfen.)
+- Einzelwertung ggf. mit Zusatzwertung (PlÃ¤tze werden auch fÃ¼r jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berÃ¼cksichtigt, die die Zusatzwertung bestanden haben)
+- Auswahl von Disziplinen (Teilnehmer mÃ¼ssen nicht alle Disziplinen absolvieren. In diesen FÃ¤llen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dÃ¼rfen.)
 - Bevorzugte Sortiermethode bei der Lauflistenerstellung
 
 ![Regelwerkseditor (Einzel)](aks-einzel.png)
 ![Regelwerkseditor (Mannschaft)](aks-mannschaft.png)
-![Menü: Datei](aks-datei.png)
+![MenÃ¼: Datei](aks-datei.png)
 ![Neues Regelwerk anlegen](aks-neu.png)
-![Menü: Bearbeiten](aks-bearbeiten.png)
+![MenÃ¼: Bearbeiten](aks-bearbeiten.png)
 
-Die zu bearbeitende Altersklasse kann in der linken Liste ausgewählt werden. Ihre Einstellungen werden dann im rechten Bereich dargestellt. Mittels Drag'n'Drop können Sie die Reihenfolge der Altersklassen ändern und darüber hinaus steht ihnen ein Kontextmenü (rechte Maustaste) mit weiteren Funktionen wie z.B. dem Hinzufügen einer neuen Altersklasse zur Verfügung.
+Die zu bearbeitende Altersklasse kann in der linken Liste ausgewÃ¤hlt werden. Ihre Einstellungen werden dann im rechten Bereich dargestellt. Mittels Drag'n'Drop kÃ¶nnen Sie die Reihenfolge der Altersklassen Ã¤ndern und darÃ¼ber hinaus steht ihnen ein KontextmenÃ¼ (rechte Maustaste) mit weiteren Funktionen wie z.B. dem HinzufÃ¼gen einer neuen Altersklasse zur VerfÃ¼gung.
 
-## Regelwerkseditor während eines Wettkampfs
+## Regelwerkseditor wÃ¤hrend eines Wettkampfs
 
-Wird der Regelwerkseditor während der Auswertung eines Wettkampfes gestartet, können nur die folgenden Werte geändert werden:
+Wird der Regelwerkseditor wÃ¤hrend der Auswertung eines Wettkampfes gestartet, kÃ¶nnen nur die folgenden Werte geÃ¤ndert werden:
 
 - Formel zur Punktevergabe
 - Name der Altersklassen
 - Anzahl, Name und Rec-Werte der Disziplinen
 - Teilnahme an der Zusatzwertung
 - Wertung in der Gesamtwertung
-- Einzelwertung ggf. mit Zusatzwertung (Plätze werden auch für jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berücksichtigt, die die Zusatzwertung bestanden haben)
-- Auswahl von Disziplinen (Teilnehmer müssen nicht alle Disziplinen absolvieren. In diesen Fällen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dürfen.)
+- Einzelwertung ggf. mit Zusatzwertung (PlÃ¤tze werden auch fÃ¼r jede einzelne Disziplin vergeben ggf. werden nur Teilnehmer berÃ¼cksichtigt, die die Zusatzwertung bestanden haben)
+- Auswahl von Disziplinen (Teilnehmer mÃ¼ssen nicht alle Disziplinen absolvieren. In diesen FÃ¤llen kann festgelegt werden, wie viele Disziplinen mindestens und wie viele maximal geschwommen werden dÃ¼rfen.)
 - Bevorzugte Sortiermethode bei der Lauflistenerstellung
 
 ## Gesamtwertung
 
-Darüber hinaus kann festgelegt werden, ob eine Gesamtwertung (eine Bewertung des Erfolgs der einzelnen Gliederungen) durchgeführt werden soll. Dabei stehen folgende Einstellungen zur Verfügung:
-- "Gliederung muss an allen Altersklassen teilnehmen": Eine Gliederung, die in der Gesamtwertung aufgeführt werden möchte, muss an allen Altersklassen teilnehmen. Dabei werden nur die Altersklassen berücksichtigt, die mit "Gesamtwertung" markiert sind.
+DarÃ¼ber hinaus kann festgelegt werden, ob eine Gesamtwertung (eine Bewertung des Erfolgs der einzelnen Gliederungen) durchgefÃ¼hrt werden soll. Dabei stehen folgende Einstellungen zur VerfÃ¼gung:
+- "Gliederung muss an allen Altersklassen teilnehmen": Eine Gliederung, die in der Gesamtwertung aufgefÃ¼hrt werden mÃ¶chte, muss an allen Altersklassen teilnehmen. Dabei werden nur die Altersklassen berÃ¼cksichtigt, die mit "Gesamtwertung" markiert sind.
 - "Punkte je Altersklasse normieren": Die Punkte jeder Altersklasse werden durch die Anzahl der Disziplinen geteilt. Dadurch wird sichergestellt, dass alle Altersklassen gleich gewichtet werden.
 - Gesamtwertungsmodus:
 + "Alle Mannschaften bzw. Teilnehmer werten": Es werden die Punkte aller Teilnehmer zur Gesamtwertung addiert.
 + "Beste Mannschaft bzw. besten Teilnehmer je Disziplin werten": Je Altersklasse und Disziplin wird jeweils nur der beste Teilnehmer gewertet.
 + "Beste Mannschaft bzw. besten Teilnehmer werten": In jeder Altersklasse wird nur der beste Teilnehmer gewertet.
 
-Auch während eines Wettkampfes können die Altersklassen in einer einzelnen Datei gespeichert werden, so dass diese später wiederverwendet werden können.
+Auch wÃ¤hrend eines Wettkampfes kÃ¶nnen die Altersklassen in einer einzelnen Datei gespeichert werden, so dass diese spÃ¤ter wiederverwendet werden kÃ¶nnen.
 
 ![Eigenschaften: Allgemein](aks-eigenschaften-1.png)
 ![Eigenschaften: Gesamtwertung](aks-eigenschaften-2.png)

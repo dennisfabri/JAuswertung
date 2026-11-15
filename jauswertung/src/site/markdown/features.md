@@ -1,20 +1,20 @@
 # Features
 
-## Die wichtigsten Eigenschaften in Kürze
+## Die wichtigsten Eigenschaften in KÃ¼rze
 
 - Die Eingabe von Daten ist einfach, schnell und intuitiv.
 - Komfortable Eingabe von Schwimmern und Teams sowie zahlreiche Import- und Exportfunktionen.
-- Es werden das Regelwerk der DLRG, sowie Teile des internationalen Regelwerks unterstützt. Darüber hinaus können auf Wunsch auch weitere Regelwerke eingebunden werden.
-- Lauf- und Zusatzwertung-Listen können automatisch erstellt und nach Belieben verändert werden.
-- Altersklassen können inklusive der dazugehörigen Disziplinen frei definiert und zur Wiederverwendung gespeichert werden. Änderungen an den Altersklassen sind auch während eines Wettkampfs noch möglich.
-- Kombinierte Auswertung mehrerer Wettkämpfe mit getrennten Ergebnissen.
-- Die Regelwerksverstöße des  Regelwerks der DLRG sind komplett verfügbar. Darüber hinaus können während eines Wettkampfs neue definiert bzw. aus bestehenden abgeändert werden (z.B. bei einem Frühstart wird bei der Vergabe der Strafe "des dritten Schwimmers" hinzugefügt). Zur Unterstützung können vergebene Strafen mit allen nötigen Informationen (Schwimmer, Lauf, Bahn, Strafpunkte etc.) direkt ausgedruckt werden.
-- Umfangreiche Druckfunktionen aller benötigten Daten:
-  - Lauflisten (in unterschiedlichen Versionen für Mannschaftsbetreuer und verschiedene Kampfrichterpositionen), Startkarten (auch Zusatzwertung), Ergebnisse, ...
+- Es werden das Regelwerk der DLRG, sowie Teile des internationalen Regelwerks unterstÃ¼tzt. DarÃ¼ber hinaus kÃ¶nnen auf Wunsch auch weitere Regelwerke eingebunden werden.
+- Lauf- und Zusatzwertung-Listen kÃ¶nnen automatisch erstellt und nach Belieben verÃ¤ndert werden.
+- Altersklassen kÃ¶nnen inklusive der dazugehÃ¶rigen Disziplinen frei definiert und zur Wiederverwendung gespeichert werden. Ã„nderungen an den Altersklassen sind auch wÃ¤hrend eines Wettkampfs noch mÃ¶glich.
+- Kombinierte Auswertung mehrerer WettkÃ¤mpfe mit getrennten Ergebnissen.
+- Die RegelwerksverstÃ¶ÃŸe des  Regelwerks der DLRG sind komplett verfÃ¼gbar. DarÃ¼ber hinaus kÃ¶nnen wÃ¤hrend eines Wettkampfs neue definiert bzw. aus bestehenden abgeÃ¤ndert werden (z.B. bei einem FrÃ¼hstart wird bei der Vergabe der Strafe "des dritten Schwimmers" hinzugefÃ¼gt). Zur UnterstÃ¼tzung kÃ¶nnen vergebene Strafen mit allen nÃ¶tigen Informationen (Schwimmer, Lauf, Bahn, Strafpunkte etc.) direkt ausgedruckt werden.
+- Umfangreiche Druckfunktionen aller benÃ¶tigten Daten:
+  - Lauflisten (in unterschiedlichen Versionen fÃ¼r Mannschaftsbetreuer und verschiedene Kampfrichterpositionen), Startkarten (auch Zusatzwertung), Ergebnisse, ...
   - Leere Start-, Zieleinlauf- und Strafpunktekarten sowie Zusatzwertung-Checklisten
 
 ## Datenimport und -export
 
-Sie können Meldungen, Kampfrichterliste, Mannschaftsmitglieder sowie die Ergebnisse der Zusatzwertung direkt aus CSV- oder Excel-Dateien importieren. Dazu verwenden Sie am besten die offiziellen Vorlagen. Diese finden Sie in einem einzelnen Download auf [www.dennisfabri.de](https://www.dennisfabri.de)
+Sie kÃ¶nnen Meldungen, Kampfrichterliste, Mannschaftsmitglieder sowie die Ergebnisse der Zusatzwertung direkt aus CSV- oder Excel-Dateien importieren. Dazu verwenden Sie am besten die offiziellen Vorlagen. Diese finden Sie in einem einzelnen Download auf [www.dennisfabri.de](https://www.dennisfabri.de)
 
-Sie können die Daten wie z.B. Meldelisten, Startkarten (Seriendruckvorlage), Lauflisten, Zusatzwertung-Listen oder Ergebnisse eines Wettkampfs auch exportieren. Dabei stehen Ihnen verschiedene Formate wie z.B. Excel, HTML, XML, CSV oder PDF zu Auswahl bereit. So können die Informationen direkt im Internet präsentiert (HTML), zum Download angeboten (z.B. Excel und PDF) oder zur Aufbereitung z.B. zum Urkundendruck (XML, CSV und Excel) weitergegeben werden.
+Sie kÃ¶nnen die Daten wie z.B. Meldelisten, Startkarten (Seriendruckvorlage), Lauflisten, Zusatzwertung-Listen oder Ergebnisse eines Wettkampfs auch exportieren. Dabei stehen Ihnen verschiedene Formate wie z.B. Excel, HTML, XML, CSV oder PDF zu Auswahl bereit. So kÃ¶nnen die Informationen direkt im Internet prÃ¤sentiert (HTML), zum Download angeboten (z.B. Excel und PDF) oder zur Aufbereitung z.B. zum Urkundendruck (XML, CSV und Excel) weitergegeben werden.

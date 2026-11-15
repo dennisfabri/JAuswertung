@@ -12,10 +12,6 @@
 
 	<name>JAuswertung Main</name>
 
-	<properties>
-		<project.build.sourceEncoding>Windows-1252</project.build.sourceEncoding>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>de.dennisfabri.jauswertung</groupId>
