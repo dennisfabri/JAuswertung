@@ -27,8 +27,8 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.BorderUtils;
-import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
+import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 /**
@@ -70,8 +70,7 @@ class JNeueKV extends JDialog {
 
         WindowUtils.packWhenOpened(this);
         pack();
-        UIStateUtils.uistatemanage(parent, this, "NeueKampfrichtereinteilung");
-        pack();
+        UIStateUtils.managePosition(parent, this, "NeueKampfrichtereinteilung");
 
         addActions();
     }

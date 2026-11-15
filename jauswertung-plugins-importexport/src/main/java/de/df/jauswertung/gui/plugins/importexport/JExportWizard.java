@@ -104,8 +104,7 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
 
         setIconImage(parent.getIconImage());
         pack();
-        UIStateUtils.uistatemanage(parent, this, "JExportWizard");
-        pack();
+        UIStateUtils.managePosition(parent, this, "JExportWizard");
 
         setResizable(false);
 

@@ -1,46 +1,46 @@
 # Vor dem Wettkampf
 
-Kurz vor dem Wettkampf stehen folgende Tätigkeiten an:
+Kurz vor dem Wettkampf stehen folgende TÃ¤tigkeiten an:
 
 - Eingabe bzw. Import der Meldungen
 - Erstellen einer offiziellen Meldeliste
 - Erstellen von Lauf- und Zusatzwertung-Listen
-- Ausdruck von Unterlagen für Kampfrichter und Betreuer
+- Ausdruck von Unterlagen fÃ¼r Kampfrichter und Betreuer
 
 ## Eingabe bzw. Import der Meldungen
 
-Wie die Überschrift bereits sagt, haben Sie zwei Möglichkeiten die Daten in einen Wettkampf einzupflegen: Eingabe oder Import. Bevor Sie dies jedoch machen können müssen Sie einen neuen Wettkampf erstellen. Die tun Sie über "Datei" -> "Neu". Hier können Sie die Art des Wettkampfs und das verwendete Regelwerk auswählen. Wenn Sie ein eigenes Regelwerk (über den Regelwerkseditor) definiert haben, können Sie dieses über "benutzerdefiniert" auswählen.
+Wie die Ãœberschrift bereits sagt, haben Sie zwei MÃ¶glichkeiten die Daten in einen Wettkampf einzupflegen: Eingabe oder Import. Bevor Sie dies jedoch machen kÃ¶nnen mÃ¼ssen Sie einen neuen Wettkampf erstellen. Die tun Sie Ã¼ber "Datei" -> "Neu". Hier kÃ¶nnen Sie die Art des Wettkampfs und das verwendete Regelwerk auswÃ¤hlen. Wenn Sie ein eigenes Regelwerk (Ã¼ber den Regelwerkseditor) definiert haben, kÃ¶nnen Sie dieses Ã¼ber "benutzerdefiniert" auswÃ¤hlen.
 
-Wollen Sie eine Meldeliste importieren, so können Sie dies über "Datei" -> "Importieren" tun. Folgen Sie einfach den Schritten des Importassistenten. Am Ende des Assistenten werden ihnen alle Einträge angezeigt, die importiert werden. Sie können so überprüfen, ob wirklich alles importiert werden konnte.
+Wollen Sie eine Meldeliste importieren, so kÃ¶nnen Sie dies Ã¼ber "Datei" -> "Importieren" tun. Folgen Sie einfach den Schritten des Importassistenten. Am Ende des Assistenten werden ihnen alle EintrÃ¤ge angezeigt, die importiert werden. Sie kÃ¶nnen so Ã¼berprÃ¼fen, ob wirklich alles importiert werden konnte.
 
-Wenn Sie die Daten manuell eingeben wollen, so wählen Sie in der linken Knopfleiste den Punkt "Eingabe". Im Bereich rechts davon erscheint nun eine Eingabemaske. Hier können Sie die Teilnehmer bzw. Mannschaften nacheinander eingeben. Wenn eine Gliederung mehrere Mannschaften in einer Altersklasse gemeldet hat, können Sie die entsprechende Menge im Feld "Anzahl" eingeben und den darunterliegenenden Knopf "Hinzufügen" wählen. Es werden dann automatisch mehrere Mannschaften hinzugefügt. Die Namen der Mannschaften werden dabei durchnummeriert. Nachdem Sie auf diese Weise alle Teilnehmer bzw. Mannschaften eingetragen haben, können Sie noch über den Menüpunkt "Bearbeiten" -> "Meldezeiten" die Meldezeiten der einzelnen Schwimmer eintragen. Dies ist aber nur erforderlich, wenn Sie die Laufliste nach Meldezeiten erstellen wollen.
+Wenn Sie die Daten manuell eingeben wollen, so wÃ¤hlen Sie in der linken Knopfleiste den Punkt "Eingabe". Im Bereich rechts davon erscheint nun eine Eingabemaske. Hier kÃ¶nnen Sie die Teilnehmer bzw. Mannschaften nacheinander eingeben. Wenn eine Gliederung mehrere Mannschaften in einer Altersklasse gemeldet hat, kÃ¶nnen Sie die entsprechende Menge im Feld "Anzahl" eingeben und den darunterliegenenden Knopf "HinzufÃ¼gen" wÃ¤hlen. Es werden dann automatisch mehrere Mannschaften hinzugefÃ¼gt. Die Namen der Mannschaften werden dabei durchnummeriert. Nachdem Sie auf diese Weise alle Teilnehmer bzw. Mannschaften eingetragen haben, kÃ¶nnen Sie noch Ã¼ber den MenÃ¼punkt "Bearbeiten" -> "Meldezeiten" die Meldezeiten der einzelnen Schwimmer eintragen. Dies ist aber nur erforderlich, wenn Sie die Laufliste nach Meldezeiten erstellen wollen.
 
 ## Erstellen einer offiziellen Meldeliste
 
-Nachdem Sie die Eingabe abgeschlossen haben, können Sie über den Menüpunkt "Datei" -> "Exportieren", die Meldeliste in einem Format ihrer Wahl exportieren. Am besten geeignet ist sind zu diesem Zweck die Formate Excel und PDF.
+Nachdem Sie die Eingabe abgeschlossen haben, kÃ¶nnen Sie Ã¼ber den MenÃ¼punkt "Datei" -> "Exportieren", die Meldeliste in einem Format ihrer Wahl exportieren. Am besten geeignet ist sind zu diesem Zweck die Formate Excel und PDF.
 
 ## Erstellen von Lauf- und Zusatzwertung-Listen
 
-Da die Erstellung von Lauf- und Zusatzwertung-Listen im wesentlichen gleich funktioniert, soll hier nur die Erstellung von Lauflisten besprochen werden. Über den Menüpunkt "Bearbeiten" -> "Laufliste" -> "Neu" rufen Sie den Assistenten zur Erstellung von Lauflisten auf. Dieser führt Sie schrittweise durch die Erstellung.
+Da die Erstellung von Lauf- und Zusatzwertung-Listen im wesentlichen gleich funktioniert, soll hier nur die Erstellung von Lauflisten besprochen werden. Ãœber den MenÃ¼punkt "Bearbeiten" -> "Laufliste" -> "Neu" rufen Sie den Assistenten zur Erstellung von Lauflisten auf. Dieser fÃ¼hrt Sie schrittweise durch die Erstellung.
 
-Über den Menüpunkt "Bearbeiten" -> "Laufliste" -> "Bearbeiten", können Sie sich das Ergebnis anzeigen lassen und ändern. Dies ist vor allem dann sinnvoll, wenn einige Altersklassen nicht so stark besetzt sind. Sie können hier einzelne Einträge durch Doppelklick entfernen oder via Drag'n'Drop verschieben. Entfernte Einträge werden (genauso wie nach der Erstellung eingegebene Teilnehmer) in der Warteliste aufgeführt und können später wieder in die Laufliste übernommen werden. Sie können also auf diese Weise z.B. Läufe zusammenlegen oder die Zusammenstellung ändern. Ob Sie dabei Altersklassen oder Disziplinen mischen, wird ihnen für jeden Lauf angezeigt:
+Ãœber den MenÃ¼punkt "Bearbeiten" -> "Laufliste" -> "Bearbeiten", kÃ¶nnen Sie sich das Ergebnis anzeigen lassen und Ã¤ndern. Dies ist vor allem dann sinnvoll, wenn einige Altersklassen nicht so stark besetzt sind. Sie kÃ¶nnen hier einzelne EintrÃ¤ge durch Doppelklick entfernen oder via Drag'n'Drop verschieben. Entfernte EintrÃ¤ge werden (genauso wie nach der Erstellung eingegebene Teilnehmer) in der Warteliste aufgefÃ¼hrt und kÃ¶nnen spÃ¤ter wieder in die Laufliste Ã¼bernommen werden. Sie kÃ¶nnen also auf diese Weise z.B. LÃ¤ufe zusammenlegen oder die Zusammenstellung Ã¤ndern. Ob Sie dabei Altersklassen oder Disziplinen mischen, wird ihnen fÃ¼r jeden Lauf angezeigt:
 
-- Wenn Sie in einem Lauf AK 12 männlich und weiblich mischen, so steht in der zweiten Spalte "AK 12 gemischt".
+- Wenn Sie in einem Lauf AK 12 mÃ¤nnlich und weiblich mischen, so steht in der zweiten Spalte "AK 12 gemischt".
 - Wenn Sie in einem Lauf AK 12 und AK 13/14 mischen, so steht in der zweiten Spalte "Gemischt".
 
-Über ein Kontextmenü (rechte Maustaste) können Sie neue Läufe hinzufügen bzw. bestehende entfernen. Eingefügte Läufe werden dabei durchbuchstabiert, so dass ein Lauf, der nach Lauf 10 eingefügt wird, z.B. 10a heißt. So müssen die Nummern der nachfolgenden Läufe nicht verändert werden. Dies ist vor allem während des Wettkampfs nötig, damit gedruckte Startkarten ihre Gültigkeit behalten. Da dies bisher nicht geschehen ist, kann die Nummerierung der Läufe über das Menü "Datei" zurückgesetzt werden, so dass die Läufe wieder fortlaufend nummeriert sind.
+Ãœber ein KontextmenÃ¼ (rechte Maustaste) kÃ¶nnen Sie neue LÃ¤ufe hinzufÃ¼gen bzw. bestehende entfernen. EingefÃ¼gte LÃ¤ufe werden dabei durchbuchstabiert, so dass ein Lauf, der nach Lauf 10 eingefÃ¼gt wird, z.B. 10a heiÃŸt. So mÃ¼ssen die Nummern der nachfolgenden LÃ¤ufe nicht verÃ¤ndert werden. Dies ist vor allem wÃ¤hrend des Wettkampfs nÃ¶tig, damit gedruckte Startkarten ihre GÃ¼ltigkeit behalten. Da dies bisher nicht geschehen ist, kann die Nummerierung der LÃ¤ufe Ã¼ber das MenÃ¼ "Datei" zurÃ¼ckgesetzt werden, so dass die LÃ¤ufe wieder fortlaufend nummeriert sind.
 
-## Ausdruck von Unterlagen für Kampfrichter und Betreuer
+## Ausdruck von Unterlagen fÃ¼r Kampfrichter und Betreuer
 
-JAuswertung bietet eine Reihe von Druckmöglichkeiten für unterschiedliche Zielgruppen. Dies ermöglicht es, für jeden die gewünschten Information so zu präsentieren, wie er Sie benötigt.
+JAuswertung bietet eine Reihe von DruckmÃ¶glichkeiten fÃ¼r unterschiedliche Zielgruppen. Dies ermÃ¶glicht es, fÃ¼r jeden die gewÃ¼nschten Information so zu prÃ¤sentieren, wie er Sie benÃ¶tigt.
 
-- Zeitnehmer: Ausgefüllte Startkarten, Bahnenliste (Liste aller Schwimmer einer Bahn)
-- Zieleinlauf: Ausgefüllte Zieleinlaufkarten (Lauf, Wettkampf, Altersklasse und Geschlecht)
+- Zeitnehmer: AusgefÃ¼llte Startkarten, Bahnenliste (Liste aller Schwimmer einer Bahn)
+- Zieleinlauf: AusgefÃ¼llte Zieleinlaufkarten (Lauf, Wettkampf, Altersklasse und Geschlecht)
 - Sprecher: Sprecherliste (Detailierte Laufliste)
-- Zusatzwertung-Kampfrichter: Ausgefüllte Zusatzwertung-Startkarten oder -Checklisten, Bahnenliste (Liste aller Teilnehmer an einer Bahn)
-- Wettkampfleiter, Starter, Wenderichter, ...: Laufübersicht
+- Zusatzwertung-Kampfrichter: AusgefÃ¼llte Zusatzwertung-Startkarten oder -Checklisten, Bahnenliste (Liste aller Teilnehmer an einer Bahn)
+- Wettkampfleiter, Starter, Wenderichter, ...: LaufÃ¼bersicht
 - Betreuer und Schwimmer: (kompakte) Laufeinteilung
 
-Darüber hinaus sollten noch eine Reihe von nicht ausgefüllten Zieleinlaufkarten, Startkarten etc. vorhanden sein. Diese können Sie ebenfalls mit JAuswertung ausdrucken (Bereich "Vordrucke").
+DarÃ¼ber hinaus sollten noch eine Reihe von nicht ausgefÃ¼llten Zieleinlaufkarten, Startkarten etc. vorhanden sein. Diese kÃ¶nnen Sie ebenfalls mit JAuswertung ausdrucken (Bereich "Vordrucke").
 
-**Anmerkung:** Die kompakten Laufeinteilungen stehen nur zur Verfügung, wenn die Laufliste einige Anforderungen erfüllt. Ist dies nicht der Fall müssen Sie normalen Laufeinteilungen nutzen.
+**Anmerkung:** Die kompakten Laufeinteilungen stehen nur zur VerfÃ¼gung, wenn die Laufliste einige Anforderungen erfÃ¼llt. Ist dies nicht der Fall mÃ¼ssen Sie normalen Laufeinteilungen nutzen.

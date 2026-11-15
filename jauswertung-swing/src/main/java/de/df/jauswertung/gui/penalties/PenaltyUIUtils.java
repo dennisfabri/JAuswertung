@@ -186,8 +186,8 @@ public class PenaltyUIUtils {
 
             if ((strafe.getArt() != Strafarten.NICHT_ANGETRETEN) || (!ignoreNA)) {
                 SimpleListBuilder sfm = new SimpleListBuilder(pl == null ? 1 : 4);
-                sfm.setColor(Color.BLACK);
                 if (pl == null) {
+                    sfm.setColor(Color.BLACK);
                     sfm.setFont(PrintManager.getFont());
                 }
                 if (lauf != null) {
@@ -261,8 +261,8 @@ public class PenaltyUIUtils {
 
             if ((strafe.getArt() != Strafarten.NICHT_ANGETRETEN) || (!ignoreNA)) {
                 SimpleFormBuilder sfm = new SimpleFormBuilder(pl == null ? 1 : 4);
-                sfm.setColor(Color.BLACK);
                 if (pl == null) {
+                    sfm.setColor(Color.BLACK);
                     sfm.setFont(PrintManager.getFont());
                 }
                 if (lauf != null) {

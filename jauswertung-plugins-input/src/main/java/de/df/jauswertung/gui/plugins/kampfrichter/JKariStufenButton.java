@@ -1,17 +1,12 @@
 package de.df.jauswertung.gui.plugins.kampfrichter;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -25,6 +20,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jauswertung.daten.kampfrichter.KampfrichterStufe;
 import de.df.jauswertung.gui.util.I18n;
+import de.df.jutils.gui.DropDownIcon;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JKariStufenButton extends JPanel {
@@ -76,7 +72,7 @@ public class JKariStufenButton extends JPanel {
     }
 
     public JKariStufenButton(KampfrichterStufe stufe) {
-        level = new JToggleButton(createArrow());
+        level = new JToggleButton(new DropDownIcon());
         level.setBounds(0, 0, 0, 0);
         level.setHorizontalTextPosition(SwingConstants.LEFT);
         level.addActionListener(e -> {
@@ -174,15 +170,6 @@ public class JKariStufenButton extends JPanel {
         return stufe;
     }
 
-    private static Icon createArrow() {
-        BufferedImage i = new BufferedImage(11, 4, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = i.getGraphics();
-
-        g.setColor(Color.BLACK);
-        g.fillPolygon(new int[] { 2, 8, 5 }, new int[] { 0, 0, 3 }, 3);
-
-        return new ImageIcon(i);
-    }
 
     private LinkedList<ChangeListener> changes = new LinkedList<>();
 

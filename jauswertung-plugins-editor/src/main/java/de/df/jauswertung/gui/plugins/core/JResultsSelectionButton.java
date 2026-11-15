@@ -1,21 +1,17 @@
 package de.df.jauswertung.gui.plugins.core;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
@@ -26,10 +22,13 @@ import de.df.jauswertung.daten.regelwerk.Regelwerk;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jutils.gui.DropDownIcon;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JResultsSelectionButton extends JToggleButton {
+
+    private static final int SIDE_MARGIN = 6;
 
     final JPopupMenu dialog;
 
@@ -59,10 +58,15 @@ public class JResultsSelectionButton extends JToggleButton {
     };
 
     public JResultsSelectionButton(IWettkampfProvider core) {
-        super(createArrow(IconManager.getSmallIcon("finishedinput")));
+        super(new DropDownIcon(IconManager.getSmallIcon("finishedinput")));
         this.core = core;
 
         setToolTipText(I18n.getToolTip("DataFilterSelection"));
+        // FlatLaf leaves almost no horizontal margin on icon-only buttons as long as the margin is a UIResource
+        Insets margin = UIManager.getInsets("Button.margin");
+        if (margin != null) {
+            setMargin(new Insets(margin.top, SIDE_MARGIN, margin.bottom, SIDE_MARGIN));
+        }
 
         setHorizontalTextPosition(SwingConstants.LEFT);
         addActionListener(new ActionListener() {
@@ -303,22 +307,6 @@ public class JResultsSelectionButton extends JToggleButton {
         super.setEnabled(enabled);
     }
 
-    private static Icon createArrow(ImageIcon icon) {
-        BufferedImage i = new BufferedImage(icon.getIconWidth() + 11, Math.max(icon.getIconHeight(), 4),
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics g = i.getGraphics();
-
-        g.drawImage(icon.getImage(), 0, 0, null);
-
-        int offsetx = icon.getIconWidth();
-        int offsety = (icon.getIconHeight() - 4) / 2;
-
-        g.setColor(Color.BLACK);
-        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 },
-                3);
-
-        return new ImageIcon(i);
-    }
 
     @SuppressWarnings("rawtypes")
     public AgegroupResultSelection[] getSelection(AWettkampf wk) {

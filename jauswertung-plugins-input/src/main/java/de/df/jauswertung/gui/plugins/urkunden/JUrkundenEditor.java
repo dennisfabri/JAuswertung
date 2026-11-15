@@ -169,9 +169,8 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         help.pack();
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         help.setLocation(d.width - help.getWidth() - 50, (d.height - help.getHeight()) / 2);
+        UIStateUtils.managePosition(null, help, "JUrkundenEditor.Help");
 
-        UIStateUtils.uistatemanage(help, "JUrkundenEditor.Help");
-        help.pack();
         help.setResizable(false);
         WindowUtils.packWhenOpened(help);
     }

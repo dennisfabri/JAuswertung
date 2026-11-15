@@ -1,68 +1,68 @@
 # JAuswertung
 
-Die Benutzeroberfläche von JAuswertung teilt sich in vier Bereiche:
+Die BenutzeroberflÃ¤che von JAuswertung teilt sich in vier Bereiche:
 
-- Die Menüs
+- Die MenÃ¼s
 - Die obere Knopfleiste
 - Die linken Knopfleisten
 - Die Eingabebereiche
 
-Über die linken Knopfleisten können Sie auswählen, welche Eingaben Sie gerade durchführen wollen. Die rechts daneben liegenden Eingabebereiche werden dann entsprechend umgestellt. Die obere Knopfleiste (direkt über den linken Knopfleisten und den Eingabebereichen) dient dazu, häufig genutzte Funktionen der Menüs direkt zugänglich zu machen. Alle weiteren Funktionen sind über die Menüs zu erreichen.
+Ãœber die linken Knopfleisten kÃ¶nnen Sie auswÃ¤hlen, welche Eingaben Sie gerade durchfÃ¼hren wollen. Die rechts daneben liegenden Eingabebereiche werden dann entsprechend umgestellt. Die obere Knopfleiste (direkt Ã¼ber den linken Knopfleisten und den Eingabebereichen) dient dazu, hÃ¤ufig genutzte Funktionen der MenÃ¼s direkt zugÃ¤nglich zu machen. Alle weiteren Funktionen sind Ã¼ber die MenÃ¼s zu erreichen.
 
 ![JAuswertung](jauswertung.png)
 
-## Die Menüs
+## Die MenÃ¼s
 
-![Menüs](menu.png)
+![MenÃ¼s](menu.png)
 
-JAuswertung bietet vier Menüs. Das Menü "Datei" befasst sich mit allen Informationen und Vorgängen zum Laden und Speichern von Dateien. Das Menü "Werkzeuge" enthält die Funktionen, die Sie bei der Verwaltung eines Wettkampfes benötigen. Das Menü Extras enthält weitere Funktionen, die nicht direkt mit der Auswertung von Wettkämpfen zu tun haben. Das Menü "?" enthält weitere Informationen über JAuswertung.
+JAuswertung bietet vier MenÃ¼s. Das MenÃ¼ "Datei" befasst sich mit allen Informationen und VorgÃ¤ngen zum Laden und Speichern von Dateien. Das MenÃ¼ "Werkzeuge" enthÃ¤lt die Funktionen, die Sie bei der Verwaltung eines Wettkampfes benÃ¶tigen. Das MenÃ¼ Extras enthÃ¤lt weitere Funktionen, die nicht direkt mit der Auswertung von WettkÃ¤mpfen zu tun haben. Das MenÃ¼ "?" enthÃ¤lt weitere Informationen Ã¼ber JAuswertung.
 
-### Das Menü: Datei
+### Das MenÃ¼: Datei
 
-![Menü: Datei](menu-datei.png)
+![MenÃ¼: Datei](menu-datei.png)
 
-#### Neu, Öffnen, Speichern, Speichern unter...
+#### Neu, Ã–ffnen, Speichern, Speichern unter...
 
 ![Neuen Wettkampf erstellen](neuer-wettkampf.png)
 
-Über den Menüpunkt "Neu" können Sie einen neuen Wettkampf erstellen. Es öffnet sich ein Fenster, wie es in Abbildung "Neuen Wettkampf erstellen" dargestellt ist. Wählen Sie einfach die Art von Wettkampf, die Sie durchführen möchten. Sie haben dabei die Wahl zwischen Einzel- und Mannschaftswettkämpfen. Benutzerdefinierte Wettkämpfe können ebenfalls erstellt werden, dazu können über die Knöpfe "Benutzerdefiniert" mit dem Regelwerkseditor erstellte Dateien geladen werden. Über die Menüpunkte "Öffnen", "Speichern" und "Speichern unter ..." stehen die üblichen Funktionen zur Verfügung.
+Ãœber den MenÃ¼punkt "Neu" kÃ¶nnen Sie einen neuen Wettkampf erstellen. Es Ã¶ffnet sich ein Fenster, wie es in Abbildung "Neuen Wettkampf erstellen" dargestellt ist. WÃ¤hlen Sie einfach die Art von Wettkampf, die Sie durchfÃ¼hren mÃ¶chten. Sie haben dabei die Wahl zwischen Einzel- und MannschaftswettkÃ¤mpfen. Benutzerdefinierte WettkÃ¤mpfe kÃ¶nnen ebenfalls erstellt werden, dazu kÃ¶nnen Ã¼ber die KnÃ¶pfe "Benutzerdefiniert" mit dem Regelwerkseditor erstellte Dateien geladen werden. Ãœber die MenÃ¼punkte "Ã–ffnen", "Speichern" und "Speichern unter ..." stehen die Ã¼blichen Funktionen zur VerfÃ¼gung.
 
 #### Importieren, Exportieren, Automatisch speichern
 
-Sie können verschiedene Daten importieren bzw. exportieren. Ein Assistent begleitet den Vorgang und bietet die zur Verfügung stehenden Möglichkeiten an. Importiert werden können dabei Meldedaten, Mannschaftsmitglieder, Kampfrichter und Zusatzwertung-Punkte aus Excel- und CSV-Dateien. Exportiert werden können Meldedaten, Lauflisten, Zusatzwertung-Listen, Kampfrichter, Startkarten, Mannschaftsmitglieder, Zusatzwertung-Punkte und Ergebnisse in mindestens eins der Formate HMTL, CSV, XML, Excel oder PDF.
+Sie kÃ¶nnen verschiedene Daten importieren bzw. exportieren. Ein Assistent begleitet den Vorgang und bietet die zur VerfÃ¼gung stehenden MÃ¶glichkeiten an. Importiert werden kÃ¶nnen dabei Meldedaten, Mannschaftsmitglieder, Kampfrichter und Zusatzwertung-Punkte aus Excel- und CSV-Dateien. Exportiert werden kÃ¶nnen Meldedaten, Lauflisten, Zusatzwertung-Listen, Kampfrichter, Startkarten, Mannschaftsmitglieder, Zusatzwertung-Punkte und Ergebnisse in mindestens eins der Formate HMTL, CSV, XML, Excel oder PDF.
 
-**Hinweis:** Sie können auch alle Informationen, die Sie aus JAuswertung drucken können, als PDF-Datei speichern. Nutzten Sie dazu im Druckbereich die Vorschaufunktion. Während die Vorschau angezeigt wird, steht dort auch ein Knopf "Speichern als PDF" zur Verfügung.
+**Hinweis:** Sie kÃ¶nnen auch alle Informationen, die Sie aus JAuswertung drucken kÃ¶nnen, als PDF-Datei speichern. Nutzten Sie dazu im Druckbereich die Vorschaufunktion. WÃ¤hrend die Vorschau angezeigt wird, steht dort auch ein Knopf "Speichern als PDF" zur VerfÃ¼gung.
 
 ![Daten](importieren-daten.png)
 
-**Details zum Import** Beim Import von Tabellen in JAuswertung müssen einige Bedingungen erfüllt sein. Verwenden Sie zum Import von Meldungen am besten die offiziellen Vorlagen, die Sie auf [dennisfabri.de](https://www.dennisfabri.de) finden.
+**Details zum Import** Beim Import von Tabellen in JAuswertung mÃ¼ssen einige Bedingungen erfÃ¼llt sein. Verwenden Sie zum Import von Meldungen am besten die offiziellen Vorlagen, die Sie auf [dennisfabri.de](https://www.dennisfabri.de) finden.
 
-**Was wird importiert?** Enthält eine Tabelle mehr als ein Tabellenblatt, so werden die Daten aller Blätter importiert. Tabellenblätter, die nicht den Ansprüchen genügen werden ignoriert.
+**Was wird importiert?** EnthÃ¤lt eine Tabelle mehr als ein Tabellenblatt, so werden die Daten aller BlÃ¤tter importiert. TabellenblÃ¤tter, die nicht den AnsprÃ¼chen genÃ¼gen werden ignoriert.
 
 **Wie kann ich Probleme beim Import vermeiden?** Tabellen sollten keine verbundenen Zellen und keine Formeln enthalten. Die erste Zeile einer Tabelle darf nicht leer sein.
 
-**Wie muss eine importierbare Tabelle aufgebaut sein?** Die erste Zeile der Tabelle wird als Überschrift interpretiert. Dabei werden die folgenden Texte erkannt "S#" und "Startnummer" (für Startnummer), "Name" (bei Einzelwettkämpfen "Vorname" und "Nachname"), "Gliederung", "Altersklasse", "Geschlecht", "Meldepunkte" und "Gemeldete Punkte", "Außer Konkurrenz". Es wird erwartet, dass jede Zeile in der Tabelle genau einem Teilnehmer entspricht. Dabei wird davon ausgegangen, dass z.B. in der Spalte mit dem Titel "Name" die Namen der Mannschaften aufgeführt sind. Die Tabelle darf beliebig viele Spalten enthalten; Spalten deren Titel JAuswertung unbekannt ist, werden einfach ignoriert. Beachten Sie aber, dass die Felder "Name" (bzw. "Vorname" und "Nachname"), "Gliederung", "Altersklasse" und "Geschlecht" Pflichtfelder sind. Fehlt eines dieser Felder, kann JAuswertung die Tabelle nicht importieren.
+**Wie muss eine importierbare Tabelle aufgebaut sein?** Die erste Zeile der Tabelle wird als Ãœberschrift interpretiert. Dabei werden die folgenden Texte erkannt "S#" und "Startnummer" (fÃ¼r Startnummer), "Name" (bei EinzelwettkÃ¤mpfen "Vorname" und "Nachname"), "Gliederung", "Altersklasse", "Geschlecht", "Meldepunkte" und "Gemeldete Punkte", "AuÃŸer Konkurrenz". Es wird erwartet, dass jede Zeile in der Tabelle genau einem Teilnehmer entspricht. Dabei wird davon ausgegangen, dass z.B. in der Spalte mit dem Titel "Name" die Namen der Mannschaften aufgefÃ¼hrt sind. Die Tabelle darf beliebig viele Spalten enthalten; Spalten deren Titel JAuswertung unbekannt ist, werden einfach ignoriert. Beachten Sie aber, dass die Felder "Name" (bzw. "Vorname" und "Nachname"), "Gliederung", "Altersklasse" und "Geschlecht" Pflichtfelder sind. Fehlt eines dieser Felder, kann JAuswertung die Tabelle nicht importieren.
 
-**Hinweis:** Es werden nur Excel-Dateien ab der Versionen 97 unterstützt. Dateien älterer Versionen müssen zuerst in einem neueren Format gespeichert werden.
+**Hinweis:** Es werden nur Excel-Dateien ab der Versionen 97 unterstÃ¼tzt. Dateien Ã¤lterer Versionen mÃ¼ssen zuerst in einem neueren Format gespeichert werden.
 
-**Hinweis:** Beachten Sie bitte ebenfalls, dass nach dem Regelwerk in der offenen Altersklasse eine Wahlmöglichkeit bei den Disziplinen besteht. In diesem Fall ist auch die Festlegung der Disziplinen beim Import Pflicht. Wie die Disziplinen festgelegt werden können, ist im nächsten Abschnitt beschrieben.
+**Hinweis:** Beachten Sie bitte ebenfalls, dass nach dem Regelwerk in der offenen Altersklasse eine WahlmÃ¶glichkeit bei den Disziplinen besteht. In diesem Fall ist auch die Festlegung der Disziplinen beim Import Pflicht. Wie die Disziplinen festgelegt werden kÃ¶nnen, ist im nÃ¤chsten Abschnitt beschrieben.
 
-**Welche zusätzlichen Informationen können importiert werden?**
-Darüber hinaus können für die jeweiligen Disziplinen Zeiten gemeldet werden, die bei der Lauflistenerstellung berücksichtigt werden können. Dazu müssen Sie nur für jede Disziplin eine Spalte anlegen, deren Titel der Name der Disziplin ist. Dort können Sie dann die Zeit im Formt "m:ss,00" (also Minuten:Sekunden,hundertstel) eintragen. Nach dem Regelwerk von 2007 darf die Offene Altersklasse ihre Disziplinen wählen. Diese Informationen können ebenfalls importiert werden. Ist in einer Spalte einer Disziplin keine Meldezeit angegeben, so wird der Teilnehmer hier nicht gemeldet. Können Sie keine Zeit angeben genügt ein "+" zur Meldung des Schwimmers.
+**Welche zusÃ¤tzlichen Informationen kÃ¶nnen importiert werden?**
+DarÃ¼ber hinaus kÃ¶nnen fÃ¼r die jeweiligen Disziplinen Zeiten gemeldet werden, die bei der Lauflistenerstellung berÃ¼cksichtigt werden kÃ¶nnen. Dazu mÃ¼ssen Sie nur fÃ¼r jede Disziplin eine Spalte anlegen, deren Titel der Name der Disziplin ist. Dort kÃ¶nnen Sie dann die Zeit im Formt "m:ss,00" (also Minuten:Sekunden,hundertstel) eintragen. Nach dem Regelwerk von 2007 darf die Offene Altersklasse ihre Disziplinen wÃ¤hlen. Diese Informationen kÃ¶nnen ebenfalls importiert werden. Ist in einer Spalte einer Disziplin keine Meldezeit angegeben, so wird der Teilnehmer hier nicht gemeldet. KÃ¶nnen Sie keine Zeit angeben genÃ¼gt ein "+" zur Meldung des Schwimmers.
 
 ![Daten](exportieren-daten.png)
 
-**Automatisch speichern** Die Option "Automatisch speichern" speichert die aktuelle Datei alle 5 Minuten. Dabei wird der aktuelle Name der Datei um "-autosave" erweitert. Heißt ihr Wettkampf "BezMei06.wk" (".wk" ist die Endung, die von JAuswertung für Wettkämpfe benutzt wird), wird alle 5 Minuten eine Datei unter dem Namen "BezMei06-autosave.wk" gespeichert. Wurde eine Datei neu erstellt und noch nicht gespeichert, ist automatisches Speichern nicht möglich!
+**Automatisch speichern** Die Option "Automatisch speichern" speichert die aktuelle Datei alle 5 Minuten. Dabei wird der aktuelle Name der Datei um "-autosave" erweitert. HeiÃŸt ihr Wettkampf "BezMei06.wk" (".wk" ist die Endung, die von JAuswertung fÃ¼r WettkÃ¤mpfe benutzt wird), wird alle 5 Minuten eine Datei unter dem Namen "BezMei06-autosave.wk" gespeichert. Wurde eine Datei neu erstellt und noch nicht gespeichert, ist automatisches Speichern nicht mÃ¶glich!
 
 ##### Drucken
 
-Das Drucken ist in JAuswertung über eine der linken Knopfleisten verfügbar. Dies ist notwendigt, da JAuswertung wesentlich mehr Druckmöglichkeiten bietet als die meisten anderen Programme. Da aber ein Menüpunkt "Drucken" an dieser Stelle erwartet wird, ist dieser hier eingefügt, und wechselt auf die entsprechende Druckansicht.
+Das Drucken ist in JAuswertung Ã¼ber eine der linken Knopfleisten verfÃ¼gbar. Dies ist notwendigt, da JAuswertung wesentlich mehr DruckmÃ¶glichkeiten bietet als die meisten anderen Programme. Da aber ein MenÃ¼punkt "Drucken" an dieser Stelle erwartet wird, ist dieser hier eingefÃ¼gt, und wechselt auf die entsprechende Druckansicht.
 
 ##### Eigenschaften
 
-Über diesen Menüpunkt können verschiedene Angaben zum Wettkampf wie z.B. Name, Ort und Datum eingetragen werden, die für ein Protokoll benötigt werden. Einige Angaben wie z.B. der Name des Wettkampfs werden auch im Titel der Ergebnisse aufgeführt. Diese Angaben werden für das Protokoll benötigt.
+Ãœber diesen MenÃ¼punkt kÃ¶nnen verschiedene Angaben zum Wettkampf wie z.B. Name, Ort und Datum eingetragen werden, die fÃ¼r ein Protokoll benÃ¶tigt werden. Einige Angaben wie z.B. der Name des Wettkampfs werden auch im Titel der Ergebnisse aufgefÃ¼hrt. Diese Angaben werden fÃ¼r das Protokoll benÃ¶tigt.
 
-Die Eingaben der Registerkarten "Wettkampf" und "Veranstaltungsort" enthalten strukturierte Informationen zum Wettkampf. Darüber hinaus werden die Felder "Name", "Ort" und "Datum" auf alle Seiten gedruckt. Die Registerkarte "Informationsseite" enthält ein Feld zur freien Texteingabe. Diese Informationen können über "Informationsseite" gedruckt werden. Für das Deckblatt des Protokolls können Sie über die Registerkarte "Logo" ein Veranstaltungslogo auswählen.
+Die Eingaben der Registerkarten "Wettkampf" und "Veranstaltungsort" enthalten strukturierte Informationen zum Wettkampf. DarÃ¼ber hinaus werden die Felder "Name", "Ort" und "Datum" auf alle Seiten gedruckt. Die Registerkarte "Informationsseite" enthÃ¤lt ein Feld zur freien Texteingabe. Diese Informationen kÃ¶nnen Ã¼ber "Informationsseite" gedruckt werden. FÃ¼r das Deckblatt des Protokolls kÃ¶nnen Sie Ã¼ber die Registerkarte "Logo" ein Veranstaltungslogo auswÃ¤hlen.
 
 ![Wettkampf](eigenschaften-wettkampf.png)
 ![Veranstaltungsort](eigenschaften-veranstaltungsort.png)
@@ -71,100 +71,100 @@ Die Eingaben der Registerkarten "Wettkampf" und "Veranstaltungsort" enthalten st
 
 ##### Zuletzt genutzte Dateien
 
-In der Liste der zuletzt genutzten Dateien, werden die vier letzten geöffneten bzw. gespeicherten Dateien angezeigt. Durch einen Mausklick werden diese direkt geladen.
+In der Liste der zuletzt genutzten Dateien, werden die vier letzten geÃ¶ffneten bzw. gespeicherten Dateien angezeigt. Durch einen Mausklick werden diese direkt geladen.
 
 ##### Beenden
 
-Über diesen Menüpunkt wir JAuswertung beendet. Dies kann je nach Betriebssystem auch über das "X" in der rechten oberen Ecke des Hauptfensters geschehen. Wurden seit dem letzten Speichern Daten geändert, erfolgt eine Sicherheitsabfrage.
+Ãœber diesen MenÃ¼punkt wir JAuswertung beendet. Dies kann je nach Betriebssystem auch Ã¼ber das "X" in der rechten oberen Ecke des Hauptfensters geschehen. Wurden seit dem letzten Speichern Daten geÃ¤ndert, erfolgt eine Sicherheitsabfrage.
 
-### Das Menü: Bearbeiten
+### Das MenÃ¼: Bearbeiten
 
-Das Menü "Bearbeiten" enthält die Funktionen, die Sie bei der Verwaltung ihres Wettkampfs unterstützen. Dazu gehört das Erzeugen und Verwalten von Lauf- und Zusatzwertung-Listen, der Einsatz von Kampfrichtern, die Änderung des Regelwerks, die Strafenliste, fehlende Eingaben und die Kampfrichterverwaltung.
+Das MenÃ¼ "Bearbeiten" enthÃ¤lt die Funktionen, die Sie bei der Verwaltung ihres Wettkampfs unterstÃ¼tzen. Dazu gehÃ¶rt das Erzeugen und Verwalten von Lauf- und Zusatzwertung-Listen, der Einsatz von Kampfrichtern, die Ã„nderung des Regelwerks, die Strafenliste, fehlende Eingaben und die Kampfrichterverwaltung.
 
-![Menü: Bearbeiten](menu-bearbeiten.png)
+![MenÃ¼: Bearbeiten](menu-bearbeiten.png)
 
-#### Rückgängig und Wiederholen
+#### RÃ¼ckgÃ¤ngig und Wiederholen
 
-Über den Punkt "Rückgängig" können Sie jeweils die letzte Änderung zurücknehmen. Durch mehrfaches Auswählen dieses Punkts können Sie auch mehrere Schritte zurückgehen. Sollten Sie einmal einen Schritt zu weit zurück gegangen sein, können Sie diesen Schritt über den Menüpunkt "Wiederholen" wieder herstellen. Es ist auch möglich mehrere Schritte wiederherzustellen.
+Ãœber den Punkt "RÃ¼ckgÃ¤ngig" kÃ¶nnen Sie jeweils die letzte Ã„nderung zurÃ¼cknehmen. Durch mehrfaches AuswÃ¤hlen dieses Punkts kÃ¶nnen Sie auch mehrere Schritte zurÃ¼ckgehen. Sollten Sie einmal einen Schritt zu weit zurÃ¼ck gegangen sein, kÃ¶nnen Sie diesen Schritt Ã¼ber den MenÃ¼punkt "Wiederholen" wieder herstellen. Es ist auch mÃ¶glich mehrere Schritte wiederherzustellen.
 
-### Das Menü: Vorbereiten
+### Das MenÃ¼: Vorbereiten
 
-Dieses Menü enthält Funktionen zur Vorbereitung eines Wettkampfs. Teilweise werden die Funktionen auch während eines Wettkampfs noch benötigt.
+Dieses MenÃ¼ enthÃ¤lt Funktionen zur Vorbereitung eines Wettkampfs. Teilweise werden die Funktionen auch wÃ¤hrend eines Wettkampfs noch benÃ¶tigt.
 
 #### Meldezeiten
 
 ![Meldezeiten](meldezeiten.png)
 
-Meldezeiten werden zur gerechteren Einteilung der Läufe benötigt. Wenn Sie also eine Laufliste mit der Option "Nach Meldezeiten sortieren" erstellen wollen, sollten Sie zuerst hier die entsprechenden Meldezeiten eingeben.
+Meldezeiten werden zur gerechteren Einteilung der LÃ¤ufe benÃ¶tigt. Wenn Sie also eine Laufliste mit der Option "Nach Meldezeiten sortieren" erstellen wollen, sollten Sie zuerst hier die entsprechenden Meldezeiten eingeben.
 
-Im oberen Bereich des Fensters können Sie die Altersklasse und das Geschlecht für die Eingabe wählen. Im Hauptbereich werden dann alle Schwimmer dieser Auswahl mit den Meldezeiten jeder Disziplin angezeigt. Sind für Schwimmer einzelne Diszplinen deaktiviert, so nimmt der Schwimmer an diesen Disziplinen nicht teil.
+Im oberen Bereich des Fensters kÃ¶nnen Sie die Altersklasse und das Geschlecht fÃ¼r die Eingabe wÃ¤hlen. Im Hauptbereich werden dann alle Schwimmer dieser Auswahl mit den Meldezeiten jeder Disziplin angezeigt. Sind fÃ¼r Schwimmer einzelne Diszplinen deaktiviert, so nimmt der Schwimmer an diesen Disziplinen nicht teil.
 
-#### Meldepunkte schätzen
+#### Meldepunkte schÃ¤tzen
 
-![Meldepunkte schätzen](meldepunkte-schaetzen.png)
+![Meldepunkte schÃ¤tzen](meldepunkte-schaetzen.png)
 
-Über diesen Menüpunkt können Sie Meldepunkte auf der Basis gemeldeter Zeiten schätzen lassen. Dabei wird allen Schwimmern die Punktzahl zugewiesen, die sie mit diesen Zeiten (ohne Zusatzwertung und Punkteabzüge) erhalten würden.
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Sie Meldepunkte auf der Basis gemeldeter Zeiten schÃ¤tzen lassen. Dabei wird allen Schwimmern die Punktzahl zugewiesen, die sie mit diesen Zeiten (ohne Zusatzwertung und PunkteabzÃ¼ge) erhalten wÃ¼rden.
 
 **Hinweis:** Sind bereits Meldepunkte gesetzt, werden diese beibehalten.
 
 #### Zulassung
 
-Die Zulassung hat 2 Unterpunkte: Neu, Nicht qualifizierte entfernen. Mit dem ersten Punkt kann über einen Assistenten eine neue Zulassung durchgeführt werden. Schwimmer, die bereits als gesetzt markiert werden, werden dadurch nicht verändert. Die restlichen Schwimmer werden auf der Basis der Einstellungen als Direktqualifiziert (z.B. für Landesmeister), Punkte (Nachrücker nach Punkten) und nicht qualifiziert gesetzt.
+Die Zulassung hat 2 Unterpunkte: Neu, Nicht qualifizierte entfernen. Mit dem ersten Punkt kann Ã¼ber einen Assistenten eine neue Zulassung durchgefÃ¼hrt werden. Schwimmer, die bereits als gesetzt markiert werden, werden dadurch nicht verÃ¤ndert. Die restlichen Schwimmer werden auf der Basis der Einstellungen als Direktqualifiziert (z.B. fÃ¼r Landesmeister), Punkte (NachrÃ¼cker nach Punkten) und nicht qualifiziert gesetzt.
 
-Wird keine Zulassung durchgeführt, sind alle Schwimmer auf "offen" gesetzt. Die Zulassung kann auch für jeden Schwimmer einzeln gesetzt werden. Dafür steht die Funktion "Bearbeiten" z.B. unter Meldungen zur Verfügung.
+Wird keine Zulassung durchgefÃ¼hrt, sind alle Schwimmer auf "offen" gesetzt. Die Zulassung kann auch fÃ¼r jeden Schwimmer einzeln gesetzt werden. DafÃ¼r steht die Funktion "Bearbeiten" z.B. unter Meldungen zur VerfÃ¼gung.
 
 #### Laufliste
 
-Über diesen Menüpunkt können Lauflisten erstellt und verwaltet werden. Dazu stehen Ihnen die folgenden Funktionen zur Verfügung:
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Lauflisten erstellt und verwaltet werden. Dazu stehen Ihnen die folgenden Funktionen zur VerfÃ¼gung:
 
-Der Unterpunkt "Neu" erstellt automatisch eine neue Liste, in der alle Teilnehmer bzw. Teams berücksichtigt werden. Sie werden durch einen Assistenten durch die Erstellung der Liste begleitet und können die Einstellungen ihren Wünschen anpassen:
+Der Unterpunkt "Neu" erstellt automatisch eine neue Liste, in der alle Teilnehmer bzw. Teams berÃ¼cksichtigt werden. Sie werden durch einen Assistenten durch die Erstellung der Liste begleitet und kÃ¶nnen die Einstellungen ihren WÃ¼nschen anpassen:
 
 - Schritt 1: Allgemeine Einstellungen
   - Festlegung der Anzahl der Bahnen des Schwimmbeckens
   - Nummer des ersten Laufs
 - Schritt 2: Art der Erstellung
-  - Hier können Sie wählen, ob sie den Assistenten fortsetzen und eine Laufliste automatisch erstellen wollen oder ob Sie eine leere Laufliste erstellen wollen, in der Sie die Läufe selbst einteilen.
+  - Hier kÃ¶nnen Sie wÃ¤hlen, ob sie den Assistenten fortsetzen und eine Laufliste automatisch erstellen wollen oder ob Sie eine leere Laufliste erstellen wollen, in der Sie die LÃ¤ufe selbst einteilen.
 - Schritt 3: Bahnenauswahl
-  - Hier können Sie für jede Disziplin festlegen, welche Bahnen genutzt werden sollen. In einigen Schwimmbädern kann es aus baulichen Gründen nötig sein, z.B. bei der Disziplin "50m Retten" wegen ungleicher Beckentiefe auf eine Bahn zu verzichten.
+  - Hier kÃ¶nnen Sie fÃ¼r jede Disziplin festlegen, welche Bahnen genutzt werden sollen. In einigen SchwimmbÃ¤dern kann es aus baulichen GrÃ¼nden nÃ¶tig sein, z.B. bei der Disziplin "50m Retten" wegen ungleicher Beckentiefe auf eine Bahn zu verzichten.
 - Schritt 4: Reihenfolge der Altersklassen und Disziplinen
-  - In diesem Schritt können Sie festlegen welche Disziplinen und welche Altersklassen in welcher Reihenfolge geschwommen werden sollen. Die Standardreihenfolge soll allen Schwimmern einen möglichst großen Abstand zwischen zwei Starts ermöglichen.
+  - In diesem Schritt kÃ¶nnen Sie festlegen welche Disziplinen und welche Altersklassen in welcher Reihenfolge geschwommen werden sollen. Die Standardreihenfolge soll allen Schwimmern einen mÃ¶glichst groÃŸen Abstand zwischen zwei Starts ermÃ¶glichen.
 - Schritt 5: Sortierung der Schwimmer je Altersklasse
-  - Dieser Schritt legt fest, wie die Schwimmer innerhalb einer Altersklasse auf die Läufe verteilt werden. Die Punkte "Zufällig", "Nach Gliederungen sortieren" und "Gleiche Gliederung auf unterschiedliche Läufe verteilen" bieten sich vor allem für Freundschaftswettkämpfe an, während "Nach gemeldeten Punkten sortieren", "Nach gemeldeten Zeiten sortieren (je Disziplin)" und "Nach Regelwerk sortieren" besonders für Meisterschaften geeignet sind.
+  - Dieser Schritt legt fest, wie die Schwimmer innerhalb einer Altersklasse auf die LÃ¤ufe verteilt werden. Die Punkte "ZufÃ¤llig", "Nach Gliederungen sortieren" und "Gleiche Gliederung auf unterschiedliche LÃ¤ufe verteilen" bieten sich vor allem fÃ¼r FreundschaftswettkÃ¤mpfe an, wÃ¤hrend "Nach gemeldeten Punkten sortieren", "Nach gemeldeten Zeiten sortieren (je Disziplin)" und "Nach Regelwerk sortieren" besonders fÃ¼r Meisterschaften geeignet sind.
 - Schritt 6: Meldepunkte
-  - Hinweis: Dieser Schritt wird nur angezeigt, wenn in Schritt 5 "Nach gemeldeten Punkten sortieren" ausgewählt wurde.
+  - Hinweis: Dieser Schritt wird nur angezeigt, wenn in Schritt 5 "Nach gemeldeten Punkten sortieren" ausgewÃ¤hlt wurde.
   - In diesem Schritt kann festgelegt werden, nach welchen Meldepunkten die Einteilung erfolgen soll.
 - Schritt 7: Optionen
-  - Durch "Fast leere Läufe am Ende von Altersklassen vermeiden" werden fast leere "langsamste" Läufe durch Schwimmer aus dem "zweitlangsamsten" Lauf aufgefüllt. **Beispiel:** Gäbe es also z.B. einen Lauf mit 1 Schwimmer und der nächst bessere Lauf würde 5 Schwimmer enthalten, so werden zwei Läufe mit 3 Schwimmern erstellt.
-  - Über "Gemischte Läufe" wird ggf. der letzte männliche und weibliche Lauf zusammengelegt, sofern dadurch ein Lauf gespart werden kann.
-  - "Wenn möglich aufeinanderfolgende Läufe zusammenfassen" überprüft nach der eigentlichen Erstellung der Liste, ob Läufe, die aufeinanderfolgen, zusammengefasst werden können. Dabei wird nicht berücksichtigt, ob die Läufe die gleiche Disziplin oder Altersklasse enthalten.
-  - "Bahnen rotieren" ermöglicht es eine faierere Laufliste zu erstellen, da in jedem Lauf eine andere Bahn genutzt wird.
-  - "Normale Teilnehmer und Teilnehmer außer Konkurrenz in unterschiedlichen Läufen" spricht eigentlich für sich selbst und trennt die entsprechend markierten Teilnehmer. Diese Option hat keinen Einfluss auf Option 2. Darüber hinaus werden die Teilnehmer nicht strikt getrennt, sondern nur entsprechend sortiert. Ist der letzte Lauf der Teilnehmer, die nicht außer Konkurrenz starten, nicht voll besetzt, wird er durch die ersten außer Konkurrenz Startenden aufgefüllt.
+  - Durch "Fast leere LÃ¤ufe am Ende von Altersklassen vermeiden" werden fast leere "langsamste" LÃ¤ufe durch Schwimmer aus dem "zweitlangsamsten" Lauf aufgefÃ¼llt. **Beispiel:** GÃ¤be es also z.B. einen Lauf mit 1 Schwimmer und der nÃ¤chst bessere Lauf wÃ¼rde 5 Schwimmer enthalten, so werden zwei LÃ¤ufe mit 3 Schwimmern erstellt.
+  - Ãœber "Gemischte LÃ¤ufe" wird ggf. der letzte mÃ¤nnliche und weibliche Lauf zusammengelegt, sofern dadurch ein Lauf gespart werden kann.
+  - "Wenn mÃ¶glich aufeinanderfolgende LÃ¤ufe zusammenfassen" Ã¼berprÃ¼ft nach der eigentlichen Erstellung der Liste, ob LÃ¤ufe, die aufeinanderfolgen, zusammengefasst werden kÃ¶nnen. Dabei wird nicht berÃ¼cksichtigt, ob die LÃ¤ufe die gleiche Disziplin oder Altersklasse enthalten.
+  - "Bahnen rotieren" ermÃ¶glicht es eine faierere Laufliste zu erstellen, da in jedem Lauf eine andere Bahn genutzt wird.
+  - "Normale Teilnehmer und Teilnehmer auÃŸer Konkurrenz in unterschiedlichen LÃ¤ufen" spricht eigentlich fÃ¼r sich selbst und trennt die entsprechend markierten Teilnehmer. Diese Option hat keinen Einfluss auf Option 2. DarÃ¼ber hinaus werden die Teilnehmer nicht strikt getrennt, sondern nur entsprechend sortiert. Ist der letzte Lauf der Teilnehmer, die nicht auÃŸer Konkurrenz starten, nicht voll besetzt, wird er durch die ersten auÃŸer Konkurrenz Startenden aufgefÃ¼llt.
 
-**Hinweis 1:** Bei der Sortieroption "Nach Regelwerk sortieren" werden die Altersklassen nach der jeweiligen Vorgabe des eingegebenen Regelwerks durchgeführt. Diese können Sie im Regelwerkseditor ändern.
+**Hinweis 1:** Bei der Sortieroption "Nach Regelwerk sortieren" werden die Altersklassen nach der jeweiligen Vorgabe des eingegebenen Regelwerks durchgefÃ¼hrt. Diese kÃ¶nnen Sie im Regelwerkseditor Ã¤ndern.
 
 ![Schritt 1: Allgemeine Einstellungen](laufliste-neu-1.png)
 ![Schritt 2: Laufliste erstellen oder nur eine leere anlegen?](laufliste-neu-2.png)
-![Schritt 3: Benutzbare Bahnen wählen](laufliste-neu-3.png)
-![Schritt 4: Reihenfolge der Disziplinen wählen](laufliste-neu-4.png)
+![Schritt 3: Benutzbare Bahnen wÃ¤hlen](laufliste-neu-3.png)
+![Schritt 4: Reihenfolge der Disziplinen wÃ¤hlen](laufliste-neu-4.png)
 ![Schritt 5: Sortierung festlegen](laufliste-neu-5.png)
 ![Schritt 6: Weitere Optionen](laufliste-neu-6.png)
 
-Über den Unterpunkt "Bearbeiten" wird die aktuelle Liste angezeigt. Wurden seit der Erstellung der Liste weitere Teilnehmer oder Mannschaften eingetragen, erscheinen diese im rechten Teil - der sogenannten "Warteliste". Den Hauptteil des Fensters nimmt die eigentliche Liste ein, die in Tabellenform dargestellt ist. Die erste Spalte ist mit "#" beschriftet und enthält die Laufnummer. Die Spalten "AK" und "Disziplin" enthalten den Namen der entsprechenden Altersklasse bzw. der geschwommenen Disziplin. Dabei gilt für die Altersklasse, dass hier der Name der Altersklasse inklusive Geschlecht angezeigt wird. Starten die Schwimmer einer Altersklasse in einem Lauf gemischt, so steht hier der Name der Altersklasse gefolgt von "gemischt". Starten in einem Lauf unterschiedliche Altersklassen steht hier nur "Gemischt". Entsprechend gilt dies für die Spalte "Disziplin", sobald unterschiedliche Disziplinen geschwommen werden, steht hier "Gemischt". Die restlichen Spalten stehen für die Nummer der Bahn und dort sind die entsprechenden Teilnehmer bzw. Mannschaften eingetragen.
+Ãœber den Unterpunkt "Bearbeiten" wird die aktuelle Liste angezeigt. Wurden seit der Erstellung der Liste weitere Teilnehmer oder Mannschaften eingetragen, erscheinen diese im rechten Teil - der sogenannten "Warteliste". Den Hauptteil des Fensters nimmt die eigentliche Liste ein, die in Tabellenform dargestellt ist. Die erste Spalte ist mit "#" beschriftet und enthÃ¤lt die Laufnummer. Die Spalten "AK" und "Disziplin" enthalten den Namen der entsprechenden Altersklasse bzw. der geschwommenen Disziplin. Dabei gilt fÃ¼r die Altersklasse, dass hier der Name der Altersklasse inklusive Geschlecht angezeigt wird. Starten die Schwimmer einer Altersklasse in einem Lauf gemischt, so steht hier der Name der Altersklasse gefolgt von "gemischt". Starten in einem Lauf unterschiedliche Altersklassen steht hier nur "Gemischt". Entsprechend gilt dies fÃ¼r die Spalte "Disziplin", sobald unterschiedliche Disziplinen geschwommen werden, steht hier "Gemischt". Die restlichen Spalten stehen fÃ¼r die Nummer der Bahn und dort sind die entsprechenden Teilnehmer bzw. Mannschaften eingetragen.
 
 ![Laufliste](laufliste-bearbeiten.png)
 ![Laufliste: Rechtsklick](laufliste-bearbeiten-popup.png)
 
-![Menü](laufliste-bearbeiten-menu.png)
+![MenÃ¼](laufliste-bearbeiten-menu.png)
 
-Durch einen einfachen Klick auf einen Teilnehmer werden dessen Informationen am unteren Fensterrand dargestellt. Durch einen Doppelklick auf einen Schwimmer in der Liste wird er auf die Warteliste gesetzt und aus der Liste entfernt. Durch einen Doppelklick auf ein leeres Feld der Liste wird der ausgewählte Teilnehmer der Warteliste in die Liste eingetragen und aus der Warteliste entfernt. Sie können die Listen wahlweise auch mittels Drag'n'Drop verändern. Ziehen Sie hierzu den Teilnehmer bzw. die Mannschaft einfach an die gewünschte Stelle. Durch einen rechten Mausklick auf ein Feld in der Laufliste öffnet sich ein Kontextmenü. Wenn Sie auf einen Schwimmer geklickt haben, können Sie diesen über den Punkt "Entfernen" aus der Laufliste entfernen. Über die restlichen Menüpunkte können Sie einen Lauf oberhalb bzw. unterhalb des aktuellen Laufs einfügen oder den aktuellen Lauf löschen.
+Durch einen einfachen Klick auf einen Teilnehmer werden dessen Informationen am unteren Fensterrand dargestellt. Durch einen Doppelklick auf einen Schwimmer in der Liste wird er auf die Warteliste gesetzt und aus der Liste entfernt. Durch einen Doppelklick auf ein leeres Feld der Liste wird der ausgewÃ¤hlte Teilnehmer der Warteliste in die Liste eingetragen und aus der Warteliste entfernt. Sie kÃ¶nnen die Listen wahlweise auch mittels Drag'n'Drop verÃ¤ndern. Ziehen Sie hierzu den Teilnehmer bzw. die Mannschaft einfach an die gewÃ¼nschte Stelle. Durch einen rechten Mausklick auf ein Feld in der Laufliste Ã¶ffnet sich ein KontextmenÃ¼. Wenn Sie auf einen Schwimmer geklickt haben, kÃ¶nnen Sie diesen Ã¼ber den Punkt "Entfernen" aus der Laufliste entfernen. Ãœber die restlichen MenÃ¼punkte kÃ¶nnen Sie einen Lauf oberhalb bzw. unterhalb des aktuellen Laufs einfÃ¼gen oder den aktuellen Lauf lÃ¶schen.
 
-Über den Unterpunkt "Anzeigen" kann die aktuelle Lauf- bzw. Zusatzwertung-Liste angezeigt werden. Der Aufbau des Fensters entspricht dem bei der Bearbeitung; es fehlt lediglich die Warteliste und eine Bearbeitung ist nicht möglich. So können Sie sicherstellen, dass Sie nicht versehentlich die Laufliste modifizieren.
+Ãœber den Unterpunkt "Anzeigen" kann die aktuelle Lauf- bzw. Zusatzwertung-Liste angezeigt werden. Der Aufbau des Fensters entspricht dem bei der Bearbeitung; es fehlt lediglich die Warteliste und eine Bearbeitung ist nicht mÃ¶glich. So kÃ¶nnen Sie sicherstellen, dass Sie nicht versehentlich die Laufliste modifizieren.
 
-Über den Unterpunkt "Sperren" kann die Bearbeitung und die Neuerstellung unterbunden werden. Damit ist eine versehentliche Änderung der Listen nicht möglich.
+Ãœber den Unterpunkt "Sperren" kann die Bearbeitung und die Neuerstellung unterbunden werden. Damit ist eine versehentliche Ã„nderung der Listen nicht mÃ¶glich.
 
 #### Zusatzwertungsliste
 
-Über diesen Menüpunkt können Lauflisten erstellt und verwaltet werden. Dazu stehen Ihnen die folgenden Funktionen zur Verfügung:
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Lauflisten erstellt und verwaltet werden. Dazu stehen Ihnen die folgenden Funktionen zur VerfÃ¼gung:
 
 ![Schritt 1: Anzahl der Zusatzwertung-Bahnen](hlw-liste-neu-1.png)
 ![Schritt 2: Erstellung oder Vorbereitung](hlw-liste-neu-2.png)
@@ -175,52 +175,52 @@ Durch einen einfachen Klick auf einen Teilnehmer werden dessen Informationen am 
 ![Schritt 7: Pause](hlw-liste-neu-7.png)
 ![Schritt 8: Optionen](hlw-liste-neu-8.png)
 
-Die Erstellung einer Zusatzwertungsliste wird über "Neu" durchgeführt. Dabei geben Sie zuerst die Anzahl der Zusatzwertung-Puppen an. Im zweiten Schritt können Sie auswählen, ob Sie die Zusatzwertung-Liste von Hand erstellen möchten (Dann ist die Erstellung nach diesem Schritt abgeschlossen), oder ob Sie die Liste von JAuswertung erstellen lassen wollen. Im dritten Schritt legen Sie die Reihenfolge der Altersklassen fest. Der vierte Schritt gibt die Reihenfolge der Teilnehmer bzw. Mannschaften innerhalb einer Alterklasse an. Im fünften Schritt legen Sie die Anfangsuhrzeit der Zusatzwertung sowie die Dauer einer Zusatzwertung fest. Im letzten Schritt können Sie noch Pause bei der Zusatzwertung einplanen. Diese können Sie wahlweise zu einem festen Zeitpunkt oder nach jeder Altersklasse angeben.
+Die Erstellung einer Zusatzwertungsliste wird Ã¼ber "Neu" durchgefÃ¼hrt. Dabei geben Sie zuerst die Anzahl der Zusatzwertung-Puppen an. Im zweiten Schritt kÃ¶nnen Sie auswÃ¤hlen, ob Sie die Zusatzwertung-Liste von Hand erstellen mÃ¶chten (Dann ist die Erstellung nach diesem Schritt abgeschlossen), oder ob Sie die Liste von JAuswertung erstellen lassen wollen. Im dritten Schritt legen Sie die Reihenfolge der Altersklassen fest. Der vierte Schritt gibt die Reihenfolge der Teilnehmer bzw. Mannschaften innerhalb einer Alterklasse an. Im fÃ¼nften Schritt legen Sie die Anfangsuhrzeit der Zusatzwertung sowie die Dauer einer Zusatzwertung fest. Im letzten Schritt kÃ¶nnen Sie noch Pause bei der Zusatzwertung einplanen. Diese kÃ¶nnen Sie wahlweise zu einem festen Zeitpunkt oder nach jeder Altersklasse angeben.
 
 ![Zusatzwertungsliste bearbeiten](hlw-liste-bearbeiten.png)
 ![Zusatzwertungsliste bearbeiten: Rechtsklick](hlw-liste-bearbeiten-popup.png)
 
-Sie können bestehende Zusatzwertung-Listen bearbeiten, so dass Sie auch automatisch erstellte Listen Ihren Wünschen anpassen und nachgemeldete Starter einfügen können. Dabei sehen Sie in dem Fenster links die aktuelle Zusatzwertung-Liste und rechts in der "Warteliste" die Starter, die noch zur Zusatzwertung eingeteilt werden müssen. Die Tabelle der Zusatzwertung-Liste enthält dabei die Spalten "Zeit" für den Zeitpunkt an dem die Zusatzwertung durchzuführen ist sowie die Altersklasse der Starter. Gehen gemischte Geschlechter zu einer Zeit an der Start steht hier z.B. "AK 13/14 gemischt". Starten unterschiedliche Altersklassen zum gleichen Zeitpunkte so steht in dieser Spalte "Gemischt". Die restlichen Spalten stehen für die Nummer der Bahn bzw. Zusatzwertung-Puppe und dort sind die entsprechenden Teilnehmer bzw. Mannschaften eingetragen. Eine Besonderheit stellt hier die Mannschafts-Zusatzwertung dar, da hier jede Mannschaft viermal antreten muss. Einzelne Teilnehmer bzw. Mannschaften können Sie per Drag'n'Drop verschieben und so an die gewünschte Position bringen. Pausen und Läufe können Sie über einen Rechtsklick-Menü hinzufügen bzw. entfernen.
+Sie kÃ¶nnen bestehende Zusatzwertung-Listen bearbeiten, so dass Sie auch automatisch erstellte Listen Ihren WÃ¼nschen anpassen und nachgemeldete Starter einfÃ¼gen kÃ¶nnen. Dabei sehen Sie in dem Fenster links die aktuelle Zusatzwertung-Liste und rechts in der "Warteliste" die Starter, die noch zur Zusatzwertung eingeteilt werden mÃ¼ssen. Die Tabelle der Zusatzwertung-Liste enthÃ¤lt dabei die Spalten "Zeit" fÃ¼r den Zeitpunkt an dem die Zusatzwertung durchzufÃ¼hren ist sowie die Altersklasse der Starter. Gehen gemischte Geschlechter zu einer Zeit an der Start steht hier z.B. "AK 13/14 gemischt". Starten unterschiedliche Altersklassen zum gleichen Zeitpunkte so steht in dieser Spalte "Gemischt". Die restlichen Spalten stehen fÃ¼r die Nummer der Bahn bzw. Zusatzwertung-Puppe und dort sind die entsprechenden Teilnehmer bzw. Mannschaften eingetragen. Eine Besonderheit stellt hier die Mannschafts-Zusatzwertung dar, da hier jede Mannschaft viermal antreten muss. Einzelne Teilnehmer bzw. Mannschaften kÃ¶nnen Sie per Drag'n'Drop verschieben und so an die gewÃ¼nschte Position bringen. Pausen und LÃ¤ufe kÃ¶nnen Sie Ã¼ber einen Rechtsklick-MenÃ¼ hinzufÃ¼gen bzw. entfernen.
 
-Die Funktion "Anzeigen" bietet ausschließlich die Anzeige der Zusatzwertung-Liste ohne die Bearbeitungsfunktionen. Über den Punkte "Sperren" können Sie die Zusatzwertung-Liste vor Bearbeitungen schützen. So kann diese nicht versehentlich geändert werden.
+Die Funktion "Anzeigen" bietet ausschlieÃŸlich die Anzeige der Zusatzwertung-Liste ohne die Bearbeitungsfunktionen. Ãœber den Punkte "Sperren" kÃ¶nnen Sie die Zusatzwertung-Liste vor Bearbeitungen schÃ¼tzen. So kann diese nicht versehentlich geÃ¤ndert werden.
 
 #### Regelwerkseditor
 
-Über diesen Menüpunkt können Sie die Altersklassen ihres Wettkampfs bearbeiten. Beachten Sie aber, dass Sie während eines Wettkampfs keine Altersklassen erstellen bzw. löschen können, und dass die Anzahl der Disziplinen nicht geändert werden kann. Darüber hinaus können Sie weitere Einstellungen zum Regelwerk durchführen. Weitere Informationen zum Regelwerkseditor finden Sie im Kapitel [Regelwerkseditor](../regelwerkseditor/regelwerkseditor.html).
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Sie die Altersklassen ihres Wettkampfs bearbeiten. Beachten Sie aber, dass Sie wÃ¤hrend eines Wettkampfs keine Altersklassen erstellen bzw. lÃ¶schen kÃ¶nnen, und dass die Anzahl der Disziplinen nicht geÃ¤ndert werden kann. DarÃ¼ber hinaus kÃ¶nnen Sie weitere Einstellungen zum Regelwerk durchfÃ¼hren. Weitere Informationen zum Regelwerkseditor finden Sie im Kapitel [Regelwerkseditor](../regelwerkseditor/regelwerkseditor.html).
 
 #### Grenzwerte
 
-Über diesen Menüpunkt können Grenzwerte wie Rekorde oder Mindestzeiten gepflegt werden.
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Grenzwerte wie Rekorde oder Mindestzeiten gepflegt werden.
 
 #### Kampfrichter
 
-![Kampfrichtervorgabe wählen](kampfrichter-neu.png)
+![Kampfrichtervorgabe wÃ¤hlen](kampfrichter-neu.png)
 ![Kampfrichterverwaltung](kampfrichter.png)
-![Menü](kampfrichter-menu.png)
+![MenÃ¼](kampfrichter-menu.png)
 
-Mit der Kampfrichterverwaltung können Kampfrichter auf die verschiedenen Positionen eingeteilt werden. Die Positionen entsprechen denen des aktuellen DLRG-Regelwerks. Sie können je nach Wettkampf die Anforderungen an die Kampfrichter festlegen. So gelten z.B. für Bezirksmeisterschaften geringere Anforderungen als für die Landesmeisterschaften. Die Einteilung der Kampfrichter kann einzeln gedruckt werden, ist aber auch Bestandteil des Protokolls.
+Mit der Kampfrichterverwaltung kÃ¶nnen Kampfrichter auf die verschiedenen Positionen eingeteilt werden. Die Positionen entsprechen denen des aktuellen DLRG-Regelwerks. Sie kÃ¶nnen je nach Wettkampf die Anforderungen an die Kampfrichter festlegen. So gelten z.B. fÃ¼r Bezirksmeisterschaften geringere Anforderungen als fÃ¼r die Landesmeisterschaften. Die Einteilung der Kampfrichter kann einzeln gedruckt werden, ist aber auch Bestandteil des Protokolls.
 
-**Tipp:** Sie können die Einteilung der Kampfrichter auch speichern und in einem anderen Wettkampf laden. Damit müssen Sie die Kampfrichter nicht zweimal eintippen, wenn sich die Kampfrichter z.B. zwischen Einzel- und Mannschaftsmeisterschaften nicht ändern.
+**Tipp:** Sie kÃ¶nnen die Einteilung der Kampfrichter auch speichern und in einem anderen Wettkampf laden. Damit mÃ¼ssen Sie die Kampfrichter nicht zweimal eintippen, wenn sich die Kampfrichter z.B. zwischen Einzel- und Mannschaftsmeisterschaften nicht Ã¤ndern.
 
-#### Daten prüfen
+#### Daten prÃ¼fen
 
-![Daten prüfen: Übersicht](daten-pruefen.png)
+![Daten prÃ¼fen: Ãœbersicht](daten-pruefen.png)
 
-Über diesem Menüpunkt öffnen Sie ein Fenster, dass ihnen Informationen zum aktuellen Stand der Eingabe darstellt. Sie ershalten eine Übersicht über fehlerhafte bzw. korrekte Einfaben. Dabei müssen Sie jedoch beachten, dass diese Angaben auf Erfahrungswerten basieren und in vielen Fällen auf Fehler in der Eingabe hinweisen. Es wird damit nicht garantiert, dass bestimmte Eingaben mit absoluter Sicherheit richtig oder falsch sind. Es ist aber i.d.R. gut, sich markierte Punkte genauer anzusehen.
+Ãœber diesem MenÃ¼punkt Ã¶ffnen Sie ein Fenster, dass ihnen Informationen zum aktuellen Stand der Eingabe darstellt. Sie ershalten eine Ãœbersicht Ã¼ber fehlerhafte bzw. korrekte Einfaben. Dabei mÃ¼ssen Sie jedoch beachten, dass diese Angaben auf Erfahrungswerten basieren und in vielen FÃ¤llen auf Fehler in der Eingabe hinweisen. Es wird damit nicht garantiert, dass bestimmte Eingaben mit absoluter Sicherheit richtig oder falsch sind. Es ist aber i.d.R. gut, sich markierte Punkte genauer anzusehen.
 
-![Daten prüfen: Anmeldung](daten-pruefen-anmeldung.png)
-![Daten prüfen: Zeiten](daten-pruefen-zeiten.png)
-![Daten prüfen: Zusatzwertung Punkte](daten-pruefen-hlw.png)
-![Daten prüfen: Mannschaftsmitglieder](daten-pruefen-mannschaftsmitglieder.png)
+![Daten prÃ¼fen: Anmeldung](daten-pruefen-anmeldung.png)
+![Daten prÃ¼fen: Zeiten](daten-pruefen-zeiten.png)
+![Daten prÃ¼fen: Zusatzwertung Punkte](daten-pruefen-hlw.png)
+![Daten prÃ¼fen: Mannschaftsmitglieder](daten-pruefen-mannschaftsmitglieder.png)
 
-### Das Menü: Durchführen
+### Das MenÃ¼: DurchfÃ¼hren
 
 #### Startunterlagenkontrolle
 
-Über diesen Menüpunkt können Sie festlgen welche Schwimmer einer Startpasskontrolle unterzogen werden sollen. Dabei steht Ihnen ein Assistent zur Verfügung, der Sie bei der Auslosung der Startunterlagenkontrolle unterstützt, so dass Sie die Auswahl nicht manuell vornehmen müssen. Diese Auswahl können Sie aber bei Bedarf jeder Zeit Ihren Wünschen anpassen.
+Ãœber diesen MenÃ¼punkt kÃ¶nnen Sie festlgen welche Schwimmer einer Startpasskontrolle unterzogen werden sollen. Dabei steht Ihnen ein Assistent zur VerfÃ¼gung, der Sie bei der Auslosung der Startunterlagenkontrolle unterstÃ¼tzt, so dass Sie die Auswahl nicht manuell vornehmen mÃ¼ssen. Diese Auswahl kÃ¶nnen Sie aber bei Bedarf jeder Zeit Ihren WÃ¼nschen anpassen.
 
 ![Startunterlagenkontrolle](startunterlagen-menu.png)
-![Menü](startunterlagen-menu.png)
+![MenÃ¼](startunterlagen-menu.png)
 ![Assistent](startunterlagen-assistent.png)
 
 #### Dopingkontrolle
@@ -231,32 +231,32 @@ Die Auslosung der Dopingkontrolle ist identisch zur [Startunterlagenkontrolle](#
 
 ![Elektronische Zeitnahme](elektronische-zeitnahme.png)
 
-Die Funktion "Elektronische Zeitnahme" wurde für die "Deutschen Meisterschaften im Rettungsswimmen" hinzugefügt und ermöglicht die Übernahme von Zeiten aus einer elektronischen Zeitmessanlage. Wenn JAuswertung mit einer Zeitmessanlage verbunden ist, kann über den Knopf "Aktualisieren" das aktuelle Ergebnis abgerufen werden. Im Bereich Übersicht kann aus den Läufen von JAuswertung ausgewählt werden. JAuswertung versucht dabei den passenden Lauf der elektronischen Zeitmessung im rechten Bereich zu ermitteln und anzuzeigen. Mit dem Knopf "Eintragen" werden die Zeiten aus der elektronischen Zeitmessung übernommen.
+Die Funktion "Elektronische Zeitnahme" wurde fÃ¼r die "Deutschen Meisterschaften im Rettungsswimmen" hinzugefÃ¼gt und ermÃ¶glicht die Ãœbernahme von Zeiten aus einer elektronischen Zeitmessanlage. Wenn JAuswertung mit einer Zeitmessanlage verbunden ist, kann Ã¼ber den Knopf "Aktualisieren" das aktuelle Ergebnis abgerufen werden. Im Bereich Ãœbersicht kann aus den LÃ¤ufen von JAuswertung ausgewÃ¤hlt werden. JAuswertung versucht dabei den passenden Lauf der elektronischen Zeitmessung im rechten Bereich zu ermitteln und anzuzeigen. Mit dem Knopf "Eintragen" werden die Zeiten aus der elektronischen Zeitmessung Ã¼bernommen.
 
-Die Verbindung mit einer elektronischen Zeitnahme erfolgt über ein Netzwerk. Die benötigten Einstellungen stehen im Menüpunkt Extras -> Optionen zur Verfügung.
+Die Verbindung mit einer elektronischen Zeitnahme erfolgt Ã¼ber ein Netzwerk. Die benÃ¶tigten Einstellungen stehen im MenÃ¼punkt Extras -> Optionen zur VerfÃ¼gung.
 
-**Hinweis:** Ggf. stellt die Zeitnahme mehrere Zeiten pro Bahn zur Verfügung. Aus diesen kann die gewünschte Zeit ausgewählt werden.
+**Hinweis:** Ggf. stellt die Zeitnahme mehrere Zeiten pro Bahn zur VerfÃ¼gung. Aus diesen kann die gewÃ¼nschte Zeit ausgewÃ¤hlt werden.
 
 #### Zielrichterentscheid
 
-Der Zielrichterentscheid ist eine Besonderheit, die mit dem DLRG-Regelwerk von 2008 aus dem DSV-Regelwerk übernommen wurde. Diese tritt dann ein, wenn in einem Lauf bei mehreren Schwimmer der gleichen Altersklasse die manuell gestoppte Zeit dem Zieleinlauf widerspricht (Bei vollautomatischer Zeitnahme tritt ein Zielrichterentscheid also nicht ein). In diesem Fall erhalten alle Schwimmer die gleiche Zeit. Die Platzierung in dieser Disziplin wird entsprechend dem Zieleinlauf festgelegt, so dass die Schwimmer trotz gleicher Zeit unterschiedliche Plätze einnehmen. Dies gilt jedoch nur, wenn nicht in einem anderen Lauf ein weiterer Schwimmer der gleichen Altersklasse die gleiche Zeit geschwommen hat.
+Der Zielrichterentscheid ist eine Besonderheit, die mit dem DLRG-Regelwerk von 2008 aus dem DSV-Regelwerk Ã¼bernommen wurde. Diese tritt dann ein, wenn in einem Lauf bei mehreren Schwimmer der gleichen Altersklasse die manuell gestoppte Zeit dem Zieleinlauf widerspricht (Bei vollautomatischer Zeitnahme tritt ein Zielrichterentscheid also nicht ein). In diesem Fall erhalten alle Schwimmer die gleiche Zeit. Die Platzierung in dieser Disziplin wird entsprechend dem Zieleinlauf festgelegt, so dass die Schwimmer trotz gleicher Zeit unterschiedliche PlÃ¤tze einnehmen. Dies gilt jedoch nur, wenn nicht in einem anderen Lauf ein weiterer Schwimmer der gleichen Altersklasse die gleiche Zeit geschwommen hat.
 
 ![Zielrichterentscheid](zielrichterentscheid.png)
 
-JAuswertung geht davon aus, dass die im Falle eine Zielrichterentscheids betroffenen Schwimmer die gleiche Zeit erhalten und entsprechend eingegeben werden. Wenn Sie also einen Zielrichterentscheid hinzufügen möchten, listet Ihnen JAuswertung die in Frage kommenden Läufe mit den entsprechenden Teilnehmern auf. Aus dieser Liste können Sie anschließend den richtigen auswählen.
+JAuswertung geht davon aus, dass die im Falle eine Zielrichterentscheids betroffenen Schwimmer die gleiche Zeit erhalten und entsprechend eingegeben werden. Wenn Sie also einen Zielrichterentscheid hinzufÃ¼gen mÃ¶chten, listet Ihnen JAuswertung die in Frage kommenden LÃ¤ufe mit den entsprechenden Teilnehmern auf. Aus dieser Liste kÃ¶nnen Sie anschlieÃŸend den richtigen auswÃ¤hlen.
 
-**Anmerkung:** Sollte Ihr Zielrichterentscheid nicht aufgeführt werden, so liegt wahrscheinlich ein Eingabefehler vor.
+**Anmerkung:** Sollte Ihr Zielrichterentscheid nicht aufgefÃ¼hrt werden, so liegt wahrscheinlich ein Eingabefehler vor.
 
-In der Liste der aufgeführten ausgewählten Zielrichterentscheide werden die Schwimmer zuerst anhand ihrer Bahnen sortiert aufgelistet. Sie können die Reihenfolge der Schwimmer per Drag'n'Drop ändern.
+In der Liste der aufgefÃ¼hrten ausgewÃ¤hlten Zielrichterentscheide werden die Schwimmer zuerst anhand ihrer Bahnen sortiert aufgelistet. Sie kÃ¶nnen die Reihenfolge der Schwimmer per Drag'n'Drop Ã¤ndern.
 
-![Zielrichterentscheid hinzufügen](zielirchterentscheid-add.png)
+![Zielrichterentscheid hinzufÃ¼gen](zielirchterentscheid-add.png)
 ![Zielrichterentscheide korrigieren](Zielrichterentscheid-korrektur.png)
 
 #### Urkunden
 
 ![Urkundeneditor](urkundeneditor.png)
 
-Mit dem Urkundeneditor können Sie bestehende Urkunde bedrucken lassen, so dass Sie diese nicht von Hand ausfüllen müssen. Dazu können Sie einzelne Textfelder erstellen, ausrichten und deren Schriftart ändern. Über das normale Druckmenü können dann die Urkunden auch Altersklassenweise gedruckt werden.
+Mit dem Urkundeneditor kÃ¶nnen Sie bestehende Urkunde bedrucken lassen, so dass Sie diese nicht von Hand ausfÃ¼llen mÃ¼ssen. Dazu kÃ¶nnen Sie einzelne Textfelder erstellen, ausrichten und deren Schriftart Ã¤ndern. Ãœber das normale DruckmenÃ¼ kÃ¶nnen dann die Urkunden auch Altersklassenweise gedruckt werden.
 
 Folgende Texte in den Textfeldern werden automatisch ersetzt:
 
@@ -270,166 +270,166 @@ Folgende Texte in den Textfeldern werden automatisch ersetzt:
 - \<Mitglieder\>
 - \<Mitglieder2\>
 
-Beachten Sie bitte die \< und \> um jedes Wort. Der Satz "\<Name\> belegte in der Altersklasse \<Altersklasse\> \<Geschlecht\> den \<Platz\>. Platz" würde also z.B. auf der gedruckten Urkunde wie folgt aussehen "Musterstadt 1 belegte in der Altersklasse AK 12 weiblich den 3. Platz". Die Texte \<Mitglieder\> und \<Mitglieder2\> werden bei Mannschaftswettkämpfen durch die Mannschaftsmitglieder ersetzt. \<Mitglieder\> erstellt dabei eine kommagetrennte Liste, \<Mitglieder2\> schreibt jedes Mitglied in eine eigene Zeile. Durch \<Wertung\> wird bei der Disziplinenwertung der Name der Disziplin eingesetzt; bei der Mehrkampfwertung wird hier "Mehrkampf" eingetragen.
+Beachten Sie bitte die \< und \> um jedes Wort. Der Satz "\<Name\> belegte in der Altersklasse \<Altersklasse\> \<Geschlecht\> den \<Platz\>. Platz" wÃ¼rde also z.B. auf der gedruckten Urkunde wie folgt aussehen "Musterstadt 1 belegte in der Altersklasse AK 12 weiblich den 3. Platz". Die Texte \<Mitglieder\> und \<Mitglieder2\> werden bei MannschaftswettkÃ¤mpfen durch die Mannschaftsmitglieder ersetzt. \<Mitglieder\> erstellt dabei eine kommagetrennte Liste, \<Mitglieder2\> schreibt jedes Mitglied in eine eigene Zeile. Durch \<Wertung\> wird bei der Disziplinenwertung der Name der Disziplin eingesetzt; bei der Mehrkampfwertung wird hier "Mehrkampf" eingetragen.
 
 #### Ausgabefilter
 
-Über diesen Menüpunkt gelangen Sie in die Verwaltung der Ausgabefilter. Ausgabefilter ermöglichen es mehrere Wettkämpfe in Einem zu verwalten und trotzdem getrennte Ergebnisse, Protokolle und Meldelisten drucken und exportieren zu können. Auf der linken Seite des Fensters sehen Sie die zur Zeit eingerichteten Filter. Hier können Sie einzelne Filter hinzugefügen bzw. entfernen. Beachten Sie, dass der Standardfilter weder entfernt noch geändert werden kann. Er enthält immer alle Teilnehmer bzw. Mannschaften. Auf der rechten Seite sehen Sie den zur Zeit ausgewählten Ausgabefilter. Hier können Sie den Namen des Filters ändern, wobei leere Namen nicht erlaubt sind. Unter dem Namen finden Sie eine Liste der Gliederungen, die zu diesem Filter gehören. Mit den beiden darunterliegenden Knöpfen können Sie weitere Gliederungen zu diesem Filter hinzufügen bzw. entfernen.
+Ãœber diesen MenÃ¼punkt gelangen Sie in die Verwaltung der Ausgabefilter. Ausgabefilter ermÃ¶glichen es mehrere WettkÃ¤mpfe in Einem zu verwalten und trotzdem getrennte Ergebnisse, Protokolle und Meldelisten drucken und exportieren zu kÃ¶nnen. Auf der linken Seite des Fensters sehen Sie die zur Zeit eingerichteten Filter. Hier kÃ¶nnen Sie einzelne Filter hinzugefÃ¼gen bzw. entfernen. Beachten Sie, dass der Standardfilter weder entfernt noch geÃ¤ndert werden kann. Er enthÃ¤lt immer alle Teilnehmer bzw. Mannschaften. Auf der rechten Seite sehen Sie den zur Zeit ausgewÃ¤hlten Ausgabefilter. Hier kÃ¶nnen Sie den Namen des Filters Ã¤ndern, wobei leere Namen nicht erlaubt sind. Unter dem Namen finden Sie eine Liste der Gliederungen, die zu diesem Filter gehÃ¶ren. Mit den beiden darunterliegenden KnÃ¶pfen kÃ¶nnen Sie weitere Gliederungen zu diesem Filter hinzufÃ¼gen bzw. entfernen.
 
 ![Ausgabefilter](ausgabefilter.png)
 
-### Das Menü: Information
+### Das MenÃ¼: Information
 
 #### Strafenkatalog
 
-Der Strafenkatalog enthält eine Liste aller Strafen des Regelwerks, die in Kapitel und Paragraphen unterteilt sind. Werden während eines Wettkampfs Strafen vergeben und ein eigener Text eingetragen, werden diese "neuen" Strafen im Kapitel "Sonstiges" aufgeführt. Dies ist sinnvoll, da im Regelwerk z.B. Strafen für fehlerhafte Wechsel vorgesehen sind. Während eines Wettkampfs ist aber auch der Vermerk "beim Wechsel vom 3. auf den 4. Schwimmer" sinnvoll. Wurde dies bei einer Strafe einmal eingetragen, kann diese beim nächsten Auftreten direkt ausgewählt werden.
+Der Strafenkatalog enthÃ¤lt eine Liste aller Strafen des Regelwerks, die in Kapitel und Paragraphen unterteilt sind. Werden wÃ¤hrend eines Wettkampfs Strafen vergeben und ein eigener Text eingetragen, werden diese "neuen" Strafen im Kapitel "Sonstiges" aufgefÃ¼hrt. Dies ist sinnvoll, da im Regelwerk z.B. Strafen fÃ¼r fehlerhafte Wechsel vorgesehen sind. WÃ¤hrend eines Wettkampfs ist aber auch der Vermerk "beim Wechsel vom 3. auf den 4. Schwimmer" sinnvoll. Wurde dies bei einer Strafe einmal eingetragen, kann diese beim nÃ¤chsten Auftreten direkt ausgewÃ¤hlt werden.
 
 ![Strafenkatalog](strafenkatalog.png)
 
-Zur Unterstützung ist jeder Strafe ein Symbol zugeordnet:
+Zur UnterstÃ¼tzung ist jeder Strafe ein Symbol zugeordnet:
 
-- Grüner Haken: Keine Strafe (0 Strafpunkte)
+- GrÃ¼ner Haken: Keine Strafe (0 Strafpunkte)
 - Blitz in gelbem Kreis: Strafpunkte
-- Roter Kreis mit weißem X: Disqualifikation
-- Fußspuren: Nicht angetreten
+- Roter Kreis mit weiÃŸem X: Disqualifikation
+- FuÃŸspuren: Nicht angetreten
 - Haus: Ausschluss
 
-**Anmerkung:** Die Regelwerke für Mannschaftswettkämpfe enthalten erweiterte Fehlercodes. Dabei wird neben der Strafe auch die Nummer des Verursachers bzw. des Wechsels angegeben. Z.B. kann für falsches Schleppen einer Puppe P2-3 gewählt werden, so dass direkt ablesbar ist, dass der dritte Schwimmer die Strafe P2 verursacht hat. Diese Erweiterung ist jedoch im Regelwerk so nicht vorgesehen.
+**Anmerkung:** Die Regelwerke fÃ¼r MannschaftswettkÃ¤mpfe enthalten erweiterte Fehlercodes. Dabei wird neben der Strafe auch die Nummer des Verursachers bzw. des Wechsels angegeben. Z.B. kann fÃ¼r falsches Schleppen einer Puppe P2-3 gewÃ¤hlt werden, so dass direkt ablesbar ist, dass der dritte Schwimmer die Strafe P2 verursacht hat. Diese Erweiterung ist jedoch im Regelwerk so nicht vorgesehen.
 
 #### Strafenliste
 
-Die Strafenliste zeigt alle vergebenen Strafen des aktuellen Wettkampfs nach Läufen sortiert an. Hier haben Sie die Möglichkeit, diese noch einmal auf Richtigkeit zu überprüfen und ggf. zu korrigieren.
+Die Strafenliste zeigt alle vergebenen Strafen des aktuellen Wettkampfs nach LÃ¤ufen sortiert an. Hier haben Sie die MÃ¶glichkeit, diese noch einmal auf Richtigkeit zu Ã¼berprÃ¼fen und ggf. zu korrigieren.
 
 ![Strafenliste](strafenliste.png)
 
 #### Statistiken
 
-Unter diesem Menüpunkt können einige Auswertungen rund um den Wettkampf angezeigt werden.
+Unter diesem MenÃ¼punkt kÃ¶nnen einige Auswertungen rund um den Wettkampf angezeigt werden.
 
-#### Laufpräsentation
+#### LaufprÃ¤sentation
 
-Die Laufpräsentation dient zur Darstellung der Informationen über den aktuellen sowie dem nächsten Lauf z.B. über einen Videobeamer. Die Anzeige wechselt zeitgesteuert zwischen der aktuellen Laufnummer und dem nächsten Lauf.
+Die LaufprÃ¤sentation dient zur Darstellung der Informationen Ã¼ber den aktuellen sowie dem nÃ¤chsten Lauf z.B. Ã¼ber einen Videobeamer. Die Anzeige wechselt zeitgesteuert zwischen der aktuellen Laufnummer und dem nÃ¤chsten Lauf.
 
-Folgende Tasten können zum Wechsel zum nächsten Lauf genutzt werden: Pfeil rechts, Pfeil unten, Leertaste, Enter
+Folgende Tasten kÃ¶nnen zum Wechsel zum nÃ¤chsten Lauf genutzt werden: Pfeil rechts, Pfeil unten, Leertaste, Enter
 
-Folgende Tasten können zum Wechsel zum vorherigen Lauf genutzt werden: Pfeil links, Pfeil oben, Backspace.
+Folgende Tasten kÃ¶nnen zum Wechsel zum vorherigen Lauf genutzt werden: Pfeil links, Pfeil oben, Backspace.
 
 #### Wettkampf herunterladen
 
-Diese Funktion lädt den Wettkampf von einer anderen laufenden Instanz von JAuswertung herunter. Dies ist nur in Kombination mit der Laufpräsentation sinnvoll, um die Anzeige mit der aktuellen Eingabe abzugleichen.
+Diese Funktion lÃ¤dt den Wettkampf von einer anderen laufenden Instanz von JAuswertung herunter. Dies ist nur in Kombination mit der LaufprÃ¤sentation sinnvoll, um die Anzeige mit der aktuellen Eingabe abzugleichen.
 
-### Das Menü: Extras
+### Das MenÃ¼: Extras
 
-Das Menü "Extras" enthält die Menüpunkte Strafenkatalog und Optionen.
+Das MenÃ¼ "Extras" enthÃ¤lt die MenÃ¼punkte Strafenkatalog und Optionen.
 
-![Menü: Extras](menu-extras.png)
+![MenÃ¼: Extras](menu-extras.png)
 
 #### Optionen
 
 ![ Optionen](optionen-allgemein.png )
 
-Über den Menüpunkt "Optionen" können Sie ein Fenster öffnen, in dem sich weitere Einstellungen vornehmen lassen. Das Fenster enthält die Registerkarten "Allgemein", "Anzeige", "HTTP-Server", "Sicherung", "CSV", "Drucken", "Druckschrift", "Elektronische Zeitnahme" und "Werbung".
+Ãœber den MenÃ¼punkt "Optionen" kÃ¶nnen Sie ein Fenster Ã¶ffnen, in dem sich weitere Einstellungen vornehmen lassen. Das Fenster enthÃ¤lt die Registerkarten "Allgemein", "Anzeige", "HTTP-Server", "Sicherung", "CSV", "Drucken", "Druckschrift", "Elektronische Zeitnahme" und "Werbung".
 
-Über "Allgemein" können Sie einstellen, welche Art von Wettkampf also ein Einzel- bzw. Mannschaftswettkampf nach aktuellem Regelwerk beim Start erstellt werden soll. Die zweite Option legt fest, ob die Oberfläche "geteilt" sein soll. Geteilt ist die Standardeinstellung und bedeutet, dass Sie die Ergebnisse jederzeit im unteren Bereich des Fensters sehen können. Sollten Sie jedoch eine niedrige Auflösung oder größere Schriftarten nutzen, kann es sein, dass der Platz auf dem Bildschirm zu eng wird. Schalten Sie dann die geteilte Oberfläche aus, und die Ergebnisse erreichen Sie ab dem nächsten Start von JAuswertung über ein Icon an der linken Seite. Die dritte Einstellungsmöglichkeit betrifft das Drucken von Strafpunkten, wenn Sie diese Option aktivieren, wird automatisch bei jeder vergebenen Strafe ein Strafenlaufzettel mit allen nötigen Daten gedruckt. Dies ist vor allem bei Freundschaftswettkämpfen sinnvoll, wenn der Protokollführer mehrere Funktionen im Kampfgericht erfüllt. Die letzte Option betrifft die Warnung bei der Eingabe von sehr hohen Zeiten. Da im Normalfall nur Zeiten geschwommen werden, die nicht höher sind als 5 * Rec-Wert der aktuellen Disziplin, handelt es sich hier meistens um Tippfehler. Diese können so vermieden werden.
+Ãœber "Allgemein" kÃ¶nnen Sie einstellen, welche Art von Wettkampf also ein Einzel- bzw. Mannschaftswettkampf nach aktuellem Regelwerk beim Start erstellt werden soll. Die zweite Option legt fest, ob die OberflÃ¤che "geteilt" sein soll. Geteilt ist die Standardeinstellung und bedeutet, dass Sie die Ergebnisse jederzeit im unteren Bereich des Fensters sehen kÃ¶nnen. Sollten Sie jedoch eine niedrige AuflÃ¶sung oder grÃ¶ÃŸere Schriftarten nutzen, kann es sein, dass der Platz auf dem Bildschirm zu eng wird. Schalten Sie dann die geteilte OberflÃ¤che aus, und die Ergebnisse erreichen Sie ab dem nÃ¤chsten Start von JAuswertung Ã¼ber ein Icon an der linken Seite. Die dritte EinstellungsmÃ¶glichkeit betrifft das Drucken von Strafpunkten, wenn Sie diese Option aktivieren, wird automatisch bei jeder vergebenen Strafe ein Strafenlaufzettel mit allen nÃ¶tigen Daten gedruckt. Dies ist vor allem bei FreundschaftswettkÃ¤mpfen sinnvoll, wenn der ProtokollfÃ¼hrer mehrere Funktionen im Kampfgericht erfÃ¼llt. Die letzte Option betrifft die Warnung bei der Eingabe von sehr hohen Zeiten. Da im Normalfall nur Zeiten geschwommen werden, die nicht hÃ¶her sind als 5 * Rec-Wert der aktuellen Disziplin, handelt es sich hier meistens um Tippfehler. Diese kÃ¶nnen so vermieden werden.
 
 ![Anzeige](optionen-anzeige.png)
 
-Im Bereich "Anzeige" kann die geteilte Ansicht gewählt werden. Dabei wird das Fenster in einen oberen und einen unteren Bereich unterteilt. Der obere enthält die Eingabefunktionen und der untere die Punkte Ergebniss und Drucken. Dies ist jedoch nur bei hohen Auflösungen sinnvoll. Daher wird bei niedrigen Auflösungen die geteilte Oberfläche nicht automatisch gewählt. Für diese Einstellung muss JAuswertung neu gestartet werden. Der zweite Punkt beeinflusst die Ausrichtunge von Texten in Lauf- und Zusatzwertung-Listen. Mit dem dritten Punkt kann JAuswertung mitgeteilt werden, dass nach Möglichkeit redundante Informationen vermieden werden, um Platz auf den Ausdrucken zu sparen.
+Im Bereich "Anzeige" kann die geteilte Ansicht gewÃ¤hlt werden. Dabei wird das Fenster in einen oberen und einen unteren Bereich unterteilt. Der obere enthÃ¤lt die Eingabefunktionen und der untere die Punkte Ergebniss und Drucken. Dies ist jedoch nur bei hohen AuflÃ¶sungen sinnvoll. Daher wird bei niedrigen AuflÃ¶sungen die geteilte OberflÃ¤che nicht automatisch gewÃ¤hlt. FÃ¼r diese Einstellung muss JAuswertung neu gestartet werden. Der zweite Punkt beeinflusst die Ausrichtunge von Texten in Lauf- und Zusatzwertung-Listen. Mit dem dritten Punkt kann JAuswertung mitgeteilt werden, dass nach MÃ¶glichkeit redundante Informationen vermieden werden, um Platz auf den Ausdrucken zu sparen.
 
 ![Sicherung](optionen-sicherung.png)
 
-Über den Bereich "Sicherung" können Sie eine automatische Sicherung anlegen lassen. Diese unterscheidet sich von der Funktion "Datei" -> "Automatisch speichern" dadurch, dass den Dateinamen die aktuelle Uhrzeit hinzugefügt wird. Dadurch existieren Backups mit denen die einzelnen Änderungen im Wettkampf nachvollzogen werden können.
+Ãœber den Bereich "Sicherung" kÃ¶nnen Sie eine automatische Sicherung anlegen lassen. Diese unterscheidet sich von der Funktion "Datei" -> "Automatisch speichern" dadurch, dass den Dateinamen die aktuelle Uhrzeit hinzugefÃ¼gt wird. Dadurch existieren Backups mit denen die einzelnen Ã„nderungen im Wettkampf nachvollzogen werden kÃ¶nnen.
 
 ![CSV](optionen-csv.png)
 
-Über die Registerkarte "CSV" können Einstellungen zum CSV-Export und -Import vorgenommen werden. Diese beziehen sich auf die Trennzeichen, die beim CSV-Export/-Import berücksichtigt werden. In normalen CSV-Dateien werden "," als Trennzeichen benutzt. Microsoft Excel nutzt aber die aktuellen Spracheinstellungen zum Export und Import. Dadurch werden Zahlen mit "," getrennt z.B. "123,4" und das Trennzeichen ";" genutzt. Je nachdem mit welchen Programmen Sie arbeiten, müssen Sie diese Option entsprechend wählen.
+Ãœber die Registerkarte "CSV" kÃ¶nnen Einstellungen zum CSV-Export und -Import vorgenommen werden. Diese beziehen sich auf die Trennzeichen, die beim CSV-Export/-Import berÃ¼cksichtigt werden. In normalen CSV-Dateien werden "," als Trennzeichen benutzt. Microsoft Excel nutzt aber die aktuellen Spracheinstellungen zum Export und Import. Dadurch werden Zahlen mit "," getrennt z.B. "123,4" und das Trennzeichen ";" genutzt. Je nachdem mit welchen Programmen Sie arbeiten, mÃ¼ssen Sie diese Option entsprechend wÃ¤hlen.
 
-**Anmerkung:** Auf Windows-Systemen wird automatisch die zu Excel kompatible Version gewählt. Auf allen anderen Systemen die korrekte CSV-Darstellung.
+**Anmerkung:** Auf Windows-Systemen wird automatisch die zu Excel kompatible Version gewÃ¤hlt. Auf allen anderen Systemen die korrekte CSV-Darstellung.
 
 ![Elektronische Zeitnahme](optionen-elektronische-zeitnahme.png)
 
-Die Verbindung von JAuswertung mit einer elektronischen Zeitmessanlage erfolgt über ein einfaches Netzwerkprotokoll. Für die Zeitmessanlage "Ares 21" von "OMEGA Watches" steht eine Implementierung Namens "AlphaServer" zur Verfügung. Als Server müssen Sie die Adresse des Rechners angeben, auf dem die Software läuft.
+Die Verbindung von JAuswertung mit einer elektronischen Zeitmessanlage erfolgt Ã¼ber ein einfaches Netzwerkprotokoll. FÃ¼r die Zeitmessanlage "Ares 21" von "OMEGA Watches" steht eine Implementierung Namens "AlphaServer" zur VerfÃ¼gung. Als Server mÃ¼ssen Sie die Adresse des Rechners angeben, auf dem die Software lÃ¤uft.
 
-**Hinweis:** Die Software "AlphaServer" ist ebenfalls OpenSource und damit kostenlos. Die grafische Benutzeroberfläche ist jedoch noch nicht offiziell freigegeben. Genauere Informationen zu dieser Software können unter [info@dennisfabri.de](mailto:info@dennisfabri.de) nachgefragt werden.
+**Hinweis:** Die Software "AlphaServer" ist ebenfalls OpenSource und damit kostenlos. Die grafische BenutzeroberflÃ¤che ist jedoch noch nicht offiziell freigegeben. Genauere Informationen zu dieser Software kÃ¶nnen unter [info@dennisfabri.de](mailto:info@dennisfabri.de) nachgefragt werden.
 
 ![Werbung](optionen-werbung.png)
 
-JAuswertung unterstützt das Einblenden von Werbebannern unter- bzw. oberhalb verschiedener Ausdrucke. Diese Einstellung wirkt sich nur auf Ausdrucke aus, die im Allgemeinen vor einem Wettkampf verschickt bzw. während eines Wettkampfs ausgehängt werden. Ergebnisse können so z.B. den Logos von Sponsoren versehen werden.
+JAuswertung unterstÃ¼tzt das Einblenden von Werbebannern unter- bzw. oberhalb verschiedener Ausdrucke. Diese Einstellung wirkt sich nur auf Ausdrucke aus, die im Allgemeinen vor einem Wettkampf verschickt bzw. wÃ¤hrend eines Wettkampfs ausgehÃ¤ngt werden. Ergebnisse kÃ¶nnen so z.B. den Logos von Sponsoren versehen werden.
 
 ![HTTP-Server](optionen-http-server.png)
 
-Über die Registerkarte "HTTP-Server" können Sie den integrierten HTTP-Server von JAuswertung einstellen.
-Zur Zeit können Sie den Port für den HTTP-Server ändern. Normalerweise sollten Sie den Standardport nutzen. Unter Linux kann es notwendig sein, den Port auf einen Wert über 1024 zu ändern, da die unteren Ports für Benutzer gesperrt sind. Beachten Sie aber, dass sich damit der Aufruf in ihrem Browser ändert. Der HTTP-Server kann normalerweise von ihrem Rechner aus über die URL "http://localhost/index.html" angesprochen werden. Wenn Sie den Port auf z.B. 8080 ändern, sieht die URL wie folgt aus: "http://localhost:8080/index.html". Den Port für den HTTP-Server können Sie nur ändern, wenn der HTTP-Server nicht gestartet ist.
+Ãœber die Registerkarte "HTTP-Server" kÃ¶nnen Sie den integrierten HTTP-Server von JAuswertung einstellen.
+Zur Zeit kÃ¶nnen Sie den Port fÃ¼r den HTTP-Server Ã¤ndern. Normalerweise sollten Sie den Standardport nutzen. Unter Linux kann es notwendig sein, den Port auf einen Wert Ã¼ber 1024 zu Ã¤ndern, da die unteren Ports fÃ¼r Benutzer gesperrt sind. Beachten Sie aber, dass sich damit der Aufruf in ihrem Browser Ã¤ndert. Der HTTP-Server kann normalerweise von ihrem Rechner aus Ã¼ber die URL "http://localhost/index.html" angesprochen werden. Wenn Sie den Port auf z.B. 8080 Ã¤ndern, sieht die URL wie folgt aus: "http://localhost:8080/index.html". Den Port fÃ¼r den HTTP-Server kÃ¶nnen Sie nur Ã¤ndern, wenn der HTTP-Server nicht gestartet ist.
 
-**Hinweis:** Der eigentliche Start des HTTP-Servers erfolgt über die Weltkugel in der oberen Knopfleiste. Mit dem HTTP-Server können Sie, wenn Sie mehrere Rechner vernetzen, direkt auf die Daten von JAuswertung zugreifen, ohne den Auswerter stören zu müssen. Beachten Sie aber, dass jede Anfrage Rechenzeit benötigt und den Rechner des Auswerters damit zusätzlich belastet. Dies gilt vor allem für den Download von PDF-Dateien. Sie sollten den HTTP-Server nur intern nutzen, da er nicht darauf ausgelegt ist, große Mengen an Daten/Anfragen zu bewältigen.
+**Hinweis:** Der eigentliche Start des HTTP-Servers erfolgt Ã¼ber die Weltkugel in der oberen Knopfleiste. Mit dem HTTP-Server kÃ¶nnen Sie, wenn Sie mehrere Rechner vernetzen, direkt auf die Daten von JAuswertung zugreifen, ohne den Auswerter stÃ¶ren zu mÃ¼ssen. Beachten Sie aber, dass jede Anfrage Rechenzeit benÃ¶tigt und den Rechner des Auswerters damit zusÃ¤tzlich belastet. Dies gilt vor allem fÃ¼r den Download von PDF-Dateien. Sie sollten den HTTP-Server nur intern nutzen, da er nicht darauf ausgelegt ist, groÃŸe Mengen an Daten/Anfragen zu bewÃ¤ltigen.
 
 ![Druckschrift](optionen-druckschrift.png)
 
-Über die Registerkarte "Druckschrift" können Sie die Schriftart für Ausdrucke auswählen. Standardmäßig wird die Schriftart "DLRG Univers 55 Roman" gewählt, sofern Sie vorhanden ist.
+Ãœber die Registerkarte "Druckschrift" kÃ¶nnen Sie die Schriftart fÃ¼r Ausdrucke auswÃ¤hlen. StandardmÃ¤ÃŸig wird die Schriftart "DLRG Univers 55 Roman" gewÃ¤hlt, sofern Sie vorhanden ist.
 
 ![Drucken](optionen-drucken.png)
 
-Über die Registerkarte "Drucken" können Sie die Orientierung der Ergebnisse im Protokoll einstellen. Standardmäßig werden die Ergebnisse um 90 Grad gedreht gedruckt. Wird also das Protokoll im Hochformat gedruckt, erscheinen die Ergebnisse im Querformat. Bei dieser Einstellung werden die Ergebnisse in den meisten Fällen am besten gedruckt. Wenn Sie die Ergebnisse im Hochformat erhalten wollen, so müssen Sie die Option "Ergebnisse waagrecht drucken" aktivieren.
+Ãœber die Registerkarte "Drucken" kÃ¶nnen Sie die Orientierung der Ergebnisse im Protokoll einstellen. StandardmÃ¤ÃŸig werden die Ergebnisse um 90 Grad gedreht gedruckt. Wird also das Protokoll im Hochformat gedruckt, erscheinen die Ergebnisse im Querformat. Bei dieser Einstellung werden die Ergebnisse in den meisten FÃ¤llen am besten gedruckt. Wenn Sie die Ergebnisse im Hochformat erhalten wollen, so mÃ¼ssen Sie die Option "Ergebnisse waagrecht drucken" aktivieren.
 
-Sie können festlegen, ob beim Druck von Lauflisten leeren Bahnen mitgedruckt werden ("Leere Bahnen drucken"). Zusätzlich können Sie festlegen, ob beim Druck von Startkarten auch für in einem Lauf nicht genutzte Bahnen Startkarten gedruckt werden sollen.
+Sie kÃ¶nnen festlegen, ob beim Druck von Lauflisten leeren Bahnen mitgedruckt werden ("Leere Bahnen drucken"). ZusÃ¤tzlich kÃ¶nnen Sie festlegen, ob beim Druck von Startkarten auch fÃ¼r in einem Lauf nicht genutzte Bahnen Startkarten gedruckt werden sollen.
 
-Bei der Disziplinenwertung ist es Geschacksache, ob die Punkte mitgedruckt werden sollen oder nicht ("Punkte bei der Disziplinenwertung drucken"). Zur einfacheren Unterscheidung von Ergebnissen unterstützt JAuswertung Checksummen, mit denen festgestellt werden kann, ob zwei Ergebnisse unterschiedlich sind. Diese Checksummen können auf jedes Ergebnis gedruckt werden ("Checksummen in Ergebnissen drucken"). Sind die Checksummen unterschiedlich, so sind auch die Ergebnisse unterschiedlich. Wenn die Checksummen gleich sind, ist die Wahrscheinlichkeit sehr hoch, dass die Ergebnisse gleich sind. In seltenen Fällen kann es jedoch vorkommen, dass zwei Ergebnisse mit gleichen Checksummen unterschiedlich sind. Mit der Option "Nicht angetreten in der Strafenliste drucken" kann festgelegt werden, ob in Ausdrucken der Strafenliste auch "nicht angetretene" Schwimmer berücksichtigt werden. "Platzierungen in Ergebnissen drucken" ermöglicht es zu wählen, ob die Platzierungen in den einzelnen Disziplinen bei der Mehrkampfwertung mitgedruckt werden.
+Bei der Disziplinenwertung ist es Geschacksache, ob die Punkte mitgedruckt werden sollen oder nicht ("Punkte bei der Disziplinenwertung drucken"). Zur einfacheren Unterscheidung von Ergebnissen unterstÃ¼tzt JAuswertung Checksummen, mit denen festgestellt werden kann, ob zwei Ergebnisse unterschiedlich sind. Diese Checksummen kÃ¶nnen auf jedes Ergebnis gedruckt werden ("Checksummen in Ergebnissen drucken"). Sind die Checksummen unterschiedlich, so sind auch die Ergebnisse unterschiedlich. Wenn die Checksummen gleich sind, ist die Wahrscheinlichkeit sehr hoch, dass die Ergebnisse gleich sind. In seltenen FÃ¤llen kann es jedoch vorkommen, dass zwei Ergebnisse mit gleichen Checksummen unterschiedlich sind. Mit der Option "Nicht angetreten in der Strafenliste drucken" kann festgelegt werden, ob in Ausdrucken der Strafenliste auch "nicht angetretene" Schwimmer berÃ¼cksichtigt werden. "Platzierungen in Ergebnissen drucken" ermÃ¶glicht es zu wÃ¤hlen, ob die Platzierungen in den einzelnen Disziplinen bei der Mehrkampfwertung mitgedruckt werden.
 
-Mit der Option "Namen der Mannschaftsmitglieder in der Zusatzwertung-Liste drucken" besteht die Möglichkeit zu wählen, ob die Namen der ersten vier Mannschaftsmitglieder in die Zusatzwertung-Liste gedruckt werden sollen.
+Mit der Option "Namen der Mannschaftsmitglieder in der Zusatzwertung-Liste drucken" besteht die MÃ¶glichkeit zu wÃ¤hlen, ob die Namen der ersten vier Mannschaftsmitglieder in die Zusatzwertung-Liste gedruckt werden sollen.
 
-Die Stärke von Grautönen ist stark vom eingesetzten Drucker und den Einstellungen im Treiber abhängig. Daher kann die Intensität des Grautons für die Zeilenmarkierung in Tabellen manuell festgelegt werden. Dies geschiet über den Regler unter "Helligkeit der hervorgehobenen Zeilen".
+Die StÃ¤rke von GrautÃ¶nen ist stark vom eingesetzten Drucker und den Einstellungen im Treiber abhÃ¤ngig. Daher kann die IntensitÃ¤t des Grautons fÃ¼r die Zeilenmarkierung in Tabellen manuell festgelegt werden. Dies geschiet Ã¼ber den Regler unter "Helligkeit der hervorgehobenen Zeilen".
 
-### Das Menü: ?
+### Das MenÃ¼: ?
 
-![Menü: ?](menu-info.png)
+![MenÃ¼: ?](menu-info.png)
 
-Dieses Menü bietet Informationen zu JAuswertung. Der Punkt "Hilfe" führt zu dieser Anleitung, der Punkt "Tipps" zeigt ausgewählte Hilfen an und der Punkt "Info", stellt einige Informationen zu JAuswertung dar.
+Dieses MenÃ¼ bietet Informationen zu JAuswertung. Der Punkt "Hilfe" fÃ¼hrt zu dieser Anleitung, der Punkt "Tipps" zeigt ausgewÃ¤hlte Hilfen an und der Punkt "Info", stellt einige Informationen zu JAuswertung dar.
 
 ![Tipps des Tages](tipps.png)
-![Über JAuswertung](about.png)
+![Ãœber JAuswertung](about.png)
 
 ## Die obere Knopfleiste
 
 ![Obere Knopfleiste](knopfleiste.png)
 
-Diese Knopfleiste stellt Funktionen zur Verfügung, die weitestgehend über Menüs zu erreichen sind. Die Funktionen entsprechen von Links nach Rechts den folgenden Menüpunkten:
+Diese Knopfleiste stellt Funktionen zur VerfÃ¼gung, die weitestgehend Ã¼ber MenÃ¼s zu erreichen sind. Die Funktionen entsprechen von Links nach Rechts den folgenden MenÃ¼punkten:
 
 - [Datei -> Neu](#Neu.2C_.C3.96ffnen.2C_Speichern.2C_Speichern_unter.E2.80.A6)
-- [Datei -> Öffnen](#Neu.2C_.C3.96ffnen.2C_Speichern.2C_Speichern_unter.E2.80.A6)
+- [Datei -> Ã–ffnen](#Neu.2C_.C3.96ffnen.2C_Speichern.2C_Speichern_unter.E2.80.A6)
 - [Datei -> Speichern](#Neu.2C_.C3.96ffnen.2C_Speichern.2C_Speichern_unter.E2.80.A6)
-- [Bearbeiten -> Rückgängig](#R.C3.BCckg.C3.A4ngig_und_Wiederholen)
+- [Bearbeiten -> RÃ¼ckgÃ¤ngig](#R.C3.BCckg.C3.A4ngig_und_Wiederholen)
 - [Bearbeiten -> Wiederholen](#R.C3.BCckg.C3.A4ngig_und_Wiederholen)
 - [Vorbereiten -> Laufliste -> Bearbeiten/Anzeigen](#Laufliste)
 - [Vorbereiten -> Zusatzwertungsliste -> Bearbeiten/Anzeigen](#Zusatzwertungsliste)
-- [Vorbereiten -> Daten prüfen](#Daten_pr.C3.BCfen)
+- [Vorbereiten -> Daten prÃ¼fen](#Daten_pr.C3.BCfen)
 - HTTP-Server starten
 - ISC-Upload starten
 - Ausgabefilter einstellen
-- Informationen über den aktuellen Stand der Eingabe
+- Informationen Ã¼ber den aktuellen Stand der Eingabe
 
-Die Knöpfe zur Bearbeitung der Laufliste und der Zusatzwertung-Liste nehmen dabei eine Sonderstellung ein. Ist die Sperrung zur Bearbeitung einer Liste aktiviert, so wird der Knopf nicht deaktiviert sondern auf die Funktion "Anzeigen" umgeschaltet.
+Die KnÃ¶pfe zur Bearbeitung der Laufliste und der Zusatzwertung-Liste nehmen dabei eine Sonderstellung ein. Ist die Sperrung zur Bearbeitung einer Liste aktiviert, so wird der Knopf nicht deaktiviert sondern auf die Funktion "Anzeigen" umgeschaltet.
 
-Mit dem Icon "Weltkugel" können Sie den HTTP-Server aktivieren bzw. wieder deaktivieren. Mit dem HTTP-Server können Sie, wenn Sie mehrere Rechner vernetzen, direkt auf die Daten von JAuswertung zugreifen, ohne den Auswerter stören zu müssen. Beachten Sie aber, dass jede Anfrage Rechenzeit benötigt und den Rechner des Auswerters damit zusätzlich belastet. Dies gilt vor allem für den Download von PDF-Dateien. Sie sollten den HTTP-Server nur intern nutzen, da er nicht darauf ausgelegt ist, große Mengen an Daten/Anfragen zu bewältigen. Beachten Sie bitte, dass der Aufruf der Seiten von der Einstellung des Ports abhängt (siehe [Extras -> Optionen](#Optionen)]).
+Mit dem Icon "Weltkugel" kÃ¶nnen Sie den HTTP-Server aktivieren bzw. wieder deaktivieren. Mit dem HTTP-Server kÃ¶nnen Sie, wenn Sie mehrere Rechner vernetzen, direkt auf die Daten von JAuswertung zugreifen, ohne den Auswerter stÃ¶ren zu mÃ¼ssen. Beachten Sie aber, dass jede Anfrage Rechenzeit benÃ¶tigt und den Rechner des Auswerters damit zusÃ¤tzlich belastet. Dies gilt vor allem fÃ¼r den Download von PDF-Dateien. Sie sollten den HTTP-Server nur intern nutzen, da er nicht darauf ausgelegt ist, groÃŸe Mengen an Daten/Anfragen zu bewÃ¤ltigen. Beachten Sie bitte, dass der Aufruf der Seiten von der Einstellung des Ports abhÃ¤ngt (siehe [Extras -> Optionen](#Optionen)]).
 
-Rechts neben diesen Knöpfen ist die Auswahl von "Ausgabefiltern" möglich. Diese beeinflussen nicht die Eingabe und Auswertung eines Wettkampfs, können aber die Ausgabe einschränken. So ist es möglich die Meisterschaften z.B. mehrerer Bezirke in einem Wettkampf durchzuführen und getrennte Ergebnisse zu erstellen. Die Ausgabefilter beziehen sich nur auf die Ausgabe von Ergebnissen, Protokollen und Meldelisten beim Drucken und beim Export. Ist das Auswahlfeld deaktiviert, sind keine Ausgabefilter definiert. Sie können über den Menüpunkt [Durchführen -> Ausgabefilter](#Ausgabefilter) Ausgabefilter einrichten und ändern. Funktione für Ausgaben z.B. Ausdrucke signalisieren, dass Sie von einem Ausgabefilter beeinflusst werden durch ein Icon "Auge".
+Rechts neben diesen KnÃ¶pfen ist die Auswahl von "Ausgabefiltern" mÃ¶glich. Diese beeinflussen nicht die Eingabe und Auswertung eines Wettkampfs, kÃ¶nnen aber die Ausgabe einschrÃ¤nken. So ist es mÃ¶glich die Meisterschaften z.B. mehrerer Bezirke in einem Wettkampf durchzufÃ¼hren und getrennte Ergebnisse zu erstellen. Die Ausgabefilter beziehen sich nur auf die Ausgabe von Ergebnissen, Protokollen und Meldelisten beim Drucken und beim Export. Ist das Auswahlfeld deaktiviert, sind keine Ausgabefilter definiert. Sie kÃ¶nnen Ã¼ber den MenÃ¼punkt [DurchfÃ¼hren -> Ausgabefilter](#Ausgabefilter) Ausgabefilter einrichten und Ã¤ndern. Funktione fÃ¼r Ausgaben z.B. Ausdrucke signalisieren, dass Sie von einem Ausgabefilter beeinflusst werden durch ein Icon "Auge".
 
 ## Linke Knopfleisten
 
-Über die linke Knopfleisten können Sie durch die einzelnen Hauptfunktionen von JAuswertung blättern. Je nach ausgewählten Knopf wird die entsprechende Funktion aktiviert. Beachten Sie, dass einige Funktionen nicht immer aktiviert sind. Wenn die gesamte Funktionalität hinter einem Knopf deaktiviert ist, erscheint eine kurze Information darüber, wann diese Funktionalität genutzt werden kann.
+Ãœber die linke Knopfleisten kÃ¶nnen Sie durch die einzelnen Hauptfunktionen von JAuswertung blÃ¤ttern. Je nach ausgewÃ¤hlten Knopf wird die entsprechende Funktion aktiviert. Beachten Sie, dass einige Funktionen nicht immer aktiviert sind. Wenn die gesamte FunktionalitÃ¤t hinter einem Knopf deaktiviert ist, erscheint eine kurze Information darÃ¼ber, wann diese FunktionalitÃ¤t genutzt werden kann.
 
 ![JAuswertung - Schwimmereingabe](panel-anmeldung.png)
 
 ### Eingabe
 
-Durch einen Klick auf "Eingabe" wird die Eingabe von Teilnehmern oder Mannschaften aktiviert. Je nach aktuellem Wettkampf unterscheidet sich das Aussehen des Fensters, da bei einem Mannschaftswettkampf kein Vor- und Nachname existiert. Gelbe Felder müssen ausgefüllt werden, weiße Felder können freigelassen werden. Wird keine Startnummer eingetragen, so wird automatisch die nächste freie Startnummer für den Schwimmer gewählt.
+Durch einen Klick auf "Eingabe" wird die Eingabe von Teilnehmern oder Mannschaften aktiviert. Je nach aktuellem Wettkampf unterscheidet sich das Aussehen des Fensters, da bei einem Mannschaftswettkampf kein Vor- und Nachname existiert. Gelbe Felder mÃ¼ssen ausgefÃ¼llt werden, weiÃŸe Felder kÃ¶nnen freigelassen werden. Wird keine Startnummer eingetragen, so wird automatisch die nÃ¤chste freie Startnummer fÃ¼r den Schwimmer gewÃ¤hlt.
 
-Bei Mannschaftswettkämpfen können Sie auch mehrere Mannschaften einer Gliederung auf einmal hinzufügen. Geben Sie dazu wie gewohnt die Daten in den oberen Feldern ein. Zusätzlich schreiben Sie dann in das Feld Anzahl die gewünschte Menge an Mannschaften und klicken auf den Hinzufügen-Knopf darunter. Die eingefügten Mannschaften werden automatisch durchnummeriert. Wenn Sie also als Name "Musterort" gewählt haben, werden die Mannschaften "Musterort 1", "Musterort 2", ... genannt. Beachten Sie dabei aber, dass die Mannschaften bis auf den Namen identisch sind. Sie sind also alle in der gleichen Altersklasse und nehmen mit den gleichen Meldezeiten an den gleichen Disziplinen teil.
+Bei MannschaftswettkÃ¤mpfen kÃ¶nnen Sie auch mehrere Mannschaften einer Gliederung auf einmal hinzufÃ¼gen. Geben Sie dazu wie gewohnt die Daten in den oberen Feldern ein. ZusÃ¤tzlich schreiben Sie dann in das Feld Anzahl die gewÃ¼nschte Menge an Mannschaften und klicken auf den HinzufÃ¼gen-Knopf darunter. Die eingefÃ¼gten Mannschaften werden automatisch durchnummeriert. Wenn Sie also als Name "Musterort" gewÃ¤hlt haben, werden die Mannschaften "Musterort 1", "Musterort 2", ... genannt. Beachten Sie dabei aber, dass die Mannschaften bis auf den Namen identisch sind. Sie sind also alle in der gleichen Altersklasse und nehmen mit den gleichen Meldezeiten an den gleichen Disziplinen teil.
 
-**Hinweis**: Wenn Sie neue Teilnehmer oder Mannschaften zu einem Wettkampf hinzufügen, nachdem Sie eine Laufliste erstellt haben, werden diese nicht automatisch in die Laufliste einsortiert. Sie können diese aber über den Lauflisteneditor manuell einsortieren, oder eine neue Laufliste erstellen.
+**Hinweis**: Wenn Sie neue Teilnehmer oder Mannschaften zu einem Wettkampf hinzufÃ¼gen, nachdem Sie eine Laufliste erstellt haben, werden diese nicht automatisch in die Laufliste einsortiert. Sie kÃ¶nnen diese aber Ã¼ber den Lauflisteneditor manuell einsortieren, oder eine neue Laufliste erstellen.
 
 ### Meldungen
 
-Hier wird die aktuelle Meldeliste dargestellt. Über die Felder im linken Teil kann die Auswahl der dargestellten Teilnehmer bzw. Mannschaften eingeschränkt werden. Dabei sind die Textfelder Filter, dass heißt gibt man z.B. nur den Buchstaben g ein, werden alle Teilnehmer bzw. Mannschaften angezeigt, die den Buchstaben g im Namen tragen. Sind alle Felder leer, werden alle Teilnehmer bzw. Mannschaften dargestellt. Durch einen Rechtsklick auf einen Teilnehmer bzw. eine Mannschaft wird ein Kontextmenü geöffnet, dass das Bearbeiten und Löschen erlaubt, es können hier aber auch Strafen vergeben werden.
+Hier wird die aktuelle Meldeliste dargestellt. Ãœber die Felder im linken Teil kann die Auswahl der dargestellten Teilnehmer bzw. Mannschaften eingeschrÃ¤nkt werden. Dabei sind die Textfelder Filter, dass heiÃŸt gibt man z.B. nur den Buchstaben g ein, werden alle Teilnehmer bzw. Mannschaften angezeigt, die den Buchstaben g im Namen tragen. Sind alle Felder leer, werden alle Teilnehmer bzw. Mannschaften dargestellt. Durch einen Rechtsklick auf einen Teilnehmer bzw. eine Mannschaft wird ein KontextmenÃ¼ geÃ¶ffnet, dass das Bearbeiten und LÃ¶schen erlaubt, es kÃ¶nnen hier aber auch Strafen vergeben werden.
 
 ![Meldungen](panel-meldungen.png)
 ![Meldungen: Rechtsklick](panel-meldungen-popup.png)
@@ -437,24 +437,24 @@ Hier wird die aktuelle Meldeliste dargestellt. Über die Felder im linken Teil ka
 ![Meldungen: Teilnehmer/Mannschaft bearbeiten](schwimmer-bearbeiten.png)
 ![Meldungen](panel-meldungen.png)
 
-Die Fenster zur Bearbeitung von Teilnehmern und Mannschaften unterscheiden sich nur geringfügig und sind im Wesentlichen selbserklärend.
+Die Fenster zur Bearbeitung von Teilnehmern und Mannschaften unterscheiden sich nur geringfÃ¼gig und sind im Wesentlichen selbserklÃ¤rend.
 
-Die Menüpunkte "Disqualifizieren", "Ausschluss" und "Nicht Angetreten" fügen dem ausgewählten Schwimmer bzw. der ausgewählten Mannschaft für alle Disziplinen diese Strafe hinzu. Über den Menüpunkt "Strafe vergeben" können Sie über einen Assistenten eine genauere Strafe vergeben.
+Die MenÃ¼punkte "Disqualifizieren", "Ausschluss" und "Nicht Angetreten" fÃ¼gen dem ausgewÃ¤hlten Schwimmer bzw. der ausgewÃ¤hlten Mannschaft fÃ¼r alle Disziplinen diese Strafe hinzu. Ãœber den MenÃ¼punkt "Strafe vergeben" kÃ¶nnen Sie Ã¼ber einen Assistenten eine genauere Strafe vergeben.
 
 ### Zeiteneingabe
 
-Hier können Sie Zeiten einzelner Schwimmer eingeben. Dazu können Sie im Bereich "Auswahl" angeben, welche Disziplin eingetragen werden soll und wie viele Schwimmer gleichzeitig angezeigt werden können. Über den Knopf "weiter" werden alle Felder wieder freigegeben. Diese Knopf verändert keine Daten, er schaft lediglich Platz für neue Eingaben. Im Bereich "Status" werden ggf. Eingabefehler angezeigt, dies soll nur zu ihrer Orientierung dienen.
+Hier kÃ¶nnen Sie Zeiten einzelner Schwimmer eingeben. Dazu kÃ¶nnen Sie im Bereich "Auswahl" angeben, welche Disziplin eingetragen werden soll und wie viele Schwimmer gleichzeitig angezeigt werden kÃ¶nnen. Ãœber den Knopf "weiter" werden alle Felder wieder freigegeben. Diese Knopf verÃ¤ndert keine Daten, er schaft lediglich Platz fÃ¼r neue Eingaben. Im Bereich "Status" werden ggf. Eingabefehler angezeigt, dies soll nur zu ihrer Orientierung dienen.
 
 ![Zeiteneingabe mit fehlerhaften Angaben](panel-zeiteneingabe.png)
 
-Im Bereich "Zeiteneingabe" findet die eigentlich Eingabe statt. Sie können in einem der Felder unter "Startnummer" die Startnummer eines Schwimmers eingeben. Genauere Angaben zu dem Schwimmer erscheinen dann direkt neben diesem Feld und das Feld unter "Zeiteneingabe" wird aktiviert und Sie können direkt eine Zeit eintragen. Beachten Sie, dass die Eingabe der Zeit direkt durchgeführt wird. Wenn Sie also eine Zeit von 1:23,4 eingeben, wird der entsprechende Schwimmer kurzzeitig eine Zeit von 0:00,1 dann von 0:01,2 dann von 0:12,3 und anschließend die richtige Zeit haben.
+Im Bereich "Zeiteneingabe" findet die eigentlich Eingabe statt. Sie kÃ¶nnen in einem der Felder unter "Startnummer" die Startnummer eines Schwimmers eingeben. Genauere Angaben zu dem Schwimmer erscheinen dann direkt neben diesem Feld und das Feld unter "Zeiteneingabe" wird aktiviert und Sie kÃ¶nnen direkt eine Zeit eintragen. Beachten Sie, dass die Eingabe der Zeit direkt durchgefÃ¼hrt wird. Wenn Sie also eine Zeit von 1:23,4 eingeben, wird der entsprechende Schwimmer kurzzeitig eine Zeit von 0:00,1 dann von 0:01,2 dann von 0:12,3 und anschlieÃŸend die richtige Zeit haben.
 
-Es stehen zur einfacheren Eingabe folgende Tastaturkürzel in den Feldern zur Zeiteneingabe zur Verfügung:
+Es stehen zur einfacheren Eingabe folgende TastaturkÃ¼rzel in den Feldern zur Zeiteneingabe zur VerfÃ¼gung:
 
-- "c" öffnet den Dialog, um eine Strafe nach Fehlercode zu vergeben. Diese Strafe wird zu bestehenden Strafen hinzugefügt.
-- "d" fügt dem Teilnehmer/der Mannschaft eine "Disqualifikation" hinzu
+- "c" Ã¶ffnet den Dialog, um eine Strafe nach Fehlercode zu vergeben. Diese Strafe wird zu bestehenden Strafen hinzugefÃ¼gt.
+- "d" fÃ¼gt dem Teilnehmer/der Mannschaft eine "Disqualifikation" hinzu
 - "n" setzt den Teilnehmer/die Mannschaft auf "Nicht angetreten" (allerdings nur wenn keine Zeit eingegeben wurde)
-- "p" öffnet ein Fenster zur Eingabe von Strafpunkten. Diese werden zu bestehenden Strafpunkten addiert.
+- "p" Ã¶ffnet ein Fenster zur Eingabe von Strafpunkten. Diese werden zu bestehenden Strafpunkten addiert.
 - "#" entfernt eingegebene Strafen
 
 ![Laufzeiten](panel-laufzeiten.png)
@@ -462,7 +462,7 @@ Es stehen zur einfacheren Eingabe folgende Tastaturkürzel in den Feldern zur Zei
 ![Strafenvergabe mittels Code](strafencode.png)
 
 ![Strafeneditor](strafeneditor.png)
-![Strafeneditor mit nicht gewählter Disziplin (z.B. in derAK Offen)](strafeneditor-disziplin-nicht-gewaehlt.png)
+![Strafeneditor mit nicht gewÃ¤hlter Disziplin (z.B. in derAK Offen)](strafeneditor-disziplin-nicht-gewaehlt.png)
 
 ![Strafenassistent: Code](strafenwizard-code.png)
 ![Strafenassistent: Details](strafenwizard-details.png)
@@ -471,78 +471,78 @@ Es stehen zur einfacheren Eingabe folgende Tastaturkürzel in den Feldern zur Zei
 
 ### Laufzeiten
 
-Die Funktionen der "Laufzeiten" stehen nur zur Verfügung wenn auch die Laufliste mit JAuswerung verwaltet wird, ermöglicht aber die höchstmögliche Eingabegeschwindigkeit. Über den Punkt "Lauf" im Bereich "Übersicht" können Sie direkt den Lauf auswählen, den Sie eingeben möchten. Im Rest des Bereichs "Übersicht" werden nähere Informationen zu dem entsprechenden Lauf dargestellt. Im Bereich "Lauf" werden die einzelnen Teilnehmer in der Reihenfolge ihrer Bahnen aufgelistet und Sie können direkt die Zeiten in dieser Reihenfolge eingeben. Die Eingabe der Zeit wird direkt durchgeführt und das Ergebnis aktualisiert.
+Die Funktionen der "Laufzeiten" stehen nur zur VerfÃ¼gung wenn auch die Laufliste mit JAuswerung verwaltet wird, ermÃ¶glicht aber die hÃ¶chstmÃ¶gliche Eingabegeschwindigkeit. Ãœber den Punkt "Lauf" im Bereich "Ãœbersicht" kÃ¶nnen Sie direkt den Lauf auswÃ¤hlen, den Sie eingeben mÃ¶chten. Im Rest des Bereichs "Ãœbersicht" werden nÃ¤here Informationen zu dem entsprechenden Lauf dargestellt. Im Bereich "Lauf" werden die einzelnen Teilnehmer in der Reihenfolge ihrer Bahnen aufgelistet und Sie kÃ¶nnen direkt die Zeiten in dieser Reihenfolge eingeben. Die Eingabe der Zeit wird direkt durchgefÃ¼hrt und das Ergebnis aktualisiert.
 
-Es stehen zur einfacheren Eingabe folgende Tastaturkürzel in den Feldern zur Zeiteneingabe zur Verfügung:
+Es stehen zur einfacheren Eingabe folgende TastaturkÃ¼rzel in den Feldern zur Zeiteneingabe zur VerfÃ¼gung:
 
-- "c" öffnet den Dialog, um eine Strafe nach Fehlercode zu vergeben. Diese Strafe wird zu bestehenden Strafen hinzugefügt.
-- "d" fügt dem Teilnehmer/der Mannschaft eine "Disqualifikation" hinzu
+- "c" Ã¶ffnet den Dialog, um eine Strafe nach Fehlercode zu vergeben. Diese Strafe wird zu bestehenden Strafen hinzugefÃ¼gt.
+- "d" fÃ¼gt dem Teilnehmer/der Mannschaft eine "Disqualifikation" hinzu
 - "n" setzt den Teilnehmer/die Mannschaft auf "Nicht angetreten" (allerdings nur wenn keine Zeit eingegeben wurde)
-- "p" öffnet ein Fenster zur Eingabe von Strafpunkten. Diese werden zu bestehenden Strafpunkten addiert.
+- "p" Ã¶ffnet ein Fenster zur Eingabe von Strafpunkten. Diese werden zu bestehenden Strafpunkten addiert.
 - "#" entfernt eingegebene Strafen
 - "z" oder "," zeigen den Zieleinlauf des aktuellen Laufs an
 
-Der Knopf "Zielrichterentscheid" ermöglicht den Zugriff auf eine Funktion, die durch das DLRG-Regelwerk von 2008 eingeführt wurde. Die Beschreibung dazu finden Sie unter [Durchführen -> Zielrichterentscheid](#Zielrichterentscheid)
+Der Knopf "Zielrichterentscheid" ermÃ¶glicht den Zugriff auf eine Funktion, die durch das DLRG-Regelwerk von 2008 eingefÃ¼hrt wurde. Die Beschreibung dazu finden Sie unter [DurchfÃ¼hren -> Zielrichterentscheid](#Zielrichterentscheid)
 
-**Hinweis 1:** Mit den Cursor-Tasten können Sie zwischen den Bahnen und Läufen wechseln.
+**Hinweis 1:** Mit den Cursor-Tasten kÃ¶nnen Sie zwischen den Bahnen und LÃ¤ufen wechseln.
 
-**Hinweis 2:** Mit der Taste \<Enter\> können Sie die Eingabe einer Zeit beenden und zur nächsten Bahn wechseln. Wenn Sie die letzte Zeit eingegeben haben, wird automatisch der Zieleinlauf angezeigt.
+**Hinweis 2:** Mit der Taste \<Enter\> kÃ¶nnen Sie die Eingabe einer Zeit beenden und zur nÃ¤chsten Bahn wechseln. Wenn Sie die letzte Zeit eingegeben haben, wird automatisch der Zieleinlauf angezeigt.
 
 ### Zusatzwertung Eingabe
 
-Die Eingabe der Zusatzwertung-Punkte funktioniert nach dem gleichen System wie die Eingabe der Zeiten mit der "Zeiteneingabe". Als Besonderheit ist jedoch anzumerken, dass obwohl ein Teilnehmer bzw. eine Mannschaft gefunden wurde, dass Feld "Zusatzwertung-Punkte" deaktiviert bleiben kann. Ist dies der Fall ist der Schwimmer in einer Altersklasse, in der keine Zusatzwertung durchgeführt wird. Dieses Problem wird ebenfalls im Bereich "Status" angezeigt.
+Die Eingabe der Zusatzwertung-Punkte funktioniert nach dem gleichen System wie die Eingabe der Zeiten mit der "Zeiteneingabe". Als Besonderheit ist jedoch anzumerken, dass obwohl ein Teilnehmer bzw. eine Mannschaft gefunden wurde, dass Feld "Zusatzwertung-Punkte" deaktiviert bleiben kann. Ist dies der Fall ist der Schwimmer in einer Altersklasse, in der keine Zusatzwertung durchgefÃ¼hrt wird. Dieses Problem wird ebenfalls im Bereich "Status" angezeigt.
 
-Bei der Eingabe von Mannschaften können die Punkte für jeden Schwimmer einzeln eingegeben werden. Dazu muss an die Startnummer ein Buchstabe "a", "b", "c" oder "d" angehängt werden. Der entsprechende Buchstabe wird automatisch auf die Zusatzwertung-Startkarten gedruckt. Die ersten vier Schwimmer eine Mannschaft sind für die Zusatzwertung vorgesehen. Der fünfte Schwimmer nimmt nicht an der Zusatzwertung teil.
+Bei der Eingabe von Mannschaften kÃ¶nnen die Punkte fÃ¼r jeden Schwimmer einzeln eingegeben werden. Dazu muss an die Startnummer ein Buchstabe "a", "b", "c" oder "d" angehÃ¤ngt werden. Der entsprechende Buchstabe wird automatisch auf die Zusatzwertung-Startkarten gedruckt. Die ersten vier Schwimmer eine Mannschaft sind fÃ¼r die Zusatzwertung vorgesehen. Der fÃ¼nfte Schwimmer nimmt nicht an der Zusatzwertung teil.
 
 ![Eingabe von Zusatzwertung-Punkten](panel-hlw-eingabe.png)
 
-**Hinweis:** Bei der Zusatzwertung-Eingabe ermöglichen es die Texte "n" und "n.a." einen Schwimmer als "Nicht angetreten" zu markieren. Mit "d" kann ein Schwimmer als disqualifiziert markiert werden.
+**Hinweis:** Bei der Zusatzwertung-Eingabe ermÃ¶glichen es die Texte "n" und "n.a." einen Schwimmer als "Nicht angetreten" zu markieren. Mit "d" kann ein Schwimmer als disqualifiziert markiert werden.
 
 ### Zusatzwertung Barcodes
 
-JAuswertung druckt auf ausgeüllte Zusatzwertung-Checklisten und -Startkarten zwei Barcodes. Ein Barcode steht für "Bestanden" und der andere für "Nicht bestanden". Die Barcodes können mit handelsüblichen Barcode-Scanners erkannt werden. Wird ein Barcode für einen Teilnehmer eingescannt, der bestanden hat, leuchtet "200 Punkte" in grün auf. Hat der Teilnehmer nicht bestanden, leuchtet "0 Punkte" in rot auf. Ist der Barcode nicht korrekt, leuchtet "Barcode nicht korrekt" in orange auf. Zusätzlich werden in den ersten beiden Fällen weitere Informationen zu dem erkannten Teilnehmer angezeigt.
+JAuswertung druckt auf ausgeÃ¼llte Zusatzwertung-Checklisten und -Startkarten zwei Barcodes. Ein Barcode steht fÃ¼r "Bestanden" und der andere fÃ¼r "Nicht bestanden". Die Barcodes kÃ¶nnen mit handelsÃ¼blichen Barcode-Scanners erkannt werden. Wird ein Barcode fÃ¼r einen Teilnehmer eingescannt, der bestanden hat, leuchtet "200 Punkte" in grÃ¼n auf. Hat der Teilnehmer nicht bestanden, leuchtet "0 Punkte" in rot auf. Ist der Barcode nicht korrekt, leuchtet "Barcode nicht korrekt" in orange auf. ZusÃ¤tzlich werden in den ersten beiden FÃ¤llen weitere Informationen zu dem erkannten Teilnehmer angezeigt.
 
 **Hinweis:** Nicht alle Barcode-Scanner simulieren eine Tastatur.
 
 **Hinweis:** Geeignete Barcode-Scanner (1D-Code-Scanner) simulieren eine Tastatur. Achten Sie deshalb darauf, dass der Fokus auf das Eingabefeld gesetzt ist, wenn Sie einen Barcode scannen.
 
-**Hinweis:** Sie können diese Funktion auch ohne Barcode-Scanner nutzen. Tippen Sie dazu einfach die Ziffern unter dem Barcode in das Feld "Eingabe" und bestätigen Sie mit \<Enter\>. Die Barcodes enthalten eine Checksumme und sind daher gegen Vertipper besser als die normale Zusatzwertung-Eingabe abgesichert.
+**Hinweis:** Sie kÃ¶nnen diese Funktion auch ohne Barcode-Scanner nutzen. Tippen Sie dazu einfach die Ziffern unter dem Barcode in das Feld "Eingabe" und bestÃ¤tigen Sie mit \<Enter\>. Die Barcodes enthalten eine Checksumme und sind daher gegen Vertipper besser als die normale Zusatzwertung-Eingabe abgesichert.
 
 ![ Zusatzwertung-Barcodes](panel-hlw-barcodes.png )
 
 ### Mannschaftsmitglieder
 
-In diesem Bereich können mit JTeams ausgedruckte Mannschaftsmeldebögen zur Meldung von Mannschaftsmitgliedern eingescannt werden. Der dort abgebildete QR-Code enthält alle Informationen, um die eingegebenen Mannschaftsmitlieder der richtien Mannschafts zuzuordnen.
+In diesem Bereich kÃ¶nnen mit JTeams ausgedruckte MannschaftsmeldebÃ¶gen zur Meldung von Mannschaftsmitgliedern eingescannt werden. Der dort abgebildete QR-Code enthÃ¤lt alle Informationen, um die eingegebenen Mannschaftsmitlieder der richtien Mannschafts zuzuordnen.
 
 **Hinweis:** Nicht alle 2D-Code-Scanner simulieren eine Tastatur.
 
 **Hinweis:** Geeignete 2D-Code-Scanner simulieren eine Tastatur. Achten Sie deshalb darauf, dass der Fokus auf das Eingabefeld gesetzt ist, wenn Sie einen QR-Code scannen.
 
-**Hinweis:** Es gibt neben 2D-Code-Scannern auch die Möglichkeit mittels App und Smartphone den Code einzuscannen und per Netzwerk zu übertragen. Dafür muss auf dem genutzen Rechner eine passende Zusatzsoftware des jeweiligen Anbieters installiert werden.
+**Hinweis:** Es gibt neben 2D-Code-Scannern auch die MÃ¶glichkeit mittels App und Smartphone den Code einzuscannen und per Netzwerk zu Ã¼bertragen. DafÃ¼r muss auf dem genutzen Rechner eine passende Zusatzsoftware des jeweiligen Anbieters installiert werden.
 
 ![ Mannschaftsmitglieder](panel-mannschaftsmitglieder.png )
 
 ### Ergebnisse
 
-Die aktuellen Ergebnisse werden im unteren Bereich des Fensters dargestellt. Wenn Sie mehr Platz für andere Teile von JAuswertung benötigen, können Sie über die Optionen die "geteilte Darstellung" deaktivieren, wodurch die Ergebnisse über einen zusätzlichen Knopf in der linken Knopfleiste erreichbar sind und nicht mehr dauerhaft den unteren Fensterbereich belegen.
+Die aktuellen Ergebnisse werden im unteren Bereich des Fensters dargestellt. Wenn Sie mehr Platz fÃ¼r andere Teile von JAuswertung benÃ¶tigen, kÃ¶nnen Sie Ã¼ber die Optionen die "geteilte Darstellung" deaktivieren, wodurch die Ergebnisse Ã¼ber einen zusÃ¤tzlichen Knopf in der linken Knopfleiste erreichbar sind und nicht mehr dauerhaft den unteren Fensterbereich belegen.
 
 ![Ergebnisse](panel-ergebnisse.png)
 ![Ergebnisse: Rechtsklick](panel-ergebnisse-popup.png)
 
-Durch die Knöpfe im oberen Bereich kann die gewünschte Altersklasse sowie das Geschlecht ausgewählt werden. Die Ansicht der Ergebniss kann auch zur Bearbeitung einzelner Schwimmer bzw. Mannschaften genutzt werden. Über einen Rechtsklick öffnet sich das Popup-Menü, das bereits unter "Meldeliste" beschrieben wurde. Zusätzlich können bestimmte Funktionen per Doppelklick durchgeführt werden. Diese hängen von der Spalte ab, in die geklickt wurde:
+Durch die KnÃ¶pfe im oberen Bereich kann die gewÃ¼nschte Altersklasse sowie das Geschlecht ausgewÃ¤hlt werden. Die Ansicht der Ergebniss kann auch zur Bearbeitung einzelner Schwimmer bzw. Mannschaften genutzt werden. Ãœber einen Rechtsklick Ã¶ffnet sich das Popup-MenÃ¼, das bereits unter "Meldeliste" beschrieben wurde. ZusÃ¤tzlich kÃ¶nnen bestimmte Funktionen per Doppelklick durchgefÃ¼hrt werden. Diese hÃ¤ngen von der Spalte ab, in die geklickt wurde:
 
-- Platz, Name, Gliederung, Jahrgang, Punkte, Diff: Öffnet das Fenster zum Bearbeiten eines Schwimmers bzw. einer Mannschaft.
-- Zeit, Punkte (Je Disziplin): Öffnet ein Fenster zur Eingabe der Zeit für diese Diziplin.
-- Strafe (Je Disziplin): Öffnet den Assistenten zur Vergabe einer Strafe für diese Disziplin.
-- Zusatzwertung: Öffnet ein Fenster zur Eingabe der Zusatzwertung-Punkte.
+- Platz, Name, Gliederung, Jahrgang, Punkte, Diff: Ã–ffnet das Fenster zum Bearbeiten eines Schwimmers bzw. einer Mannschaft.
+- Zeit, Punkte (Je Disziplin): Ã–ffnet ein Fenster zur Eingabe der Zeit fÃ¼r diese Diziplin.
+- Strafe (Je Disziplin): Ã–ffnet den Assistenten zur Vergabe einer Strafe fÃ¼r diese Disziplin.
+- Zusatzwertung: Ã–ffnet ein Fenster zur Eingabe der Zusatzwertung-Punkte.
 
-**Hinweis:** Bei der Zusatzwertung-Eingabe ermöglichen es die Texte "n" und "n.a." einen Schwimmer als "Nicht angetreten" zu markieren.
+**Hinweis:** Bei der Zusatzwertung-Eingabe ermÃ¶glichen es die Texte "n" und "n.a." einen Schwimmer als "Nicht angetreten" zu markieren.
 
 ### Drucken
 
-Hier können die Daten in verschiedenen Varianten gedruckt werden. Die Knöpfe sind nur dann aktiviert, wenn die entsprechenden Daten gedruckt werden können. Zu jeder Druckfunktion existiert eine Vorschau. Über diese kann auch das Seitenlayout eingestellt werden. Diese Einstellungen werden gespeichert und sind beim nächsten Start von JAuswertung wieder verfügbar.
+Hier kÃ¶nnen die Daten in verschiedenen Varianten gedruckt werden. Die KnÃ¶pfe sind nur dann aktiviert, wenn die entsprechenden Daten gedruckt werden kÃ¶nnen. Zu jeder Druckfunktion existiert eine Vorschau. Ãœber diese kann auch das Seitenlayout eingestellt werden. Diese Einstellungen werden gespeichert und sind beim nÃ¤chsten Start von JAuswertung wieder verfÃ¼gbar.
 
-Um die Druckfunktionen übersichtlicher zu gestalten wurden diese gruppiert. Die Gruppen haben die Überschrift "Wettkampf", "Protokoll", "Ergebnisse", "Laufliste", "Zusatzwertung-Liste" und "Vordrucke". Jede einzelne Gruppe können Sie durch eine Klick auf die Titelzeile ein- bzw. ausblenden, so dass Sie nur die Funktionen sehen, die Sie zur Zeit benötigen. Beim Start von JAuswertung ist nur die Gruppe "Wettkampf" ausgeklappt.
+Um die Druckfunktionen Ã¼bersichtlicher zu gestalten wurden diese gruppiert. Die Gruppen haben die Ãœberschrift "Wettkampf", "Protokoll", "Ergebnisse", "Laufliste", "Zusatzwertung-Liste" und "Vordrucke". Jede einzelne Gruppe kÃ¶nnen Sie durch eine Klick auf die Titelzeile ein- bzw. ausblenden, so dass Sie nur die Funktionen sehen, die Sie zur Zeit benÃ¶tigen. Beim Start von JAuswertung ist nur die Gruppe "Wettkampf" ausgeklappt.
 
 ![Drucken](panel-drucken.png)
 
@@ -559,7 +559,7 @@ Um die Druckfunktionen übersichtlicher zu gestalten wurden diese gruppiert. Die 
 ![Drucken: Wettkampf](panel-drucken-wettkampf.png)
 
 - Protokoll:
-  - Protokoll: Vollständiges Protokoll des Wettkampfs gemäß Regelwerk
+  - Protokoll: VollstÃ¤ndiges Protokoll des Wettkampfs gemÃ¤ÃŸ Regelwerk
   - Veranstaltungsinformationen: Ausdruck der Informationen aus "Datei" -> "Eigenschaften"
   - Kampfrichter: Liste der Kampfrichter
   - Informationsseite: Ausdruck der Informationsseite aus "Datei" -> "Eigenschaften"
@@ -570,15 +570,15 @@ Um die Druckfunktionen übersichtlicher zu gestalten wurden diese gruppiert. Die 
 - Ergebnisse:
   - Ergebnisse: Liste der Ergebnisse
   - Disziplinenwertung: Ergebnisse der Disziplinenwertung
-  - Disziplinenwertung (altersklassenübergreifend): Ergebnisse der Disziplinenwertung, wobei nur nach Disziplinen nicht aber nach Alterklassen unterschieden wird.
+  - Disziplinenwertung (altersklassenÃ¼bergreifend): Ergebnisse der Disziplinenwertung, wobei nur nach Disziplinen nicht aber nach Alterklassen unterschieden wird.
   - Gesamtwertung: Gesamtwertung des Wettkampfs
-  - Siegerliste: Liste der ersten drei Plätze für jede Altersklasse
-  - Siegerliste je Disziplin: Liste der ersten drei Plätze für jede Disziplin.
+  - Siegerliste: Liste der ersten drei PlÃ¤tze fÃ¼r jede Altersklasse
+  - Siegerliste je Disziplin: Liste der ersten drei PlÃ¤tze fÃ¼r jede Disziplin.
   - Medaillenspiegel: Ausdruck eines Medaillenspiegels
-  - Laufzeiten: Tabellarischer Ausdruck der Zeiten nach Läufen
+  - Laufzeiten: Tabellarischer Ausdruck der Zeiten nach LÃ¤ufen
   - Strafenliste: Liste der vergebenen Strafen
-  - Urkunden: Ausgefüllte Urkunden
-  - Urkunden der Disziplinenwertung: Ausgefüllte Urkunden für die Disziplinenwertung
+  - Urkunden: AusgefÃ¼llte Urkunden
+  - Urkunden der Disziplinenwertung: AusgefÃ¼llte Urkunden fÃ¼r die Disziplinenwertung
   - Weitermeldung: Ausdruck eines Meldebogens mit den Ergebnissen des Wettkampfs
   - Zusatzwertung-Ergebnisse: Ausdruck der Ergebnisse der Zusatzwertung
   - Schnellste Zeiten: Schnellste Zeiten je Disziplin und Altersklasse
@@ -588,24 +588,24 @@ Um die Druckfunktionen übersichtlicher zu gestalten wurden diese gruppiert. Die 
 
 - Laufliste:
   - Laufliste: Tabellarische Laufliste
-  - Sprecherliste: Detaillierte Laufliste für Veranstaltungssprecher
-  - Laufliste für Kampfrichter: Kompakte und übersichtliche Laufliste für Kampfrichter (Wenn die Schriftart nicht zu breit ist, werden zwei Läufe in einer Zeile ausgedruckt)
-  - Laufübersicht: Kurze Übersicht über den Verlauf des Wettkampfs
+  - Sprecherliste: Detaillierte Laufliste fÃ¼r Veranstaltungssprecher
+  - Laufliste fÃ¼r Kampfrichter: Kompakte und Ã¼bersichtliche Laufliste fÃ¼r Kampfrichter (Wenn die Schriftart nicht zu breit ist, werden zwei LÃ¤ufe in einer Zeile ausgedruckt)
+  - LaufÃ¼bersicht: Kurze Ãœbersicht Ã¼ber den Verlauf des Wettkampfs
   - Laufeinteilung: Liste der Teilnehmer bzw. Mannschaften mit den jeweiligen Starts
-  - Kompakte Laufeinteilung: Kompakte Version der Laufeinteilung (ob diese gedruckt werden kann, hängt von der Laufliste ab)
-  - Bahnenliste: Liste der Starts je Bahn für Zeitnehmer
-  - Ausgefüllte Startkarten: Ausgefüllte Startkarten (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
-  - Ausgefüllte Zieleinlaufkarten: Zieleinlaufkarten mit ausgefülltem Lauf und Disziplin (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
+  - Kompakte Laufeinteilung: Kompakte Version der Laufeinteilung (ob diese gedruckt werden kann, hÃ¤ngt von der Laufliste ab)
+  - Bahnenliste: Liste der Starts je Bahn fÃ¼r Zeitnehmer
+  - AusgefÃ¼llte Startkarten: AusgefÃ¼llte Startkarten (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
+  - AusgefÃ¼llte Zieleinlaufkarten: Zieleinlaufkarten mit ausgefÃ¼lltem Lauf und Disziplin (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
 
 ![Drucken: Laufliste](panel-drucken-laufliste.png)
 
 - Zusatzwertung-Liste
   - Zusatzwertung-Liste: Tabellarische Zusatzwertung-Laufliste
-  - Puppenliste: Liste der Teilnehmer je Bahn für Zusatzwertung-Kampfrichter
-  - Ausgefüllte Zusatzwertung-Startkarten: Ausgefüllte Zusatzwertung-Startkarten für Kampfrichter (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
-  - Ausgefüllte Zusatzwertung-Checklisten: Ausgefüllte Zusatzwertung-Checklisten für Kampfrichter
-  - Ausgefüllte Zusatzwertung-Startkarten (ohne Zeiten und Bahnen): Ausgefüllte Zusatzwertung-Startkarten - die Fehler Zeit und Bahn sind jedoch leer (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
-  - Ausgefüllte Zusatzwertung-Checklisten (ohne Zeiten und Bahnen): Ausgefüllte Zusatzwertung-Checklisten - die Fehler Zeit und Bahn sind jedoch leer
+  - Puppenliste: Liste der Teilnehmer je Bahn fÃ¼r Zusatzwertung-Kampfrichter
+  - AusgefÃ¼llte Zusatzwertung-Startkarten: AusgefÃ¼llte Zusatzwertung-Startkarten fÃ¼r Kampfrichter (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
+  - AusgefÃ¼llte Zusatzwertung-Checklisten: AusgefÃ¼llte Zusatzwertung-Checklisten fÃ¼r Kampfrichter
+  - AusgefÃ¼llte Zusatzwertung-Startkarten (ohne Zeiten und Bahnen): AusgefÃ¼llte Zusatzwertung-Startkarten - die Fehler Zeit und Bahn sind jedoch leer (Weitere Informationen zum Umgang mit dem Ausdruck finden sich im Dokument "Startkartendruck")
+  - AusgefÃ¼llte Zusatzwertung-Checklisten (ohne Zeiten und Bahnen): AusgefÃ¼llte Zusatzwertung-Checklisten - die Fehler Zeit und Bahn sind jedoch leer
 
 ![Drucken: Zusatzwertung-Liste](panel-drucken-hlw-liste.png)
 
@@ -620,8 +620,8 @@ Um die Druckfunktionen übersichtlicher zu gestalten wurden diese gruppiert. Die 
 
 Einige Druckfunktionen werden durch die Ausgabefilter beeinflusst. Genaueres dazu erfahren Sie unter [Ausgabefilter](#Ausgabefilter). Wird eine Druckfunktion gerade durch einen Ausgabefilter beeinflusst, wird dies durch ein Symbol mit einem Auge dargestellt.
 
-**Tipp 1:** Zur Unterstützung beim Drucken von Ergebnissen und Protokollen werden unvollständige Eingaben, d.h. fehlende Zeiten bzw. Zusatzwertungspunkte, durch ein gelbes Ausrufezeichen signalisiert.
+**Tipp 1:** Zur UnterstÃ¼tzung beim Drucken von Ergebnissen und Protokollen werden unvollstÃ¤ndige Eingaben, d.h. fehlende Zeiten bzw. Zusatzwertungspunkte, durch ein gelbes Ausrufezeichen signalisiert.
 
-**Tipp 2:** Die Startkarten für den Schwimmwettkampf und die Zusatzwertung werden so gedruckt, dass die Startkarten einer Bahn hintereinander liegen.
+**Tipp 2:** Die Startkarten fÃ¼r den Schwimmwettkampf und die Zusatzwertung werden so gedruckt, dass die Startkarten einer Bahn hintereinander liegen.
 
 **Tipp 3:** Wenn Ausgabefilter aktiv sind, werden Funktionen, die davon betroffen sind, mit einem Symbol "Auge" markiert.

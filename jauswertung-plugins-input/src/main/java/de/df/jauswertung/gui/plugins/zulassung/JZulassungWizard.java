@@ -114,8 +114,7 @@ class JZulassungWizard extends JWizardFrame implements FinishListener, CancelLis
 
         setIconImage(parent.getIconImage());
         pack();
-        UIStateUtils.uistatemanage(parent, this, "JZulassungWizard");
-        pack();
+        UIStateUtils.managePosition(parent, this, "JZulassungWizard");
 
         setResizable(false);
 

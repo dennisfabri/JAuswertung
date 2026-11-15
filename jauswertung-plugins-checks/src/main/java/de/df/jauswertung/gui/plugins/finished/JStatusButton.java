@@ -1,13 +1,8 @@
 package de.df.jauswertung.gui.plugins.finished;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
@@ -22,6 +17,7 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.util.SearchUtils;
+import de.df.jutils.gui.DropDownIcon;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
@@ -34,7 +30,7 @@ public class JStatusButton extends JToggleButton {
     private JLabel[][] text = new JLabel[0][3];
 
     public JStatusButton(CorePlugin c) {
-        super(createArrow(IconManager.getSmallIcon("finishedinput")));
+        super(new DropDownIcon(IconManager.getSmallIcon("finishedinput")));
         core = c;
 
         setToolTipText(I18n.getToolTip("FinishedInput"));
@@ -156,27 +152,4 @@ public class JStatusButton extends JToggleButton {
         super.setEnabled(enabled);
     }
 
-    private static Icon createArrow(ImageIcon icon) {
-        int width = 16;
-        int height = 16;
-        if (icon != null) {
-            width = icon.getIconWidth();
-            height = icon.getIconHeight();
-        }
-        BufferedImage i = new BufferedImage(width + 11, Math.max(height, 4), BufferedImage.TYPE_INT_ARGB);
-        Graphics g = i.getGraphics();
-
-        if (icon != null) {
-            g.drawImage(icon.getImage(), 0, 0, null);
-        }
-
-        int offsetx = width;
-        int offsety = (height - 4) / 2;
-
-        g.setColor(Color.BLACK);
-        g.fillPolygon(new int[] { offsetx + 2, offsetx + 8, offsetx + 5 }, new int[] { offsety, offsety, offsety + 3 },
-                3);
-
-        return new ImageIcon(i);
-    }
 }
