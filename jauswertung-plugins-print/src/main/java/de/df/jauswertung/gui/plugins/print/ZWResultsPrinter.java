@@ -6,6 +6,7 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
+import java.util.function.UnaryOperator;
 
 import javax.swing.*;
 
@@ -18,15 +19,12 @@ import de.df.jauswertung.gui.plugins.CorePlugin;
 import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.print.UnterschriftPrintable;
 import de.df.jauswertung.util.DataTableUtils;
-import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.jtable.ExtendedTableModel;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.EmptyPrintable;
 import de.df.jutils.print.printables.JTablePrintable;
 
@@ -44,7 +42,7 @@ class ZWResultsPrinter implements Printer {
     private JButton preview = null;
     private JLabel warning = null;
     private JLabel filter = null;
-    private JCheckBox unterschrift = null;
+    private JUnterschriftAuswahl unterschrift = null;
 
     private JSelectionDialog printDialog = null;
     private JSelectionDialog previewDialog = null;
@@ -89,12 +87,7 @@ class ZWResultsPrinter implements Printer {
         filter.setToolTipText(I18n.get("InputFiltered"));
         filter.setVisible(false);
 
-        unterschrift = new JCheckBox(I18n.get("Unterschrift"));
-        unterschrift.setSelected(Utils.getPreferences().getBoolean("ZWResultsWithSignature", false));
-        unterschrift.addActionListener(arg0 -> {
-            Utils.getPreferences().putBoolean("ZWResultsWithSignature", unterschrift.isSelected());
-        });
-        unterschrift.setEnabled(false);
+        unterschrift = new JUnterschriftAuswahl("ZWResultsSignature", "ZWResultsWithSignature");
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -142,11 +135,7 @@ class ZWResultsPrinter implements Printer {
         warning.setVisible(preview.isEnabled() && !wk.isHlwComplete());
     }
 
-    Printable getPrintable(boolean[][] selected) {
-        return getPrintable(selected, unterschrift.isSelected());
-    }
-
-    Printable getPrintable(boolean[][] selected, boolean withSignature) {
+    Printable getPrintable(boolean[][] selected, UnaryOperator<Printable> unterschrift) {
         AWettkampf<?> wk = core.getFilteredWettkampf();
 
         ExtendedTableModel[] etm = DataTableUtils.zusatzwertungResults(wk, selected, null, PrintUtils.printZWnames);
@@ -154,35 +143,20 @@ class ZWResultsPrinter implements Printer {
             return EmptyPrintable.Instance;
         }
         Printable p = PrintManager.getPrintable(etm, JTablePrintable.OPT_ALL, true, true);
-        if (withSignature) {
-            p = new UnterschriftPrintable(p);
-        }
+        p = unterschrift.apply(p);
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), I18n.get("ZWResults"), I18n.get("ZWResults"));
     }
 
     void printResults(boolean[][] selection) {
-        final boolean withSignature = unterschrift.isSelected();
-        PrintExecutor.print(() -> getPrintable(selection, withSignature), I18n.get("ZWResults"), true,
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.print(() -> getPrintable(selection, mitUnterschrift), I18n.get("ZWResults"), true,
                 controller.getWindow());
     }
 
-    private class PPrintableCreator implements PrintableCreator {
-
-        private final boolean[][] selection;
-
-        public PPrintableCreator(boolean[][] selection) {
-            this.selection = selection;
-        }
-
-        @Override
-        public Printable create() {
-            return getPrintable(selection);
-        }
-
-    }
-
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("ZWResults"),
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.preview(controller.getWindow(), () -> getPrintable(selection, mitUnterschrift),
+                I18n.get("ZWResults"),
                 IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 
