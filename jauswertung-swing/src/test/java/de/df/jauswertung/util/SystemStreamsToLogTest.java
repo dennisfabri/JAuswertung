@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.ConsoleAppender;
 
 class SystemStreamsToLogTest {
 
@@ -68,5 +75,33 @@ class SystemStreamsToLogTest {
         assertEquals(List.of("an error"), lines);
         assertTrue(otherLines.isEmpty(), otherLines.toString());
         assertEquals("appender wrote: an error" + System.lineSeparator(), otherBytes.toString(StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void aLineLoggedDirectlyIsWrittenToTheOriginalStreamAndNotLoggedAgain() {
+        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+        PatternLayoutEncoder encoder = new PatternLayoutEncoder();
+        encoder.setContext(context);
+        encoder.setPattern("%msg%n");
+        encoder.start();
+        ConsoleAppender<ILoggingEvent> console = new ConsoleAppender<>();
+        console.setContext(context);
+        console.setEncoder(encoder);
+        console.start();
+        Logger logger = context.getLogger("SystemStreamsToLogTest.direct");
+        logger.setAdditive(false);
+        logger.addAppender(console);
+        PrintStream systemOut = System.out;
+        System.setOut(SystemStreamsToLog.wrap(original, lines::add));
+        try {
+            logger.info("direct");
+        } finally {
+            System.setOut(systemOut);
+            logger.detachAppender(console);
+            console.stop();
+        }
+
+        assertEquals("direct" + System.lineSeparator(), originalBytes.toString(StandardCharsets.UTF_8));
+        assertTrue(lines.isEmpty(), lines.toString());
     }
 }

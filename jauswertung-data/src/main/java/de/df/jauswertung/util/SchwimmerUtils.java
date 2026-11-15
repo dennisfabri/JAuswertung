@@ -1,6 +1,7 @@
 package de.df.jauswertung.util;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import de.df.jauswertung.daten.ASchwimmer;
 import de.df.jauswertung.daten.AWettkampf;
@@ -170,10 +171,38 @@ public final class SchwimmerUtils {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage,
                                                                               boolean includeEmptyLanes, boolean allheats,
                                                                               int minheat, int maxheat) {
+        LinkedList<Startkarte>[] listen = toStartkartenJeBahn(wks, includeEmptyLanes, allheats, minheat, maxheat);
+        if (listen == null) {
+            return null;
+        }
+        LinkedList<Startkarte> temp = new LinkedList<>();
+        for (LinkedList<Startkarte> aListen : listen) {
+            temp.addAll(aListen);
+        }
+        return repack(temp, perpage);
+    }
+
+    public static <T extends ASchwimmer> LinkedList<Startkarte> toStartkarten(AWettkampf<T>[] wks, int perpage,
+                                                                              boolean includeEmptyLanes, boolean allheats,
+                                                                              int minheat, int maxheat, int bahn) {
+        LinkedList<Startkarte>[] listen = toStartkartenJeBahn(wks, includeEmptyLanes, allheats, minheat, maxheat);
+        if (listen == null) {
+            return null;
+        }
+        if (bahn < 1 || bahn > listen.length) {
+            return new LinkedList<>();
+        }
+        return repack(listen[bahn - 1], perpage);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends ASchwimmer> LinkedList<Startkarte>[] toStartkartenJeBahn(AWettkampf<T>[] wks,
+                                                                                       boolean includeEmptyLanes,
+                                                                                       boolean allheats, int minheat,
+                                                                                       int maxheat) {
         if (wks == null) {
             return null;
         }
@@ -204,7 +233,6 @@ public final class SchwimmerUtils {
                 continue;
             }
 
-            // Ausdruck ggf begrenzen
             int index = 0;
             int amount = ll.getLaufliste().size();
             if (!allheats) {
@@ -234,12 +262,10 @@ public final class SchwimmerUtils {
             }
         }
 
-        LinkedList<Startkarte> temp = new LinkedList<>();
-        for (LinkedList<Startkarte> aListen : listen) {
-            Startkarte[] sk = aListen.stream().sorted().toArray(Startkarte[]::new);
-            temp.addAll(Arrays.asList(sk));
+        for (int x = 0; x < listen.length; x++) {
+            listen[x] = listen[x].stream().sorted().collect(Collectors.toCollection(LinkedList::new));
         }
-        return repack(temp, perpage);
+        return listen;
     }
 
     public static <T extends ASchwimmer> LinkedList<Zieleinlaufkarte> toZieleinlauf(AWettkampf<T>[] wks, int perpage,

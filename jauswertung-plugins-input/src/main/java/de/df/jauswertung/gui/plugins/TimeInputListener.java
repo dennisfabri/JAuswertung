@@ -70,6 +70,9 @@ class TimeInputListener implements BiFunction<String, String[], String> {
             consumer.updateTime();
             return newValue;
         }
+        if (isValidInt(newValue)) {
+            return newValue;
+        }
         String zeit = getInputField().getText();
         String charactersWithoutDigits = removeDigits(zeit);
         if (charactersWithoutDigits.length() == 1) {

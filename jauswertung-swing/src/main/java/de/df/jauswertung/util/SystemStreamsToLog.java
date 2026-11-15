@@ -17,11 +17,12 @@ import org.slf4j.LoggerFactory;
 public final class SystemStreamsToLog {
 
     private static final ThreadLocal<Boolean> LOGGING = ThreadLocal.withInitial(() -> false);
+    private static final StackWalker STACK = StackWalker.getInstance();
+    private static final String LOGBACK_PACKAGE = "ch.qos.logback.";
 
     private static boolean installed = false;
 
     private SystemStreamsToLog() {
-        // Hide
     }
 
     public static synchronized void install() {
@@ -37,9 +38,9 @@ public final class SystemStreamsToLog {
     }
 
     /**
-     * Returns a stream that reports each completed line to {@code sink}. Output produced while the sink is running (a
-     * console appender writing to the replaced stream) goes to {@code original} only, otherwise logging would call
-     * itself endlessly.
+     * Returns a stream that reports each completed line to {@code sink}. Output produced while the sink is running or
+     * by Logback itself (a console appender writing to the replaced stream) goes to {@code original} only, otherwise
+     * logging would call itself endlessly.
      */
     static PrintStream wrap(PrintStream original, Consumer<String> sink) {
         return new PrintStream(new LineSplittingStream(original, sink), true, original.charset());
@@ -60,10 +61,35 @@ public final class SystemStreamsToLog {
 
         @Override
         public void write(int b) {
-            if (LOGGING.get()) {
+            if (isLoggingSystemWriting()) {
                 original.write(b);
                 return;
             }
+            collect(b);
+        }
+
+        @Override
+        public void write(byte[] bytes, int off, int len) {
+            if (isLoggingSystemWriting()) {
+                original.write(bytes, off, len);
+                return;
+            }
+            for (int i = off; i < off + len; i++) {
+                collect(bytes[i]);
+            }
+        }
+
+        /**
+         * Logback's console appender looks up {@code System.out} on every write, so a line logged directly through a
+         * logger arrives here as well. Reporting it to the sink would log it a second time, and the appender drops
+         * that nested call, so the line would never reach the console.
+         */
+        private static boolean isLoggingSystemWriting() {
+            return LOGGING.get() || STACK.walk(
+                    frames -> frames.anyMatch(frame -> frame.getClassName().startsWith(LOGBACK_PACKAGE)));
+        }
+
+        private void collect(int b) {
             synchronized (line) {
                 if (b == '\n') {
                     flushLine();

@@ -50,18 +50,31 @@ public final class StartkartenPrintable extends AComponentMultiOnPagePrintable {
         this(new AWettkampf[]{wk}, mode, empty, allHeats, minHeat, maxHeat);
     }
 
+    @SuppressWarnings("unchecked")
     public StartkartenPrintable(AWettkampf<?>[] wks, PageMode mode, boolean empty, boolean allheats, int minheat,
                                 int maxheat) {
         super(mode);
         if (wks != null && wks.length > 0) {
-            @SuppressWarnings("unchecked")
-            LinkedList<Startkarte> sk = SchwimmerUtils.toStartkarten((AWettkampf[]) wks, getPagesPerPage(), empty,
-                                                                     allheats, minheat, maxheat);
-            if (!sk.isEmpty()) {
-                startkarten = sk.toArray(new Startkarte[sk.size()]);
-            } else {
-                startkarten = new Startkarte[0];
-            }
+            setStartkarten(SchwimmerUtils.toStartkarten((AWettkampf[]) wks, getPagesPerPage(), empty, allheats, minheat,
+                                                        maxheat));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public StartkartenPrintable(AWettkampf<?>[] wks, PageMode mode, boolean empty, boolean allheats, int minheat,
+                                int maxheat, int bahn) {
+        super(mode);
+        if (wks != null && wks.length > 0) {
+            setStartkarten(SchwimmerUtils.toStartkarten((AWettkampf[]) wks, getPagesPerPage(), empty, allheats, minheat,
+                                                        maxheat, bahn));
+        }
+    }
+
+    private void setStartkarten(LinkedList<Startkarte> sk) {
+        if (sk != null && !sk.isEmpty()) {
+            startkarten = sk.toArray(new Startkarte[0]);
+        } else {
+            startkarten = new Startkarte[0];
         }
     }
 

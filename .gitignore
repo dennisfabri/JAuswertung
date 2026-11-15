@@ -47,3 +47,5 @@ jauswertung-io/src/test/resources/competitions/dem24/?.xls
 jauswertung-misc/*.json
 
 bug.wk
+
+.codex/

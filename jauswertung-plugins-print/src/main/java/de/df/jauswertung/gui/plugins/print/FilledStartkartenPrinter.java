@@ -19,7 +19,7 @@ import de.df.jutils.print.PageMode;
 class FilledStartkartenPrinter extends AFilledKartenPrinter {
 
     public FilledStartkartenPrinter(IPluginManager window, CorePlugin plugin) {
-        super(window, plugin, I18n.get("Startkarten"));
+        super(window, plugin, I18n.get("Startkarten"), true);
     }
 
     @Override
@@ -30,7 +30,10 @@ class FilledStartkartenPrinter extends AFilledKartenPrinter {
     @SuppressWarnings("rawtypes")
     @Override
     protected Printable getPrintable(AWettkampf[] wk, PageMode mode, boolean printEmptyCards, boolean allheats,
-            int minheat, int maxheat) {
-        return new StartkartenPrintable(wk, mode, printEmptyCards, allheats, minheat, maxheat);
+            int minheat, int maxheat, int bahn) {
+        if (bahn == ALLE_BAHNEN) {
+            return new StartkartenPrintable(wk, mode, printEmptyCards, allheats, minheat, maxheat);
+        }
+        return new StartkartenPrintable(wk, mode, printEmptyCards, allheats, minheat, maxheat, bahn);
     }
 }
