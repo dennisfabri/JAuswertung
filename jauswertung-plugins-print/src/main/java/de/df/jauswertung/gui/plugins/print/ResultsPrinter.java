@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.util.function.UnaryOperator;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -223,7 +223,7 @@ class ResultsPrinter implements Printer {
             UnaryOperator<Printable> unterschrift) {
         AWettkampf<T> wk = getWettkampf();
 
-        LinkedList<Printable> ps = null;
+        List<Printable> ps = null;
         if (disciplineIndex == disciplineCount - 1) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {

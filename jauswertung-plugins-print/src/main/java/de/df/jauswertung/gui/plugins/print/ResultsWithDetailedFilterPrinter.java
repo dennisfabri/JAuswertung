@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.print.Printable;
 import java.util.function.UnaryOperator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -193,7 +194,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
             AgegroupResultSelection[] selection, UnaryOperator<Printable> unterschrift) {
         AWettkampf<T> wk = ResultSelectionUtils.getResultWettkampf(base, selection);
 
-        LinkedList<T> remove = new LinkedList<>();
+        List<T> remove = new LinkedList<>();
         for (int x = 0; x < selected.length; x++) {
             for (int y = 0; y < selected[x].length; y++) {
                 if (!selected[x][y]) {
@@ -204,7 +205,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         wk.removeSchwimmer(remove);
 
         boolean complete = ResultSelectionUtils.IsCompleteSelection(wk, selection) && wk.isCompetitionComplete();
-        LinkedList<Printable> ps = null;
+        List<Printable> ps = null;
         if (complete) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
