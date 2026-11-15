@@ -178,6 +178,7 @@ class JTimeEditor extends JDialog {
 
         pack();
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(controller.getWindow(), this, "JTimeEditor");
         pack();
     }

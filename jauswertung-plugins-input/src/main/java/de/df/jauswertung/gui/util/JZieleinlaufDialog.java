@@ -121,6 +121,7 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         UIStateUtils.uistatemanage(parent, this, "Zieleinlauf");
         setSize(width, height);
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
     }
 
     @Override

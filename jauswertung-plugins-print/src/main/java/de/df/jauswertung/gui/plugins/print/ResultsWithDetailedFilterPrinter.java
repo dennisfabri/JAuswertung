@@ -7,10 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.print.Printable;
+import java.util.function.UnaryOperator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -30,14 +31,11 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.print.UnterschriftPrintable;
 import de.df.jauswertung.util.SearchUtils;
-import de.df.jauswertung.util.Utils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.MultiplePrintable;
 
 /**
@@ -56,7 +54,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
     private JResultsSelectionButton diszipline = null;
     private JLabel warning = null;
     private JLabel filter = null;
-    private JCheckBox unterschrift = null;
+    private JUnterschriftAuswahl unterschrift = null;
 
     JSelectionDialog printDialog = null;
     JSelectionDialog previewDialog = null;
@@ -116,12 +114,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
             }
         });
 
-        unterschrift = new JCheckBox(I18n.get("Unterschrift"));
-        unterschrift.setSelected(Utils.getPreferences().getBoolean("ResultsWithSignature", false));
-        unterschrift.addActionListener(arg0 -> {
-            Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
-        });
-        unterschrift.setEnabled(false);
+        unterschrift = new JUnterschriftAuswahl("ResultsSignature", "ResultsWithSignature");
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -197,19 +190,11 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         return ResultSelectionUtils.getResultWettkampf(wk, diszipline.getSelection(wk));
     }
 
-    /**
-     * @param selected
-     */
-    <T extends ASchwimmer> Printable getPrintable(boolean[][] selected) {
-        AWettkampf<T> base = ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
-        return getPrintable(selected, base, diszipline.getSelection(base), unterschrift.isSelected());
-    }
-
     <T extends ASchwimmer> Printable getPrintable(boolean[][] selected, AWettkampf<T> base,
-            AgegroupResultSelection[] selection, boolean withSignature) {
+            AgegroupResultSelection[] selection, UnaryOperator<Printable> unterschrift) {
         AWettkampf<T> wk = ResultSelectionUtils.getResultWettkampf(base, selection);
 
-        LinkedList<T> remove = new LinkedList<>();
+        List<T> remove = new LinkedList<>();
         for (int x = 0; x < selected.length; x++) {
             for (int y = 0; y < selected[x].length; y++) {
                 if (!selected[x][y]) {
@@ -220,7 +205,7 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         wk.removeSchwimmer(remove);
 
         boolean complete = ResultSelectionUtils.IsCompleteSelection(wk, selection) && wk.isCompetitionComplete();
-        LinkedList<Printable> ps = null;
+        List<Printable> ps = null;
         if (complete) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
@@ -233,36 +218,24 @@ class ResultsWithDetailedFilterPrinter implements Printer {
         } else {
             p = new MultiplePrintable(ps);
         }
-        if (withSignature) {
-            p = new UnterschriftPrintable(p);
-        }
+        p = unterschrift.apply(p);
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), true, I18n.get("Results"));
     }
 
     <T extends ASchwimmer> void printResults(boolean[][] selection) {
         final AWettkampf<T> base = ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
         final AgegroupResultSelection[] resultSelection = diszipline.getSelection(base);
-        final boolean withSignature = unterschrift.isSelected();
-        PrintExecutor.print(() -> getPrintable(selection, base, resultSelection, withSignature), I18n.get("Results"),
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.print(() -> getPrintable(selection, base, resultSelection, mitUnterschrift), I18n.get("Results"),
                 true, controller.getWindow());
     }
 
-    private class PPrintableCreator implements PrintableCreator {
-
-        private boolean[][] selection;
-
-        public PPrintableCreator(boolean[][] selection) {
-            this.selection = selection;
-        }
-
-        @Override
-        public Printable create() {
-            return getPrintable(selection);
-        }
-    }
-
-    void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Results"),
+    <T extends ASchwimmer> void previewResults(boolean[][] selection) {
+        final AWettkampf<T> base = ResultSelectionUtils.getResultWettkampf(core.getFilteredWettkampf());
+        final AgegroupResultSelection[] resultSelection = diszipline.getSelection(base);
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.preview(controller.getWindow(),
+                () -> getPrintable(selection, base, resultSelection, mitUnterschrift), I18n.get("Results"),
                 IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 

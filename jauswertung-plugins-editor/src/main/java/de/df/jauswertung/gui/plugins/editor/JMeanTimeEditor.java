@@ -284,6 +284,7 @@ class JMeanTimeEditor extends JDialog {
 
         pack();
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(parent, this, "JMeanTimeEditor");
         pack();
 

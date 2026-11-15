@@ -29,6 +29,7 @@ import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
+import de.df.jutils.gui.util.WindowUtils;
 
 /**
  * @author Dennis Fabri
@@ -66,6 +67,8 @@ class JNeueKV extends JDialog {
         add(c, BorderLayout.CENTER);
 
         setResizable(false);
+
+        WindowUtils.packWhenOpened(this);
         pack();
         UIStateUtils.uistatemanage(parent, this, "NeueKampfrichtereinteilung");
         pack();

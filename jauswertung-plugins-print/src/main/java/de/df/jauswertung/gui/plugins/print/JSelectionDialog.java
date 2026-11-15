@@ -108,6 +108,7 @@ public class JSelectionDialog {
         }
         dialog = new JDialog(parent, title, true);
         dialog.setResizable(false);
+        WindowUtils.packWhenOpened(dialog);
 
         JButton all = new JButton(I18n.get("SelectAll"));
         all.addActionListener(new AllActionListener());

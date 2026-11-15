@@ -10,10 +10,10 @@ import static de.df.jauswertung.gui.UpdateEventConstants.REASON_FILTER_SELECTION
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
-import java.util.LinkedList;
+import java.util.function.UnaryOperator;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,13 +31,10 @@ import de.df.jauswertung.gui.util.I18n;
 import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.gui.util.WertungsgruppenPruefung;
 import de.df.jauswertung.print.PrintUtils;
-import de.df.jauswertung.print.UnterschriftPrintable;
-import de.df.jauswertung.util.Utils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.plugin.UpdateEvent;
 import de.df.jutils.print.PrintExecutor;
 import de.df.jutils.print.PrintManager;
-import de.df.jutils.print.api.PrintableCreator;
 import de.df.jutils.print.printables.MultiplePrintable;
 
 /**
@@ -56,7 +53,7 @@ class ResultsPrinter implements Printer {
     private JComboBox<String> discipline = null;
     private JLabel warning = null;
     private JLabel filter = null;
-    private JCheckBox unterschrift = null;
+    private JUnterschriftAuswahl unterschrift = null;
 
     private JSelectionDialog printDialog = null;
     private JSelectionDialog previewDialog = null;
@@ -110,12 +107,7 @@ class ResultsPrinter implements Printer {
             checkWarning(core.getFilteredWettkampf());
         });
 
-        unterschrift = new JCheckBox(I18n.get("Unterschrift"));
-        unterschrift.setSelected(Utils.getPreferences().getBoolean("ResultsWithSignature", false));
-        unterschrift.addActionListener(arg0 -> {
-            Utils.getPreferences().putBoolean("ResultsWithSignature", unterschrift.isSelected());
-        });
-        unterschrift.setEnabled(false);
+        unterschrift = new JUnterschriftAuswahl("ResultsSignature", "ResultsWithSignature");
 
         panel.add(filter, CC.xy(2, 2));
         panel.add(warning, CC.xy(4, 2));
@@ -227,19 +219,11 @@ class ResultsPrinter implements Printer {
         warning.setVisible(preview.isEnabled() && check);
     }
 
-    /**
-     * @param selected
-     */
-    Printable getPrintable(boolean[][] selected) {
-        return getPrintable(selected, discipline.getSelectedIndex(), discipline.getItemCount(),
-                unterschrift.isSelected());
-    }
-
     <T extends ASchwimmer> Printable getPrintable(boolean[][] selected, int disciplineIndex, int disciplineCount,
-            boolean withSignature) {
+            UnaryOperator<Printable> unterschrift) {
         AWettkampf<T> wk = getWettkampf();
 
-        LinkedList<Printable> ps = null;
+        List<Printable> ps = null;
         if (disciplineIndex == disciplineCount - 1) {
             ps = PrintUtils.getFullResultsPrintable(selected, wk, true, true, 0);
         } else {
@@ -277,36 +261,24 @@ class ResultsPrinter implements Printer {
         } else {
             p = new MultiplePrintable(ps);
         }
-        if (withSignature) {
-            p = new UnterschriftPrintable(p);
-        }
+        p = unterschrift.apply(p);
         return PrintManager.getFinalPrintable(p, wk.getLastChangedDate(), true, I18n.get("Results"));
     }
 
     void printResults(boolean[][] selection) {
         final int disciplineIndex = discipline.getSelectedIndex();
         final int disciplineCount = discipline.getItemCount();
-        final boolean withSignature = unterschrift.isSelected();
-        PrintExecutor.print(() -> getPrintable(selection, disciplineIndex, disciplineCount, withSignature),
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.print(() -> getPrintable(selection, disciplineIndex, disciplineCount, mitUnterschrift),
                 I18n.get("Results"), true, controller.getWindow());
     }
 
-    private class PPrintableCreator implements PrintableCreator {
-
-        private boolean[][] selection;
-
-        public PPrintableCreator(boolean[][] selection) {
-            this.selection = selection;
-        }
-
-        @Override
-        public Printable create() {
-            return getPrintable(selection);
-        }
-    }
-
     void previewResults(boolean[][] selection) {
-        PrintExecutor.preview(controller.getWindow(), new PPrintableCreator(selection), I18n.get("Results"),
+        final int disciplineIndex = discipline.getSelectedIndex();
+        final int disciplineCount = discipline.getItemCount();
+        final UnaryOperator<Printable> mitUnterschrift = unterschrift.getUnterschrift();
+        PrintExecutor.preview(controller.getWindow(),
+                () -> getPrintable(selection, disciplineIndex, disciplineCount, mitUnterschrift), I18n.get("Results"),
                 IconManager.getIconBundle(), IconManager.getTitleImages());
     }
 

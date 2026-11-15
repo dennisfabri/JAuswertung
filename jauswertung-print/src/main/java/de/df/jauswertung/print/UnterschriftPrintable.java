@@ -19,11 +19,19 @@ import de.df.jutils.print.printables.ExtendedHeaderFooterPrintable;
 public class UnterschriftPrintable extends ExtendedHeaderFooterPrintable {
 
     public UnterschriftPrintable(Printable p) {
-        super(p, null, getFooter(), SwingConstants.LEFT, SwingConstants.CENTER, PrintManager.getFont());
+        this(p, null);
+    }
+
+    public UnterschriftPrintable(Printable p, Aushangzeiten zeiten) {
+        super(p, null, getFooter(zeiten), SwingConstants.LEFT, SwingConstants.CENTER, PrintManager.getFont());
     }
 
     private static JLabel getLabel(String id) {
-        JLabel l = new JLabel(I18n.get(id));
+        return getTextLabel(I18n.get(id));
+    }
+
+    private static JLabel getTextLabel(String text) {
+        JLabel l = new JLabel(text);
         if (PrintManager.getFont() != null) {
             l.setFont(PrintManager.getFont());
         }
@@ -31,7 +39,7 @@ public class UnterschriftPrintable extends ExtendedHeaderFooterPrintable {
         return l;
     }
 
-    private static Component getFooter() {
+    private static Component getFooter(Aushangzeiten zeiten) {
         String layout = "0dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow,"
                 + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow,"
                 + "1dlu,fill:default,1dlu,0dlu:grow,0dlu,0dlu:grow," + "1dlu,fill:default,1dlu,0dlu:grow,"
@@ -49,6 +57,10 @@ public class UnterschriftPrintable extends ExtendedHeaderFooterPrintable {
         p.add(new JUnderline(), CC.xy(22, 2));
         p.add(getLabel("EndeDerEinspruchsfrist"), CC.xy(24, 2));
         p.add(new JUnderline(), CC.xy(26, 2));
+        if (zeiten != null) {
+            p.add(getTextLabel(zeiten.aushangText()), CC.xy(22, 2, "center,default"));
+            p.add(getTextLabel(zeiten.endeDerEinspruchsfristText()), CC.xy(26, 2, "center,default"));
+        }
 
         return p;
     }

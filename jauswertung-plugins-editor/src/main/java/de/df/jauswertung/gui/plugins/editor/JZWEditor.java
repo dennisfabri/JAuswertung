@@ -34,6 +34,7 @@ import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 import de.df.jutils.util.StringTools;
 
@@ -235,6 +236,7 @@ class JZWEditor extends JDialog {
 
         pack();
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(parent, this, getClass().toString());
         pack();
     }

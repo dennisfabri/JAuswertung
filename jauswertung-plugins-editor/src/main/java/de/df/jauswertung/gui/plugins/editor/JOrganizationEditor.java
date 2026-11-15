@@ -143,6 +143,7 @@ class JOrganizationEditor extends JDialog {
 
         pack();
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(controller.getWindow(), this, "JOrganizationEditor");
         pack();
     }
