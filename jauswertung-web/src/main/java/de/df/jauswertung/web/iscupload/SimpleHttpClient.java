@@ -17,7 +17,10 @@ public class SimpleHttpClient {
 
     private static Logger log = LoggerFactory.getLogger(SimpleHttpClient.class);
 
-    public boolean put(String url, String resultsAsCsv) throws IOException {
+    /**
+     * @return HTTP status code of the server's answer
+     */
+    public int put(String url, String resultsAsCsv) throws IOException {
         HttpPut putRequest = new HttpPut(url);
         putRequest.setEntity(new BasicHttpEntity(
                 new ByteArrayInputStream(resultsAsCsv.getBytes(StandardCharsets.UTF_8)), ContentType.TEXT_PLAIN));
@@ -25,11 +28,7 @@ public class SimpleHttpClient {
         try (CloseableHttpClient client = HttpClients.createDefault();
                 CloseableHttpResponse response = client.execute(putRequest)) {
             log.debug("Upload with response code {}: {}", response.getCode(), response.getReasonPhrase());
-            return isValid(response.getCode());
+            return response.getCode();
         }
-    }
-
-    private boolean isValid(int returnCode) {
-        return 200 <= returnCode && returnCode < 300;
     }
 }

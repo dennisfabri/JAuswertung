@@ -6,6 +6,9 @@ import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 import de.df.jauswertung.timesextractor.TimesExtractor;
 import de.df.jauswertung.timesextractor.model.JAuswertungCompetition;
+import de.df.jauswertung.web.uploadstatus.UploadFailure;
+import de.df.jauswertung.web.uploadstatus.UploadHistory;
+import de.df.jauswertung.web.uploadstatus.UploadStatus;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -20,6 +23,7 @@ public class TimesUploader {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(TimesUploader.class);
 
     private final String serverUrl;
+    private final UploadHistory history = new UploadHistory();
 
     private boolean active = false;
 
@@ -46,17 +50,38 @@ public class TimesUploader {
         if (!active) {
             return;
         }
+        String body;
         try {
-            String body = toJson(results);
-            if (hasChanges(uploadId, index, body)) {
-                uploadJson(uploadId, index, body);
-                markAsUploaded(uploadId, index, body);
-            }
+            body = toJson(results);
         } catch (JsonProcessingException e) {
             log.error("Error converting results to JSON: {}", e.getMessage(), e);
+            history.recordFailure(UploadFailure.preparation());
+            return;
+        }
+        if (hasChanges(uploadId, index, body)) {
+            upload(uploadId, index, body);
+        }
+    }
+
+    private void upload(String uploadId, int index, String body) {
+        int statusCode;
+        try {
+            statusCode = uploadJson(uploadId, index, body);
         } catch (IOException ex) {
             log.error("Error uploading results to web: {}", ex.getMessage(), ex);
+            history.recordFailure(UploadFailure.connection());
+            return;
+        } catch (InterruptedException ix) {
+            Thread.currentThread().interrupt();
+            return;
         }
+        if (isErrorCode(statusCode)) {
+            log.error("Error uploading results to web. Response code: {}", statusCode);
+            history.recordFailure(UploadFailure.httpStatus(statusCode));
+            return;
+        }
+        markAsUploaded(uploadId, index, body);
+        history.recordSuccess();
     }
 
     private void markAsUploaded(String uploadId, int index, String json) {
@@ -73,23 +98,17 @@ public class TimesUploader {
         return true;
     }
 
-    private void uploadJson(String uploadId, int index, String body) throws IOException {
-        try {
-            log.info("Uploading results to web.");
-            String url = String.join("/", serverUrl, "rest", "result", "import", "jauswertung", uploadId, "" + index);
-            log.debug("Uploading results to URL: {}", url);
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json").PUT(
-                    HttpRequest.BodyPublishers.ofString(body)).build();
-            try (HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).followRedirects(HttpClient.Redirect.NORMAL).connectTimeout(
-                    Duration.ofSeconds(20)).build()) {
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                log.info("Upload response with code {}:\n {}", response.statusCode(), response.body());
-                if (isErrorCode(response.statusCode())) {
-                    throw new IOException("Error uploading results to web. Response code: " + response.statusCode() + ", body: " + response.body());
-                }
-            }
-        } catch (InterruptedException ix) {
-            Thread.currentThread().interrupt();
+    private int uploadJson(String uploadId, int index, String body) throws IOException, InterruptedException {
+        log.info("Uploading results to web.");
+        String url = String.join("/", serverUrl, "rest", "result", "import", "jauswertung", uploadId, "" + index);
+        log.debug("Uploading results to URL: {}", url);
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json").PUT(
+                HttpRequest.BodyPublishers.ofString(body)).build();
+        try (HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).followRedirects(HttpClient.Redirect.NORMAL).connectTimeout(
+                Duration.ofSeconds(20)).build()) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            log.info("Upload response with code {}:\n {}", response.statusCode(), response.body());
+            return response.statusCode();
         }
     }
 
@@ -126,5 +145,10 @@ public class TimesUploader {
 
     public void setActive(boolean active) {
         this.active = active;
+        history.clear();
+    }
+
+    public UploadStatus getUploadStatus() {
+        return history.getStatus();
     }
 }
