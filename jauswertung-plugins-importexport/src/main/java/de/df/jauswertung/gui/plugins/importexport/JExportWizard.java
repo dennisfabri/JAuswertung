@@ -44,6 +44,7 @@ import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.InfiniteProgressUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -107,6 +108,8 @@ class JExportWizard extends JWizardFrame implements FinishListener, CancelListen
         pack();
 
         setResizable(false);
+
+        WindowUtils.packWhenOpened(this);
     }
 
     /**

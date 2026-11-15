@@ -23,6 +23,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jutils.gui.layout.FormLayoutUtils;
 import de.df.jutils.gui.util.DialogUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 
 public final class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
@@ -33,6 +34,7 @@ public final class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
     private JRemoveZulassung(JFrame parent, IPluginManager controller, AWettkampf<T> wk, int[] quali) {
         super(parent, I18n.get("Zulassung"), true);
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
 
         this.controller = controller;
         this.wk = wk;

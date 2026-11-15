@@ -6,8 +6,6 @@ package de.df.jauswertung.gui.plugins.print;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -110,14 +108,7 @@ public class JSelectionDialog {
         }
         dialog = new JDialog(parent, title, true);
         dialog.setResizable(false);
-        dialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-                // The window manager reports the real frame insets only after the window is shown; until then
-                // pack() uses guessed insets and the frame of the non-resizable dialog cuts off the bottom row.
-                dialog.pack();
-            }
-        });
+        WindowUtils.packWhenOpened(dialog);
 
         JButton all = new JButton(I18n.get("SelectAll"));
         all.addActionListener(new AllActionListener());

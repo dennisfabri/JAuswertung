@@ -32,6 +32,7 @@ import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.plugin.IPluginManager;
 
 class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
@@ -246,6 +247,7 @@ class JPenaltyPointsAdditor<T extends ASchwimmer> extends JDialog {
 
         pack();
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(controller.getWindow(), this, "JPenaltyPointsAdditor");
         pack();
     }

@@ -43,6 +43,7 @@ import de.df.jauswertung.util.format.StartnumberFormatManager;
 import de.df.jutils.gui.JIntegerField;
 import de.df.jutils.gui.util.EDTUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.gui.wizard.AWizardPage;
 import de.df.jutils.gui.wizard.CancelListener;
 import de.df.jutils.gui.wizard.FinishListener;
@@ -197,6 +198,7 @@ class JPenaltyWizard implements FinishListener, CancelListener {
         wizard.addListener(this);
         window.pack();
         window.setResizable(false);
+        WindowUtils.packWhenOpened(window);
         UIStateUtils.uistatemanage(c.getWindow(), window, "PenaltyWizard");
         window.pack();
         window.setResizable(false);

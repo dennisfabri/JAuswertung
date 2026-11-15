@@ -79,6 +79,7 @@ public class JNeuerWettkampf extends JDialog {
         c.add(staffel, CC.xyw(2, 6, 2));
         c.add(cancel, CC.xy(3, 8));
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         pack();
         WindowUtils.center(this, parent);
         UIStateUtils.uistatemanage(this, "JNeuerWettkampf");

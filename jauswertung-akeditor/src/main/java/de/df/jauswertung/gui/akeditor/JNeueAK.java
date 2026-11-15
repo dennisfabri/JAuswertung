@@ -26,6 +26,7 @@ import de.df.jauswertung.gui.util.IconManager;
 import de.df.jauswertung.io.AgeGroupIOUtils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.UIStateUtils;
+import de.df.jutils.gui.util.WindowUtils;
 
 /**
  * @author Dennis Fabri
@@ -58,6 +59,7 @@ public class JNeueAK extends JDialog {
         add(staffel, CC.xywh(2, 4, 2, 1));
         add(cancel, CC.xy(3, 6));
         setResizable(false);
+        WindowUtils.packWhenOpened(this);
         UIStateUtils.uistatemanage(this, JNeueAK.class.getName());
         pack();
 

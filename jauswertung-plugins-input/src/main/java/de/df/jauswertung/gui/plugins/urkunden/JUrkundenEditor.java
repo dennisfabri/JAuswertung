@@ -173,6 +173,7 @@ public class JUrkundenEditor<T extends ASchwimmer> extends JFrame {
         UIStateUtils.uistatemanage(help, "JUrkundenEditor.Help");
         help.pack();
         help.setResizable(false);
+        WindowUtils.packWhenOpened(help);
     }
 
     private void initPopup() {

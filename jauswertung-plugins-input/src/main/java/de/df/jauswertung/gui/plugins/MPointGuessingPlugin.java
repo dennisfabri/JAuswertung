@@ -185,6 +185,8 @@ public class MPointGuessingPlugin extends ANullPlugin {
 
             setResizable(false);
 
+            WindowUtils.packWhenOpened(this);
+
             WindowUtils.addEscapeAction(this);
             WindowUtils.addEnterAction(this);
 
