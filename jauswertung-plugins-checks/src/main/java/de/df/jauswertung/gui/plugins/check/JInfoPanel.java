@@ -443,11 +443,11 @@ public class JInfoPanel extends JGlassPanel<JPanel> {
     private static Icon getIcon(boolean isError, boolean state) {
         if (!state) {
             if (isError) {
-                return IconManager.getSmallIcon("cancel");
+                return IconManager.getSmallIcon("statuserror");
             }
             return IconManager.getSmallIcon("warn");
         }
-        return IconManager.getSmallIcon("ok");
+        return IconManager.getSmallIcon("statusok");
     }
 
     synchronized void updateGUI() {

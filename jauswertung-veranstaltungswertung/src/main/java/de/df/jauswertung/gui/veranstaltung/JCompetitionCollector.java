@@ -180,7 +180,7 @@ class JCompetitionCollector extends JPanel {
                 }
             }
             file.setText(fn);
-            image.setIcon(cc.exists() ? IconManager.getBigIcon("ok") : IconManager.getBigIcon("warn"));
+            image.setIcon(cc.exists() ? IconManager.getBigIcon("statusok") : IconManager.getBigIcon("warn"));
             return panel;
         }
     }
