@@ -6,7 +6,12 @@ import org.slf4j.LoggerFactory;
 import de.df.jauswertung.daten.AWettkampf;
 import de.df.jauswertung.daten.PropertyConstants;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import de.df.jauswertung.web.uploadstatus.UploadFailure;
+import de.df.jauswertung.web.uploadstatus.UploadHistory;
+import de.df.jauswertung.web.uploadstatus.UploadStatus;
 
 public class ResultUploader {
 
@@ -17,6 +22,7 @@ public class ResultUploader {
     private final ISCUploadCredentialRepository authKeys;
     private final IExporter exporter;
     private final SimpleHttpClient httpClient;
+    private final UploadHistory history = new UploadHistory();
 
     private String lastUpload = "";
 
@@ -85,13 +91,34 @@ public class ResultUploader {
                 isDirty = false;
                 return;
             }
-            if (httpClient.put(url, resultsAsCsv)) {
-                lastUpload = resultsAsCsv;
-                isDirty = false;
-            }
+            upload(url, resultsAsCsv);
         } catch (Exception ex) {
             log.warn("Upload to ISC failed.", ex);
+            history.recordFailure(UploadFailure.preparation());
         }
+    }
+
+    private void upload(String url, String resultsAsCsv) {
+        int statusCode;
+        try {
+            statusCode = httpClient.put(url, resultsAsCsv);
+        } catch (IOException ex) {
+            log.warn("Upload to ISC failed.", ex);
+            history.recordFailure(UploadFailure.connection());
+            return;
+        }
+        if (statusCode < 200 || statusCode >= 300) {
+            log.warn("Upload to ISC rejected with response code {}.", statusCode);
+            history.recordFailure(UploadFailure.httpStatus(statusCode));
+            return;
+        }
+        lastUpload = resultsAsCsv;
+        isDirty = false;
+        history.recordSuccess();
+    }
+
+    public UploadStatus getUploadStatus() {
+        return history.getStatus();
     }
 
     public void setDirtyFlag() {
@@ -100,5 +127,6 @@ public class ResultUploader {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
+        history.clear();
     }
 }
