@@ -36,8 +36,8 @@ import de.df.jauswertung.io.InputManager;
 import de.df.jauswertung.util.Utils;
 import de.df.jutils.gui.border.BorderUtils;
 import de.df.jutils.gui.util.DialogUtils;
-import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.UIUtils;
+import de.df.jutils.gui.util.UIStateUtils;
 import de.df.jutils.gui.util.WindowUtils;
 
 /**
@@ -81,9 +81,7 @@ public class JNeuerWettkampf extends JDialog {
         setResizable(false);
         WindowUtils.packWhenOpened(this);
         pack();
-        WindowUtils.center(this, parent);
-        UIStateUtils.uistatemanage(this, "JNeuerWettkampf");
-        pack();
+        UIStateUtils.managePosition(parent, this, "JNeuerWettkampf");
 
         addActions();
     }

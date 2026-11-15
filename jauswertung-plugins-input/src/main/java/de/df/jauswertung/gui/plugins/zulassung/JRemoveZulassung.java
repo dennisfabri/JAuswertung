@@ -45,8 +45,7 @@ public final class JRemoveZulassung<T extends ASchwimmer> extends JDialog {
         add(getButtons(quali[2] + quali[5] + quali[6] > 0), CC.xy(2, 4));
 
         pack();
-        UIStateUtils.uistatemanage(parent, this, "JRemoveZulassung");
-        pack();
+        UIStateUtils.managePosition(parent, this, "JRemoveZulassung");
     }
 
     private JCheckBox notQualified = new JCheckBox("", true);

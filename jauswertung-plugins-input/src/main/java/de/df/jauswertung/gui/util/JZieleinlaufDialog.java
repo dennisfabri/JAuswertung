@@ -116,11 +116,8 @@ public class JZieleinlaufDialog<T extends ASchwimmer> extends JDialog {
         WindowUtils.addEscapeAction(this, new WindowUtils.CloseRunnable(this));
 
         pack();
-        int width = getWidth();
-        int height = getHeight();
-        UIStateUtils.uistatemanage(parent, this, "Zieleinlauf");
-        setSize(width, height);
         setResizable(false);
+        UIStateUtils.managePosition(parent, this, "Zieleinlauf");
         WindowUtils.packWhenOpened(this);
     }
 

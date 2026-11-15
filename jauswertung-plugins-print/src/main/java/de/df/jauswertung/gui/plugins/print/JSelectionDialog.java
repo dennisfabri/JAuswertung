@@ -243,9 +243,7 @@ public class JSelectionDialog {
             refreshDialog();
             dialog.pack();
             if (firstTime) {
-                UIStateUtils.uistatemanage(parent, dialog, JSelectionDialog.class.getName());
-                dialog.pack();
-
+                UIStateUtils.managePosition(parent, dialog, JSelectionDialog.class.getName());
                 firstTime = false;
             }
         }

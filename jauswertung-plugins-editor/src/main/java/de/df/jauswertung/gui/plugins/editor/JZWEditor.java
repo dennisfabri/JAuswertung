@@ -237,7 +237,6 @@ class JZWEditor extends JDialog {
         pack();
         setResizable(false);
         WindowUtils.packWhenOpened(this);
-        UIStateUtils.uistatemanage(parent, this, getClass().toString());
-        pack();
+        UIStateUtils.managePosition(parent, this, getClass().toString());
     }
 }

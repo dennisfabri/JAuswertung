@@ -60,8 +60,8 @@ public class JNeueAK extends JDialog {
         add(cancel, CC.xy(3, 6));
         setResizable(false);
         WindowUtils.packWhenOpened(this);
-        UIStateUtils.uistatemanage(this, JNeueAK.class.getName());
         pack();
+        UIStateUtils.managePosition(parent, this, JNeueAK.class.getName());
 
         addActions();
     }
