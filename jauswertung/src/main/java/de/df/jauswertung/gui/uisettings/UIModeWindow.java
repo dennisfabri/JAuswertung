@@ -1,6 +1,5 @@
 package de.df.jauswertung.gui.uisettings;
 
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.forms.factories.CC;
@@ -78,7 +78,7 @@ public class UIModeWindow extends JFrame {
                 "Java kann verschiedene Schnittstellen zur Anzeige der Benutzeroberfläche nutzen. Auf einzelnen Systemen kann die Standardeinstellung zu Darstellugsfehlern führen.");
         header.setBorder(new EmptyBorder(10, 10, 10, 10));
         header.setOpaque(true);
-        header.setBackground(Color.WHITE);
+        header.setBackground(UIManager.getColor("List.background"));
         add(header, CC.xyw(1, 2, 9));
         add(createText("Java nutzt die favorisierte Schnittstelle des Betriebsystems.", true), CC.xyw(2, 6, 7));
         add(createText("Java nutzt die Hardwarebeschleunigung einer Grafikkarte über OpenGL", true), CC.xyw(2, 10, 7));
