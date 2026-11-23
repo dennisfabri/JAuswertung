@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -61,6 +62,7 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
     private static final boolean DSM = BetaFeature.DSM.isEnabled();
 
     private final AWettkampf<T> wk;
+    private final CorePlugin core;
     private final IFeature origin;
 
     private final NumberPage numbers;
@@ -74,14 +76,19 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
     private final JFrame parent;
 
     public JNewHeatsWizard(JFrame parent, IFeature origin, CorePlugin core) {
-        this(parent, origin, core.getWettkampf(), false);
+        this(parent, origin, core.getWettkampf(), false, core);
     }
 
     public JNewHeatsWizard(JFrame parent, IFeature origin, AWettkampf<T> wk, boolean reducedMode) {
+        this(parent, origin, wk, reducedMode, null);
+    }
+
+    private JNewHeatsWizard(JFrame parent, IFeature origin, AWettkampf<T> wk, boolean reducedMode, CorePlugin core) {
         super(parent, I18n.get("GenerateNewHeats"), WizardUIElementsProvider.getInstance(), false);
         this.origin = origin;
         this.parent = parent;
         this.wk = wk;
+        this.core = core;
 
         numbers = new NumberPage(reducedMode);
         type = new TypePage();
@@ -1009,61 +1016,62 @@ public final class JNewHeatsWizard<T extends ASchwimmer> extends JWizardDialog
 
     @Override
     public void finish() {
+        var freigabe = core == null ? null : core.getWettkampfZugriff().versuchen();
+        if (core != null && freigabe == null) {
+            DialogUtils.warn(this, I18n.get("GenerateNewHeats"), I18n.get("WettkampfBeschaeftigt"));
+            return;
+        }
         EDTUtils.setEnabled(this, false);
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        EDTUtils.executeOnEDT(this::finishHeats);
-        SwingWorker<Boolean, Object> sw = new SwingWorker<>() {
-            @Override
-            protected Boolean doInBackground() {
-                try {
-                    long eventtype = 0;
-                    switch (aksort.getSelection()) {
-                        case AKSortPage.BLOCKS: {
-                            boolean reordered = wk.getLaufliste().erzeugen(aksort.getBlocks());
-                            eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                    | (reordered
-                                    ? UpdateEventConstants.REASON_AKS_CHANGED
-                                      | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED
-                                      | UpdateEventConstants.REASON_PENALTY
-                                      | UpdateEventConstants.REASON_POINTS_CHANGED
-                                      | UpdateEventConstants.REASON_SWIMMER_CHANGED
-                                    : UpdateEventConstants.NOTHING);
-                            break;
-                        }
-                        case AKSortPage.DETAILED: {
-                            boolean reordered = wk.getLaufliste().erzeugen(aksort.getReihenfolge());
-                            eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED
-                                    | (reordered
-                                    ? UpdateEventConstants.REASON_AKS_CHANGED
-                                      | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED
-                                      | UpdateEventConstants.REASON_PENALTY
-                                      | UpdateEventConstants.REASON_POINTS_CHANGED
-                                      | UpdateEventConstants.REASON_SWIMMER_CHANGED
-                                    : UpdateEventConstants.NOTHING);
-                            break;
-                        }
-                        default: {
-                            wk.getLaufliste().erzeugen();
-                            eventtype = UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
-                            break;
-                        }
+        try {
+            finishHeats();
+            int modus = aksort.getSelection();
+            var bloecke = modus == AKSortPage.BLOCKS ? aksort.getBlocks() : null;
+            var reihenfolge = modus == AKSortPage.DETAILED ? aksort.getReihenfolge() : null;
+            SwingWorker<Long, Void> sw = new SwingWorker<>() {
+                @Override
+                protected Long doInBackground() {
+                    boolean reordered = switch (modus) {
+                    case AKSortPage.BLOCKS -> wk.getLaufliste().erzeugen(bloecke);
+                    case AKSortPage.DETAILED -> wk.getLaufliste().erzeugen(reihenfolge);
+                    default -> {
+                        wk.getLaufliste().erzeugen();
+                        yield false;
                     }
-                    origin.sendDataUpdateEvent("NewHeatlist", eventtype);
-                } catch (Exception e) {
-                    logger.warn("Error while finishing heats", e);
+                    };
+                    return UpdateEventConstants.REASON_LAUF_LIST_CHANGED | (reordered
+                            ? UpdateEventConstants.REASON_AKS_CHANGED | UpdateEventConstants.REASON_MELDEZEITEN_CHANGED
+                                    | UpdateEventConstants.REASON_PENALTY | UpdateEventConstants.REASON_POINTS_CHANGED
+                                    | UpdateEventConstants.REASON_SWIMMER_CHANGED
+                            : UpdateEventConstants.NOTHING);
                 }
-                return null;
-            }
 
-            @Override
-            protected void done() {
-                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                EDTUtils.setEnabled(JNewHeatsWizard.this, true);
-                setVisible(false);
+                @Override
+                protected void done() {
+                    try (freigabe) {
+                        origin.sendDataUpdateEvent("NewHeatlist", get());
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                        logger.warn("Error while finishing heats", ex);
+                    } catch (ExecutionException ex) {
+                        logger.warn("Error while finishing heats", ex.getCause());
+                    } finally {
+                        setCursor(Cursor.getDefaultCursor());
+                        EDTUtils.setEnabled(JNewHeatsWizard.this, true);
+                        setVisible(false);
+                    }
+                }
+            };
+            sw.execute();
+        } catch (RuntimeException | Error ex) {
+            if (freigabe != null) {
+                freigabe.close();
             }
-        };
-        sw.execute();
+            setCursor(Cursor.getDefaultCursor());
+            EDTUtils.setEnabled(this, true);
+            throw ex;
+        }
     }
 
     void finishHeats() {

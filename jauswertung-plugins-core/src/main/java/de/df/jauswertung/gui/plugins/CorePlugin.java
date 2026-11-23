@@ -44,6 +44,11 @@ public class CorePlugin extends AFeature implements FileCore {
     private AWettkampf wk;
     private String name;
     private Filemode mode = Filemode.Competition;
+    private final WettkampfZugriff wettkampfZugriff = new WettkampfZugriff();
+
+    public WettkampfZugriff getWettkampfZugriff() {
+        return wettkampfZugriff;
+    }
 
     public CorePlugin() {
         if (Utils.getPreferences().getBoolean("SingleCompetition", false)) {
