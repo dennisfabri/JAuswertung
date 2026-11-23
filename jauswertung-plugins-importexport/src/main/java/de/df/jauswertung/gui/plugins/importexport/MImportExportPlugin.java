@@ -31,8 +31,9 @@ public class MImportExportPlugin extends ANullPlugin {
 
     CorePlugin core = null;
     BugreportPlugin bugreport = null;
-    long click = System.currentTimeMillis();
-    boolean run = true;
+    volatile long click = System.currentTimeMillis();
+    volatile boolean run = true;
+    private volatile boolean automaticSaveEnabled;
 
     JMenuItem[] menu = null;
 
@@ -109,15 +110,17 @@ public class MImportExportPlugin extends ANullPlugin {
         });
         menu[2] = new JCheckBoxMenuItem(ITEM_AUTO);
         menu[2].addActionListener(arg0 -> {
-            Utils.getPreferences().putBoolean("AutomaticSave", menu[2].isSelected());
+            automaticSaveEnabled = menu[2].isSelected();
+            Utils.getPreferences().putBoolean("AutomaticSave", automaticSaveEnabled);
             click = System.currentTimeMillis();
         });
-        menu[2].setSelected(Utils.getPreferences().getBoolean("AutomaticSave", true));
+        automaticSaveEnabled = Utils.getPreferences().getBoolean("AutomaticSave", true);
+        menu[2].setSelected(automaticSaveEnabled);
         click = System.currentTimeMillis();
     }
 
     synchronized void autosave() {
-        if (menu[2].isSelected()) {
+        if (automaticSaveEnabled) {
             String name = core.getFilename();
             if (name == null) {
                 return;
@@ -163,11 +166,15 @@ public class MImportExportPlugin extends ANullPlugin {
         @Override
         public void run() {
             while (true) {
-                synchronized (core.getWettkampf()) {
-                    if (!run) {
-                        return;
+                if (!run) {
+                    return;
+                }
+                try (var freigabe = core.getWettkampfZugriff().versuchen()) {
+                    if (freigabe != null && run) {
+                        synchronized (core.getWettkampf()) {
+                            autosave();
+                        }
                     }
-                    autosave();
                 }
                 long time = System.currentTimeMillis();
                 while ((time < click + delay) && run) {

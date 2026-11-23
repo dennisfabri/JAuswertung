@@ -144,23 +144,48 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
 
     @Override
     public void finish() {
+        if (results == null) {
+            return;
+        }
+        var freigabe = core.getWettkampfZugriff().versuchen();
+        if (freigabe == null) {
+            DialogUtils.warn(this, I18n.get("ImportFailed"), I18n.get("WettkampfBeschaeftigt"));
+            return;
+        }
+        ImportExportTypes auswahl = getSelectedImportType();
+        AWettkampf<?> wettkampf = core.getWettkampf();
+        Object eingabe;
+        try {
+            eingabe = selection.updateResult(results);
+        } catch (RuntimeException | Error ex) {
+            freigabe.close();
+            throw ex;
+        }
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         EDTUtils.setEnabled(this, false);
 
-        SwingWorker<Boolean, Object> sw = new SwingWorker<>() {
+        SwingWorker<Object, Object> sw = new SwingWorker<>() {
 
             @Override
-            protected Boolean doInBackground() {
-                return finishImport();
+            protected Object doInBackground() {
+                return ImportManager.finishImport(auswahl, wettkampf, eingabe, new SystemOutFeedback());
             }
 
             @Override
             protected void done() {
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 boolean success = false;
-                try {
-                    success = get();
-                } catch (InterruptedException | ExecutionException e) {
+                try (freigabe) {
+                    Object data = get();
+                    results = null;
+                    if (data != null) {
+                        importAnzeigen(auswahl, data);
+                        success = true;
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.warn("Problem while finishing import", e);
+                } catch (ExecutionException e) {
                     log.warn("Problem while finishing import", e);
                 }
                 if (success) {
@@ -172,59 +197,33 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
                 }
             }
         };
-        sw.execute();
+        try {
+            sw.execute();
+        } catch (RuntimeException | Error ex) {
+            freigabe.close();
+            setCursor(Cursor.getDefaultCursor());
+            EDTUtils.setEnabled(this, true);
+            throw ex;
+        }
     }
 
-    @SuppressWarnings({"rawtypes"})
-    boolean finishImport() {
-        Object data = null;
-        if (results != null) {
-            ImportExportTypes selectedExportType = getSelectedImportType();
-            data = ImportManager.finishImport(selectedExportType,
-                                              core.getWettkampf(), selection.updateResult(results),
-                                              new SystemOutFeedback());
-            results = null;
-            if (data != null) {
-                switch (selectedExportType) {
-                    case REGISTRATION:
-                        controller.sendDataUpdateEvent("Import",
-                                                       UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED, data,
-                                                       null, null);
-                        break;
-                    case REGISTRATION_UPDATE:
-                    case STARTERS, TEAM_MEMBERS:
-                        controller.sendDataUpdateEvent("Import",
-                                                       UpdateEventConstants.REASON_SWIMMER_CHANGED, data,
-                                                       null, null);
-                        break;
-                    case HEAT_LIST:
-                        core.setWettkampf((AWettkampf) data, false, "Import");
-                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_LAUF_LIST_CHANGED, data, null,
-                                                       null);
-                        break;
-                    case HEAT_TIMES:
-                    case RESULTS:
-                        core.setWettkampf((AWettkampf) data, false, "Import");
-                        controller.sendDataUpdateEvent("Import",
-                                                       UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY, data,
-                                                       null, null);
-                        break;
-                    case REFEREES:
-                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_REFEREES_CHANGED, data, null,
-                                                       null);
-                        break;
-                    case ZW_RESULTS:
-                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_POINTS_CHANGED, data, null,
-                                                       null);
-                        break;
-                    default:
-                        controller.sendDataUpdateEvent("Import", UpdateEventConstants.REASON_EVERYTHING_CHANGED, data, null,
-                                                       null);
-                        break;
-                }
-            }
+    private void importAnzeigen(ImportExportTypes selectedExportType, Object data) {
+        long grund = switch (selectedExportType) {
+        case REGISTRATION -> UpdateEventConstants.REASON_NEW_TN | UpdateEventConstants.REASON_GLIEDERUNG_CHANGED;
+        case REGISTRATION_UPDATE, STARTERS, TEAM_MEMBERS -> UpdateEventConstants.REASON_SWIMMER_CHANGED;
+        case HEAT_LIST -> {
+            core.setWettkampf((AWettkampf<?>) data, false, "Import");
+            yield UpdateEventConstants.REASON_LAUF_LIST_CHANGED;
         }
-        return (data != null);
+        case HEAT_TIMES, RESULTS -> {
+            core.setWettkampf((AWettkampf<?>) data, false, "Import");
+            yield UpdateEventConstants.REASON_POINTS_CHANGED | UpdateEventConstants.REASON_PENALTY;
+        }
+        case REFEREES -> UpdateEventConstants.REASON_REFEREES_CHANGED;
+        case ZW_RESULTS -> UpdateEventConstants.REASON_POINTS_CHANGED;
+        default -> UpdateEventConstants.REASON_EVERYTHING_CHANGED;
+        };
+        controller.sendDataUpdateEvent("Import", grund, data, null, null);
     }
 
     private class JTypeChooser extends WizardOptionPage {
@@ -501,9 +500,47 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             }
 
             text.setText("");
+            String dateien = file.getText().trim();
+            if (dateien.isEmpty()) {
+                return;
+            }
+            var freigabe = core.getWettkampfZugriff().versuchen();
+            if (freigabe == null) {
+                insertText(I18n.get("WettkampfBeschaeftigt"));
+                return;
+            }
+            AWettkampf<?> wk = core.getWettkampf();
+            var importtyp = getSelectedImportType();
+            String dateiformat = format.getSelectedItemname();
+            results = null;
+            SwingWorker<Object, Void> worker = new SwingWorker<>() {
+                @Override
+                protected Object doInBackground() throws Exception {
+                    return ImportManager.importData(importtyp, dateien.split(";"), dateiformat, wk,
+                            JProgressPage.this::insertText);
+                }
 
-            Runnable r = new ImportRunner();
-            new Thread(r, "ProgressPageUpdate").start();
+                @Override
+                protected void done() {
+                    try (freigabe) {
+                        if (getWizard().isCurrentPage(JProgressPage.this)) {
+                            results = get();
+                            getWizard().setNextButtonEnabled(results != null);
+                        }
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                        log.warn("Problem while importing data", ex);
+                    } catch (ExecutionException ex) {
+                        importFehlerAnzeigen(ex.getCause());
+                    }
+                }
+            };
+            try {
+                worker.execute();
+            } catch (RuntimeException | Error ex) {
+                freigabe.close();
+                throw ex;
+            }
         }
 
         @Override
@@ -520,56 +557,23 @@ class JImportWizard extends JWizardFrame implements FinishListener, CancelListen
             EDTUtils.executeOnEDT(new TextRunnable(t));
         }
 
-        private final class ImportRunner implements Runnable {
-            @Override
-            public void run() {
-                boolean display = (getWizard().isCurrentPage(JProgressPage.this));
-
-                AWettkampf<?> wk = core.getWettkampf();
-
-                String filename = file.getText().trim();
-                if (!filename.isEmpty()) {
-                    String[] names = filename.split(";");
-                    processFiles(wk, names, display);
-                }
-                if (getWizard().isCurrentPage(JProgressPage.this)) {
-                    getWizard().setNextButtonEnabled(results != null);
-                }
+        private void importFehlerAnzeigen(Throwable fehler) {
+            switch (fehler) {
+            case TableEntryException ex -> DialogUtils.warn(JImportWizard.this, getEntryErrorTitle(ex), ex.getData(), null);
+            case TableFormatException ex -> DialogUtils.warn(JImportWizard.this, I18n.get("Error"),
+                    I18n.get("TheFollowingRequiredFieldsWereNotFound") + ImportUtils.indizesToNames(ex.getData(), ""),
+                    I18n.get("CheckColumnheaders"));
+            case OldExcelFormatException _, LeftoverDataException _ -> DialogUtils.warn(JImportWizard.this, I18n.get("Error"),
+                    I18n.get("ReadErrorOccured"), I18n.get("OldFileExcelFormat"));
+            case TableException ex -> DialogUtils.warn(JImportWizard.this, I18n.get("Error"), ex.getMessage(), I18n.get("CheckFile"));
+            case NotSupportedException _, NotEnabledException _ -> DialogUtils.warn(JImportWizard.this, I18n.get("Error"),
+                    fehler.toString(), null);
+            case IOException _ -> DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
+                    I18n.get("CheckFile"));
+            default -> {
+                log.warn("Problem while importing data", fehler);
+                DialogUtils.warn(JImportWizard.this, I18n.get("ImportFailed"), I18n.get("ImportFailed.Note"));
             }
-
-            void processFiles(AWettkampf<?> wk, String[] names, boolean display) {
-                try {
-                    results = ImportManager.importData(getSelectedImportType(), names,
-                                                       format.getSelectedItemname(), wk,
-                                                       s -> insertText(s));
-                } catch (TableEntryException tee) {
-                    if (display) {
-                        DialogUtils.warn(JImportWizard.this, getEntryErrorTitle(tee), tee.getData(), null);
-                    }
-                    results = null;
-                } catch (TableFormatException tfe) {
-                    if (display) {
-                        String sb = I18n.get("TheFollowingRequiredFieldsWereNotFound") +
-                                ImportUtils.indizesToNames(tfe.getData(), "");
-                        DialogUtils.warn(JImportWizard.this, I18n.get("Error"), sb,
-                                         I18n.get("CheckColumnheaders"));
-                    }
-                    results = null;
-                } catch (TableException e) {
-                    log.info("Problem while importing data", e);
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.getMessage(), I18n.get("CheckFile"));
-                } catch (NotSupportedException | NotEnabledException e) {
-                    log.info("Problem while importing data", e);
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), e.toString(), null);
-                } catch (IOException e) {
-                    log.info("Problem while importing data", e);
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                                     I18n.get("CheckFile"));
-                } catch (OldExcelFormatException | LeftoverDataException old) {
-                    log.info("Problem while importing data", old);
-                    DialogUtils.warn(JImportWizard.this, I18n.get("Error"), I18n.get("ReadErrorOccured"),
-                                     I18n.get("OldFileExcelFormat"));
-                }
             }
         }
 
